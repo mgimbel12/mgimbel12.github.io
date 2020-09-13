@@ -51,7 +51,11 @@ img {
     height: 274px;
 }
 
-h1 {
+{
+.wait {cursor: wait;
+    }
+
+    h1 {
     font-size: 2.75em;
     font-weight: bold;
 }
