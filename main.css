@@ -1,14 +1,26 @@
  body {
    background-color:#FAEBD7;
    font-family:Helvetica, Arial, sans-serif; 
-   font-size: 21px;
+   font-size: 12px;
    font-style:normal;
 }  
-h1{   
+header{   
 color:#6495ED; 
-font-family: 'Lora', serif;
+font-family:'Lora', serif;
+font-size:21;
+font-style:normal;
 }
 nav {
  padding:0;
  margin:0;
 }
+
+h1{ 
+
+}
+
+h2{
+
+ 
+ 
+P{
