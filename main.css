@@ -4,33 +4,29 @@ body {
 	font-size: 12PX;
 	font-style:normal;
 	}  
-header{   
+	header{   
 	font-color:#6495ED;
 	font-family:'Lora', serif;
 	font-size:21;
 	font-style:normal;
 	}
 	/*navigation guided */
-nav {
- padding:0;
- margin:0;
+	nav {
+	 padding:0;
+	 margin:0;
 	}
-navigation {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-}
-/* normal and visited link */
-a:visited {
+       .navigation list{ 
+	}
+	/* normal and visited link */
+	a:visited {
 	color:#6495ED;
 	text-decoration:no underline;
 	}
-a:active{ 
+	a:active{ 
 	 color:#DEB887;
 	}
 	/*hover link*/
-a:hover{
+	a:hover{
 	  background-color:white;
 	  text-decoration:underline; 
 	}
-
