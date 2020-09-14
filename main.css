@@ -19,8 +19,8 @@ nav {
 }
 /* normal and visited link */
 a:visited {
-  color:#FAEBD7
-  text-decoration:none underline;
+  color:#FAEBD7;
+  text-decoration:no underline;
 }
 a:active{ 
  background-color:#DEB887;
