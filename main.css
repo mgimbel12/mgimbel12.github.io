@@ -8,3 +8,7 @@ h1{
 color:#6495ED; 
 font-family: 'Lora', serif;
 }
+nav {
+ padding:0;
+ margin:0;
+}
