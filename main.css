@@ -1,37 +1,38 @@
 /*body rules here*/ 
 body {
-    background-color:yellow;
-    font-family:'Open Sans', sans-serif; 
-    font-size: auto;
-    line-height: 1.5;
-}
+	background-color:#FAEBD7;
+	font-family:Helvetica, Arial, sans-serif; 
+	  
+	 font-size: 12PX;
+	 font-style:normal;
+	}  
+	header{   
+	color:#6495ED; 
+	font-family:'Lora', serif;
+	font-size:21;
+	font-style:normal;
+	}
+	/*navigation guided */
+	nav {
+	 padding:0;
+	 margin:0;
+	}
+	.navigation list{ 
+	}
+	/* normal and visited link */
+	a:visited {
+	color:#FAEBD7;
+	text-decoration:no underline;
+	}
+	a:active{ 
+	 color:#FAEBD7;
+	}
+	/*hover link*/
+	a:hover{
+	  background-color:white;
+	  text-decoration:underline; 
+	}
 
-/*header, nav, main,footer rules here*/ 
-header,
-nav,
-main,
-footer {
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-nav {
-    margin: 0 auto;
-    padding: 0;
-    max-width: 100%;
-    font-size: .75em;
-    background-color:#A9DFBF;
-}
-
-.navigation {
-    list-style: none;
-    text-align: center;
-    padding: .05rem;
-}
-
-.navigation li:first-child {
-	display: block;
-}
 
 .navigation li {
 	display: none;
