@@ -2,7 +2,7 @@
    background-color:#FAEBD7;
    font-family:Helvetica, Arial, sans-serif; 
    font-background-color:#6495ED;
-   font-size: 12px;
+   font-size: 12PX;
    font-style:normal;
 }  
 header{   
@@ -24,7 +24,7 @@ a:visited {
   text-decoration:no underline;
 }
 a:active{ 
- color:#DEB887;
+ color:#FAEBD7;
 }
 /*hover link*/
 a:hover{
