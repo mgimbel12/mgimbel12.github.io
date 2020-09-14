@@ -10,10 +10,13 @@ font-family:'Lora', serif;
 font-size:21;
 font-style:normal;
 }
+/*navigation guided */
 nav {
  padding:0;
  margin:0;
 }
+.navigation list{
+ 
 }
 /* visited link */
 a:visited {
@@ -23,14 +26,8 @@ a:visited {
 a:link {
   text-decoration: none;
 }
-
-
-h1{ 
-
+/*hover link*/
+a:hover{
+  background-color:white;
+  text-decoration:underline; 
 }
-
-h2{
-
- 
- 
-P{
