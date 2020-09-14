@@ -19,7 +19,7 @@ body {
 	}
 	/* normal and visited link */
 	a:visited {
-	color:#FAEBD7;
+	color:#6495ED;
 	text-decoration:no underline;
 	}
 	a:active{ 
