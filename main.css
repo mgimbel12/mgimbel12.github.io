@@ -23,7 +23,7 @@ a:visited {
   text-decoration:no underline;
 }
 a:active{ 
- background-color:#DEB887;
+ color:#DEB887;
 }
 /*hover link*/
 a:hover{
