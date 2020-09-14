@@ -20,7 +20,7 @@ nav {
 /* normal and visited link */
 a:visited {
   color:#FAEBD7
-  text-decoration: none;
+  text-decoration:none underline;
 }
 a:active{ 
  background-color:#DEB887;
