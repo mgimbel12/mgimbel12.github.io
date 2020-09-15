@@ -15,13 +15,11 @@ background-color:#FAEBD7;
         }
 a:active {
 background-color:#DEB887;
+text-decoration:no underline;
 }
 a:hover {
   background-color:white; 
   text-decoration: underline;
-}
-a:links{
- text-decoration:no underline;
 }
 /*header goes here*/
 
