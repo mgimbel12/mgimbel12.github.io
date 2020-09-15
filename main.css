@@ -20,6 +20,9 @@ a:hover {
   background-color:white; 
   text-decoration: underline;
 }
+a:links{
+ text-decoration:none;
+}
 /*header goes here*/
 
 .h2{ 
