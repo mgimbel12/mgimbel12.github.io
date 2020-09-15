@@ -3,3 +3,25 @@ body {
 background-color:#6495ED;	
 font-family:Helvetica,Arial,Sans-serif;
 }
+/*nav goes here*/ 
+nav{
+ padding:0;
+ margin:0;
+}
+/*normal and visted for nav goes here*/ 
+a:visted{
+background-color:#FAEBD7;
+  text-decoration:none; 
+        }
+a:active {
+background-color:#DEB887;
+}
+a:hover {
+  background-color:white; 
+  text-decoration: underline;
+}
+/*header goes here*/
+
+h2{ 
+}
+
