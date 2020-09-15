@@ -15,7 +15,7 @@ background-color:#FAEBD7;
         }
 a:active {
 background-color:#DEB887;
-text-decoration:no underline;
+text-decoration:none;
 }
 a:hover {
   background-color:white; 
