@@ -18,7 +18,8 @@ background-color:#DEB887;
 text-decoration:none;
 }
 a:hover {
-  background-color:white and underline;
+  background-color:white; 
+  text-decorations:none;
 }
 /*header goes here*/
 
