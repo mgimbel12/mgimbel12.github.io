@@ -21,7 +21,7 @@ a:hover {
   text-decoration: underline;
 }
 a:links{
- text-decoration:none;
+ text-decoration:no underline;
 }
 /*header goes here*/
 
