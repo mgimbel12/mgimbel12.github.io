@@ -13,15 +13,23 @@ a:visted{
 background-color:#FAEBD7;
   text-decoration:none; 
         }
+/*active link information goes here */
 a:active {
 background-color:#DEB887;
 text-decoration:none;
 }
 a:hover {
   background-color:white; 
-  text-decorations:none;
+  text-decoration:underline;
+}
+a:link{ 
+ text-decoration:none;
 }
 /*header goes here*/
+
+.header{
+
+}
 
 .h2{ 
 }
