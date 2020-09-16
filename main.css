@@ -1,3 +1,5 @@
+/*media queries*/
+@import url("https://byui-cit.github.io/advcss/images/kidsread-sm.jpg") screen;
 /*body rules here*/ 
 body {
 background-color:#6495ED;	
@@ -42,4 +44,7 @@ a:link{
 
 .footer{
  background-color:#DEB887;
+}
+/*Responsive link goes here*/
+.Responsive{
 }
