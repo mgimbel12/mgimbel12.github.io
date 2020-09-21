@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
+body{
+
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #FAEBD7;
+    padding: 5px;
+    max-width: 98%;
+}
 header{
     background-color: #6495ED;
     text-align: right;
@@ -46,15 +53,6 @@ h2 a:hover{
     color: #6495ED;
     text-decoration: underline;
 }
-
-body{
-    background-image: url("https://media.wired.com/photos/5be4cd03db23f3775e466767/125:94/w_2375,h_1786,c_limit/books-521812297.jpg");
-    font-family: Helvetica, Arial, sans-serif;
-    background-color:  #FAEBD7;
-    padding: 5px;
-    max-width: 98%;
-}
-
 article{
     background-color: white;
     margin-top: 30px;
@@ -112,3 +110,6 @@ img{
         margin-bottom: 50px;
     } 
 }
+
+
+
