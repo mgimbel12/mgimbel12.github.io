@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+/*body comment goes here*/
 body{
     font-family: Helvetica, Arial, sans-serif;
     background-color: #FAEBD7;
     padding: 5px;
     max-width: 98%;
 }
+/*nav comment goes here*/
 nav a:active{
     color: #DEB887;
 }
@@ -12,7 +14,7 @@ nav a:hover{
     color: white;
     text-decoration: underline;
 }
-
+/*header comment goes here*/
 header{
     background-color: #6495ED;
     text-align: right;
@@ -38,7 +40,7 @@ hr{
     a {
     text-decoration: none;
 }
-
+/*heading comments for heading 1 and heading 2 goes here */
 h1, h2 {
     font-family: Lora;
 }
@@ -58,6 +60,8 @@ h2 a:active{
 h2 a:hover{
     color: #6495ED;
     text-decoration: underline;
+   
+/*Article comment goes here */
 }
 article{
     background-color: white;
@@ -68,6 +72,7 @@ article{
 ul li a{
     color:  #FAEBD7;
 }
+/*paragraph design comments goes here */
 p a:link, p a:visited{
     color: #6495ED;
 }
@@ -79,7 +84,7 @@ p a:active{
 p a:hover{
     text-decoration: underline;
 }
-
+/*images design comment goes here*/
 img{
     display: block;
     margin: auto;
@@ -87,21 +92,23 @@ img{
 }
 
 @media screen and (min-width: 500px){
+
+ /*body for cell phone goes here */
     
-    body{
+  body{
         display: flex;
     }
-    
+/*header comment for celluar device */    
     header{
         float:left;
         height: 100%;
     }
-
+/*main comment for celluar device*/
     main{
        margin-left: 400px;
        margin-right: 50px;
     }
-    
+ /*article comment for celluar device*/
     article{
         margin-bottom: 50px;
     } 
