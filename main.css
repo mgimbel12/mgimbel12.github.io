@@ -1,12 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
-
 body{
-
     font-family: Helvetica, Arial, sans-serif;
     background-color: #FAEBD7;
     padding: 5px;
     max-width: 98%;
 }
+nav a:active{
+    color: #DEB887;
+}
+nav a:hover{
+    color: white;
+    text-decoration: underline;
+}
+
 header{
     background-color: #6495ED;
     text-align: right;
@@ -62,16 +68,6 @@ article{
 ul li a{
     color:  #FAEBD7;
 }
-
-nav a:active{
-    color: #DEB887;
-}
-
-nav a:hover{
-    color: white;
-    text-decoration: underline;
-}
-
 p a:link, p a:visited{
     color: #6495ED;
 }
@@ -110,6 +106,3 @@ img{
         margin-bottom: 50px;
     } 
 }
-
-
-
