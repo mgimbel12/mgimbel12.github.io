@@ -1,5 +1,7 @@
 /*import url comments goes here*/
+
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
+
 /*body comments goes here*/
 body{
     font-family: Helvetica, Arial, sans-serif;
@@ -25,11 +27,11 @@ header{
     margin-left: -40px;
     margin-right: -35px;  
 }
-
+/*header unorder list-style active comment goes here */
 header ul li a{
     line-height: 2em;
 }
-
+/*unorder-list comment goes here */
 ul{
     list-style: none;
 }
@@ -37,6 +39,7 @@ ul{
 hr{
     color: #FAEBD7; 
 }
+/*active rule comments goes here*/
     a {
     text-decoration: none;
 }
@@ -68,7 +71,7 @@ article{
     margin-top: 30px;
     padding: 30px;
 }
-
+/*unorder list active comment goes here*/ 
 ul li a{
     color: #FAEBD7;
 }
@@ -88,10 +91,10 @@ img{
     margin: auto;
     max-width: 100%;
 }
-
+/*media queries comment goes here*/
 @media screen and (min-width: 500px){
 
- /*body for celluar phone goes here */
+ /*body comment for celluar device goes here */
     
 body{
         display: flex;
