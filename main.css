@@ -1,22 +1,22 @@
 /*import url comments goes here*/
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 /*body comments goes here*/
-.body{
+body{
     font-family: Helvetica, Arial, sans-serif;
     background-color: #FAEBD7;
-    padding: 5px;
+    padding:5px;
     max-width: 98%;
 }
 /*nav comments goes here*/
-.nav a:active{
+nav a:active{
     color: #DEB887;
 }
-.nav a:hover{
+nav a:hover{
     color: white;
     text-decoration: underline;
 }
 /*header comments goes here*/
-.header{
+header{
     background-color: #6495ED;
     text-align: right;
     padding: 50px;
@@ -26,64 +26,64 @@
     margin-right: -35px;  
 }
 
-.header ul li a{
+header ul li a{
     line-height: 2em;
 }
 
-.ul{
+ul{
     list-style: none;
 }
 /*horizontal rule comments goes here*/
-.hr{
+hr{
     color: #FAEBD7; 
 }
-    .a {
+    a {
     text-decoration: none;
 }
 /*heading comments for heading 1 and heading 2 goes here */
-.h1, h2 {
+h1, h2 {
     font-family: Lora;
 }
 
-.h1 a {
+h1 a {
     color:  #FAEBD7;
 }
 
-.h2 a{
+h2 a{
     color: black;
 }
 
-.h2 a:active{
+h2 a:active{
     color: #DEB887;
 }
 
-.h2 a:hover{
+h2 a:hover{
     color: #6495ED;
     text-decoration: underline;
    
 /*Article comments goes here */
 }
-.article{
+article{
     background-color: white;
     margin-top: 30px;
     padding: 30px;
 }
 
-.ul li a{
+ul li a{
     color: #FAEBD7;
 }
 /*paragraph design comments goes here */
-.p a:link, p a:visited{
+p a:link, p a:visited{
     color: #6495ED;
 }
-.p a:active{
+p a:active{
     color: #DEB887;
 }
-.p a:hover{
+p a:hover{
     text-decoration: underline;
 }
 /*images design comments goes here*/
-.img{
+img{
     display: block;
     margin: auto;
     max-width: 100%;
@@ -93,21 +93,21 @@
 
  /*body for celluar phone goes here */
     
-.body{
+body{
         display: flex;
     }
 /*header comments for celluar device */    
- .header{
+ header{
         float:left;
         height: 100%;
     }
 /*main comments for celluar device*/
-    .main{
+    main{
        margin-left: 400px;
        margin-right: 50px;
     }
  /*article comments for celluar device*/
-    .article{
+    article{
         margin-bottom: 50px;
     } 
 }
