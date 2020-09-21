@@ -1,11 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
-}
-body{
-    font-family: Helvetica, Arial, sans-serif;
-    background-color:  #FAEBD7;
-    padding: 5px;
-    max-width: 98%;
-}
+
 header{
     background-color: #6495ED;
     text-align: right;
@@ -53,12 +47,19 @@ h2 a:hover{
     text-decoration: underline;
 }
 
+body{
+    font-family: Helvetica, Arial, sans-serif;
+    background-color:  #FAEBD7;
+    padding: 5px;
+    max-width: 98%;
 }
+
 article{
     background-color: white;
     margin-top: 30px;
     padding: 30px;
 }
+
 ul li a{
     color:  #FAEBD7;
 }
@@ -83,11 +84,14 @@ p a:active{
 p a:hover{
     text-decoration: underline;
 }
+
 img{
     display: block;
     margin: auto;
     max-width: 100%;
-}@media screen and (min-width: 805px){
+}
+
+@media screen and (min-width: 805px){
     
     body{
         display: flex;
@@ -105,6 +109,5 @@ img{
     
     article{
         margin-bottom: 50px;
-    }
-  
+    } 
 }
