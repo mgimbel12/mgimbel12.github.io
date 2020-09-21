@@ -1,50 +1,117 @@
-/*media queries*/
-@import url("https://byui-cit.github.io/advcss/images/kidsread-sm.jpg") screen;
-/*body rules here*/ 
-body {
-background-color:#6495ED;	
-font-family:Helvetica,Arial,Sans-serif;
-}
-/*nav goes here*/ 
-nav{
- padding:0;
- margin:0;
-}
-/*normal and visted for nav goes here*/ 
-a:visted{
-background-color:#FAEBD7;
-  text-decoration:none; 
-        }
-/*active link information goes here */
-a:active {
-background-color:#DEB887;
-text-decoration:none;
-}
-a:hover {
-  background-color:white; 
-  text-decoration:underline;
-}
-a:link{ 
- text-decoration:none;
-}
-/*header goes here*/
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
-.header{
-
+header{
+    background-color: #6495ED;
+    text-align: right;
+    padding: 50px;
+    color: #FAEBD7;
+    margin-top: -40px;
+    margin-left: -40px;
+    margin-right: -35px;  
 }
 
-.h2{ 
+header ul li a{
+    line-height: 2em;
+}
+
+ul{
+    list-style: none;
+}
+
+hr{
+    color: #FAEBD7; 
+}
+
+    a {
+    text-decoration: none;
+}
+
+h1, h2 {
+    font-family: Lora;
+}
+
+h1 a {
+    color:  #FAEBD7;
+}
+
+h2 a{
+    color: black;
+}
+
+h2 a:active{
+    color: #DEB887;
+}
+
+h2 a:hover{
+    color: #6495ED;
+    text-decoration: underline;
+}
+
+body{
+    font-family: Helvetica, Arial, sans-serif;
+    background-color:  #FAEBD7;
+    padding: 5px;
+    max-width: 98%;
+}
+
+article{
+    background-color: white;
+    margin-top: 30px;
+    padding: 30px;
+}
+
+ul li a{
+    color:  #FAEBD7;
+}
+
+nav a:active{
+    color: #DEB887;
+}
+
+nav a:hover{
+    color: white;
+    text-decoration: underline;
+}
+
+p a:link, p a:visited{
+    color: #6495ED;
+}
+
+p a:active{
+    color: #DEB887;
+}
+
+p a:hover{
+    text-decoration: underline;
+}
+
+img{
+    display: block;
+    margin: auto;
+    max-width: 100%;
 }
 
 
 
+@media screen and (min-width: 805px){
+    
+    body{
+        display: flex;
+    }
+    
+    header{
+        float:left;
+        height: 100%;
+    }
 
+    main{
+       margin-left: 400px;
+       margin-right: 50px;
+    }
+    
+    article{
+        margin-bottom: 50px;
+    }
 
-/*footer goes here*/
-
-.footer{
- background-color:#DEB887;
-}
-/*Responsive link goes here*/
-.Responsive{
+  
 }
