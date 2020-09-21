@@ -90,7 +90,7 @@ img{
     max-width: 100%;
 }
 
-@media screen and (min-width: 805px){
+@media screen and (min-width: 500px){
     
     body{
         display: flex;
