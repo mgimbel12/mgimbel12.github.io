@@ -14,7 +14,7 @@ nav a:active{
     color: #DEB887;
 }
 nav a:hover{
-    color: white;
+    color: #F8F8FF;
     text-decoration: underline;
 }
 /*header comments goes here*/
@@ -49,11 +49,11 @@ h1, h2 {
 }
 
 h1 a {
-    color:  #FAEBD7;
+    color: #FAEBD7;
 }
 
 h2 a{
-    color: black;
+    color: #00000;
 }
 
 h2 a:active{
@@ -67,7 +67,7 @@ h2 a:hover{
 /*Article comments goes here */
 }
 article{
-    background-color: white;
+    background-color: #F8F8FF;
     margin-top: 30px;
     padding: 30px;
 }
