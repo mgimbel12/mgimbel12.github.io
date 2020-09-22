@@ -30,14 +30,17 @@ footer {
 
 a.school:link {
     color: #b8a6ff;
+    text-decoration: none;
 }
 
 a.school:visited {
     color: #b8a6ff;
+ text-decoration:dotted;
 }
 
 a.school:hover {
-    color: #F5F5DC
+    color: #F5F5DC;
+    text-decoration:navy;
 }
 
 a.school:active {
