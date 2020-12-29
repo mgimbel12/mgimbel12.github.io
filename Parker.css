@@ -1,116 +1,69 @@
-/*import url comments goes here*/
-
-@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
-
-/*body comments goes here*/
-body{
+body {
+    background-image:url("dolphins.jpg");
+    background-color: #6495ED;/* Used if the image is unavailable */
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+     background-size: cover; /* Resize the background image to cover the entire container */
+}
     font-family: Helvetica, Arial, sans-serif;
-    background-color: #FAEBD7;
-    padding:5px;
-    max-width: 98%;
+    font-size: 100%;
+    line-height: 1.5;
 }
-/*nav comments goes here*/
-nav a:active{
-    color: #DEB887;
+
+header,
+nav,
+main,
+footer {
+    margin: 1.25rem auto;
+    max-width: 760px;
 }
-nav a:hover{
-    color: #F8F8FF;
-    text-decoration: underline;
+
+header,
+footer {
+    border-radius: 10px;
+    background-color: #F0F8FF;
+    color: #b8a6ff;
+    text-align: center;
+    padding: 1.5rem;
 }
-/*header comments goes here*/
-header{
-    background-color: #6495ED;
-    text-align: right;
-    padding: 50px;
-    color: #FAEBD7;
-    margin-top: -40px;
-    margin-left: -40px;
-    margin-right: -35px;  
-}
-/*header unorder list-style active comment goes here */
-header ul li a{
-    line-height: 2em;
-}
-/*unorder-list comment goes here */
-ul{
-    list-style: none;
-}
-/*horizontal rule comments goes here*/
-hr{
-    color: #FAEBD7; 
-}
-/*active rule comments goes here*/
-    a {
+
+a.school:link {
+    color: #b8a6ff;
     text-decoration: none;
 }
-/*heading comments for heading 1 and heading 2 goes here */
-h1, h2 {
-    font-family: Lora;
+
+a.school:visited {
+    color: #b8a6ff;
+ text-decoration:dotted;
 }
 
-h1 a {
-    color: #FAEBD7;
+a.school:hover {
+    color: #F5F5DC;
+    text-decoration:navy;
 }
 
-h2 a{
-    color: #00000;
+a.school:active {
+    color:#b8a6ff;
 }
 
-h2 a:active{
-    color: #DEB887;
+img {
+    float: right;
+    margin: 8px;
+    width: 200px;
+    height: 274px;
 }
 
-h2 a:hover{
-    color: #6495ED;
-    text-decoration: underline;
-   
-/*Article comments goes here */
+    h1 {
+    font-size: 2.75em;
+    font-weight: bold;
 }
-article{
-    background-color: #F8F8FF;
-    margin-top: 30px;
-    padding: 30px;
-}
-/*unorder list active comment goes here*/ 
-ul li a{
-    color: #FAEBD7;
-}
-/*paragraph design comments goes here */
-p a:link, p a:visited{
-    color: #6495ED;
-}
-p a:active{
-    color: #DEB887;
-}
-p a:hover{
-    text-decoration: underline;
-}
-/*images design comments goes here*/
-img{
-    display: block;
-    margin: auto;
-    max-width: 100%;
-}
-/*media queries comment goes here*/
-@media screen and (min-width: 805px){
 
- /*body comment for celluar device goes here */
-    
-body{
-        display: flex;
-    }
-/*header comments for celluar device */    
- header{
-        float:left;
-        height: 100%;
-    }
-/*main comments for celluar device*/
-    main{
-       margin-left: 400px;
-       margin-right: 50px;
-    }
- /*article comments for celluar device*/
-    article{
-        margin-bottom: 50px;
-    } 
+h2 {
+    font-size: 1.875em;
+    font-weight: lighter;
+}
+
+p {
+    font-size: 0.875em;
 }
