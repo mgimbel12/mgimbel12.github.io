@@ -11,7 +11,7 @@ p {
   background-color: lightblue;
   background-image: url("http://4.bp.blogspot.com/-jI5dpFlXVJc/UnhA0snLG5I/AAAAAAAAARY/Jrzc1RQxOYw/s1600/animation-gif-james-howard-animated-1274442.jpg.gif");
   font-family: Arial, Helvetica, sans-serif;
-   padding-top: 50px;
+  padding-top: 50px;
   padding-right: 30px;
   padding-bottom: 50px;
   padding-left: 80px;
@@ -24,6 +24,15 @@ section{
   padding-right: 30px;
   padding-bottom: 50px;
   padding-left: 80px;
+}
+.center {
+  text-align: center;
+  border: 3px solid green;
+}
+div.relative {
+  position: relative;
+  left: 30px;
+  border: 3px solid #73AD21;
 }
 footer{
   background-color:blue;
