@@ -1,0 +1,89 @@
+/* worry about this later, when we learn about box model */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color : skyblue;
+}
+
+body {
+  width: 70%;
+/*   min-width: 800px; */
+  margin: 0 auto;
+}
+
+body {
+  background : purple;
+}
+
+h1 {
+  font-family: "Papyrus";
+}
+
+h2 {
+  font-family: "Garamond";
+}
+
+#one {
+  font-family: "Helvetica";
+}
+
+#two {
+  font-family: "Brush Script MT";
+}
+
+.classone {
+  font-size: 40px;
+}
+
+.classtwo {
+  font-size: 60px;
+}
+
+#batmanreturns {
+  text-align: center;
+}
+
+#batmanreturns {
+  font-size: 100px;
+}
+
+#batmandiv {
+  background: greenyellow;
+}
+
+.centertheimage {
+  margin-left: auto;
+  margin-right: auto;
+/*   width: 50 %; */
+  display: block;
+}
+
+.batmanborderclass {
+  border-top-width: 30px;
+  border-top-style: solid;
+  border-bottom-width: 30px;
+  border-bottom-style: solid;
+  border-left-width: 40px;
+  border-left-style: solid;
+  border-right-width: 40px;
+  border-right-style: solid;
+  border-color: coral;
+}
+
+.readinggirlclass {
+  border-top-width: 50px;
+  border-top-style: solid;
+  border-left-width: 50px;
+  border-left-style: solid;
+  border-right-width: 50px;
+  border-right-style: solid;
+  border-bottom-width: 50px;
+  border-bottom-style: solid;
+  border-color: darkslateblue;
+  margin-top: 25px;
+}
