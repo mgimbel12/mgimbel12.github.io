@@ -1,11 +1,11 @@
 h1 {
   background-color: green;
+  background-image: url("https://media.giphy.com/media/8GG1UAO0HkJnG/giphy.gif");
   font-family:"Lucida Console", "Courier New", monospace; 
    width: 300px;
   border: 15px solid green;
   padding: 50px;
   margin: 20px;
-  
 }
 p {
   background-color: lightblue;
