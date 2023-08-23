@@ -17,30 +17,28 @@
 <a href="ContactUs.html">|Contact Us|</a>
 <a href="Store.html">|Store|</a>  
 <body style="background:navy;"> 
-<form action =" Nicole Store">
-<fieldset>
-<label>Normal text field</label>
-<input type = "text">
- id="txtnormal " />
- <label>"password field"</label>
-  id="pwd"/>
-<label>hidden</label>
-<input type ="hidden" 
-id="hidden"
-value="I can't tell you"/>
-<textarea id ="txtArea"
-rows="10
-cols="40">
-this is a big text area. It can hold a lot of text. 
-</textarea>
-<button type="button"
-               onclick = "processForm()">
-click me
-</button>
-</Fieldset>
+<h1> Nicole Store Purchase</h1>
+
+ <form action="/action_page.php">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="submit" value="Submit">
+  <label for="username">Username:</label><br>
+  <input type="text" id="username" name="username"><br>
+  <label for="pwd">Password:</label><br>
+  <input type="password" id="pwd" name="pwd">
+</form> 
+
+ <form action="/action_page.php">
+  <label for="fname">First name:</label>
+  <input type="text" id="fname" name="fname"><br><br>
+  <label for="lname">Last name:</label>
+  <input type="text" id="lname" name="lname"><br><br>
+  <input type="submit" value="Submit">
+  <input type="submit" formaction="/action_page2.php" value="Submit as Admin">
 </form>
-<div id= "output" 
-</div>
 </body>
 <footer> &#169; 2023 |Nicole Store for youth for your learning needs.| </footer>
 </html>
