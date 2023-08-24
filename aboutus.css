@@ -1,0 +1,30 @@
+body{
+  background-color:blue;
+  background-image: url("https://tse4.mm.bing.net/th?id=OIP.37VJ1hBAI_QGw-gLJrNN7gHaHa&pid=Api&P=0&h=180");
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+}
+p {
+  text-align: center;
+  color:blue;
+}
+section {
+  background-color:grey;
+  background-image: url("https://tse3.mm.bing.net/th?id=OIP.hUuDABh8oCdxl1IEypDZywHaFj&pid=Api&P=0&h=180");
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 150px;
+  margin-left: 80px;
+}
+h1{
+ height: 100px;
+  width: 500px;
+  background-color: navy; 
+}
+div {
+  height: 200px;
+  width: 50%;
+  background-color: babypink;
+}
