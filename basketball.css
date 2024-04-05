@@ -1,0 +1,28 @@
+body{
+background-image: url( "https://c.tenor.com/3Cm0N9btCu0AAAAM/utah-basket-ball.gif");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: 100% 100%;
+}
+
+h1{
+background-image: url( "https://c.tenor.com/3Cm0N9btCu0AAAAM/utah-basket-ball.gif");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;
+font-family: "Lato", sans-serif;
+font-weight: 900;
+font-style: italic;
+}  
+
+section{
+font-family: "Lato", sans-serif;
+font-weight: 900;
+font-style: italic;
+}  
+
+p{
+font-family: "Lato", sans-serif;
+font-weight: 900;
+font-style: italic;
+}  
