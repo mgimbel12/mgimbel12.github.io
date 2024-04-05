@@ -1,0 +1,45 @@
+body{
+background-image: url('https://media3.giphy.com/media/YrqdPbi5EKJBaYZ5S6/giphy.gif?cid=790b76119925b9326112737a77074a722f92c48373f0a338&rid=giphy.gif&ct=g');">
+color:blue;  
+}
+h1{
+color:blue;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+h2{
+  color:Purple;
+  .barlow-thin {
+  font-family: "Barlow", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+h3 {
+  font-family: "Barlow", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+p {
+  font-family: "Barlow", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+h3 {
+  font-family: "Barlow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1 {
+  font-family: "Barlow", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+
