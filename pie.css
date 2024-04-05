@@ -1,0 +1,14 @@
+body {
+  background-color: powderblue;
+   background-image: url("https://media1.tenor.com/images/3d6580d6069805db98f2d61a8b65a8ae/tenor.gif?itemid=10027058");
+   background-repeat: repeat-x;
+}
+h1 {
+  color: blue;
+}
+p {
+  color: red;
+}
+h2{
+  color:purple;
+}
