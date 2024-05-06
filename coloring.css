@@ -1,0 +1,33 @@
+body{ background-color: green;
+     background-image: url("https://media.giphy.com/media/RicyTHzaExZHG/source.gif");
+     background-repeat: no-repeat;
+}
+Header{
+  background-color:yellow;
+}
+h1{
+color:blue;
+  .open-sans-<uniquifier> {
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+}
+p
+  {
+  color:pink;
+  .montserrat-<uniquifier> {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+
+  
+
+
+  
