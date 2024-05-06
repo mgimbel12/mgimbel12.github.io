@@ -1,6 +1,8 @@
 body{ background-color: green;
      background-image: url("https://media.giphy.com/media/RicyTHzaExZHG/source.gif");
      background-repeat: no-repeat;
+     background-size: 300px 100px;
+     background-size: auto;
 }
 Header{
   background-color:yellow;
