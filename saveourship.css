@@ -4,3 +4,17 @@ background-repeat:no repeat;
 background-attachment: fixed;
 background-size:100% 100%;  
 }
+h1{
+color:DodgerBlue;
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+section{
+color:DodgerBlue;
+font-family:"Roboto", sans-serif;
+font-weight:1000;
+font-style:normal;
+
+}
