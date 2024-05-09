@@ -1,0 +1,65 @@
+body{
+background-color: lightblue;
+background-image: url ("https://s.yimg.com/fz/api/res/1.2/_DlWBFkcFkMhNF4CKryaJQ--~C/YXBwaWQ9c3JjaGRkO2g9NzUwO3E9OTU7dz0xMDAw/https://s.yimg.com/bj/eff9/eff9b9114d122e75354260ba57238d75.jpg");
+background-repeat:no repeat;
+background-attachment: fixed;
+background-size:100% 100%;  
+}
+h1{
+  background-color:blue;
+  color:orange;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+}
+
+h2{
+  background-color:orange;
+font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+}
+
+
+h3{
+  backround-color:blue;
+font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+
+}
+
+
+p{
+font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+
+
+}
+
+
+Header{
+font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+]
