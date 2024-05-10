@@ -1,0 +1,38 @@
+body{
+  background-image: url("https://tse1.mm.bing.net/th?id=OIP.5qyxuGuF2fzwtEUELh859QHaEo&pid=Api&P=0&h=220");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;  
+
+  h1{
+ color:navy;   
+ font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+
+}
+
+section{
+  color:navy;
+ font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+
+
+}
+
+li{
+  color:navy;
+ font-family: "Lato", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+
+
+}
+  
+footer{
+color:black;
+position: fixed;
+left: 0;
+bottom: 0;
+}
