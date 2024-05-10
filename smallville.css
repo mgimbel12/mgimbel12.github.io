@@ -5,7 +5,7 @@ body{
   background-size: 100% 100%;  
 
   h1{
- color:navy;   
+ color:orange;
  font-family: "Lato", sans-serif;
   font-weight: 100;
   font-style: normal;
@@ -13,7 +13,7 @@ body{
 }
 
 section{
-  color:navy;
+  color:orange;
  font-family: "Lato", sans-serif;
   font-weight: 100;
   font-style: normal;
@@ -22,7 +22,7 @@ section{
 }
 
 li{
-  color:navy;
+  color:orange;
  font-family: "Lato", sans-serif;
   font-weight: 100;
   font-style: normal;
