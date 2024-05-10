@@ -1,0 +1,43 @@
+body{
+background-image url: ("https://media.giphy.com/media/hkrZNTy9qWdO/giphy.gif");
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ background-size: 100% 100%; 
+   
+}
+
+h1{
+color:orange;
+roboto-condensed-<uniquifier> 
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;   
+}
+
+section{
+color:green;
+roboto-condensed-<uniquifier> 
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+
+}
+ul{
+color:blue;
+roboto-condensed-<uniquifier> 
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+
+}
+  footer{
+color:blue;
+    roboto-condensed-<uniquifier> 
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  }
