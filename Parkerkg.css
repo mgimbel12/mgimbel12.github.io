@@ -1,6 +1,7 @@
 body{
 background-image: url("http://3.bp.blogspot.com/-CgQbDvRCQKk/VDfNuZc9GbI/AAAAAAAAM_Q/1BJWxAqlp4U/s1600/Nature%2BAnimation.gif");
-
+background-repeat: no-repeat, repeat;
+background-size: cover;
 }
 h1{
   font-family: "Edu AU VIC WA NT Hand", cursive;
