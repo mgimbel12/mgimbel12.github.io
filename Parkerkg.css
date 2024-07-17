@@ -1,5 +1,6 @@
 body{
 background-image: url("http://3.bp.blogspot.com/-CgQbDvRCQKk/VDfNuZc9GbI/AAAAAAAAM_Q/1BJWxAqlp4U/s1600/Nature%2BAnimation.gif");
+
 }
 h1{
   font-family: "Edu AU VIC WA NT Hand", cursive;
@@ -18,6 +19,11 @@ p{
   font-style: normal;
   font-variation-settings:
     "wdth" 100;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 footer{
   width: 300px;
