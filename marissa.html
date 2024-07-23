@@ -62,22 +62,45 @@
         Marissa songs
       </dd>
     </d1>  
-    <h1>send a text message</h1>
-    <p>From (your 10-digits wireless phone number):
-    <input type="text" id="txt-form" size="10">
-  </p>
-    <p>To (10-digits wireless phone number): 
-      <input type="text" id="txtTo" size="10";>
-    </p>
-    <p> Message:<br>
-      <textarea id="txaMessage" row="8" cols="40">
-      </textarea>
-    </p>
-  <p><button type="button">Send</button>
-  <button type="button">Clear</button>   
-  </p>
+    <h1 class="center"> favorite music </h1>
+<div class="container">
+<form class="music Form" action="music.html" method="get">
+<p>Contact Information</p>
+<label class="top">Full Name* <input type="text" name="fullname" pattern="[^\s][A-z0-9À-ž\s]{5,}" required></label>
+<label class="top">Email <input type="email" name="email" placeholder="username@templeInn&suites.com"></label>
+<label class="top">Phone* <input type="tel" name="phone" placeholder="12345678901" required>
+</label>
+<label class="top">Zipcode* <input type="number" name="zipcode" required>
+</label>           
+<label>Check in: <input name="date" type="date" min="2018-12-20" max="2020-12-20" required>
+</label>
+<label>Check out: 
+<input name="date" type="date" min="2024-12-21" max="2028-12-30" required>
+</label>
+<label for="Location" >Location
+<select id="Location" name="Location" required>
+<option value="">Choose</option>
+<option value="Las Vegas Nevada">Las Vegas Nevada</option>
+<option value="Cedar City, Utah ">Cedar City Utah</option>
+<option value="Salt Lake City Utah">Salt Lake City Utah</option>
+<option value="H-town">Henderson </option>
+</select>
+</label>
+<label id="country">Room Type
+<select id="RoomType" name="Room Type">
+<option value="">Choose</option>
+<option value="King">Cali King</option>
+<option value="Queen">Queen</option>
+<option  value="Single">Twin</option>
+<option  value="Double">Double</option>
+</select>
+</label>
+<label for="subject">Comment
+<textarea id="subject" name="subject" placeholder="Q/A and responds.." style="height:200px"></textarea>
+</label>
+<input type="submit" value="Make my Reservation!">
+</form>
   <iframe width="560" height="315" src="https://www.youtube.com/embed/51XzW98wEDg?si=twH0CayyyXxPzyUL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  <button type="button" onclick="showMessage()">Message</button>
   </body>
    <a href="index.html">back</a>
 </html>
