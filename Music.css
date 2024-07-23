@@ -1,0 +1,39 @@
+body{
+background-image: url("https://i.pinimg.com/originals/09/87/38/098738c91b321db878171dc8f1e4a3b4.gif");
+background-repeat:no-repeat;
+background-position: right top;  
+
+}
+
+h1{
+text-align: center;
+color:blue;
+
+}
+
+h2 {
+text-align: center;
+color: navy;
+
+
+}
+
+
+dt{
+text-align: center;
+color:orange;
+
+}
+
+dd{
+  color:black;
+
+}
+
+footer{
+
+  color:brown;
+
+
+
+}
