@@ -1,10 +1,7 @@
 body{
 background-image: url("https://i.pinimg.com/originals/09/87/38/098738c91b321db878171dc8f1e4a3b4.gif");
 background-repeat:no-repeat;
-background-position: right top;  
-background-image: url("https://i.pinimg.com/originals/49/ee/32/49ee32ae5ae092555608d6ff0352d9ff.gif");
-backgroundrepeat:no-repeat;  
-background-position:cover;     
+background-position: right top;   
 }
 
 h1{
