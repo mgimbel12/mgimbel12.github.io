@@ -4,7 +4,8 @@ background-image: url("https://i1.wp.com/www.nerdsandbeyond.com/wp-content/uploa
 background-repeat:no-repeat; 
 background-position:right top;
 }
-section{
+section
+  color:blue;
   font-family: "Assistant", sans-serif;
   font-optical-sizing: auto;
   font-weight: <weight>;
