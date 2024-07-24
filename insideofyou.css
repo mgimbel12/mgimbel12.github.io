@@ -5,6 +5,10 @@ background-repeat:no-repeat;
 background-position:right top;
 }
 section{
+  font-family: "Assistant", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
   border: 2px solid red;
   border-radius: 5px;
 }
