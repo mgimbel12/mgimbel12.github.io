@@ -1,0 +1,25 @@
+body{
+  background-color: lightblue;
+  background-image: url("https://media1.tenor.com/m/MJde7JC7N4wAAAAd/smallville-clark-kent.gif");
+  background-repeat: repeat-x;
+  background-size: 300px 100px;
+}
+h1{
+  color:blue;
+  text-align: center;
+}
+p{
+  color:aquamarine;
+  text-align: center;  
+}
+h2{
+  color:babyblue;
+  text-align: center;  
+}
+h3{
+  color:aqua;
+  text-align: center;
+}
+cursor{
+cursor: help;
+}
