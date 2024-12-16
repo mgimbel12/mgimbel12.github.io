@@ -2,6 +2,7 @@ body{
 background-color: lightblue;
 background-image: url("https://media.giphy.com/media/cDcluOvQTR0Ji/giphy.gif");
 background-repeat:no-repeat; 
+background-size:width:100%;
 }
 
 h1{
