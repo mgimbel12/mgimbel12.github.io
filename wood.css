@@ -2,42 +2,43 @@ body{
 background-color: lightblue;
 background-image: url("https://media.giphy.com/media/cDcluOvQTR0Ji/giphy.gif");
 background-repeat:no-repeat; 
-background-size:width:100%;
+background-size: 300px 100px;
 }
 
 h1{
 background-color: lightblue;
 background-image: url("                  ");
+background-size: 300px 100px; 
 }
 
 h2{
 background-color: lightblue;
 background-image: url("                      ");
-
+background-size: 300px 100px;
 }
 
 
 h3{
 background-color: lightblue;
 background-image: url("                       ");
-
+background-size: 300px 100px;
 }
 
 
 h4{
 background-color: lightblue;
 background-image: url("               ");
-
+background-size: 300px 100px;
 }
 
 p{
  background-image: url("              ");
-
+background-size: 300px 100px;
 
 }
 
 footer{
 background-color: lightblue;
  background-image: url("                  ");
-
+background-size: 300px 100px;
 }
