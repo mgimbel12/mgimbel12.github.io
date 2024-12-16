@@ -1,42 +1,42 @@
 body{
 background-color: lightblue;
-
+background-image: url("https://media.giphy.com/media/cDcluOvQTR0Ji/giphy.gif");
+background-repeat:no-repeat; 
 }
 
 h1{
 background-color: lightblue;
-
+background-image: url("                  ");
 }
 
 h2{
 background-color: lightblue;
-
+background-image: url("                      ");
 
 }
 
 
 h3{
 background-color: lightblue;
-
+background-image: url("                       ");
 
 }
 
 
 h4{
 background-color: lightblue;
-
+background-image: url("               ");
 
 }
 
 p{
-
+ background-image: url("              ");
 
 
 }
 
 footer{
 background-color: lightblue;
-
-
+ background-image: url("                  ");
 
 }
