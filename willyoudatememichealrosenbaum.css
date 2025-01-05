@@ -5,6 +5,16 @@ background-color:DarkOrchid;
  background-repeat: no-repeat, repeat; 
 }
 h1{
+// <uniquifier>: Use a unique and descriptive class name
+// <weight>: Use a value from 200 to 800
+
+.assistant-<uniquifier> {
+  font-family: "Assistant", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
 color:AliceBlue;
 
 }
