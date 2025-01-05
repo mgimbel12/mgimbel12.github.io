@@ -1,11 +1,11 @@
 Body{
-background-color:Auam;
+background-color:Aqua;
 
 }
 
 
 h1{
-background-color:green;
+color:green;
 
 
 
@@ -14,13 +14,13 @@ background-color:green;
 
 
 h2{
-background-color:red;
+color:red;
 
 
 }
 
 p{
-background-color:yellow; 
+color:yellow; 
 
 
 
@@ -29,7 +29,7 @@ background-color:yellow;
 
 
 footer{
-background-color:aqua;
+color:aqua;
 
 
 
