@@ -1,0 +1,16 @@
+body{
+background-color:blue;
+background-image: url("http://www.myfreetextures.com/wp-content/uploads/2014/10/seamless-wood-background-1.jpg");
+}
+h1{
+color:Red;
+}
+h2{
+color:Aqua;
+}
+ table, th, td {
+  border: 1px solid black;
+}
+footer{
+background-color:blue;
+}
