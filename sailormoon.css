@@ -1,0 +1,23 @@
+body{
+background-color:dodger-blue;
+background-image: url("https://i.pinimg.com/originals/6d/ef/75/6def75c4fb26d5d07ede9d9f2979d8d9.gif");
+background-repeat:no-repeat;
+background-size:100%,100%;  
+}
+nav{
+color:yellow;
+display:block;
+width:60px;  
+}
+h1{
+  font-family: "Sofia", sans-serif;
+  color:aqua; 
+}
+h2{
+  font-family: "Sofia", sans-serif;
+  color:white;
+}
+p{
+  font-family: "Sofia", sans-serif;
+  color:green;
+}
