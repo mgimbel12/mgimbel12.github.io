@@ -1,11 +1,10 @@
 body{
 background-image: url("https://tse4.mm.bing.net/th?id=OIP.zzpqIcu-4NPJa9glmRjHbwHaEo&pid=Api&P=0&h=220");
 background-repeat: no-repeat;
+ background-size: auto;  
 border: 1px solid #ddd;
 border-radius: 4px;
 padding: 5px;
-width: 500px;
-}
 }
 h1{
 }
