@@ -4,18 +4,14 @@ background-image: url("https://wallpapers.com/images/hd/cream-background-bvwiaxr
 background-repeat:no-repeat;
 background-postion: right top; 
 }
-.h1{
+.h1,h2,h3,h4{
 font-family:Arial,san-serif, Times New Roman; 
 }
-
-.h2{
-
-
-}
-
-.h3{
-
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 .footer{
 postion:fixed;
