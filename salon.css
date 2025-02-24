@@ -1,0 +1,28 @@
+body{
+background-color:creme;
+background-image: url("https://wallpapers.com/images/hd/cream-background-bvwiaxrnedx1isac.jpg");
+background-repeat:no-repeat;
+background-postion: right top; 
+}
+.h1{
+font-family:Arial,san-serif, Times New Roman; 
+}
+
+.h2{
+
+
+}
+
+.h3{
+
+
+}
+.footer{
+postion:fixed;
+left:0;
+bottom:0;
+width:100%;
+background-color:navy;
+color:white;
+text-align:center;
+}
