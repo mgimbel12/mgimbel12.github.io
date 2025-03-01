@@ -3,6 +3,7 @@ background-color:creme;
 background-image: url("https://wallpapers.com/images/hd/cream-background-bvwiaxrnedx1isac.jpg");
 background-repeat:no-repeat;
 background-postion:100% 100%;
+position: absolute;  
 }
 .h1,h2,h3,h4{
 font-family:Arial,san-serif, Times New Roman;
