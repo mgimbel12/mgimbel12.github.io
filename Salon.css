@@ -5,7 +5,8 @@ background-repeat:no-repeat;
 background-postion: right top; 
 }
 .h1,h2,h3,h4{
-font-family:Arial,san-serif, Times New Roman; 
+font-family:Arial,san-serif, Times New Roman;
+background-color:creme;  
 }
 .center {
   display: block;
@@ -13,12 +14,12 @@ font-family:Arial,san-serif, Times New Roman;
   margin-right: auto;
   width: 50%;
 }
-.footer{
+.footer{  
 postion:fixed;
 left:0;
 bottom:0;
 width:100%;
-background-color:navy;
+background-color:blue;
 color:white;
 text-align:center;
 }
