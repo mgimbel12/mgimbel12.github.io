@@ -1,0 +1,14 @@
+body{
+background-image: (                       )
+background-color:
+background-repeat:no-repeat;
+}
+.h1,.h2,.p{
+color:blue;
+}
+.center{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
