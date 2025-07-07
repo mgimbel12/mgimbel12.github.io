@@ -1,0 +1,69 @@
+body {
+    background-image:url(" https://img.freepik.com/premium-vector/earth-atmosphere-layers-names-colorful-infographic-poster-with-meteors-radiosonde-satellite-spaceship-vector-illustration-starry-sky-background_93083-3358.jpg?w=2000");
+    background-color: #6495ED;/* Used if the image is unavailable */
+    height: 500px; /* You must set a specified height */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+     background-size: cover; /* Resize the background image to cover the entire container */
+}
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    line-height: 1.5;
+}
+
+header,
+nav,
+main,
+footer {
+    margin: 1.25rem auto;
+    max-width: 760px;
+}
+
+header,
+footer {
+    border-radius: 10px;
+    background-color: #F0F8FF;
+    color: #b8a6ff;
+    text-align: center;
+    padding: 1.5rem;
+}
+
+a.school:link {
+    color: #b8a6ff;
+    text-decoration: none;
+}
+
+a.school:visited {
+    color: #b8a6ff;
+ text-decoration:dotted;
+}
+
+a.school:hover {
+    color: #F5F5DC;
+    text-decoration:navy;
+}
+
+a.school:active {
+    color:#b8a6ff;
+}
+
+img {
+    float: right;
+    margin: 8px;
+    width: 200px;
+    height: 274px;
+}
+
+    h1 {
+    font-size: 2.75em;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.875em;
+    font-weight: lighter;
+}
+
+p {
+    font-size: 0.875em;
+}
