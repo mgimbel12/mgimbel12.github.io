@@ -1,57 +1,202 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="L.Nicole_Store">/
-  <meta name="description" content="Examples Nicole_Store">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title> Nicole_Stores</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&7cSource+Serif+Pro&display=swap" rel="stylesheet">
-  <link href="normalize.css" rel="stylesheet">
-  <link href="Library.css" rel="stylesheet">
-  <link href="batman.css" rel="stylesheet">
-  <title>Nicole_Store</title>
-</head> 
-<a href="index.html">|Home|</a>
-<a href="AboutUs.html">|About Us|</a>
-<a href="ContactUs.html">|Contact Us|</a>
-<a href="Store.html">|Store|</a>  
-<a href="batman.html">|batman|</a>
-<body style="background:navy;"> 
-<h1> Nicole Store Purchase</h1> 
-<div class="container">
-<form class="Contact Us"action="GIMBEL@nv.ccsd.net" method="get">
-<p>Contact Information</p>
-<label class="top">Full Name* <input type="text" name="fullname" pattern="[^\s][A-z0-9À-ž\s]{5,}" required></label>
-<label class="top">Email <input type="email" name="email" placeholder="GIMBEL@nv.ccsd.net"></label>
-<label class="top">Phone* <input type="tel" name="phone" placeholder="12345678901" required></label>
-<label class="top">Zipcode* <input type="number" name="zipcode" required>           
-</label>
-<label for="subject">Comment
-<textarea id="subject" name="subject" placeholder="Q/A and responds.." style="height:200px"></textarea>
-</label>
-<input type="submit" value="Contact Us!">
-</form>
-</div>
- <div class="two">
-<section>
- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3227.21704475451!2d-114.97774412678058!3d36.01499291157178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8d41816a6e81f%3A0xa57d3402084774de!2sUlis%20Newton%20Elementary%20School!5e0!3m2!1sen!2sus!4v1696181915536!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</section>
-<section>
-<h2 class="center">Nicole library </h2>
-<p>Henderson, Nv 89015</p>
-<p>Tel: Phone:702-799-0500 ext: 4026</p>
-<p> Mrs. Gimbel</p>
-<img src="<img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/588c41fb-ebbc-41ef-891b-5d94eacb1ce1/d5ogyin-3af98cbb-8660-4760-9334-cfa35fa5e288.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzU4OGM0MWZiLWViYmMtNDFlZi04OTFiLTVkOTRlYWNiMWNlMVwvZDVvZ3lpbi0zYWY5OGNiYi04NjYwLTQ3NjAtOTMzNC1jZmEzNWZhNWUyODguZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.O4P-QaNcaUB6IMlYWlkIP8vg9LZNieCslgryPwI33GEg" alt="snowy day">
-<img src="https://i.pinimg.com/originals/87/0f/05/870f0567cac3a54eac1f550de9472ad8.gif" alt="snowy days"> 
-  <div class="social">
- <label>
-<input name="date" type="date" min="2023-6-21" max="2026-12-30" required>
-</label>
-<!--jquery-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  <meta name="author" content="L. Nicole Store">
+  <meta name="description" content="Nicole Store – Youth Learning Resources and Contact Information">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nicole Store | Library & Contact</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Serif+Pro&display=swap" rel="stylesheet">
+
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="Library.css">
+  <link rel="stylesheet" href="batman.css">
+
+  <style>
+    body {
+      background-color: navy;
+      font-family: 'Open Sans', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header, nav, footer {
+      text-align: center;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1, h2 {
+      font-family: 'Source Serif Pro', serif;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #001f4d;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    label.top {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #e6f0ff;
+      color: #000;
+    }
+
+    input[type="submit"] {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #00aaff;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0088cc;
+    }
+
+    .two {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    iframe {
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .social {
+      margin-top: 20px;
+    }
+
+    .library-info p {
+      margin: 5px 0;
+    }
+
+    .library-info img {
+      max-width: 200px;
+      margin: 10px;
+      border-radius: 8px;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+
+    footer a {
+      color: #00aaff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="AboutUs.html">About Us</a>
+      <a href="ContactUs.html">Contact Us</a>
+      <a href="Store.html">Store</a>
+      <a href="batman.html">Batman</a>
+    </nav>
+    <h1>Nicole Store Purchase & Contact</h1>
+  </header>
+
+  <main>
+    <div class="container">
+      <form action="mailto:GIMBEL@nv.ccsd.net" method="post">
+        <p><strong>Contact Information</strong></p>
+
+        <label class="top">Full Name* 
+          <input type="text" name="fullname" pattern="[^\s][A-z0-9À-ž\s]{5,}" required>
+        </label>
+
+        <label class="top">Email 
+          <input type="email" name="email" placeholder="GIMBEL@nv.ccsd.net">
+        </label>
+
+        <label class="top">Phone* 
+          <input type="tel" name="phone" placeholder="12345678901" required>
+        </label>
+
+        <label class="top">Zip Code* 
+          <input type="number" name="zipcode" required>
+        </label>
+
+        <label for="subject">Comment
+          <textarea id="subject" name="subject" placeholder="Questions, feedback, or requests..." style="height:200px"></textarea>
+        </label>
+
+        <input type="submit" value="Contact Us!">
+      </form>
+    </div>
+    <div class="two">
+      <section>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3227.21704475451!2d-114.97774412678058!3d36.01499291157178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8d41816a6e81f%3A0xa57d3402084774de!2sUlis%20Newton%20Elementary%20School!5e0!3m2!1sen!2sus!4v1696181915536!5m2!1sen!2sus" 
+          width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </section>
+      <section class="library-info">
+        <h2>Nicole Library</h2>
+        <p>Location: Henderson, NV 89015</p>
+        <p>Phone: 702-799-0500 ext. 4026</p>
+        <p>Contact: Mrs. Gimbel</p>
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/588c41fb-ebbc-41ef-891b-5d94eacb1ce1/d5ogyin-3af98cbb-8660-4760-9334-cfa35fa5e288.gif" alt="Snowy Day">
+        <img src="https://i.pinimg.com/originals/87/0f/05/870f0567cac3a54eac1f550de9472ad8.gif" alt="Snowy Days">
+      </section>
+      <div class="social">
+        <label>Select a Date:
+          <input name="date" type="date" min="2023-06-21" max="2026-12-30" required>
+        </label>
+      </div>
+    </div>
+  </main>
+  <footer>
+    &copy; 2023 Nicole Store | Supporting Youth Through Learning and Discovery<br>
+    <a href="https://www.scholastic.com/home?psch=CORP/ps/2017/Bing/txtl/URL|Exact/ENT|Brand|Core|Exact/www.scholastic.com/1243547784388657/e/MultiBUHeadline/Enterprise%20B002Q848/&k_clickid=b124df34-2304-4c8f-833d-465c2abb1b25&msclkid=3057eacf1abf1147aa768e298bb261c3">
+      Shopping for Children's Books? Click here
+    </a>
+  </footer>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 </body>
-<footer> &#169; 2023 |Nicole Store for youth for your learning needs.|<a href="https://www.scholastic.com/home?psch=CORP/ps/2017/Bing/txtl/URL|Exact/ENT|Brand|Core|Exact/www.scholastic.com/1243547784388657/e/MultiBUHeadline/Enterprise%20B002Q848/&k_clickid=b124df34-2304-4c8f-833d-465c2abb1b25&msclkid=3057eacf1abf1147aa768e298bb261c3">lShopping for children books |click here|</a>
-</footer>
 </html>
