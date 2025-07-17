@@ -1,26 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="L.Nicole_Store">/
-  <meta name="description" content="Examples Nicole_Store">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title> Nicole_Stores</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&7cSource+Serif+Pro&display=swap" rel="stylesheet">
-  <link href="normalize.css" rel="stylesheet">
-  <link href="Library.css" rel="stylesheet">
-  <link href="batman.css" rel="stylesheet">
-  <title>Nicole_Store</title>
-</head> 
-<a href="index.html">|Home|</a>
-<a href="AboutUs.html">|About Us|</a>
-<a href="ContactUs.html">|Contact Us|</a>
-<a href="Store.html">|Store|</a>
-<a href="batman.html">|Batman|</a>
-<body style="background:navy;"> 
-<h1> Nicole Store Purchase</h1>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Xq0YH3JP9kE?si=KMhoBHCVYql2q7hI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> 
+  <meta name="author" content="L. Nicole Store">
+  <meta name="description" content="Nicole Store – Educational Resources and Learning Tools">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nicole Store | Learning Resources</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Serif+Pro&display=swap" rel="stylesheet">
+
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="Library.css">
+  <link rel="stylesheet" href="batman.css">
+
+  <style>
+    body {
+      background-color: navy;
+      font-family: 'Open Sans', sans-serif;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-family: 'Source Serif Pro', serif;
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .video-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    iframe {
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="AboutUs.html">About Us</a>
+      <a href="ContactUs.html">Contact Us</a>
+      <a href="Store.html">Store</a>
+      <a href="batman.html">Batman</a>
+    </nav>
+    <h1>Welcome to Nicole Store</h1>
+    <p style="text-align:center; max-width:700px; margin:0 auto;">
+      A curated space for youth and lifelong learners to explore educational tools, creative media, and inspiring resources. 
+      We believe in nurturing curiosity and empowering minds through thoughtful content and accessible learning.
+    </p>
+  </header>
+
+  <main>
+    <section class="video-container">
+      <iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/Xq0YH3JP9kE?si=KMhoBHCVYql2q7hI" 
+        title="YouTube video player" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2023 Nicole Store | Supporting Youth Through Learning and Discovery
+  </footer>
 </body>
-<footer> &#169; 2023 |Nicole Store for youth for your learning needs.| </footer>
 </html>
