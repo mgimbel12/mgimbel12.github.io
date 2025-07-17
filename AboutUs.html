@@ -1,48 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="L.Nicole_Store">/
-  <meta name="description" content="Examples Nicole_Store">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title> Nicole_Stores</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans&7cSource+Serif+Pro&display=swap" rel="stylesheet">
-  <link href="normalize.css" rel="stylesheet">
-  <link href="Library.css" rel="stylesheet">
-  <title>Nicole_Store</title>
-</head> 
-<a href="index.html">|Home|</a>
-<a href="AboutUs.html">|About Us|</a>
-<a href="ContactUs.html">|Contact Us|</a>
-<a href="Store.html">|Store|</a>
-<a href="batman.html">|Batman|</a>
-<body style="background:navy;"> 
-<h1> Nicole Store Purchase</h1>
+  <meta name="author" content="L. Nicole Store">
+  <meta name="description" content="Nicole Store - Purchase and Contact Forms">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Nicole Store</title>
 
- <form action="/action_page.php">
-  <label for="fname">First name:</label><br>
-  <input type="text" id="fname" name="fname" value="John"><br>
-  <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <input type="submit" value="Submit">
-  <label for="username">Username:</label><br>
-  <input type="text" id="username" name="username"><br>
-  <label for="pwd">Password:</label><br>
-  <input type="password" id="pwd" name="pwd">
-</form> 
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Serif+Pro&display=swap" rel="stylesheet">
 
- <form action="/action_page.php">
-  <label for="fname">First name:</label>
-  <input type="text" id="fname" name="fname"><br><br>
-  <label for="lname">Last name:</label>
-  <input type="text" id="lname" name="lname"><br><br>
-  <input type="submit" value="Submit">
-  <input type="submit" formaction="/action_page2.php" value="Submit as Admin">
-</form>
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="AboutUs.html">About Us</a>
+      <a href="ContactUs.html">Contact Us</a>
+      <a href="Store.html">Store</a>
+      <a href="batman.html">Batman</a>
+    </nav>
+    <h1>Nicole Store Purchase</h1>
+  </header>
+
+  <main>
+    <!-- Customer Purchase Form -->
+    <section class="form-section">
+      <form action="/action_page.php" method="post">
+        <label for="fname">First Name:</label>
+        <input type="text" id="fname" name="fname" value="John">
+
+        <label for="lname">Last Name:</label>
+        <input type="text" id="lname" name="lname" value="Doe">
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="pwd">Password:</label>
+        <input type="password" id="pwd" name="pwd">
+
+        <input type="submit" value="Submit">
+      </form>
+    </section>
+
+    <!-- Admin Submission Form -->
+    <section class="form-section">
+      <form action="/action_page.php" method="post">
+        <label for="fname2">First Name:</label>
+        <input type="text" id="fname2" name="fname">
+
+        <label for="lname2">Last Name:</label>
+        <input type="text" id="lname2" name="lname">
+
+        <input type="submit" value="Submit">
+        <input type="submit" formaction="/action_page2.php" value="Submit as Admin">
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2023 Nicole Store | Empowering Youth Through Learning
+  </footer>
 </body>
-<footer> &#169; 2023 |Nicole Store for youth for your learning needs.| </footer>
 </html>
-
-
-
