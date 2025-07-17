@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Contact Us – Sole & Spirit</title>
-   <link rel="stylesheet" href="contactus.css">
+  <link rel="stylesheet" href="contactus.css">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -12,66 +12,132 @@
       margin: 0;
       padding: 0;
     }
+
     header {
       background-color: #b30000;
       color: white;
       padding: 20px;
       text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
+
+    nav {
+      background-color: #e6e6e6;
+      padding: 10px 0;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #b30000;
+      font-weight: bold;
+      font-size: 1em;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #990000;
+    }
+
     section {
       padding: 30px;
       max-width: 600px;
-      margin: auto;
+      margin: 40px auto;
       background-color: #fff;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
+
     h2 {
       color: #b30000;
       text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8em;
     }
+
     form {
       display: flex;
       flex-direction: column;
     }
+
     label {
       margin-top: 15px;
       font-weight: bold;
     }
+
     input, textarea {
       padding: 10px;
       margin-top: 5px;
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 1em;
+      transition: border-color 0.3s ease;
     }
+
+    input:focus, textarea:focus {
+      border-color: #b30000;
+      outline: none;
+    }
+
     button {
       margin-top: 20px;
-      padding: 10px;
+      padding: 12px;
       background-color: #b30000;
       color: white;
       border: none;
       border-radius: 5px;
       font-size: 1em;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
+
     button:hover {
       background-color: #990000;
     }
+
     .info {
       margin-top: 30px;
       text-align: center;
       font-size: 0.95em;
+      color: #555;
     }
+
+    .info p {
+      margin: 8px 0;
+    }
+
     .social {
-      margin-top: 15px;
+      margin-top: 20px;
       text-align: center;
     }
+
+    .social p {
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
     .social a {
       margin: 0 10px;
       color: #b30000;
       text-decoration: none;
       font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    .social a:hover {
+      color: #990000;
     }
   </style>
 </head>
@@ -81,14 +147,16 @@
     <h1>Contact Us</h1>
     <p>We’d love to hear from you!</p>
   </header>
-<nav>
+
+  <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="contactus.html">Contact Us</a></li>
-      <li><a href="aboutus.html">About Us</a></li>
       <li><a href="shop.html">Shop</a></li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="contactus.html">Contact Us</a></li>
     </ul>
   </nav>
+
   <section>
     <h2>Send Us a Message</h2>
     <form action="mailto:hello@soleandspirit.com" method="post" enctype="text/plain">
@@ -103,11 +171,13 @@
 
       <button type="submit">Send Message</button>
     </form>
+
     <div class="info">
       <p><strong>Email:</strong> Rissarooland@gmail.com</p>
-      <p><strong>Phone:</strong>702-830-0817</p>
+      <p><strong>Phone:</strong> (702) 830-0817</p>
       <p><strong>Location:</strong> Henderson, NV</p>
     </div>
+
     <div class="social">
       <p>Follow us:</p>
       <a href="#">Instagram</a>
@@ -115,5 +185,6 @@
       <a href="#">Pinterest</a>
     </div>
   </section>
+
 </body>
 </html>
