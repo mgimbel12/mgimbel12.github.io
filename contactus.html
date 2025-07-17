@@ -1,19 +1,114 @@
 <!DOCTYPE html>
-<html>
-<title>Christmas About us. </title>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us – Sole & Spirit</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdf6f0;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #b30000;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #b30000;
+      text-align: center;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input, textarea {
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #b30000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #990000;
+    }
+    .info {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.95em;
+    }
+    .social {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .social a {
+      margin: 0 10px;
+      color: #b30000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
 <body>
-<a href="index.html">home</a>
-<a href="aboutus.html">about us</a>
-<a href="contactus.html">contact us</a>
-<a href="store.html">store</a>    
-<h1>Welcome to my page.</h1>
-<p>  </p>
-<section>
-<h1>    </h1>
-<p> </p></section>
-<section>
-<h1>  </h1>
-<p>  </p>
-</section>
+
+  <header>
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you!</p>
+  </header>
+
+  <section>
+    <h2>Send Us a Message</h2>
+    <form action="mailto:hello@soleandspirit.com" method="post" enctype="text/plain">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div class="info">
+      <p><strong>Email:</strong> hello@soleandspirit.com</p>
+      <p><strong>Phone:</strong> (555) 123-4567</p>
+      <p><strong>Location:</strong> Henderson, NV</p>
+    </div>
+
+    <div class="social">
+      <p>Follow us:</p>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">Pinterest</a>
+    </div>
+  </section>
+
 </body>
 </html>
