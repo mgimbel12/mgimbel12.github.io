@@ -1,23 +1,97 @@
-/* General Body Styling */
+/* Base styles */
 body {
-  background-color: lightblue;
-  background-image: url("https://i.pinimg.com/originals/32/87/a4/3287a4ed6f92fc08afd082375096da80.gif");
-  background-size: cover;
-  background-repeat: no-repeat;
-  font-family: 'Georgia', serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdf6f0;
   color: #333;
+  margin: 0;
+  padding: 0;
   line-height: 1.6;
+}
+
+/* Navigation */
+.main-nav {
+  background-color: #b30000;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.main-nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.main-nav a:hover {
+  color: #ffd700;
+}
+
+/* Header */
+.page-header {
+  background-color: #006400;
+  color: white;
+  text-align: center;
   padding: 20px;
 }
 
-/* Header Styling */
-h1 {
-  background-color: green;
-  background-image: url("https://www.aperturee.com/cdn/shop/products/aperturee-white-stocking-fireplace-christmas-backdrop-206.jpg?v=1678444712");
-  background-size: cover;
-  background-repeat: no-repeat;
+.page-header p {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+/* Content Sections */
+.content-section {
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.cookies {
+  background-color: #001f4d;
   color: white;
-  font-size: 2.5em;
+}
+
+.cookies img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 15px 0;
+}
+
+.songs {
+  background-color: #ffe4e1;
+}
+
+.lyrics p {
+  margin-bottom: 1em;
+}
+
+.video {
   text-align: center;
-  padding:20px;
+  background-color: #f0f8ff;
+}
+
+/* Footer */
+footer {
+  background-color: #b30000;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.footer-content p {
+  margin: 5px 0;
 }
