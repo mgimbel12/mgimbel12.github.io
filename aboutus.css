@@ -1,30 +1,49 @@
-body{
-  background-color:blue;
+/* === Body Styling === */
+body {
+  background-color: blue;
   background-image: url("https://tse4.mm.bing.net/th?id=OIP.37VJ1hBAI_QGw-gLJrNN7gHaHa&pid=Api&P=0&h=180");
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
+  margin: 100px 150px;
 }
+
+/* === Paragraph Styling === */
 p {
   text-align: center;
-  color:blue;
+  color: blue;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
 }
+
+/* === Section Styling === */
 section {
-  background-color:grey;
+  background-color: grey;
   background-image: url("https://tse3.mm.bing.net/th?id=OIP.hUuDABh8oCdxl1IEypDZywHaFj&pid=Api&P=0&h=180");
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
+  margin: 100px 150px;
+  padding: 20px;
+  border-radius: 8px;
 }
-h1{
- height: 100px;
+
+/* === Heading Styling === */
+h1 {
+  height: 100px;
   width: 500px;
-  background-color: navy; 
+  background-color: navy;
+  color: white;
+  text-align: center;
+  line-height: 100px;
+  margin: 0 auto;
+  border-radius: 6px;
+  font-size: 28px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+/* === Div Styling === */
 div {
   height: 200px;
   width: 50%;
-  background-color: babypink;
+  background-color: pink; /* Replaced 'babypink' with valid 'pink' */
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  font-family: Georgia, serif;
+  font-size: 16px;
 }
