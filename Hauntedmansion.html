@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head> 
-  <meta charset ="UTF-8">
-  <title>Hauntedmansion.html</title>
-  <link rel ="stylesheet"
-  type="text/css"
-  href="floatform.css"/>
-  </head>
-  <body>
-  <form action =" ">
-  <fieldset>
-  <label>Name of ghost</label>
-  <input type = "text"
-  id="txtName"/>
-  <label>Street Address</label>
-  <input type = "text"
-    id="txtAddress"/>
-    <label>phone</label>
-    <input type= "text"
-      id="txtphone" />
-           <button type ="button">
-           submit request               
-           </button>
-           </fieldset>
-          </form>
-  <script type= "text/javascript">
- //from addingpuntwrong.html
-    var x= prompt("first number:");
-    var y= prompt ("second number:");
-    var sum = x+y;
-    alert(x+"plus"+y+"equals"+sum);
-  </scriptt>
-  </body>
-  </html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Haunted Mansion Registry</title>
+  <link rel="stylesheet" type="text/css" href="floatform.css">
+</head>
+
+<body>
+  <header>
+    <h1>Welcome to the Haunted Mansion</h1>
+    <p>
+      Deep within the eerie corridors of Disney’s Haunted Mansion, 999 happy haunts await your arrival. 
+      This iconic attraction, first opened in Disneyland in 1969, blends gothic architecture, ghostly illusions, 
+      and whimsical storytelling to create a timeless experience. Whether you're a foolish mortal or a seasoned spirit, 
+      you're invited to register your ghostly presence below.
+    </p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Ghostly Guest Registry</h2>
+      <form action="#">
+        <fieldset>
+          <legend>Enter Your Phantom Details</legend>
+
+          <label for="txtName">Name of Ghost:</label>
+          <input type="text" id="txtName" name="ghostName" placeholder="E.g., Madame Leota" required>
+
+          <label for="txtAddress">Street Address:</label>
+          <input type="text" id="txtAddress" name="ghostAddress" placeholder="Crypt #13, Doom Street" required>
+
+          <label for="txtPhone">Phone:</label>
+          <input type="tel" id="txtPhone" name="ghostPhone" placeholder="(000) 000-0000">
+
+          <button type="submit">Submit Request</button>
+        </fieldset>
+      </form>
+    </section>
+
+    <section>
+      <h2>Ghostly Math Prompt</h2>
+      <p>Even spirits enjoy a little arithmetic. Try this spooky sum:</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Haunted Mansion Tribute | Disney Inspired | All foolish mortals welcome</p>
+  </footer>
+
+  <script type="text/javascript">
+    let x = parseFloat(prompt("First number:"));
+    let y = parseFloat(prompt("Second number:"));
+    let sum = x + y;
+    alert(x + " plus " + y + " equals " + sum);
+  </script>
+</body>
+</html>
