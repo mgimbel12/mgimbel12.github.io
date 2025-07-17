@@ -1,28 +1,23 @@
+/* General Body Styling */
 body {
   background-color: lightblue;
-  background-image:url("https://i.pinimg.com/originals/32/87/a4/3287a4ed6f92fc08afd082375096da80.gif");
+  background-image: url("https://i.pinimg.com/originals/32/87/a4/3287a4ed6f92fc08afd082375096da80.gif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Georgia', serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
 }
-h1{
-  background-color:green;
-  background-image:url("https://www.aperturee.com/cdn/shop/products/aperturee-white-stocking-fireplace-christmas-backdrop-206.jpg?v=1678444712");
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
-}
-p {
-  background-color:white;
-  background-image:url("https://tse1.mm.bing.net/th?id=OIP.budPv0mpVuxxjrU_cAlxIgHaFj&pid=Api&P=0&h=180");
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
-}
-Section {
-  background-color:blue;
-  background-image:url("https://tse1.mm.bing.net/th?id=OIP.hvOjrTwUsPUWsEq1T3fR-wHaFL&pid=Api&P=0&h=180");
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
+
+/* Header Styling */
+h1 {
+  background-color: green;
+  background-image: url("https://www.aperturee.com/cdn/shop/products/aperturee-white-stocking-fireplace-christmas-backdrop-206.jpg?v=1678444712");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  font-size: 2.5em;
+  text-align: center;
+  padding:20px;
 }
