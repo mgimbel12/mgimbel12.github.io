@@ -2,324 +2,76 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sole & Spirit – Handmade Christmas Treasures</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fdf6f0;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #b30000;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      background-color: #e6e6e6;
-      padding: 10px;
-      text-align: center;
-    }
-    nav a {
-      margin: 0 15px;
-      text-decoration: none;
-      color: #b30000;
-      font-weight: bold;
-    }
-    section {
-      padding: 20px;
-    }
-    .product {
-      border: 1px solid #ccc;
-      padding: 15px;
-      margin: 10px;
-      border-radius: 8px;
-      background-color: #fff;
-    }
-    .product img {
-      max-width: 100%;
-      border-radius: 5px;
-    }
-    footer {
-      background-color: #b30000;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      margin-top: 20px;
-    }
-  </style>
+  <title>Shop – Sole & Spirit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="shop.css">
 </head>
 <body>
 
-  <header>
-    <h1>Sole & Spirit</h1>
-    <p>Handmade Christmas Shoes & Heartfelt Holiday Crafts</p>
-  </header>
-    <!-- Navigation Menu -->
-  <nav>
+  <!-- Navigation -->
+  <nav class="main-nav">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="contactus.html">Contact Us</a></li>
-      <li><a href="aboutus.html">About Us</a></li>
       <li><a href="shop.html">Shop</a></li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="contactus.html">Contact Us</a></li>
+      <li><a href="#" class="cart-button">🛒 Cart</a></li>
     </ul>
   </nav>
 
-  <section id="shoes">
-    <h2>🎄 Christmas Shoes</h2>
-    <div class="product">
-      <img src="shoe1.jpg" alt="Red velvet Christmas slippers">
+  <!-- Holiday Sale Banner -->
+  <div class="sale-banner">
+    🎁 Holiday Sale: 20% off all Christmas shoes through December 24th!
+  </div>
+
+  <!-- Header -->
+  <header class="page-header">
+    <h1>Shop Our Holiday Collection</h1>
+    <p>Handcrafted Christmas shoes and heartfelt gifts</p>
+  </header>
+
+  <!-- Product Grid -->
+  <section class="product-grid">
+    <div class="product-card">
+      <img src="shoe1.jpg" alt="Red Velvet Slippers">
       <h3>Red Velvet Slippers</h3>
       <p>Cozy and festive, perfect for Christmas morning.</p>
+      <span>$24.99</span>
+      <button class="wishlist">💖 Add to Wishlist</button>
     </div>
-    <div class="product">
-      <img src="boot1.jpg" alt="Hand-decorated holiday boots">
+
+    <div class="product-card">
+      <img src="boot1.jpg" alt="Holiday Boots">
       <h3>Hand-Decorated Holiday Boots</h3>
       <p>Each pair tells a story of joy and warmth.</p>
+      <span>$39.99</span>
+      <button class="wishlist">💖 Add to Wishlist</button>
     </div>
-  </section>
 
-  <section id="crafts">
-    <h2>🧵 Handmade Holiday Crafts</h2>
-    <div class="product">
-      <img src="ornament1.jpg" alt="Hand-painted ornament">
+    <div class="product-card">
+      <img src="ornament1.jpg" alt="Spiritual Ornament">
       <h3>Spiritual Ornament</h3>
       <p>Hand-painted with messages of hope and gratitude.</p>
+      <span>$12.00</span>
+      <button class="wishlist">💖 Add to Wishlist</button>
     </div>
-    <div class="product">
-      <img src="wreath1.jpg" alt="Rustic Christmas wreath">
-      <h3>Rustic Wreath</h3>
+
+    <div class="product-card">
+      <img src="wreath1.jpg" alt="Rustic Wreath">
+      <h3>Rustic Christmas Wreath</h3>
       <p>Crafted with love and natural materials.</p>
+      <span>$29.99</span>
+      <button class="wishlist">💖 Add to Wishlist</button>
     </div>
   </section>
 
-  <section id="about">
-    <h2>✨ About Us</h2>
-    <p>At Sole & Spirit, we believe in celebrating the season with warmth
-      <footer>
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Contact Us – Sole & Spirit</title>
-  <link rel="stylesheet" href="contactus.css">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fdf6f0;
-      color: #333;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #b30000;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    nav {
-      background-color: #e6e6e6;
-      padding: 10px 0;
-      text-align: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-
-    nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav li {
-      display: inline;
-      margin: 0 15px;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #b30000;
-      font-weight: bold;
-      font-size: 1em;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #990000;
-    }
-
-    section {
-      padding: 30px;
-      max-width: 600px;
-      margin: 40px auto;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    }
-
-    h2 {
-      color: #b30000;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 1.8em;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input, textarea {
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
-      transition: border-color 0.3s ease;
-    }
-
-    input:focus, textarea:focus {
-      border-color: #b30000;
-      outline: none;
-    }
-
-    button {
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #b30000;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #990000;
-    }
-
-    .info {
-      margin-top: 30px;
-      text-align: center;
-      font-size: 0.95em;
-      color: #555;
-    }
-
-    .info p {
-      margin: 8px 0;
-    }
-
-    .social {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .social p {
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-
-    .social a {
-      margin: 0 10px;
-      color: #b30000;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
-
-    .social a:hover {
-      color: #990000;
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <h1>Contact Us</h1>
-    <p>We’d love to hear from you!</p>
-  </header>
-
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="aboutus.html">About Us</a></li>
-      <li><a href="contactus.html">Contact Us</a></li>
-    </ul>
-  </nav>
-
-  <section>
-    <h2>Send Us a Message</h2>
-    <form action="mailto:hello@soleandspirit.com" method="post" enctype="text/plain">
-      <label for="name">Your Name</label>
-      <input type="text" id="name" name="name" required>
-
-      <label for="email">Your Email</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="message">Your Message</label>
-      <textarea id="message" name="message" rows="5" required></textarea>
-
-      <button type="submit">Send Message</button>
-    </form>
-
-    <div class="info">
-      <p><strong>Email:</strong> Rissarooland@gmail.com</p>
-      <p><strong>Phone:</strong> (702) 830-0817</p>
-      <p><strong>Location:</strong> Henderson, NV</p>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Sole & Spirit. All rights reserved.</p>
+      <p>Made with love and light in Henderson, NV</p>
     </div>
+  </footer>
 
-    <div class="social">
-      <p>Follow us:</p>
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">Pinterest</a>
-    </div>
-  </section>
-
-<footer>
-  <div class="footer-content">
-    <div class="footer-brand">
-      <h3>Sole & Spirit</h3>
-      <p>Spreading warmth one step at a time.</p>
-    </div>
-
-    <div class="footer-links">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="aboutus.html">About Us</a></li>
-        <li><a href="contactus.html">Contact Us</a></li>
-      </ul>
-    </div>
-
-    <div class="footer-contact">
-      <h4>Contact</h4>
-      <p>Email: Rissarooland@gmail.com</p>
-      <p>Phone: (702) 830-0817</p>
-      <p>Location: Henderson, NV</p>
-    </div>
-    <div class="footer-social">
-      <h4>Follow Us</h4>
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">Pinterest</a>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>&copy; 2025 Sole & Spirit. All rights reserved. Made with love and light.</p>
-  </div>
-</footer>
 </body>
 </html>
