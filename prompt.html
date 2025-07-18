@@ -1,21 +1,38 @@
 <!DOCTYPE html>
-<html lang= "en-US">
-  <head>
-    <meta charset= "UTF-8">
-    <title>prompt.html</title>
-    <script type="text/javascript">
-      //form prompt.html
-      var person="";
-      person = prompt ("Where art thou");
-      alert("Hi");
-      alert("name");
-    </script>
-  </head>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Prompt Page</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="text/javascript">
+    window.onload = function () {
+      const person = prompt("Where art thou?");
+      if (person) {
+        alert(`Hi, ${person}!`);
+        alert(`Welcome, ${person}!`);
+      }
+    };
+  </script>
+</head>
 <body>
-  <h1>
-    Hello World
-    <em>Welcome.</em>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/KEfTPdomH6o?si=OLRdomlaXfFI_scd" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-  </h1>
+  <header>
+    <h1>Hello World</h1>
+    <em>Welcome, traveler of HTML!</em>
+  </header>
+
+  <main>
+    <section class="video-section">
+      <h2>🔮 Mysterious Message</h2>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/KEfTPdomH6o?si=OLRdomlaXfFI_scd"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </section>
+  </main>
   </body>
 </html>
