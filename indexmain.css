@@ -1,71 +1,113 @@
+/* Reset and base styles */
 body {
-    background-image:url("dolphins.jpg");
-    background-color: #6495ED;/* Used if the image is unavailable */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-attachment: fixed;
-    background-size: 100% 100%;
+  font-family: 'Georgia', serif;
+  line-height: 1.6;
+  background-color: #f8f8f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-    
-}
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 100%;
-    line-height: 1.5;
-}
-
-header,
-nav,
-main,
-footer {
-    margin: 1.25rem auto;
-    max-width: 760px;
+/* Layout Containers */
+header, footer {
+  background-color: #1c1c1c;
+  color: #fff;
+  padding: 1.5em;
+  text-align: center;
+  border-bottom: 5px solid #d4af37; /* Gold accent */
 }
 
-header,
-footer {
-    border-radius: 10px;
-    background-color: #F0F8FF;
-    color: #b8a6ff;
-    text-align: center;
-    padding: 1.5rem;
+main {
+  padding: 2em;
+  max-width: 960px;
+  margin: 0 auto;
+  background: #ffffff;
 }
 
-a.school:link {
-    color: #b8a6ff;
-    text-decoration: none;
+/* Logo and headers */
+.logo img {
+  border-radius: 8px;
+  margin-bottom: 0.5em;
 }
 
-a.school:visited {
-    color: #b8a6ff;
- text-decoration:dotted;
-}
-
-a.school:hover {
-    color: #F5F5DC;
-    text-decoration:navy;
-}
-
-a.school:active {
-    color:#b8a6ff;
-}
-
-img {
-    float: right;
-    margin: 8px;
-    width: 200px;
-    height: 274px;
-}
-
-    h1 {
-    font-size: 2.75em;
-    font-weight: bold;
+h1 {
+  font-size: 2.5em;
+  margin: 0.2em 0;
 }
 
 h2 {
-    font-size: 1.875em;
-    font-weight: lighter;
+  font-size: 1.5em;
+  font-style: italic;
+  margin-bottom: 1em;
 }
 
-p {
-    font-size: 0.875em;
+h3 {
+  margin-top: 2em;
+  font-size: 1.2em;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Section styles */
+section.intro {
+  border-left: 6px solid #d4af37;
+  padding-left: 1em;
+  margin-bottom: 2em;
+}
+
+section.article-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+section.article-list li {
+  margin-bottom: 0.5em;
+}
+
+section.article-list a {
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+section.article-list a:hover {
+  text-decoration: underline;
+}
+
+/* Video embed */
+section.media iframe {
+  display: block;
+  margin: 1em auto;
+  border: 1px solid #ccc;
+}
+
+/* Footer */
+footer a {
+  color: #f8f8f8;
+  text-decoration: underline;
+}
+
+footer p {
+  margin: 0.3em 0;
+  font-size: 0.9em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  header, footer {
+    padding: 1em;
+  }
+
+  main {
+    padding: 1em;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
 }
