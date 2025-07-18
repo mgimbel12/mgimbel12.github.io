@@ -4,23 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Haunted Mansion Registry</title>
-  <link rel="stylesheet" type="text/css" href="floatform.css">
+  <link rel="stylesheet" href="floatform.css">
 </head>
-
 <body>
   <header>
-    <h1>Welcome to the Haunted Mansion</h1>
-    <p>
-      Deep within the eerie corridors of Disney’s Haunted Mansion, 999 happy haunts await your arrival. 
-      This iconic attraction, first opened in Disneyland in 1969, blends gothic architecture, ghostly illusions, 
-      and whimsical storytelling to create a timeless experience. Whether you're a foolish mortal or a seasoned spirit, 
+    <h1>🏰 Welcome to the Haunted Mansion</h1>
+    <p class="intro">
+      Deep within the eerie corridors of Disney’s Haunted Mansion, 999 happy haunts await your arrival.
+      This iconic attraction, first opened in Disneyland in 1969, blends gothic architecture, ghostly illusions,
+      and whimsical storytelling to create a timeless experience. Whether you're a foolish mortal or a seasoned spirit,
       you're invited to register your ghostly presence below.
     </p>
   </header>
 
   <main>
-    <section>
-      <h2>Ghostly Guest Registry</h2>
+    <section class="registry">
+      <h2>🕯️ Ghostly Guest Registry</h2>
       <form action="#">
         <fieldset>
           <legend>Enter Your Phantom Details</legend>
@@ -39,8 +38,8 @@
       </form>
     </section>
 
-    <section>
-      <h2>Ghostly Math Prompt</h2>
+    <section class="math">
+      <h2>🧮 Ghostly Math Prompt</h2>
       <p>Even spirits enjoy a little arithmetic. Try this spooky sum:</p>
     </section>
   </main>
@@ -49,11 +48,11 @@
     <p>&copy; 2025 Haunted Mansion Tribute | Disney Inspired | All foolish mortals welcome</p>
   </footer>
 
-  <script type="text/javascript">
+  <script>
     let x = parseFloat(prompt("First number:"));
     let y = parseFloat(prompt("Second number:"));
     let sum = x + y;
-    alert(x + " plus " + y + " equals " + sum);
+    alert(`${x} plus ${y} equals ${sum}`);
   </script>
 </body>
 </html>
