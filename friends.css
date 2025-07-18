@@ -1,0 +1,78 @@
+/* Base Styles */
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fffaf5;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background-color: #f4c2c2;
+  color: #2c2c2c;
+  padding: 40px 20px;
+  text-align: center;
+  border-bottom: 4px solid #d88c9a;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: #5c5c5c;
+}
+
+/* Main Content */
+main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  font-size: 2em;
+  color: #d88c9a;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+ul li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+/* Quote Section */
+.quote {
+  background-color: #f0f0f0;
+  padding: 20px;
+  font-style: italic;
+  border-left: 5px solid #d88c9a;
+  margin-top: 20px;
+}
+
+/* Footer */
+footer {
+  background-color: #f4c2c2;
+  color: #2c2c2c;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+  border-top: 4px solid #d88c9a;
+}
