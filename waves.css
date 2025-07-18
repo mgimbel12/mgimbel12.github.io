@@ -1,6 +1,96 @@
-Body{
- background-color: lightblue;
+ /* Typography and color palette */
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f4f4f4;
  background-image: url("http://bestanimations.com/Nature/nature-waterfall-animated-gif-2.gif");
  background-repeat: no-repeat;
- background-size: full-length; 
+ background-size: full-length;
+ color: #333;
+  margin: 0;
+  padding: 0;
 }
+
+h1 {
+  font-family: 'Source Serif Pro', serif;
+  font-size: 2.5rem;
+  color: #1c3d5a;
+  text-align: center;
+  margin-top: 1.5em;
+}
+
+.subtitle {
+  text-align: center;
+  font-style: italic;
+  color: #666;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 1em 0;
+}
+
+p {
+  line-height: 1.6;
+  margin: 1em 0;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2em;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+figure {
+  margin: 2em 0;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+figcaption {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 0.5em;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+  margin: 2em 0;
+}
+
+nav li {
+  display: inline;
+  margin: 0 1em;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #005a9c;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.back-link {
+  text-align: center;
+  margin: 2em 0;
+}
+
+footer {
+  background-color: #1c3d5a;
+  color: #fff;
+  text-align: center;
+  padding: 1em 0;
+  font-size: 0.9em;
+}
+
