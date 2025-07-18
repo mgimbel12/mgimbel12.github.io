@@ -1,0 +1,25 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f8ff;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+}
+.sketch-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.sketch-item {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #aaa;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+.item1:hover { background-color: #ffadad; }
+.item2:hover { background-color: #caffbf; }
+.item3:hover { background-color: #9bf6ff; }
+/* Add more styled items as needed */
