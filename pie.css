@@ -1,44 +1,59 @@
 body {
-  background-color: powderblue;
-   background-image: url("https://media1.tenor.com/images/3d6580d6069805db98f2d61a8b65a8ae/tenor.gif?itemid=10027058");
-   background-repeat: repeat-x;  
-   
-}
-h1 {
- color:Pink;
-  background-image: url("https://static1.squarespace.com/static/562e1777e4b04d9c2eb27404/562ed670e4b0c666575d1ef4/5750f04e555986f675e8fade/1464922217536/rhubarb-pie.gif?format=500w");
-  font-family: "Reddit Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-p {
-  color: red;
-   font-family: "Reddit Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-h2{
-  color:purple;
-   font-family: "Reddit Mono", monospace;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-center{
-  color:Teal;
-  font-family: .poppins-thin {
-  font-family: "Poppins", sans-serif;
-  font-weight: 100;
-  font-style: normal;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background-color: #fff8f0;
+  color: #333;
+  line-height: 1.6;
 }
 
-.poppins-extralight {
-  font-family: "Poppins", sans-serif;
-  font-weight: 200;
-  font-style: normal;
+nav {
+  background-color: #f3a683;
+  padding: 10px;
+  text-align: center;
 }
 
-.poppins-light {
+nav a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+header {
+  background-color: #f7d794;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  padding: 30px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.intro, .ingredients, .instructions, .outro {
+  margin-bottom: 40px;
+}
+
+.image-block {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.image-block img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+ul, ol {
+  padding-left: 20px;
+}
+
+footer {
+  background-color: #f3a683;
+  color: white;
+  text-align: center;
+  padding: 15px;
 }
