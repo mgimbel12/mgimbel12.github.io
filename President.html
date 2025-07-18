@@ -1,43 +1,46 @@
-<!DOC TYPE HTML>
-<!-- comment here -->
-<html lang="en-us">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  Welcome to the President homepage
+  <meta charset="UTF-8">
+  <meta name="author" content="Marissa">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Future Girl President</title>
+  <link rel="stylesheet" href="America.css">
 </head>
-  <!--Leave a comment here-->
-<meta charset="utf-8">
-<meta name="author" content="Marissa">
-  <title> 
-  Future Girl President
-  </title>
+<body>
+  <header>
+    <h1>Future Girl President</h1>
+    <p class="subtitle">A Vision for America's Future</p>
+  </header>
 
-<script type="text/javascript">
-</script>
-  <body>
-    <h1>
-      What my thoughts are about the country of America.
-    </h1>
-    <div>
-    
-    </div>
- <input type="text" id="txtfrom" size="10">
-  <p>To (10-digits wireless phone number):</p>
-  <input type="text" id="txtTo" size="10">
-    <h2>
-       <p> Message: <br>
-    <textarea id="txtMessage" rows="8" cols="40">
-    </textarea>
-       </p>
-    <p><button type="button">Send</button></p>
-     <button type="button">Clear</button>
-    </h2>
+  <section>
+    <h2>My Thoughts About America</h2>
     <p>
-      <br>
-      <input type="text" id="years">
-        <textarea>
-  </textarea>
-    <button type="button" onclick="computeFV()">
-    </button>
+      America is a land of opportunity, resilience, and diversity. As a future leader, I believe in unity, justice, and empowering every citizen to thrive.
     </p>
-  </body>
+  </section>
+
+  <section class="message-form">
+    <h2>Send a Message</h2>
+    <form>
+      <label for="txtfrom">From:</label>
+      <input type="text" id="txtfrom" name="from" size="10">
+
+      <label for="txtTo">To (10-digit phone number):</label>
+      <input type="text" id="txtTo" name="to" size="10">
+
+      <label for="txtMessage">Message:</label>
+      <textarea id="txtMessage" name="message" rows="8" cols="40"></textarea>
+
+      <div class="buttons">
+        <button type="button">Send</button>
+        <button type="reset">Clear</button>
+      </div>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Future Girl President. All rights reserved.</p>
+  </footer>
+</body>
 </html>
