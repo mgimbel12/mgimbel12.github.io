@@ -1,27 +1,99 @@
-body{
-background-color:#FFFDD0;
-background-image: url("https://wallpapers.com/images/hd/cream-background-bvwiaxrnedx1isac.jpg");
-background-repeat:no-repeat;
-background-postion:100% 100%;
-position: absolute;  
+/* Typography & Layout */
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fafafa;
+  color: #2b2b2b;
+  margin: 0;
 }
-.h1,h2,h3,h4{
-background-color:#CCCCAA;
-font-family:Arial,san-serif, Times New Roman;
-background-color:creme;  
+
+header {
+  background-color: #790c5a;
+  color: #ffffff;
+  text-align: center;
+  padding: 2em 1em;
 }
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+
+h1 {
+  font-size: 2.5em;
+  margin: 0;
 }
-.footer{  
-postion:fixed;
-left:0;
-bottom:0;
-width:100%;
-background-color:blue;
-color:white;
-text-align:center;
+
+.subtitle {
+  font-style: italic;
+  margin-top: 0.5em;
+}
+
+main {
+  max-width: 900px;
+  margin: 2em auto;
+  padding: 1em;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Section formatting */
+.rose-entry {
+  margin-bottom: 2em;
+}
+
+.rose-entry h2 {
+  color: #790c5a;
+  font-size: 1.5em;
+  border-bottom: 2px solid #e5e5e5;
+  padding-bottom: 0.3em;
+}
+
+/* Image presentation */
+figure {
+  text-align: center;
+  margin: 1em 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+figcaption {
+  font-size: 0.9em;
+  color: #555;
+  margin-top: 0.5em;
+}
+
+/* Navigation */
+nav {
+  text-align: center;
+  margin-top: 2em;
+}
+
+nav a {
+  color: #790c5a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  background-color: #f0f0f0;
+  text-align: center;
+  padding: 1em;
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  .rose-entry h2 {
+    font-size: 1.2em;
+  }
 }
