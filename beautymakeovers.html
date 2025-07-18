@@ -1,121 +1,112 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="Princess_Make_Overs">
-    <meta name="description" content="Examples of make up overs">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Princess Makeup overs</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans&7cSource+Serif+Pro&display=swap" rel="stylesheet">
-    <link href="normalize.css" rel="stylesheet">
-    <link href="makeupovers.css" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Marissa A. Gimbel" />
+  <meta name="description" content="Princess Makeovers: Explore fashionable transformations and beauty party ideas" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Princess Makeovers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Source+Serif+Pro:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="normalize.css" rel="stylesheet" />
+  <link href="makeupovers.css" rel="stylesheet" />
 </head>
+
 <body>
-<form action="https://www.example.org/search.php">
-  <p></p>Search: </p>
-  <input type="search" name="search"/>
-  <input type="submit"value="search"/>
-</form>
-  <form action="http://www.example.org/search.php>
-    <p>search now</p>
-    <input type="search" name="search" 
-    placeholder="Enter Keyword"/>
-    <input type="submit" value="search"/>
-  </form>
-  
-<form action="https://www.example.com/review.php" method="get">
-<fieldset>
-  <legend>
-    Your Detail:
-  </legend>
-<label>
-  Name:
-  <input type="text" name="name" size="30" maxlength="100">
-</label>
-  <br/>
-  <label>
-    Email:
-  <input type="text" name="name" size="30" maxlength="100">
-  </label>
-</br>
-</fieldset>
-<legend>
-  your review:
-</legend>
-  <p>
-    <label for="hear-about">
-      How did you hear about us?
-    </label>
-    <select name="referrer" id="hear-about">
-    <option value="friend">Friend</option>
-    <option value="family">Family member</option>
-    <option value="other">Other</option>
-    </select>
-  </p>
-    <p>
-      Would you visit again? 
-      <br/>
-      <label>
-        <input type="radio" name="rating" value="yes">
-        Yes
-      </label>
-      <label>
-        <input type="radio" name="rating" value="No">
-      No</label>
-  <label> <input type="radio" name="rating" value="maybe">
-Maybe
-  </label>
-  </p>
-  <p>
-    <label for="comments">
-      comments: </label>
-  <br/>
-  <textarea rows="4" cols="40" id="comments">
-  </textarea>
-  <p>
-    <label>
-      <input type="checkbox" name="subscribe" checkid=checked" /> sign me up for email updates
-    </label>
-    <br/>
-   <input type="submit" value="submit review" />
-  </p>
-</fieldset>
-</form>
-   <h1>makeup over parties</h1>
-<p> To do something that would be parise worthy.</p>
-<h2> <em> How to do a make up over.</em>
-<p> the top look</p>
-</h2>
-  <h3> 
-    <p> <img src="https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71R2jMyRp-L._SX679_.jpg" alt="makeup" width="500" height="500"/></p>
-<ul>
-  <li> Home</li> <a href="home.html" target="_blank"></a>
-  <li>Products</li><a href="products.html" target="_blank"></a>
-  <li class="coming-soon">Services</li><a href="services" target="_blank">
-  <li>contact</li><a href="contact" target=_"blank"></a>
-</ul>
-    <form action="https://www.example.com/login/"
-      method="post">
-      <label for="username">Username:</label>
-      <input type="text name="username" required="required"/><br/>
-      <label for="password">password:</label>
-      <input type="password" name="password" required="required"/>
-      <input type="submit" value="submit"/>
+  <header>
+    <h1>💋 Princess Makeovers</h1>
+    <p class="tagline">Transformations fit for a queen. Explore beauty, fun, and style.</p>
+  </header>
+
+  <main>
+    <section class="search-bar">
+      <form action="https://www.example.org/search.php" method="get">
+        <label for="search">Search:</label>
+        <input type="search" name="search" id="search" placeholder="Find a look or theme..." />
+        <input type="submit" value="Go" />
+      </form>
+    </section>
+
+    <section class="review-form">
+      <h2>✨ Share Your Experience</h2>
+      <form action="https://www.example.com/review.php" method="get">
+        <fieldset>
+          <legend>Your Details</legend>
+          <label for="name">Name:</label>
+          <input type="text" name="name" id="name" maxlength="100" />
+
+          <label for="email">Email:</label>
+          <input type="email" name="email" id="email" maxlength="100" />
+        </fieldset>
+
+        <fieldset>
+          <legend>Review</legend>
+          <label for="hear-about">How did you hear about us?</label>
+          <select name="referrer" id="hear-about">
+            <option value="friend">Friend</option>
+            <option value="family">Family Member</option>
+            <option value="other">Other</option>
+          </select>
+
+          <p>Would you visit again?</p>
+          <label><input type="radio" name="rating" value="yes" /> Yes</label>
+          <label><input type="radio" name="rating" value="no" /> No</label>
+          <label><input type="radio" name="rating" value="maybe" /> Maybe</label>
+
+          <label for="comments">Comments:</label>
+          <textarea name="comments" id="comments" rows="4" cols="40"></textarea>
+
+          <label><input type="checkbox" name="subscribe" /> Sign me up for email updates</label>
+        </fieldset>
+
+        <input type="submit" value="Submit Review" />
+      </form>
+    </section>
+
+    <section class="feature">
+      <h2>👑 Makeup Over Parties</h2>
+      <p>Planning a makeover party that’ll leave everyone glowing with praise? Here’s how to dazzle.</p>
+
+      <h3>The Top Look</h3>
+      <img src="https://m.media-amazon.com/images/W/MEDIAX_792452-T2/images/I/71R2jMyRp-L._SX679_.jpg" alt="Makeup inspiration" />
+
+      <ul class="nav-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+
+      <form action="https://www.example.com/login/" method="post" class="login-form">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required />
+
+        <input type="submit" value="Login" />
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <form action="https://www.example.org/profile.php">
+      <p>Enter your website address:</p>
+      <input type="url" name="website" />
+      <input type="submit" value="Submit" />
     </form>
-</h3>
+
+    <form action="https://www.example.com/bookings/" method="post">
+      <label for="depart">Departure Date:</label>
+      <input type="date" name="depart" id="depart" />
+      <input type="submit" value="Book Now" />
+    </form>
+
+    <div class="video-feature">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/CevxZvSJLk8?si=j57Uz9_lgBcQvHyq" title="Makeup Transformation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+
+    <p class="credit">&copy; 2025 | Princess Makeovers by Marissa A. Gimbel</p>
+  </footer>
 </body>
-<footer> 
-<form action="https://www.example.org/profile.php">
-<p>Please enter your website address:</p>
-<input type="url" name="website" />
-<input type="submit" value="submit"/>
-</form>
-  <form action="https://www.example.com/bookings/"method="post">
-    <label for="depart"> Departure date:</label>
-    <input type="date" name="depart"/>
-    <input type="submit" value="submit"/>
-  </form>
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/CevxZvSJLk8?si=j57Uz9_lgBcQvHyq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</footer>
 </html>
