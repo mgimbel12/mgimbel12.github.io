@@ -1,0 +1,40 @@
+body {
+  background: linear-gradient(to right, indigo, purple);
+  color: #f0f8ff;
+  font-family: 'Georgia', serif;
+  padding: 20px;
+}
+
+.quiz-container {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid gold;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+input[type="text"], textarea {
+  background-color: #ffe4e1;
+  border: 1px solid #888;
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 6px;
+  font-size: 1em;
+}
+
+legend {
+  font-size: 1.4em;
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.equation-box {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #322c50;
+  color: #ffdaff;
+  border-radius: 6px;
+  font-size: 1.2em;
+}
