@@ -1,0 +1,68 @@
+/* =====================================
+   Space Exploration Stylesheet
+   Author: Marissa Gimbel
+   ===================================== */
+
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f9fdfc;
+  color: #222;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #212d5c;
+  color: #fff;
+  text-align: center;
+  padding: 30px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+header p {
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+main {
+  padding: 20px;
+}
+
+h2 {
+  color: #394d8b;
+  margin-top: 40px;
+}
+
+ul {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+.gallery figure {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.gallery img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.video-section iframe {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.planet-facts article {
+  background-color: #eef4ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 
