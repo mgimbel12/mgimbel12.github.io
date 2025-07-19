@@ -1,37 +1,50 @@
-body{
- background-image: url("https://media.giphy.com/media/loj9RWUu7DdSoxrjWd/giphy.gif");
-      background-repeat: no-repeat;
-      background-position: right top;
-      background-attachment: fixed;
-      background-Color: blue;
-      Color: aqua;
-}
-Header{
- padding: 60px;
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(#fffcee, #e3f6fd);
+  color: #333;
+  margin: 0;
+  padding: 20px;
   text-align: center;
-  background: #1abc9c;
-  color: white;
-  font-size: 30px;
 }
-h1, h2,h3,h4{
-/* style */
-border: solid;
 
-/* width | style */
-border: 2px dotted;
-
-/* style | color */
-border: outset #f33;
-
-/* width | style | color */
-border: medium dashed green;
-
-/* Global values */
-border: inherit;
-border: initial;
-border: revert;
-border: revert-layer;
-border: unset;
+h1, h2, h3 {
+  font-family: 'Source Serif Pro', serif;
+  color: #457fca;
+  margin-bottom: 10px;
 }
-P {
+
+h1 {
+  font-size: 2.5em;
+}
+
+h2 {
+  font-size: 1.8em;
+  color: #6794c9;
+}
+
+h3 {
+  font-size: 1.5em;
+  color: #7a6ad4;
+}
+
+img {
+  border-radius: 10px;
+  margin: 15px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+iframe {
+  margin: 20px auto;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.15);
+}
+
+footer {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f7f9fc;
+  font-style: italic;
+  font-size: 1em;
+  color: #666;
 }
