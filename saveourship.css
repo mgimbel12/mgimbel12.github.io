@@ -1,20 +1,68 @@
-body{
-background-image: url("https://s.yimg.com/fz/api/res/1.2/_DlWBFkcFkMhNF4CKryaJQ--~C/YXBwaWQ9c3JjaGRkO2g9NzUwO3E9OTU7dz0xMDAw/https://s.yimg.com/bj/eff9/eff9b9114d122e75354260ba57238d75.jpg");
-background-repeat:no repeat;
-background-attachment: fixed;
-background-size:100% 100%;  
-}
-h1{
-color:DodgerBlue;
+/* ---------------------------------------------------
+   Save Our Ship Stylesheet
+   Author: Marissa A. Gimbel
+   Purpose: Tribute and awareness design
+--------------------------------------------------- */
+
+/* Global Styles */
+body {
+  background-image: url("https://s.yimg.com/fz/api/res/1.2/_DlWBFkcFkMhNF4CKryaJQ--~C/YXBwaWQ9c3JjaGRkO2g9NzUwO3E9OTU7dz0xMDAw/https://s.yimg.com/bj/eff9/eff9b9114d122e75354260ba57238d75.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover; /* Updated for cleaner scalability */
+  margin: 0;
+  padding: 0;
   font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-style: normal;
 }
 
-section{
-color:DodgerBlue;
-font-family:"Roboto", sans-serif;
-font-weight:1000;
-font-style:normal;
+/* Main Heading */
+h1 {
+  color: DodgerBlue;
+  font-weight: 100; /* Light and elegant */
+  font-style: normal;
+  text-align: center;
+  padding: 20px 0;
+}
 
+/* Section Content */
+section {
+  color: DodgerBlue;
+  font-weight: 700; /* Semi-bold for readability */
+  font-style: normal;
+  padding: 20px;
+  line-height: 1.6;
+}
+
+/* Optional Enhancements */
+h2, h3 {
+  color: MidnightBlue;
+  font-weight: 600;
+  border-bottom: 2px solid DodgerBlue;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+}
+ul {
+  list-style-type: disc;
+  padding-left: 40px;
+}
+em {
+  display: block;
+  margin-top: 10px;
+  font-style: italic;
+  color: DarkSlateGray;
+}
+footer {
+  text-align: center;
+  font-size: 0.9em;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: Navy;
+}
+/* Responsive Embed */
+iframe {
+  max-width: 100%;
+  height: auto;
+  border: none;
+  display: block;
+  margin: 20px auto;
 }
