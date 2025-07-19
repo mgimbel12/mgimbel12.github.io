@@ -1,44 +1,107 @@
-h1 {
-  background-color: green;
-  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ef60203c-f4af-40d4-8b12-ed8495a433bf/d3l1rwf-d1b5dd47-595a-4a2a-981f-9f1a6dd568e8.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2VmNjAyMDNjLWY0YWYtNDBkNC04YjEyLWVkODQ5NWE0MzNiZlwvZDNsMXJ3Zi1kMWI1ZGQ0Ny01OTVhLTRhMmEtOTgxZi05ZjFhNmRkNTY4ZTguanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.DQL7wTwgoolt5--8pl17NTKsDah5o5EgMgnk9V5Zuz8");
-  font-family:"Lucida Console", "Courier New", monospace; 
-   width: 400px;
-  border: 15px solid green;
-  padding: 50px;
-  margin: 20px;
+/* Chloe Sullivan Tribute Styles by Marissa Gimbel */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  background-color: #f5f9ff;
+  color: #333;
+  line-height: 1.6;
 }
-p {
-  background-color: lightblue;
-  background-image: url("http://4.bp.blogspot.com/-jI5dpFlXVJc/UnhA0snLG5I/AAAAAAAAARY/Jrzc1RQxOYw/s1600/animation-gif-james-howard-animated-1274442.jpg.gif");
-  font-family: Arial, Helvetica, sans-serif;
-  padding-top: 50px;
-  padding-right: 30px;
-  padding-bottom: 50px;
-  padding-left: 80px;
-  p.dashed {border-style: dashed;}
-}
-section{ 
-  background-color: lightblue;
-  font-family: Arial, Helvetica, sans-serif;
-  padding-top: 50px;
-  padding-right: 30px;
-  padding-bottom: 50px;
-  padding-left: 80px;
-}
-.center {
+
+header {
+  background-color: #6e88d8;
+  color: white;
+  padding: 30px;
   text-align: center;
-  border: 3px solid green;
 }
-div.relative {
-  position: relative;
-  left: 30px;
-  border: 3px solid #73AD21;
+
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
 }
-footer{
-  background-color:blue;
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+section h2 {
+  color: #4a5ea5;
+  margin-bottom: 10px;
+}
+
+.video-section iframe {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+footer {
+  background-color: #6e88d8;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9em;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
   font-family:Arial, Helvetica, sans-serif;
   padding-top: 50px;
   padding-right: 30px;
   padding-bottom: 50px;
   padding-left: 80px;
 }
+/* Chloe Sullivan Video Highlight */
+.video-highlight {
+  background-color: #f0f4ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 40px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.video-highlight h2 {
+  color: #4a5ea5;
+  margin-bottom: 15px;
+}
+
+.video-highlight iframe {
+  max-width: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+.video-caption {
+  margin-top: 10px;
+  font-style: italic;
+  color: #555;
+}
+
+
