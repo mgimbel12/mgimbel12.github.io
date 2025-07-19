@@ -1,38 +1,57 @@
 <!DOCTYPE html>
-<html>
- <title>Marissa A. G.</title>
- <link rel="shortcut icon" href="https://tse3.mm.bing.net/th?id=OIP.ulhZZOos3D5f9IBddTBpXgHaI3&pid=Api&P=0&h=220">
- <link rel="stylesheet" href="aboutme.css"
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Marissa Gimbel">
+  <meta name="description" content="Personal introduction and contact form for Marissa Gimbel">
+  <title>About Marissa A. G.</title>
+  <link rel="stylesheet" href="aboutme.css">
+  <link rel="shortcut icon" href="https://tse3.mm.bing.net/th?id=OIP.ulhZZOos3D5f9IBddTBpXgHaI3&pid=Api&P=0&h=220">
+</head>
+
 <body>
-  <nav>
-  <a href="index.html">home</a>
-  <a href="Sailormoon.html">Sailormoon</a>
-  </nav>
-<h1>About Me</h1>
-<p>Marissa A. G.</p>
- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0qKni8bp-3KKUWZ4vn5Z6f3RUTPhbTCO7qQ&s"alt="snow-white"/>
- <h3>Write to Marissa</h3>
-<div class="container">
-  <form action="/action_page.php">
-    <label for="fname">First Name</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+  <header>
+    <h1>👋 About Me</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Sailormoon.html">Sailor Moon Tribute</a>
+    </nav>
+  </header>
 
-    <label for="lname">Last Name</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+  <main>
+    <section class="intro">
+      <h2>Hi, I'm Marissa A. G.</h2>
+      <p>I create joyful, interactive, and meaningful digital experiences—blending art, storytelling, and healing.</p>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0qKni8bp-3KKUWZ4vn5Z6f3RUTPhbTCO7qQ&s" alt="Snow White style image" class="profile-img">
+    </section>
 
-    <label for="country">Country</label>
-    <select id="country" name="country">
-      <option value="United States">United States</option>
-      <option value="Japan">Japan</option>
-      <option value="Peru">Peru</option>
-    </select>
+    <section class="form-section">
+      <h3>💌 Write to Marissa</h3>
+      <form action="/action_page.php" method="post">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
 
-    <label for="subject">Subject</label>
-    <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
 
-    <input type="submit" value="Submit">
-  </form>
-</div>
-<footer>Marissa A. G. About her</footer>
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="United States">United States</option>
+          <option value="Japan">Japan</option>
+          <option value="Peru">Peru</option>
+        </select>
+
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." rows="6"></textarea>
+
+        <input type="submit" value="Submit">
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 | About Marissa A. Gimbel</p>
+  </footer>
 </body>
 </html>
