@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parker Tribute</title>
-  <meta name="description" content="A creative tribute page celebrating Parker">
-  <link rel="stylesheet" href="parkerKG.css">
-  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  <meta name="description" content="A heartfelt tribute to Parker—creative, inspiring, and luminous." />
+  <link rel="stylesheet" href="parker-tribute.css" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
 </head>
 <body>
   <header>
@@ -22,28 +22,50 @@
     </nav>
   </header>
 
-  <main>
+  <div class="content-wrapper">
     <section>
-      <p>This is a paragraph introducing Parker—creative, inspiring, and worth celebrating.</p>
+      <p>This page is dedicated to Parker—creative, inspiring, and worth celebrating.</p>
+      <blockquote class="parker-quote">“He brought light where there was shadow.”</blockquote>
     </section>
-    <section class="video-section">
-      <h2>Featured Video</h2>
-      <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/g8uP-uj0Pmc?si=0pxE4hl9QW8vhgAV"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
-      <p><a href="https://www.youtube.com/watch?v=ApXoWvfEYVU0" target="_blank">Watch: Sunflower</a></p>
+
+    <section>
+      <h2>Sunflower Strength</h2>
+      <div class="video-pair">
+        <iframe width="460" height="260"
+          src="https://www.youtube.com/embed/g8uP-uj0Pmc?si=0pxE4hl9QW8vhgAV"
+          title="Featured Video"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+        <iframe width="460" height="260"
+          src="https://www.youtube.com/embed/ApXoWvfEYVU"
+          title="Sunflower Tribute"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
     </section>
-    <img src="1000000026.jpg" alt="parker" />
-    <img src="1000000050.jpg" alt="parker01"/>
-    <img src="1000000129.jpg" alt="parker_00"/>
-  </main>
+
+    <section>
+      <h2>The Colors He Left Behind</h2>
+      <div class="image-gallery">
+        <img src="1000000026.jpg" alt="Parker" />
+        <img src="1000000050.jpg" alt="Parker01" />
+        <img src="1000000129.jpg" alt="Parker_00" />
+      </div>
+    </section>
+    <section>
+      <h2>Share a Memory</h2>
+      <form action="mailto:your@email.com" method="POST">
+        <label for="memory">What did Parker mean to you?</label><br/>
+        <textarea id="memory" name="memory" rows="4" cols="50" placeholder="Type your thoughts..."></textarea><br/>
+        <input type="submit" value="Submit" />
+      </form>
+    </section>
+  </div>
   <footer>
-    <a href="index.html">Back to Home</a>
-    <p>&copy; 2025 | Created by Marissa A. Gimbel</p>
+    <p>With Love and Light, Always — Created by Marissa A. Gimbel</p>
+    <p>&copy; 2025 | Honoring Parker</p>
   </footer>
 </body>
 </html>
