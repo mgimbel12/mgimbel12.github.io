@@ -1,23 +1,34 @@
-Body{
-background-color:dodgerblue;
-background-repeat: no-repeat;
-background-size: 100% 100%;
-background-image: url("https://www.wallofcelebrities.com/celebrity/sam-jones-iii/pictures/xxlarge/sam-jones-iii_550143.jpg");
-font-family: Arial, Helvetica, sans-serif;  
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f7f9;
+  color: #333;
+  margin: 0;
+  padding: 20px;
 }
-h1{
-color:yellow;
-font-family:Arial, Helvetica, Sans-serif; 
+
+header, footer {
+  background-color: #001f3f;
+  color: white;
+  padding: 20px;
+  text-align: center;
 }
-h2{
-color:aqua; 
-font-family:Arial, Helvetica, Sans-serif; 
+
+h1, h2 {
+  color: #005288;
 }
-p{
-Color:white;
-font-family:Arial, Helvetica, Sans-serif;
+
+section {
+  margin: 20px 0;
 }
-footer{
-color:white;
-font-family: Arial, Helvetica, Sans-serif;
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+iframe {
+  display: block;
+  margin: 20px auto;
+  border: 2px solid #ccc;
 }
