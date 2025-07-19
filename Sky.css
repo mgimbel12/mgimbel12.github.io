@@ -1,69 +1,63 @@
 body {
-    background-image:url(" https://img.freepik.com/premium-vector/earth-atmosphere-layers-names-colorful-infographic-poster-with-meteors-radiosonde-satellite-spaceship-vector-illustration-starry-sky-background_93083-3358.jpg?w=2000");
-    background-color: #6495ED;/* Used if the image is unavailable */
-    height: 500px; /* You must set a specified height */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-     background-size: cover; /* Resize the background image to cover the entire container */
-}
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 100%;
-    line-height: 1.5;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(to bottom, #cbe6ff, #edf6ff);
+  color: #333;
+  line-height: 1.6;
 }
 
-header,
-nav,
-main,
-footer {
-    margin: 1.25rem auto;
-    max-width: 760px;
+header {
+  background: linear-gradient(to right, #a6d8ff, #d0ebff);
+  padding: 20px;
+  text-align: center;
+  font-family: 'Source Serif Pro', serif;
 }
 
-header,
-footer {
-    border-radius: 10px;
-    background-color: #F0F8FF;
-    color: #b8a6ff;
-    text-align: center;
-    padding: 1.5rem;
-}
-
-a.school:link {
-    color: #b8a6ff;
-    text-decoration: none;
-}
-
-a.school:visited {
-    color: #b8a6ff;
- text-decoration:dotted;
-}
-
-a.school:hover {
-    color: #F5F5DC;
-    text-decoration:navy;
-}
-
-a.school:active {
-    color:#b8a6ff;
-}
-
-img {
-    float: right;
-    margin: 8px;
-    width: 200px;
-    height: 274px;
-}
-
-    h1 {
-    font-size: 2.75em;
-    font-weight: bold;
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
 }
 
 h2 {
-    font-size: 1.875em;
-    font-weight: lighter;
+  color: #004e89;
+  margin-top: 30px;
 }
 
-p {
-    font-size: 0.875em;
+h3 {
+  color: #006c9f;
+  font-weight: 600;
+}
+
+nav a {
+  color: #006db3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+iframe {
+  width: 100%;
+  max-width: 560px;
+  border-radius: 10px;
+  margin: 20px auto;
+  display: block;
+}
+
+footer {
+  background-color: #f0f8ff;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9em;
+  border-top: 1px solid #ddd;
 }
