@@ -1,23 +1,62 @@
-body{
-background-image: url("https://media.giphy.com/media/LTKwbQx7SvVhS/giphy.gif");
-background-repeat: no-repeat;
-background-position: right top;
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #1e1e1e, #383838);
+  color: #f0f0f0;
+  text-align: center;
 }
 
-h1{
-
+h1, h2 {
+  color: #ffd6d6;
+  font-weight: 300;
+  margin-bottom: 10px;
 }
 
-h2{
-
+p, em {
+  font-style: italic;
+  margin-top: 10px;
+  color: #bbbbbb;
 }
-sections{
 
+form {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 500px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #444;
 }
-form{
 
-
+input[type="text"],
+input[type="password"],
+textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 5px;
 }
-footer{
 
+input[type="submit"] {
+  background-color: #5a5a5a;
+  color: white;
+  padding: 8px 16px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+iframe {
+  margin-top: 20px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #666;
+  color: #999;
 }
