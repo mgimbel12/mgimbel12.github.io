@@ -1,38 +1,52 @@
-body{
-background-color: lightblue;
-background-image: url("https://4.bp.blogspot.com/-DM2KLtkw9b0/WvMj9ainrnI/AAAAAAAAtZs/2nbcotOIp78dGoQM6vgbhNxsXHhJNitEgCLcBGAs/s1600/WhiteTameDartfrog-size_restricted.gif");
-background-size:100%, 100%;
-}
-h1 {
-  color: white;
-  text-align: center;
-}
-p {
-  font-family: verdana;
-  font-size: 20px;
-table {
- width: 100%;
- border-collapse: collapse;
-}
-  table, th, td {
-  border: 1px solid;
-}
-  a:link {
-  text-decoration: none;
-}
-a:visited {
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(#f0f4f8, #e2eafc);
+  color: #333;
+  margin: 0;
+  padding: 20px;
 }
 
-a:active {
-  text-decoration: underline;
-}  
-  footer {
-    color:blue;
-    position:fixed;
-    bottom:0;
-    left:0;
-  }
+h1 {
+  font-family: 'Source Serif Pro', serif;
+  font-size: 2.5em;
+  text-align: center;
+  color: #4a6fa5;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.4em;
+  text-align: center;
+  color: #6d88b6;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+th {
+  background-color: #dfe8f2;
+  font-weight: bold;
+}
+
+footer {
+  text-align: center;
+  font-style: italic;
+  padding: 20px 0;
+  color: #4a4a4a;
+  background-color: #f0f4f8;
+}
+
