@@ -1,0 +1,37 @@
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #e0f7fa;
+  text-align: center;
+  padding: 2rem;
+  color: #333;
+}
+
+h1 {
+  color: #0077be;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.square {
+  width: 60px;
+  height: 60px;
+  background-color: #b2ebf2;
+  border: 2px solid #0097a7;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.square.hit {
+  background-color: #ff8a65;
+}
+
+.square.miss {
+  background-color: #cfd8dc;
+}
+
