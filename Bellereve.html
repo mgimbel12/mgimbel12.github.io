@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Belle Reve Mental Health Unit</title>
+  <link rel="stylesheet" href="bellereve.css">
+</head>
+<body>
+  <header>
+    <h1>Belle Reve</h1>
+    <p class="subtitle">"Where the dangerous minds are kept under lock and key."</p>
+  </header>
+
+  <main>
+    <section class="overview">
+      <h2>Facility Overview</h2>
+      <p>Belle Reve is known as the last resort for metahumans, villains, and unstable geniuses. Behind every door is a mind too dangerous—or too brilliant—for the outside world.</p>
+    </section>
+
+    <section class="profile-form">
+      <h2>Visitor Access Form</h2>
+      <form onsubmit="handleSubmit(event)">
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" required>
+
+        <label for="reason">Reason for Visit:</label>
+        <select id="reason">
+          <option value="interview">Interview</option>
+          <option value="transfer">Transfer Clearance</option>
+          <option value="therapy">Therapeutic Session</option>
+        </select>
+
+        <label for="notes">Additional Notes:</label>
+        <textarea id="notes"></textarea>
+
+        <button type="submit">Submit</button>
+        <p id="feedback"></p>
+      </form>
+    </section>
+
+    <section class="quotes">
+      <h2>Echoes from the Walls</h2>
+      <ul>
+        <li>"I'm not crazy. I'm ahead of the curve." — Joker</li>
+        <li>"Every cell holds a story." — Unknown Inmate</li>
+        <li>"It's not the place... it's who you become inside." — Amanda Waller</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Belle Reve Tribute by Marissa</p>
+  </footer>
+
+  <script src="bellereve.js"></script>
+</body>
+</html>
