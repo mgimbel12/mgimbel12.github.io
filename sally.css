@@ -1,0 +1,42 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to right, #ffe6f0, #fffbdc);
+  color: #333;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  padding: 2rem;
+  background-color: #ffc4e4;
+  color: #73004f;
+}
+
+img {
+  width: 200px;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+button {
+  background-color: #f7b5ff;
+  border: none;
+  padding: 1em 2em;
+  border-radius: 30px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #e59de0;
+}
+
+#shine-reveal {
+  margin-top: 2rem;
+}
+
+.hidden {
+  display: none;
+}
