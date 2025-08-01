@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cold Stone Creamery</title>
+  <style>
+    /* 🍨 CSS Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+      color: #5c2c2c;
+    }
+
+    header {
+      background-color: #d62828;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    .item {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 200px;
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    button {
+      background-color: #d62828;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #a61c1c;
+    }
+
+    .order-list {
+      margin: 2rem auto;
+      max-width: 600px;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .order-list h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #ffe4e1;
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      border-radius: 5px;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>🍨 Cold Stone Creamery</header>
+
+  <section class="menu">
+    <div class="item">
+      <h3>Chocolate Devotion</h3>
+      <p>Rich chocolate ice cream with fudge and brownie.</p>
+      <button onclick="addToOrder('Chocolate Devotion')">Add to Order</button>
+    </div>
+    <div class="item">
+      <h3>Strawberry Blonde</h3>
+      <p>Strawberry ice cream with caramel and graham cracker.</p>
+      <button onclick="addToOrder('Strawberry Blonde')">Add to Order</button>
+    </div>
+    <div class="item">
+      <h3>Mint Mint Chocolate Chip</h3>
+      <p>Mint ice cream with chocolate chips and fudge.</p>
+      <button onclick="addToOrder('Mint Mint Chocolate Chip')">Add to Order</button>
+    </div>
+  </section>
+
+  <section class="order-list">
+    <h2>🛒 Your Order</h2>
+    <ul id="orderItems"></ul>
+  </section>
+
+  <script>
+    // 🍦 JavaScript Order Logic
+    function addToOrder(itemName) {
+      const orderList = document.getElementById('orderItems');
+      const newItem = document.createElement('li');
+      newItem.textContent = itemName;
+      orderList.appendChild(newItem);
+    }
+  </script>
+
+</body>
+</html>
