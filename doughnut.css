@@ -1,0 +1,88 @@
+/* doughnut.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+  text-align: center;
+  color: #6b4c3b;
+}
+
+.doughnut-land {
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #ff69b4;
+}
+
+.doughnut-display {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.doughnut {
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.doughnut::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 50%;
+}
+
+.small {
+  width: 80px;
+  height: 80px;
+}
+
+.small::before {
+  width: 25px;
+  height: 25px;
+}
+
+.medium {
+  width: 120px;
+  height: 120px;
+}
+
+.medium::before {
+  width: 35px;
+  height: 35px;
+}
+
+.large {
+  width: 160px;
+  height: 160px;
+}
+
+.large::before {
+  width: 45px;
+  height: 45px;
+}
+
+/* Colors */
+.pink {
+  background-color: #ffb6c1;
+}
+
+.chocolate {
+  background-color: #8b4513;
+}
+
+.sprinkle {
+  background: radial-gradient(circle at center, #f5deb3 60%, #ff69b4 40%);
+  background-size: cover;
+}
+
