@@ -1,0 +1,61 @@
+/* styles.css */
+body {
+  background-color: #f4e2d8; /* sandy beige */
+  font-family: 'Courier New', Courier, monospace;
+  color: #5c3d2e; /* earthy brown */
+  text-align: center;
+  padding: 2rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #a0522d; /* sienna */
+}
+
+ul#character-list {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+ul#character-list li {
+  background-color: #deb887; /* burlywood */
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  width: 60%;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+#dig-box {
+  width: 200px;
+  height: 100px;
+  background-color: #8b4513; /* saddle brown */
+  color: #fff;
+  line-height: 100px;
+  margin: 2rem auto;
+  border-radius: 50% 50% 0 0;
+  position: relative;
+  animation: digMove 3s infinite alternate ease-in-out;
+}
+
+@keyframes digMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(50px); }
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #cd853f; /* peru */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d2691e; /* chocolate */
+}
+
