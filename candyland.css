@@ -50,4 +50,14 @@ button {
   border-radius: 8px;
   cursor: pointer;
 }
-
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ff66cc;
+  border-radius: 50%;
+  animation: fall 3s linear infinite;
+  top: -10px;
+  left: calc(100% * var(--x));
+}
+@keyframes
