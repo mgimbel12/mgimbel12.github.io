@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elder Gimbel's Weekly Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to bottom, #f0f4ff, #dbeafe);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #1e40af;
+      margin-top: 2rem;
+    }
+
+    .highlight {
+      background-color: #e0f2fe;
+      padding: 0.5rem;
+      border-left: 4px solid #0ea5e9;
+      margin: 1rem 0;
+    }
+
+    .shoutout {
+      font-weight: bold;
+      color: #0f766e;
+    }
+
+    .art-generator {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #fef9c3;
+      border-radius: 6px;
+      border: 2px dashed #facc15;
+    }
+
+    button {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+    }
+
+    .output {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #374151;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Elder Gimbel's Weekly Journal</h1>
+    <p>Faith • Friendship • Devotion • Basketball</p>
+  </header>
+
+  <div class="container">
+    <p>Sundays are still awesome. We had a <strong>Go and Do experience</strong>—a 2-hour personal study. I didn’t know what to study, but my sister sent me my buddy’s farewell and homecoming talks. <span class="shoutout">Shout out Elders Kim & Bate!</span></p>
+
+    <div class="highlight">
+      “God knows our potential. We need to believe in ourselves and in Him.” — Brother Gabriel W. Reid
+    </div>
+
+    <p>Exercise has been solid despite limited equipment. Elder Reid is a beast 💪. I should probably start doing cardio to prep for walking in Peru.</p>
+
+    <p>Brother and Sister Reid gave a devotional. Sister Reid reminded us that <em>we act like the people we surround ourselves with</em>. I’m grateful for my friends and our Christ-centered relationships. It made me reflect on Jesus—my friend and example. <span class="shoutout">Shout out TMNT 🐢 ifykyk</span></p>
+
+    <p>My boy Elder Kim came this week! We caught up and played basketball—just like old times with the ANTs 🏀.</p>
+
+    <h2>Personal Study Wins</h2>
+    <p>Praying before study made a huge difference. So I invite you to pray—just a simple conversation with your Heavenly Father before bed. I promise it’ll be a great experience.</p>
+    <div class="highlight">
+      “Jesus is the Christ. He can calm your storm. He will pick you up when you fall.” — Elder Gimbel
+    </div>
+    <h2>🎨 Digital On-Demand Works of Art</h2>
+    <div class="art-generator">
+      <p>Click below to generate a spiritual inspiration based on this week’s themes:</p>
+      <button onclick="generateArt()">Generate Inspiration</button>
+      <div class="output" id="artOutput"></div>
+    </div>
+  </div>
+  <script>
+    const inspirations = [
+      "Faith is the bridge between your trial and your triumph.",
+      "Friendship rooted in Christ is a light that never dims.",
+      "Obedience unlocks the divine potential within you.",
+      "Prayer is the paintbrush of your soul’s masterpiece.",
+      "Jesus calms the storm not by removing it, but by walking with you through it.",
+      "Devotion is the daily art of becoming more like Him.",
+      "Influence is the echo of your example—make it Christ-centered.",
+      "Your spiritual journey is a canvas—every act of faith adds color."
+    ];
+    function generateArt() {
+      const output = document.getElementById("artOutput");
+      const randomIndex = Math.floor(Math.random() * inspirations.length);
+      output.textContent = inspirations[randomIndex];
+    }
+  </script>
+</body>
+</html>
