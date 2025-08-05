@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.store, .cart {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 40%;
+}
+
+.product, .cart-item {
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 5px 10px;
+  cursor: pointer;
+}
