@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .product, #cart {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 10px;
+      width: 45%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .product h3 {
+      margin-top: 0;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #cart-items {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #cart-items li {
+      margin-bottom: 8px;
+    }
+
+    #total {
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .product, #cart {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Shopping Cart</h1>
+
+  <div class="container">
+    <div class="product">
+      <h3>Item A</h3>
+      <p>$10</p>
+      <button onclick="addToCart('Item A', 10)">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <h3>Item B</h3>
+      <p>$20</p>
+      <button onclick="addToCart('Item B', 20)">Add to Cart</button>
+    </div>
+
+    <div id="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p>Total: $<span id="total">0</span></p>
+      <button onclick="checkout()">Buy Now</button>
+    </div>
+  </div>
+  <script>
+    let cart = [];
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - $${item.price}`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      document.getElementById('total').textContent = total;
+    }
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+      }
+      alert('Thank you for your purchase!');
+      cart = [];
+      updateCart();
+    }
+  </script>
+</body>
+</html>
