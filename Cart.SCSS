@@ -1,0 +1,65 @@
+$primary-color: #4CAF50;
+$font-stack: 'Segoe UI', sans-serif;
+
+body {
+  font-family: $font-stack;
+  margin: 0;
+  padding: 0;
+  background: #f5f5f5;
+}
+
+header {
+  background: $primary-color;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+main {
+  padding: 2rem;
+}
+
+#productContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+
+  .product {
+    background: white;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    button {
+      background: $primary-color;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+    }
+  }
+}
+
+#cartContainer {
+  list-style: none;
+  padding: 0;
+
+  li {
+    background: white;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+  }
+}
