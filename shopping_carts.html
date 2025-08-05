@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="shopping_cart.css">
+</head>
+<body>
+  <div class="store">
+    <h1>Product List</h1>
+    <div class="product" data-name="Item A" data-price="15">
+      <h2>Item A</h2>
+      <p>$15</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+    <div class="product" data-name="Item B" data-price="25">
+      <h2>Item B</h2>
+      <p>$25</p>
+      <button class="add-to-cart">Add to Cart</button>
+    </div>
+  </div>
+
+  <div class="cart">
+    <h1>Your Cart</h1>
+    <ul id="cart-items"></ul>
+    <p>Total: $<span id="total">0</span></p>
+    <button id="clear-cart">Clear Cart</button>
+  </div>
+
+  <script src="Shopping_cart.js"></script>
+</body>
+</html>
+
