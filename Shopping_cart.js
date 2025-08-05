@@ -8,7 +8,6 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     addToCart(name, price);
   });
 });
-
 function addToCart(name, price) {
   const item = cart.find(i => i.name === name);
   if (item) {
