@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inertia in Motion</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #eef2f3, #8e9eab);
+      overflow: hidden;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #333;
+    }
+    #container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      border-top: 2px solid #444;
+      border-bottom: 2px solid #444;
+    }
+    #ball {
+      position: absolute;
+      top: 40%;
+      left: 0;
+      width: 50px;
+      height: 50px;
+      background-color: #ff6f61;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: background-color 0.3s;
+    }
+    #info {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.1em;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+  <h1>Newton's First Law: Inertia</h1>
+  <div id="container">
+    <div id="ball"></div>
+  </div>
+  <div id="info">Click the ball to stop its motion.</div>
+
+  <script>
+    const ball = document.getElementById('ball');
+    let position = 0;
+    let velocity = 2;
+    let moving = true;
+
+    function animate() {
+      if (moving) {
+        position += velocity;
+        if (position + 50 >= window.innerWidth) {
+          moving = false;
+          document.getElementById('info').textContent = "The wall applied a force. Motion stopped.";
+        }
+        ball.style.left = position + 'px';
+      }
+      requestAnimationFrame(animate);
+    }
+
+    ball.addEventListener('click', () => {
+      moving = false;
+      ball.style.backgroundColor = '#4caf50';
+      document.getElementById('info').textContent = "You applied a force. Motion stopped.";
+    });
+
+    animate();
+  </script>
+</body>
+</html>
+
