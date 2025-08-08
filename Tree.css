@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: radial-gradient(circle, #fff, #cce7ff);
+  text-align: center;
+  padding: 20px;
+}
+
+header {
+  background-color: #c62828;
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.tree-container {
+  margin: 50px auto;
+  position: relative;
+  height: 300px;
+}
+
+.tree {
+  position: relative;
+  width: 100px;
+  margin: 0 auto;
+  animation: dance 2s infinite ease-in-out;
+}
+
+.star {
+  font-size: 30px;
+  color: gold;
+  position: absolute;
+  top: -30px;
+  left: 35px;
+}
+
+.branch {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  margin: 10px auto;
+}
+
+.branch1 {
+  border-bottom: 30px solid green;
+}
+
+.branch2 {
+  border-bottom: 30px solid #228B22;
+}
+
+.branch3 {
+  border-bottom: 30px solid #006400;
+}
+
+.trunk {
+  width: 20px;
+  height: 30px;
+  background-color: #8B4513;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+@keyframes dance {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+  75% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
+footer {
+  background-color: #c62828;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 40px;
+}
