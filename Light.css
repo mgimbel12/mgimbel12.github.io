@@ -1,0 +1,18 @@
+body {
+  background: linear-gradient(to bottom, #001f3f, #0074D9);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.tree {
+  width: 100px;
+  height: 150px;
+  background-color: green;
+  animation: dance 2s infinite ease-in-out;
+}
+
+@keyframes dance {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(-10deg); }
+}
