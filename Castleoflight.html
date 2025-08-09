@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Castle of Light</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #1a1a40, #000);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      overflow: hidden;
+    }
+
+    h2 {
+      font-family: 'Cinzel Decorative', cursive;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    #loginGate {
+      text-align: center;
+      padding: 30px;
+      background: linear-gradient(to right, #222, #444);
+      border-radius: 12px;
+      width: 300px;
+      margin: 100px auto;
+      box-shadow: 0 0 20px #fff;
+      animation: fadeIn 2s ease;
+    }
+
+    input, button {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      width: 80%;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      cursor: pointer;
+    }
+
+    #loginMessage {
+      margin-top: 15px;
+      font-style: italic;
+      color: #ffccff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    #castleContainer {
+      display: none;
+      position: relative;
+      width: 300px;
+      margin: 100px auto;
+      animation: floatCastle 4s ease-in-out infinite;
+    }
+
+    #castle {
+      width: 100%;
+      transition: box-shadow 0.3s ease;
+    }
+
+    @keyframes floatCastle {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    #sparkle {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1000;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff, #f0f);
+      border-radius: 50%;
+      animation: sparkleFade 1.5s ease-out;
+    }
+
+    @keyframes sparkleFade {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(2); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginGate">
+    <h2>✨ Speak the Magic Word ✨</h2>
+    <input type="password" id="magicWord" placeholder="Enter the magic word..." />
+    <button id="unlockButton">Unlock</button>
+    <p id="loginMessage"></p>
+  </div>
+
+  <div id="castleContainer">
+    <img id="castle" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Disney_Castle.svg/512px-Disney_Castle.svg.png" alt="Disney Castle" />
+  </div>
+
+  <div id="sparkle"></div>
+
+  <script>
+    const unlockButton = document.getElementById("unlockButton");
+    const magicWordInput = document.getElementById("magicWord");
+    const loginMessage = document.getElementById("loginMessage");
+    const loginGate = document.getElementById("loginGate");
+    const castleContainer = document.getElementById("castleContainer");
+    const sparkleContainer = document.getElementById("sparkle");
+
+    unlockButton.addEventListener("click", () => {
+      const input = magicWordInput.value.trim().toLowerCase();
+
+      if (input === "aurora") {
+        loginMessage.textContent = "✨ Welcome, Princess of Light! ✨";
+        loginGate.style.display = "none";
+        castleContainer.style.display = "block";
+        triggerSparkles();
+      } else {
+        loginMessage.textContent = "⛔ That’s not the magic word. Try again!";
+      }
+    });
+
+    function triggerSparkles() {
+      for (let i = 0; i < 40; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
+        sparkle.style.left = `${Math.random() * window.innerWidth}px`;
+        sparkle.style.top = `${Math.random() * window.innerHeight}px`;
+        sparkleContainer.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1500);
+      }
+    }
+
+    const castle = document.getElementById("castle");
+    castle.addEventListener("mouseenter", () => {
+      castle.style.boxShadow = "0 0 40px #ff69b4";
+    });
+    castle.addEventListener("mouseleave", () => {
+      castle.style.boxShadow = "none";
+    });
+  </script>
+
+</body>
+</html>
