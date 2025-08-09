@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at top, #f0e6ff, #a18cd1);
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.castle-container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+  animation: fadeIn 2s ease-in-out;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #6a1b9a;
+}
+
+.intro {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+button {
+  background-color:blue;
+}
+
