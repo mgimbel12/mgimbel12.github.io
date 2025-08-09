@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Basic High School Graduation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #fef9f9, #e0f7fa);
+      color: #1f2937;
+    }
+
+    header {
+      background-color: #0d9488;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      color: #0d9488;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .quote {
+      background-color: #ecfdf5;
+      border-left: 4px solid #0d9488;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-style: italic;
+      color: #065f46;
+    }
+
+    .interactive {
+      text-align: center;
+    }
+
+    .btn {
+      background-color: #0d9488;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background-color: #0f766e;
+    }
+
+    .reveal {
+      display: none;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #374151;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎓 Basic High School Graduation</h1>
+    <p>Where dreams begin, and futures take flight</p>
+  </header>
+
+  <div class="container">
+    <div class="section">
+      <h2>Why It Matters</h2>
+      <p>
+        A basic high school diploma is more than a piece of paper—it's a symbol of perseverance, growth, and opportunity. It opens doors to higher education, better jobs, and personal development. It’s the first major milestone in a lifelong journey of learning.
+      </p>
+      <div class="quote">
+        “Education is the most powerful weapon which you can use to change the world.” — Nelson Mandela
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Skills You Gain</h2>
+      <ul>
+        <li>📘 Literacy and communication</li>
+        <li>🧮 Basic math and problem-solving</li>
+        <li>🌎 Civic awareness and responsibility</li>
+        <li>💡 Critical thinking and creativity</li>
+        <li>🤝 Social and emotional development</li>
+      </ul>
+    </div>
+
+    <div class="section interactive">
+      <h2>Celebrate Your Achievement</h2>
+      <button class="btn" onclick="revealMessage()">Click to Reveal</button>
+      <div class="reveal" id="message">
+        🌟 You did it! Your graduation is a foundation for greatness. Keep building, keep dreaming, and never stop learning.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 EmpowerEd | Every graduate matters
+  </footer>
+
+  <script>
+    function revealMessage() {
+      const message = document.getElementById("message");
+      message.style.display = "block";
+    }
+  </script>
+</body>
+</html>
