@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scripture Mastery 2025–2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #1f2937;
+    }
+
+    header {
+      background-color: #2563eb;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .scripture {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .scripture:last-child {
+      border-bottom: none;
+    }
+
+    .reference {
+      font-weight: bold;
+      color: #2563eb;
+    }
+
+    .text {
+      display: none;
+      margin-top: 0.5rem;
+      font-style: italic;
+      color: #374151;
+    }
+
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .btn {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .btn:hover {
+      background-color: #2563eb;
+    }
+
+    .checkbox {
+      transform: scale(1.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>📖 Scripture Mastery 2025–2026</h1>
+    <p>Track, study, and master key scriptures</p>
+  </header>
+
+  <div class="container" id="scriptureList">
+    <!-- Scriptures will be injected here -->
+  </div>
+
+  <footer>
+    Powered by faith ✨ | You are unstoppable through Christ
+  </footer>
+
+  <script>
+    const scriptures = [
+      {
+        reference: "1 Nephi 3:7",
+        text: "I will go and do the things which the Lord hath commanded..."
+      },
+      {
+        reference: "Mosiah 2:17",
+        text: "When ye are in the service of your fellow beings ye are only in the service of your God."
+      },
+      {
+        reference: "Alma 37:6",
+        text: "By small and simple things are great things brought to pass..."
+      },
+      {
+        reference: "Ether 12:27",
+        text: "If men come unto me I will show unto them their weakness..."
+      },
+      {
+        reference: "D&C 6:36",
+        text: "Look unto me in every thought; doubt not, fear not."
+      },
+      {
+        reference: "John 14:15",
+        text: "If ye love me, keep my commandments."
+      },
+      {
+        reference: "2 Nephi 2:25",
+        text: "Adam fell that men might be; and men are, that they might have joy."
+      },
+      {
+        reference: "Helaman 5:12",
+        text: "Remember, it is upon the rock of our Redeemer... that ye must build your foundation."
+      }
+    ];
+
+    const container = document.getElementById("scriptureList");
+
+    scriptures.forEach((scripture, index) => {
+      const div = document.createElement("div");
+      div.className = "scripture";
+
+      div.innerHTML = `
+        <div>
+          <div class="reference">${scripture.reference}</div>
+          <div class="text" id="text-${index}">${scripture.text}</div>
+        </div>
+        <div class="controls">
+          <button class="btn" onclick="toggleText(${index})">Reveal</button>
+          <input type="checkbox" class="checkbox" id="check-${index}" />
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+
+    function toggleText(index) {
+      const textEl = document.getElementById(`text-${index}`);
+      textEl.style.display = textEl.style.display === "none" ? "block" : "none";
+    }
+  </script>
+</body>
+</html>
