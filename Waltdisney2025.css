@@ -33,4 +33,22 @@ h1 {
 button {
   background-color:blue;
 }
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #fff, #f0f);
+  border-radius: 50%;
+  animation: sparkleFade 1.5s ease-out;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes sparkleFade {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2); }
+}
+
+
+
 
