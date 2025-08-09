@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Magical Christmas Tree</title>
+  <style>
+    /* 🌌 Background and Layout */
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at center, #001f3f, #000);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 30px;
+      font-size: 2em;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    .tree-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 🎄 Tree Layers */
+    .tree {
+      position: relative;
+      width: 0;
+      height: 0;
+    }
+
+    .layer {
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      margin: 0 auto;
+    }
+
+    .layer1 { border-bottom: 60px solid green; margin-top: 20px; }
+    .layer2 { border-bottom: 80px solid green; margin-top: -20px; }
+    .layer3 { border-bottom: 100px solid green; margin-top: -20px; }
+
+    .trunk {
+      width: 40px;
+      height: 60px;
+      background: sienna;
+      margin: -20px auto 0;
+    }
+
+    /* ⭐ Star */
+    .star {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 40px;
+      color: gold;
+      animation: twinkle 1s infinite alternate;
+      text-shadow: 0 0 10px gold;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    /* 💡 Lights */
+    .lights {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .light {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      position: absolute;
+      animation: blink 1s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 1; }
+      to { opacity: 0.3; }
+    }
+
+    /* ❄️ Snow */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: white;
+      font-size: 1em;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 Happy Holidays! Wishing You Joy, Peace, and Magic 🎄</h1>
+
+  <div class="tree-container">
+    <div class="tree">
+      <div class="star">★</div>
+      <div class="layer layer1"></div>
+      <div class="layer layer2"></div>
+      <div class="layer layer3"></div>
+      <div class="trunk"></div>
+      <div class="lights">
+        <div class="light" style="top: 30px; left: -40px; background: yellow; box-shadow: 0 0 10px yellow;"></div>
+        <div class="light" style="top: 60px; left: 0px; background: red; box-shadow: 0 0 10px red;"></div>
+        <div class="light" style="top: 90px; left: 40px; background: blue; box-shadow: 0 0 10px blue;"></div>
+        <div class="light" style="top: 120px; left: -20px; background: magenta; box-shadow: 0 0 10px magenta;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ❄️ Snowfall Generator
+    function createSnowflake() {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+      snowflake.textContent = '❄';
+      snowflake.style.left = Math.random() * window.innerWidth + 'px';
+      snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+      snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+      document.body.appendChild(snowflake);
+
+      setTimeout(() => {
+        snowflake.remove();
+      }, 10000);
+    }
+
+    setInterval(createSnowflake, 200);
+  </script>
+</body>
+</html>
