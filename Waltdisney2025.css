@@ -49,6 +49,16 @@ button {
   100% { opacity: 0; transform: scale(2); }
 }
 
+.floating-star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  animation: floatUp 3s ease-in;
+}
 
-
-
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-50px); opacity: 0; }
+}
