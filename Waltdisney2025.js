@@ -11,3 +11,16 @@ document.getElementById("enterButton").addEventListener("click", () => {
     setTimeout(() => sparkle.remove(), 1500);
   }
 });
+function createFloatingStars() {
+  const sparkleContainer = document.getElementById("sparkle");
+  setInterval(() => {
+    const star = document.createElement("div");
+    star.className = "floating-star";
+    star.style.left = `${Math.random() * window.innerWidth}px`;
+    star.style.top = `${Math.random() * window.innerHeight}px`;
+    sparkleContainer.appendChild(star);
+    setTimeout(() => star.remove(), 3000);
+  }, 500);
+}
+
+createFloatingStars();
