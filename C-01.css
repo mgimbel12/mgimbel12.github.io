@@ -1,0 +1,74 @@
+body {
+  background: radial-gradient(circle, #001f3f, #000);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  color: white;
+  font-family: sans-serif;
+}
+
+.tree {
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+.layer {
+  width: 0;
+  height: 0;
+  border-left: 100px solid transparent;
+  border-right: 100px solid transparent;
+  margin: 0 auto;
+}
+
+.layer1 {
+  border-bottom: 60px solid green;
+  margin-top: 20px;
+}
+
+.layer2 {
+  border-bottom: 80px solid green;
+  margin-top: -20px;
+}
+
+.layer3 {
+  border-bottom: 100px solid green;
+  margin-top: -20px;
+}
+
+.trunk {
+  width: 40px;
+  height: 60px;
+  background: sienna;
+  margin: -20px auto 0;
+}
+
+.lights {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.light {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: red;
+  box-shadow: 0 0 10px red;
+  position: absolute;
+  animation: blink 1s infinite alternate;
+}
+
+#light1 { top: 30px; left: -40px; background: yellow; box-shadow: 0 0 10px yellow; }
+#light2 { top: 60px; left: 0px; background: blue; box-shadow: 0 0 10px blue; }
+#light3 { top: 90px; left: 40px; background: magenta; box-shadow: 0 0 10px magenta; }
+#light4 { top: 120px; left: -20px; background: cyan; box-shadow: 0 0 10px cyan; }
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0.3; }
+}
