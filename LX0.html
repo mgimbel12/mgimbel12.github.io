@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lex Luthor: Man of Tomorrow</title>
+  <link rel="stylesheet" href="LX-01.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Lex Luthor</h1>
+    <p class="tagline">Man of Tomorrow</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <img src="lex-luthor.jpg" alt="Lex Luthor" class="portrait" />
+      <p class="intro">
+        Genius. Visionary. Ruthless. Lex Luthor believes the future belongs to humanity—free from alien influence.
+      </p>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-button active" onclick="showTab('philosophy')">Philosophy</button>
+        <button class="tab-button" onclick="showTab('tech')">Tech</button>
+      </div>
+
+      <!-- Philosophy Tab -->
+      <div id="philosophy" class="tab-content active">
+        <h2>Philosophy</h2>
+        <p>Lex Luthor sees Superman not as a savior, but as a symbol of human dependency.</p>
+        <ul>
+          <li>🧠 Humanity must evolve through intellect, not alien gifts.</li>
+          <li>⚖️ Power must be earned, not inherited.</li>
+          <li>🌍 Earth should be ruled by humans, for humans.</li>
+        </ul>
+      </div>
+
+      <!-- Tech Tab -->
+      <div id="tech" class="tab-content">
+        <h2>Tech Arsenal</h2>
+        <ul>
+          <li>🛰️ Orbital defense satellites with kryptonite payloads</li>
+          <li>🤖 AI-powered surveillance and combat drones</li>
+          <li>🔬 Bio-enhancement labs for human augmentation</li>
+        </ul>
+      </div>
+
+      <!-- Timeline -->
+      <section class="timeline">
+        <h2>🕰️ Lex Luthor's Rise to Power</h2>
+        <ul>
+          <li><strong>2023:</strong> LexCorp unveils orbital defense tech.</li>
+          <li><strong>2024:</strong> Gains political influence during alien crises.</li>
+          <li><strong>2025:</strong> Declares Superman a threat to human sovereignty.</li>
+          <li><strong>2025:</strong> Launches Project Prometheus.</li>
+          <li><strong>2025:</strong> Publicly challenges Superman’s authority.</li>
+        </ul>
+        <p>Watch [The Rise of Lex Luthor | My Adventures With Superman](https://m.youtube.com/watch?v=GoUyzxyKUK0) for dramatic context and visual storytelling.</p>
+      </section>
+
+      <!-- Quotes -->
+      <section class="quotes">
+        <h2>🗣️ Quotes from Superman (2025)</h2>
+        <blockquote>“Your choices. Your actions. That's what makes you who you are.” — Superman</blockquote>
+        <blockquote>“I just wish you could all see the Earth the way I see it. When you really look at it, it's just one world.” — Superman</blockquote>
+        <blockquote>“Kindness is strength.” — Superman</blockquote>
+      </section>
+
+      <!-- Video Clip -->
+      <section class="video">
+        <h2>🎬 Lex vs. Superman Simulator Gameplay</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/fQm0stOwM8w" title="Superman vs Lex Luthor ft SuperCity superhero sim gameplay" frameborder="0" allowfullscreen></iframe>
+        <p>[Superman vs Lex Luthor ft SuperCity superhero sim gameplay](https://www.youtube.com/watch?v=fQm0stOwM8w) shows a fun simulation of their rivalry.</p>
+      </section>
+
+      <!-- Simulator -->
+      <section class="simulator">
+        <h2>🧠 Lex vs. Superman: Choose Your Path</h2>
+        <p>Choose your strategy as Lex Luthor:</p>
+        <button onclick="simulate('tech')">Deploy Tech Arsenal</button>
+        <button onclick="simulate('philosophy')">Challenge Superman's Ideals</button>
+        <div id="result"></div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 LexCorp. Humanity First.</p>
+  </footer>
+
+  <script src="LX-01.js"></script>
+</body>
+</html>
