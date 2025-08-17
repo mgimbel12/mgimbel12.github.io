@@ -1,66 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Marissa Gimbel">
-  <meta name="description" content="A heartfelt Valentine's Day proposal to Michael Rosenbaum">
-  <title>Will You Date Me, Michael Rosenbaum?</title>
-  <link rel="stylesheet" href="willyoudatememichealrosenbaum.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&family=Rubik+Vinyl&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Michael Rosenbaum Tribute</title>
+  <link rel="stylesheet" href="Rose.css" />
 </head>
 <body>
   <header>
-    <h1>Will You Date Me, Michael J. Rosenbaum?</h1>
-    <p>A sincere Valentine’s Day wish from Marissa</p>
+    <h1>Michael Rosenbaum</h1>
+    <p>“Save Me” — A Tribute to Lex & Legacy</p>
   </header>
-  <section class="main-message">
-    <h2>💌 Date Me Please</h2>
-    <img src="Happy_Valentine_Days.png" alt="Valentine image for Michael Rosenbaum">
+
+  <section class="password-area">
+    <h2>🔐 Enter Tribute Code</h2>
+    <input type="password" id="passwordInput" placeholder="LexCode or SaveMe" />
+    <button onclick="savePassword()">Save Password</button>
+    <button onclick="unlockContent()">Unlock</button>
   </section>
 
-  <section class="media-section">
-    <h2>🦸 Lex Luthor Tribute</h2>
-    <div class="media-gallery">
-      <img src="Lex.png" alt="Lex Luthor still">
-      <img src="Lex.gif" alt="Lex Luthor animated gif">
-      <video width="500" height="500" controls>
-        <source src="Lex-1.mp4" type="video/mp4">
-        <source src="movie.ogg" type="video/ogg">
-        Your browser does not support the video tag.
-      </video>
-    </div>
+  <section id="hiddenContent" class="hidden">
+    <h3>🎬 Hidden Tribute</h3>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/lpK1Kk9e4v4?si=jMLTSg4xF98QAWdM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <p>“You were my friend once, Clark.” — Lex</p>
   </section>
 
-  <section class="date-plans">
-    <h2>🌹 Valentine's Date Ideas</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Location</th>
-          <th>Contact</th>
-          <th>Meeting Spot</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Pizza Hut</td>
-          <td>Marissa</td>
-          <td>House 81</td>
-        </tr>
-        <tr>
-          <td>IHOP</td>
-          <td>Marissa</td>
-          <td>House 81</td>
-        </tr>
-      </tbody>
-    </table>
-    <p><a href="index.html">← Back to Home</a></p>
-  </section>
-  <footer>
-    <p>&copy; 2025 | A Valentine Page for Michael Rosenbaum | Created by Marissa Gimbel</p>
-  </footer>
+  <script src="Rose.js"></script>
 </body>
 </html>
+
+
