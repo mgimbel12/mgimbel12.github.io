@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tweet Birds</title>
+  <link rel="stylesheet" href="tweety.css" />
+</head>
+<body>
+  <header>
+    <h1>Tweet Birds</h1>
+    <p>Whistle your way through secrets and songs</p>
+  </header>
+
+  <section class="intro">
+    <img src="bird-icon.png" alt="Tweet Bird Icon" />
+    <p>Welcome to the aviary of secrets. Enter the right bird call to unlock hidden tweets and tunes.</p>
+  </section>
+
+  <section class="password-section">
+    <h2>Unlock the Birdsong</h2>
+    <input type="password" id="passwordInput" placeholder="Enter bird code" />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="secretContent" class="hidden">
+      <p><strong>Hidden Tweet:</strong> “The early bird doesn’t just get the worm—it rewrites the sky.”</p>
+      <p><em>Watch the birds sing:</em></p>
+      <iframe width="300" height="170" src="https://www.youtube.com/embed/0O2aH4XLbto" title="Birdsong" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section class="codes-section">
+    <h2>Tweet Codes</h2>
+    <p>Try these hashtags:</p>
+    <ul>
+      <li>#chirp2025</li>
+      <li>#featherkey</li>
+      <li>#skywhistle</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Created for those who listen between the lines 🐦</p>
+  </footer>
+
+  <script src="tweety.js"></script>
+</body>
+</html>
+
