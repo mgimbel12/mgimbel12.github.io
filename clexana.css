@@ -1,0 +1,83 @@
+body {
+  font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+  color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  text-align: center;
+}
+
+header {
+  background-color: #0f3460;
+  padding: 2rem;
+  border-bottom: 2px solid #e94560;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #e94560;
+}
+
+section {
+  margin: 2rem;
+  padding: 1rem;
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #e94560;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #ff6f91;
+}
+
+.hidden {
+  display: none;
+}
+
+iframe {
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+footer {
+  background-color: #0f3460;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+.floating-objects {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+}
+
+.float {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 6s infinite ease-in-out;
+}
+
+.rose { left: 10%; animation-delay: 0s; }
+.meteor { left: 45%; animation-delay: 2s; }
+.book { left: 80%; animation-delay: 4s; }
+
+@keyframes float {
+  0% { top: 100px; opacity: 0; transform: scale(0.5); }
+  50% { top: 30px; opacity: 1; transform: scale(1.2); }
+  100% { top: -20px; opacity: 0; transform: scale(0.5); }
+}
