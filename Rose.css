@@ -1,0 +1,33 @@
+body {
+  font-family: 'Georgia', serif;
+  background-color: #000;
+  color: #ffd700;
+  text-align: center;
+  padding: 2rem;
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  margin: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+  background-color: #ffd700;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #e6c200;
+}
+
+.hidden {
+  display: none;
+}
+
