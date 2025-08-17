@@ -1,0 +1,64 @@
+body {
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #4b0082;
+  color: #f0f0f0;
+  text-align: center;
+  margin: 0;
+  padding: 2rem;
+}
+
+header {
+  background-color: #2e0854;
+  padding: 2rem;
+  border-bottom: 2px solid #9370db;
+}
+
+h1 {
+  font-size: 3rem;
+  color: #dda0dd;
+}
+
+section {
+  margin: 2rem auto;
+  max-width: 600px;
+  background-color: #5d3fd3;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #dda0dd;
+  color: #2e0854;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #ba55d3;
+}
+
+.hidden {
+  display: none;
+}
+
+iframe {
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
