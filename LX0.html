@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicholas Hoult as Lex Luthor</title>
+  <link rel="stylesheet" href="LX0.css" />
+</head>
+<body>
+  <header>
+    <h1>Nicholas Hoult</h1>
+    <h2>As Lex Luthor</h2>
+    <p>“Power is not given. It’s taken.”</p>
+  </header>
+
+  <section class="bio">
+    <img src="hoult-lex.jpg" alt="Nicholas Hoult as Lex Luthor" />
+    <button onclick="toggleBio()">Toggle Bio</button>
+    <div id="bioText" class="hidden">
+      <p>Nicholas Hoult redefines Lex Luthor in the 2025 Superman reboot—a cerebral, emotionally layered performance that blends charm, menace, and tragic ambition. From his rise in Metropolis to his descent into obsession, Hoult’s Lex is a villain forged by betrayal and brilliance.</p>
+    </div>
+  </section>
+
+  <section class="filmography">
+    <h3>Lex Luthor Filmography</h3>
+    <select onchange="filterFilms(this.value)">
+      <option value="all">All</option>
+      <option value="solo">Solo Films</option>
+      <option value="ensemble">Ensemble Cast</option>
+    </select>
+    <ul id="filmList">
+      <li data-type="solo">Lex Luthor: Origins (2025)</li>
+      <li data-type="ensemble">Superman 2025</li>
+      <li data-type="solo">LuthorCorp: The Rise (2026)</li>
+      <li data-type="ensemble">Justice League: Shadows (2027)</li>
+    </ul>
+  </section>
+
+  <section class="password-section">
+    <h3>Access Confidential Lex Files</h3>
+    <input type="password" id="passwordInput" placeholder="Enter Lex’s Code" />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="secretContent" class="hidden">
+      <p><strong>Lex’s Audition Notes:</strong> “Villains aren’t born. They’re sculpted by betrayal.”</p>
+      <p><em>Concept art and psychological breakdown unlocked.</em></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Tribute to Nicholas Hoult’s portrayal of Lex Luthor. Created by a fan of villains with depth.</p>
+  </footer>
+
+  <script src="LX0.js"></script>
+</body>
+</html>
+
