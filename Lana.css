@@ -1,0 +1,48 @@
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fdf6f0;
+  color: #3e2c23;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+header {
+  background-color: #e8d5c4;
+  padding: 2rem;
+}
+
+.intro img {
+  width: 200px;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.password-section {
+  margin: 2rem;
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  background-color: #a67c52;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  background-color: #e8d5c4;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
