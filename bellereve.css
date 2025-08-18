@@ -1,0 +1,51 @@
+body {
+  background-color: black;
+  color: #f0e130; /* yellow */
+  font-family: 'Share Tech Mono', monospace;
+  padding: 50px;
+  text-align: center;
+}
+
+.terminal {
+  background-color: #2e003e; /* Lex purple */
+  border: 2px solid #f0e130;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 0 20px #f0e130;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 10px;
+  background-color: black;
+  color: yellow;
+  border: 1px solid yellow;
+}
+
+button {
+  background-color: #f0e130;
+  color: black;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #fff95e;
+}
+
+.hidden {
+  display: none;
+}
+
+ul {
+  text-align: left;
+  margin-top: 20px;
+}
