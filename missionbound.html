@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Imparable con Dios</title>
+  <link rel="stylesheet" href="missionbound.css" />
+</head>
+<body>
+  <header>
+    <h1>Imparable con Dios</h1>
+    <p class="subtitle">Missionary Journal from Lima, Peru</p>
+    <button onclick="toggleLanguage()">🌐 Switch to Español</button>
+  </header>
+
+  <section class="entry">
+    <h2>📍 Peru Bound</h2>
+    <p><strong>Date:</strong> August 12</p>
+    <p>I left the MTC and flew to Lima, Peru. My area is Belem—very different from home, but full of lessons.</p>
+    <button onclick="toggleMore()">Read More</button>
+    <div id="moreContent" style="display:none;">
+      <p>My companion Elder VanOrden is a GOAT—8 weeks of baptisms! Spanish is tough, but prayer led us to Melanie, who accepted a Book of Mormon. I’m learning to trust the Spirit and embrace the chaos (and the dogs!).</p>
+    </div>
+  </section>
+
+  <section class="photos">
+    <h2>📸 Photo Journal</h2>
+    <div class="photo-grid">
+      <figure>
+        <img src="pday-hike.jpg" alt="P-day hike in Peru" />
+        <figcaption>P-day hike to the top of a mountain</figcaption>
+      </figure>
+      <figure>
+        <img src="vanorden-cooking.jpg" alt="Elder VanOrden cooking" />
+        <figcaption>Elder VanOrden cooking it up</figcaption>
+      </figure>
+      <figure>
+        <img src="lima-temple.jpg" alt="Peru Lima Temple" />
+        <figcaption>Peru Lima Temple</figcaption>
+      </figure>
+      <figure>
+        <img src="last-us-meal.jpg" alt="Last meal in the US" />
+        <figcaption>Last meal in the US</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="reflection">
+    <h2>🕊️ Spiritual Reflection</h2>
+    <p>"If you have a prompting, act on it right away." — Elder [Your Name]</p>
+    <input type="text" placeholder="Write your reflection here..." />
+  </section>
+
+  <section class="mood">
+    <h2>🧠 Mood Tracker</h2>
+    <p>How are you feeling today?</p>
+    <div class="emoji-buttons">
+      <button onclick="setMood('😊')">😊</button>
+      <button onclick="setMood('😐')">😐</button>
+      <button onclick="setMood('😢')">😢</button>
+      <button onclick="setMood('🔥')">🔥</button>
+    </div>
+    <p id="moodDisplay"></p>
+  </section>
+
+  <section class="quiz">
+    <h2>🧪 Missionary Life Quiz</h2>
+    <p>What’s the name of Elder VanOrden’s area?</p>
+    <select onchange="checkAnswer(this.value)">
+      <option value="">Choose one</option>
+      <option value="Belem">Belem</option>
+      <option value="Cusco">Cusco</option>
+      <option value="Arequipa">Arequipa</option>
+    </select>
+    <p id="quizResult"></p>
+  </section>
+
+  <section class="password-gate">
+    <h2>🔐 Bonus Entry</h2>
+    <p>Enter the password to unlock a sports-themed devotional:</p>
+    <input type="password" id="passwordInput" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="lockedContent" style="display:none;">
+      <p>“Strong side!” — *Remember the Titans* reminds us that unity and sacrifice bring miracles. Just like sports, missionary work requires teamwork, grit, and heart.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ and faith. Jesus is the answer!</p>
+  </footer>
+
+  <script src="missionbound.js"></script>
+</body>
+</html>
