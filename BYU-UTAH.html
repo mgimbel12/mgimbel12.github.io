@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Vault of Zion</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .gate {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      text-align: center;
+      max-width: 400px;
+      margin-bottom: 2rem;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      border: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+      width: 80%;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+    }
+
+    .vault-content {
+      display: none;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section p {
+      line-height: 1.6;
+    }
+
+    #message {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔐 The Vault of Zion</h1>
+  <div class="gate">
+    <h2>Enter the Sacred Code</h2>
+    <input type="password" id="vaultKey" placeholder="e.g. zion2025" />
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="message"></p>
+  </div>
+
+  <div class="vault-content" id="vaultContent">
+    <div class="section">
+      <h2>🌌 Celestial Codes</h2>
+      <p>
+        “The glory of God is intelligence.” — Doctrine & Covenants 93:36  
+        <br><br>
+        This section contains spiritual reflections inspired by BYU devotionals, Utah’s sacred landscapes, and the pursuit of light through learning.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>⛰️ Mountain Lore</h2>
+      <p>
+        Y Mountain stands as a beacon over BYU campus, reminding students of their heritage and mission.  
+        <br><br>
+        Did you know? Mount Timpanogos is the second-highest peak in the Wasatch Range and features in local legends of love and sacrifice.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>🎓 Legacy Hall</h2>
+      <p>
+        BYU alumni have shaped the world through faith, scholarship, and service.  
+        <br><br>
+        Explore embedded videos, quotes, and tributes to those who walked the halls of Zion before you.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>🕊️ Sanctuary</h2>
+      <p>
+        A quiet space for reflection. Floating scripture scrolls drift across the screen, each one a whisper of peace.  
+        <br><br>
+        “Peace I leave with you, my peace I give unto you.” — John 14:27
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("vaultKey").value;
+      const message = document.getElementById("message");
+      const vault = document.getElementById("vaultContent");
+
+      if (input === "zion2025") {
+        vault.style.display = "block";
+        message.textContent = "Access granted. Welcome to the Vault.";
+        message.style.color = "#4caf50";
+      } else {
+        message.textContent = "Incorrect code. Try again.";
+        message.style.color = "#ff4d4d";
+      }
+    }
+  </script>
+</body>
+</html>
