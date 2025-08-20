@@ -1,0 +1,50 @@
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background: linear-gradient(to right, #ffe6f0, #fff0f5);
+  color: #d63384;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.3);
+}
+
+header h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #ff69b4;
+}
+
+.login-section, .quiz-section {
+  margin-bottom: 30px;
+}
+
+input[type="password"], input[type="radio"] {
+  margin: 5px 0;
+}
+
+button {
+  background-color: #ff69b4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #ff85c1;
+}
+
+#password-message, #quiz-result {
+  margin-top: 10px;
+  font-weight: bold;
+}
