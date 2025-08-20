@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello Kitty Fashion Quiz</title>
+  <link rel="stylesheet" href="hello.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎀 Hello Kitty Fashion Quiz 🎀</h1>
+    </header>
+
+    <section class="login-section">
+      <h2>Enter Secret Code</h2>
+      <input type="password" id="password" placeholder="Enter your password" />
+      <button onclick="checkPassword()">Unlock</button>
+      <p id="password-message"></p>
+    </section>
+
+    <section class="quiz-section" id="quiz" style="display:none;">
+      <h2>Fashion Fun Quiz</h2>
+      <form id="quizForm">
+        <label>What color is Hello Kitty's bow?</label><br />
+        <input type="radio" name="q1" value="red" /> Red<br />
+        <input type="radio" name="q1" value="blue" /> Blue<br />
+        <input type="radio" name="q1" value="pink" /> Pink<br /><br />
+
+        <label>Which accessory does Hello Kitty love?</label><br />
+        <input type="radio" name="q2" value="sunglasses" /> Sunglasses<br />
+        <input type="radio" name="q2" value="hairband" /> Hairband<br />
+        <input type="radio" name="q2" value="bow" /> Bow<br /><br />
+
+        <button type="submit">Submit Answers</button>
+      </form>
+      <p id="quiz-result"></p>
+    </section>
+  </div>
+
+  <script src="hello.js"></script>
+</body>
+</html>
+
