@@ -1,0 +1,71 @@
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fffafc;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.vault-gate {
+  margin: 20px 0;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 1em;
+  width: 250px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.vault-content {
+  margin-top: 30px;
+  padding: 20px;
+  border-top: 2px solid #ccc;
+}
+
+.hidden {
+  display: none;
+}
+
+.gallery img {
+  width: 300px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+figcaption {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.food-list {
+  list-style: none;
+  padding: 0;
+}
+
+.food-list li {
+  margin: 10px 0;
+  font-size: 1.1em;
+}
+
+.simulator {
+  margin-top: 20px;
+}
+
+#showOutput {
+  margin-top: 20px;
+  font-weight: bold;
+  color: #6a1b9a;
+}
+
