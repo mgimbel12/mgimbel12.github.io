@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petalcode: Silver & Gold Vault</title>
+  <link rel="stylesheet" href="david.css" />
+</head>
+<body>
+  <div class="petal-field">
+    <div class="petal" data-message="You are more than what you fear."></div>
+    <div class="petal" data-message="Your voice is a vault of light."></div>
+    <div class="petal" data-message="Let the petals guide you."></div>
+    <div class="petal quiz-trigger" data-message="Ready to discover your song?"></div>
+  </div>
+
+  <div class="vault-gate hidden">
+    <h2>Enter the phrase that unlocks your voice</h2>
+    <input type="password" id="vaultPassword" placeholder="Type your phrase..." />
+    <button onclick="unlockVault()">Unlock</button>
+    <p id="feedback"></p>
+  </div>
+
+  <div class="vault-content hidden" id="silverVault">
+    <h2>🌙 Silver Vault</h2>
+    <p>Welcome to reflection. Here lies quiet strength.</p>
+    <button onclick="toggleTheme('gold')">Switch to Gold</button>
+  </div>
+
+  <div class="vault-content hidden" id="goldVault">
+    <h2>🌞 Gold Vault</h2>
+    <p>Welcome to radiance. Here lies your celebration.</p>
+    <button onclick="toggleTheme('silver')">Switch to Silver</button>
+  </div>
+
+  <div class="quiz-section hidden" id="davidQuiz">
+    <h2>🎤 David Archuleta Song Quiz</h2>
+    <form id="quizForm">
+      <div class="question">
+        <p>1. How do you feel today?</p>
+        <label><input type="radio" name="q1" value="glorious" /> Hopeful</label>
+        <label><input type="radio" name="q1" value="broken" /> Vulnerable</label>
+        <label><input type="radio" name="q1" value="shine" /> Empowered</label>
+      </div>
+
+      <div class="question">
+        <p>2. What guides you most?</p>
+        <label><input type="radio" name="q2" value="glorious" /> Faith</label>
+        <label><input type="radio" name="q2" value="shine" /> Passion</label>
+        <label><input type="radio" name="q2" value="broken" /> Experience</label>
+      </div>
+
+      <div class="question">
+        <p>3. What do you need right now?</p>
+        <label><input type="radio" name="q3" value="broken" /> Healing</label>
+        <label><input type="radio" name="q3" value="glorious" /> Purpose</label>
+        <label><input type="radio" name="q3" value="shine" /> Confidence</label>
+      </div>
+
+      <button type="submit">Reveal My Song</button>
+    </form>
+    <div id="quizResult"></div>
+  </div>
+
+  <script src="david.js"></script>
+</body>
+</html>
+
