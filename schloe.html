@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chloe Sullivan Vault</title>
+  <link rel="stylesheet" href="chloe.css" />
+</head>
+<body>
+  <header>
+    <h1>🛰️ Chloe Sullivan: Watchtower Vault</h1>
+    <p>Enter your passphrase to unlock Chloe’s world.</p>
+  </header>
+
+  <section class="vault-gate">
+    <input type="password" id="vaultPassword" placeholder="Type your phrase..." />
+    <button onclick="unlockVault()">Unlock</button>
+    <p id="feedback"></p>
+  </section>
+
+  <!-- Chloe Video Vault -->
+  <section id="watchtowerVault" class="vault-content hidden">
+    <h2>🎬 Chloe Sullivan Video Showcase</h2>
+    <div class="floating-icons">
+      <div class="icon laptop">💻</div>
+      <div class="icon meteor">🪨</div>
+      <div class="icon camera">📸</div>
+    </div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/kntj_xq9-eg" title="Chloe Sullivan Tribute" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/1UAha7TQG8E" title="Why Chloe is My Favorite" allowfullscreen></iframe>
+  </section>
+
+  <!-- SVG Art Vault -->
+  <section id="svgVault" class="vault-content hidden">
+    <h2>🎨 Chloe Sullivan SVG Art Gallery</h2>
+    <svg width="300" height="300">
+      <circle cx="150" cy="150" r="80" fill="#f0f8ff" stroke="#333" stroke-width="4" />
+      <text x="150" y="155" text-anchor="middle" font-size="20" fill="#333">Watchtower</text>
+    </svg>
+    <svg width="300" height="300">
+      <rect x="50" y="50" width="200" height="100" fill="#ffe4e1" stroke="#555" stroke-width="3" />
+      <text x="150" y="110" text-anchor="middle" font-size="18" fill="#000">Chloe’s Torch</text>
+    </svg>
+  </section>
+
+  <script src="chloe.js"></script>
+</body>
+</html>
+
