@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Vault: Apple & Pearl</title>
+  <link rel="stylesheet" href="royal.css" />
+</head>
+<body>
+  <div class="castle-scene">
+    <div class="castle white-castle"></div>
+    <div class="castle pearl-castle hidden"></div>
+  </div>
+
+  <div class="apple-section">
+    <div class="apple red-apple" data-message="The apple is tempting... but toxic."></div>
+    <div class="apple pearl-apple" data-message="The pearl apple glows with purity."></div>
+  </div>
+
+  <div class="vault-gate">
+    <h2>Enter your royal phrase</h2>
+    <input type="password" id="vaultPassword" placeholder="Type your phrase..." />
+    <button onclick="unlockVault()">Unlock</button>
+    <p id="feedback"></p>
+  </div>
+
+  <div class="vault-content hidden" id="whiteVault">
+    <h2>🏰 White Castle Vault</h2>
+    <p>Welcome to the Princess Diaries realm of elegance and duty.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Gvdya_iEJ28" title="Barbie Nutcracker Trailer" allowfullscreen></iframe>
+    <button onclick="toggleCastle()">Switch to Pearl Castle</button>
+  </div>
+
+  <div class="vault-content hidden" id="pearlVault">
+    <h2>🏰 Pearl Castle Vault</h2>
+    <p>Welcome to Snow White’s sanctuary of purity and resilience.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/HSCfiPjn_lo" title="Barbie Marzipan Showcase" allowfullscreen></iframe>
+    <button onclick="toggleCastle()">Switch to White Castle</button>
+  </div>
+
+  <script src="royal.js"></script>
+</body>
+</html>
+
