@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #111;
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.blur-field {
+  position: relative;
+  height: 200px;
+  margin-top: 50px;
+}
+
+.blur {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  filter: blur(20px);
+  animation: zoom 4s infinite ease-in-out;
+}
+
+.red-blur {
+  background-color: red;
+  left: 30%;
+}
+
+.blue-blur {
+  background-color: blue;
+  left: 60%;
+}
+
+@keyframes zoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+.vault-gate {
+  margin-top: 30px;
+}
+
+.vault-content {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+iframe {
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+}
+
