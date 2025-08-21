@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moana & The Voyagers Quiz</title>
+  <link rel="stylesheet" href="Mona.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🌊 Moana & The Voyagers</h1>
+    <p>Enter the Disney password to begin your voyage:</p>
+    <input type="password" id="password" placeholder="Enter password..." />
+    <button onclick="unlockQuiz()">Start Quiz</button>
+
+    <div id="quiz" class="hidden">
+      <h2>🧜‍♀️ Which Moana Character Are You?</h2>
+      <form id="characterQuiz">
+        <label>What’s your ideal adventure?</label><br/>
+        <input type="radio" name="q1" value="moana" /> Sailing beyond the reef<br/>
+        <input type="radio" name="q1" value="maui" /> Battling monsters with style<br/>
+        <input type="radio" name="q1" value="heihei" /> Accidentally surviving chaos<br/>
+        <input type="radio" name="q1" value="tamatoa" /> Collecting shiny treasures<br/><br/>
+
+        <label>Pick your spirit animal:</label><br/>
+        <input type="radio" name="q2" value="moana" /> Stingray<br/>
+        <input type="radio" name="q2" value="maui" /> Hawk<br/>
+        <input type="radio" name="q2" value="heihei" /> Chicken<br/>
+        <input type="radio" name="q2" value="tamatoa" /> Crab<br/><br/>
+
+        <button type="submit">Reveal My Character</button>
+      </form>
+
+      <div id="result" class="hidden"></div>
+
+      <h2>🎬 Moana 2 Trailer Reveal</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/-8V1ZC2Gjs8" 
+        title="Which Moana Character Are You? Moana 2 Quiz" frameborder="0" allowfullscreen></iframe>
+
+<svg width="200" height="100" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 80 Q100 10 190 80" stroke="#5D4037" stroke-width="4" fill="none"/>
+  <rect x="95" y="40" width="10" height="30" fill="#8D6E63" />
+  <circle cx="100" cy="35" r="5" fill="#FFCCBC" />
+</svg>
+</div>
+ </div>
+
+  <script src="Mona.js"></script>
+</body>
+</html>
+
