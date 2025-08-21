@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frozen III Reveal ❄️</title>
+  <link rel="stylesheet" href="frozen.css" />
+</head>
+<body>
+  <div class="snowflakes"></div>
+
+  <div class="container">
+    <h1>☃️ Welcome to Arendelle</h1>
+    <p>Enter the secret password to reveal the Frozen III trailer:</p>
+    <input type="password" id="password" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Reveal</button>
+
+    <div id="trailer" class="hidden">
+      <h2>🎬 Frozen III Trailer</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/HvLBavIYPZA" 
+        title="Frozen III Trailer" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="svg-container">
+      <!-- Olaf-inspired Snowman SVG -->
+      <svg width="150" height="300" viewBox="0 0 150 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- Body -->
+        <circle cx="75" cy="240" r="40" fill="#fff" stroke="#ccc" stroke-width="2"/>
+        <circle cx="75" cy="160" r="30" fill="#fff" stroke="#ccc" stroke-width="2"/>
+        <circle cx="75" cy="100" r="20" fill="#fff" stroke="#ccc" stroke-width="2"/>
+        <!-- Eyes -->
+        <circle cx="68" cy="95" r="3" fill="#000"/>
+        <circle cx="82" cy="95" r="3" fill="#000"/>
+        <!-- Nose -->
+        <polygon points="75,100 75,105 90,102" fill="orange"/>
+        <!-- Smile -->
+        <path d="M65,110 Q75,120 85,110" stroke="#000" fill="none"/>
+        <!-- Arms -->
+        <line x1="45" y1="160" x2="10" y2="140" stroke="#8B4513" stroke-width="3"/>
+        <line x1="105" y1="160" x2="140" y2="140" stroke="#8B4513" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
+
+  <script src="frozen.js"></script>
+</body>
+</html>
+
