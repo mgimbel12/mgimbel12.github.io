@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fashion Forward: Metropolis Edition</title>
+  <link rel="stylesheet" href="Metropolis.css" />
+</head>
+<body>
+  <header>
+    <h1>Fashion Forward: Metropolis Edition</h1>
+    <p>Enter your passphrase to unlock a themed experience.</p>
+  </header>
+
+  <section class="vault-gate">
+    <input type="password" id="vaultPassword" placeholder="Type your phrase..." />
+    <button onclick="unlockVault()">Unlock</button>
+    <p id="feedback"></p>
+  </section>
+
+  <!-- Photojournalist’s Lens -->
+  <section id="lensVault" class="vault-content hidden">
+    <h2>📸 Photojournalist’s Lens</h2>
+    <p>Explore Jimmy Olsen’s gallery of fashion moments and urban storytelling.</p>
+    <div class="gallery">
+      <img src="https://static3.srcdn.com/wordpress/wp-content/uploads/2020/01/Jimmy-Olsen-Smallville.jpg" alt="Jimmy Olsen shot" />
+      <figcaption>“Truth in the shadows” – Jimmy’s rooftop capture</figcaption>
+      <img src="https://www.comingsoon.net/wp-content/uploads/sites/3/2024/06/Superman-2025-set-photos-Rachel-Brosnahan-Lois-Lane-Jimmy-Olsen.jpg?resize=768" alt="Lana candid" />
+      <figcaption>“Lana in motion” – candid from Season 3</figcaption>
+    </div>
+  </section>
+
+  <!-- Fashion Food -->
+  <section id="foodieVault" class="vault-content hidden">
+    <h2>🍽️ Fashion Food Showcase</h2>
+    <p>Where haute couture meets haute cuisine.</p>
+    <ul class="food-list">
+      <li><strong>Edible Pearls:</strong> Coconut tapioca spheres plated like Chanel buttons</li>
+      <li><strong>Apple Tarts:</strong> Red velvet crust with gold leaf—Snow White meets Versace</li>
+      <li><strong>Runway Ramen:</strong> Neon broth with floating lotus petals</li>
+    </ul>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/OOXAwOOmLT4" title="Fashion Food Vlog" allowfullscreen></iframe>
+  </section>
+
+  <!-- Style Show Simulator -->
+  <section id="runwayVault" class="vault-content hidden">
+    <h2>👗 Style Show Simulator</h2>
+    <p>Build your own fashion show with music, lighting, and models.</p>
+    <div class="simulator">
+      <select id="modelSelect">
+        <option value="lana">Lana Lang</option>
+        <option value="barbie">Barbie Nutcracker</option>
+        <option value="original">Original Design</option>
+      </select>
+      <select id="musicSelect">
+        <option value="classical">Classical Elegance</option>
+        <option value="pop">Pop Sparkle</option>
+        <option value="ambient">Ambient Glow</option>
+      </select>
+      <button onclick="startShow()">Start Show</button>
+      <div id="showOutput"></div>
+    </div>
+  </section>
+
+  <script src="Metropolis.js"></script>
+</body>
+</html>
+
