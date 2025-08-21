@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Superman 2025: Red & Blue Blur Vault</title>
+  <link rel="stylesheet" href="superman2025.css" />
+</head>
+<body>
+  <div class="blur-field">
+    <div class="blur red-blur"></div>
+    <div class="blur blue-blur"></div>
+  </div>
+
+  <div class="vault-gate">
+    <h2>Enter the phrase to unlock your vault</h2>
+    <input type="password" id="vaultPassword" placeholder="Type your phrase..." />
+    <button onclick="unlockVault()">Unlock</button>
+    <p id="feedback"></p>
+  </div>
+
+  <div class="vault-content hidden" id="redVault">
+    <h2>🟥 Red Vault: Strength & Legacy</h2>
+    <p>Welcome to Superman’s power and purpose.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/7kD5h9eeEbk" title="Superman 2025 Theme" allowfullscreen></iframe>
+    <button onclick="toggleVault('blue')">Switch to Blue</button>
+  </div>
+
+  <div class="vault-content hidden" id="blueVault">
+    <h2>🟦 Blue Vault: Hope & Heart</h2>
+    <p>Welcome to Lois Lane’s story and Superman’s soul.</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/q5FNkb_hHLU" title="Lois Lane Tribute" allowfullscreen></iframe>
+    <button onclick="toggleVault('red')">Switch to Red</button>
+  </div>
+
+  <script src="superman2025.js"></script>
+</body>
+</html>
+
