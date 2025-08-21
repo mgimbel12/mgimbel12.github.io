@@ -33,14 +33,25 @@
   <!-- SVG Art Vault -->
   <section id="svgVault" class="vault-content hidden">
     <h2>🎨 Chloe Sullivan SVG Art Gallery</h2>
-    <svg width="300" height="300">
-      <circle cx="150" cy="150" r="80" fill="#f0f8ff" stroke="#333" stroke-width="4" />
-      <text x="150" y="155" text-anchor="middle" font-size="20" fill="#333">Watchtower</text>
-    </svg>
-    <svg width="300" height="300">
-      <rect x="50" y="50" width="200" height="100" fill="#ffe4e1" stroke="#555" stroke-width="3" />
-      <text x="150" y="110" text-anchor="middle" font-size="18" fill="#000">Chloe’s Torch</text>
-    </svg>
+   <svg viewBox="0 0 100 100" width="200" height="200" class="superman-logo">
+  <polygon points="50,5 95,35 75,95 25,95 5,35" fill="#e60000" stroke="#ffcc00" stroke-width="3"/>
+  <text x="50%" y="60%" text-anchor="middle" fill="#ffcc00" font-size="30" font-family="Arial" dy=".3em">S</text>
+</svg>
+
+<style>
+.superman-logo {
+  animation: pulse 2s infinite;
+  transition: transform 0.3s ease;
+}
+.superman-logo:hover {
+  transform: translateY(-10px);
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+</style>
   </section>
 
   <script src="chloe0089.js"></script>
