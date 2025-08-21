@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  overflow: hidden;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  max-width: 600px;
+  margin: auto;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #00bcd4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+.hidden {
+  display: none;
+}
+
+.svg-container {
+  margin-top: 30px;
+}
+
+.snowflakes::before {
+  content: "❄️ ❄️ ❄️ ❄️ ❄️ ❄️";
+  font-size: 24px;
+  animation: float 20s linear infinite;
+  white-space: nowrap;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes float {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
