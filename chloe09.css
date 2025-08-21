@@ -1,0 +1,61 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdfdfd;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.vault-gate {
+  margin: 20px 0;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 1em;
+  width: 250px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.vault-content {
+  margin-top: 30px;
+  padding: 20px;
+  border-top: 2px solid #ccc;
+}
+
+.hidden {
+  display: none;
+}
+
+.floating-icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.icon {
+  font-size: 2em;
+  animation: float 4s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+svg {
+  margin: 20px;
+}
+
