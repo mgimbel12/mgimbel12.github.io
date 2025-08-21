@@ -1,0 +1,37 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #87ceeb, #fff);
+  text-align: center;
+  padding: 50px;
+}
+
+.container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  max-width: 600px;
+  margin: auto;
+}
+
+input[type="password"], button {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #00bcd4;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+.hidden {
+  display: none;
+}
+
