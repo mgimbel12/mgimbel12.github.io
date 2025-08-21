@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background-color: #fef6f9;
+  text-align: center;
+  transition: background-color 0.5s ease;
+}
+
+.castle-scene {
+  position: relative;
+  height: 200px;
+  margin-top: 40px;
+}
+
+.castle {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.white-castle {
+  background: linear-gradient(to bottom right, #fff, #e0e0e0);
+}
+
+.pearl-castle {
+  background: linear-gradient(to bottom right, #fdfdff, #e6e6fa);
+}
+
+.apple-section {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.apple {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.red-apple {
+  background-color: crimson;
+}
+
+.pearl-apple {
+  background-color: #f8f8ff;
+  border: 2px solid #ddd;
+}
+
+.vault-gate {
+  margin-top: 30px;
+}
+
+.vault-content {
+  margin-top: 40px;
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+iframe {
+  margin-top: 20px;
+  border: none;
+  border-radius: 12px;
+}
+
