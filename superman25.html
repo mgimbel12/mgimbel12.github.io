@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Superman Returns 2025 Countdown Vault</title>
+  <link rel="stylesheet" href="SupermanReturns25" />
+</head>
+<body>
+  <header>
+    <h1>🦸‍♂️ Superman Returns 2025</h1>
+    <p>Countdown to the cinematic rebirth of hope.</p>
+  </header>
+
+  <section id="countdown-section">
+    <h2>🕒 Countdown</h2>
+    <div id="countdown"></div>
+  </section>
+
+  <section id="svg-animation">
+    <h2>🦸‍♂️ Superman in Flight</h2>
+    <svg width="100%" height="100">
+      <path id="fly" d="M0,50 Q50,0 100,50" stroke="blue" fill="none"/>
+      <circle r="10" fill="red">
+        <animateMotion dur="5s" repeatCount="indefinite">
+          <mpath href="#fly"/>
+        </animateMotion>
+      </circle>
+    </svg>
+  </section>
+
+  <section id="password-gate">
+    <h2>🔐 LexCorp Access</h2>
+    <input type="password" id="accessCode" placeholder="Enter Lex's secret code" />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="secretContent" style="display:none;">
+      <h3>🎬 Exclusive Vault</h3>
+      <p>Welcome to the Fortress of Solitude.</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/z5HV04Klp7U" title="Nicholas Hoult Interview" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section id="petals-container">
+    <!-- Rose petals will be injected here -->
+  </section>
+
+  <script src="countdown.js"></script>
+  <script src="password.js"></script>
+  <script src="petals.js"></script>
+</body>
+</html>
