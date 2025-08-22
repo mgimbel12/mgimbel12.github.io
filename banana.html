@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bananas in Pyjamas Interactive</title>
+  <link rel="stylesheet" href="banana.css" />
+</head>
+<body>
+  <header>
+    <h1>🍌 Bananas in Pyjamas: Pie & Play</h1>
+    <p>Squares, roots, and fruity fun!</p>
+  </header>
+
+  <section id="math-zone">
+    <h2>🥧 Pie, Squares & Roots</h2>
+    <p>Did you know: √π ≈ 1.772! Let’s explore math with dessert.</p>
+    <svg class="float" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="40" fill="pink" />
+      <text x="50%" y="55%" text-anchor="middle" font-size="20" fill="white">π</text>
+    </svg>
+  </section>
+
+  <section id="video-zone">
+    <h2>🎥 Bananas in Pyjamas Episodes</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/eUSP5Owz_tQ" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/_ITNgizLkjE" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/-OoTBpFgHCA" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/B_XIRe8tFrE" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/GwVGpfuAckM" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Se3QKJd6Fng" allowfullscreen></iframe>
+  </section>
+
+  <section id="banana-mic">
+    <h2>🎤 Banana with a Mic</h2>
+    <svg class="float" viewBox="0 0 100 100">
+      <rect x="30" y="30" width="40" height="60" rx="20" fill="yellow" />
+      <circle cx="50" cy="25" r="10" fill="blue" />
+      <line x1="50" y1="90" x2="50" y2="100" stroke="black" stroke-width="2" />
+    </svg>
+    <p>B1 is ready to sing the Banana Day Song!</p>
+  </section>
+
+  <section id="vault">
+    <h2>🔐 Secret Pie Vault</h2>
+    <p>Enter password to reveal hidden pie videos:</p>
+    <input type="password" id="vault-pass" />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="vault-msg"></div>
+  </section>
+
+  <footer>
+    <p>Made with 🍌 by Marissa | Powered by HTML, CSS, JavaScript</p>
+  </footer>
+
+  <script src="banana.js"></script>
+</body>
+</html>
+
