@@ -30,14 +30,27 @@
 
   <section id="tree-zone">
     <h2>🎄 Christmas Tree Reveal</h2>
-    <svg viewBox="0 0 100 100" class="float">
-      <polygon points="50,10 20,60 80,60" fill="green"/>
-      <rect x="45" y="60" width="10" height="20" fill="brown"/>
-      <circle cx="50" cy="20" r="3" fill="red"/>
-      <circle cx="40" cy="40" r="3" fill="blue"/>
-      <circle cx="60" cy="40" r="3" fill="white"/>
-    </svg>
-  </section>
+   <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="#1c1c1c" stroke="#e62429" stroke-width="5"/>
+
+  <!-- Web Lines -->
+  <g stroke="#e62429" stroke-width="2">
+    <line x1="100" y1="5" x2="100" y2="195"/>
+    <line x1="5" y1="100" x2="195" y2="100"/>
+    <line x1="35" y1="35" x2="165" y2="165"/>
+    <line x1="165" y1="35" x2="35" y2="165"/>
+  </g>
+
+  <!-- Eyes -->
+  <path d="M60,80 Q100,40 140,80 Q100,60 60,80 Z" fill="#ffffff"/>
+  <path d="M60,120 Q100,160 140,120 Q100,140 60,120 Z" fill="#ffffff"/>
+
+  <!-- Mask Outline -->
+  <ellipse cx="100" cy="100" rx="80" ry="90" fill="none" stroke="#e62429" stroke-width="4"/>
+</svg>
+
+
 
   <section id="vault">
     <h2>🔐 Fan Film Vault</h2>
