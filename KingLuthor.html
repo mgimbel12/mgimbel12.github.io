@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lex Luthor Vault</title>
+  <link rel="stylesheet" href="KingLuthor.css" />
+</head>
+<body>
+  <header>
+    <h1>🧠 Lex Luthor Vault</h1>
+    <p>Unlock the secrets of intellect, power, and villainy.</p>
+  </header>
+
+  <!-- 🎨 SVG ART -->
+  <section id="svg-art">
+    <h2>Lex Luthor Symbol</h2>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="villain-symbol">
+      <circle cx="100" cy="100" r="90" fill="#1a1a1a" stroke="#00ff00" stroke-width="6" />
+      <text x="50%" y="55%" text-anchor="middle" fill="#ffff00" font-size="40" font-family="Arial" dy=".3em">L</text>
+    </svg>
+  </section>
+
+  <!-- 🔐 PASSWORD GATE -->
+  <section id="password-gate">
+    <h2>Access LuthorCorp Vault</h2>
+    <label for="equation">Solve: 5x - 10 = 15</label>
+    <input type="text" id="equation" />
+    <button onclick="checkAnswer()">Enter</button>
+    <p id="access-message"></p>
+  </section>
+
+  <!-- 🎶 YOUTUBE VIDEO -->
+  <section id="theme-song">
+    <h2>Lex Luthor Theme</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/8GClG-kx0HY" title="Lex Luthor Theme" frameborder="0" allowfullscreen></iframe>
+  </section>
+
+  <!-- 🧪 METEOR ROCK QUIZ -->
+  <section id="quiz">
+    <h2>Meteor Rock Quiz</h2>
+    <p>Which element weakens Superman?</p>
+    <button onclick="checkQuiz('Kryptonite')">Kryptonite</button>
+    <button onclick="checkQuiz('Gold')">Gold</button>
+    <button onclick="checkQuiz('Titanium')">Titanium</button>
+    <p id="quiz-result"></p>
+  </section>
+
+  <!-- ✈️ ARMY SYMBOLISM -->
+  <section id="army">
+    <h2>Lex’s Military Empire</h2>
+    <svg viewBox="0 0 100 100" class="airplane">
+      <polygon points="50,10 60,40 50,30 40,40" fill="#00ff00" />
+      <rect x="45" y="40" width="10" height="40" fill="#ffff00" />
+    </svg>
+  </section>
+
+  <!-- 🎄 COUNTDOWN -->
+  <section id="countdown">
+    <h2>Countdown to Lexmas</h2>
+    <p id="countdown-timer"></p>
+  </section>
+
+  <script src="KingLuthor.js"></script>
+</body>
+</html>
+
