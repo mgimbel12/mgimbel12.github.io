@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Light of the Word</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #2c3e50, #6a1b9a);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #f1c40f;
+      text-shadow: 0 0 10px #f1c40f;
+    }
+
+    .carousel {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      height: 200px;
+      margin: 2rem auto;
+      width: 80%;
+      border: 2px solid #fff;
+      border-radius: 10px;
+    }
+
+    .verse {
+      min-width: 100%;
+      transition: transform 0.5s ease-in-out;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    button {
+      background-color: #8e44ad;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .gate {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: none;
+      margin-right: 0.5rem;
+    }
+
+    .message {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #f39c12;
+    }
+
+    svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 150px;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Light of the Word</h1>
+    <p>“Thy word is a lamp unto my feet, and a light unto my path.” – Psalm 119:105</p>
+  </header>
+
+  <div class="carousel" id="carousel">
+    <div class="verse">“But the Comforter… shall teach you all things.” – John 14:26</div>
+    <div class="verse">“Ye shall receive power, after that the Holy Ghost is come upon you.” – Acts 1:8</div>
+    <div class="verse">“Now the God of hope fill you with all joy and peace in believing.” – Romans 15:13</div>
+  </div>
+
+  <div class="controls">
+    <button onclick="prevVerse()">⟵ Prev</button>
+    <button onclick="nextVerse()">Next ⟶</button>
+  </div>
+
+  <div class="gate">
+    <h2>Enter the Word</h2>
+    <input type="password" id="passcode" placeholder="e.g., Comforter" />
+    <button onclick="checkPass()">Enter</button>
+    <div class="message" id="message"></div>
+  </div>
+
+  <svg viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="40" fill="url(#grad)" />
+    <defs>
+      <radialGradient id="grad" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" style="stop-color:#f1c40f; stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#8e44ad; stop-opacity:0" />
+      </radialGradient>
+    </defs>
+  </svg>
+
+  <script>
+    let index = 0;
+    const verses = document.querySelectorAll('.verse');
+
+    function updateCarousel() {
+      const offset = -index * 100;
+      verses.forEach(v => v.style.transform = `translateX(${offset}%)`);
+    }
+
+    function nextVerse() {
+      index = (index + 1) % verses.length;
+      updateCarousel();
+    }
+
+    function prevVerse() {
+      index = (index - 1 + verses.length) % verses.length;
+      updateCarousel();
+    }
+
+    function checkPass() {
+      const input = document.getElementById('passcode').value.toLowerCase();
+      const message = document.getElementById('message');
+      if (input === "comforter") {
+        message.textContent = "Welcome, beloved. The Spirit leads you onward.";
+      } else {
+        message.textContent = "That word does not open the way.";
+      }
+    }
+
+    updateCarousel();
+  </script>
+
+</body>
+</html>
+
