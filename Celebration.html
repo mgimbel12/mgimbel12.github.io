@@ -67,6 +67,29 @@
       100% { transform: translateY(0) rotate(0deg); }
     }
   </style>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #f0f8ff, #fff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    svg {
+      width: 200px;
+      height: 200px;
+      animation: floatLeaf 6s infinite ease-in-out;
+    }
+
+    @keyframes floatLeaf {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+  </style>
+
+
 
 
   
