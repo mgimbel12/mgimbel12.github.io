@@ -1,0 +1,106 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #fefcf9;
+  color: #333;
+}
+
+/* Farmhouse Scene */
+#farm-garden {
+  padding: 2rem;
+  background: linear-gradient(to bottom, #fdf6e3, #e0f7fa);
+  text-align: center;
+}
+
+.farmhouse {
+  width: 300px;
+}
+
+.rocking-horse {
+  width: 100px;
+  height: 100px;
+  background: url('assets/rocking-horse.svg') no-repeat center;
+  animation: rock 3s infinite ease-in-out;
+  margin: 1rem auto;
+}
+
+@keyframes rock {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.flower {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, red, pink);
+  border-radius: 50%;
+  margin: 1rem;
+  cursor: pointer;
+}
+
+/* Countdown Scene */
+#disney-countdown {
+  background: #fff3e0;
+  padding: 2rem;
+  text-align: center;
+}
+
+.balloon {
+  width: 40px;
+  height: 60px;
+  border-radius: 50% 50% 45% 45%;
+  margin: 1rem;
+  display: inline-block;
+  animation: float 4s infinite ease-in-out;
+}
+
+.red { background: red; }
+.yellow { background: yellow; }
+.blue { background: blue; }
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+/* Vault Access */
+#vault-access {
+  padding: 2rem;
+  background: #e3f2fd;
+  text-align: center;
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+/* Picnic Scene */
+#picnic-meadow {
+  background: #fce4ec;
+  padding: 2rem;
+  text-align: center;
+}
+
+.picnic-blanket {
+  background: red;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.treat {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-size: cover;
+}
+
+.pie { background-image: url('assets/pie.svg'); }
+.rose { background-image: url('assets/rose.svg'); }
+
