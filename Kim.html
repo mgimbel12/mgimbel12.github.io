@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kim Possible Action Hub</title>
+  <link rel="stylesheet" href="Kim.css" />
+</head>
+<body>
+  <header>
+    <h1>🕶️ Kim Possible Action Hub</h1>
+    <p>Call me, beep me, if you wanna code me!</p>
+  </header>
+
+  <section id="theme-song">
+    <h2>🎶 Theme Song</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/GIgLqN_rAXU" allowfullscreen></iframe>
+  </section>
+
+  <section id="furry-zone">
+    <h2>🐾 Furry Animal Action</h2>
+    <div class="furry-container">
+      <svg class="furry" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="pink" />
+        <text x="50%" y="55%" text-anchor="middle" font-size="20" fill="white">🐀</text>
+      </svg>
+      <svg class="furry" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" fill="red" />
+        <text x="50%" y="55%" text-anchor="middle" font-size="20" fill="white">🐒</text>
+      </svg>
+    </div>
+  </section>
+
+  <section id="club-banana">
+    <h2>🍌 Club Banana Fashion Deck</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/bvmlLqLQSjs" allowfullscreen></iframe>
+    <p>Style your mission with neon flair!</p>
+  </section>
+
+  <section id="quiz-zone">
+    <h2>🧠 Are You Mission-Ready?</h2>
+    <button onclick="startQuiz()">Start Quiz</button>
+    <div id="quiz-result"></div>
+  </section>
+
+  <section id="vault">
+    <h2>🔐 Secret Vault</h2>
+    <p>Enter password to unlock Club Banana files:</p>
+    <input type="password" id="vault-pass" />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="vault-msg"></div>
+  </section>
+
+  <footer>
+    <p>Made with 💥 by Marissa | Powered by HTML, CSS, JavaScript</p>
+  </footer>
+
+  <script src="Kim.js"></script>
+</body>
+</html>
+
