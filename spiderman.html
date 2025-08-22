@@ -16,23 +16,32 @@
     <h2>🕷️ Spidey Mask SVG</h2>
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <!-- Background Circle -->
-  <circle cx="100" cy="100" r="95" fill="#1c1c1c" stroke="#e62429" stroke-width="5"/>
+ <div class="spiderman-container">
+  <svg viewBox="0 0 200 200" class="spiderman-mask">
+    <!-- Add your SVG path or use an external SVG file -->
+    <circle cx="100" cy="100" r="80" fill="#e60000" />
+    <path d="M60,60 C80,20 120,20 140,60" stroke="#000" stroke-width="4" fill="none"/>
+    <!-- Add web lines or eyes here -->
+  </svg>
+</div>
 
-  <!-- Web Lines -->
-  <g stroke="#e62429" stroke-width="2">
-    <line x1="100" y1="5" x2="100" y2="195"/>
-    <line x1="5" y1="100" x2="195" y2="100"/>
-    <line x1="35" y1="35" x2="165" y2="165"/>
-    <line x1="165" y1="35" x2="35" y2="165"/>
-  </g>
+<style>
+.spiderman-container {
+  animation: float 3s ease-in-out infinite;
+  width: 200px;
+  margin: auto;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.spiderman-mask {
+  width: 100%;
+  height: auto;
+}
+</style>
 
-  <!-- Eyes -->
-  <path d="M60,80 Q100,40 140,80 Q100,60 60,80 Z" fill="#ffffff"/>
-  <path d="M60,120 Q100,160 140,120 Q100,140 60,120 Z" fill="#ffffff"/>
 
-  <!-- Mask Outline -->
-  <ellipse cx="100" cy="100" rx="80" ry="90" fill="none" stroke="#e62429" stroke-width="4"/>
-</svg>
 
   </section>
 
