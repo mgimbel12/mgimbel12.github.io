@@ -17,29 +17,37 @@
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <!-- Background Circle -->
  <div class="spiderman-container">
-  <svg viewBox="0 0 200 200" class="spiderman-mask">
-    <!-- Add your SVG path or use an external SVG file -->
-    <circle cx="100" cy="100" r="80" fill="#e60000" />
-    <path d="M60,60 C80,20 120,20 140,60" stroke="#000" stroke-width="4" fill="none"/>
-    <!-- Add web lines or eyes here -->
+<div class="spiderman-mask">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Mask Base -->
+    <circle cx="100" cy="100" r="90" fill="#e60000" stroke="#000" stroke-width="4"/>
+
+    <!-- Webbing -->
+    <path d="M100 10 L100 190 M10 100 L190 100 
+             M40 40 L160 160 M160 40 L40 160" 
+          stroke="#000" stroke-width="2" fill="none"/>
+
+    <!-- Eyes -->
+    <path d="M60 80 Q100 40 140 80 Q100 60 60 80" 
+          fill="#fff" stroke="#000" stroke-width="3"/>
+    <path d="M65 85 Q100 55 135 85 Q100 70 65 85" 
+          fill="#fff" stroke="#000" stroke-width="3"/>
   </svg>
 </div>
 
 <style>
-.spiderman-container {
-  animation: float 3s ease-in-out infinite;
-  width: 200px;
+.spiderman-mask {
+  width: 300px;
   margin: auto;
+  animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-20px); }
-}
-.spiderman-mask {
-  width: 100%;
-  height: auto;
+  50% { transform: translateY(-15px); }
 }
 </style>
+
+
 
 
 
