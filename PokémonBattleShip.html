@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pokémon Battle Ship</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>🚢 Pokémon Battle Ship</h1>
+    <p>Embark on a journey through music, battles, and memories!</p>
+  </header>
+
+  <section id="ash-journal">
+    <h2>📓 Journal of Ashes</h2>
+    <p>“Butterfree, I’ll never forget you.”</p>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/JuYeHPFR3f0" allowfullscreen></iframe>
+  </section>
+
+  <section id="team-rocket">
+    <h2>💥 Team Rocket Deck</h2>
+    <svg class="rocket-ball" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="45" fill="black" stroke="red" stroke-width="5"/>
+      <text x="50%" y="55%" text-anchor="middle" fill="red" font-size="20">R</text>
+    </svg>
+    <p>Enter password to unlock stolen Pokémon:</p>
+    <input type="password" id="rocket-pass" />
+    <button onclick="checkPassword()">Unlock</button>
+    <div id="vault-message"></div>
+  </section>
+
+  <section id="picka-picka">
+    <h2>⚡ Picka Picka Playroom</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/VqXAjCzvCZw" allowfullscreen></iframe>
+    <p>Sing along with Pikachu and friends!</p>
+  </section>
+
+  <section id="quiz-zone">
+    <h2>🧠 Pokémon Quiz</h2>
+    <button onclick="startQuiz()">Start Quiz</button>
+    <div id="quiz-result"></div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by Marissa | Powered by HTML, CSS, JavaScript</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
