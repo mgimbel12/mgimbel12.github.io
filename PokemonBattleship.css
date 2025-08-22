@@ -1,0 +1,61 @@
+body {
+  font-family: 'Verdana', sans-serif;
+  background: linear-gradient(to bottom, #e0f7fa, #fff);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #ffcc00;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+section {
+  padding: 2rem;
+  border-bottom: 2px dashed #ccc;
+}
+
+h2 {
+  color: #0077c2;
+}
+
+.rocket-ball {
+  width: 100px;
+  height: 100px;
+  margin: 1rem 0;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #0077c2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
