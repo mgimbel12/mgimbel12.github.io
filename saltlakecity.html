@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Kendaee's Home Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fffaf0, #f5f5dc);
+      color: #4b3e2e;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      color: #8b4513;
+      margin-top: 2rem;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .password-section, .quiz-section, .affirmation {
+      margin: 2rem auto;
+      max-width: 600px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      background-color: #f5deb3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ffe4b5;
+    }
+
+    .quiz-section button {
+      margin: 0.5rem;
+    }
+
+    .ice-cream {
+      font-size: 2rem;
+      margin-top: 1rem;
+    }
+
+    .temple-img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🍦 Welcome to Kendaee's Home Page 🍦</h1>
+  <p>“The Lord is my shepherd; I am His sheep.”</p>
+
+  <div class="countdown" id="countdown"></div>
+
+  <div class="password-section">
+    <h2>🔐 Enter the Sacred Gate</h2>
+    <p>Type the password to enter: <em>childofGod</em></p>
+    <input type="password" id="passInput" placeholder="Enter password">
+    <br>
+    <button onclick="checkPass()">Enter</button>
+    <p id="message"></p>
+  </div>
+
+  <div class="quiz-section">
+    <h2>🏛️ Salt Lake Temple Quiz</h2>
+    <p>How many spires does the Salt Lake Temple have?</p>
+    <button onclick="checkAnswer('6')">6</button>
+    <button onclick="checkAnswer('4')">4</button>
+    <button onclick="checkAnswer('8')">8</button>
+    <p id="quizResult"></p>
+  </div>
+
+  <div class="affirmation">
+    <h2>✨ Chosen & Loved</h2>
+    <p>“I am the good shepherd: the good shepherd giveth his life for the sheep.” – John 10:11</p>
+    <p>God sent His Son to prove His love. You are a child of Heavenly Father, chosen and cherished.</p>
+    <div class="ice-cream">🍨🍦🍨</div>
+  </div>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Salt_Lake_Temple_-_panoramio.jpg/800px-Salt_Lake_Temple_-_panoramio.jpg" alt="Salt Lake Temple" class="temple-img">
+
+  <script>
+    // Countdown Timer
+    const targetDate = new Date("October 2, 2025 00:00:00").getTime();
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      document.getElementById("countdown").innerHTML = `🎉 ${days} days until Kendaee’s birthday!`;
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("countdown").innerHTML = "🎂 Happy Birthday, Kendaee!";
+      }
+    }, 1000);
+
+    // Password Gate
+    function checkPass() {
+      const input = document.getElementById("passInput").value;
+      const message = document.getElementById("message");
+      if (input === "childofGod") {
+        message.innerHTML = "✅ Welcome, chosen one!";
+      } else {
+        message.innerHTML = "❌ Try again, beloved child.";
+      }
+    }
+
+    // Quiz Logic
+    function checkAnswer(answer) {
+      const result = document.getElementById("quizResult");
+      if (answer === "6") {
+        result.innerHTML = "✅ Correct! The temple has 6 spires.";
+      } else {
+        result.innerHTML = "❌ Not quite. Try again!";
+      }
+    }
+  </script>
+
+</body>
+</html>
