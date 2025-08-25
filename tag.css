@@ -1,0 +1,51 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdf6e3; /* Creme */
+  color: #333;
+  padding: 2rem;
+}
+
+.gate, .vault {
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.gate {
+  background-color: #fffbe6;
+  border-left: 8px solid #fdd835; /* Yellow */
+}
+
+.vault {
+  background-color: #e3f2fd; /* Light Blue */
+  border-left: 8px solid #66bb6a; /* Green */
+}
+
+input[type="password"] {
+  padding: 0.5rem;
+  width: 80%;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #fdd835;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #fbc02d;
+}
+
+#error {
+  color: red;
+  margin-top: 0.5rem;
+}
+
