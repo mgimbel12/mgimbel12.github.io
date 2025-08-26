@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hogwarts Quiz Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #1a1a1a, #333);
+      color: #fff;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+    }
+    h1 {
+      text-align: center;
+      color: orange;
+    }
+    .house-box {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    .house {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #fff;
+    }
+    .gryffindor { background: red; }
+    .slytherin { background: green; }
+    .hufflepuff { background: orange; }
+    .ravenclaw { background: blue; }
+    .quiz {
+      margin-top: 20px;
+    }
+    .question {
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      background: orange;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const password = prompt("Enter the Hogwarts password:");
+    if (password !== "Alohomora") {
+      document.body.innerHTML = "<h1 style='color:red;text-align:center;'>Access Denied</h1>";
+    }
+  </script>
+
+  <div class="container">
+    <h1>Welcome to Hogwarts</h1>
+    <p>Characters: Harry, Hermione, Ron, Draco</p>
+    <p>Professors: Dumbledore, Snape, McGonagall, Flitwick</p>
+    <p>Common Rooms: Gryffindor Tower, Slytherin Dungeon, Hufflepuff Basement, Ravenclaw Tower</p>
+
+    <div class="house-box">
+      <div class="house gryffindor">Gryffindor</div>
+      <div class="house slytherin">Slytherin</div>
+      <div class="house hufflepuff">Hufflepuff</div>
+      <div class="house ravenclaw">Ravenclaw</div>
+    </div>
+
+    <div class="quiz">
+      <h2>Sorting Hat Quiz</h2>
+      <div class="question">
+        <label>1. What trait do you value most?</label><br>
+        <select id="q1">
+          <option>Bravery</option>
+          <option>Ambition</option>
+          <option>Loyalty</option>
+          <option>Wisdom</option>
+        </select>
+      </div>
+      <div class="question">
+        <label>2. Choose a magical creature:</label><br>
+        <select id="q2">
+          <option>Hippogriff</option>
+          <option>Basilisk</option>
+          <option>Niffler</option>
+          <option>Thestral</option>
+        </select>
+      </div>
+      <button onclick="sortHouse()">Sort Me!</button>
+      <p id="result"></p>
+    </div>
+  </div>
+<div style="margin-top: 30px;">
+  <h2>🎬 Featured Harry Potter Video</h2>
+  <iframe width="560" height="315" 
+    src="https://www.youtube.com/embed/1ZdlAg3j8nI" 
+    title="Harry Potter Clip" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen>
+  </iframe>
+</div>  
+  <script>
+    function sortHouse() {
+      const q1 = document.getElementById("q1").value;
+      let house = "";
+      if (q1 === "Bravery") house = "Gryffindor";
+      else if (q1 === "Ambition") house = "Slytherin";
+      else if (q1 === "Loyalty") house = "Hufflepuff";
+      else if (q1 === "Wisdom") house = "Ravenclaw";
+
+      document.getElementById("result").innerText = "You belong in " + house + "!";
+    }
+  </script>
+</body>
+</html>
+
