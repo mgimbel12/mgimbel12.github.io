@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Big Bang Theory Universe</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #ffcc00, #ff99cc);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .section {
+      margin: 40px 0;
+      padding: 20px;
+      background: #fff8f0;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    #countdown {
+      font-size: 1.5em;
+      text-align: center;
+      margin-top: 20px;
+    }
+    input[type="password"] {
+      padding: 8px;
+      margin-top: 10px;
+    }
+    .video-container {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌟 Welcome to The Big Bang Theory Experience 🌟</h1>
+
+  <div class="section">
+    <h2>🎭 Characters & Cast</h2>
+    <table>
+      <tr><th>Character</th><th>Actor/Actress</th></tr>
+      <tr><td>Sheldon Cooper</td><td>Jim Parsons</td></tr>
+      <tr><td>Leonard Hofstadter</td><td>Johnny Galecki</td></tr>
+      <tr><td>Penny</td><td>Kaley Cuoco</td></tr>
+      <tr><td>Howard Wolowitz</td><td>Simon Helberg</td></tr>
+      <tr><td>Raj Koothrappali</td><td>Kunal Nayyar</td></tr>
+      <tr><td>Amy Farrah Fowler</td><td>Mayim Bialik</td></tr>
+      <tr><td>Bernadette Rostenkowski</td><td>Melissa Rauch</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>🎨 Color Wheel & Chemistry Vibes</h2>
+    <p>Inspired by Sheldon’s love for science, this page uses vibrant yellow and pink tones. Add your own molecular art or periodic table elements to enhance the theme!</p>
+  </div>
+
+  <div class="section">
+    <h2>🧠 Sheldon’s Math Calculator</h2>
+    <input type="text" id="mathInput" placeholder="Enter equation (e.g. 2^8 + 3)">
+    <button onclick="solveMath()">Solve</button>
+    <p id="mathResult"></p>
+    <script>
+      function solveMath() {
+        try {
+          const input = document.getElementById("mathInput").value;
+          const result = eval(input);
+          document.getElementById("mathResult").innerText = "Result: " + result;
+        } catch {
+          document.getElementById("mathResult").innerText = "Invalid equation!";
+        }
+      }
+    </script>
+  </div>
+
+  <div class="section">
+    <h2>🎄 Countdown to Christmas</h2>
+    <div id="countdown"></div>
+    <script>
+      const countdown = document.getElementById("countdown");
+      const christmas = new Date("December 25, 2025 00:00:00").getTime();
+      const timer = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = christmas - now;
+        if (distance < 0) {
+          clearInterval(timer);
+          countdown.innerHTML = "🎁 Merry Christmas!";
+          return;
+        }
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
+    </script>
+  </div>
+
+  <div class="section">
+    <h2>🔐 Password-Protected Video</h2>
+    <p>Enter the password to unlock a special clip:</p>
+    <input type="password" id="videoPassword" placeholder="Enter password">
+    <button onclick="checkPassword()">Unlock</button>
+    <div class="video-container" id="videoContainer">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/OWxQVpPJEj8" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <script>
+      function checkPassword() {
+        const password = document.getElementById("videoPassword").value;
+        if (password === "bazinga") {
+          document.getElementById("videoContainer").style.display = "block";
+        } else {
+          alert("Incorrect password!");
+        }
+      }
+    </script>
+  </div>
+
+  <div class="section">
+    <h2>📺 Big Bang Theory Highlights</h2>
+    <ul>
+      <li><a href="https://www.youtube.com/watch?v=pcvmWCJMN7Y" target="_blank">Why The Big Bang Theory HAD to End</a> – A deep dive into why the series concluded after 12 seasons.</li>
+      <li><a href="https://www.youtube.com/watch?v=OWxQVpPJEj8" target="_blank">Living with Sheldon | The Big Bang Theory</a> – Hilarious moments of Sheldon’s quirks in daily life.</li>
+      <li><a href="https://www.youtube.com/watch?v=N_8PpITO6PY" target="_blank">Set Tour with Simon and Kunal - The Big Bang Theory</a> – Behind-the-scenes tour with Howard and Raj.</li>
+      <li><a href="https://m.youtube.com/watch?v=XgQPnH3PESs" target="_blank">This Is What A Perfect Episode of Big Bang Theory Looks Like</a> – A breakdown of the show’s best moments.</li>
+      <li><a href="https://www.youtube.com/watch?v=gzo21M3t208" target="_blank">Hidden Gems from 'The Big Bang Theory' (Seasons 1-6)</a> – Lesser-known but brilliant scenes from early seasons.</li>
+      <li><a href="https://www.youtube.com/watch?v=WOavD-otQcc" target="_blank">Best Fiancé Ever! | The Big Bang Theory</a> – A sweet and funny look at relationship dynamics in the show.</li>
+    </ul>
+  </div>
+
+</body>
+</html>
+
