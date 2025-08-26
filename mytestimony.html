@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Testimony</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefefe;
+      color: #003366;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .container {
+      display: none;
+      background-color: #fff;
+      border: 2px solid #003366;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #ffcc00;
+    }
+
+    .password-box {
+      margin-top: 2rem;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #003366;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #003366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 0.5rem;
+    }
+
+    button:hover {
+      background-color: #0055aa;
+    }
+  </style>
+</head>
+<body>
+  <h1>My Testimony</h1>
+  <div class="password-box">
+    <label for="password">Enter Password:</label>
+    <input type="password" id="password" />
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+
+  <div class="container" id="testimony">
+    <p>I share my testimony of the truth of Jesus Christ of Latter-day Saints. The truth to be told—you must hold on to the Iron Rod.</p>
+    <p>Make the days of your life worthy of something and become the one person you can truly love through the Gospel of Jesus Christ.</p>
+    <p>I believe the Holy Bible to be the word of God, and that the Book of Mormon, as long as it is translated correctly, is the word of Heaven’s mouthpiece.</p>
+    <p>I believe in the Holy Ghost, the gift of receiving, and the belief in Jesus Christ.</p>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const correctPassword = "faith123"; // You can change this to your preferred password
+
+      if (input === correctPassword) {
+        document.getElementById("testimony").style.display = "block";
+        document.querySelector(".password-box").style.display = "none";
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    }
+  </script>
+</body>
+</html>
+
