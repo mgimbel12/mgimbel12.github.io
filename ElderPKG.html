@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elder Gimbel's Mission in Peru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crete+Round&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Crete Round', serif;
+      background: linear-gradient(to bottom, #f5f5f5, #e0f7fa);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #00796b;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .content {
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #555;
+      margin: 1rem 0;
+    }
+
+    .scripture {
+      background-color: #e8f5e9;
+      padding: 1rem;
+      border-left: 5px solid #388e3c;
+      margin: 2rem 0;
+    }
+
+    .images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .images img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Elder Gimbel’s Mission in Peru</h1>
+  <p class="quote">"It is what it is. It be what it be. And it do what it do."</p>
+</header>
+
+<div class="content">
+  <p>Welcome back to another update from Elder Gimbel! This week has been full of growth, gratitude, and gospel joy.</p>
+
+  <p>✨ Just yesterday, Elder Gimbel participated in his first baptism! Karen, a dear friend, had already set her baptism date, but the missionaries were blessed to share in her journey. Elder Gimbel helped confer the Holy Ghost—a moment he described as “super cool.”</p>
+
+  <div class="scripture">
+    <strong>2 Nephi 22:3</strong><br>
+    "Therefore, with joy shall ye draw water out of the wells of salvation."
+  </div>
+
+  <p>Spanish is coming along poco a poco. Though he still feels clueless at times, the ward members have been incredibly kind and supportive. Elder Gimbel contributes by praying and bearing testimony at lessons, and he's even started doing contacts in public!</p>
+
+  <p>🛍️ For P-Day, the missionaries cleaned their apartment and visited <strong>Plaza Norte</strong>, a bustling American-style mall in Lima. The bus ride was wild—what should’ve taken 17 minutes only took 7. “It felt like I was in Fast & Furious,” he joked.</p>
+
+  <p>Through it all, Elder Gimbel reminds us to trust in God’s timing. Whether in joy or trial, Jesus is our strength.</p>
+
+  <div class="images">
+    <img src="Elder_Parker_Baptism.jpg" alt="Baptism in Peru" />
+    <img src="Scripture.jpg" alt="Scripture" />
+    <img src="Elder_Parker.jpg" alt="Parker" />
+  </div>
+</div>
+
+<script>
+  // Floating cross icon
+  const cross = document.createElement('img');
+  cross.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Christian_cross.svg/1200px-Christian_cross.svg.png';
+  cross.className = 'floating';
+  cross.style.top = '20px';
+  cross.style.left = '20px';
+  cross.style.width = '50px';
+  document.body.appendChild(cross);
+</script>
+
+</body>
+</html>
+
