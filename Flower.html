@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Superhero Showcase & Learning Fun</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f5f5dc, #fff8dc);
+      overflow: hidden;
+      color: #333;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    .bubble {
+      width: 50px;
+      height: 50px;
+      background: yellow;
+      border-radius: 50%;
+      opacity: 0.6;
+    }
+
+    .rose {
+      width: 30px;
+      height: 30px;
+      background: pink;
+      border-radius: 50%;
+      box-shadow: 0 0 10px red;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .characters, .learning, .countdowns {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .countdown {
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+
+    .alphabet, .numbers {
+      font-size: 1.5em;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌟 Superhero & Learning Universe 🌟</h1>
+
+  <div class="characters">
+    <h2>Characters</h2>
+    <p>Nicholas Hoult</p>
+    <p>Superman</p>
+    <p>Lois Lane</p>
+    <p>Lana Lang</p>
+    <p>Batman and Robin</p>
+    <p>Chloe Sullivan</p>
+    <p>Lex Luthor</p>
+  </div>
+
+  <div class="countdowns">
+    <h2>Countdowns</h2>
+    <div id="countdownList"></div>
+  </div>
+
+  <div class="learning">
+    <h2>Learn the Alphabet</h2>
+    <div class="alphabet" id="alphabet"></div>
+
+    <h2>Count Numbers</h2>
+    <div class="numbers" id="numbers"></div>
+  </div>
+
+  <!-- Floating Visuals -->
+  <div class="floating bubble" style="top:10%; left:20%;"></div>
+  <div class="floating bubble" style="top:30%; left:70%;"></div>
+  <div class="floating rose" style="top:50%; left:40%;"></div>
+  <div class="floating rose" style="top:80%; left:60%;"></div>
+
+  <script>
+    // Countdown Dates
+    const dates = [
+      { name: "December 28", date: "2025-12-28" },
+      { name: "January 2", date: "2026-01-02" },
+      { name: "October 31", date: "2025-10-31" },
+      { name: "October 2", date: "2025-10-02" },
+      { name: "Nicholas Hoult's Birthday", date: "2025-12-07" }
+    ];
+
+    const countdownList = document.getElementById("countdownList");
+
+    function updateCountdowns() {
+      countdownList.innerHTML = "";
+      const now = new Date();
+      dates.forEach(item => {
+        const target = new Date(item.date);
+        const diff = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+        const text = diff >= 0
+          ? `${item.name}: ${diff} day(s) left`
+          : `${item.name}: Passed ${Math.abs(diff)} day(s) ago`;
+        const div = document.createElement("div");
+        div.className = "countdown";
+        div.textContent = text;
+        countdownList.appendChild(div);
+      });
+    }
+
+    // Alphabet
+    const alphabetDiv = document.getElementById("alphabet");
+    alphabetDiv.textContent = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].join(" ");
+
+    // Numbers
+    const numbersDiv = document.getElementById("numbers");
+    numbersDiv.textContent = Array.from({ length: 20 }, (_, i) => i + 1).join(" ");
+
+    updateCountdowns();
+    setInterval(updateCountdowns, 86400000); // Update daily
+  </script>
+</body>
+</html>
+
