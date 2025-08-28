@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Legends in Motion</title>
+  <link rel="stylesheet" href="legends.css" />
+</head>
+<body>
+  <div id="password-screen">
+    <h2>Enter Password</h2>
+    <input type="password" id="password-input" />
+    <button onclick="checkPassword()">Enter</button>
+    <p id="error-msg"></p>
+  </div>
+
+  <div id="main-content" style="display:none;">
+    <h1>🏀 Legends in Motion</h1>
+    <p>Last Updated: <span id="last-updated"></span></p>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+
+    <div class="floating-icons">
+      <svg class="float" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="purple"/></svg>
+      <svg class="float" viewBox="0 0 64 64"><rect x="10" y="10" width="44" height="44" fill="blue"/></svg>
+    </div>
+  </div>
+
+  <script src="legends.js"></script>
+</body>
+</html>
+
