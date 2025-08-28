@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #fff, #d8c4f0);
+  overflow: hidden;
+}
+
+header h1 {
+  text-align: center;
+  color: #6a1b9a;
+  margin-top: 20px;
+}
+
+.rings-barrier {
+  background: url('rings.svg') no-repeat center;
+  height: 100px;
+}
+
+.floating-objects img {
+  position: absolute;
+  animation: floatUp 10s infinite ease-in-out;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-100vh); }
+}
+
+#password-screen {
+  text-align: center;
+  margin-top: 100px;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+}
+
