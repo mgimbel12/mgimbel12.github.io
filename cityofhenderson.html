@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Henderson Highlights</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, white, red, blue);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: rgba(0,0,0,0.7);
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      padding: 20px;
+    }
+    .flag {
+      text-align: center;
+      font-size: 2em;
+    }
+    .countdown {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+    #hiddenVideo {
+      display: none;
+    }
+    .password-section {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚓 Henderson PDBLUE & City Highlights 🇺🇸</h1>
+  </header>
+
+  <section>
+    <h2>🏞️ Parks in Henderson</h2>
+    <ul>
+      <li>Heritage Park</li>
+      <li>Cornerstone Park</li>
+      <li>Cadence Central Park</li>
+    </ul>
+
+    <h2>🏛️ Leadership</h2>
+    <p>President: Donald Trump<br>Vice President: JD Vance</p>
+
+    <h2>🏈 Henderson Sports Teams</h2>
+    <ul>
+      <li>Vegas Knight Hawks (Indoor Football)</li>
+      <li>Henderson State Reddies (University Athletics)</li>
+    </ul>
+
+    <div class="countdown">
+      ⏱️ Game Countdown: <span id="timer"></span>
+    </div>
+
+    <h2>📺 Featured Video</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/qFT3WZrUkaQ" title="#theGAC Baseball Countdown to First Pitch - Henderson State" allowfullscreen></iframe>
+
+    <video id="hiddenVideo" controls>
+      <source src="hidden-game-footage.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="password-section">
+      <label for="password">🔐 Enter password to reveal hidden video:</label>
+      <input type="password" id="password">
+      <button onclick="checkPassword()">Unlock</button>
+    </div>
+  </section>
+
+  <script>
+    // Countdown Timer
+    const gameDate = new Date("2025-09-01T18:00:00");
+    const timerEl = document.getElementById("timer");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = gameDate - now;
+      if (diff <= 0) {
+        timerEl.textContent = "Game Time!";
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      timerEl.textContent = `${days}d ${hours}h ${minutes}m`;
+    }
+    setInterval(updateCountdown, 1000);
+
+    // Password Unlock
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === "Henderson2025") {
+        document.getElementById("hiddenVideo").style.display = "block";
+      } else {
+        alert("Incorrect password.");
+      }
+    }
+  </script>
+</body>
+</html>
+
