@@ -1,0 +1,24 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #3f51b5, #673ab7);
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}
+
+.floating-icons {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.float {
+  position: absolute;
+  animation: floatUp 10s infinite linear;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-100vh); }
+}
+
