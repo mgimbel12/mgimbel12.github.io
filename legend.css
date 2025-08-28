@@ -16,6 +16,11 @@ body {
   position: absolute;
   animation: floatUp 10s infinite linear;
 }
+.poem {
+  font-style: italic;
+  color: #e0e0ff;
+  margin-top: 2rem;
+}
 
 @keyframes floatUp {
   0% { transform: translateY(100vh); }
