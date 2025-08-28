@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>J-man and Nicole's Wedding Tribute</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom right, #a8e6cf, #dcedc1);
+      color: #003366;
+      text-align: center;
+      padding: 2em;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #004d40;
+    }
+    .poem {
+      font-style: italic;
+      margin: 2em auto;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 1em;
+      border-radius: 10px;
+    }
+    .countdown {
+      font-size: 1.5em;
+      margin-top: 2em;
+      color: #00695c;
+    }
+    .quote {
+      margin-top: 2em;
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #1a237e;
+    }
+    .beast-theme {
+      margin-top: 3em;
+      font-size: 1.1em;
+      color: #4a148c;
+    }
+  </style>
+</head>
+<body>
+  <h1>💍 A Wedding of Passion & Peace 💙💚</h1>
+
+  <div class="poem">
+    <p>To the bride with grace, and the groom so true,</p>
+    <p>Your love is a fire, gentle and blue.</p>
+    <p>Compassion and courage, hand in hand,</p>
+    <p>Like Beauty and Beast in a fairytale land.</p>
+    <p>May your days be filled with laughter and light,</p>
+    <p>And your hearts stay warm every day and night.</p>
+  </div>
+
+  <div class="countdown">
+    Countdown to Nicole's Birthday (Feb 18, 2026):  
+    <span id="days"></span> days 💫
+  </div>
+
+  <div class="quote">
+    “God bless the broken road that led me straight to you.” 🎶
+  </div>
+
+  <div class="beast-theme">
+    In every love story, there’s a moment of transformation—<br>
+    where kindness tames the wild, and beauty sees the soul.<br>
+    May your love be that kind of magic.
+  </div>
+
+  <script>
+    const targetDate = new Date("Feb 18, 2026").getTime();
+    const today = new Date().getTime();
+    const daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+    document.getElementById("days").textContent = daysLeft;
+  </script>
+</body>
+</html>
