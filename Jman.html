@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>J-man and Nicole's Wedding Tribute</title>
+  <title>Nicole & J-man Tribute</title>
   <style>
     body {
       margin: 0;
@@ -11,6 +11,7 @@
       color: #003366;
       text-align: center;
       padding: 2em;
+      overflow: hidden;
     }
     h1 {
       font-size: 2.5em;
@@ -26,7 +27,7 @@
     }
     .countdown {
       font-size: 1.5em;
-      margin-top: 2em;
+      margin-top: 1.5em;
       color: #00695c;
     }
     .quote {
@@ -39,6 +40,34 @@
       margin-top: 3em;
       font-size: 1.1em;
       color: #4a148c;
+    }
+    .video {
+      margin-top: 2em;
+    }
+    iframe {
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    /* Floating rose buds */
+    .rose {
+      position: absolute;
+      font-size: 2em;
+      animation: float 12s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -54,9 +83,26 @@
     <p>And your hearts stay warm every day and night.</p>
   </div>
 
+  <div class="video">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/LRWZRGx1GR8?si=93XvzSTIya_s9AmI" 
+    title="God Bless the Broken Road - Rascal Flatts" frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+
   <div class="countdown">
     Countdown to Nicole's Birthday (Feb 18, 2026):  
-    <span id="days"></span> days 💫
+    <span id="nicole"></span> days 💫
+  </div>
+
+  <div class="countdown">
+    Countdown to J-man's Birthday (Sept 26, 2025):  
+    <span id="jman"></span> days 🎉
+  </div>
+
+  <div class="countdown">
+    Countdown to J-man & Nicole's Anniversary (Oct 14, 2025):  
+    <span id="anniversary"></span> days 💖
   </div>
 
   <div class="quote">
@@ -68,24 +114,19 @@
     where kindness tames the wild, and beauty sees the soul.<br>
     May your love be that kind of magic.
   </div>
-<div class="video">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/LRWZRGx1GR8?si=93XvzSTIya_s9AmI" 
-    title="God Bless the Broken Road - Rascal Flatts" frameborder="0" 
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  </div>
+
+  <!-- Floating rose buds -->
   <script>
-    const targetDate = new Date("Feb 18, 2026").getTime();
-    const today = new Date().getTime();
-    const daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
-    document.getElementById("days").textContent = daysLeft;
-  </script>
-    <!-- Floating rose buds -->
-  <script>
-    const targetDate = new Date("Feb 18, 2026").getTime();
-    const today = new Date().getTime();
-    const daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
-    document.getElementById("days").textContent = daysLeft;
+    function countdown(id, dateStr) {
+      const target = new Date(dateStr).getTime();
+      const now = new Date().getTime();
+      const days = Math.ceil((target - now) / (1000 * 60 * 60 * 24));
+      document.getElementById(id).textContent = days >= 0 ? days : "🎉 It's today!";
+    }
+
+    countdown("nicole", "Feb 18, 2026");
+    countdown("jman", "Sep 26, 2025");
+    countdown("anniversary", "Oct 14, 2025");
 
     // Create floating roses
     for (let i = 0; i < 20; i++) {
@@ -100,3 +141,5 @@
   </script>
 </body>
 </html>
+
+
