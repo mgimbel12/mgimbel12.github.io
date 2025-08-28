@@ -80,5 +80,23 @@
     const daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
     document.getElementById("days").textContent = daysLeft;
   </script>
+    <!-- Floating rose buds -->
+  <script>
+    const targetDate = new Date("Feb 18, 2026").getTime();
+    const today = new Date().getTime();
+    const daysLeft = Math.ceil((targetDate - today) / (1000 * 60 * 60 * 24));
+    document.getElementById("days").textContent = daysLeft;
+
+    // Create floating roses
+    for (let i = 0; i < 20; i++) {
+      const rose = document.createElement("div");
+      rose.className = "rose";
+      rose.textContent = "🌹";
+      rose.style.left = Math.random() * 100 + "vw";
+      rose.style.animationDuration = (8 + Math.random() * 5) + "s";
+      rose.style.fontSize = (1.5 + Math.random() * 1.5) + "em";
+      document.body.appendChild(rose);
+    }
+  </script>
 </body>
 </html>
