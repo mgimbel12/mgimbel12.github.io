@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Christlike Testimony Tribute</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fffaf0, #e6e6fa);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #4b0082;
+      margin-top: 20px;
+    }
+
+    .quote {
+      font-style: italic;
+      text-align: center;
+      margin: 20px;
+      font-size: 1.2em;
+      color: #2e8b57;
+    }
+
+    .section {
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .scripture {
+      background: #f5f5dc;
+      padding: 15px;
+      border-left: 5px solid #8b0000;
+      margin: 20px 0;
+      font-family: Georgia, serif;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 10s infinite ease-in-out;
+      opacity: 0.6;
+      z-index: 10;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    .balloon { top: 10%; left: 5%; width: 50px; }
+    .dove { top: 30%; right: 10%; width: 60px; }
+    .rose { bottom: 10%; left: 40%; width: 40px; }
+
+    iframe {
+      display: block;
+      margin: 30px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .locked {
+      text-align: center;
+      margin-top: 100px;
+      font-size: 1.5em;
+      color: #8b0000;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="content" style="display:none;">
+    <h1>🌟 Christlike Testimony Tribute 🌟</h1>
+    <h2>“I Testify That the Church Is True”</h2>
+    <div class="quote">“You are a beautiful, strong person. We love learning about you and the Gospel truth from you.”</div>
+
+    <div class="section">
+      <p>I love Jesus and Heavenly Father. I love pie, pizza, and pasta sauce—but not always pasta 🍕🥧. I love people who are kind to missionaries, especially my family tree. I’m happy to be here and alive. I’m happy to see people who are happy to be here.</p>
+
+      <p>I love to learn and teach new and exciting art concepts. I love gaining experience and wish everyone could learn more about the gospel of Jesus Christ and explore new ideas. I love gaining friends, family, and different aspects of life. 💖</p>
+
+      <div class="scripture">
+        <strong>2 Nephi 26:33</strong><br>
+        “...he inviteth them all to come unto him and partake of his goodness; and he denieth none that come unto him... all are alike unto God.”
+      </div>
+
+      <p><strong>Testimony:</strong> I testify that the Church of Jesus Christ is true. I love the way people grow through experience in the Church. Jesus Christ is our Savior, and His gospel brings joy, truth, and transformation.</p>
+
+      <h3>🎥 Inspired Testimonies</h3>
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/R-5Bvquxag0" title="(POWERFUL) Testimonies From RMs of The Church of Jesus ..." allowfullscreen></iframe>
+      <p><em>(POWERFUL) Testimonies From RMs of The Church of Jesus ...</em> shares heartfelt witness from returned missionaries about the truth and power of the restored gospel.</p>
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/qOCcfbnA6u0" title="Christian Testimony Video | &quot;Is It a Correct Approach to Be ..." allowfullscreen></iframe>
+      <p><em>Christian Testimony Video | "Is It a Correct Approach to Be ...</em> explores how Christlike behavior transforms lives and deepens faith.</p>
+
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/xPZpYLoDyTQ" title="My Testimony | How I Met Jesus And Became A Christian ✝️" allowfullscreen></iframe>
+      <p><em>My Testimony | How I Met Jesus And Became A Christian ✝️</em> offers a personal journey of discovering Jesus and embracing His love.</p>
+    </div>
+
+    <img src="balloon_icon.png" class="floating balloon" alt="Balloon">
+    <img src="dove_icon.png" class="floating dove" alt="Dove">
+    <img src="rose_icon.png" class="floating rose" alt="Rose">
+
+    <footer>
+      &copy; 2025 Christlike Tribute | Protected by Faith & Passwords
+    </footer>
+  </div>
+
+  <div id="locked" class="locked">
+    🔒 Access Denied. Please contact the author for permission.
+  </div>
+
+  <script>
+    const password = prompt("Enter password to view this testimony:");
+    if (password === "PIMA_PREU") {
+      document.getElementById("content").style.display = "block";
+      document.getElementById("locked").style.display = "none";
+    }
+  </script>
+</body>
+</html>
+
