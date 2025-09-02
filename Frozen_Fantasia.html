@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Frozen Fantasia: Castle of Creme & Dreams</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #a8cfff, #e0bbff);
+      overflow-x: hidden;
+      color: #fff;
+      text-align: center;
+    }
+
+    #login-screen {
+      padding: 100px 20px;
+      background: radial-gradient(circle, #6a00ff, #000);
+    }
+
+    #login-screen input {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    #login-screen button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 1rem;
+      background-color: #ff66cc;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #error-message {
+      color: #ffdddd;
+      margin-top: 10px;
+    }
+
+    #fantasy-world {
+      display: none;
+      padding: 40px 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 2px 2px #6a00ff;
+    }
+
+    section {
+      margin: 40px 0;
+    }
+
+    .mountain {
+      display: inline-block;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 10px;
+      line-height: 120px;
+      font-weight: bold;
+      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .purple { background: #b266ff; }
+    .blue { background: #66ccff; }
+    .chocolate { background: #8b4513; }
+
+    .flavor-option, .topping {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 10px 15px;
+      margin: 5px;
+      border-radius: 20px;
+      font-weight: bold;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    #disney-magic p {
+      font-style: italic;
+      color: #ffe4f0;
+    }
+
+    #scripture {
+      font-size: 1.2rem;
+      margin: 20px auto;
+      max-width: 600px;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    #countdown {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #fff;
+      text-shadow: 1px 1px #6a00ff;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Protection -->
+  <div id="login-screen">
+    <h2>🔐 Enter the Land of Creme & Dreams</h2>
+    <input type="password" id="password" placeholder="Magic Word..." />
+    <br />
+    <button onclick="checkPassword()">Enter</button>
+    <p id="error-message"></p>
+  </div>
+
+  <!-- Main Content -->
+  <div id="fantasy-world">
+    <header>
+      <h1>🏰 Castle of Mals & Ben</h1>
+      <p>Welcome to Finland Island, where creme flows and dreams float.</p>
+    </header>
+
+    <section id="ice-creme-mountains">
+      <h2>🍨 Ice Creme Mountains</h2>
+      <div class="mountain purple">Purple Creme</div>
+      <div class="mountain blue">Blue Creme</div>
+      <div class="mountain chocolate">Chocolate Peaks</div>
+    </section>
+
+    <section id="flavor-mixer">
+      <h2>✨ Mix Your Magical Flavor</h2>
+      <div class="flavor-option">Blueberry</div>
+      <div class="flavor-option">Lavender</div>
+      <div class="flavor-option">Chocolate</div>
+      <div class="flavor-option">Cotton Candy</div>
+      <div class="flavor-option">Rose Syrup</div>
+    </section>
+
+    <section id="floating-toppings">
+      <h2>🎈 Floating Toppings</h2>
+      <div class="topping">Sprinkles</div>
+      <div class="topping">Cherries</div>
+      <div class="topping">Snowflakes</div>
+      <div class="topping">Balloon Hearts</div>
+    </section>
+
+    <section id="disney-magic">
+      <h2>🐭 Mickey & Minnie’s Corner</h2>
+      <p>Mickey: “Try the Aurora Crunch!”</p>
+      <p>Minnie: “Don’t forget the rose syrup!”</p>
+    </section>
+
+    <!-- Scripture Section -->
+    <section id="scripture">
+      <h2>📖 Scripture of Hope</h2>
+      <p>"For unto us a child is born, unto us a son is given..." – Isaiah 9:6</p>
+    </section>
+
+    <!-- Countdown Section -->
+    <section id="countdown">
+      <h2>🎄 Countdown to Christmas 2028</h2>
+      <p id="time-remaining"></p>
+    </section>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const correctPassword = "CremeCastle2025";
+      const errorMsg = document.getElementById("error-message");
+
+      if (input === correctPassword) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("fantasy-world").style.display = "block";
+      } else {
+        errorMsg.textContent = "Oops! That magic word isn't quite right.";
+      }
+    }
+
+    // Countdown to Christmas 2028
+    function updateCountdown() {
+      const christmasDate = new Date("December 25, 2028 00:00:00").getTime();
+      const now = new Date().getTime();
+      const distance = christmasDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("time-remaining").innerHTML =
+        `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+
+      if (distance < 0) {
+        document.getElementById("time-remaining").innerHTML = "🎁 Merry Christmas!";
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
+
