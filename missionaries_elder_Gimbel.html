@@ -46,6 +46,7 @@
       position: absolute;
       animation: float 10s infinite ease-in-out;
       opacity: 0.6;
+      z-index: 10;
     }
 
     @keyframes float {
@@ -57,6 +58,14 @@
     .balloon { top: 10%; left: 5%; width: 50px; }
     .dove { top: 30%; right: 10%; width: 60px; }
     .rose { bottom: 10%; left: 40%; width: 40px; }
+
+    .floating-video {
+      top: 60%;
+      right: 5%;
+      width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
 
     footer {
       text-align: center;
@@ -89,8 +98,15 @@
     <p><em>Shoutout to Elder Kim for the awesome pictures this week!</em></p>
   </div>
 
-  <img src="parker_01.jpg" class="parker_01"  alt="Parker">
-  <img src="Parker_2025.mp4" class="Parker_2025" alt="Parker_2025">
+  <img src="parker_01.jpg" class="floating balloon" alt="Balloon">
+  <img src="rose_icon.png" class="floating rose" alt="Rose">
+  <img src="dove_icon.png" class="floating dove" alt="Dove">
+
+  <!-- Floating Video -->
+  <video class="floating floating-video" autoplay muted loop>
+    <source src="Parker_2025.mp4" type="video/mp4">
+  </video>
+
   <footer>
     &copy; 2025 Elder Gimbel | Missionary Moments | Protected by Faith & Passwords
   </footer>
@@ -104,4 +120,3 @@
   </script>
 </body>
 </html>
-
