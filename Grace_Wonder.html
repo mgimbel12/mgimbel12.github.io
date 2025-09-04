@@ -163,9 +163,67 @@
   </header>
 
   <section id="countdown">
-    <h2>Countdown to Easter 2028</h2>
-    <div id="timer"></div>
-  </section>
+   #countdown {
+      font-size: 2rem;
+      color: #3b3b3b;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(180, 140, 255, 0.3);
+      text-align: center;
+    }
+
+    .verse {
+      margin-top: 2rem;
+      font-style: italic;
+      color: #5a3e36;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(200, 200, 255, 0.2);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="floating">🌷 Countdown to Easter 2028 🌷</h1>
+  <div id="countdown">Loading...</div>
+  <div class="verse">“He is not here; He has risen!” – Matthew 28:6</div>
+
+  <script>
+    function updateCountdown() {
+      const easterDate = new Date("April 16, 2028 00:00:00").getTime();
+      const now = new Date().getTime();
+      const gap = easterDate - now;
+
+      if (gap <= 0) {
+        document.getElementById("countdown").innerText = "🌅 He is Risen!";
+        return;
+      }
+
+      const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((gap % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerText =
+        `${days}d ${hours}h ${minutes}m ${seconds}s until Easter Sunday`;
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
+
+
 
   <section id="verse-carousel">
     <div id="verse-box">
