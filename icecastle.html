@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ice Castle Celebration</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle at top, #e0f7ff, #cce5f6);
+      overflow: hidden;
+      text-align: center;
+      color: #003366;
+    }
+
+    #password-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #f0f8ff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #password-screen input {
+      padding: 10px;
+      font-size: 1em;
+      border: 2px solid #99ccff;
+      border-radius: 5px;
+    }
+
+    #password-screen button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #99ccff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .castle-container {
+      padding-top: 40px;
+    }
+
+    .castle {
+      width: 250px;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+
+    .firework {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #ffcc00;
+      border-radius: 50%;
+      animation: explode 2s infinite ease-out;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+
+    .quote {
+      margin-top: 30px;
+      font-size: 1.3em;
+      color: #004080;
+      font-weight: bold;
+    }
+
+    #content {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="password-screen">
+    <h2>Enter Celebration Password</h2>
+    <input type="password" id="password" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <div id="content">
+    <div class="castle-container">
+      <!-- Ice Castle SVG -->
+      <svg class="castle" viewBox="0 0 200 200">
+        <polygon points="100,10 120,60 80,60" fill="#b3e0ff"/>
+        <rect x="70" y="60" width="60" height="100" fill="#d0f0ff"/>
+        <rect x="85" y="90" width="30" height="70" fill="#99ccff"/>
+      </svg>
+
+      <!-- Sparkles -->
+      <div class="sparkle" style="top:20%; left:30%; animation-delay:0s;"></div>
+      <div class="sparkle" style="top:40%; left:60%; animation-delay:1s;"></div>
+      <div class="sparkle" style="top:70%; left:50%; animation-delay:2s;"></div>
+
+      <!-- Fireworks -->
+      <div class="firework" style="top:10%; left:20%; animation-delay:0s;"></div>
+      <div class="firework" style="top:15%; left:70%; animation-delay:1s;"></div>
+      <div class="firework" style="top:5%; left:50%; animation-delay:2s;"></div>
+
+      <!-- Scripture Quote -->
+      <div class="quote">
+        <p>"The Lord is my light and my salvation—whom shall I fear?" – Psalm 27:1</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      const correctPassword = "celebrate123"; // You can change this
+
+      if (input === correctPassword) {
+        document.getElementById('password-screen').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      } else {
+        alert("Incorrect password. Try again.");
+      }
+    }
+  </script>
+</body>
+</html>
+
