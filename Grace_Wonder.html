@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grace & Wonder</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom, #cce7ff, #e6ccff);
+      animation: fadeIn 3s ease-in;
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #5a3e36;
+      text-shadow: 0 0 10px #fff;
+    }
+
+    section {
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(200, 200, 255, 0.3);
+      transition: all 0.5s ease-in-out;
+    }
+
+    section:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 30px rgba(180, 220, 255, 0.5);
+    }
+
+    #timer {
+      font-size: 2rem;
+      color: #ffffff;
+      text-shadow: 0 0 10px #ffd700;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      text-align: center;
+    }
+
+    #music-btn {
+      background: #e6ccff;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      box-shadow: 0 0 10px rgba(180, 140, 255, 0.5);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    #music-btn:hover {
+      transform: scale(1.05);
+    }
+
+    #verse-box {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: #fff;
+      text-shadow: 0 0 6px #cce7ff;
+    }
+
+    .blessing-card {
+      width: 80%;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff8f0;
+      border: 2px dashed #d4a5a5;
+      border-radius: 12px;
+      font-family: 'Georgia', serif;
+      color: #5a3e36;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    #guestbook textarea {
+      width: 100%;
+      height: 100px;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      padding: 0.5rem;
+      font-family: 'Georgia', serif;
+    }
+
+    #guestbook button {
+      background: #d1b3ff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .dove, .rose {
+      position: absolute;
+      width: 60px;
+      z-index: 0;
+    }
+
+    @keyframes floatDove {
+      0% { left: -50px; top: 10%; opacity: 0.5; }
+      50% { top: 30%; opacity: 1; }
+      100% { left: 100vw; top: 20%; opacity: 0.5; }
+    }
+
+    .dove {
+      background-image: url('your-dove-image.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: floatDove 20s linear infinite;
+    }
+
+    @keyframes roseFloat {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    .rose {
+      background-image: url('your-rose-image.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      animation: roseFloat 8s ease-in-out infinite;
+    }
+
+    #floating-verse {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-style: italic;
+      color: #fff;
+      text-shadow: 0 0 5px #aee;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Grace & Wonder</h1>
+    <button id="music-btn" onclick="toggleMusic()">🎶 Play My Little Prayer</button>
+    <audio id="bg-music" src="my-little-prayer.mp3" preload="auto" loop></audio>
+  </header>
+
+  <section id="countdown">
+    <h2>Countdown to Easter 2028</h2>
+    <div id="timer"></div>
+  </section>
+
+  <section id="verse-carousel">
+    <div id="verse-box">
+      <p id="verse">“He is not here; He has risen.” – Matthew 28:6</p>
+    </div>
+  </section>
+
+  <section id="blessing">
+    <div class="blessing-card">
+      <h2>💖 A Blessing for You</h2>
+      <p>“The Lord bless you and keep you; the Lord make His face shine upon you and be gracious to you.” – Numbers 6:24–25</p>
+      <p>May this day be filled with peace, joy, and divine love. You are cherished beyond measure.</p>
+      <p style="font-style: italic;">From Marissa, with love and prayer</p>
+    </div>
+    <button onclick="window.print()">🖨️ Print This Blessing</button>
+  </section>
+
+  <section id="guestbook">
+    <h3>Leave a Blessing</h3>
+    <textarea id="blessing" placeholder="Write your message here..."></textarea>
+    <button onclick="submitBlessing()">Submit</button>
+    <div id="messages"></div>
+  </section>
+
+  <div class="dove" style="top: 20%; left: 0;"></div>
+  <div class="rose" style="top: 60%; left: 20%;"></div>
+  <div id="floating-verse">“The Lord is my shepherd; I shall not want.” – Psalm 23:1</div>
+
+  <script>
+    // Countdown
+    function updateCountdown() {
+      const targetDate = new Date("April 16, 2028 00:00:00").getTime();
+      const now = new Date().getTime();
+      const gap = targetDate - now;
+
+      const days = Math.floor(gap / (1000 * 60 * 60 * 24));
+      document.getElementById("timer").innerText = `${days} days until Easter 2028`;
+
+      if (gap <= 0) {
+        document.getElementById("timer").innerText = "He is Risen!";
+      }
+    }
+    setInterval(updateCountdown, 1000);
+
+    // Scripture Carousel
+    const verses = [
+      "“He is not here; He has risen.” – Matthew 28:6",
+      "“My grace is sufficient for thee.” – 2 Corinthians 12:9",
+      "“Because I live, you also will live.” – John 14:19",
+      "“Let not your heart be troubled.” – John 14:1"
+    ];
+    let index = 0;
+    setInterval(() => {
+      document.getElementById("verse").innerText = verses[index];
+      index = (index + 1) % verses.length;
+    }, 6000);
+
+    // Music Toggle
+    function toggleMusic() {
+      const music = document.getElementById("bg-music");
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+
+    // Guestbook
+    function submitBlessing() {
+  function submitBlessing() {
+      const textarea = document.getElementById("blessing");
+      const message = textarea.value.trim();
+      if (message) {
+        const msgDiv = document.createElement("div");
+        msgDiv.textContent = `"${message}" – 💌`;
+        msgDiv.style.padding = "0.5rem";
+        msgDiv.style.marginTop = "0.5rem";
+        msgDiv.style.background = "#f0e6ff";
+        msgDiv.style.borderRadius = "8px";
+        msgDiv.style.boxShadow = "0 0 5px rgba(180,140,255,0.3)";
+        document.getElementById("messages").appendChild(msgDiv);
+        textarea.value = "";
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+
