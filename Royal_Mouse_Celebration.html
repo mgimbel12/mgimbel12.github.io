@@ -13,15 +13,19 @@
     }
 
     .castle-container {
-      padding-top: 50px;
+      padding-top: 30px;
+      max-width: 600px;
+      margin: auto;
     }
 
     .castle {
-      width: 250px;
+      width: 40%;
+      max-width: 250px;
     }
 
-    .mice img {
-      width: 100px;
+    .mice svg {
+      width: 80px;
+      height: auto;
       margin: 10px;
     }
 
@@ -39,6 +43,10 @@
       animation: float 12s infinite ease-in-out;
     }
 
+    .hat:nth-child(1) { animation-delay: 0s; }
+    .hat:nth-child(2) { animation-delay: 2s; }
+    .hat:nth-child(3) { animation-delay: 4s; }
+
     @keyframes float {
       0% { transform: translateY(0); opacity: 1; }
       50% { transform: translateY(-150px); opacity: 0.7; }
@@ -53,10 +61,17 @@
 
     #content {
       display: none;
+      opacity: 0;
+      transition: opacity 2s ease-in;
+    }
+
+    body.loaded #content {
+      display: block;
+      opacity: 1;
     }
   </style>
 </head>
-<body> 
+<body>
 
   <div id="content">
     <div class="castle-container">
@@ -68,15 +83,15 @@
       </svg>
 
       <div class="mice">
-        <!-- Mickey Mouse SVG Placeholder -->
-        <svg width="100" height="100" viewBox="0 0 100 100">
+        <!-- Mickey Mouse -->
+        <svg viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="30" fill="black"/>
           <circle cx="30" cy="30" r="15" fill="black"/>
           <circle cx="70" cy="30" r="15" fill="black"/>
         </svg>
 
-        <!-- Minnie Mouse SVG Placeholder -->
-        <svg width="100" height="100" viewBox="0 0 100 100">
+        <!-- Minnie Mouse -->
+        <svg viewBox="0 0 100 100">
           <circle cx="50" cy="50" r="30" fill="black"/>
           <circle cx="30" cy="30" r="15" fill="black"/>
           <circle cx="70" cy="30" r="15" fill="black"/>
@@ -85,16 +100,16 @@
       </div>
 
       <div class="floating-hats">
-        <!-- Floating Top Hat SVGs -->
-        <svg class="hat" style="left:10%; top:80%;" width="40" height="40" viewBox="0 0 100 100">
+        <!-- Floating Hats -->
+        <svg class="hat" style="left:10%; top:80%;" viewBox="0 0 100 100">
           <rect x="30" y="40" width="40" height="20" fill="black"/>
           <rect x="25" y="60" width="50" height="10" fill="black"/>
         </svg>
-        <svg class="hat" style="left:50%; top:90%;" width="40" height="40" viewBox="0 0 100 100">
+        <svg class="hat" style="left:50%; top:90%;" viewBox="0 0 100 100">
           <rect x="30" y="40" width="40" height="20" fill="black"/>
           <rect x="25" y="60" width="50" height="10" fill="black"/>
         </svg>
-        <svg class="hat" style="left:80%; top:85%;" width="40" height="40" viewBox="0 0 100 100">
+        <svg class="hat" style="left:80%; top:85%;" viewBox="0 0 100 100">
           <rect x="30" y="40" width="40" height="20" fill="black"/>
           <rect x="25" y="60" width="50" height="10" fill="black"/>
         </svg>
@@ -105,6 +120,11 @@
       </div>
     </div>
   </div>
+
+  <script>
+    window.onload = () => {
+      document.body.classList.add('loaded');
+    };
+  </script>
 </body>
 </html>
-
