@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Royal Mouse Celebration</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fffbe6, #fef3c7);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .castle-container {
+      padding-top: 50px;
+    }
+
+    .castle {
+      width: 250px;
+    }
+
+    .mice img {
+      width: 100px;
+      margin: 10px;
+    }
+
+    .floating-hats {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hat {
+      position: absolute;
+      animation: float 12s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(-150px); opacity: 0.7; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    .quote {
+      margin-top: 30px;
+      font-size: 1.2em;
+      color: #7c5e10;
+    }
+
+    #content {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const password = "magiccastle";
+    const userInput = prompt("Enter the secret password:");
+    if (userInput === password) {
+      document.getElementById("content").style.display = "block";
+    } else {
+      document.body.innerHTML = "<h2 style='margin-top:100px;'>Access Denied</h2>";
+    }
+  </script>
+
+  <div id="content">
+    <div class="castle-container">
+      <!-- Castle SVG -->
+      <svg class="castle" viewBox="0 0 200 200">
+        <polygon points="100,10 120,60 80,60" fill="#fcd34d"/>
+        <rect x="70" y="60" width="60" height="100" fill="#fde68a"/>
+        <rect x="85" y="90" width="30" height="70" fill="#facc15"/>
+      </svg>
+
+      <div class="mice">
+        <!-- Mickey Mouse SVG Placeholder -->
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="30" fill="black"/>
+          <circle cx="30" cy="30" r="15" fill="black"/>
+          <circle cx="70" cy="30" r="15" fill="black"/>
+        </svg>
+
+        <!-- Minnie Mouse SVG Placeholder -->
+        <svg width="100" height="100" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="30" fill="black"/>
+          <circle cx="30" cy="30" r="15" fill="black"/>
+          <circle cx="70" cy="30" r="15" fill="black"/>
+          <polygon points="45,20 55,20 50,10" fill="red"/>
+        </svg>
+      </div>
+
+      <div class="floating-hats">
+        <!-- Floating Top Hat SVGs -->
+        <svg class="hat" style="left:10%; top:80%;" width="40" height="40" viewBox="0 0 100 100">
+          <rect x="30" y="40" width="40" height="20" fill="black"/>
+          <rect x="25" y="60" width="50" height="10" fill="black"/>
+        </svg>
+        <svg class="hat" style="left:50%; top:90%;" width="40" height="40" viewBox="0 0 100 100">
+          <rect x="30" y="40" width="40" height="20" fill="black"/>
+          <rect x="25" y="60" width="50" height="10" fill="black"/>
+        </svg>
+        <svg class="hat" style="left:80%; top:85%;" width="40" height="40" viewBox="0 0 100 100">
+          <rect x="30" y="40" width="40" height="20" fill="black"/>
+          <rect x="25" y="60" width="50" height="10" fill="black"/>
+        </svg>
+      </div>
+
+      <div class="quote">
+        <p>"Let your heart be light and your joy be full." – Psalm 16:11</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
