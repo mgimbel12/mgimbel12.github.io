@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Poké Ball Catch Game</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #f0f8ff, #cce5ff);
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+    }
+
+    .ball {
+      position: absolute;
+      width: 50px;
+      animation: fall 5s linear infinite;
+      cursor: pointer;
+    }
+
+    @keyframes fall {
+      0% { top: -60px; }
+      100% { top: 100vh; }
+    }
+
+    #score {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      font-size: 1.5em;
+      color: #cc0000;
+    }
+
+    iframe {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      width: 300px;
+      height: 170px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="score">Score: 0</div>
+
+  <!-- Poké Ball SVG -->
+  <svg class="ball" viewBox="0 0 100 100" onclick="catchBall(this)" style="left:20%;">
+    <circle cx="50" cy="50" r="45" fill="white" stroke="black" stroke-width="5"/>
+    <path d="M5,50 h90" stroke="black" stroke-width="5"/>
+    <circle cx="50" cy="50" r="15" fill="white" stroke="black" stroke-width="5"/>
+    <circle cx="50" cy="50" r="7" fill="black"/>
+  </svg>
+
+  <!-- Music Embed -->
+  <iframe src="https://www.youtube.com/embed/-BKfhq_TtcE?autoplay=1&loop=1&playlist=-BKfhq_TtcE"></iframe>
+
+  <script>
+    let score = 0;
+    function catchBall(ball) {
+      score++;
+      document.getElementById('score').textContent = "Score: " + score;
+      ball.style.display = "none";
+    }
+  </script>
+</body>
+</html>
