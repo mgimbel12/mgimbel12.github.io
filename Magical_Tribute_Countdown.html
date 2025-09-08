@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Magical Tribute Countdown</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+      font-family: 'Georgia', serif;
+      color: #fefae0;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      color: gold;
+      margin-top: 2em;
+      font-size: 2.5em;
+    }
+
+    .section {
+      margin: 3em auto;
+      max-width: 700px;
+      padding: 1em;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+
+    .section h2 {
+      color: gold;
+      font-size: 1.5em;
+      margin-bottom: 1em;
+    }
+
+    .countdown {
+      font-size: 1.2em;
+      margin: 1em 0;
+    }
+
+    .verse {
+      margin: 2em auto;
+      font-size: 1.2em;
+      animation: fadeIn 3s ease-in;
+      max-width: 600px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .manger {
+      margin-top: 4em;
+      font-size: 2em;
+      text-shadow: 0 0 10px gold, 0 0 20px #fefae0;
+      animation: glow 3s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px gold; }
+      to { text-shadow: 0 0 20px #fefae0; }
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border: none;
+      margin-top: 1em;
+    }
+
+    #sky circle {
+      animation: floatStar 10s infinite ease-in-out;
+    }
+
+    @keyframes floatStar {
+      0% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(-10px); opacity: 0.7; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    var password = prompt("Enter password to view this sacred space:");
+    if (password !== "Bethlehem2025") {
+      document.body.innerHTML = "<h2 style='text-align:center; margin-top:20%;'>Access Denied</h2>";
+    }
+  </script>
+
+  <!-- Floating Stars -->
+  <svg id="sky" width="100%" height="100%" style="position: fixed; top: 0; left: 0; z-index: -1;">
+    <circle cx="10%" cy="20%" r="2" fill="gold" />
+    <circle cx="30%" cy="40%" r="1.5" fill="white" />
+    <circle cx="70%" cy="10%" r="2.5" fill="gold" />
+    <circle cx="90%" cy="60%" r="1.8" fill="white" />
+  </svg>
+
+  <h1>The Birth of Jesus Christ</h1>
+
+  <div class="manger">🪵 Baby Jesus</div>
+
+  <div class="verse">“Today in the town of David a Savior has been born to you; he is the Messiah, the Lord.” – Luke 2:11</div>
+  <div class="verse">“The virgin will conceive and give birth to a son, and they will call him Immanuel.” – Matthew 1:23</div>
+  <div class="verse">“The Holy Spirit will come upon you... the holy one to be born will be called the Son of God.” – Luke 1:35</div>
+
+  <!-- 🎉 Countdown Section -->
+  <div class="section">
+    <h2>✨ Countdown to Celebration</h2>
+    <div class="countdown">🎉 Nicholas Hoult – 90 days until December 7, 2025</div>
+    <div class="countdown">🎈 David Archuleta – 111 days until December 28, 2025</div>
+    <div class="countdown">🎄 Christmas Eve – 107 days until December 24, 2025</div>
+    <div class="countdown">🏰 Lexmas Day – 91 days until December 8, 2025</div>
+  </div>
+
+  <!-- 🎶 David Archuleta Christmas Song -->
+  <div class="section">
+    <h2>🎶 Christmas Every Day – David Archuleta</h2>
+    <iframe src="https://www.youtube.com/embed/G0QuvuTEGiU" 
+      title="David Archuleta - Christmas Every Day" allowfullscreen></iframe>
+  </div>
+
+  <!-- 🎥 Nicholas Hoult Interview -->
+  <div class="section">
+    <h2>🎥 Reflections with Nicholas Hoult</h2>
+    <iframe src="https://www.youtube.com/embed/PAyXaFQdWJw" 
+      title="Nicholas Hoult Interview" allowfullscreen></iframe>
+  </div>
+
+  <!-- 🦸 Superman 2025 Release Info -->
+  <div class="section">
+    <h2>🦸 Superman (2025) Blu-ray & DVD</h2>
+    <p>James Gunn’s <strong>Superman</strong>, starring David Corenswet and Nicholas Hoult as Lex Luthor, releases on <strong>Blu-ray and DVD September 23, 2025</strong>.</p>
+    <p>Includes special features like:</p>
+    <ul style="text-align:left; max-width:500px; margin: 0 auto;">
+      <li>Krypto Saves the Day</li>
+      <li>Adventures in Making Superman</li>
+      <li>Icons Forever: Superman’s Legacy</li>
+      <li>Lex Luthor: The Mind of a Master Villain</li>
+      <li>The Justice Gang Featurette</li>
+    </ul>
+  </div>
+
+</body>
+</html>
+
