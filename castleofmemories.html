@@ -4,9 +4,132 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Castle of Memories</title>
-  <link rel="stylesheet" href="castleofmemories.css" />
+  <style>
+    /* General Styling */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #f0f8ff, #e6e6fa);
+      overflow: hidden;
+    }
+
+    /* Password Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2em;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    input {
+      padding: 0.5em;
+      margin-top: 1em;
+      width: 80%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      margin-top: 1em;
+      padding: 0.5em 1em;
+      background: #6495ed;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #errorMsg {
+      color: crimson;
+      margin-top: 0.5em;
+    }
+
+    /* Castle */
+    .castle-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 2em;
+      animation: fadeIn 3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Mickey Mouse */
+    .mickey-svg {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      animation: floatMickey 10s infinite ease-in-out;
+    }
+
+    @keyframes floatMickey {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Balloon */
+    .balloon-svg {
+      position: absolute;
+      top: 60%;
+      left: 70%;
+      animation: floatBalloon 12s infinite ease-in-out;
+    }
+
+    @keyframes floatBalloon {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Scripture */
+    .scripture {
+      text-align: center;
+      font-size: 1.2em;
+      color: #4b0082;
+      margin-top: 2em;
+      animation: fadeInScripture 3s ease-in;
+    }
+
+    @keyframes fadeInScripture {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Password Modal -->
   <div id="passwordModal" class="modal">
     <div class="modal-content">
       <h2>🔐 Enter the Magic Word</h2>
@@ -16,57 +139,63 @@
     </div>
   </div>
 
+  <!-- Main Content -->
   <div id="mainContent" style="display:none;">
-  <div class="scripture">“Let your light so shine before men...” – Matthew 5:16</div>
+    <!-- Castle -->
+    <div class="castle-wrapper">
+      <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <rect x="60" y="100" width="80" height="60" fill="#f4c2c2" stroke="#d48fb1" stroke-width="2"/>
+        <rect x="50" y="70" width="20" height="30" fill="#f4c2c2" />
+        <rect x="130" y="70" width="20" height="30" fill="#f4c2c2" />
+        <polygon points="50,70 60,50 70,70" fill="#8a2be2"/>
+        <polygon points="130,70 140,50 150,70" fill="#8a2be2"/>
+        <polygon points="80,100 100,70 120,100" fill="#8a2be2"/>
+        <rect x="90" y="130" width="20" height="30" fill="#fff" stroke="#8a2be2" stroke-width="1"/>
+        <circle cx="40" cy="40" r="2" fill="#fff"/>
+        <circle cx="160" cy="30" r="2" fill="#fff"/>
+        <circle cx="100" cy="20" r="3" fill="#ffd700"/>
+      </svg>
+    </div>
+
+    <!-- Mickey Mouse -->
+    <svg class="mickey-svg" viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="40" fill="#000" />
+      <circle cx="60" cy="60" r="25" fill="#000" />
+      <circle cx="140" cy="60" r="25" fill="#000" />
+      <circle cx="90" cy="90" r="8" fill="white" opacity="0.2" />
+    </svg>
+
+    <!-- Balloon -->
+    <svg class="balloon-svg" viewBox="0 0 80 200" width="80" height="200" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="40" cy="60" rx="30" ry="40" fill="#ff69b4" stroke="#d63384" stroke-width="2"/>
+      <ellipse cx="30" cy="50" rx="8" ry="12" fill="white" opacity="0.3"/>
+      <path d="M40 100 C35 130, 45 160, 40 200" stroke="#555" stroke-width="2" fill="none"/>
+      <circle cx="25" cy="35" r="2" fill="white" opacity="0.8"/>
+      <circle cx="55" cy="45" r="1.5" fill="white" opacity="0.6"/>
+    </svg>
+
+    <!-- Scripture -->
+    <div class="scripture">“Let your light so shine before men...” – Matthew 5:16</div>
+
+    <!-- Sparkles -->
+    <div class="sparkle" style="top:20%; left:10%;"></div>
+    <div class="sparkle" style="top:30%; left:80%;"></div>
+    <div class="sparkle" style="top:10%; left:50%;"></div>
   </div>
-  <svg width="80" height="200" viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
-  <!-- Balloon shape -->
-  <ellipse cx="40" cy="60" rx="30" ry="40" fill="#ff69b4" stroke="#d63384" stroke-width="2"/>
-  
-  <!-- Highlight -->
-  <ellipse cx="30" cy="50" rx="8" ry="12" fill="white" opacity="0.3"/>
 
-  <!-- String -->
-  <path d="M40 100 C35 130, 45 160, 40 200" stroke="#555" stroke-width="2" fill="none"/>
+  <!-- JavaScript -->
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value;
+      const correctPassword = "faithcastle"; // Customize this!
 
-  <!-- Optional sparkle -->
-  <circle cx="25" cy="35" r="2" fill="white" opacity="0.8"/>
-  <circle cx="55" cy="45" r="1.5" fill="white" opacity="0.6"/>
-</svg>
-<div class="castle-wrapper">
-  <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-    <!-- Base -->
-    <rect x="60" y="100" width="80" height="60" fill="#f4c2c2" stroke="#d48fb1" stroke-width="2"/>
-    
-    <!-- Towers -->
-    <rect x="50" y="70" width="20" height="30" fill="#f4c2c2" />
-    <rect x="130" y="70" width="20" height="30" fill="#f4c2c2" />
-    
-    <!-- Roofs -->
-    <polygon points="50,70 60,50 70,70" fill="#8a2be2"/>
-    <polygon points="130,70 140,50 150,70" fill="#8a2be2"/>
-    <polygon points="80,100 100,70 120,100" fill="#8a2be2"/>
-
-    <!-- Door -->
-    <rect x="90" y="130" width="20" height="30" fill="#fff" stroke="#8a2be2" stroke-width="1"/>
-
-    <!-- Stars / Sparkles -->
-    <circle cx="40" cy="40" r="2" fill="#fff"/>
-    <circle cx="160" cy="30" r="2" fill="#fff"/>
-    <circle cx="100" cy="20" r="3" fill="#ffd700"/>
-  </svg>
-</div>
-<svg viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
-  <!-- Head -->
-  <circle cx="100" cy="100" r="40" fill="#000" />
-  
-  <!-- Ears -->
-  <circle cx="60" cy="60" r="25" fill="#000" />
-  <circle cx="140" cy="60" r="25" fill="#000" />
-  
-  <!-- Face highlight (optional) -->
-  <circle cx="90" cy="90" r="8" fill="white" opacity="0.2" />
-</svg>
-  <script src="castleofmemories.js"></script>
+      if (input === correctPassword) {
+        document.getElementById('passwordModal').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+      } else {
+        document.getElementById('errorMsg').textContent = "Oops! Try again.";
+      }
+    }
+  </script>
 </body>
 </html>
