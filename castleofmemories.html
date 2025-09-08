@@ -17,12 +17,56 @@
   </div>
 
   <div id="mainContent" style="display:none;">
-    <div class="castle"></div>
-    <div class="floating mickey"></div>
-    <div class="floating balloon"></div>
-    <div class="scripture">“Let your light so shine before men...” – Matthew 5:16</div>
+  <div class="scripture">“Let your light so shine before men...” – Matthew 5:16</div>
   </div>
+  <svg width="80" height="200" viewBox="0 0 80 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Balloon shape -->
+  <ellipse cx="40" cy="60" rx="30" ry="40" fill="#ff69b4" stroke="#d63384" stroke-width="2"/>
+  
+  <!-- Highlight -->
+  <ellipse cx="30" cy="50" rx="8" ry="12" fill="white" opacity="0.3"/>
 
+  <!-- String -->
+  <path d="M40 100 C35 130, 45 160, 40 200" stroke="#555" stroke-width="2" fill="none"/>
+
+  <!-- Optional sparkle -->
+  <circle cx="25" cy="35" r="2" fill="white" opacity="0.8"/>
+  <circle cx="55" cy="45" r="1.5" fill="white" opacity="0.6"/>
+</svg>
+<div class="castle-wrapper">
+  <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Base -->
+    <rect x="60" y="100" width="80" height="60" fill="#f4c2c2" stroke="#d48fb1" stroke-width="2"/>
+    
+    <!-- Towers -->
+    <rect x="50" y="70" width="20" height="30" fill="#f4c2c2" />
+    <rect x="130" y="70" width="20" height="30" fill="#f4c2c2" />
+    
+    <!-- Roofs -->
+    <polygon points="50,70 60,50 70,70" fill="#8a2be2"/>
+    <polygon points="130,70 140,50 150,70" fill="#8a2be2"/>
+    <polygon points="80,100 100,70 120,100" fill="#8a2be2"/>
+
+    <!-- Door -->
+    <rect x="90" y="130" width="20" height="30" fill="#fff" stroke="#8a2be2" stroke-width="1"/>
+
+    <!-- Stars / Sparkles -->
+    <circle cx="40" cy="40" r="2" fill="#fff"/>
+    <circle cx="160" cy="30" r="2" fill="#fff"/>
+    <circle cx="100" cy="20" r="3" fill="#ffd700"/>
+  </svg>
+</div>
+<svg viewBox="0 0 200 200" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Head -->
+  <circle cx="100" cy="100" r="40" fill="#000" />
+  
+  <!-- Ears -->
+  <circle cx="60" cy="60" r="25" fill="#000" />
+  <circle cx="140" cy="60" r="25" fill="#000" />
+  
+  <!-- Face highlight (optional) -->
+  <circle cx="90" cy="90" r="8" fill="white" opacity="0.2" />
+</svg>
   <script src="castleofmemories.js"></script>
 </body>
 </html>
