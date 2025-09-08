@@ -36,7 +36,7 @@
 
     .countdown {
       font-size: 1.2em;
-      margin: 1em 0;
+      margin: 0.5em 0;
     }
 
     .verse {
@@ -44,6 +44,7 @@
       font-size: 1.2em;
       animation: fadeIn 3s ease-in;
       max-width: 600px;
+      color: #fefae0;
     }
 
     @keyframes fadeIn {
@@ -64,10 +65,12 @@
     }
 
     iframe {
-      width: 100%;
+      width: 90%;
+      max-width: 560px;
       height: 315px;
       border: none;
-      margin-top: 1em;
+      margin: 2em auto;
+      display: block;
     }
 
     #sky circle {
@@ -79,98 +82,69 @@
       50% { transform: translateY(-10px); opacity: 0.7; }
       100% { transform: translateY(0); opacity: 1; }
     }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li::before {
+      content: "✨ ";
+    }
   </style>
 </head>
 <body>
 
-  <script>
-    var password = prompt("Enter password to view this sacred space:");
-    if (password !== "Bethlehem2025") {
-      document.body.innerHTML = "<h2 style='text-align:center; margin-top:20%;'>Access Denied</h2>";
-    }
-  </script>
+<script>
+  var password = prompt("Enter password to view this sacred space:");
+  if (password !== "Bethlehem2025") {
+    document.body.innerHTML = "<h2 style='text-align:center; margin-top:20%; color: gold;'>Access Denied</h2>";
+  }
+</script>
 
-  <!-- Floating Stars -->
-  <svg id="sky" width="100%" height="100%" style="position: fixed; top: 0; left: 0; z-index: -1;">
-    <circle cx="10%" cy="20%" r="2" fill="gold" />
-    <circle cx="30%" cy="40%" r="1.5" fill="white" />
-    <circle cx="70%" cy="10%" r="2.5" fill="gold" />
-    <circle cx="90%" cy="60%" r="1.8" fill="white" />
-  </svg>
+<!-- Floating Stars -->
+<svg id="sky" width="100%" height="100%" style="position: fixed; top: 0; left: 0; z-index: -1;">
+  <circle cx="10%" cy="20%" r="2" fill="gold" />
+  <circle cx="30%" cy="40%" r="1.5" fill="white" />
+  <circle cx="70%" cy="10%" r="2.5" fill="gold" />
+  <circle cx="90%" cy="60%" r="1.8" fill="white" />
+</svg>
 
-  <h1>The Birth of Jesus Christ</h1>
+<h1>The Birth of Jesus Christ</h1>
+<div class="manger">🪵 Baby Jesus</div>
 
-  <div class="manger">🪵 Baby Jesus</div>
+<div class="verse">“Today in the town of David a Savior has been born to you; he is the Messiah, the Lord.” – Luke 2:11</div>
+<div class="verse">“The virgin will conceive and give birth to a son, and they will call him Immanuel.” – Matthew 1:23</div>
+<div class="verse">“The Holy Spirit will come upon you... the holy one to be born will be called the Son of God.” – Luke 1:35</div>
 
-  <div class="verse">“Today in the town of David a Savior has been born to you; he is the Messiah, the Lord.” – Luke 2:11</div>
-  <div class="verse">“The virgin will conceive and give birth to a son, and they will call him Immanuel.” – Matthew 1:23</div>
-  <div class="verse">“The Holy Spirit will come upon you... the holy one to be born will be called the Son of God.” – Luke 1:35</div>
-
-  <!-- 🎉 Countdown Section -->
-  <div class="section">
-    <h2>✨ Countdown to Celebration</h2>
-    <div class="countdown">🎉 Nicholas Hoult – 90 days until December 7, 2025</div>
-    <div class="countdown">🎈 David Archuleta – 111 days until December 28, 2025</div>
-    <div class="countdown">🎄 Christmas Eve – 107 days until December 24, 2025</div>
-    <div class="countdown">🏰 Lexmas Day – 91 days until December 8, 2025</div>
-  </div>
-<div style="text-align:center; margin-top:20px;">
-  <iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/VUBjAwk5-tA" 
-    title="David Archuleta - My Kind of Perfect" 
-    frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen></iframe>
+<!-- 🎉 Countdown Section -->
+<div class="section">
+  <h2>✨ Countdown to Celebration</h2>
+  <div class="countdown">🎉 Nicholas Hoult – 90 days until December 7, 2025</div>
+  <div class="countdown">🎈 David Archuleta – 111 days until December 28, 2025</div>
+  <div class="countdown">🎄 Christmas Eve – 107 days until December 24, 2025</div>
+  <div class="countdown">🏰 Lexmas Day – 91 days until December 8, 2025</div>
 </div>
-<p style="font-family: 'Georgia', serif; font-size: 1.2em; color: #6a5acd; text-align: center; margin-top: 10px;">
-  “I have found the one whom my soul loves.” — Song of Solomon 3:4
-</p>
-<div style="text-align:center; margin-top:20px;">
-  <iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/VUBjAwk5-tA" 
-    title="David Archuleta - My Kind of Perfect" 
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>
-<p style="font-family: 'Georgia', serif; font-size: 1.2em; color: #6a5acd; text-align: center; margin-top: 20px; animation: fadeIn 3s ease-in;">
-  “I have found the one whom my soul loves.” — Song of Solomon 3:4
-</p>
-<style>
-.star {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: url('star.svg') no-repeat center;
-  animation: float 12s infinite linear;
-}
-@keyframes float {
-  0% { transform: translateY(100vh); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateY(-10vh); opacity: 0; }
-}
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-</style>
-<div style="text-align:center; margin-top:20px;">
-  <iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/t9iXX9to408" 
-    title="Nicholas Hoult Birthday Tribute" 
-    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</div>  
-  <!-- 🦸 Superman 2025 Release Info -->
-  <div class="section">
-    <h2>🦸 Superman (2025) Blu-ray & DVD</h2>
-    <p>James Gunn’s <strong>Superman</strong>, starring David Corenswet and Nicholas Hoult as Lex Luthor, releases on <strong>Blu-ray and DVD September 23, 2025</strong>.</p>
-    <p>Includes special features like:</p>
-    <ul style="text-align:left; max-width:500px; margin: 0 auto;">
-      <li>Krypto Saves the Day</li>
-      <li>Adventures in Making Superman</li>
-      <li>Icons Forever: Superman’s Legacy</li>
-      <li>Lex Luthor: The Mind of a Master Villain</li>
-      <li>The Justice Gang Featurette</li>
-    </ul>
-  </div>
 
+<!-- 🎵 David Archuleta Tribute -->
+<iframe src="https://www.youtube.com/embed/VUBjAwk5-tA" title="David Archuleta - My Kind of Perfect" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<div class="verse" style="color: #6a5acd;">“I have found the one whom my soul loves.” — Song of Solomon 3:4</div>
+
+<!-- 🎂 Nicholas Hoult Tribute -->
+<iframe src="https://www.youtube.com/embed/t9iXX9to408" title="Nicholas Hoult Birthday Tribute" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+<!-- 🦸 Superman 2025 Release Info -->
+<div class="section">
+  <h2>🦸 Superman (2025) Blu-ray & DVD</h2>
+  <p>James Gunn’s <strong>Superman</strong>, starring David Corenswet and Nicholas Hoult as Lex Luthor, releases on <strong>September 23, 2025</strong>.</p>
+  <p>Includes special features like:</p>
+  <ul>
+    <li>Krypto Saves the Day</li>
+    <li>Adventures in Making Superman</li>
+    <li>Icons Forever: Superman’s Legacy</li>
+    <li>Lex Luthor: The Mind of a Master Villain</li>
+    <li>The Justice Gang Featurette</li>
+  </ul>
+</div>
 </body>
 </html>
-
