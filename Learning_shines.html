@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sent to Learn, Called to Shine</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #dbeafe, #fef3c7);
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    #login {
+      padding: 60px;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      border-radius: 8px;
+      background-color: #fbbf24;
+      border: none;
+      cursor: pointer;
+    }
+
+    #protectedContent {
+      display: none;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .testimony, .school-fun {
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff8dc;
+      border-radius: 12px;
+      width: 80%;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .scripture {
+      margin: 10px;
+      padding: 10px;
+      font-style: italic;
+      background: #fef9c3;
+      border-radius: 8px;
+      box-shadow: 0 0 12px #facc15;
+      transition: transform 0.3s ease;
+    }
+
+    .scripture:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #fbbf24;
+    }
+
+    .floating-objects img {
+      position: absolute;
+      animation: floatUp 6s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    .pie { top: 60%; left: 10%; width: 80px; }
+    .scroll { top: 30%; left: 70%; width: 60px; }
+    .hat { top: 50%; left: 40%; width: 70px; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: radial-gradient(circle, #fff, #fbbf24);
+      border-radius: 50%;
+      animation: sparkleTrail 2s infinite ease-in-out;
+    }
+
+    @keyframes sparkleTrail {
+      0% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0; transform: scale(0.5); }
+    }
+
+    .special-message {
+      font-size: 24px;
+      font-weight: bold;
+      color: #7c3aed;
+      animation: messageGlow 3s infinite alternate;
+      margin-top: 40px;
+    }
+
+    @keyframes messageGlow {
+      from { text-shadow: 0 0 10px #c4b5fd; }
+      to { text-shadow: 0 0 20px #a78bfa; }
+    }
+  </style>
+</head>
+<body>
+  <div id="login">
+    <h2>Enter the Magic Word</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Unlock</button>
+  </div>
+
+  <div id="protectedContent">
+    <section class="testimony">
+      <h1>I Know the Church Is True</h1>
+      <p>God sent us here from wherever we were before. He gave us each a plan, and the solution to that plan is found in scripture—even if the stories are intense, like a spiritual Shakespearean drama.</p>
+      <div class="scripture" title="Jeremiah 1:5">Before I formed thee in the belly I knew thee...</div>
+      <div class="scripture" title="2 Nephi 2:11">There must be opposition in all things...</div>
+      <div class="scripture" title="Psalm 23">The Lord is my shepherd; I shall not want...</div>
+      <div class="scripture" title="Hebrews 9:22">Without shedding of blood is no remission...</div>
+    </section>
+
+    <section class="floating-objects">
+      <img src="chicken-pot-pie.png" class="pie">
+      <img src="scroll.png" class="scroll">
+      <img src="hat.png" class="hat">
+      <div class="sparkle" style="top: 65%; left: 12%;"></div>
+      <div class="sparkle" style="top: 32%; left: 72%;"></div>
+      <div class="sparkle" style="top: 52%; left: 42%;"></div>
+    </section>
+
+    <section class="school-fun">
+      <h2>School Is Fun, Parker!</h2>
+      <p>Learning is magical. Teaching is a gift. Let’s make it joyful!</p>
+      <div class="quote">"Seek learning by study and by faith" – D&C 88:118</div>
+    </section>
+
+    <div class="special-message">
+      ✨ You were sent to learn, called to shine ✨
+    </div>
+  </div>
+
+  <script>
+    const correctPassword = "shineBright";
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === correctPassword) {
+        document.getElementById("protectedContent").style.display = "block";
+        document.getElementById("login").style.display = "none";
+      } else {
+        alert("Oops! Try again.");
+      }
+    }
+  </script>
+</body>
+</html>
+
