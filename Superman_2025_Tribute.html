@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Superman 2025 Tribute</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #87ceeb, #ffffff);
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    #login {
+      margin-top: 10vh;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #protectedContent {
+      display: none;
+      padding: 2rem;
+    }
+
+    .floating-objects img {
+      position: absolute;
+      animation: float 6s infinite ease-in-out;
+      width: 80px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .scripture p {
+      font-size: 1.5rem;
+      color: #fff;
+      text-shadow: 0 0 10px #ffeb3b, 0 0 20px #f44336;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #ffeb3b; }
+      50% { text-shadow: 0 0 20px #f44336; }
+      100% { text-shadow: 0 0 5px #ffeb3b; }
+    }
+
+    .kite {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      animation: drift 10s infinite linear;
+    }
+
+    .sparkle-trail {
+      position: absolute;
+      top: 30%;
+      left: 12%;
+      font-family: 'Courier New', monospace;
+      color: #00ffff;
+      animation: sparkle 2s infinite ease-in-out;
+    }
+
+    @keyframes drift {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-40px); }
+      100% { transform: translateY(0); }
+    }
+
+    @keyframes sparkle {
+      0% { opacity: 0.2; }
+      50% { opacity: 1; text-shadow: 0 0 10px #00ffff; }
+      100% { opacity: 0.2; }
+    }
+
+    .marquee p {
+      font-size: 1.2rem;
+      color: #fff;
+      background: #d32f2f;
+      padding: 1rem;
+      border-radius: 10px;
+      animation: flicker 2s infinite;
+      margin-top: 2rem;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    iframe {
+      margin-top: 2rem;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="login">
+    <h2>Enter the Fortress</h2>
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <div id="protectedContent">
+    <h1>🏠 Welcome to Kent Farm</h1>
+    <p>“Truth, Justice, and the All-American Way.”</p>
+
+    <div class="scripture">
+      <p>“But they that wait upon the Lord shall renew their strength...” – Isaiah 40:31</p>
+    </div>
+
+    <img src="kite.png" class="kite" alt="Kite">
+    <div class="sparkle-trail">P A R K E R</div>
+
+    <div class="floating-objects">
+      <img src="star.png" style="top: 60%; left: 20%;" alt="Star">
+      <img src="cloud.png" style="top: 40%; left: 70%;" alt="Cloud">
+    </div>
+
+    <div class="marquee">
+      <p>🎬 Coming Soon: Superman 2025 – “New Hope Arrives July 11”</p>
+    </div>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/PDxA9-i2UT8" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/z0-a0UDZK88" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/Dxso8eDfRYc" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    const correctPassword = "truthJusticeJoy";
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === correctPassword) {
+        document.getElementById("protectedContent").style.display = "block";
+        document.getElementById("login").style.display = "none";
+      } else {
+        alert("Up, up, and try again!");
+      }
+    }
+  </script>
+
+</body>
+</html>
+
