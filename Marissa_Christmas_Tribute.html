@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marissa's Christmas Tribute</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(#001f3f, #0074D9);
+      color: #fff;
+      overflow-x: hidden;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      text-shadow: 0 0 10px #fff;
+    }
+    .snowflake {
+      position: fixed;
+      top: -50px;
+      animation: fall linear infinite;
+      font-size: 24px;
+      color: #fff;
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+    .section {
+      margin: 40px 0;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    .countdown {
+      font-size: 2em;
+      text-align: center;
+    }
+    iframe {
+      display: block;
+      margin: 20px auto;
+      border: none;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const password = "JoyToTheWorld2025";
+  const userInput = prompt("Enter the password to access this tribute page:");
+  if (userInput !== password) {
+    document.body.innerHTML = "<h1>🔒 Access Denied</h1><p>This page is protected.</p>";
+    throw new Error("Unauthorized access");
+  }
+
+  // Snowflake generator
+  setInterval(() => {
+    const snow = document.createElement("div");
+    snow.className = "snowflake";
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    snow.innerText = "❄️";
+    document.body.appendChild(snow);
+    setTimeout(() => snow.remove(), 5000);
+  }, 300);
+</script>
+
+<h1>🎄 Marissa's Magical Christmas Tribute 🎄</h1>
+
+<div class="section">
+  <h2>🎁 Christmas List & Naughty/Nice Tracker</h2>
+  <ul>
+    <li>Parker – <strong>Nice ✅</strong></li>
+    <li>BYU-Idaho Roommate – <strong>Nice ✅</strong></li>
+    <li>Professor Jenkins – <strong>Naughty ❌ (forgot pot pie day)</strong></li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>🎬 Nightmare Before Christmas</h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/ZuWD-mSUtrU" allowfullscreen></iframe>
+</div>
+
+<div class="section">
+  <h2>🌟 The Birth of Jesus Christ</h2>
+  <p>“And she shall bring forth a son, and thou shalt call his name Jesus: for he shall save his people from their sins.” – Matthew 1:21</p>
+  <p style="font-style: italic;">Immanuel – God With Us</p>
+</div>
+
+<div class="section">
+  <h2>🕎 Hanukkah: Days of Light</h2>
+  <p>Celebrate the miracle of light with an animated menorah and reflections on resilience.</p>
+  <ul>
+    <li>Day 1: Hope</li>
+    <li>Day 2: Courage</li>
+    <li>...through Day 8: Legacy</li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>⏳ Christmas Eve Countdown</h2>
+  <div class="countdown" id="countdown"></div>
+  <script>
+    const countdownEl = document.getElementById("countdown");
+    const christmasEve = new Date("December 24, 2025 00:00:00").getTime();
+    setInterval(() => {
+      const now = new Date().getTime();
+      const distance = christmasEve - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      countdownEl.innerText = `${days} days until Christmas Eve! 🎅`;
+    }, 1000);
+  </script>
+</div>
+
+<div class="section">
+  <h2>🌍 African Christmas Traditions</h2>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/eorKNDY1yUc" allowfullscreen></iframe>
+</div>
+
+<div class="section">
+  <h2>🍽️ Festive Recipes & Art Concepts</h2>
+  <ul>
+    <li>Chicken Pot Pie – BYU-Idaho style 🥧</li>
+    <li>Gingerbread Scripture Scrolls 🍪</li>
+    <li>Floating angel illustrations with glowing halos 👼</li>
+  </ul>
+</div>
+
+<footer style="text-align:center; margin-top:40px;">
+  <p>Made with love, light, and laughter ✨</p>
+</footer>
+
+</body>
+</html>
+
