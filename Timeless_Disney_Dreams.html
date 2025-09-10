@@ -4,27 +4,28 @@
   <meta charset="UTF-8">
   <title>Timeless Disney Dreams</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
       font-family: 'Arial', sans-serif;
       background: url('http://www.upcyclemagazine.com/blg/wp-content/uploads/american-flag.jpg') no-repeat center center fixed;
       background-size: cover;
-      overflow: hidden;
       color: white;
       text-align: center;
-      display: none;
+      height: 100%;
+      overflow: hidden;
     }
 
     #unlock {
       position: absolute;
-      top: 40%;
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.7);
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      color: white;
+      z-index: 10;
     }
 
     input[type="password"] {
@@ -33,16 +34,32 @@
       border: none;
       border-radius: 5px;
       margin-top: 10px;
+      width: 80%;
     }
 
     button {
       padding: 10px 20px;
       font-size: 16px;
-      margin-top: 10px;
+      margin-top: 15px;
       background-color: #ffcc00;
       border: none;
       border-radius: 5px;
       cursor: pointer;
+    }
+
+    #content {
+      display: none;
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .message {
+      position: absolute;
+      top: 10%;
+      width: 100%;
+      font-size: 2em;
+      text-shadow: 2px 2px 4px #000;
     }
 
     .floating {
@@ -56,14 +73,6 @@
       50% { transform: translateY(-30px); }
       100% { transform: translateY(0); }
     }
-
-    .message {
-      position: absolute;
-      top: 10%;
-      width: 100%;
-      font-size: 2em;
-      text-shadow: 2px 2px 4px #000;
-    }
   </style>
 </head>
 <body>
@@ -75,29 +84,24 @@
     <button onclick="checkPassword()">Unlock</button>
   </div>
 
-  <div class="message" id="welcomeMessage" style="display: none;">
-    Welcome to a place where memories float and magic lives on…
-  </div>
+  <div id="content">
+    <div class="message">Welcome to a place where memories float and magic lives on…</div>
 
-  <!-- Floating Disney-themed objects -->
-  <img src="https://wallpapers.com/images/hd/mickey-mouse-balloon-design-png-19-iqillzcijmm5gyh7.png" class="floating" style="top: 20%; left: 10%; width: 80px; display: none;" id="float1">
-  <img src="https://i.pinimg.com/originals/e3/b4/79/e3b4798d3c9c65d61c4a403ee0895a24.jpg" class="floating" style="top: 50%; left: 80%; width: 60px; display: none;" id="float2">
-  <img src="https://tse3.mm.bing.net/th/id/OIP.3LSeqcxAwej795zQxGvAagHaD_?pid=Api&P=0&h=220" class="floating" style="top: 70%; left: 30%; width: 100px; display: none;" id="float3">
-  <img src="https://www.pngmart.com/files/16/Disney-Castle-Silhouette-PNG-Transparent-Image.png" class="floating" style="top: 40%; left: 60%; width: 120px; display: none;" id="float4">
+    <!-- Floating Disney-themed objects -->
+    <img src="https://wallpapers.com/images/hd/mickey-mouse-balloon-design-png-19-iqillzcijmm5gyh7.png" class="floating" style="top: 20%; left: 10%; width: 80px;">
+    <img src="https://i.pinimg.com/originals/e3/b4/79/e3b4798d3c9c65d61c4a403ee0895a24.jpg" class="floating" style="top: 50%; left: 80%; width: 60px;">
+    <img src="https://tse3.mm.bing.net/th/id/OIP.3LSeqcxAwej795zQxGvAagHaD_?pid=Api&P=0&h=220" class="floating" style="top: 70%; left: 30%; width: 100px;">
+    <img src="https://www.pngmart.com/files/16/Disney-Castle-Silhouette-PNG-Transparent-Image.png" class="floating" style="top: 40%; left: 60%; width: 120px;">
+  </div>
 
   <script>
     function checkPassword() {
       const password = document.getElementById('passwordInput').value;
-      const correctPassword = "magic911"; // You can change this to your desired password
+      const correctPassword = "magic911";
 
       if (password === correctPassword) {
-        document.body.style.display = "block";
         document.getElementById("unlock").style.display = "none";
-        document.getElementById("welcomeMessage").style.display = "block";
-        document.getElementById("float1").style.display = "block";
-        document.getElementById("float2").style.display = "block";
-        document.getElementById("float3").style.display = "block";
-        document.getElementById("float4").style.display = "block";
+        document.getElementById("content").style.display = "block";
       } else {
         alert("Incorrect password. Please try again.");
       }
@@ -106,3 +110,4 @@
 
 </body>
 </html>
+
