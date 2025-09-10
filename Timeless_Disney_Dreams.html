@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Timeless Disney Dreams</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: url('http://www.upcyclemagazine.com/blg/wp-content/uploads/american-flag.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+      display: none;
+      color: white;
+      text-align: center;
+    }
+
+    #unlock {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 10px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+      opacity: 0.9;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0); }
+    }
+
+    .message {
+      position: absolute;
+      top: 10%;
+      width: 100%;
+      font-size: 2em;
+      text-shadow: 2px 2px 4px #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="unlock">
+    <h2>Enter the Magic Word</h2>
+    <input type="password" id="passcode" placeholder="Password">
+    <br>
+    <button onclick="validate()">Unlock</button>
+  </div>
+
+  <div class="message" id="welcomeMessage" style="display: none;">
+    Welcome to a place where memories float and magic lives on…
+  </div>
+
+  <!-- Floating Disney-themed objects -->
+  <img src="https://wallpapers.com/images/hd/mickey-mouse-balloon-design-png-19-iqillzcijmm5gyh7.png" class="floating" style="top: 20%; left: 10%; width: 80px;">
+  <img src="https://i.pinimg.com/originals/e3/b4/79/e3b4798d3c9c65d61c4a403ee0895a24.jpg" class="floating" style="top: 50%; left: 80%; width: 60px;">
+  <img src="https://tse3.mm.bing.net/th/id/OIP.3LSeqcxAwej795zQxGvAagHaD_?pid=Api&P=0&h=220" class="floating" style="top: 70%; left: 30%; width: 100px;">
+  <img src="https://www.pngmart.com/files/16/Disney-Castle-Silhouette-PNG-Transparent-Image.png" class="floating" style="top: 40%; left: 60%; width: 120px;">
+
+  <script>
+    function validate() {
+      const input = document.getElementById("passcode").value;
+      if (input === "disney2025") {
+        document.body.style.display = "block";
+        document.getElementById("unlock").style.display = "none";
+        document.getElementById("welcomeMessage").style.display = "block";
+      } else {
+        alert("Incorrect password. Try again.");
+      }
+    }
+  </script>
+</body>
+</html>
