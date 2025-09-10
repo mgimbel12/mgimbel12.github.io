@@ -10,9 +10,9 @@
       background: url('http://www.upcyclemagazine.com/blg/wp-content/uploads/american-flag.jpg') no-repeat center center fixed;
       background-size: cover;
       overflow: hidden;
-      display: none;
       color: white;
       text-align: center;
+      display: none;
     }
 
     #unlock {
@@ -24,6 +24,7 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      color: white;
     }
 
     input[type="password"] {
@@ -66,11 +67,12 @@
   </style>
 </head>
 <body>
+
   <div id="unlock">
-    <h2>Enter the Magic Word</h2>
-    <input type="password" id="passcode" placeholder="Password">
+    <h2>Enter Password to Unlock</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password">
     <br>
-    <button onclick="validate()">Unlock</button>
+    <button onclick="checkPassword()">Unlock</button>
   </div>
 
   <div class="message" id="welcomeMessage" style="display: none;">
@@ -78,10 +80,29 @@
   </div>
 
   <!-- Floating Disney-themed objects -->
-  <img src="https://wallpapers.com/images/hd/mickey-mouse-balloon-design-png-19-iqillzcijmm5gyh7.png" class="floating" style="top: 20%; left: 10%; width: 80px;">
-  <img src="https://i.pinimg.com/originals/e3/b4/79/e3b4798d3c9c65d61c4a403ee0895a24.jpg" class="floating" style="top: 50%; left: 80%; width: 60px;">
-  <img src="https://tse3.mm.bing.net/th/id/OIP.3LSeqcxAwej795zQxGvAagHaD_?pid=Api&P=0&h=220" class="floating" style="top: 70%; left: 30%; width: 100px;">
-  <img src="https://www.pngmart.com/files/16/Disney-Castle-Silhouette-PNG-Transparent-Image.png" class="floating" style="top: 40%; left: 60%; width: 120px;">
+  <img src="https://wallpapers.com/images/hd/mickey-mouse-balloon-design-png-19-iqillzcijmm5gyh7.png" class="floating" style="top: 20%; left: 10%; width: 80px; display: none;" id="float1">
+  <img src="https://i.pinimg.com/originals/e3/b4/79/e3b4798d3c9c65d61c4a403ee0895a24.jpg" class="floating" style="top: 50%; left: 80%; width: 60px; display: none;" id="float2">
+  <img src="https://tse3.mm.bing.net/th/id/OIP.3LSeqcxAwej795zQxGvAagHaD_?pid=Api&P=0&h=220" class="floating" style="top: 70%; left: 30%; width: 100px; display: none;" id="float3">
+  <img src="https://www.pngmart.com/files/16/Disney-Castle-Silhouette-PNG-Transparent-Image.png" class="floating" style="top: 40%; left: 60%; width: 120px; display: none;" id="float4">
+
+  <script>
+    function checkPassword() {
+      const password = document.getElementById('passwordInput').value;
+      const correctPassword = "magic911"; // You can change this to your desired password
+
+      if (password === correctPassword) {
+        document.body.style.display = "block";
+        document.getElementById("unlock").style.display = "none";
+        document.getElementById("welcomeMessage").style.display = "block";
+        document.getElementById("float1").style.display = "block";
+        document.getElementById("float2").style.display = "block";
+        document.getElementById("float3").style.display = "block";
+        document.getElementById("float4").style.display = "block";
+      } else {
+        alert("Incorrect password. Please try again.");
+      }
+    }
+  </script>
 
 </body>
 </html>
