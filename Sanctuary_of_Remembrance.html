@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sanctuary of Remembrance</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: url('flag-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+      overflow: hidden;
+    }
+
+    #gate, #content {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    input, button {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      background-color: #0055aa;
+      color: white;
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 10px;
+      color: lightcoral;
+    }
+
+    .floating {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatUp 20s linear infinite;
+      opacity: 0.8;
+      text-shadow: 0 0 10px white, 0 0 20px lightblue;
+    }
+
+    .candle { left: 10%; bottom: -50px; }
+    .dove   { left: 50%; bottom: -50px; }
+    .star   { left: 80%; bottom: -50px; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-100vh); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 4s ease-in forwards;
+      margin-top: 30px;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    #prayer {
+      text-shadow: 0 0 8px white, 0 0 12px lightblue;
+      margin-top: 40px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Gate -->
+  <div id="gate">
+    <h2>Enter the Sanctuary</h2>
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="validate()">Enter</button>
+    <p id="message"></p>
+  </div>
+
+  <!-- Tribute Content -->
+  <div id="content" style="display:none;">
+    <!-- Background Music -->
+    <audio autoplay loop>
+      <source src="tribute-music.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <h1>Welcome to the Tribute</h1>
+    <p>This space honors memory, healing, and hope.</p>
+
+    <!-- Floating Symbols -->
+    <div class="floating candle">🕯️</div>
+    <div class="floating dove">🕊️</div>
+    <div class="floating star">⭐</div>
+
+    <!-- Message Box -->
+    <div id="messageBox" class="fade-in">
+      <h2>“Even in the ashes, hope rises.”</h2>
+      <p>We remember. We heal. We carry the light forward.</p>
+    </div>
+
+    <!-- Prayer Section -->
+    <div id="prayer" class="fade-in">
+      <h2>Prayer of Light and Remembrance</h2>
+      <p>
+        Holy Spirit, enter this space with grace.<br>
+        Let every flicker of light be a memory honored,<br>
+        every floating star a soul remembered.<br><br>
+
+        Bless those who carry sorrow in silence,<br>
+        and those who seek healing in the quiet.<br>
+        May this sanctuary be a place of peace,<br>
+        where hope rises like dawn and love never fades.<br><br>
+
+        We remember. We reflect. We renew.<br>
+        In Your presence, we are whole.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    function validate() {
+      const input = document.getElementById("password").value;
+      const message = document.getElementById("message");
+      const content = document.getElementById("content");
+      const gate = document.getElementById("gate");
+
+      const correctPassword = "remember911";
+
+      if (input === correctPassword) {
+        gate.style.display = "none";
+        content.style.display = "block";
+
+        // Trigger fade-in animations
+        document.getElementById("messageBox").style.animation = "fadeIn 4s ease-in forwards";
+        document.getElementById("prayer").style.animation = "fadeIn 4s ease-in forwards";
+      } else {
+        message.textContent = "Incorrect password. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
+
