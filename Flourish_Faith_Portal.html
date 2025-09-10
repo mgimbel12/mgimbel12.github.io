@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Flourish & Faith Portal</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #fdf6e3, #e0f7fa);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
+    h1, h2 {
+      color: #6A5ACD;
+    }
+    .floating {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    .sparkle {
+      color: #FFD700;
+      text-shadow: 0 0 10px #FFD700;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #FFD700; }
+      to { text-shadow: 0 0 20px #FFD700; }
+    }
+    .section {
+      margin: 40px auto;
+      max-width: 700px;
+      background: #ffffffcc;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .encouragement {
+      background-color: #FFF0F5;
+      padding: 15px;
+      border-radius: 10px;
+      font-style: italic;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  var password = prompt("Enter your access password:");
+  if (password !== "FlourishFaith2025") {
+    document.body.innerHTML = "<h2>Access Denied. Please contact Marissa for entry.</h2>";
+  }
+</script>
+
+<h1>🌸 Flourish & Faith Portal 🌸</h1>
+<p>A sacred space to explore your heart, your gifts, and your story.</p>
+
+<div class="section">
+  <h2>🧠 Emotional Insight Quiz</h2>
+  <script>
+    function startQuiz() {
+      let score = 0;
+      let q1 = prompt("How often do you feel overwhelmed by emotions?");
+      if (q1.toLowerCase().includes("often")) score++;
+
+      let q2 = prompt("Do you find comfort in spiritual practices?");
+      if (q2.toLowerCase().includes("yes")) score++;
+
+      alert("Your Emotional Insight Score: " + score + "/2");
+    }
+    startQuiz();
+  </script>
+  <p>“When faced with conflict, do you seek resolution through empathy, logic, or withdrawal?”</p>
+</div>
+
+<div class="section">
+  <h2>🍲 Chicken Pot Pie of Belonging</h2>
+  <ul style="text-align:left;">
+    <li>2 cups cooked chicken</li>
+    <li>1 cup mixed vegetables</li>
+    <li>1/2 cup cream of chicken soup</li>
+    <li>1 pie crust, golden and flaky</li>
+  </ul>
+  <p>Bake at 375°F until bubbly and golden. Serve with a prayer of gratitude.</p>
+  <p><strong>Food Safety Tip:</strong> Internal temp must reach 165°F (74°C).</p>
+</div>
+
+<div class="section">
+  <h2>🎶 Music & Mood Reflection</h2>
+  <p>Play your favorite worship song. How does it make you feel—uplifted, comforted, energized, or reflective?</p>
+  <iframe src="https://open.spotify.com/embed/track/3ZFTkvIE7kyPt6Nu3PEa7V" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+</div>
+
+<div class="section">
+  <h2>📚 Animate a Scripture</h2>
+  <p id="verse" class="sparkle">“I will go before thee…” – Isaiah 45:2</p>
+  <script>
+    let verse = document.getElementById("verse");
+    verse.style.transition = "all 2s";
+    verse.onmouseover = function() {
+      verse.style.transform = "scale(1.2)";
+      verse.style.color = "#FF69B4";
+    };
+  </script>
+  <p>Try changing the verse, color, or animation style. What message do you want Parker to see glowing on the screen?</p>
+</div>
+
+<div class="section">
+  <h2>💖 Mental Health Check-In</h2>
+  <ul style="text-align:left;">
+    <li>Do you feel hopeful about the future?</li>
+    <li>Are you sleeping well and eating regularly?</li>
+    <li>Do you feel connected to others?</li>
+  </ul>
+  <div class="encouragement">
+    “You are not alone. Your story matters. Your joy is sacred.”
+  </div>
+</div>
+
+<div class="section">
+  <h2>👮‍♀️ Courage & Justice Reflection</h2>
+  <p>“You witness a friend being treated unfairly. What do you do?”</p>
+  <ul style="text-align:left;">
+    <li>A) Speak up respectfully</li>
+    <li>B) Report it to a trusted adult</li>
+    <li>C) Stay silent</li>
+  </ul>
+  <p>Justice begins with courage. What does courage look like in your life?</p>
+</div>
+
+<!-- Floating Disney-style object -->
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Mickey_Mouse.svg/1200px-Mickey_Mouse.svg.png" class="floating" style="top:100px; left:50px; width:60px;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Star_icon-72a7cf.svg/1024px-Star_icon-72a7cf.svg.png" class="floating" style="top:300px; right:80px; width:40px;">
+
+</body>
+</html>
+
