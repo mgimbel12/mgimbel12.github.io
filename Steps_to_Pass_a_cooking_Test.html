@@ -40,7 +40,19 @@
       <iframe width="560" height="315" src="https://www.youtube.com/embed/mX8YIjhpIyA" title="Cutting Board Safety" frameborder="0" allowfullscreen></iframe>
     </section>
   </main>
+ <script>
+    const correctPassword = "ChickenPotPieWeekend"; // Your magical passphrase
+    const userInput = prompt("Enter the secret passphrase to view this tribute page:");
 
+    if (userInput !== correctPassword) {
+      document.body.innerHTML = `
+        <div style="text-align:center; margin-top:100px;">
+          <h1 style="color:darkred;">Access Denied</h1>
+          <p style="font-size:1.2em;">Oops! That’s not the right phrase. Try again later or ask Marissa for a hint!</p>
+        </div>
+      `;
+    }
+  </script>
   <footer>
     <p>&copy; 2025 | How to Cook for a Living</p>
   </footer>
