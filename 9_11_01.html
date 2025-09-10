@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>9/11 Tribute Page</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('your-flag-image.jpg'); /* Replace with actual image URL */
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    #tributeContent {
+      display: none;
+      color: white;
+      text-align: center;
+      padding-top: 100px;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 10s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-30px); }
+      100% { transform: translateY(0); }
+    }
+
+    .object1 { top: 20%; left: 10%; }
+    .object2 { top: 40%; left: 70%; }
+    .object3 { top: 60%; left: 30%; }
+
+    #passwordPrompt {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #0044cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="passwordPrompt">
+  <h2>Enter Tribute Password</h2>
+  <input type="password" id="passwordInput" placeholder="Enter password">
+  <button onclick="checkPassword()">Submit</button>
+</div>
+
+<div id="tributeContent">
+  <h1>We Remember September 11, 2001</h1>
+  <p>Honoring the lives lost and the heroes who rose.</p>
+  <div class="floating object1">🕊️</div>
+  <div class="floating object2">🗽</div>
+  <div class="floating object3">🇺🇸</div>
+</div>
+
+<script>
+  const correctPassword = "neverforget";
+
+  function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === correctPassword) {
+      document.getElementById("passwordPrompt").style.display = "none";
+      document.getElementById("tributeContent").style.display = "block";
+    } else {
+      alert("Incorrect password. Try again.");
+    }
+  }
+</script>
+
+</body>
+</html>
+
