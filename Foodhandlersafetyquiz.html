@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Handler Safety Quiz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0f8ff, #e6ffe6);
+      margin: 0;
+      padding: 0;
+    }
+    .lock-screen, .quiz-container {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+    .lock-screen.active, .quiz-container.active {
+      display: block;
+    }
+    h1 {
+      color: #2c3e50;
+      text-shadow: 1px 1px 2px #a3d5ff;
+    }
+    .question {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      border: 2px solid #b3e5fc;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 0 10px #cceeff;
+    }
+    .question:hover {
+      box-shadow: 0 0 20px #99ccff;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    input[type="password"] {
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .correct {
+      color: green;
+      font-weight: bold;
+    }
+    .incorrect {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lock-screen active" id="lockScreen">
+    <h1>🔐 Enter Password to Begin</h1>
+    <input type="password" id="passwordInput" placeholder="Enter password" />
+    <br><br>
+    <button onclick="checkPassword()">Unlock Quiz</button>
+  </div>
+
+  <div class="quiz-container" id="quizContainer">
+    <h1>🍽️ Food Handler Safety Quiz</h1>
+
+    <div class="question">
+      <p>1. What is the most effective way to prevent foodborne illness?</p>
+      <button onclick="checkAnswer(this, 'B')">A. Wearing gloves</button>
+      <button onclick="checkAnswer(this, 'B')">B. Washing hands frequently</button>
+      <button onclick="checkAnswer(this, 'B')">C. Using hand sanitizer</button>
+      <button onclick="checkAnswer(this, 'B')">D. Wearing a hairnet</button>
+    </div>
+
+    <div class="question">
+      <p>2. What is the “Danger Zone” temperature range?</p>
+      <button onclick="checkAnswer(this, 'B')">A. 32°F to 41°F</button>
+      <button onclick="checkAnswer(this, 'B')">B. 41°F to 135°F</button>
+      <button onclick="checkAnswer(this, 'B')">C. 135°F to 165°F</button>
+      <button onclick="checkAnswer(this, 'B')">D. 165°F to 212°F</button>
+    </div>
+
+    <!-- Add more questions here following the same format -->
+
+  </div>
+
+  <script>
+    const correctAnswers = {
+      0: 'B',
+      1: 'B'
+      // Add more answers as needed
+    };
+
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value;
+      const correctPassword = 'ServeSafe123'; // You can change this!
+      if (input === correctPassword) {
+        document.getElementById('lockScreen').classList.remove('active');
+        document.getElementById('quizContainer').classList.add('active');
+      } else {
+        alert('Incorrect password. Try again!');
+      }
+    }
+
+    function checkAnswer(button, correctLetter) {
+      const buttons = button.parentElement.querySelectorAll('button');
+      buttons.forEach(btn => btn.disabled = true);
+
+      if (button.textContent.startsWith(correctLetter)) {
+        button.classList.add('correct');
+        button.textContent += ' ✅ Correct!';
+      } else {
+        button.classList.add('incorrect');
+        button.textContent += ' ❌ Try again!';
+      }
+    }
+  </script>
+
+</body>
+</html>
+
