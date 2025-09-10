@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guided by the Spirit</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      background: linear-gradient(to top right, #cce0ff, #f0e6ff);
+      overflow: hidden;
+      color: #333;
+    }
+
+    #login {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: rgba(255,255,255,0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+
+    #mainContent {
+      display: none;
+      padding: 20px;
+    }
+
+    .floating {
+      position: absolute;
+      font-size: 2rem;
+      animation: float 25s infinite linear;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% { top: 100%; left: 0%; }
+      100% { top: -10%; left: 100%; }
+    }
+
+    .scripture-box {
+      background: rgba(255,255,255,0.8);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .choices {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .choices button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #ddeeff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .choices button:hover {
+      background-color: #bbddff;
+    }
+
+    #messageBox {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: #444;
+    }
+
+    .blessing {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .glow {
+      text-shadow: 0 0 8px #fff, 0 0 12px #aaf;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Password Gate -->
+<div id="login">
+  <h2 class="glow">Enter Sacred Space</h2>
+  <input type="password" id="password" placeholder="Enter password">
+  <br><br>
+  <button onclick="validate()">Enter</button>
+</div>
+
+<!-- Main Content -->
+<div id="mainContent">
+  <!-- Floating Symbols -->
+  <div class="floating" style="top:80%; left:10%;">🕊️</div>
+  <div class="floating" style="top:90%; left:30%;">🔥</div>
+  <div class="floating" style="top:95%; left:50%;">🎵</div>
+  <div class="floating" style="top:85%; left:70%;">🌿</div>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="holyghost_song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Scripture Section -->
+  <div class="scripture-box">
+    <p class="glow">"But the Comforter, which is the Holy Ghost..." – John 14:26</p>
+    <p>"Let your light so shine before men..." – Matthew 5:16</p>
+    <p>"You are guided. You are loved. You bring peace."</p>
+  </div>
+
+  <!-- Interactive Choices -->
+  <div class="choices">
+    <button onclick="showMessage('peace')">Choose Peace</button>
+    <button onclick="showMessage('guidance')">Seek Guidance</button>
+    <button onclick="showMessage('uplift')">Lift Others</button>
+  </div>
+
+  <div id="messageBox"></div>
+
+  <!-- Blessing Section -->
+  <div class="blessing">
+    <h2 class="glow">May the Spirit guide your heart, calm your soul, and inspire your choices.</h2>
+    <p>You are a light in the world. Shine with peace, purpose, and love.</p>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+function validate() {
+  const input = document.getElementById("password").value;
+  if (input === "peacefulpath") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+  } else {
+    alert("Incorrect password. Please try again.");
+  }
+}
+
+function showMessage(choice) {
+  const messages = {
+    peace: "Blessed are the peacemakers: for they shall be called the children of God.",
+    guidance: "The Spirit will guide you in all truth.",
+    uplift: "Your kindness lifts hearts and heals souls."
+  };
+  document.getElementById("messageBox").innerText = messages[choice];
+}
+</script>
+
+</body>
+</html>
+
