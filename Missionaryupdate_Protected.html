@@ -80,6 +80,54 @@
       margin-top: 1rem;
       color: #616161;
     }
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #fce4ec, #e8f5e9);
+  border-radius: 10px;
+}
+
+.image-card {
+  text-align: center;
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-card:hover {
+  transform: scale(1.05);
+}
+
+.image-card img {
+  height: 300px;
+  width: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}  
+  footer {
+  background-color: #004d40;
+  color: #ffffff;
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  border-top: 3px solid #80cbc4;
+}
+
+.footer-content a {
+  color: #b2dfdb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
   </style>
 </head>
 <body>
@@ -126,6 +174,26 @@
       }
     }
   </script>
+  <div class="gallery">
+  <div class="image-card">
+    <img src="Parker_0008.jpg" alt="Parker and his new Missionary Companion" />
+    <p>Parker and his new Missionary Companion</p>
+  </div>
+  <div class="image-card">
+    <img src="Lion_Sheep.jpg" alt="Lion and Sheep symbolism" />
+    <p>Lion & Sheep – Strength and Meekness</p>
+  </div>
+  <div class="image-card">
+    <img src="Meal.jpg" alt="Mission Meal" />
+    <p>Shared Meal – Fellowship and Gratitude</p>
+  </div>
+</div>
+ <footer>
+  <div class="footer-content">
+    <p>“Stand for truth and righteousness, even if you stand alone.”</p>
+    <p>© 2025 Mission Reflections | Guided by Faith, Powered by Peace</p>
+    <p><a href="#top">Back to Top</a></p>
+  </div>
+</footer>
 </body>
 </html>
-
