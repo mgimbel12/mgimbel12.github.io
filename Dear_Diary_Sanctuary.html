@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dear Diary Sanctuary</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      overflow: hidden;
+      color: #333;
+      text-align: center;
+    }
+
+    #login-screen, #diary-content {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin: 100px auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      width: 80%;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      margin-top: 10px;
+      background-color: #f8b500;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 10s infinite linear;
+      opacity: 0.6;
+      font-size: 2em;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+
+    .affirmation {
+      margin-top: 30px;
+      font-size: 1.2em;
+      background: #fff8dc;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Symbols -->
+  <div class="floating" style="left: 10%;">🍕</div>
+  <div class="floating" style="left: 30%;">😊</div>
+  <div class="floating" style="left: 50%;">🌈</div>
+  <div class="floating" style="left: 70%;">🕊️</div>
+  <div class="floating" style="left: 90%;">✨</div>
+
+  <!-- Background Music -->
+  <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/1tVHAh9ZTaEle9PJzQzXsc?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <h2>Welcome to My Sacred Diary</h2>
+    <input type="password" id="password" placeholder="Enter your password" />
+    <button onclick="checkPassword()">Enter</button>
+    <p id="error-message"></p>
+  </div>
+
+  <!-- Diary Content -->
+  <div id="diary-content" style="display: none;">
+    <h1>Dear Diary 💖</h1>
+    <p>I love Pizza 🍕</p>
+    <p>I also love whatever keeps making me smile 😊</p>
+    <p>I love working on things that make me happy ✨</p>
+    <p>I am happy 🌈</p>
+
+    <div class="affirmation">
+      🕊️ *You are loved. You are guided. You are enough.*  
+      <br>Let peace fill your heart today.
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const passwordInput = document.getElementById("password").value;
+      const correctPassword = "peacefulpizza"; // Customize your password here
+
+      if (passwordInput === correctPassword) {
+        document.getElementById("login-screen").style.display = "none";
+        document.getElementById("diary-content").style.display = "block";
+      } else {
+        document.getElementById("error-message").textContent = "Oops! That’s not the right password.";
+      }
+    }
+  </script>
+</body>
+</html>
