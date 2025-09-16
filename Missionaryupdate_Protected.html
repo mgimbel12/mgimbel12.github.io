@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Update - Protected</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom right, #e0f7fa, #fff3e0);
+      overflow: hidden;
+    }
+
+    .floating-icon {
+      position: absolute;
+      width: 40px;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .content {
+      display: none;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      color: #004d40;
+    }
+
+    .spiritual-thought {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #e8f5e9;
+      border-left: 5px solid #388e3c;
+      border-radius: 5px;
+    }
+
+    .quote {
+      font-style: italic;
+      margin-top: 1rem;
+      color: #616161;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating spiritual icons -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/White_dove.svg/1024px-White_dove.svg.png" class="floating-icon" style="top:10%; left:5%;" />
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Olive_branch.svg/1024px-Olive_branch.svg.png" class="floating-icon" style="top:60%; left:80%;" />
+
+  <!-- Login Gate -->
+  <div class="login-container" id="login">
+    <h1>Welcome to the Mission Blog</h1>
+    <p>Please enter the password to view this week's update</p>
+    <input type="password" id="password" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <!-- Protected Content -->
+  <div class="content" id="content">
+    <h2>Weekly Mission Update</h2>
+    <p>This week flew by with exchanges, zone conference, and spiritual growth. Elder Epperson and Elder Cevallos brought energy and laughter, and I felt the Spirit guiding me as I led out the area. Spanish is clicking, and the temple visit is coming up—buzzed head and all!</p>
+
+    <p>Fun fact: I'm the only new white missionary in the North zone. Spanish immersion is real, but the APs and lunch made it all worth it.</p>
+
+    <div class="spiritual-thought">
+      <h3>Spiritual Thought</h3>
+      <p><strong>Talk:</strong> <em>Courage to Stand Alone</em></p>
+      <p>We are never truly alone. God is always watching over us. Stand up for what is right, even when it's hard. Think like Jesus—what would He say or do?</p>
+      <div class="quote">"Float like a butterfly, sting like a bee."</div>
+    </div>
+
+    <p>Thinking of starting a podcast—would you subscribe? Drop a comment below!</p>
+    <p><strong>Shoutout:</strong> Big Crewgar this week 🐾</p>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const correctPassword = "peace2025"; // You can change this to your desired password
+      if (input === correctPassword) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      } else {
+        alert("Incorrect password. Try again.");
+      }
+    }
+  </script>
+</body>
+</html>
+
