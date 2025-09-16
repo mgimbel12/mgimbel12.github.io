@@ -10,6 +10,49 @@
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="indexmain.css">
   <link rel="stylesheet" href="fireworks.css">
+  <style>
+    #login-screen {
+      text-align: center;
+      margin: 50px auto;
+      padding: 30px;
+      max-width: 400px;
+      background-color: #f9f9f9;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    #diary-content {
+      display: none;
+      padding: 20px;
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 10px;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      width: 80%;
+      margin-top: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #4a90e2;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+  </style>
 </head>
 
 <body>
@@ -22,16 +65,27 @@
   </header>
 
   <main>
-    <section class="intro">
-      <p><strong>Welcome to the official editorial portal</strong>, a curated showcase of design assignments, tribute pages, and creative experiments by Marissa Gimbel.</p>
-    </section>
+    <!-- Login Screen -->
+    <div id="login-screen">
+      <h2>Welcome to My Sacred Diary</h2>
+      <input type="password" id="password" placeholder="Enter your password" />
+      <br>
+      <button onclick="checkPassword()">Enter</button>
+      <p id="error-message"></p>
+    </div>
 
-    <hr>
+    <!-- Hidden Content -->
+    <div id="diary-content">
+      <section class="intro">
+        <p><strong>Welcome to the official editorial portal</strong>, a curated showcase of design assignments, tribute pages, and creative experiments by Marissa Gimbel.</p>
+      </section>
 
-    <section class="article-list">
+      <hr>
+      </section>
+  <section class="article-list">
       <h3>Featured Pages & Assignments</h3>
       <ul>
-<li>Lesson 01:<a href="index.html">Assignment Portal|</a></li>
+               <li>Lesson 01:<a href="index.html">Assignment Portal|</a></li>
 		<li>Lesson 01-1<a href="review-webpage.html">Review Page|</a></li>
 		<li>only a test<a href="helloworld.html">|Hello world Test|</a></li>
 		<li>happybirthday<a href="happybirthdaymom.html">|Happy Birthday Mom|</a></li>
@@ -204,21 +258,26 @@
 		<li>Parker Missionary<a href="Missionaryupdate_Protected.html">Pages 2025</a></li>
 		<li>Dear Diary <a href=" Dear_Diary_Sanctuary.html">2025 Page</a></li>
 		  <!-- You can highlight featured or recent articles here -->
+</ul>
+      <section class="media">
+        <h3>Video Feature</h3>
+        <iframe width="426" height="240" src="https://www.youtube.com/embed/tADnCEpbPI8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </section>
 
-	</ul>
-    </section>
-    <section class="media">
-      <h3>Video Feature</h3>
-      <iframe width="426" height="240" src="https://www.youtube.com/embed/tADnCEpbPI8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </section>
-	    <!-- Login Screen -->
-  <div id="login-screen">
-    <h2>Welcome to My Sacred Diary</h2>
-    <input type="password" id="password" placeholder="Enter your password" />
-    <button onclick="checkPassword()">Enter</button>
-    <p id="error-message"></p>
-  </div>
-	   <script>
+      <section class="music">
+        <h3>Spiritual Soundtrack</h3>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/0p4nmQO2msCgU4IF37Wi3j?utm_source=generator" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2021 | Marissa A. Gimbel | Henderson, Nevada</p>
+    <p><a href="https://www.byui.edu/online" target="_blank">BYU-I Online Student Learning</a></p>
+    <script src="lastmodified.js"></script>
+  </footer>
+
+  <script>
     function checkPassword() {
       const passwordInput = document.getElementById("password").value;
       const correctPassword = "peacefulpizza"; // Customize your password here
@@ -231,12 +290,5 @@
       }
     }
   </script>
-	  <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/artist/0p4nmQO2msCgU4IF37Wi3j?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-  </main>
-  <footer>
-    <p>&copy; 2021 | Marissa A. Gimbel | Henderson, Nevada</p>
-    <p><a href="https://www.byui.edu/online" target="_blank">BYU-I Online Student Learning</a></p>
-    <script src="lastmodified.js"></script>
-  </footer>
 </body>
 </html>
