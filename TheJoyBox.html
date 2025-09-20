@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Joy Box</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fdf6e3, #e3f2fd);
+      overflow-x: hidden;
+    }
+
+    .login-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #fff3e0;
+    }
+
+    .login-screen input {
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .login-screen button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ffcc80;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .content {
+      display: none;
+      padding: 2em;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      background-color: #ffe0b2;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: transform 0.3s ease;
+    }
+
+    .box:hover {
+      transform: scale(1.05);
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      border: none;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .affirmation {
+      text-align: center;
+      font-size: 1.1em;
+      margin-top: 1em;
+      color: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-screen">
+    <h2>Welcome to The Joy Box 🍏</h2>
+    <p>Enter your password to enter this sanctuary of sound and spirit:</p>
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="checkPassword()">Enter</button>
+  </div>
+
+  <div class="content" id="mainContent">
+    <div class="box">🍎 Apple Juice Box</div>
+    <div class="affirmation">“You nourish others with your sweetness.”</div>
+
+    <iframe src="https://www.youtube.com/embed/vAfJp2TsfTA" allowfullscreen></iframe>
+    <div class="affirmation">“Strumming my pain with his fingers…”</div>
+
+    <div class="box">📦 Happy BOX</div>
+    <div class="affirmation">“Joy is a gift you unwrap daily.”</div>
+
+    <iframe src="https://www.youtube.com/embed/_csFL4g4on4" allowfullscreen></iframe>
+    <div class="affirmation">“Even rock stars need gentle souls.”</div>
+
+    <div class="box">🤡 Jack in the Box</div>
+    <div class="affirmation">“Surprise! You are more loved than you know.”</div>
+
+    <iframe src="https://www.youtube.com/embed/CdFRWz97EHI" allowfullscreen></iframe>
+    <div class="affirmation">“Your voice matters—even when it trembles.”</div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const correctPassword = "houltbox"; // You can change this to your own
+      if (input === correctPassword) {
+        document.querySelector(".login-screen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      } else {
+        alert("Incorrect password. Try again.");
+      }
+    }
+  </script>
+</body>
+</html>
