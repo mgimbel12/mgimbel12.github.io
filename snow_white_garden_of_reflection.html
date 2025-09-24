@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snow White's Garden of Reflection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Lato', sans-serif;
+      background-color: #fdf6ec;
+      color: #7a5c61;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      border-bottom: 2px solid white;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    .password-section {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 2px solid #7a5c61;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      margin-left: 1rem;
+      background-color: #7a5c61;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .content {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .affirmation {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    canvas {
+      border: 2px dashed #7a5c61;
+      margin-top: 2rem;
+    }
+
+    .svg-container {
+      position: relative;
+      height: 300px;
+      margin-top: 2rem;
+    }
+
+    .svg-icon {
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #a78c8c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Snow White’s Garden of Reflection</h1>
+    <p>Choose your apple. Receive your truth. Let peace bloom.</p>
+  </header>
+
+  <div class="password-section">
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="checkPassword()">Enter</button>
+    <p id="hint">Hint: AppleOfMyEye</p>
+  </div>
+
+  <div class="content" id="sanctuary">
+    <div class="svg-container">
+      <img src="https://i.pinimg.com/originals/cc/a4/6c/cca46c5082f176b9e55887242edb37d6.jpg" class="floating svg-icon" style="top: 20px; left: 10%;" onclick="showAffirmation('Red Apple')" />
+      <img src="https://i.pinimg.com/originals/d6/af/4b/d6af4bcbc45e7f45de520b70666dcca2.jpg" class="floating svg-icon" style="top: 60px; left: 40%;" onclick="showAffirmation('Yellow Apple')" />
+      <img src="https://i.pinimg.com/originals/06/8e/41/068e41b00b329c733896d68c0cfd7fef.jpg" class="floating svg-icon" style="top: 100px; left: 70%;" onclick="showAffirmation('Green Apple')" />
+      <img src="https://i.etsystatic.com/23134824/r/il/76b63f/2679571176/il_1080xN.2679571176_qmd3.jpg" class="floating svg-icon" style="top: 150px; left: 20%;" onclick="showAffirmation('Red Rose')" />
+      <img src="https://i.ytimg.com/vi/L5KKe9Iq8es/maxresdefault.jpg" class="floating svg-icon" style="top: 180px; left: 50%;" onclick="showAffirmation('White Rose')" />
+      <img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/red-delicious-apple-fruit-art-sharon-cummings.jpg" class="floating svg-icon" style="top: 210px; left: 80%;" onclick="showAffirmation('Purple Flower')" />
+    </div>
+
+    <div class="affirmation" id="affirmationText">Click a symbol to receive your affirmation.</div>
+
+    <canvas id="drawingBoard" width="300" height="200"></canvas>
+
+    <div class="footer">
+      <p>“The Holy Ghost will guide you in all truth.” – John 16:13</p>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById('password').value;
+      if (input === 'AppleOfMyEye') {
+        document.getElementById('sanctuary').style.display = 'block';
+        document.querySelector('.password-section').style.display = 'none';
+      } else {
+        alert('Incorrect password. Try again.');
+      }
+    }
+
+    function showAffirmation(symbol) {
+      const affirmations = {
+        'Red Apple': 'You have the power to choose wisely.',
+        'Yellow Apple': 'Joy is your divine birthright.',
+        'Green Apple': 'You are growing in grace and truth.',
+        'Red Rose': 'Love is your strength and sacrifice.',
+        'White Rose': 'Purity surrounds your path.',
+        'Purple Flower': 'You are royalty in spirit and purpose.'
+      };
+      document.getElementById('affirmationText').innerText = affirmations[symbol];
+    }
+
+    const canvas = document.getElementById('drawingBoard');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    canvas.addEventListener('mousedown', () => drawing = true);
+    canvas.addEventListener('mouseup', () => drawing = false);
+    canvas.addEventListener('mousemove', draw);
+
+    function draw(e) {
+      if (!drawing) return;
+      ctx.fillStyle = '#7a5c61';
+      ctx.beginPath();
+      ctx.arc(e.offsetX, e.offsetY, 2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  </script>
+</body>
+</html>
