@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hoult Mode – Style. Security. Serenity.</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #e0f7ff, #003366);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 1rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #99ccff;
+      text-shadow: 1px 1px 3px #003366;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #cce0ff;
+      margin-top: 0.5rem;
+    }
+
+    .fashion-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    .fashion-gallery img {
+      width: 200px;
+      border: 3px solid #6699cc;
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .fashion-gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #99ccff;
+    }
+
+    .password-gate {
+      text-align: center;
+      margin: 2rem auto;
+    }
+
+    .password-gate label {
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .password-gate input {
+      padding: 0.5rem;
+      border: none;
+      border-bottom: 2px solid #fff;
+      background: transparent;
+      color: #fff;
+      font-size: 1rem;
+      text-align: center;
+      width: 200px;
+    }
+
+    .password-gate button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #6699cc;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .game-zone {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-top: 2px dashed #99ccff;
+    }
+
+    .game-zone h2 {
+      color: #99ccff;
+      margin-bottom: 1rem;
+    }
+
+    .affirmation {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #cce0ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #cce0ff;
+    }
+
+    footer em {
+      display: block;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hoult Mode</h1>
+    <p>Style. Security. Serenity.</p>
+  </header>
+
+  <section class="fashion-gallery">
+    <img src="https://tse4.mm.bing.net/th/id/OIP.S-E_l7Sfp6C-6cxIdjCGWwHaJ4?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Nicholas Hoult Look 1" />
+    <img src="https://www.lofficielusa.com/_next/image?url=https:%2F%2Fwww.datocms-assets.com%2F39109%2F1679321718-04_nicholas_hoult.jpg%3Fauto%3Dformat%252Ccompress%26cs%3Dsrgb&w=3840&q=75" alt="Nicholas Hoult Look 2" />
+    <img src="https://tse3.mm.bing.net/th/id/OIP.-ldL2EbSojrKPgtl3Psm2wHaLG?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Nicholas Hoult Look 3" />
+  </section>
+
+  <section class="password-gate">
+    <label for="access">Enter your style code:</label>
+    <input type="password" id="access" />
+    <button onclick="checkPassword()">Unlock</button>
+  </section>
+
+  <section class="game-zone" id="gameZone">
+    <h2>Welcome to Hoult Mode</h2>
+    <p class="affirmation">You are safe, stylish, and seen.</p>
+    <p class="affirmation">Your presence is powerful and peaceful.</p>
+    <p class="affirmation">You are radiant in your uniqueness.</p>
+  </section>
+
+  <footer>
+    <p>Designed on a dime. Styled for peace.</p>
+    <em>“Let your light so shine before men…” – Matthew 5:16</em>
+  </footer>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("access").value;
+      const correct = "bluehoult";
+      const gameZone = document.getElementById("gameZone");
+
+      if (input === correct) {
+        gameZone.style.display = "block";
+        alert("Welcome to Hoult Mode. You are safe, stylish, and seen.");
+      } else {
+        alert("Incorrect code. Try again with confidence.");
+      }
+    }
+  </script>
+</body>
+</html>
