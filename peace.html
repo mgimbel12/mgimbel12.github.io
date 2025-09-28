@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanctuary of Peace</title>
+  <link rel="stylesheet" href="natures.css" />
+</head>
+<body>
+  <header>
+    <h1>Sanctuary of Peace</h1>
+    <p class="subtitle">“Come unto me, all ye that labour…” – Matthew 11:28</p>
+  </header>
+
+  <section id="login-section">
+    <h2>Enter Your Sacred Space</h2>
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="checkPassword()">Enter</button>
+    <p id="message"></p>
+  </section>
+
+  <main id="sanctuary-content" style="display: none;">
+    <section id="scripture-section">
+      <h2>Daily Scripture</h2>
+      <blockquote id="scripture"></blockquote>
+    </section>
+
+    <section id="svg-art">
+      <h2>Floating Symbols of Faith</h2>
+      <div class="floating-icons">
+        <svg width="100" height="100">
+          <circle cx="50" cy="50" r="40" fill="#94d2bd" />
+          <text x="50%" y="55%" text-anchor="middle" fill="#005f73" font-size="16px">🕊️</text>
+        </svg>
+        <svg width="100" height="100">
+          <rect x="20" y="20" width="60" height="60" fill="#e0f2fe" />
+          <text x="50%" y="55%" text-anchor="middle" fill="#0a9396" font-size="16px">🌟</text>
+        </svg>
+      </div>
+    </section>
+
+    <section id="affirmations">
+      <h2>Affirmations</h2>
+      <ul>
+        <li>You are divinely guided.</li>
+        <li>Your worth is eternal.</li>
+        <li>Peace flows through you.</li>
+      </ul>
+    </section>
+  </main>
+
+  <script src="nature.js"></script>
+</body>
+</html>
