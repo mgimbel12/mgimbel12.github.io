@@ -3,6 +3,7 @@ text-align: center;
 }
 .cards > section {
   background-color: Navy;
+  color:white;
   text-align: center;
 }
 section img {
