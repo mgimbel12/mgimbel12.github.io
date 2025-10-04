@@ -20,9 +20,9 @@
   </div>
 
   <!-- 🎵 Background Music -->
-  <audio autoplay loop>
-    <source src="gentle-music.mp3" type="audio/mpeg" />
-  </audio>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4NJJjrJKXyY?si=OOuP8AvCnZOaO4SN" 
+  title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>  
 
   <!-- 🎃 Header -->
   <header id="top">
@@ -44,14 +44,14 @@
   <section id="disney-castle">
     <h2>🏰 Disney Dreams</h2>
     <p>Inspired by castles of courage and kindness, this sanctuary invites you to imagine a world where healing reigns.</p>
-    <img src="castle.jpg" alt="Disney-style castle" />
+    <img src="https://tse2.mm.bing.net/th/id/OIP.JmWu2QTcOK1k2no2aKi3RAHaHa?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Disney-style castle" />
   </section>
 
   <!-- 🌻 Sunflower Blessing -->
   <section id="sunflower-blessing">
     <h2>🌻 Sunflower Blessing</h2>
     <p>Sunflowers turn toward the light. So can you. Let this space remind you of your divine worth and radiant spirit.</p>
-    <img src="sunflower.jpg" alt="Sunflower field" />
+    <img src="https://th.bing.com/th/id/R.deb9f1ad60451dd0ee27494f814ce86f?rik=7JKKreO4YgCWOw&riu=http%3a%2f%2fwww.publicdomainpictures.net%2fpictures%2f40000%2fvelka%2fsunflower-1358668404t2T.jpg&ehk=24GANqyullIQ1TBsoF6435Qe3CBomdnLTeSnhK4l9qk%3d&risl=&pid=ImgRaw&r=0" alt="Sunflower field" />
   </section>
 
   <!-- 🙏 Prayer Prompt -->
@@ -108,18 +108,20 @@
 
   <!-- ✨ JavaScript -->
   <script>
-    const correctPassword = "sunflowerSpirit";
+   const correctPassword = "sunflowerSpirit";
 
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === correctPassword) {
-        document.getElementById("password-screen").style.display = "none";
-        document.body.style.display = "block";
-      } else {
-        document.getElementById("error").textContent = "Incorrect password. Try again.";
-      }
-    }
+function checkPassword() {
+  const input = document.getElementById("password").value.trim();
+  const errorMessage = document.getElementById("error");
 
+  if (input === correctPassword) {
+    document.getElementById("password-screen").style.display = "none";
+    document.body.style.display = "block";
+    errorMessage.textContent = ""; // Clear any previous error
+  } else {
+    errorMessage.textContent = "Incorrect password. Try again.";
+  }
+}
     const affirmations = [
       "You are a light in the dark 🌟",
       "You are divinely guided and protected 🕊️",
