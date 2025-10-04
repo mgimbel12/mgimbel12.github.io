@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>President Dallin H. Oaks – A Prophet's Calling</title>
+  <link href="https://fonts.googleapis.com/css2?ofamily=Playfair+Display&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #f5f5f5, #e0eafc);
+      color: #333;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .prophet-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prophet-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .prophet-card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .floating-symbol {
+      position: absolute;
+      width: 40px;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.3;
+    }
+
+    .symbol1 { top: 10%; left: 5%; }
+    .symbol2 { bottom: 15%; right: 10%; }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="prophet-card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Dallin_H._Oaks.jpg/440px-Dallin_H._Oaks.jpg" alt="President Dallin H. Oaks" style="width:100%; border-radius: 8px;">
+    <h1>President Dallin H. Oaks</h1>
+    <p>With reverence and readiness, President Oaks steps forward as the next prophet of The Church of Jesus Christ of Latter-day Saints. His life of service, legal wisdom, and spiritual devotion prepares him to guide the Saints in these latter days.</p>
+    <button onclick="updateProphet()">Affirm His Calling</button>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Angel_Moroni_statue.jpg/440px-Angel_Moroni_statue.jpg" class="floating-symbol symbol1" alt="Angel Moroni">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/LDS_Temple_Symbol.svg/1200px-LDS_Temple_Symbol.svg.png" class="floating-symbol symbol2" alt="Temple Symbol">
+  </div>
+
+  <script>
+    function updateProphet() {
+      const card = document.querySelector('.prophet-card');
+      card.innerHTML += `<p style="margin-top:1rem; font-weight:bold; color:#2c3e50;">"By the power of revelation, the mantle now rests upon President Oaks."</p>`;
+    }
+  </script>
+
+</body>
+</html>
+
