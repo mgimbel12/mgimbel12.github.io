@@ -1,0 +1,157 @@
+/* ===============================
+   🌟 Base Layout & Typography
+   =============================== */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #fdf6f0, #e6e2ff);
+  color: #333;
+  line-height: 1.6;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #5a3e85;
+}
+
+p {
+  text-align: center;
+  margin: 0.5rem 0;
+}
+
+/* ===============================
+   🔐 Password Screen
+   =============================== */
+#password-screen {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #fff8f0;
+  border-bottom: 2px solid #e0d4ff;
+}
+
+#password {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  background-color: #d6c1ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #c2a8ff;
+}
+
+/* ===============================
+   🏰 Sections & Imagery
+   =============================== */
+section {
+  padding: 2rem 1rem;
+  border-bottom: 1px solid #e0d4ff;
+}
+
+img {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(90, 62, 133, 0.2);
+}
+
+/* ===============================
+   💫 Tribute Icons
+   =============================== */
+.tribute-icons img {
+  width: 100px;
+  height: auto;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.tribute-icons img:hover {
+  transform: scale(1.1);
+}
+
+/* ===============================
+   🎃 Floating Icons
+   =============================== */
+.floating {
+  position: absolute;
+  width: 80px;
+  animation: float 6s ease-in-out infinite;
+  z-index: 10;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ===============================
+   🎨 Mood Selector
+   =============================== */
+select {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ===============================
+   ⬆️ Back to Top Link
+   =============================== */
+a[href="#top"] {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background-color: #ffcc00;
+  color: #5a3e85;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a[href="#top"]:hover {
+  background-color: #ffe680;
+}
+
+/* ===============================
+   🕯️ Footer
+   =============================== */
+footer {
+  background-color: #f3eaff;
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1rem;
+  color: #5a3e85;
+}
+
+/* ===============================
+   📱 Responsive Design
+   =============================== */
+@media (max-width: 768px) {
+  iframe {
+    width: 100%;
+    height: auto;
+  }
+
+  .tribute-icons img {
+    width: 80px;
+  }
+
+  .floating {
+    width: 60px;
+  }
+}
+
