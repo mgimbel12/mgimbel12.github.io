@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanctuary of Light</title>
+  <header id="top">
+  <h1>🎃 Enchanted Sanctuary of Light 🏰</h1>
+  <p>A place where spooky meets sacred, and magic meets peace.</p>
+</header>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #1e1e2f, #3a2a4d);
+      color: #fff;
+      overflow-x: hidden;
+      display: none;
+    }
+
+    #password-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      z-index: 9999;
+    }
+
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      margin-top: 1rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background: #ff9900;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #error {
+      color: #ff4444;
+      margin-top: 1rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ffcc00;
+      text-shadow: 2px 2px #000;
+    }
+
+    section {
+      padding: 2rem;
+      margin: 1rem auto;
+      max-width: 800px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .floating {
+      position: absolute;
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    #affirmation-btn, #mood-selector {
+      display: block;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      background: #ff9900;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    #affirmation-btn:hover, #mood-selector:hover {
+      background: #ff6600;
+    }
+
+    #affirmation {
+      text-align: center;
+      font-size: 1.4rem;
+      margin-top: 1rem;
+      color: #ffccff;
+    }
+
+    #mood-response {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #99ddff;
+    }
+
+    .tribute-icons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .tribute-icons img {
+      width: 80px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .tribute-icons img:hover {
+      transform: scale(1.2);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="password-screen">
+    <h2>🔐 Enter Sanctuary Password</h2>
+    <input type="password" id="password" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Enter</button>
+    <div id="error"></div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="gentle-music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <header>
+    <h1>🎃 Enchanted Sanctuary of Light 🏰</h1>
+    <p>A place where spooky meets sacred, and magic meets peace.</p>
+  </header>
+
+  <section id="halloween-icons">
+    <h2>🦇 Halloween Symbols</h2>
+    <ul>
+      <li>🦇 Bats fluttering in twilight</li>
+      <li>👻 Gentle ghosts whispering affirmations</li>
+      <li>🎃 Pumpkins glowing with inner light</li>
+    </ul>
+  </section>
+
+  <section id="disney-castle">
+    <h2>🏰 Disney Dreams</h2>
+    <p>Inspired by castles of courage and kindness, this sanctuary invites you to imagine a world where healing reigns.</p>
+    <img src="castle.jpg" alt="Disney-style castle" />
+  </section>
+
+  <section id="sunflower-blessing">
+    <h2>🌻 Sunflower Blessing</h2>
+    <p>Sunflowers turn toward the light. So can you. Let this space remind you of your divine worth and radiant spirit.</p>
+    <img src="sunflower.jpg" alt="Sunflower field" />
+  </section>
+
+  <section id="prayer-prompt">
+    <h2>🙏 Floating Prayer Prompt</h2>
+    <p>Take a moment to breathe. What do you need most right now?</p>
+    <button id="affirmation-btn">Receive a Blessing 🌟</button>
+    <div id="affirmation"></div>
+  </section>
+
+  <section id="mood-selector">
+    <h2>🎨 Mood Selector</h2>
+    <select onchange="respondToMood(this.value)">
+      <option value="">Select your mood</option>
+      <option value="anxious">😟 Anxious</option>
+      <option value="hopeful">😊 Hopeful</option>
+      <option value="grateful">🙏 Grateful</option>
+      <option value="peaceful">🕊️ Peaceful</option>
+    </select>
+    <div id="mood-response"></div>
+  </section>
+
+  <section id="tribute-room">
+    <h2>💖 Tribute Room</h2>
+    <p>Click a symbol to receive a message from your spiritual guides:</p>
+    <div class="tribute-icons">
+      <img src="angel.png" alt="Angel" onclick="showTribute('angel')" />
+      <img src="dove.png" alt="Dove" onclick="showTribute('dove')" />
+      <img src="star.png" alt="Star" onclick="showTribute('star')" />
+    </div>
+    <div id="tribute-message" style="text-align:center; margin-top:1rem;"></div>
+  </section>
+
+  <footer>
+    <p>🕯️ Created with love and light by Marissa</p>
+  </footer>
+
+  <!-- Floating Icons -->
+  <img src="bat.png" class="floating" style="top: 10%; left: 5%;" />
+  <img src="ghost.png" class="floating" style="top: 30%; left: 80%;" />
+  <img src="pumpkin.png" class="floating" style="top: 60%; left: 20%;" />
+
+  <script>
+    const correctPassword = "sunflowerSpirit";
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === correctPassword) {
+        document.getElementById("password-screen").style.display = "none";
+        document.body.style.display = "block";
+      } else {
+        document.getElementById("error").textContent = "Incorrect password. Try again.";
+      }
+    }
+
+    const affirmations = [
+      "You are a light in the dark 🌟",
+     
+      "You are divinely guided and protected 🕊️",
+    "Your spirit is radiant and strong 💫",
+    "You bring healing wherever you go 🌻"
+  ];
+
+  document.getElementById("affirmation-btn").addEventListener("click", () => {
+    const random = Math.floor(Math.random() * affirmations.length);
+    document.getElementById("affirmation").textContent = affirmations[random];
+  });
+
+  function respondToMood(mood) {
+    const response = {
+      anxious: "Breathe deeply. You are safe, and this moment will pass 🫧",
+      hopeful: "Hope is a sacred flame. Keep it glowing 🔥",
+      grateful: "Gratitude opens the heart to miracles ✨",
+      peaceful: "Your peace blesses the world around you 🌊"
+    };
+    document.getElementById("mood-response").textContent = response[mood] || "";
+  }
+
+  function showTribute(symbol) {
+    const messages = {
+      angel: "Your guardian angel watches over you with love and light 👼",
+      dove: "The Holy Ghost whispers peace to your soul 🕊️",
+      star: "You are a chosen light in the darkness ✨"
+    };
+    document.getElementById("tribute-message").textContent = messages[symbol] || "";
+  }
+</script>
+</body>
+  <div style="text-align: center; margin: 2rem 0;">
+  <a href="#top" style="color: #ffcc00; text-decoration: none; font-size: 1.1rem;">
+    ⬆️ Return to Top
+  </a>
+</div>
+<footer>
+  <p>🕯️ Created with love and light by Marissa</p>
+  <p>🌻 May peace walk with you, wherever you go</p>
+  <p style="font-size: 0.8rem; opacity: 0.7;">© 2025 Sanctuary of Light | BYU-I Editorial Portfolio</p>
+</footer>
+</html>
