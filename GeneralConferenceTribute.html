@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>October 5 General Conference Tribute</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f5f5f5, #e0f7fa);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 1em;
+      background-color: #dcedc8;
+      border-radius: 10px;
+    }
+
+    .subtitle {
+      font-style: italic;
+      color: #4e6e58;
+    }
+
+    .talks article {
+      background-color: #ffffff;
+      border-left: 5px solid #81c784;
+      margin: 1em 0;
+      padding: 1em;
+      border-radius: 8px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2em;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    #affirmationText {
+      margin-top: 1em;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🕊️ October 5 General Conference</h1>
+    <p class="subtitle">Messages of peace, purpose, and prophetic guidance</p>
+  </header>
+
+  <section class="talks">
+    <article>
+      <h2>President Dallin H. Oaks</h2>
+      <p>“The Family-Centered Gospel of Jesus Christ” — A call to strengthen homes and hearts.</p>
+    </article>
+    <article>
+      <h2>Elder David A. Bednar</h2>
+      <p>“They Are Their Own Judges” — A reminder of agency and accountability.</p>
+    </article>
+    <article>
+      <h2>Elder Ozani Farias</h2>
+      <p>“The Book of Mormon — An Immeasurable Treasure on Our Journey” — Anchoring faith in scripture.</p>
+    </article>
+  </section>
+
+  <footer>
+    <button id="affirmationBtn">🌿 Receive an Affirmation</button>
+    <p id="affirmationText"></p>
+  </footer>
+
+  <script>
+    const affirmations = [
+      "You are a divine child of God.",
+      "Your faith can move mountains.",
+      "Peace comes through Christ.",
+      "You are guided by the Spirit.",
+      "Your choices shape eternity.",
+      "You are never alone in your journey."
+    ];
+
+    document.getElementById("affirmationBtn").addEventListener("click", () => {
+      const randomIndex = Math.floor(Math.random() * affirmations.length);
+      document.getElementById("affirmationText").textContent = affirmations[randomIndex];
+    });
+  </script>
+</body>
+</html>
