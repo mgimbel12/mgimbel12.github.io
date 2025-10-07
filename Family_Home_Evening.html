@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Family Home Evening: Love at Home</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #fce4ec, #e8f5e9);
+      color: #4e342e;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #6a1b9a;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 12px;
+      max-width: 800px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .verse {
+      font-style: italic;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .prompt, .budget-result {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #2e7d32;
+      text-align: center;
+    }
+
+    button {
+      background-color: #ba68c8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #ab47bc;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      margin: 5px;
+      width: 80px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .budget-box {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🕊️ Family Home Evening</h1>
+  <h2>“Love at Home — Building Bonds That Last”</h2>
+
+  <div class="section">
+    <h3>📖 Opening Scripture</h3>
+    <p class="verse">“By this shall all men know that ye are my disciples, if ye have love one to another.” — John 13:35</p>
+  </div>
+
+  <div class="section">
+    <h3>🎶 Opening Hymn</h3>
+    <p>“Love at Home” (Hymn #294)</p>
+    <audio controls>
+      <source src="love-at-home.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div class="section">
+    <h3>🧠 Object Lesson: Rope of Relationships</h3>
+    <p>Imagine three strands of yarn: one breaks easily, two twisted are stronger, and three braided are unbreakable. Christ is the third strand in our family bond.</p>
+    <button onclick="showPrompt()">Reflect</button>
+    <p class="prompt" id="objectPrompt"></p>
+  </div>
+
+  <div class="section">
+    <h3>📜 Scripture Study</h3>
+    <ul>
+      <li>Mosiah 18:9 — Comfort those in need</li>
+      <li>Colossians 3:14 — Charity binds us in unity</li>
+      <li>Proverbs 15:1 — A soft answer turns away wrath</li>
+      <li>Romans 12:10 — Prefer one another in love</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h3>🎲 Budgeting Game: Stewardship Challenge</h3>
+    <p>You have $100. Choose how to spend it:</p>
+    <div class="budget-box">
+      <label>Groceries ($30): <input type="number" id="groceries" min="0" max="100" /></label>
+      <label>Give to someone in need ($10): <input type="number" id="give" min="0" max="100" /></label>
+      <label>Entertainment ($20): <input type="number" id="fun" min="0" max="100" /></label>
+      <label>Savings ($20): <input type="number" id="save" min="0" max="100" /></label>
+      <label>Impulse Buy ($15): <input type="number" id="impulse" min="0" max="100" /></label>
+    </div>
+    <button onclick="calculateBudget()">Submit Choices</button>
+    <p class="budget-result" id="budgetResult"></p>
+  </div>
+
+  <div class="section">
+    <h3>📝 Journal Prompt</h3>
+    <p>“One way I can show more love at home this week is…”</p>
+    <textarea placeholder="Write your reflection here..."></textarea>
+  </div>
+
+  <div class="section">
+    <h3>🎶 Closing Hymn</h3>
+    <p>“Families Can Be Together Forever” (Hymn #300)</p>
+    <audio controls>
+      <source src="families-forever.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <div class="section">
+    <h3>🙏 Closing Prayer</h3>
+    <p>Offer thanks for the Spirit felt and ask for help in applying the lesson throughout the week.</p>
+  </div>
+
+  <script>
+    function showPrompt() {
+      const prompts = [
+        "What helps us stay spiritually connected as a family?",
+        "How can we include Christ in our relationships?",
+        "What does love at home look like in action?"
+      ];
+      const random = prompts[Math.floor(Math.random() * prompts.length)];
+      document.getElementById("objectPrompt").textContent = random;
+    }
+
+    function calculateBudget() {
+      const groceries = parseInt(document.getElementById("groceries").value) || 0;
+      const give = parseInt(document.getElementById("give").value) || 0;
+      const fun = parseInt(document.getElementById("fun").value) || 0;
+      const save = parseInt(document.getElementById("save").value) || 0;
+      const impulse = parseInt(document.getElementById("impulse").value) || 0;
+
+      const total = groceries + give + fun + save + impulse;
+
+      if (total > 100) {
+        document.getElementById("budgetResult").textContent = "You've spent more than $100. Try again.";
+      } else {
+        document.getElementById("budgetResult").textContent = `You spent $${total}. Great job practicing stewardship!`;
+      }
+    }
+  </script>
+</body>
+</html>
