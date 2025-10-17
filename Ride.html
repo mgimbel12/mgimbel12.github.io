@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ride Through Reflection</title>
+  <style>
+    /* 🌸 Global Styles */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fdf6ff, #e0f7fa);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    h2 {
+      font-family: 'Georgia', serif;
+      color: #6a4f91;
+    }
+    section {
+      margin: 2rem auto;
+      padding: 2rem;
+      max-width: 700px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    /* 🧮 Calculator of Worth */
+    .calculator {
+      background: linear-gradient(to right, #f0e6ff, #d6f5f5);
+      text-align: center;
+    }
+    .calculator input, .calculator button {
+      margin: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+    }
+    #affirmation {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #6a4f91;
+    }
+
+    /* 🏎️ Car Racing for Courage */
+    .race-track {
+      background: #e0f7fa;
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #00796b;
+      background: #ffffff;
+    }
+    #raceMessage {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #004d40;
+    }
+
+    /* 🚲 Bikes of Belief Gallery */
+    .bike-gallery {
+      background: #fff3e0;
+      text-align: center;
+    }
+    .bike {
+      font-size: 3rem;
+      margin: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+    .bike:hover {
+      transform: scale(1.2);
+    }
+    #bikeMessage {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #bf360c;
+    }
+
+    /* 🌈 Footer */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🧮 Section 1: Calculator of Worth -->
+  <section class="calculator">
+    <h2>Calculator of Worth</h2>
+    <input type="number" id="num1" placeholder="Enter a number">
+    <input type="number" id="num2" placeholder="Enter another number">
+    <button onclick="calculate()">Multiply Blessings</button>
+    <p id="result"></p>
+    <div id="affirmation"></div>
+  </section>
+
+  <!-- 🏎️ Section 2: Car Racing for Courage -->
+  <section class="race-track">
+    <h2>Car Racing for Courage</h2>
+    <canvas id="raceCanvas" width="600" height="300"></canvas>
+    <p id="raceMessage"></p>
+    <p><em>Click the track to begin your race toward peace.</em></p>
+  </section>
+
+  <!-- 🚲 Section 3: Bikes of Belief Gallery -->
+  <section class="bike-gallery">
+    <h2>Bikes of Belief</h2>
+    <div class="bike" data-message="Tandem: You are never alone.">🚲</div>
+    <div class="bike" data-message="Mountain: Trials build strength.">🚵‍♀️</div>
+    <div class="bike" data-message="Vintage: Your past is sacred.">🚲</div>
+    <p id="bikeMessage"></p>
+  </section>
+
+  <!-- 🌈 Footer -->
+  <footer>
+    Created with love and light by Marissa · BYU-Idaho Editorial Portfolio · 2025
+  </footer>
+
+  <!-- 🌟 JavaScript Interactions -->
+  <script>
+    // 🧮 Calculator Logic
+    function calculate() {
+      const num1 = parseFloat(document.getElementById("num1").value);
+      const num2 = parseFloat(document.getElementById("num2").value);
+      const result = num1 * num2;
+      document.getElementById("result").textContent = `Result: ${result}`;
+
+      const affirmations = [
+        "You are more than the sum of your mistakes.",
+        "Your worth is infinite and eternal.",
+        "Peace multiplies when you believe.",
+        "You are divinely guided."
+      ];
+      const random = Math.floor(Math.random() * affirmations.length);
+      document.getElementById("affirmation").textContent = affirmations[random];
+    }
+
+    // 🏎️ Car Racing Animation
+    const canvas = document.getElementById("raceCanvas");
+    const ctx = canvas.getContext("2d");
+    let x = 0;
+
+    function drawCar() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#ff4081";
+      ctx.fillRect(x, 150, 50, 30); // car
+      ctx.fillStyle = "#000";
+      ctx.font = "16px Arial";
+      ctx.fillText("Peace", 500, 140);
+    }
+
+    function race() {
+      if (x < 500) {
+        x += 5;
+        drawCar();
+        requestAnimationFrame(race);
+      } else {
+        document.getElementById("raceMessage").textContent = "You’ve raced through resistance. Peace is your finish line.";
+      }
+    }
+
+    drawCar();
+    canvas.addEventListener("click", race);
+
+    // 🚲 Bike Gallery Interactions
+    const bikes = document.querySelectorAll(".bike");
+    const message = document.getElementById("bikeMessage");
+
+    bikes.forEach(bike => {
+      bike.addEventListener("mouseover", () => {
+        message.textContent = bike.dataset.message;
+      });
+      bike.addEventListener("mouseout", () => {
+        message.textContent = "";
+      });
+    });
+  </script>
+</body>
+</html>
+
