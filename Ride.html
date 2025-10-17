@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ride Through Reflection</title>
+  <title>Ride Through Reflection – Sanctuary Suite</title>
   <style>
-    /* 🌸 Global Styles */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #fdf6ff, #e0f7fa);
@@ -25,7 +23,17 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.05);
     }
 
-    /* 🧮 Calculator of Worth */
+    /* Scripture Styling */
+    .scripture {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      font-style: italic;
+      background: #f9fbe7;
+      border-left: 4px solid #c5e1a5;
+      color: #558b2f;
+    }
+
+    /* Calculator */
     .calculator {
       background: linear-gradient(to right, #f0e6ff, #d6f5f5);
       text-align: center;
@@ -37,13 +45,8 @@
       border: none;
       font-size: 1rem;
     }
-    #affirmation {
-      margin-top: 1rem;
-      font-style: italic;
-      color: #6a4f91;
-    }
 
-    /* 🏎️ Car Racing for Courage */
+    /* Car Racing */
     .race-track {
       background: #e0f7fa;
       text-align: center;
@@ -52,13 +55,8 @@
       border: 2px solid #00796b;
       background: #ffffff;
     }
-    #raceMessage {
-      margin-top: 1rem;
-      font-weight: bold;
-      color: #004d40;
-    }
 
-    /* 🚲 Bikes of Belief Gallery */
+    /* Bikes Gallery */
     .bike-gallery {
       background: #fff3e0;
       text-align: center;
@@ -73,13 +71,17 @@
     .bike:hover {
       transform: scale(1.2);
     }
-    #bikeMessage {
-      margin-top: 1rem;
-      font-style: italic;
-      color: #bf360c;
+
+    /* Music Sanctuary */
+    .music-sanctuary {
+      background: #f0fff4;
+      text-align: center;
+    }
+    .music-track {
+      margin-bottom: 2rem;
     }
 
-    /* 🌈 Footer */
+    /* Footer */
     footer {
       text-align: center;
       padding: 1rem;
@@ -90,7 +92,7 @@
 </head>
 <body>
 
-  <!-- 🧮 Section 1: Calculator of Worth -->
+  <!-- 🧮 Calculator of Worth -->
   <section class="calculator">
     <h2>Calculator of Worth</h2>
     <input type="number" id="num1" placeholder="Enter a number">
@@ -98,49 +100,62 @@
     <button onclick="calculate()">Multiply Blessings</button>
     <p id="result"></p>
     <div id="affirmation"></div>
+    <div class="scripture">“Remember the worth of souls is great in the sight of God.” – D&C 18:10</div>
   </section>
 
-  <!-- 🏎️ Section 2: Car Racing for Courage -->
+  <!-- 🏎️ Car Racing for Courage -->
   <section class="race-track">
     <h2>Car Racing for Courage</h2>
     <canvas id="raceCanvas" width="600" height="300"></canvas>
     <p id="raceMessage"></p>
     <p><em>Click the track to begin your race toward peace.</em></p>
+    <div class="scripture">“Let us run with patience the race that is set before us.” – Hebrews 12:1</div>
   </section>
 
-  <!-- 🚲 Section 3: Bikes of Belief Gallery -->
+  <!-- 🚲 Bikes of Belief Gallery -->
   <section class="bike-gallery">
     <h2>Bikes of Belief</h2>
     <div class="bike" data-message="Tandem: You are never alone.">🚲</div>
     <div class="bike" data-message="Mountain: Trials build strength.">🚵‍♀️</div>
     <div class="bike" data-message="Vintage: Your past is sacred.">🚲</div>
     <p id="bikeMessage"></p>
+    <div class="scripture">“In all thy ways acknowledge him, and he shall direct thy paths.” – Proverbs 3:6</div>
   </section>
+
+  <!-- 🎶 Music Sanctuary -->
   <section class="music-sanctuary">
-  <h2>Music for the Soul</h2>
-  <p>Select a track to guide your spirit:</p>
+    <h2>Music for the Soul</h2>
+    <p>Select a track to guide your spirit:</p>
 
-  <div class="music-track">
-    <iframe width="100%" height="200" src="https://www.youtube.com/embed/2Vv-BfVoq4g?rel=0" 
-      title="Peaceful Piano" frameborder="0" allowfullscreen></iframe>
-    <p class="track-message">“Let this melody remind you: You are held in divine harmony.”</p>
-  </div>
+    <div class="music-track">
+      <iframe width="100%" height="200" src="https://www.youtube.com/embed/2Vv-BfVoq4g?rel=0" 
+        title="Peaceful Piano" frameborder="0" allowfullscreen></iframe>
+      <p><em>“Let this melody remind you: You are held in divine harmony.”</em></p>
+    </div>
 
-  <div class="music-track">
-    <iframe width="100%" height="200" src="https://www.youtube.com/embed/hlWiI4xVXKY?rel=0" 
-      title="Courageous Strings" frameborder="0" allowfullscreen></iframe>
-    <p class="track-message">“As the strings rise, so does your strength. You are brave and beloved.”</p>
-  </div>
-</section>
+    <div class="music-track">
+      <iframe width="100%" height="200" src="https://www.youtube.com/embed/hlWiI4xVXKY?rel=0" 
+        title="Courageous Strings" frameborder="0" allowfullscreen></iframe>
+      <p><em>“As the strings rise, so does your strength. You are brave and beloved.”</em></p>
+    </div>
+
+    <div class="music-track">
+      <iframe width="100%" height="200" src="https://www.youtube.com/embed/9Q7Vr3yQYWQ?rel=0" 
+        title="Gratitude Flow" frameborder="0" allowfullscreen></iframe>
+      <p><em>“Let gratitude flow like music—soft, steady, and sacred.”</em></p>
+    </div>
+
+    <div class="scripture">“The song of the righteous is a prayer unto me.” – D&C 25:12</div>
+  </section>
 
   <!-- 🌈 Footer -->
   <footer>
     Created with love and light by Marissa · BYU-Idaho Editorial Portfolio · 2025
   </footer>
 
-  <!-- 🌟 JavaScript Interactions -->
+  <!-- 🌟 JavaScript -->
   <script>
-    // 🧮 Calculator Logic
+    // Calculator
     function calculate() {
       const num1 = parseFloat(document.getElementById("num1").value);
       const num2 = parseFloat(document.getElementById("num2").value);
@@ -157,7 +172,7 @@
       document.getElementById("affirmation").textContent = affirmations[random];
     }
 
-    // 🏎️ Car Racing Animation
+    // Car Racing
     const canvas = document.getElementById("raceCanvas");
     const ctx = canvas.getContext("2d");
     let x = 0;
@@ -165,7 +180,7 @@
     function drawCar() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#ff4081";
-      ctx.fillRect(x, 150, 50, 30); // car
+      ctx.fillRect(x, 150, 50, 30);
       ctx.fillStyle = "#000";
       ctx.font = "16px Arial";
       ctx.fillText("Peace", 500, 140);
@@ -184,7 +199,7 @@
     drawCar();
     canvas.addEventListener("click", race);
 
-    // 🚲 Bike Gallery Interactions
+    // Bikes
     const bikes = document.querySelectorAll(".bike");
     const message = document.getElementById("bikeMessage");
 
@@ -199,3 +214,4 @@
   </script>
 </body>
 </html>
+
