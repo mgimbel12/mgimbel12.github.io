@@ -3,33 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mood Switcher</title>
+  <title>Rain & Restoration Sanctuary</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #222;
+      background: linear-gradient(to bottom, #2c3e50, #34495e);
       color: white;
       overflow: hidden;
       text-align: center;
     }
 
-    h1 {
-      margin-top: 20px;
-    }
-
-    .container {
+    .scene {
       position: relative;
       height: 100vh;
-    }
-
-    .character {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 100px;
-      transition: transform 0.5s ease;
+      overflow: hidden;
     }
 
     .rain {
@@ -38,16 +26,15 @@
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
       background: repeating-linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.3) 0px,
-        rgba(255, 255, 255, 0.3) 2px,
+        rgba(255, 255, 255, 0.2) 0px,
+        rgba(255, 255, 255, 0.2) 2px,
         transparent 2px,
         transparent 10px
       );
       animation: rain 0.5s linear infinite;
-      display: none;
+      pointer-events: none;
     }
 
     @keyframes rain {
@@ -55,76 +42,59 @@
       100% { background-position: 0 10px; }
     }
 
-    .butter {
+    .blanket {
       position: absolute;
-      top: -100px;
+      bottom: 50px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 50px;
-      transition: top 1s ease;
+      width: 300px;
+      height: 150px;
+      background: #e0cda9;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
 
-    .butter.pour {
-      top: 100px;
-    }
-
-    .buttons {
+    .fruit-basket {
       position: absolute;
-      bottom: 20px;
+      bottom: 100px;
       left: 50%;
       transform: translateX(-50%);
+      font-size: 60px;
     }
 
-    button {
-      margin: 0 10px;
-      padding: 10px 20px;
-      font-size: 16px;
+    .message {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2em;
+      width: 80%;
+      max-width: 600px;
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    iframe {
+      position: absolute;
+      bottom: 220px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 170px;
       border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .happy {
-      background: #4caf50;
-      color: white;
-    }
-
-    .sad {
-      background: #f44336;
-      color: white;
     }
   </style>
 </head>
 <body>
-  <h1>Mood Switcher</h1>
-  <div class="container">
-    <div class="rain" id="rain"></div>
-    <div class="character" id="character">💃</div>
-    <div class="butter" id="butter">🧈🪣</div>
-    <div class="buttons">
-      <button class="happy" onclick="makeHappy()">Make Me Happy</button>
-      <button class="sad" onclick="makeSad()">Make Me Sad</button>
+  <div class="scene">
+    <div class="rain"></div>
+    <div class="message">
+      “Let the rain wash away what yesterday held. Come clean, and be nourished anew.”
     </div>
+    <iframe src="https://www.youtube.com/embed/uhG-vLZrb-g?autoplay=1" allow="autoplay"></iframe>
+    <div class="fruit-basket">🍎🍇🍊🍓</div>
+    <div class="blanket"></div>
   </div>
-
-  <script>
-    const character = document.getElementById('character');
-    const rain = document.getElementById('rain');
-    const butter = document.getElementById('butter');
-
-    function makeHappy() {
-      character.textContent = '💃';
-      character.style.transform = 'translateX(-50%) rotate(10deg)';
-      rain.style.display = 'block';
-      butter.classList.remove('pour');
-    }
-
-    function makeSad() {
-      character.textContent = '😢';
-      character.style.transform = 'translateX(-50%) rotate(0deg)';
-      rain.style.display = 'none';
-      butter.classList.add('pour');
-    }
-  </script>
 </body>
 </html>
