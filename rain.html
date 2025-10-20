@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Spiritual Mood Sanctuary</title>
+  <title>Mood Switcher</title>
   <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #1a1a1a, #333);
+      background: #222;
       color: white;
       overflow: hidden;
       text-align: center;
@@ -16,7 +16,6 @@
 
     h1 {
       margin-top: 20px;
-      font-size: 2em;
     }
 
     .container {
@@ -26,7 +25,7 @@
 
     .character {
       position: absolute;
-      bottom: 80px;
+      bottom: 50px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 100px;
@@ -42,8 +41,8 @@
       pointer-events: none;
       background: repeating-linear-gradient(
         to bottom,
-        rgba(255, 255, 255, 0.2) 0px,
-        rgba(255, 255, 255, 0.2) 2px,
+        rgba(255, 255, 255, 0.3) 0px,
+        rgba(255, 255, 255, 0.3) 2px,
         transparent 2px,
         transparent 10px
       );
@@ -94,51 +93,14 @@
       background: #f44336;
       color: white;
     }
-
-    .affirmation, .scripture {
-      position: absolute;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.2em;
-      width: 80%;
-      max-width: 600px;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .visible {
-      opacity: 1;
-    }
-
-    iframe {
-      position: absolute;
-      bottom: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 300px;
-      height: 170px;
-      border: none;
-      display: none;
-    }
-
-    iframe.visible {
-      display: block;
-    }
   </style>
 </head>
 <body>
-  <h1>Spiritual Mood Sanctuary</h1>
+  <h1>Mood Switcher</h1>
   <div class="container">
     <div class="rain" id="rain"></div>
     <div class="character" id="character">💃</div>
     <div class="butter" id="butter">🧈🪣</div>
-
-    <div class="affirmation" id="affirmation">You are radiant with divine joy.</div>
-    <div class="scripture" id="scripture">“The joy of the Lord is your strength.” — Nehemiah 8:10</div>
-
-    <iframe id="music" src=""></iframe>
-
     <div class="buttons">
       <button class="happy" onclick="makeHappy()">Make Me Happy</button>
       <button class="sad" onclick="makeSad()">Make Me Sad</button>
@@ -149,23 +111,12 @@
     const character = document.getElementById('character');
     const rain = document.getElementById('rain');
     const butter = document.getElementById('butter');
-    const affirmation = document.getElementById('affirmation');
-    const scripture = document.getElementById('scripture');
-    const music = document.getElementById('music');
 
     function makeHappy() {
       character.textContent = '💃';
       character.style.transform = 'translateX(-50%) rotate(10deg)';
       rain.style.display = 'block';
       butter.classList.remove('pour');
-
-      affirmation.textContent = 'You are radiant with divine joy.';
-      scripture.textContent = '“The joy of the Lord is your strength.” — Nehemiah 8:10';
-      affirmation.classList.add('visible');
-      scripture.classList.add('visible');
-
-      music.src = 'https://www.youtube.com/embed/1r9xU9bR3gE?autoplay=1';
-      music.classList.add('visible');
     }
 
     function makeSad() {
@@ -173,16 +124,7 @@
       character.style.transform = 'translateX(-50%) rotate(0deg)';
       rain.style.display = 'none';
       butter.classList.add('pour');
-
-      affirmation.textContent = 'Even in sorrow, you are held in grace.';
-      scripture.textContent = '“He will wipe every tear from their eyes.” — Revelation 21:4';
-      affirmation.classList.add('visible');
-      scripture.classList.add('visible');
-
-      music.src = 'https://www.youtube.com/embed/3a1z4b2FJZg?autoplay=1';
-      music.classList.add('visible');
     }
   </script>
 </body>
 </html>
-
