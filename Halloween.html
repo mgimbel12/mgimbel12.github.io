@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Halloween Sanctuary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* 🌙 Base Styling */
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #1a1a2e, #16213e);
+      color: #fefefe;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ffcc70;
+    }
+
+    /* 🎃 Floating Symbols */
+    .floating {
+      position: absolute;
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.6;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* 🧠 Mood Selector */
+    .mood-selector {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .mood-selector select {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    /* 🕊️ Affirmation Carousel */
+    .carousel {
+      margin: 2rem auto;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #ffcc70;
+      animation: fade 6s infinite;
+    }
+
+    @keyframes fade {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* 📖 Prayer Prompt */
+    .prayer-box {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .prayer-box input {
+      padding: 0.5rem;
+      width: 60%;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .prayer-box button {
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
+      background-color: #ffcc70;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* 🎵 Music Embed */
+    .music {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    iframe {
+      border-radius: 12px;
+    }
+
+    /* 📓 Journal Space */
+    .journal {
+      margin: 2rem auto;
+      text-align: center;
+    }
+
+    .journal textarea {
+      width: 80%;
+      height: 150px;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      border: none;
+    }
+
+    /* Footer Blessing */
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 1rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Halloween Sanctuary</h1>
+    <p>“Perfect love casteth out fear.” — 1 John 4:18</p>
+  </header>
+
+  <!-- 🎃 Floating Pumpkin -->
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Jack-o%27-Lantern.svg/1024px-Jack-o%27-Lantern.svg.png" class="floating" style="top: 10%; left: 5%; width: 60px;" />
+
+  <!-- 🧠 Mood Selector -->
+  <section class="mood-selector">
+    <label for="mood">How are you feeling tonight?</label><br><br>
+    <select id="mood">
+      <option value="joyful">Joyful</option>
+      <option value="anxious">Anxious</option>
+      <option value="lonely">Lonely</option>
+      <option value="hopeful">Hopeful</option>
+    </select>
+  </section>
+
+  <!-- 🕊️ Affirmation Carousel -->
+  <section class="carousel">
+    <p id="affirmation">You are brave.</p>
+  </section>
+
+  <!-- 📖 Prayer Prompt -->
+  <section class="prayer-box">
+    <input type="text" placeholder="What do you need help with tonight?" />
+    <br>
+    <button onclick="alert('You are not alone. God hears you.')">Light the Way</button>
+  </section>
+
+  <!-- 🎵 Music Embed -->
+  <section class="music">
+    <iframe width="300" height="80" src="https://www.youtube.com/embed/3z3uZ7xT2mY?autoplay=0" title="Peace in Christ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </section>
+
+  <!-- 📓 Journal Space -->
+  <section class="journal">
+    <h2>Write your thoughts, blessings, or prayers</h2>
+    <textarea placeholder="Tonight I feel..."></textarea>
+  </section>
+
+  <footer>
+    &copy; 2025 Halloween Sanctuary | “Let your light so shine.” — Matthew 5:16
+  </footer>
+
+  <script>
+    // Affirmation Carousel Logic
+    const affirmations = [
+      "You are brave.",
+      "You are loved.",
+      "You are guided.",
+      "You are enough.",
+      "You are never alone."
+    ];
+    let index = 0;
+    setInterval(() => {
+      document.getElementById("affirmation").textContent = affirmations[index];
+      index = (index + 1) % affirmations.length;
+    }, 3000);
+  </script>
+
+</body>
+</html>
+
