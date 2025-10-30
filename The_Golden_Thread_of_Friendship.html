@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Golden Thread of Friendship</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Quicksand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-light: #fffaf5;
+      --bg-dark: #1e1e2e;
+      --text-light: #333;
+      --text-dark: #f0f0f0;
+      --accent: #caa6ff;
+      --soft-pink: #ffe4f0;
+      --soft-blue: #d0f0ff;
+      --gold: #f5d76e;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.5s, color 0.5s;
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--accent);
+      padding: 2rem 1rem;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .toggle-mode {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+    }
+
+    .carousel {
+      background: var(--soft-blue);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      margin: 2rem 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .carousel p {
+      font-size: 1.3rem;
+      font-style: italic;
+    }
+
+    .timeline {
+      border-left: 4px solid var(--gold);
+      padding-left: 1rem;
+      margin-top: 2rem;
+    }
+
+    .timeline-entry {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .timeline-entry::before {
+      content: "⭐";
+      position: absolute;
+      left: -1.5rem;
+      top: 0;
+    }
+
+    .music-player, .tribute-wall, .video-section {
+      background: var(--soft-pink);
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .tribute-card {
+      background: white;
+      margin: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      display: inline-block;
+      transition: background 0.3s;
+    }
+
+    .tribute-card:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .candles {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .candle {
+      position: absolute;
+      bottom: -20px;
+      width: 10px;
+      height: 30px;
+      background: #ffd9b3;
+      border-radius: 5px;
+      animation: rise 8s infinite ease-in-out;
+    }
+
+    .candle:nth-child(1) { left: 20%; animation-delay: 0s; }
+    .candle:nth-child(2) { left: 50%; animation-delay: 2s; }
+    .candle:nth-child(3) { left: 80%; animation-delay: 4s; }
+
+    @keyframes rise {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .dark-mode header {
+      background: #4b3b6e;
+    }
+
+    .dark-mode .carousel,
+    .dark-mode .music-player,
+    .dark-mode .tribute-wall,
+    .dark-mode .video-section {
+      background: #3a3a5c;
+      color: var(--text-dark);
+    }
+
+    .dark-mode .toggle-mode {
+      background: #6a4fcf;
+    }
+  </style>
+</head>
+<body>
+  <header>🌟 The Golden Thread of Friendship</header>
+  <button class="toggle-mode" onclick="toggleMode()">Toggle Sanctuary Mode</button>
+
+  <div class="candles">
+    <div class="candle"></div>
+    <div class="candle"></div>
+    <div class="candle"></div>
+  </div>
+
+  <div class="container">
+    <div class="carousel">
+      <p id="affirmation">You are worthy of peace and joy.</p>
+    </div>
+
+    <h2>📜 A History of Friendship</h2>
+    <div class="timeline">
+      <div class="timeline-entry"><strong>Ancient Foundations:</strong> Friendship began as a sacred alliance of trust and survival.</div>
+      <div class="timeline-entry"><strong>Greek Philosophy:</strong> Aristotle defined friendship of virtue as the highest form of connection.</div>
+      <div class="timeline-entry"><strong>Medieval Brotherhood:</strong> Knights and monks formed spiritual bonds of loyalty and sacrifice.</div>
+      <div class="timeline-entry"><strong>Renaissance Intimacy:</strong> Thinkers like Montaigne celebrated friendship as soul-deep companionship.</div>
+      <div class="timeline-entry"><strong>19th Century Emotion:</strong> Romantic friendships offered emotional refuge and healing.</div>
+      <div class="timeline-entry"><strong>Modern Healing:</strong> Today, friendship is a proven balm for mental health and advocacy.</div>
+    </div>
+
+    <h2>👑 Royal Web Kingdom Characters</h2>
+    <ul>
+      <li><strong>King:</strong> Structure, wisdom, and accessibility (HTML)</li>
+      <li><strong>Queen:</strong> Style, comfort, and responsive design (CSS)</li>
+      <li><strong>Prince Charming:</strong> Movement, charm, and animation (JavaScript)</li>
+      <li><strong>Princess:</strong> Grace, empathy, and typography (CSS)</li>
+      <li><strong>Sparkles:</strong> Joy, light, and visual delight (SVG/CSS)</li>
+      <li><strong>Shine:</strong> Truth, feedback, and interactivity (JavaScript)</li>
+    </ul>
+<h2>👑 Royal Web Kingdom Characters</h2>
+    <ul>
+      <li><strong>King:</strong> Structure, wisdom, and accessibility (HTML)</li>
+      <li><strong>Queen:</strong> Style, comfort, and responsive design (CSS)</li>
+      <li><strong>Prince Charming:</strong> Movement, charm, and animation (JavaScript)</li>
+      <li><strong>Princess:</strong> Grace, empathy, and typography (CSS)</li>
+      <li><strong>Sparkles:</strong> Joy, light, and visual delight (SVG/CSS)</li>
+      <li><strong>Shine:</strong> Truth, feedback, and interactivity (JavaScript)</li>
+    </ul>
+  </div>
+
+    <div class="music-player">
+      <h3>🎵 Music Mirror of Joy</h3>
+      <audio controls>
+        <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+
+    <div class="tribute-wall">
+      <h3>🧠 Tribute Wall of Friendship & Advocacy</h3>
+      <div class="tribute-card" onclick="revealQuote('Temple Grandin')">Temple Grandin</div>
+      <div class="tribute-card" onclick="revealQuote('John Nash')">John Nash</div>
+      <div class="tribute-card" onclick="revealQuote('Hannah Gadsby')">Hannah Gadsby</div>
+      <p id="quoteDisplay"></p>
+    </div>
+
+    <div class="video-section">
+      <h3>📺 Fun & Uplifting Videos</h3>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/1Bix44C1EzY" title="Wholesome Animal Compilation" frameborder="0" allowfullscreen></iframe>
+      <br/><br/>
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/5qap5aO4i9A" title="Lo-fi">
+<script>
+  const affirmations = [
+      "You are worthy of peace and joy.",
+      "You are radiant and resilient.",
+      "You are not alone in your journey.",
+      "You are seen, heard, and valued.",
+      "You are a light in the darkness.",
+      "You belong in this sanctuary."
+    ];
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % affirmations.length;
+      document.getElementById("affirmation").textContent = affirmations[index];
+    }, 4000);
+
+    function toggleMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+  function revealQuote(name) {
+  const quotes = {
+    "Temple Grandin": "“Different, not less.”",
+    "John Nash": "“I still believe in a fundamental truth.”",
+    "Hannah Gadsby": "“There is nothing stronger than a broken woman who has rebuilt herself.”"
+  };
+  document.getElementById("quoteDisplay").textContent = quotes[name];
+}
+  </script>
+</body>
+</html>
