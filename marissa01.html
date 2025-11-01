@@ -7,7 +7,16 @@
   <link rel="stylesheet" href="marissa.css" />
 </head>
 <body>
-  <div class="container">
+  <!-- 🔒 Password Screen -->
+  <div id="password-screen">
+    <h2>🔒 Enter Password to View Page</h2>
+    <input type="password" id="password-input" placeholder="Enter password..." />
+    <button onclick="checkPassword()">Unlock</button>
+    <p id="error-message"></p>
+  </div>
+
+  <!-- 🌿 Protected Content -->
+  <div class="container" style="display: none;">
     <header>
       <h1>🌿 Marissa Anne Gimbel</h1>
       <p class="subtitle">Designer • Advocate • Sanctuary Builder</p>
@@ -50,18 +59,8 @@
       <p>&copy; 2025 Marissa Anne Gimbel. All rights reserved.</p>
     </footer>
   </div>
-<body>
-  <div id="password-screen">
-    <h2>🔒 Enter Password to View Page</h2>
-    <input type="password" id="password-input" placeholder="Enter password..." />
-    <button onclick="checkPassword()">Unlock</button>
-    <p id="error-message"></p>
-  </div>
 
-  <div class="container" style="display: none;">
-    <!-- Your existing content goes here -->
-  </div>
-</body>
-<script src="marissa.js"></script>
+  <script src="marissa.js"></script>
 </body>
 </html>
+
