@@ -1,3 +1,18 @@
+const correctPassword = "sanctuary2025"; // Change this to your preferred password
+
+function checkPassword() {
+  const input = document.getElementById("password-input").value;
+  const error = document.getElementById("error-message");
+  if (input === correctPassword) {
+    document.getElementById("password-screen").style.display = "none";
+    document.querySelector(".container").style.display = "block";
+    scatterAffirmations();
+  } else {
+    error.textContent = "Incorrect password. Please try again.";
+  }
+}
+
+// ✨ Floating Affirmations
 const affirmations = [
   "You are worthy.",
   "You are not alone.",
@@ -23,19 +38,3 @@ function scatterAffirmations() {
     createAffirmation(affirmations[i], x, y);
   }
 }
-
-window.onload = scatterAffirmations;
-const correctPassword = "sanctuary2025"; // You can change this to your preferred password
-
-function checkPassword() {
-  const input = document.getElementById("password-input").value;
-  const error = document.getElementById("error-message");
-  if (input === correctPassword) {
-    document.getElementById("password-screen").style.display = "none";
-    document.querySelector(".container").style.display = "block";
-  } else {
-    error.textContent = "Incorrect password. Please try again.";
-    error.style.color = "red";
-  }
-}
-
