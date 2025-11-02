@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>USA Military Tribute Wall</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #0a1f3d, #1a3c5e);
+      color: #f0f0f0;
+      text-align: center;
+    }
+
+    header {
+      padding: 40px 20px;
+      background-color: #001f3f;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .branches {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .card {
+      background-color: #112e51;
+      border-radius: 12px;
+      padding: 20px;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00bfff;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #00bfff;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .affirmation {
+      margin: 40px auto;
+      padding: 20px;
+      max-width: 600px;
+      background-color: #0b2a4a;
+      border-left: 5px solid #00bfff;
+      font-style: italic;
+      font-size: 1.2em;
+    }
+
+    footer {
+      padding: 20px;
+      background-color: #001f3f;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>United for Strength & Sanctuary</h1>
+    <p>A tribute to the courage, service, and spirit of the U.S. Armed Forces</p>
+  </header>
+
+  <section class="branches">
+    <div class="card" onclick="showAffirmation('Army')">
+      <h2>Army</h2>
+      <p>Ground warriors of resilience and honor. Protectors of freedom across every terrain.</p>
+    </div>
+    <div class="card" onclick="showAffirmation('Navy')">
+      <h2>Navy</h2>
+      <p>Guardians of the sea. Navigators of peace and power across global waters.</p>
+    </div>
+    <div class="card" onclick="showAffirmation('Air Force')">
+      <h2>Air Force</h2>
+      <p>Masters of the sky. Defenders of liberty with wings of precision and speed.</p>
+    </div>
+    <div class="card" onclick="showAffirmation('Marines')">
+      <h2>Marines</h2>
+      <p>First to fight. Embodying grit, discipline, and unwavering commitment.</p>
+    </div>
+    <div class="card" onclick="showAffirmation('Space Force')">
+      <h2>Space Force</h2>
+      <p>Pioneers of the final frontier. Expanding defense into the stars with vision and vigilance.</p>
+    </div>
+  </section>
+
+  <div class="affirmation" id="affirmationBox">
+    Click a branch to reveal its affirmation.
+  </div>
+
+  <footer>
+    &copy; 2025 Tribute Wall of Valor | Designed by Marissa Gimbel
+  </footer>
+
+  <script>
+    function showAffirmation(branch) {
+      const affirmations = {
+        Army: "You are the shield of the homeland, the heartbeat of courage beneath every flag.",
+        Navy: "You sail with honor, anchoring peace in the depths of challenge.",
+        AirForce: "You rise with clarity, soaring above storms to protect the skies of freedom.",
+        Marines: "You stand first, fierce and faithful, with valor etched into every step.",
+        SpaceForce: "You reach beyond, guarding the unseen with wisdom and wonder."
+      };
+      document.getElementById("affirmationBox").textContent = affirmations[branch] || "Affirmation not found.";
+    }
+  </script>
+</body>
+</html>
