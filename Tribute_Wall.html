@@ -13,7 +13,7 @@
       text-align: center;
     }
 
-    header {
+    header, footer {
       padding: 40px 20px;
       background-color: #001f3f;
       color: #fff;
@@ -66,51 +66,91 @@
       font-size: 1.2em;
     }
 
-    footer {
-      padding: 20px;
-      background-color: #001f3f;
-      font-size: 0.9em;
+    #login {
+      margin-top: 100px;
+    }
+
+    input[type="password"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    #message {
+      margin-top: 20px;
+      color: #ff8080;
+    }
+
+    #content {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>United for Strength & Sanctuary</h1>
-    <p>A tribute to the courage, service, and spirit of the U.S. Armed Forces</p>
-  </header>
-
-  <section class="branches">
-    <div class="card" onclick="showAffirmation('Army')">
-      <h2>Army</h2>
-      <p>Ground warriors of resilience and honor. Protectors of freedom across every terrain.</p>
-    </div>
-    <div class="card" onclick="showAffirmation('Navy')">
-      <h2>Navy</h2>
-      <p>Guardians of the sea. Navigators of peace and power across global waters.</p>
-    </div>
-    <div class="card" onclick="showAffirmation('Air Force')">
-      <h2>Air Force</h2>
-      <p>Masters of the sky. Defenders of liberty with wings of precision and speed.</p>
-    </div>
-    <div class="card" onclick="showAffirmation('Marines')">
-      <h2>Marines</h2>
-      <p>First to fight. Embodying grit, discipline, and unwavering commitment.</p>
-    </div>
-    <div class="card" onclick="showAffirmation('Space Force')">
-      <h2>Space Force</h2>
-      <p>Pioneers of the final frontier. Expanding defense into the stars with vision and vigilance.</p>
-    </div>
-  </section>
-
-  <div class="affirmation" id="affirmationBox">
-    Click a branch to reveal its affirmation.
+  <div id="login">
+    <h2>Enter Tribute Wall</h2>
+    <input type="password" id="password" placeholder="Enter password" />
+    <button onclick="checkPassword()">Access</button>
+    <p id="message"></p>
   </div>
 
-  <footer>
-    &copy; 2025 Tribute Wall of Valor | Designed by Marissa Gimbel
-  </footer>
+  <div id="content">
+    <header>
+      <h1>United for Strength & Sanctuary</h1>
+      <p>A tribute to the courage, service, and spirit of the U.S. Armed Forces</p>
+    </header>
 
+    <section class="branches">
+      <div class="card" onclick="showAffirmation('Army')">
+        <h2>Army</h2>
+        <p>Ground warriors of resilience and honor. Protectors of freedom across every terrain.</p>
+      </div>
+      <div class="card" onclick="showAffirmation('Navy')">
+        <h2>Navy</h2>
+        <p>Guardians of the sea. Navigators of peace and power across global waters.</p>
+      </div>
+      <div class="card" onclick="showAffirmation('AirForce')">
+        <h2>Air Force</h2>
+        <p>Masters of the sky. Defenders of liberty with wings of precision and speed.</p>
+      </div>
+      <div class="card" onclick="showAffirmation('Marines')">
+        <h2>Marines</h2>
+        <p>First to fight. Embodying grit, discipline, and unwavering commitment.</p>
+      </div>
+      <div class="card" onclick="showAffirmation('SpaceForce')">
+        <h2>Space Force</h2>
+        <p>Pioneers of the final frontier. Expanding defense into the stars with vision and vigilance.</p>
+      </div>
+    </section>
+    <div class="affirmation" id="affirmationBox">
+      Click a branch to reveal its affirmation.
+    </div>
+    <footer>
+      &copy; 2025 Tribute Wall of Valor | Designed by Marissa Gimbel
+    </footer>
+  </div>
   <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      const message = document.getElementById("message");
+      if (input === "valor2025") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      } else {
+        message.textContent = "Access denied. Please try again.";
+      }
+    }
     function showAffirmation(branch) {
       const affirmations = {
         Army: "You are the shield of the homeland, the heartbeat of courage beneath every flag.",
