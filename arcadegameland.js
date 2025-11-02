@@ -4,7 +4,7 @@ function checkPassword() {
   const message = document.getElementById("message");
   const content = document.querySelector(".arcade-content");
 
-  const correctPassword = "sanctuary123"; // Customize as needed
+  const correctPassword = "training123"; // Change as needed
 
   if (input === correctPassword) {
     document.querySelector(".login-container").classList.add("hidden");
@@ -62,6 +62,4 @@ function spawnAffirmation() {
   document.body.appendChild(affirm);
   setTimeout(() => affirm.remove(), 3000);
 }
-
 setInterval(spawnAffirmation, 1500);
-
