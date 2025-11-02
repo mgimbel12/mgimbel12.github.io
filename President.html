@@ -1,46 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="author" content="Marissa">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="author" content="Marissa" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Future Girl President</title>
-  <link rel="stylesheet" href="America.css">
+  <link rel="stylesheet" href="normalize.css" />
+  <link rel="stylesheet" href="America.css" />
 </head>
 <body>
-  <header>
-    <h1>Future Girl President</h1>
-    <p class="subtitle">A Vision for America's Future</p>
-  </header>
+  <div class="container">
+    <header>
+      <h1>Future Girl President</h1>
+      <p class="subtitle">A Vision for America's Future</p>
+    </header>
 
-  <section>
-    <h2>My Thoughts About America</h2>
-    <p>
-      America is a land of opportunity, resilience, and diversity. As a future leader, I believe in unity, justice, and empowering every citizen to thrive.
-    </p>
-  </section>
+    <main>
+      <section>
+        <h2>My Thoughts About America</h2>
+        <p>
+          America is a land of opportunity, resilience, and diversity. As a future leader, I believe in unity, justice, and empowering every citizen to thrive.
+        </p>
+      </section>
 
-  <section class="message-form">
-    <h2>Send a Message</h2>
-    <form>
-      <label for="txtfrom">From:</label>
-      <input type="text" id="txtfrom" name="from" size="10">
+      <section class="message-form">
+        <h2>Send a Message</h2>
+        <form id="messageForm">
+          <p>
+            <label for="txtfrom">From:</label><br />
+            <input type="text" id="txtfrom" name="from" size="30" required />
+          </p>
 
-      <label for="txtTo">To (10-digit phone number):</label>
-      <input type="text" id="txtTo" name="to" size="10">
+          <p>
+            <label for="txtTo">To (10-digit phone number):</label><br />
+            <input type="tel" id="txtTo" name="to" pattern="[0-9]{10}" size="30" required />
+          </p>
 
-      <label for="txtMessage">Message:</label>
-      <textarea id="txtMessage" name="message" rows="8" cols="40"></textarea>
+          <p>
+            <label for="txtMessage">Message:</label><br />
+            <textarea id="txtMessage" name="message" rows="8" cols="40" required></textarea>
+          </p>
 
-      <div class="buttons">
-        <button type="button">Send</button>
-        <button type="reset">Clear</button>
-      </div>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Future Girl President. All rights reserved.</p>
-  </footer>
+          <div class="buttons">
+            <button type="submit">Send</button>
+            <button type="reset">Clear</button>
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; 2025 Future Girl President. All rights reserved.</p>
+    </footer>
+  </div>
 </body>
 </html>
