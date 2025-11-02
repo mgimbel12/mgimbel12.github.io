@@ -1,43 +1,67 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>essay.html</title>
-  <link rel="stylesheet" href="essay.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hallows Sanctuary</title>
+  <link rel="stylesheet" href="hallows.css" />
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-  <div class="quiz-container">
-    <form action="">
-      <fieldset>
-        <legend>🧙‍♀️ Magical Quiz</legend>
-        <p>
-          <label for="txtName">Name:</label>
-          <input type="text" id="txtName" />
-        </p>
-        <p>
-          <label for="txtEquation">Enter a Math Equation (TeX format):</label><br/>
-          <input type="text" id="txtEquation" placeholder="e.g. x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}" oninput="renderEquation()" />
-        </p>
-        <div id="equationPreview" class="equation-box">Your equation will appear here.</div>
-        <p>
-          <label for="txtAnswer">In one spellbinding paragraph, briefly define the sum total of Western thought. Bonus: include a reference to the Sanderson Sisters.</label><br/>
-          <textarea id="txtAnswer" rows="8" cols="50"></textarea>
-        </p>
-      </fieldset>
-    </form>
+  <div class="container">
+    <h1>🪄 Welcome to the Hallows Sanctuary</h1>
+    <p>Please enter the sacred password to proceed:</p>
 
-    <h1>👻 Hello, World of Wonder</h1>
-    <p>Be safe—and don't light the Black Flame Candle!</p>
+    <div class="login-box">
+      <input type="password" id="txtPassword" placeholder="Enter the Hallows password..." />
+      <button onclick="validateAccess()">Unlock</button>
+      <div id="accessMessage"></div>
+    </div>
 
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/nBXS3weGNc0?si=mlsGK1W-_ghJt2KC"
-      title="YouTube video player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen></iframe>
+    <div id="quizSection" style="display:none;">
+      <form>
+        <fieldset>
+          <legend>🧙‍♀️ Magical Quiz</legend>
+          <p>
+            <label for="txtName">Name:</label>
+            <input type="text" id="txtName" />
+          </p>
+          <p>
+            <label for="txtEquation">Enter a Math Equation (TeX format):</label><br />
+            <input type="text" id="txtEquation" placeholder="e.g. x = \\frac{-b \\pm \\sqrt{b^2-4ac}}{2a}" oninput="renderEquation()" />
+          </p>
+          <div id="equationPreview" class="equation-box">Your equation will appear here.</div>
+          <p>
+            <label for="txtAnswer">In one spellbinding paragraph, define the sum total of Western thought. Bonus: include the Sanderson Sisters.</label><br />
+            <textarea id="txtAnswer" rows="8" cols="50"></textarea>
+          </p>
+        </fieldset>
+      </form>
+
+      <h2>🎥 Hallows Lore</h2>
+      <p>Be safe—and don't light the Black Flame Candle!</p>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/nBXS3weGNc0?si=mlsGK1W-_ghJt2KC"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
   </div>
 
   <script>
+    function validateAccess() {
+      const password = document.getElementById("txtPassword").value;
+      const message = document.getElementById("accessMessage");
+      const quizSection = document.getElementById("quizSection");
+
+      if (password === "TrickOrTruth") {
+        message.innerHTML = "<p style='color:lightgreen;'>🪄 Welcome, Keeper of the Hallows!</p>";
+        quizSection.style.display = "block";
+      } else {
+        message.innerHTML = "<p style='color:red;'>🚫 Incorrect incantation. Try again.</p>";
+        quizSection.style.display = "none";
+      }
+    }
     function renderEquation() {
       const input = document.getElementById("txtEquation").value;
       const preview = document.getElementById("equationPreview");
@@ -47,4 +71,3 @@
   </script>
 </body>
 </html>
-
