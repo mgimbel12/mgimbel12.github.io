@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanctuary Puzzle & Affirmation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f8ff;
+      color: #003366;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #003366;
+    }
+
+    .puzzle-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 30px auto;
+      max-width: 600px;
+    }
+
+    .piece {
+      background-color: #ffeb3b;
+      border: 2px solid #003366;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .piece.revealed {
+      background-color: #2196f3;
+      color: white;
+    }
+
+    .affirmation {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #003366;
+    }
+
+    .scripture {
+      margin-top: 40px;
+      background-color: #fff;
+      border-left: 5px solid #2196f3;
+      padding: 20px;
+      font-style: italic;
+      color: #333;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧩 Sanctuary Puzzle & Affirmation</h1>
+  <h2>Click each piece to reveal a message</h2>
+
+  <div class="puzzle-container">
+    <div class="piece" onclick="reveal(this)">You are loved</div>
+    <div class="piece" onclick="reveal(this)">You are strong</div>
+    <div class="piece" onclick="reveal(this)">You are enough</div>
+    <div class="piece" onclick="reveal(this)">You are guided</div>
+    <div class="piece" onclick="reveal(this)">You are healing</div>
+    <div class="piece" onclick="reveal(this)">You are radiant</div>
+    <div class="piece" onclick="reveal(this)">You are safe</div>
+    <div class="piece" onclick="reveal(this)">You are worthy</div>
+    <div class="piece" onclick="reveal(this)">You are whole</div>
+  </div>
+
+  <div class="affirmation">
+    🌈 “Every piece of you belongs. Every word you speak matters.”
+  </div>
+
+  <div class="scripture">
+    📖 “The Lord is my light and my salvation—whom shall I fear? The Lord is the stronghold of my life—of whom shall I be afraid?” — Psalm 27:1
+  </div>
+
+  <footer>
+    Created with love and light 💙💛
+  </footer>
+
+  <script>
+    function reveal(element) {
+      element.classList.toggle('revealed');
+    }
+  </script>
+</body>
+</html>
