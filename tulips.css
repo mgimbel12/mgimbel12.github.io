@@ -1,0 +1,65 @@
+body {
+  font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #fff0f5, #ffe4e1);
+  color: #4a148c;
+  text-align: center;
+  padding: 30px;
+}
+
+header h1 {
+  font-size: 2.5em;
+  color: #c2185b;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.flowers {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.flower {
+  font-size: 3em;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.flower:hover {
+  transform: scale(1.2);
+}
+
+.affirmation-box {
+  margin: 20px 0;
+  font-size: 1.3em;
+  color: #6a1b9a;
+  min-height: 40px;
+}
+
+.castle-info {
+  background: #fce4ec;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 30px auto;
+  max-width: 600px;
+}
+
+.video-section {
+  margin-top: 40px;
+}
+
+.video-caption {
+  font-size: 1em;
+  margin-top: 10px;
+  color: #880e4f;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 0.9em;
+  color: #ad1457;
+}
