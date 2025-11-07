@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mental Health Hotlines</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+    }
+    .hotline-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .hotline {
+      margin: 10px 0;
+      padding: 10px;
+      border-left: 5px solid #3498db;
+      background: #ecf0f1;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .hotline:hover {
+      background: #d6eaf8;
+    }
+    .details {
+      display: none;
+      margin-top: 5px;
+      font-size: 0.9em;
+      color: #555;
+    }
+    .call-button {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background: #3498db;
+      color: white;
+      text-align: center;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .call-button:hover {
+      background: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="hotline-container">
+    <h2>Mental Health Hotlines</h2>
+
+    <div class="hotline" onclick="toggleDetails(this)">
+      National Mental Health Hotline: 866-903-3787
+      <div class="details">Free & confidential 24/7 support for anxiety, depression, PTSD, and more.</div>
+    </div>
+
+    <div class="hotline" onclick="toggleDetails(this)">
+      Suicide & Crisis Lifeline: 988
+      <div class="details">Call or text 988 for immediate help. Available nationwide, 24/7.</div>
+    </div>
+
+    <div class="hotline" onclick="toggleDetails(this)">
+      Crisis Text Line: Text HOME to 741741
+      <div class="details">Text-based support for any crisis, available 24/7.</div>
+    </div>
+
+    <div class="hotline" onclick="toggleDetails(this)">
+      The Trevor Project (LGBTQ+): 1-866-488-7386
+      <div class="details">Support for LGBTQ+ youth in crisis. Confidential and compassionate.</div>
+    </div>
+
+    <div class="hotline" onclick="toggleDetails(this)">
+      Domestic Violence Hotline: 1-800-799-7233
+      <div class="details">Help for those experiencing abuse or unsafe relationships.</div>
+    </div>
+
+    <button class="call-button" onclick="alert('Reach out. You are not alone.')">
+      Need Help? Start Here
+    </button>
+  </div>
+
+  <script>
+    function toggleDetails(element) {
+      const details = element.querySelector('.details');
+      details.style.display = details.style.display === 'block' ? 'none' : 'block';
+    }
+  </script>
+</body>
+</html>
+
