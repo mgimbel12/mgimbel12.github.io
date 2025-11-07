@@ -6,6 +6,12 @@ body {
   padding: 20px;
 }
 
+h1 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  color: #fff;
+}
+
 .tree {
   position: relative;
   margin: auto;
@@ -54,12 +60,33 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .calendar div {
-  background: #004d2e;
-  border: 1px solid #fff;
   padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+
+.locked {
+  background: #333;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.unlocked {
+  background: #004d2e;
+  color: white;
   cursor: pointer;
+}
+
+.unlocked:hover {
+  transform: scale(1.05);
+  background: #00703C;
 }
 
