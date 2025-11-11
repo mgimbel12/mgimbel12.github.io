@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Path of Light – Healing Garden</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #e0f7fa, #fce4ec);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      color: #6a1b9a;
+    }
+
+    .symbol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .symbol {
+      font-size: 2rem;
+      padding: 1rem;
+      background-color: #ffffffcc;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .symbol:hover {
+      transform: scale(1.1);
+      background-color: #f3e5f5;
+    }
+
+    .message {
+      font-size: 1.2rem;
+      color: #004d40;
+      margin-top: 2rem;
+      min-height: 2rem;
+    }
+
+    .light-bar {
+      margin-top: 2rem;
+      height: 20px;
+      background-color: #c8e6c9;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .light-fill {
+      height: 100%;
+      width: 0%;
+      background-color: #81c784;
+      transition: width 0.5s ease;
+    }
+
+    .breathing-circle {
+      margin: 2rem auto;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: #b2dfdb;
+      animation: breathe 4s infinite;
+    }
+
+    @keyframes breathe {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .archive {
+      margin-top: 2rem;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #fff8e1;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .archive h2 {
+      color: #6d4c41;
+    }
+
+    .archive ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .archive li {
+      margin-bottom: 0.5rem;
+      color: #4e342e;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌟 Path of Light – Healing Garden</h1>
+  <p>Choose a symbol to receive healing light and poetic comfort.</p>
+
+  <div class="symbol-grid">
+    <div class="symbol" onclick="revealMessage('You are safe. Breathe.')">🌿</div>
+    <div class="symbol" onclick="revealMessage('You are loved beyond measure.')">💖</div>
+    <div class="symbol" onclick="revealMessage('This moment is yours to rest.')">🌙</div>
+    <div class="symbol" onclick="revealMessage('You are growing, gently and bravely.')">🌱</div>
+    <div class="symbol" onclick="revealMessage('Let go. You are held.')">🕊️</div>
+    <div class="symbol" onclick="revealMessage('Gratitude is your lantern.')">🦃</div>
+    <div class="symbol" onclick="revealMessage('Hope glows in winter silence.')">🕯️</div>
+  </div>
+
+  <div class="message" id="messageBox"></div>
+
+  <div class="light-bar">
+    <div class="light-fill" id="lightFill"></div>
+  </div>
+
+  <div class="breathing-circle"></div>
+
+  <div class="archive">
+    <h2>Ceremonial Archive</h2>
+    <ul id="archiveList"></ul>
+  </div>
+
+  <script>
+    let lightLevel = 0;
+
+    function revealMessage(text) {
+      document.getElementById('messageBox').textContent = text;
+      lightLevel = Math.min(lightLevel + 14, 100);
+      document.getElementById('lightFill').style.width = lightLevel + '%';
+
+      const archive = document.getElementById('archiveList');
+      const entry = document.createElement('li');
+      entry.textContent = text;
+      archive.appendChild(entry);
+    }
+  </script>
+</body>
+</html>
