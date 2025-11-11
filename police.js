@@ -50,5 +50,12 @@ function updateSeasonalMessage() {
   message.innerText = messages[month];
 }
 
+function triggerDispatch() {
+  const echo = "Affirmation Dispatch Activated: You are protected. Help is on the way. You are not alone.";
+  document.getElementById("dispatchEcho").innerText = echo;
+  const msg = new SpeechSynthesisUtterance(echo);
+  window.speechSynthesis.speak(msg);
+}
+
 window.onload = updateSeasonalMessage;
 
