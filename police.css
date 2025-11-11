@@ -67,3 +67,20 @@ button:hover {
 .symbol:hover {
   transform: scale(1.2);
 }
+
+#dispatch-overlay {
+  background-color: #fff0f0;
+  border-left: 5px solid #cc0000;
+}
+
+#dispatchEcho {
+  margin-top: 1em;
+  font-weight: bold;
+  color: #cc0000;
+}
+
+iframe {
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+
