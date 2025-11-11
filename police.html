@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sanctuary Tribute Portal</title>
+  <link rel="stylesheet" href="Police.css" />
+</head>
+<body>
+  <header>
+    <h1>🌟 Sanctuary Tribute Portal</h1>
+    <p>Echoes of gratitude, safety, and remembrance</p>
+  </header>
+
+  <section id="tribute-wall">
+    <h2>🖼️ Tribute Wall</h2>
+    <div class="card" onclick="revealAffirmation('Ana')">
+      <h3>Aunt Ana</h3>
+      <p>Click to reveal affirmation</p>
+    </div>
+  </section>
+
+  <section id="echo-verse">
+    <h2>🔊 Echo Verse Generator</h2>
+    <input type="text" id="verseInput" placeholder="Type your verse..." />
+    <button onclick="generateEcho()">Echo It</button>
+    <div id="echoOutput"></div>
+  </section>
+
+  <section id="legacy-loop">
+    <h2>🔁 Legacy Loop Scroll</h2>
+    <marquee behavior="scroll" direction="left" scrollamount="4">
+      Aunt Ana • Officer Ramirez • Firefighter Lee • Nurse Thompson • Community Volunteers •
+    </marquee>
+  </section>
+
+  <section id="healing-garden">
+    <h2>🌿 Healing Garden of Symbols</h2>
+    <div class="symbol-grid">
+      <div class="symbol" onclick="showSymbolMeaning('🕊️')">🕊️</div>
+      <div class="symbol" onclick="showSymbolMeaning('🛡️')">🛡️</div>
+      <div class="symbol" onclick="showSymbolMeaning('🌈')">🌈</div>
+    </div>
+    <div id="symbolMeaning"></div>
+  </section>
+
+  <section id="seasonal-scroll">
+    <h2>📜 Seasonal Scroll</h2>
+    <p id="seasonalMessage"></p>
+  </section>
+
+  <section id="voice-wall">
+    <h2>🗣️ Voice of the Wall</h2>
+    <button onclick="speakAffirmation()">Play Affirmation</button>
+  </section>
+
+  <section id="community-safety">
+    <h2>🚓 Community Safety Tribute</h2>
+    <p>In honor of the Henderson Police Department and all first responders who protect and serve.</p>
+    <ul>
+      <li><strong>Emergency:</strong> 911</li>
+      <li><strong>Non-Emergency:</strong> 702-267-5000</li>
+      <li><strong>East Station:</strong> 223 Lead St</li>
+      <li><strong>North Station:</strong> 225 E. Sunset Rd</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Sanctuary Universe by Marissa Anne Gimbel</p>
+  </footer>
+
+  <script src="Police.js"></script>
+</body>
+</html>
+
