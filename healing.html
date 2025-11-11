@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Healing Garden of Symbols</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fce4ec);
+      margin: 0;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      color: #6a1b9a;
+    }
+
+    .symbol-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .symbol {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .symbol:hover {
+      transform: scale(1.05);
+      background-color: #f3e5f5;
+    }
+
+    .message {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #004d40;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Healing Garden of Symbols</h1>
+  <p>Click a symbol to receive a message of comfort.</p>
+
+  <div class="symbol-grid">
+    <div class="symbol" onclick="showMessage('You are enough.')">🌼</div>
+    <div class="symbol" onclick="showMessage('Breathe. You are safe.')">🍃</div>
+    <div class="symbol" onclick="showMessage('Your story matters.')">🌟</div>
+    <div class="symbol" onclick="showMessage('You are loved.')">💖</div>
+  </div>
+
+  <div class="message" id="messageBox"></div>
+
+  <script>
+    function showMessage(text) {
+      const box = document.getElementById('messageBox');
+      box.textContent = text;
+    }
+  </script>
+</body>
+</html>
