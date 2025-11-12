@@ -1,7 +1,17 @@
-// Optional: Add click-to-highlight or expand/collapse features
 document.querySelectorAll('.tree span').forEach(node => {
   node.addEventListener('click', () => {
-    node.classList.toggle('highlight');
+    if (node.classList.contains('red')) {
+      node.classList.remove('red');
+      node.classList.add('white');
+    } else if (node.classList.contains('white')) {
+      node.classList.remove('white');
+      node.classList.add('blue');
+    } else if (node.classList.contains('blue')) {
+      node.classList.remove('blue');
+    } else {
+      node.classList.add('red');
+    }
   });
 });
+
 
