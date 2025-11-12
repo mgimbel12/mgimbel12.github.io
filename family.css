@@ -40,6 +40,25 @@ body {
 }
 
 .tree li:only-child::before,
+
+.tribute {
+      background-color: #fff;
+      border: 2px solid #ccc;
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+    .tribute h1 {
+      color: #b22222;
+    }
+    .tribute p {
+      font-size: 1.2em;
+    }
+    .flag {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
 .tree li:only-child::after {
   display: none;
 }
