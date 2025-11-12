@@ -16,3 +16,12 @@
 .highlight { background: #fff59d !important; border-color: #fbc02d !important; color: #f57f17 !important; } .family-footer { background-color: #f0f4f8; color: #333; text-align: center; padding: 20px; font-size: 0.9em; border-top: 2px solid #ccc; margin-top: 40px; }
 .family-footer a { color: #006064; text-decoration: none; font-weight: bold; }
 .family-footer a:hover { text-decoration: underline; }
+.corner-flag {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+  z-index: 1000;
+}
+
+
