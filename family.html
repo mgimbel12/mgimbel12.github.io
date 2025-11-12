@@ -14,7 +14,7 @@
     <section class="tree" aria-label="Family Tree">
       <ul>
         <li>
-          <span class="ancestor">Joseph Charles Gimbel & Barbara Jesse Locke Gimbel</span>
+          <span class="ancestor usa-highlight">Joseph Charles Gimbel & Barbara Jesse Locke Gimbel</span>
           <ul>
             <li><span class="parent">Collins Gimbel</span></li>
             <li>
@@ -36,7 +36,7 @@
             </li>
             <li><span class="parent">Jesse Charles Gimbel</span></li>
             <li>
-              <span class="ancestor">Shirley Ann Jackson Gimbel & Francis Kelly Gimbel</span>
+              <span class="ancestor usa-highlight">Shirley Ann Jackson Gimbel & Francis Kelly Gimbel</span>
               <ul>
                 <li>
                   <span class="parent">Justin Kelly Gimbel & Launa Nicole Williams Gimbel</span>
@@ -162,7 +162,9 @@
 </footer>
 
 
-
+<script>
+  document.querySelectorAll('.ancestor').forEach(el => el.classList.add('usa-highlight'));
+</script>
   <script src="family.js"></script>
 </body>
 </html>
