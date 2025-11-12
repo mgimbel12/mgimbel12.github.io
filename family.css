@@ -80,3 +80,11 @@ body {
   border-color: #ec407a;
   color: #880e4f;
 }
+
+.highlight {
+  background: #fff59d !important;
+  border-color: #fbc02d !important;
+  color: #f57f17 !important;
+}
+
+
