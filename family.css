@@ -142,4 +142,28 @@ body {
   font-size: 2rem;
   z-index: 1000;
 }
+.usa-highlight {
+  background: #fff3e0;
+  border: 2px solid #ff9800;
+  color: #bf360c;
+  font-weight: bold;
+  position: relative;
+  padding-right: 2.5em;
+}
+
+.usa-highlight::after {
+  content: '🇺🇸';
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+}
+.ancestor.usa-highlight {
+  background: #fff3e0;
+  border-color: #ff9800;
+  color: #bf360c;
+}
+
+
 
