@@ -26,7 +26,7 @@ function showSymbolMeaning(symbol) {
 }
 
 function speakAffirmation() {
-  const msg = new SpeechSynthesisUtterance("You are safe. You are seen. You are sacred.");
+  const msg = new SpeechSynthesisUtterance("You are safe. You are seen. You are loved.");
   window.speechSynthesis.speak(msg);
 }
 
