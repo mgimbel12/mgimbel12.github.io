@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Freedom Scroll Tribute Wall</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+      font-family: 'Georgia', serif;
+      margin: 0;
+      padding: 2rem;
+      border-top: 10px solid gold;
+      border-bottom: 10px solid silver;
+    }
+    h1 {
+      text-align: center;
+      color: #b71c1c;
+    }
+    .tribute-wall {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    .tribute-card {
+      background: linear-gradient(to right, #d32f2f, #1976d2);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 2px solid gold;
+      box-shadow: 0 0 10px silver;
+      width: 250px;
+    }
+    .affirmation-chorus {
+      text-align: center;
+    }
+    .affirmation-chorus button {
+      margin: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .affirmation-chorus button:hover {
+      transform: scale(1.1);
+    }
+    #affirmation-display {
+      margin-top: 1rem;
+      font-size: 1.5rem;
+      color: gold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🇺🇸 Freedom Scroll Tribute Wall</h1>
+  <div class="tribute-wall">
+    <div class="tribute-card">
+      <h2>Justin Kelly Gimbel</h2>
+      <p>Veteran, Father, Advocate</p>
+    </div>
+    <div class="tribute-card">
+      <h2>Kenadee Marie Sanders</h2>
+      <p>Born October 2, 2013 — Sister of Alyssa</p>
+    </div>
+    <!-- Add more tribute cards here -->
+  </div>
+
+  <div class="affirmation-chorus">
+    <button onclick="showAffirmation('You are brave')">❤️ Red</button>
+    <button onclick="showAffirmation('You are remembered')">🤍 White</button>
+    <button onclick="showAffirmation('You are free')">💙 Blue</button>
+  </div>
+
+  <div id="affirmation-display"></div>
+
+  <script>
+    function showAffirmation(message) {
+      const display = document.getElementById('affirmation-display');
+      display.textContent = message;
+      display.style.opacity = 0;
+      setTimeout(() => {
+        display.style.opacity = 1;
+      }, 200);
+    }
+  </script>
+</body>
+</html>
