@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thankful Forces Tribute</title>
+  <link rel="stylesheet" href="air.css">
+</head>
+<body>
+  <header>
+    <h1>Thankful Forces</h1>
+    <p class="subtitle">Honoring the Navy, Air Force, Army, and SEALs with gratitude and grace</p>
+  </header>
+
+  <section class="branches">
+    <button class="branch-btn navy">Navy</button>
+    <button class="branch-btn airforce">Air Force</button>
+    <button class="branch-btn army">Army</button>
+    <button class="branch-btn seals">SEALs</button>
+  </section>
+
+  <section class="echo-verse">
+    <div id="echo">We honor your courage</div>
+  </section>
+
+  <section class="medal-wall">
+    <h2>Medal Wall of Gratitude</h2>
+    <div class="medals">
+      <div class="medal" onclick="showStory('navy')">⚓ Navy Valor</div>
+      <div class="medal" onclick="showStory('airforce')">✈️ Air Force Wings</div>
+      <div class="medal" onclick="showStory('army')">🎖️ Army Strength</div>
+      <div class="medal" onclick="showStory('seals')">🛡️ SEALs Honor</div>
+    </div>
+    <div id="story-box"></div>
+  </section>
+
+  <footer>
+    <p>Created with love and remembrance • Red • White • Blue</p>
+    <p class="hotline">Veteran Support Hotline: 1-800-273-8255</p>
+  </footer>
+
+  <script src="air.js"></script>
+</body>
+</html>
+
