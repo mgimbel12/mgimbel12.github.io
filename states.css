@@ -1,0 +1,98 @@
+body {
+  background: linear-gradient(to bottom, #ff0000, #ffffff, #0000ff);
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 3em;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  margin-top: 0;
+  font-style: italic;
+}
+
+.flag-banner .flag {
+  background-image: url('american-flag.png');
+  background-size: cover;
+  height: 150px;
+  margin: 20px auto;
+  animation: wave 5s infinite linear;
+}
+
+@keyframes wave {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.responder-btn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.responder-btn.police:hover { background-color: #001f3f; }
+.responder-btn.fire:hover { background-color: #ff4136; }
+.responder-btn.ems:hover { background-color: #0074D9; }
+
+.echo-verse {
+  margin-top: 30px;
+  font-size: 1.5em;
+  font-weight: bold;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.tribute-wall {
+  margin-top: 40px;
+}
+
+.tributes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tribute {
+  background-color: rgba(255,255,255,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.tribute:hover {
+  transform: scale(1.1);
+}
+
+#story-box {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 0.9em;
+}
+
+.hotline {
+  font-weight: bold;
+  color: yellow;
+}
