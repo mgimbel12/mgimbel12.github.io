@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Veterans Day 2025 Tribute</title>
+  <link rel="stylesheet" href="states.css">
+</head>
+<body>
+  <header>
+    <h1>Happy Veterans Day 2025</h1>
+    <p class="subtitle">Honoring First Responders & Police Officers with Gratitude</p>
+  </header>
+
+  <section class="flag-banner">
+    <div class="flag"></div>
+  </section>
+
+  <section class="responders">
+    <button class="responder-btn police">Police</button>
+    <button class="responder-btn fire">Firefighters</button>
+    <button class="responder-btn ems">EMS</button>
+  </section>
+
+  <section class="echo-verse">
+    <div id="echo">We stand with those who serve</div>
+  </section>
+
+  <section class="tribute-wall">
+    <h2>Tribute Wall of Service</h2>
+    <div class="tributes">
+      <div class="tribute" onclick="showStory('police')">🚓 Police Valor</div>
+      <div class="tribute" onclick="showStory('fire')">🔥 Firefighter Courage</div>
+      <div class="tribute" onclick="showStory('ems')">🚑 EMS Compassion</div>
+    </div>
+    <div id="story-box"></div>
+  </section>
+
+  <footer>
+    <p>Red • White • Blue • America Strong</p>
+    <p class="hotline">Support Line: 1-800-273-8255</p>
+  </footer>
+
+  <script src="states.js"></script>
+</body>
+</html>
+
