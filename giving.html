@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thanksgiving 2025: Turkey Bowl & Gratitude Games</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fff3e0, #ffe0b2);
+      font-family: 'Georgia', serif;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #e65100;
+      font-size: 2.5rem;
+    }
+
+    .scoreboard {
+      background: #ff9800;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 10px #ff5722;
+    }
+
+    .scoreboard h2 {
+      margin: 0.5rem 0;
+    }
+
+    .game-buttons {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .game-buttons button {
+      background: #6d4c41;
+      color: white;
+      margin: 0.5rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .game-buttons button:hover {
+      transform: scale(1.1);
+      background: #8d6e63;
+    }
+
+    #game-message {
+      text-align: center;
+      font-size: 1.5rem;
+      color: #4e342e;
+      margin-top: 1rem;
+    }
+
+    .turkey {
+      text-align: center;
+      font-size: 4rem;
+      margin-top: 2rem;
+    }
+
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 1rem;
+      color: #795548;
+    }
+  </style>
+</head>
+<body>
+  <h1>🦃 Thanksgiving 2025: Turkey Bowl & Gratitude Games</h1>
+
+  <div class="scoreboard">
+    <h2>🏈 Turkey Bowl Scoreboard</h2>
+    <p>Team Cranberry: <span id="cranberry-score">0</span></p>
+    <p>Team Pumpkin: <span id="pumpkin-score">0</span></p>
+    <button onclick="addScore('cranberry')">+1 Cranberry</button>
+    <button onclick="addScore('pumpkin')">+1 Pumpkin</button>
+  </div>
+
+  <div class="game-buttons">
+    <button onclick="showGameMessage('You found the Gratitude Gobbler!')">🦃 Gratitude Gobbler</button>
+    <button onclick="showGameMessage('You unlocked the Pie Puzzle!')">🥧 Pie Puzzle</button>
+    <button onclick="showGameMessage('You earned a Kindness Kickoff!')">💛 Kindness Kickoff</button>
+  </div>
+
+  <div id="game-message"></div>
+
+  <div class="turkey">🦃</div>
+
+  <div class="footer">
+    Created with love and laughter for Thanksgiving 2025. Celebrate, play, and give thanks.
+  </div>
+
+  <script>
+    let cranberryScore = 0;
+    let pumpkinScore = 0;
+
+    function addScore(team) {
+      if (team === 'cranberry') {
+        cranberryScore++;
+        document.getElementById('cranberry-score').textContent = cranberryScore;
+      } else {
+        pumpkinScore++;
+        document.getElementById('pumpkin-score').textContent = pumpkinScore;
+      }
+    }
+
+    function showGameMessage(message) {
+      const display = document.getElementById('game-message');
+      display.textContent = message;
+    }
+  </script>
+</body>
+</html>
+
