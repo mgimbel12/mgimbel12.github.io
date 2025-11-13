@@ -1,0 +1,87 @@
+body {
+  background: linear-gradient(to bottom, #ff0000, #ffffff, #0000ff);
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+header h1 {
+  font-size: 3em;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  margin-top: 0;
+  font-style: italic;
+}
+
+.branch-btn {
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.branch-btn.navy:hover { background-color: #001f3f; }
+.branch-btn.airforce:hover { background-color: #0074D9; }
+.branch-btn.army:hover { background-color: #2ECC40; }
+.branch-btn.seals:hover { background-color: #85144b; }
+
+.echo-verse {
+  margin-top: 30px;
+  font-size: 1.5em;
+  font-weight: bold;
+  animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+.medal-wall {
+  margin-top: 40px;
+}
+
+.medals {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.medal {
+  background-color: rgba(255,255,255,0.2);
+  padding: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.medal:hover {
+  transform: scale(1.1);
+}
+
+#story-box {
+  margin-top: 20px;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+footer {
+  margin-top: 50px;
+  font-size: 0.9em;
+}
+
+.hotline {
+  font-weight: bold;
+  color: yellow;
+}
+
