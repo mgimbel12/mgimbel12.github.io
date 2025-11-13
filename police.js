@@ -26,7 +26,7 @@ function showSymbolMeaning(symbol) {
 }
 
 function speakAffirmation() {
-  const msg = new SpeechSynthesisUtterance("You are safe, You are seen, and You are loved.");
+  const msg = new SpeechSynthesisUtterance("You have Potential to do greatness,You are safe, You are seen, and You are loved, You have family.");
   window.speechSynthesis.speak(msg);
 }
 
