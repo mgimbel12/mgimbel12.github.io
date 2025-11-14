@@ -17,7 +17,12 @@
   </nav>
     <link rel="stylesheet" href="color.css">
     <link rel="stylesheet" href="color.js">
-<h1>
+<h1>Today's Date:</h1>
+  <p id="dateDisplay"></p>
+
+<h1>Today's Date:</h1>
+  <p id="dateDisplay"></p>
+
   <p>
    👻 1st Basic Code 💕
   </p>
@@ -53,6 +58,12 @@
     💀  For Friends 💀
     </em>
   </h3>
+    <p id="dateDisplay"></p>
+
+  <script>
+    const today = new Date();
+    document.getElementById("dateDisplay").textContent = today.toDateString();
+  </script>
   <footer>
 💕|Marissa|2025|💕<a href="index.html">back</a>
   </footer>
