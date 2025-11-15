@@ -1,0 +1,78 @@
+body {
+  font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #ffffff, #e3f2fd);
+  margin: 0;
+  padding: 0;
+  color: #222;
+}
+
+header {
+  background: linear-gradient(to right, #b71c1c, #ffffff, #0d47a1);
+  text-align: center;
+  padding: 2rem;
+  color: white;
+  border-bottom: 5px solid #0d47a1;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px #000;
+}
+
+section {
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 12px;
+  background-color: #f5f5f5;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.affirmation-game button {
+  background-color: #0d47a1;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.affirmation-game button:hover {
+  background-color: #b71c1c;
+}
+
+.tribute-wall .tributes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tribute {
+  background-color: #e3f2fd;
+  padding: 1rem;
+  border-left: 8px solid #b71c1c;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.tribute a {
+  color: #0d47a1;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.tribute a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #0d47a1;
+  color: white;
+  font-size: 0.9rem;
+}
+
