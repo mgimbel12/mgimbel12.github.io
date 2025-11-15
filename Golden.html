@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Golden Triangle of Wonder</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+      font-family: 'Georgia', serif;
+      color: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: gold;
+      text-shadow: 0 0 10px gold;
+    }
+
+    .triangle-container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 200px solid transparent;
+      border-right: 200px solid transparent;
+      border-bottom: 346px solid gold;
+      position: relative;
+      filter: drop-shadow(0 0 20px gold);
+    }
+
+    .zero-portal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle, silver, #000);
+      box-shadow: 0 0 20px silver;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+    }
+
+    .tulip {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(to top, #ffb347, #ffccff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #000;
+      text-align: center;
+      padding: 0.5rem;
+      transition: transform 0.3s ease, background 1s ease;
+      cursor: pointer;
+    }
+
+    .tulip:hover {
+      transform: scale(1.2);
+      background: linear-gradient(to top, #ffd700, #ffffff);
+    }
+
+    .tulip[data-position="left"] {
+      top: 70%;
+      left: 30%;
+    }
+
+    .tulip[data-position="right"] {
+      top: 70%;
+      left: 70%;
+    }
+
+    .tulip[data-position="top"] {
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .affirmation {
+      display: none;
+      position: absolute;
+      top: -40px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+      padding: 0.5rem;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+    }
+
+    .tulip:hover .affirmation {
+      display: block;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>The Golden Triangle of Wonder</h1>
+    <p>Structure. Style. Spirit. Ceremony in Code.</p>
+  </header>
+
+  <div class="triangle-container">
+    <div class="triangle"></div>
+    <div class="zero-portal" onclick="openLegacyLoop()">0</div>
+
+    <div class="tulip" data-position="left">
+      <span class="affirmation">You are the bridge between legacy and light.</span>
+      🌷
+    </div>
+    <div class="tulip" data-position="right">
+      <span class="affirmation">You are the bloom after the frost.</span>
+      🌷
+    </div>
+    <div class="tulip" data-position="top">
+      <span class="affirmation">You are the echo of every good thing.</span>
+      🌷
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Stripes Flags American | Sanctuary Overlay by Marissa Anne Gimbel
+  </footer>
+
+  <script>
+    function openLegacyLoop() {
+      const affirmations = [
+        "You are the legacy and the light.",
+        "You are the bloom in winter’s heart.",
+        "You are the zero that begins the spiral.",
+        "You are the triangle that holds the stars.",
+        "You are the sanctuary and the spark."
+      ];
+      const random = affirmations[Math.floor(Math.random() * affirmations.length)];
+      alert(random);
+    }
+  </script>
+</body>
+</html>
+
