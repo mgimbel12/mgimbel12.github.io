@@ -69,4 +69,14 @@ footer {
   background-color: #f3e5f5;
   font-size: 0.9rem;
 }
+.tribute a {
+  color: #0d47a1;
+  text-decoration: none;
+  font-weight: bold;
+}
+.tribute a:hover {
+  text-decoration: underline;
+}
+
+
 
