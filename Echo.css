@@ -1,0 +1,72 @@
+body {
+  font-family: 'Georgia', serif;
+  background: linear-gradient(to bottom, #fff8f0, #e0f7fa);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background-color: #fce4ec;
+  text-align: center;
+  padding: 2rem;
+  border-bottom: 4px solid #f06292;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+section {
+  padding: 2rem;
+  margin: 1rem;
+  border-radius: 12px;
+  background-color: #ffffffcc;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.affirmation-game button {
+  background-color: #f06292;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tribute-wall .tributes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tribute {
+  background-color: #e1bee7;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.seasonal-scroll ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.seasonal-scroll li {
+  background-color: #ffe0b2;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f3e5f5;
+  font-size: 0.9rem;
+}
+
