@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parker — Guardian of Grace, Steward of Light</title>
+  <meta name="description" content="A ceremonial tribute to the name Parker, blending quote, scripture, and interactive sanctuary elements." />
+  <style>
+    :root{
+      --blue:#0b5fff;
+      --red:#c62828;
+      --orange:#ff8f00;
+      --green:#1b8f3a;
+      --gold:#c7a400;
+      --ink:#212529;
+      --paper:#ffffff;
+      --soft:#f7f7fb;
+      --muted:#6b7280;
+      --ring: rgba(11,95,255,.25);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color:var(--ink);
+      background:linear-gradient(180deg,#f4f7ff 0%, #ffffff 30%, #f9fcff 100%);
+      line-height:1.6;
+    }
+
+    /* Header */
+    header{
+      border-bottom:6px solid var(--blue);
+      padding:24px 16px;
+      text-align:center;
+      background:#ffffffcc;
+      backdrop-filter:saturate(1.2) blur(3px);
+    }
+    .title{
+      margin:0;
+      color:var(--blue);
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+      font-size:clamp(28px,5vw,48px);
+    }
+    .subtitle{
+      margin:6px 0 0;
+      color:#4c6fff;
+      font-size:clamp(14px,2.6vw,18px);
+    }
+
+    /* Layout */
+    .wrap{
+      max-width:1000px;
+      margin:0 auto;
+      padding:20px 16px 40px;
+    }
+
+    /* Hero panel */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+      padding:18px;
+      border:3px solid var(--red);
+      border-radius:18px;
+      background:#fffdfd;
+      box-shadow:0 10px 24px rgba(0,0,0,.06);
+    }
+    .hero-inner{
+      border:2px dashed var(--blue);
+      border-radius:14px;
+      background:#eaf2ff;
+      padding:16px 18px;
+      text-align:center;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:2px solid var(--red);
+      color:var(--red);
+      font-weight:700;
+      box-shadow:0 4px 10px rgba(198,40,40,.12);
+    }
+    .blessing{
+      margin:10px 0 4px;
+      color:var(--red);
+      font-weight:700;
+      font-size:clamp(16px,3.2vw,20px);
+    }
+
+    /* Banner */
+    .banner{
+      margin:22px 0;
+      background:var(--green);
+      color:#fff;
+      border-radius:16px;
+      padding:14px 18px;
+      text-align:center;
+      border:4px solid #12712f;
+    }
+    .banner strong{
+      color:var(--orange);
+      text-transform:uppercase;
+      letter-spacing:.6px;
+      font-weight:800;
+    }
+
+    /* Quote block */
+    .quote{
+      margin:24px 0;
+      background:var(--soft);
+      border:2px solid #e6e8ef;
+      border-left:6px solid var(--gold);
+      border-radius:12px;
+      padding:18px 20px;
+    }
+    .quote h2{
+      margin:0 0 8px;
+      color:var(--gold);
+      font-size:clamp(20px,4vw,26px);
+      font-weight:800;
+    }
+    blockquote{
+      margin:0;
+      font-size:clamp(16px,3vw,20px);
+      color:#333;
+    }
+    .byline{
+      margin-top:10px;
+      color:var(--muted);
+      font-style:italic;
+    }
+
+    /* Scripture section */
+    .scripture{
+      margin:24px 0;
+      background:#fff;
+      border:2px solid #e0e0e0;
+      border-left:6px solid var(--orange);
+      border-radius:12px;
+      padding:18px 20px;
+    }
+    .scripture h2{
+      margin:0 0 6px;
+      color:var(--orange);
+      font-size:clamp(20px,4vw,26px);
+      font-weight:800;
+    }
+    .scripture h3{
+      margin:6px 0 12px;
+      color:var(--green);
+      font-size:clamp(16px,3.2vw,20px);
+      font-weight:700;
+    }
+    .scripture p{margin:10px 0; font-size:clamp(15px,3vw,18px)}
+    .ref{margin-top:10px; color:#555; font-style:italic}
+
+    /* Traits grid */
+    .traits{
+      margin:26px 0 6px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:14px;
+    }
+    .card{
+      background:#fff;
+      border:1px solid #e6e6e6;
+      border-radius:12px;
+      padding:14px 14px 12px;
+      box-shadow:0 6px 16px rgba(0,0,0,.05);
+    }
+    .card h4{margin:0 0 8px; color:#1a1a1a; font-size:18px}
+    .card p{margin:0; color:#444; font-size:15px}
+
+    /* Interactive: affirmation chorus */
+    .panel{
+      margin:26px 0;
+      background:#f6fbf7;
+      border:2px solid #d7eadb;
+      border-left:6px solid var(--green);
+      border-radius:12px;
+      padding:16px 16px 10px;
+    }
+    .panel h3{margin:0 0 10px; color:var(--green); font-size:20px}
+    .chorus{
+      display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 4px;
+    }
+    .chip{
+      background:#fff;
+      border:1px solid #cfe7d3;
+      color:#185f2b;
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:600;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .chip:hover{box-shadow:0 4px 10px rgba(0,0,0,.08); transform:translateY(-1px)}
+    .chip.active{
+      background:#e8f7ec;
+      border-color:#b9e4bf;
+    }
+
+    /* Toolbar */
+    .tool{
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:16px 0 8px;
+    }
+    .btn{
+      appearance:none;
+      border:2px solid var(--blue);
+      background:#fff;
+      color:var(--blue);
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .btn:hover{background:#f0f6ff}
+    .btn.alt{border-color:var(--red); color:var(--red)}
+    .btn.green{border-color:var(--green); color:var(--green)}
+    .btn.orange{border-color:var(--orange); color:var(--orange)}
+
+    /* Footer */
+    footer{
+      margin:28px 0 40px;
+      padding:14px 18px;
+      border-top:4px solid var(--green);
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+    .datetime{font-weight:700; color:var(--blue)}
+    .credits{color:#666; font-size:14px}
+
+    /* Focus visibility */
+    .btn:focus, .chip:focus{
+      outline:4px solid var(--ring);
+      outline-offset:2px;
+    }
+
+    /* Responsive spacing */
+    @media (max-width:560px){
+      .wrap{padding:16px 12px 28px}
+      .hero, .quote, .scripture, .panel{padding:14px}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="title">Parker</h1>
+    <p class="subtitle">Guardian of grace • Steward of light</p>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero" aria-label="Ceremonial hero for Parker">
+      <div class="hero-inner">
+        <div class="badge" role="img" aria-label="Sacred heart emblem">
+          <span aria-hidden="true">♥</span>
+          <span>Keeper of Sacred Spaces</span>
+        </div>
+        <p class="blessing">Peace be with you.</p>
+      </div>
+    </section>
+
+    <!-- Banner -->
+    <section class="banner" aria-label="Love banner">
+      <strong>God is love</strong>
+    </section>
+
+    <!-- Quote -->
+    <section class="quote" aria-labelledby="quote-title">
+      <h2 id="quote-title">Ceremonial quote</h2>
+      <blockquote>
+        “To be named Parker is to be entrusted with the garden of the soul—guarding its beauty, tending its truth, and walking gently among its mysteries.”
+      </blockquote>
+      <p class="byline">— Tribute to Parker</p>
+    </section>
+
+    <!-- Scripture -->
+    <section class="scripture" aria-labelledby="scripture-title">
+      <h2 id="scripture-title">Scripture for Parker</h2>
+      <h3>Stewardship and watchful care</h3>
+
+      <p><strong>Genesis 2:15 (NIV)</strong> — “The Lord God took the man and put him in the Garden of Eden to work it and take care of it.”</p>
+      <p><strong>1 Peter 4:10 (NIV)</strong> — “Each of you should use whatever gift you have received to serve others, as faithful stewards of God’s grace in its various forms.”</p>
+      <p><strong>Psalm 121:7–8 (NIV)</strong> — “The Lord will keep you from all harm—He will watch over your life; the Lord will watch over your coming and going both now and forevermore.”</p>
+
+      <p class="ref">Scripture passages selected to honor Parker’s meaning of stewardship, protection, and service.</p>
+    </section>
+
+    <!-- Traits grid -->
+    <section aria-labelledby="traits-title">
+      <h2 id="traits-title" style="margin:0 0 8px; color:#1b1b1b; font-size:22px;">Symbolic traits of Parker</h2>
+      <div class="traits">
+        <div class="card">
+          <h4>Protector of peace</h4>
+          <p>Holds space with calm courage, shielding communities from harm.</p>
+        </div>
+        <div class="card">
+          <h4>Steward of sacred places</h4>
+          <p>Tends gardens, memories, and rituals with patient care.</p>
+        </div>
+        <div class="card">
+          <h4>Watcher of truth</h4>
+          <p>Keeps vigilant eyes on what matters, honoring integrity.</p>
+        </div>
+        <div class="card">
+          <h4>Bearer of quiet wisdom</h4>
+          <p>Speaks softly, acts steadily, and builds trust through service.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive: affirmation chorus -->
+    <section class="panel" aria-labelledby="affirmations-title">
+      <h3 id="affirmations-title">Affirmation chorus</h3>
+      <p style="margin:0 0 8px;">Tap to echo affirmations in the chorus. Use the toolbar to shuffle or copy.</p>
+
+      <div class="chorus" id="chorus" role="list" aria-label="Affirmations for Parker"></div>
+
+      <div class="tool" aria-label="Chorus tools">
+        <button class="btn" id="shuffleBtn" type="button">Shuffle affirmations</button>
+        <button class="btn green" id="selectAllBtn" type="button">Select all</button>
+        <button class="btn alt" id="clearBtn" type="button">Clear</button>
+        <button class="btn orange" id="copyBtn" type="button">Copy selected</button>
+      </div>
+      <p id="copyStatus" aria-live="polite" style="margin:6px 0 0; color:#185f2b;"></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="datetime" id="datetime" aria-live="polite" aria-atomic="true">Loading date & time…</div>
+    <div class="credits">Blue & Red, Orange & Green styling • Live JavaScript time • Parker tribute</div>
+  </footer>
+
+  <script>
+    // Live Date & Time (updates every second)
+    const dtNode = document.getElementById('datetime');
+    function formatDateTime(d){
+      const datePart = new Intl.DateTimeFormat(undefined, {
+        weekday:'long', year:'numeric', month:'short', day:'numeric'
+      }).format(d);
+      const timePart = new Intl.DateTimeFormat(undefined, {
+        hour:'numeric', minute:'2-digit', second:'2-digit', hour12:true
+      }).format(d);
+      return `${datePart} • ${timePart}`;
+    }
+    function tick(){ dtNode.textContent = formatDateTime(new Date()); }
+    tick(); setInterval(tick, 1000);
+
+    // Affirmation chorus
+    const affirmations = [
+      "I am a guardian of grace.",
+      "I protect what is sacred.",
+      "I serve with steady love.",
+      "I watch over truth and peace.",
+      "I tend gardens of healing.",
+      "I honor gifts by serving others.",
+      "I walk gently and act bravely.",
+      "I keep the path with wisdom.",
+      "I am entrusted and faithful."
+    ];
+
+    const chorusEl = document.getElementById('chorus');
+    const copyStatusEl = document.getElementById('copyStatus');
+
+    function renderChorus(items){
+      chorusEl.innerHTML = "";
+      items.forEach((text, idx) => {
+        const chip = document.createElement('button');
+        chip.className = 'chip';
+        chip.type = 'button';
+        chip.setAttribute('role', 'listitem');
+        chip.setAttribute('aria-pressed', 'false');
+        chip.textContent = text;
+        chip.addEventListener('click', () => {
+          const active = chip.classList.toggle('active');
+          chip.setAttribute('aria-pressed', String(active));
+        });
+        chorusEl.appendChild(chip);
+      });
+    }
+
+    function shuffle(array){
+      const a = array.slice();
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i],a[j]] = [a[j],a[i]];
+      }
+      return a;
+    }
+
+    // Controls
+    document.getElementById('shuffleBtn').addEventListener('click', () => {
+      renderChorus(shuffle(affirmations));
+      copyStatusEl.textContent = "Shuffled.";
+    });
+
+    document.getElementById('selectAllBtn').addEventListener('click', () => {
+      [...chorusEl.querySelectorAll('.chip')].forEach(chip => {
+        chip.classList.add('active');
+        chip.setAttribute('aria-pressed', 'true');
+      });
+      copyStatusEl.textContent = "All selected.";
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      [...chorusEl.querySelectorAll('.chip')].forEach(chip => {
+        chip.classList.remove('active');
+        chip.setAttribute('aria-pressed', 'false');
+      });
+      copyStatusEl.textContent = "Cleared.";
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const selected = [...chorusEl.querySelectorAll('.chip.active')].map(c => c.textContent);
+      if(selected.length === 0){
+        copyStatusEl.textContent = "Select affirmations before copying.";
+        return;
+      }
+      const text = selected.join(" / ");
+      try{
+        await navigator.clipboard.writeText(text);
+        copyStatusEl.textContent = "Copied to clipboard.";
+      }catch(e){
+        copyStatusEl.textContent = "Copy failed. You can select and press Ctrl+C.";
+      }
+    });
+
+    // Initial render
+    renderChorus(affirmations);
+  </script>
+</body>
+</html>
