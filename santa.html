@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Santa Workshop</title>
+  <link rel="stylesheet" href="santa.css" />
+</head>
+<body>
+  <!-- Snowfall -->
+  <div class="snow" aria-hidden="true">
+    <div class="flake">*</div><div class="flake">*</div><div class="flake">*</div>
+    <div class="flake">*</div><div class="flake">*</div><div class="flake">*</div>
+    <div class="flake">*</div><div class="flake">*</div><div class="flake">*</div>
+  </div>
+
+  <header class="hero">
+    <div class="flag-ribbon" aria-hidden="true"></div>
+    <h1>🎅 Santa’s Workshop</h1>
+    <p class="subtitle">Joy, kindness, and a dash of North Pole magic.</p>
+    <div class="countdown" id="countdown" aria-live="polite"></div>
+  </header>
+
+  <main class="container">
+    <!-- Wish List -->
+    <section class="card">
+      <h2>Wish list</h2>
+      <p>Write a wish, a gratitude note, or a kindness pledge. Santa reads hearts first.</p>
+      <form id="wishForm" class="wish-form">
+        <input type="text" id="wishInput" placeholder="I wish for..." aria-label="Wish input" />
+        <button type="submit">Add wish</button>
+      </form>
+      <ul id="wishList" class="wish-list" aria-live="polite"></ul>
+    </section>
+
+    <!-- Kindness Meter -->
+    <section class="card">
+      <h2>Kindness meter</h2>
+      <p>Grow the meter by practicing small acts: compliment someone, share, listen, smile.</p>
+      <div class="meter">
+        <div id="meterFill" class="meter-fill" style="width: 0%"></div>
+      </div>
+      <div class="meter-controls">
+        <button id="addKindness">Add kindness</button>
+        <button id="resetKindness" class="ghost">Reset</button>
+      </div>
+      <p id="meterNote" class="meter-note">Kindness level: 0%</p>
+    </section>
+
+    <!-- Santa Messages -->
+    <section class="card">
+      <h2>Santa messages</h2>
+      <p>Click to receive a cozy note from Santa.</p>
+      <button id="messageBtn">Ho Ho Hope</button>
+      <div id="messageOutput" class="message-output" role="status"></div>
+    </section>
+
+    <!-- North Pole Map (simple) -->
+    <section class="card">
+      <h2>North pole tracker (playful)</h2>
+      <p>Tap dots to imagine Santa’s route across the continent.</p>
+      <div class="map" id="map">
+        <div class="dot" data-city="Anchorage, AK" style="left: 15%; top: 20%"></div>
+        <div class="dot" data-city="Seattle, WA" style="left: 18%; top: 40%"></div>
+        <div class="dot" data-city="Henderson, NV" style="left: 24%; top: 55%"></div>
+        <div class="dot" data-city="Denver, CO" style="left: 35%; top: 48%"></div>
+        <div class="dot" data-city="Dallas, TX" style="left: 45%; top: 62%"></div>
+        <div class="dot" data-city="Chicago, IL" style="left: 55%; top: 45%"></div>
+        <div class="dot" data-city="New York, NY" style="left: 72%; top: 48%"></div>
+      </div>
+      <p id="mapStatus" class="map-status" aria-live="polite">Tap a city dot to reveal Santa’s stop.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Made with cheer for all—may your December be gentle and bright.</p>
+  </footer>
+
+  <script src="santa.js"></script>
+</body>
+</html>
+
