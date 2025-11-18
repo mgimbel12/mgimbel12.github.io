@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hawaiian Birthday Cake — Tropical Celebration</title>
+  <meta name="description" content="A festive Hawaiian Birthday Cake recipe with interactive scaling, timers, and ombré island styling." />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #fff9f4;
+      --paper: #ffffff;
+      --text: #263238;
+      --muted: #546e7a;
+      --accent: #ff7a59;   /* coral */
+      --accent-2: #ffb74d; /* mango */
+      --accent-3: #ffd54f; /* pineapple */
+      --sea: #2ec4b6;
+      --leaf: #2e7d32;
+      --coconut: #6d4c41;
+      --ring: rgba(255,122,89,0.15);
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --maxw: 980px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(1200px 600px at -20% -10%, var(--ring), transparent 60%),
+        radial-gradient(1000px 500px at 120% 10%, rgba(46,196,182,0.12), transparent 70%),
+        linear-gradient(180deg, var(--bg), #fff);
+      color:var(--text);
+      font-family: "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+    }
+
+    header.hero{
+      position:relative;
+      overflow:hidden;
+      padding:64px 24px 32px;
+      text-align:center;
+    }
+    .hero .title{
+      font-family:"Playfair Display", serif;
+      font-weight:700;
+      font-size:clamp(28px, 4vw, 48px);
+      margin:0;
+      letter-spacing:0.2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero .sub{
+      margin:10px auto 20px;
+      max-width:720px;
+      color:var(--muted);
+      font-size:clamp(16px, 2.2vw, 18px);
+    }
+    .badge-row{
+      display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+    }
+    .badge{
+      background:var(--paper);
+      border:1px solid #eee;
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:14px;
+      color:#455a64;
+      box-shadow:var(--shadow);
+    }
+
+    main{
+      max-width:var(--maxw);
+      margin:20px auto 60px;
+      padding:0 24px;
+    }
+    .card{
+      background:var(--paper);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+      margin-bottom:24px;
+    }
+
+    /* Controls */
+    .controls{
+      display:grid; grid-template-columns:1fr 1fr; gap:16px;
+    }
+    .control{
+      border:1px solid #eee; border-radius:var(--radius-sm);
+      padding:16px; display:flex; align-items:center; gap:12px; justify-content:space-between;
+      background:#fff;
+    }
+    .control h4{margin:0; font-size:16px}
+    .num-input{
+      display:flex; align-items:center; gap:8px;
+    }
+    .num-input button{
+      width:32px; height:32px; border-radius:8px; border:1px solid #ddd; background:#fafafa; cursor:pointer;
+    }
+    .num-input input{
+      width:70px; text-align:center; padding:8px 10px; border:1px solid #ddd; border-radius:8px; font-size:16px;
+    }
+    .toggle{
+      display:flex; gap:8px; align-items:center;
+    }
+    .toggle button{
+      padding:8px 12px; border:1px solid #ddd; border-radius:999px; background:#fafafa; cursor:pointer;
+    }
+    .toggle button.active{
+      background:var(--accent);
+      border-color:var(--accent);
+      color:#fff;
+    }
+    .print-btn{
+      justify-self:end;
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border:1px solid #ddd; border-radius:999px; background:#fff; cursor:pointer;
+    }
+
+    /* Two-column layout */
+    .grid{
+      display:grid; grid-template-columns: 1fr 1fr; gap:24px;
+    }
+    @media (max-width:900px){
+      .controls{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+    }
+
+    /* Ingredients */
+    .section-title{
+      font-family:"Playfair Display", serif;
+      font-size:26px; margin:8px 0 16px;
+    }
+    .group-title{
+      font-weight:700; color:#37474f; margin:16px 0 8px;
+    }
+    ul.ingredients{
+      list-style:none; padding:0; margin:0;
+      display:grid; grid-template-columns:1fr; gap:8px;
+    }
+    .ingredients li{
+      display:flex; align-items:center; gap:10px;
+      border:1px solid #eee; border-radius:12px; padding:10px 12px; background:#fff;
+    }
+    .ingredients input[type="checkbox"]{width:18px; height:18px}
+    .qty{min-width:110px; font-weight:700; color:#263238}
+    .name{flex:1; color:#455a64}
+    .note{color:#78909c; font-size:14px}
+
+    /* Steps */
+    ol.steps{
+      counter-reset: step;
+      list-style:none; padding:0; margin:0;
+      display:grid; gap:16px;
+    }
+    ol.steps li{
+      position:relative; border:1px solid #eee; border-radius:12px; padding:16px; background:#fff;
+    }
+    ol.steps li::before{
+      counter-increment: step;
+      content: "Step " counter(step);
+      position:absolute; top:-12px; left:16px;
+      background:linear-gradient(90deg, var(--accent), var(--accent-2));
+      color:#fff; font-size:12px; padding:4px 8px; border-radius:8px; box-shadow:var(--shadow);
+    }
+    .timer{
+      display:inline-flex; align-items:center; gap:6px; padding:6px 10px;
+      border:1px dashed var(--sea); border-radius:999px; color:#00695c; background:#e0f7fa; font-size:14px;
+      margin-top:8px;
+    }
+    .timer button{
+      border:none; background:transparent; color:#00695c; cursor:pointer; font-weight:700;
+    }
+
+    /* Footer motif */
+    .footer{
+      margin-top:24px; text-align:center; color:#607d8b; font-size:14px;
+    }
+
+    /* Print styles */
+    @media print{
+      .controls, .print-btn, .badge-row{display:none !important}
+      body{background:#fff}
+      .card{box-shadow:none; border:1px solid #ddd}
+    }
+
+    /* Decorative top wave */
+    .wave{
+      position:absolute; inset:auto 0 0 0; height:90px; pointer-events:none;
+      background: linear-gradient(180deg, transparent 0 40%, rgba(46,196,182,0.2) 40% 100%);
+      mask: radial-gradient(120px 40px at 10% 100%, black 60%, transparent 61%),
+            radial-gradient(120px 40px at 30% 100%, black 60%, transparent 61%),
+            radial-gradient(120px 40px at 50% 100%, black 60%, transparent 61%),
+            radial-gradient(120px 40px at 70% 100%, black 60%, transparent 61%),
+            radial-gradient(120px 40px at 90% 100%, black 60%, transparent 61%);
+    }
+  </style>
+</head>
+<body>
+  <header class="hero" role="banner" aria-label="Hawaiian Birthday Cake header">
+    <h1 class="title">Hawaiian Birthday Cake</h1>
+    <p class="sub">Tropical vanilla sponge layered with passionfruit cream and dressed in a sunset ombré frosting, crowned with fresh island fruit.</p>
+    <div class="badge-row" aria-label="Recipe badges">
+      <span class="badge">Serves: <strong id="serves-badge">12</strong></span>
+      <span class="badge">Prep: ~30 min</span>
+      <span class="badge">Bake: 25–30 min</span>
+      <span class="badge">Theme: Island celebration</span>
+    </div>
+    <div class="wave" aria-hidden="true"></div>
+  </header>
+
+  <main id="app" role="main">
+    <section class="card controls" aria-label="Recipe controls">
+      <div class="control" aria-live="polite">
+        <h4>Servings</h4>
+        <div class="num-input">
+          <button type="button" id="servings-dec" aria-label="Decrease servings">−</button>
+          <input type="number" id="servings" min="4" max="24" step="1" value="12" aria-label="Servings" />
+          <button type="button" id="servings-inc" aria-label="Increase servings">+</button>
+        </div>
+      </div>
+
+      <div class="control">
+        <h4>Units</h4>
+        <div class="toggle" role="tablist" aria-label="Unit toggle">
+          <button type="button" id="u-us" class="active" role="tab" aria-selected="true">US</button>
+          <button type="button" id="u-metric" role="tab" aria-selected="false">Metric</button>
+        </div>
+      </div>
+
+      <button class="print-btn" id="print" type="button" aria-label="Print recipe">🖨️ Print</button>
+    </section>
+
+    <section class="grid">
+      <!-- Ingredients -->
+      <article class="card" aria-labelledby="ingredients-title">
+        <h2 class="section-title" id="ingredients-title">Ingredients</h2>
+
+        <h3 class="group-title">Sponge layers</h3>
+        <ul class="ingredients" id="list-sponge">
+          <!-- Items populated by JS -->
+        </ul>
+
+        <h3 class="group-title">Filling</h3>
+        <ul class="ingredients" id="list-filling"></ul>
+
+        <h3 class="group-title">Frosting</h3>
+        <ul class="ingredients" id="list-frosting"></ul>
+
+        <h3 class="group-title">Decoration</h3>
+        <ul class="ingredients" id="list-decor"></ul>
+      </article>
+
+      <!-- Steps -->
+      <article class="card" aria-labelledby="steps-title">
+        <h2 class="section-title" id="steps-title">Step-by-step</h2>
+        <ol class="steps" id="steps">
+          <li>
+            Preheat oven to 350°F (175°C). Grease and line three 8-inch round pans with parchment.
+            <div class="timer" data-min="10" aria-live="polite">
+              ⏱️ Preheat timer — <span class="t-time">10:00</span>
+              <button class="t-start">Start</button>
+              <button class="t-reset">Reset</button>
+            </div>
+          </li>
+          <li>
+            Cream butter and sugar until pale and fluffy (3–4 minutes). Beat in eggs one at a time, then vanilla.
+            <div class="timer" data-min="4">
+              ⏱️ Creaming — <span class="t-time">04:00</span>
+              <button class="t-start">Start</button>
+              <button class="t-reset">Reset</button>
+            </div>
+          </li>
+          <li>
+            Whisk dry ingredients (flour, baking powder, salt). On low speed, alternate dry mix with milk and sour cream until just combined.
+          </li>
+          <li>
+            Divide batter evenly among pans. Bake 25–30 minutes until a toothpick comes out clean. Cool completely on racks.
+            <div class="timer" data-min="28">
+              ⏱️ Bake — <span class="t-time">28:00</span>
+              <button class="t-start">Start</button>
+              <button class="t-reset">Reset</button>
+            </div>
+          </li>
+          <li>
+            Whip cream to soft peaks. Fold in passionfruit jam. Chill filling until assembly.
+          </li>
+          <li>
+            Beat butter until pale. Gradually add powdered sugar. Mix in cream and vanilla. Tint frosting coral, orange, and yellow for the ombré effect.
+          </li>
+          <li>
+            Layer cakes with passionfruit cream between each sponge. Frost the outside, blending colors bottom-to-top (coral → orange → yellow). Garnish with fresh fruit and toasted coconut.
+          </li>
+        </ol>
+      </article>
+    </section>
+
+    <section class="card" aria-labelledby="tips-title">
+      <h2 class="section-title" id="tips-title">Tips for success</h2>
+      <ul>
+        <li><strong>Sour cream:</strong> Keeps the crumb moist even if you bake a day ahead.</li>
+        <li><strong>Gel colors:</strong> Vibrant shades without thinning the buttercream.</li>
+        <li><strong>Fruit finish:</strong> Adds brightness and reinforces the tropical theme.</li>
+      </ul>
+      <p class="footer">Crafted with aloha — a celebration cake for joyous gatherings.</p>
+    </section>
+  </main>
+
+  <script>
+    // Base recipe data for 12 servings (three 8-inch layers)
+    const baseServings = 12;
+
+    // Ingredient model: { name, us, metric, note, group }
+    const ingredients = [
+      // Sponge
+      {name:"All-purpose flour", us:"2 1/2 cups", metric:{g:315}, note:"", group:"sponge", scale:"mass"},
+      {name:"Baking powder", us:"2 1/2 tsp", metric:{g:12}, note:"", group:"sponge", scale:"mass"},
+      {name:"Salt", us:"1/2 tsp", metric:{g:3}, note:"", group:"sponge", scale:"mass"},
+      {name:"Unsalted butter, softened", us:"1 cup", metric:{g:227}, note:"room temp", group:"sponge", scale:"mass"},
+      {name:"Granulated sugar", us:"2 cups", metric:{g:400}, note:"", group:"sponge", scale:"mass"},
+      {name:"Large eggs", us:"4", metric:{ct:4}, note:"", group:"sponge", scale:"count"},
+      {name:"Vanilla extract", us:"2 tsp", metric:{ml:10}, note:"", group:"sponge", scale:"volume"},
+      {name:"Whole milk", us:"1 cup", metric:{ml:240}, note:"", group:"sponge", scale:"volume"},
+      {name:"Sour cream", us:"1/2 cup", metric:{ml:120}, note:"for moisture", group:"sponge", scale:"volume"},
+
+      // Filling
+      {name:"Passionfruit jam (or mango/guava)", us:"1 cup", metric:{ml:240}, note:"fold into cream", group:"filling", scale:"volume"},
+      {name:"Heavy cream", us:"1 1/2 cups", metric:{ml:360}, note:"whipped to soft peaks", group:"filling", scale:"volume"},
+
+      // Frosting
+      {name:"Unsalted butter, softened", us:"1 cup", metric:{g:227}, note:"", group:"frosting", scale:"mass"},
+      {name:"Powdered sugar", us:"4 cups", metric:{g:480}, note:"", group:"frosting", scale:"mass"},
+      {name:"Heavy cream", us:"3–4 tbsp", metric:{ml:45}, note:"adjust for texture", group:"frosting", scale:"volume"},
+      {name:"Vanilla extract", us:"1 tsp", metric:{ml:5}, note:"", group:"frosting", scale:"volume"},
+      {name:"Gel food coloring", us:"coral, orange, yellow", metric:{ct:3}, note:"for ombré", group:"frosting", scale:"count"},
+
+      // Decoration
+      {name:"Fresh tropical fruits", us:"to garnish", metric:{ct:1}, note:"pineapple, mango, kiwi, strawberries", group:"decor", scale:"free"},
+      {name:"Toasted coconut flakes (optional)", us:"1/2 cup", metric:{g:40}, note:"", group:"decor", scale:"mass"},
+    ];
+
+    // Utility: scale factor
+    const getScale = () => {
+      const servings = Number(document.getElementById('servings').value);
+      return servings / baseServings;
+    };
+
+    // Format helpers
+    function formatUS(us, scale){
+      // Note: US strings are descriptive. For simple numeric-first values, we attempt to scale.
+      const numMatch = us.match(/^([\d\s\/\.\–-]+)\s/);
+      if(!numMatch) return us; // descriptive, don't scale
+      const amountStr = numMatch[1].trim();
+
+      // Convert common fractions to decimal
+      const fracMap = {"1/2":0.5,"1/3":1/3,"2/3":2/3,"1/4":0.25,"3/4":0.75,"1/8":0.125,"3/8":0.375,"5/8":0.625,"7/8":0.875};
+      function toNumber(s){
+        // handle "3–4" or "3-4 tbsp" ranges → scale the first number only for simplicity
+        if(s.includes("–") || s.includes("-")){
+          const parts = s.split(/–|-/).map(p=>p.trim());
+          const first = toNumber(parts[0]);
+          const scaledFirst = first * scale;
+          return scaledFirst;
+        }
+        const parts = s.split(" ");
+        let total = 0;
+        for(const p of parts){
+          if(fracMap[p] !== undefined){ total += fracMap[p]; }
+          else if(!isNaN(parseFloat(p))){ total += parseFloat(p); }
+        }
+        return total;
+      }
+      const num = toNumber(amountStr) * scale;
+      // Round to sensible fractions
+      const rounded = roundToFraction(num);
+      const unit = us.replace(amountStr, "").trim();
+      return `${rounded} ${unit}`.trim();
+    }
+
+    function roundToFraction(n){
+      const frac = [
+        {v:1, s:"1"},
+        {v:3/4, s:"3/4"},
+        {v:2/3, s:"2/3"},
+        {v:1/2, s:"1/2"},
+        {v:1/3, s:"1/3"},
+        {v:1/4, s:"1/4"},
+        {v:1/8, s:"1/8"},
+      ];
+      const whole = Math.floor(n);
+      const rem = n - whole;
+      let best = {diff:1e9, s:""};
+      for(const f of frac){
+        const diff = Math.abs(rem - f.v);
+        if(diff < best.diff){ best = {diff, s:f.s}; }
+      }
+      if(best.diff > 0.08){ // fall back to decimal
+        return (Math.round(n * 10)/10).toString();
+      }
+      if(whole === 0) return best.s;
+      return `${whole} ${best.s}`;
+    }
+
+    function formatMetric(entry, scale){
+      // Choose primary unit order preference: g/ml/ct
+      const m = entry.metric || {};
+      if(m.g !== undefined){
+        const val = Math.round(m.g * scale);
+        return `${val} g`;
+      }
+      if(m.ml !== undefined){
+        const val = Math.round(m.ml * scale);
+        return `${val} ml`;
+      }
+      if(m.ct !== undefined){
+        const val = Math.round((m.ct * scale) * 10)/10;
+        return `${val} ct`;
+      }
+      return entry.us; // fallback
+    }
+
+    // Render ingredient groups
+    const elSponge = document.getElementById('list-sponge');
+    const elFilling = document.getElementById('list-filling');
+    const elFrosting = document.getElementById('list-frosting');
+    const elDecor = document.getElementById('list-decor');
+    const servesBadge = document.getElementById('serves-badge');
+
+    let unitSystem = 'us'; // 'us' or 'metric'
+
+    function renderIngredients(){
+      const scale = getScale();
+      servesBadge.textContent = String(Number(document.getElementById('servings').value));
+      const groups = {sponge:[], filling:[], frosting:[], decor:[]};
+
+      for(const ing of ingredients){
+        let qtyText = '';
+        if(unitSystem === 'us'){
+          if(ing.scale === 'free'){ qtyText = ''; }
+          else if(ing.scale === 'count'){
+            const base = parseFloat(ing.metric?.ct ?? ing.us) || 0;
+            const val = Math.round((base * scale) * 10)/10;
+            qtyText = val ? `${val}` : ing.us;
+          }else{
+            qtyText = formatUS(ing.us, scale);
+          }
+        }else{
+          qtyText = ing.scale === 'free' ? '' : formatMetric(ing, scale);
+        }
+        groups[ing.group].push({ing, qtyText});
+      }
+
+      function draw(listEl, arr){
+        listEl.innerHTML = '';
+        for(const {ing, qtyText} of arr){
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <input type="checkbox" aria-label="Check ${ing.name}">
+            <span class="qty">${qtyText || ''}</span>
+            <span class="name">${ing.name}</span>
+            ${ing.note ? `<span class="note">${ing.note}</span>` : ''}
+          `;
+          listEl.appendChild(li);
+        }
+      }
+
+      draw(elSponge, groups.sponge);
+      draw(elFilling, groups.filling);
+      draw(elFrosting, groups.frosting);
+      draw(elDecor, groups.decor);
+    }
+
+    // Timers
+    function initTimers(){
+      document.querySelectorAll('.timer').forEach(timer=>{
+        const min = Number(timer.dataset.min || 0);
+        let total = min * 60;
+        let remaining = total;
+        let running = false;
+        let handle = null;
+        const timeEl = timer.querySelector('.t-time');
+        const startBtn = timer.querySelector('.t-start');
+        const resetBtn = timer.querySelector('.t-reset');
+
+        function update(){
+          const m = String(Math.floor(remaining/60)).padStart(2,'0');
+          const s = String(remaining%60).padStart(2,'0');
+          timeEl.textContent = `${m}:${s}`;
+        }
+        update();
+
+        startBtn.addEventListener('click', ()=>{
+          if(running) return;
+          running = true;
+          handle = setInterval(()=>{
+            remaining = Math.max(0, remaining-1);
+            update();
+            if(remaining === 0){
+              clearInterval(handle);
+              running = false;
+              startBtn.textContent = 'Restart';
+              timer.style.borderColor = '#ef5350';
+            }
+          }, 1000);
+        });
+
+        resetBtn.addEventListener('click', ()=>{
+          clearInterval(handle);
+          running = false;
+          remaining = total;
+          startBtn.textContent = 'Start';
+          timer.style.borderColor = 'var(--sea)';
+          update();
+        });
+      });
+    }
+
+    // Controls wiring
+    function initControls(){
+      const servingsInput = document.getElementById('servings');
+      document.getElementById('servings-inc').addEventListener('click', ()=>{
+        servingsInput.value = Math.min(Number(servingsInput.value)+1, Number(servingsInput.max));
+        renderIngredients();
+      });
+      document.getElementById('servings-dec').addEventListener('click', ()=>{
+        servingsInput.value = Math.max(Number(servingsInput.value)-1, Number(servingsInput.min));
+        renderIngredients();
+      });
+      servingsInput.addEventListener('input', renderIngredients);
+
+      const usBtn = document.getElementById('u-us');
+      const metricBtn = document.getElementById('u-metric');
+      usBtn.addEventListener('click', ()=>{
+        unitSystem = 'us';
+        usBtn.classList.add('active');
+        metricBtn.classList.remove('active');
+        renderIngredients();
+      });
+      metricBtn.addEventListener('click', ()=>{
+        unitSystem = 'metric';
+        metricBtn.classList.add('active');
+        usBtn.classList.remove('active');
+        renderIngredients();
+      });
+
+      document.getElementById('print').addEventListener('click', ()=> window.print());
+    }
+
+    // Init
+    renderIngredients();
+    initTimers();
+    initControls();
+  </script>
+</body>
+</html>
