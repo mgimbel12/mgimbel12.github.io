@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Menu — Sandwiches, Hot Dogs, Brigham Tea</title>
+  <style>
+    :root {
+      --blue: #1e3a8a;
+      --red: #dc2626;
+      --white: #ffffff;
+      --orange: #f97316;
+      --gray: #0f172a;
+      --dash: 3px dashed #1e3a8a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      color: var(--gray);
+    }
+
+    header {
+      padding: 24px 20px;
+      border-bottom: var(--dash);
+      background: var(--white);
+    }
+    header h1 {
+      margin: 0;
+      color: var(--blue);
+      letter-spacing: 0.5px;
+    }
+    header p {
+      margin: 6px 0 0;
+      color: #334155;
+    }
+
+    .menu {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--white);
+      border: var(--dash);
+      border-radius: 10px;
+      outline: 2px solid transparent;
+      transition: outline-color 120ms ease, box-shadow 120ms ease;
+      box-shadow: 0 6px 16px rgba(2, 6, 23, 0.06);
+    }
+    .card:focus-within {
+      outline-color: var(--orange);
+      box-shadow: 0 8px 20px rgba(2, 6, 23, 0.12);
+    }
+
+    .card header {
+      border-bottom: var(--dash);
+      padding: 14px 16px;
+      background: #f1f5f9;
+    }
+    .card header h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--blue);
+    }
+    .card header .price {
+      font-weight: 600;
+      color: var(--red);
+    }
+
+    .card .content {
+      padding: 14px 16px 18px;
+    }
+    .qty {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .qty .value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 700;
+      color: var(--blue);
+      border: 2px dashed var(--blue);
+      border-radius: 8px;
+      padding: 6px 8px;
+      background: #ffffff;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      appearance: none;
+      border: 2px dashed var(--blue);
+      background: var(--white);
+      color: var(--blue);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 80ms ease, background 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+    button:hover { transform: translateY(-1px); }
+    button:active { transform: translateY(0); }
+
+    .add { background: #e0f2fe; }
+    .sub { background: #fee2e2; color: var(--red); border-color: var(--red); }
+    .clear { background: #f8fafc; }
+
+    .multiply {
+      background: var(--red);
+      color: var(--white);
+      border-color: var(--red);
+    }
+
+    .totals {
+      max-width: 960px;
+      margin: 8px auto 28px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .totals .panel {
+      background: var(--white);
+      border: var(--dash);
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .totals h3 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 1rem;
+    }
+    .panel .value {
+      font-weight: 800;
+      color: var(--red);
+      font-size: 1.1rem;
+    }
+
+    .footer {
+      max-width: 960px;
+      margin: 0 auto 36px;
+      padding: 0 20px;
+      color: #334155;
+    }
+    .badge {
+      display: inline-block;
+      border: var(--dash);
+      border-radius: 999px;
+      padding: 6px 12px;
+      background: #fff;
+      color: var(--blue);
+      font-weight: 700;
+    }
+    .tea-note {
+      margin-top: 6px;
+      font-size: 0.95rem;
+      color: #475569;
+      border-left: 4px solid var(--orange);
+      padding-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Stripes & Sanctuary Menu</h1>
+    <p>Sandwiches, Hot Dogs, and Brigham Tea with clean outlines, dashed borders, and bold red actions.</p>
+  </header>
+
+  <main class="menu" id="menu">
+    <!-- Sandwiches -->
+    <section class="card" data-item="sandwich" data-price="7.50">
+      <header>
+        <h2>Sandwiches <span class="price">$7.50</span></h2>
+      </header>
+      <div class="content">
+        <div class="qty">
+          <span class="value" id="qty-sandwich">0</span>
+          <div class="row">
+            <button class="add" data-action="add" data-target="sandwich">Add</button>
+            <button class="sub" data-action="sub" data-target="sandwich">Subtract</button>
+            <button class="clear" data-action="clear" data-target="sandwich">Clear</button>
+            <button class="multiply" data-action="multiply" data-target="sandwich">Multiply ×2</button>
+          </div>
+        </div>
+        <div class="row" aria-live="polite">
+          <span><strong>Item total:</strong> $<span id="total-sandwich">0.00</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hot Dogs -->
+    <section class="card" data-item="hotdog" data-price="4.25">
+      <header>
+        <h2>Hot Dogs <span class="price">$4.25</span></h2>
+      </header>
+      <div class="content">
+        <div class="qty">
+          <span class="value" id="qty-hotdog">0</span>
+          <div class="row">
+            <button class="add" data-action="add" data-target="hotdog">Add</button>
+            <button class="sub" data-action="sub" data-target="hotdog">Subtract</button>
+            <button class="clear" data-action="clear" data-target="hotdog">Clear</button>
+            <button class="multiply" data-action="multiply" data-target="hotdog">Multiply ×3</button>
+          </div>
+        </div>
+        <div class="row" aria-live="polite">
+          <span><strong>Item total:</strong> $<span id="total-hotdog">0.00</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Brigham Tea -->
+    <section class="card" data-item="tea" data-price="2.75">
+      <header>
+        <h2>Brigham Tea <span class="price">$2.75</span></h2>
+      </header>
+      <div class="content">
+        <div class="qty">
+          <span class="value" id="qty-tea">0</span>
+          <div class="row">
+            <button class="add" data-action="add" data-target="tea">Add</button>
+            <button class="sub" data-action="sub" data-target="tea">Subtract</button>
+            <button class="clear" data-action="clear" data-target="tea">Clear</button>
+            <button class="multiply" data-action="multiply" data-target="tea">Multiply ×5</button>
+          </div>
+        </div>
+        <div class="row" aria-live="polite">
+          <span><strong>Item total:</strong> $<span id="total-tea">0.00</span></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="totals">
+    <div class="panel">
+      <h3>Order quantity</h3>
+      <div class="value" id="order-qty">0</div>
+    </div>
+    <div class="panel">
+      <h3>Order total</h3>
+      <div class="value">$<span id="order-total">0.00</span></div>
+    </div>
+  </section>
+
+  <div class="footer">
+    <span class="badge">Blue • Red • White • Orange • Dashed Lines • Outlines</span>
+    <p class="tea-note">Brigham Tea: desert-hardy wellness brew—served warm or iced. Honor, rest, and refresh.</p>
+  </div>
+
+  <script>
+    const byId = (id) => document.getElementById(id);
+
+    const items = {
+      sandwich: { qtyEl: byId('qty-sandwich'), totalEl: byId('total-sandwich'), price: 7.50, qty: 0 },
+      hotdog:   { qtyEl: byId('qty-hotdog'),   totalEl: byId('total-hotdog'),   price: 4.25, qty: 0 },
+      tea:      { qtyEl: byId('qty-tea'),      totalEl: byId('total-tea'),      price: 2.75, qty: 0 },
+    };
+
+    const orderQtyEl = byId('order-qty');
+    const orderTotalEl = byId('order-total');
+
+    function fmt(n) {
+      return n.toFixed(2);
+    }
+
+    function clampNonNegative(n) {
+      return Math.max(0, n);
+    }
+
+    function render() {
+      let totalQty = 0;
+      let totalPrice = 0;
+
+      for (const key in items) {
+        const item = items[key];
+        item.qtyEl.textContent = item.qty;
+        const lineTotal = item.qty * item.price;
+        item.totalEl.textContent = fmt(lineTotal);
+        totalQty += item.qty;
+        totalPrice += lineTotal;
+      }
+
+      orderQtyEl.textContent = totalQty;
+      orderTotalEl.textContent = fmt(totalPrice);
+    }
+
+    function adjustQty(key, delta) {
+      const item = items[key];
+      item.qty = clampNonNegative(item.qty + delta);
+      render();
+    }
+
+    function multiplyQty(key, factor) {
+      const item = items[key];
+      item.qty = clampNonNegative(item.qty * factor);
+      render();
+    }
+
+    // Event delegation for all buttons
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+
+      const action = btn.dataset.action;
+      const target = btn.dataset.target;
+      if (!action || !target) return;
+
+      if (action === 'add') adjustQty(target, +1);
+      else if (action === 'sub') adjustQty(target, -1);
+      else if (action === 'clear') {
+        items[target].qty = 0;
+        render();
+      }
+      else if (action === 'multiply') {
+        // Read factor directly from button label "×N"
+        const text = btn.textContent.trim();
+        const match = text.match(/×(\d+)/);
+        const factor = match ? parseInt(match[1], 10) : 2;
+        multiplyQty(target, factor);
+      }
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
