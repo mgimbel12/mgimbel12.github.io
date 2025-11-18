@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Orange Smoothie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --blue: #1e3a8a;   /* deep blue */
+      --red: #dc2626;    /* vibrant red */
+      --orange: #f97316; /* juicy orange */
+      --bg: #0b1020;     /* dark canvas */
+      --card: #0f172a;   /* soft dark */
+      --text: #e5e7eb;   /* light text */
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--bg), #111827 60%);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .frame {
+      width: 100%;
+      max-width: 720px;
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      overflow: hidden;
+    }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background:
+        linear-gradient(90deg, var(--blue), var(--red) 50%, var(--orange));
+      color: white;
+    }
+
+    .dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: white; opacity: 0.85;
+    }
+    .title {
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .orange {
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #ffb366, var(--orange));
+      box-shadow: inset -10px -10px 30px rgba(0,0,0,0.25),
+                  0 10px 30px rgba(249,115,22,0.35);
+      position: relative;
+      animation: float 4s ease-in-out infinite;
+    }
+    .leaf {
+      position: absolute; top: -8px; left: 46%;
+      width: 36px; height: 18px; border-radius: 18px 18px 0 18px;
+      background: #0ea5e9; /* a blue-green hint */
+      transform: rotate(-18deg);
+      box-shadow: 0 4px 10px rgba(14,165,233,0.35);
+    }
+    .shine {
+      position: absolute; top: 24px; left: 30px;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      filter: blur(3px);
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) }
+      50% { transform: translateY(-6px) }
+    }
+
+    h1 { margin: 0; font-size: 1.6rem; }
+    p { margin: 6px 0 0; color: #cbd5e1; }
+
+    .tags {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+    }
+    .tag {
+      font-size: 0.85rem;
+      padding: 6px 10px; border-radius: 999px;
+      background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.35);
+      color: #ffd6b3;
+    }
+
+    .section {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 16px 20px;
+    }
+    .grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 14px;
+    }
+    .card h3 {
+      margin: 0 0 8px; font-size: 1rem; color: #fca66c;
+    }
+    ul { margin: 0; padding-left: 18px; }
+
+    .actions {
+      display: flex; gap: 10px; margin-top: 14px;
+    }
+    .btn {
+      padding: 10px 14px; border-radius: 10px;
+      border: 1px solid transparent; cursor: pointer;
+      color: white; background: var(--blue);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 180ms ease;
+    }
+    .btn:active { transform: scale(0.98) }
+
+    .btn.alt { background: var(--red) }
+    .btn.emph { background: var(--orange); color: #21130a; font-weight: 600 }
+
+    .hidden { display: none }
+    .note {
+      margin-top: 10px; font-size: 0.9rem; color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+  <main class="frame" role="main" aria-labelledby="title">
+    <div class="bar">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="title" id="title">Orange Smoothie • Blue Red Orange Edition</div>
+    </div>
+
+    <section class="hero">
+      <div class="orange" aria-hidden="true">
+        <div class="leaf"></div>
+        <div class="shine"></div>
+      </div>
+      <div>
+        <h1>Bright Orange Smoothie</h1>
+        <p>Zesty, energizing, and alive with color. Blend, sip, and glow.</p>
+        <div class="tags" aria-label="tags">
+          <span class="tag">Vitamin C</span>
+          <span class="tag">5 min</span>
+          <span class="tag">Serves 2</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="grid">
+        <div class="card">
+          <h3>Ingredients</h3>
+          <ul>
+            <li>2 fresh oranges, peeled</li>
+            <li>1/2 cup Greek yogurt</li>
+            <li>1 small carrot (optional, for color)</li>
+            <li>1/2 cup ice</li>
+            <li>1 tbsp honey</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Steps</h3>
+          <ul>
+            <li>Segment oranges and remove seeds.</li>
+            <li>Add all ingredients to blender.</li>
+            <li>Blend until smooth and luminous.</li>
+            <li>Taste and tweak sweetness.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="toggle-nutrition" aria-expanded="false" aria-controls="nutrition">
+          Toggle nutrition
+        </button>
+        <button class="btn alt" id="theme-red" aria-label="Activate red accent theme">
+          Red accent
+        </button>
+        <button class="btn emph" id="theme-orange" aria-label="Activate orange accent theme">
+          Orange accent
+        </button>
+      </div>
+
+      <div id="nutrition" class="card hidden" role="region" aria-live="polite" aria-label="Nutrition facts">
+        <h3>Approximate nutrition (per serving)</h3>
+        <ul>
+          <li>Calories: ~180</li>
+          <li>Vitamin C: high</li>
+          <li>Protein: ~8g</li>
+          <li>Sugars: natural fruit + honey</li>
+        </ul>
+        <p class="note">Estimates vary based on exact ingredients and amounts.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const nutrition = document.getElementById('nutrition');
+    const toggleBtn = document.getElementById('toggle-nutrition');
+    const redBtn = document.getElementById('theme-red');
+    const orangeBtn = document.getElementById('theme-orange');
+
+    // Toggle nutrition visibility
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = nutrition.classList.toggle('hidden');
+      toggleBtn.setAttribute('aria-expanded', String(!isHidden));
+    });
+
+    // Accent theme toggles: gently shift button colors and tag hue
+    redBtn.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--orange', '#ef4444'); // tilt orange toward red
+      redBtn.style.boxShadow = '0 4px 16px rgba(220,38,38,0.45)';
+      orangeBtn.style.boxShadow = 'none';
+    });
+
+    orangeBtn.addEventListener('click', () => {
+      document.documentElement.style.setProperty('--orange', '#f97316'); // restore orange
+      orangeBtn.style.boxShadow = '0 4px 16px rgba(249,115,22,0.45)';
+      redBtn.style.boxShadow = 'none';
+    });
+  </script>
+</body>
+</html>
