@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pizza Recipe — Yellow • Red • Orange • Blue</title>
+  <style>
+    :root {
+      --yellow: #ffd54f;
+      --red: #e53935;
+      --orange: #fb8c00;
+      --blue: #1e88e5;
+      --bg: #fffaf0;
+      --text: #1a1a1a;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      background: linear-gradient(90deg, var(--yellow), var(--orange), var(--red), var(--blue));
+      color: #0d0d0d;
+      padding: 24px 16px;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      padding: 12px 16px;
+      background: #fff;
+      border-bottom: 4px solid var(--orange);
+    }
+
+    .meta-card {
+      border: 2px solid var(--blue);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #f7fbff;
+    }
+
+    .meta-card h4 {
+      margin: 0 0 6px 0;
+      color: var(--blue);
+      font-size: 0.95rem;
+    }
+
+    .meta-text {
+      font-size: 0.95rem;
+    }
+
+    .place-input {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .place-input input {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 2px solid var(--yellow);
+      outline: none;
+    }
+
+    .place-input button {
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
+    }
+
+    .section {
+      background: #fff;
+      border: 2px solid var(--yellow);
+      border-radius: 14px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .section h2 {
+      margin: 0;
+      padding: 14px 16px;
+      background: var(--yellow);
+      color: #2a2a2a;
+      border-bottom: 3px solid var(--orange);
+      font-size: 1.2rem;
+    }
+
+    .content {
+      padding: 14px 16px;
+    }
+
+    .pill {
+      display: inline-block;
+      margin: 4px 6px 8px 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: white;
+    }
+    .pill.red { background: var(--red); }
+    .pill.orange { background: var(--orange); }
+    .pill.yellow { background: var(--yellow); color: #222; border: 1px solid #e6a700; }
+    .pill.blue { background: var(--blue); }
+
+    ul {
+      margin: 8px 0 0 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    .callout {
+      border-left: 6px solid var(--blue);
+      padding: 10px 12px;
+      background: #eef6ff;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+    .steps li {
+      position: relative;
+      padding-left: 40px;
+      margin: 14px 0;
+    }
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      padding: 16px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="font-size: 1.6rem;">Full Homemade Pizza Recipe</div>
+    <div style="margin-top: 6px;">Yellow • Red • Orange • Blue</div>
+  </header>
+
+  <section class="meta-bar">
+    <div class="meta-card">
+      <h4>Date, month, and year</h4>
+      <div class="meta-text" id="dateDisplay">Loading current date…</div>
+      <div class="pill blue" id="weekdayPill">—</div>
+    </div>
+    <div class="meta-card">
+      <h4>Place</h4>
+      <div class="meta-text" id="placeText">Set a place for your pizza story.</div>
+      <div class="place-input">
+        <input id="placeInput" type="text" placeholder="e.g., Henderson, NV" />
+        <button id="placeBtn" aria-label="Set place">Set</button>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section">
+      <h2>Overview</h2>
+      <div class="content">
+        <span class="pill yellow">Dough</span>
+        <span class="pill red">Sauce</span>
+        <span class="pill orange">Bake</span>
+        <span class="pill blue">Serve</span>
+        <div class="callout">
+          Make two 12-inch pizzas with a crisp bottom and chewy crumb, topped with classic tomato sauce and mozzarella. Rise times and oven heat make the magic.
+        </div>
+        <ul>
+          <li><strong>Yield:</strong> Two 10–12 inch pizzas</li>
+          <li><strong>Active time:</strong> 35–45 minutes</li>
+          <li><strong>Total time:</strong> 1.5–2.5 hours (includes dough rise)</li>
+          <li><strong>Oven temperature:</strong> 230–240°C / 450–475°F</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Ingredients</h2>
+      <div class="content">
+        <h3 style="margin-top:0;">Dough</h3>
+        <ul>
+          <li><strong>Flour:</strong> 3–3.5 cups (all-purpose or bread flour)</li>
+          <li><strong>Warm water:</strong> 1–1.25 cups (about 105–110°F)</li>
+          <li><strong>Active dry yeast:</strong> 2¼ teaspoons (1 packet)</li>
+          <li><strong>Sugar or honey:</strong> 1–2 teaspoons</li>
+          <li><strong>Salt:</strong> 1½ teaspoons</li>
+          <li><strong>Olive oil:</strong> 2 tablespoons</li>
+          <li><strong>Cornmeal (optional):</strong> For dusting pan/stone</li>
+        </ul>
+
+        <h3>Sauce</h3>
+        <ul>
+          <li><strong>Tomato sauce or crushed tomatoes:</strong> 1½–2 cups</li>
+          <li><strong>Garlic:</strong> 2–3 cloves, minced</li>
+          <li><strong>Olive oil:</strong> 1 tablespoon</li>
+          <li><strong>Dried oregano:</strong> 1–2 teaspoons</li>
+          <li><strong>Dried basil:</strong> ½–1 teaspoon</li>
+          <li><strong>Sugar (optional):</strong> ½–1 teaspoon (to balance acidity)</li>
+          <li><strong>Salt and black pepper:</strong> To taste</li>
+          <li><strong>Red chili flakes (optional):</strong> ¼–½ teaspoon</li>
+        </ul>
+
+        <h3>Toppings</h3>
+        <ul>
+          <li><strong>Mozzarella:</strong> 2–3 cups, shredded</li>
+          <li><strong>Favorites:</strong> Pepperoni, mushrooms, onions, peppers, olives, sausage—choose what you love</li>
+          <li><strong>Finish:</strong> Extra-virgin olive oil, parmesan, fresh basil</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Steps</h2>
+      <div class="content">
+        <ol class="steps">
+          <li><strong>Proof the yeast:</strong> In a large bowl, combine warm water and sugar; sprinkle yeast on top and wait 5–10 minutes until foamy.</li>
+          <li><strong>Make the dough:</strong> Add olive oil and salt, then mix in flour (start with 3 cups) until a soft, slightly tacky dough forms.</li>
+          <li><strong>Knead:</strong> Turn onto a lightly floured surface and knead 5–8 minutes until smooth and elastic. If too sticky, dust with a little flour.</li>
+          <li><strong>First rise:</strong> Place in a lightly oiled bowl, cover, and let rise in a warm place until doubled, 45–90 minutes.</li>
+          <li><strong>Make the sauce:</strong> Warm olive oil, sauté garlic until fragrant, add tomatoes, herbs, salt, pepper, and a pinch of sugar; simmer until spreadable.</li>
+          <li><strong>Preheat:</strong> Heat oven to 450–475°F. If using a stone or heavy pan, place it in the oven to preheat 25–30 minutes.</li>
+          <li><strong>Shape:</strong> Punch down dough; divide into two balls. Stretch each to 10–12 inches, keeping the edge slightly thicker.</li>
+          <li><strong>Assemble:</strong> Lightly dust pan/peel with cornmeal. Spread sauce, add mozzarella, then toppings. Avoid overloading to keep crust crisp.</li>
+          <li><strong>Bake:</strong> Transfer to the hot stone/tray; bake 10–14 minutes until crust is golden and cheese is bubbling with light browning.</li>
+          <li><strong>Finish and serve:</strong> Rest 2 minutes, drizzle a touch of olive oil, add basil, slice, and serve hot.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Tips</h2>
+      <div class="content">
+        <ul>
+          <li><strong>Temperature matters:</strong> Water above ~130°F can kill yeast; aim for 105–110°F.</li>
+          <li><strong>Flavor boost:</strong> Cold ferment dough in the fridge for 12–48 hours for deeper flavor and better bubbles.</li>
+          <li><strong>Moisture control:</strong> Pat watery toppings (like fresh mozzarella or mushrooms) dry to avoid soggy pizza.</li>
+          <li><strong>Stone/steel:</strong> Preheating a stone/steel dramatically improves bottom crispness.</li>
+          <li><strong>Whole wheat option:</strong> Replace up to 50% flour with whole wheat for a heartier crust; add a touch more water.</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      Made with color and care. Enjoy!
+    </footer>
+  </main>
+
+  <script>
+    // Date, Month, Year, Weekday
+    (function(){
+      const now = new Date();
+      const weekdayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      const monthNames = [
+        "January","February","March","April","May","June","July","August","September","October","November","December"
+      ];
+
+      const year = now.getFullYear();
+      const month = monthNames[now.getMonth()];
+      const day = now.getDate();
+      const weekday = weekdayNames[now.getDay()];
+
+      document.getElementById("dateDisplay").textContent =
+        `${month} ${day}, ${year}`;
+      document.getElementById("weekdayPill").textContent = weekday;
+    })();
+
+    // Place setter
+    (function(){
+      const input = document.getElementById("placeInput");
+      const btn = document.getElementById("placeBtn");
+      const out = document.getElementById("placeText");
+
+      btn.addEventListener("click", () => {
+        const val = (input.value || "").trim();
+        out.textContent = val ? `Place: ${val}` : "Set a place for your pizza story.";
+      });
+    })();
+  </script>
+</body>
+</html>
+
