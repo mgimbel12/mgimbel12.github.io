@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lights, Camera, Action!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f18;
+      --bg-2:#0e1422;
+      --text:#f7f7f7;
+      --muted:#b8c0cc;
+      --accent:#ff3e3e;
+      --gold:#ffc857;
+      --primary:#6ec3ff;
+      --shadow:rgba(0,0,0,.6);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(255,255,255,.06), transparent 60%),
+        radial-gradient(900px 500px at 80% 15%, rgba(255,255,255,.05), transparent 65%),
+        linear-gradient(180deg, var(--bg), var(--bg-2));
+      background-attachment: fixed;
+    }
+    /* Film grain */
+    body::before{
+      content:"";
+      position:fixed; inset:0;
+      pointer-events:none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='1' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/ filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      mix-blend-mode: soft-light;
+    }
+    a{color:var(--primary); text-decoration:none}
+    a:focus-visible, button:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+
+    header{
+      padding:60px 24px 24px;
+      text-align:center;
+      position:relative;
+    }
+    .title{
+      font-family: "Bebas Neue", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(48px, 8vw, 120px);
+      letter-spacing: .02em;
+      line-height: .95;
+      margin:0;
+      background: linear-gradient(90deg, #fff, var(--gold), #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 10px 30px rgba(0,0,0,.4);
+    }
+    .tagline{
+      margin:14px auto 24px;
+      max-width:680px;
+      color:var(--muted);
+      font-size: clamp(16px, 2.2vw, 20px);
+    }
+    .marquee{
+      overflow:hidden; border-top:1px solid #1f2636; border-bottom:1px solid #1f2636;
+      background: #0a1324;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05), inset 0 -1px 0 rgba(255,255,255,.05);
+    }
+    .marquee-track{
+      display:flex; gap:48px; padding:10px 0;
+      will-change: transform;
+      animation: scroll 28s linear infinite;
+      font-family: "Bebas Neue", sans-serif;
+      font-size: 24px; letter-spacing: .08em;
+      color:#cfe8ff;
+    }
+    @keyframes scroll{ to{ transform: translateX(-50%)} }
+
+    .container{max-width:1100px; margin:0 auto; padding:28px 24px}
+
+    /* Clapboard */
+    .clapboard-wrap{
+      display:grid; grid-template-columns: 1fr 1fr; gap:24px; align-items:center;
+    }
+    @media (max-width:900px){ .clapboard-wrap{ grid-template-columns: 1fr } }
+    .clapboard{
+      width:100%; aspect-ratio: 5/3; border-radius:12px; position:relative;
+      background: linear-gradient(180deg, #111726, #0b0f18 70%);
+      box-shadow: 0 20px 40px var(--shadow), inset 0 1px 0 rgba(255,255,255,.06);
+      border:1px solid #1a2132;
+      display:grid; place-items:center;
+      cursor:pointer;
+      transition: transform .2s ease;
+    }
+    .clapboard:active{ transform: scale(.98) }
+    .clapboard::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(135deg, #1b2333 0 16px, #0a1324 16px 32px);
+      border-radius:12px 12px 6px 6px;
+      transform-origin: 20px 0;
+      height:36%;
+      top:0; left:0; right:0;
+      box-shadow: inset 0 -2px 0 rgba(255,255,255,.06);
+      transition: transform .18s cubic-bezier(.2,.8,.2,1);
+    }
+    .clapboard.snap::before{
+      transform: rotateX(28deg);
+    }
+    .clap-lines{
+      position:absolute; bottom:12px; left:12px; right:12px;
+      display:grid; gap:8px;
+    }
+    .line{
+      height:10px; background:#121a2c; border:1px dashed #2b3957; border-radius:6px;
+      display:flex; align-items:center; padding:0 10px; font-size:12px; color:#9fb2cf;
+      justify-content:space-between;
+    }
+    .line b{ color:#cfe0ff; font-weight:600 }
+    .take-pill{
+      position:absolute; top:8px; right:8px;
+      background: #16233d; color:#cfe0ff; font-weight:700;
+      padding:6px 10px; border-radius:999px; font-size:12px; border:1px solid #253552;
+    }
+
+    /* Actions */
+    .actions{ display:flex; gap:12px; flex-wrap:wrap; }
+    .btn{
+      appearance:none; border:0; border-radius:10px; cursor:pointer;
+      padding:12px 16px; font-weight:700; color:#091019;
+      background: linear-gradient(180deg, #ffffff, #e9eef7);
+      box-shadow: 0 6px 18px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.7);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(0,0,0,.3) }
+    .btn:active{ transform: translateY(0) }
+
+    .btn.primary{
+      background: linear-gradient(180deg, var(--gold), #f4b942);
+      color:#2b1e00;
+    }
+    .btn.ghost{
+      background: transparent; color:#cfe0ff; border:1px solid #2b3957;
+      box-shadow: none;
+    }
+
+    /* Tickets card */
+    .card{
+      border:1px solid #1a2132; border-radius:12px;
+      background: linear-gradient(180deg,#0e1422,#0b0f18);
+      padding:18px; box-shadow: 0 16px 30px var(--shadow);
+    }
+    .card h3{ margin:0 0 6px; font-size:20px }
+    .card p{ margin:0; color:var(--muted) }
+
+    /* Gallery */
+    .gallery{
+      margin-top:22px;
+      display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;
+    }
+    @media (max-width:900px){ .gallery{ grid-template-columns: 1fr 1fr } }
+    @media (max-width:600px){ .gallery{ grid-template-columns: 1fr } }
+    .shot{
+      position:relative; overflow:hidden; border-radius:12px;
+      border:1px solid #1a2132; background:#0a1324;
+      aspect-ratio: 16/9;
+      box-shadow: 0 14px 26px var(--shadow);
+    }
+    .shot img{
+      width:100%; height:100%; object-fit:cover; filter:saturate(1.05) contrast(1.05) brightness(.95);
+      transition: transform .4s ease;
+    }
+    .shot:hover img{ transform: scale(1.05) }
+    .shot .caption{
+      position:absolute; left:0; right:0; bottom:0;
+      padding:10px 12px; font-weight:600;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0; display:none; place-items:center; z-index:50;
+      background: rgba(2,6,16,.7);
+      backdrop-filter: blur(4px);
+    }
+    .modal.open{ display:grid }
+    .modal-card{
+      width:min(900px, 92vw);
+      border-radius:14px; overflow:hidden; border:1px solid #1a2132;
+      background:#0b0f18; box-shadow: 0 26px 50px var(--shadow);
+    }
+    .modal-head{
+      display:flex; justify-content:space-between; align-items:center; padding:12px 14px;
+      border-bottom:1px solid #1a2132; background:#0a1324;
+    }
+    .modal-title{ font-weight:700 }
+    .close{
+      background:transparent; border:1px solid #2b3957; color:#cfe0ff; padding:6px 10px; border-radius:8px; cursor:pointer;
+    }
+    .video-wrap{ position:relative; aspect-ratio: 16/9; background:#000 }
+    .video-wrap iframe, .video-wrap video{ width:100%; height:100% }
+
+    /* Footer */
+    footer{
+      padding:40px 24px; color:var(--muted); text-align:center;
+      border-top:1px solid #1a2132; margin-top:40px;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .marquee-track{ animation:none }
+      .clapboard::before{ transition: none }
+      .shot img{ transition: none }
+      .btn{ transition: none }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="title" aria-label="Lights, Camera, Action">LIGHTS • CAMERA • ACTION</h1>
+    <p class="tagline">A cinematic landing page with a snappy clapboard, trailer modal, and gallery scenes—built with HTML, CSS, and JavaScript.</p>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Premiere Night • Red Carpet • Behind the Scenes • Director’s Cut • Soundstage 12 •</span>
+        <span>Premiere Night • Red Carpet • Behind the Scenes • Director’s Cut • Soundstage 12 •</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="clapboard-wrap" aria-label="Interactive clapboard and actions">
+      <div class="clapboard" id="clapboard" role="button" aria-pressed="false" aria-label="Clapboard—click to snap">
+        <div class="take-pill" id="takePill">Take 1</div>
+        <div class="clap-lines">
+          <div class="line"><b>Production</b><span>Silver Ribbon Studios</span></div>
+          <div class="line"><b>Director</b><span>Marissa G.</span></div>
+          <div class="line"><b>Scene</b><span>Opening Montage</span></div>
+          <div class="line"><b>Date</b><span id="dateLine"></span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Tonight’s show</h3>
+        <p>Snag prime seats and enjoy a director’s cut trailer with exclusive behind-the-scenes moments.</p>
+        <div class="actions" style="margin-top:12px">
+          <button class="btn primary" id="buyBtn">Buy tickets</button>
+          <button class="btn" id="trailerBtn">Watch trailer</button>
+          <button class="btn ghost" id="muteBtn" aria-pressed="false" aria-label="Toggle clap sound">Sound: On</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-top:28px" aria-label="Scene gallery">
+      <h2 style="margin:0 0 10px">Scenes</h2>
+      <div class="gallery" id="gallery">
+        <figure class="shot">
+          <img src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?q=80&w=1280&auto=format&fit=crop" alt="Projection beam through theater haze">
+          <figcaption class="caption">Projection beam</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?q=80&w=1280&auto=format&fit=crop" alt="Vintage cinema seats under ambient light">
+          <figcaption class="caption">Vintage seats</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="https://images.unsplash.com/photo-1510036956370-4a6a0b289f2c?q=80&w=1280&auto=format&fit=crop" alt="Film set clapperboard and camera rig">
+          <figcaption class="caption">On set</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="https://images.unsplash.com/photo-1529336953121-6b7a5c4c95b1?q=80&w=1280&auto=format&fit=crop" alt="Red curtain with spotlight">
+          <figcaption class="caption">Red curtain</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="https://images.unsplash.com/photo-1498887960847-2c5206f88f5f?q=80&w=1280&auto=format&fit=crop" alt="Director’s chair by light panel">
+          <figcaption class="caption">Director’s chair</figcaption>
+        </figure>
+        <figure class="shot">
+          <img src="https://images.unsplash.com/photo-1512427691650-1c3b3b2f4b1b?q=80&w=1280&auto=format&fit=crop" alt="Camera crane over city street">
+          <figcaption class="caption">City shot</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true" aria-label="Trailer modal">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">Director’s cut trailer</div>
+        <button class="close" id="closeModal">Close</button>
+      </div>
+      <div class="video-wrap" id="videoWrap">
+        <!-- Replace with your own video or YouTube embed -->
+        <iframe id="yt" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&rel=0" title="Trailer" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Silver Ribbon Studios. All showtimes subject to change. Made with HTML • CSS • JavaScript.
+  </footer>
+
+  <audio id="clapSound" preload="auto">
+    <source src="https://cdn.freesound.org/previews/699/699453_143995-lq.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const clapboard = document.getElementById('clapboard');
+    const takePill = document.getElementById('takePill');
+    const dateLine = document.getElementById('dateLine');
+    const clapSound = document.getElementById('clapSound');
+    const muteBtn = document.getElementById('muteBtn');
+    const trailerBtn = document.getElementById('trailerBtn');
+    const modal = document.getElementById('modal');
+    const closeModal = document.getElementById('closeModal');
+    const yt = document.getElementById('yt');
+    const buyBtn = document.getElementById('buyBtn');
+
+    // Date line
+    const fmtDate = () => {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} • ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+    };
+    dateLine.textContent = fmtDate();
+
+    // Clapboard interaction
+    let take = 1;
+    let soundOn = true;
+    const snap = () => {
+      clapboard.classList.add('snap');
+      clapboard.setAttribute('aria-pressed', 'true');
+      takePill.textContent = `Take ${++take}`;
+      dateLine.textContent = fmtDate();
+      if(soundOn){
+        clapSound.currentTime = 0;
+        clapSound.play().catch(()=>{ /* autoplay guard */ });
+      }
+      setTimeout(()=>{
+        clapboard.classList.remove('snap');
+        clapboard.setAttribute('aria-pressed', 'false');
+      }, 320);
+    };
+    clapboard.addEventListener('click', snap);
+    clapboard.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault(); snap();
+      }
+    });
+    clapboard.tabIndex = 0;
+
+    // Mute toggle
+    muteBtn.addEventListener('click', ()=>{
+      soundOn = !soundOn;
+      muteBtn.textContent = `Sound: ${soundOn ? 'On' : 'Off'}`;
+      muteBtn.setAttribute('aria-pressed', String(soundOn));
+    });
+
+    // Modal controls
+    const openModal = ()=>{
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    };
+    const stopVideo = ()=>{
+      // Reset YouTube by changing src (simple approach)
+      yt.src = yt.src;
+    };
+    const closeModalFn = ()=>{
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      stopVideo();
+      closeModal.blur();
+    };
+    trailerBtn.addEventListener('click', openModal);
+    closeModal.addEventListener('click', closeModalFn);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModalFn(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && modal.classList.contains('open')) closeModalFn(); });
+
+    // Buy tickets micro-interaction (confetti)
+    buyBtn.addEventListener('click', ()=>{
+      const burst = document.createElement('div');
+      burst.style.position = 'fixed';
+      burst.style.inset = '0';
+      burst.style.pointerEvents = 'none';
+      burst.style.zIndex = '100';
+      const pieces = 80;
+      for(let i=0;i<pieces;i++){
+        const p = document.createElement('span');
+        const size = Math.random()*6+4;
+        p.style.position='absolute';
+        p.style.width=p.style.height=size+'px';
+        p.style.borderRadius='2px';
+        p.style.background = ['#ff3e3e','#ffc857','#6ec3ff','#7cff91','#b78cff'][i%5];
+        p.style.left = (Math.random()*100)+'vw';
+        p.style.top = '-10px';
+        const dur = Math.random()*1.5+1.2;
+        p.style.transition = `transform ${dur}s cubic-bezier(.2,.8,.2,1), opacity ${dur}s`;
+        const tx = (Math.random()*2-1)*40;
+        const ty = Math.random()*100+50;
+        requestAnimationFrame(()=>{
+          p.style.transform = `translate(${tx}vw, ${ty}vh) rotate(${Math.random()*360}deg)`;
+          p.style.opacity = '0';
+        });
+        burst.appendChild(p);
+      }
+      document.body.appendChild(burst);
+      setTimeout(()=> burst.remove(), 2200);
+    });
+
+    // Keyboard nav for gallery focus
+    const shots = [...document.querySelectorAll('.shot')];
+    shots.forEach(s => s.tabIndex = 0);
+    document.getElementById('gallery').addEventListener('keydown', (e)=>{
+      const idx = shots.indexOf(document.activeElement);
+      if(idx >= 0){
+        if(e.key === 'ArrowRight'){ (shots[idx+1]||shots[0]).focus(); }
+        if(e.key === 'ArrowLeft'){ (shots[idx-1]||shots[shots.length-1]).focus(); }
+      }
+    });
+  </script>
+</body>
+</html>
