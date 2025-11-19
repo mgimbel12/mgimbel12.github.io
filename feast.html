@@ -4,68 +4,42 @@
   <meta charset="UTF-8">
   <title>Holiday Feast Cookbook</title>
   <style>
+    /* Page base */
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #fff8f0, #ffe4c4);
       margin: 0;
       padding: 40px;
       text-align: center;
+      color: #222;
     }
     h1 {
       color: #b22222;
       text-shadow: 2px 2px #ffd700;
-      margin-bottom: 30px;
+      margin-bottom: 24px;
     }
-    .recipe {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin: 20px auto;
-      max-width: 700px;
-      text-align: left;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .recipe:hover {
-      transform: scale(1.02);
-      background: #fdf5e6;
-    }
-    .recipe h2 {
-      margin: 0;
-      padding: 15px;
-      background: #b22222;
-      color: #fff;
-      border-radius: 10px 10px 0 0;
-    }
-    .content {
-      display: none;
-      padding: 15px;
-    }
-    .ingredients, .steps {
-      margin-bottom: 15px;
-    }
-    .ingredients ul, .steps ol {
-      margin: 0;
-      padding-left: 20px;
-    }
-    .ingredients li, .steps li {
-      margin: 5px 0;
-    }
-    ul {
+    /* Fun top menu list */
+    .fun-menu {
       list-style: none;
       padding: 0;
+      max-width: 900px;
+      margin: 0 auto 30px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
     }
-    li {
-      margin: 15px;
+    .fun-menu li {
+      margin: 0;
       padding: 15px;
       background: #fff;
       border-radius: 10px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease;
+      text-align: left;
     }
-    li:hover {
-      transform: scale(1.05);
+    .fun-menu li:hover {
+      transform: scale(1.03);
       background: #fdf5e6;
     }
     .hidden {
@@ -75,12 +49,62 @@
       margin-top: 10px;
       font-style: italic;
       color: #444;
-    }   
+    }
+
+    /* Recipe cards */
+    .recipe {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 800px;
+      text-align: left;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .recipe:hover {
+      transform: scale(1.01);
+      background: #fffdf7;
+    }
+    .recipe .header {
+      margin: 0;
+      padding: 15px;
+      background: #b22222;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .recipe .header span.chevron {
+      font-weight: bold;
+    }
+    .content {
+      display: none;
+      padding: 15px;
+    }
+
+    .ingredients, .steps {
+      margin-bottom: 15px;
+    }
+    .ingredients h3, .steps h3 {
+      margin: 10px 0;
+      color: #b22222;
+    }
+    .ingredients ul, .steps ol {
+      margin: 0;
+      padding-left: 22px;
+    }
+    .ingredients li, .steps li {
+      margin: 5px 0;
+    }
   </style>
 </head>
 <body>
-    <h1>🍴 Holiday Feast Cookbook 🍴</h1>
-  <ul>
+  <h1>🍴 Holiday Feast Cookbook 🍴</h1>
+
+  <!-- Fun top menu with reveals -->
+  <ul class="fun-menu">
     <li onclick="toggleReveal(this)">🍗 Turkey & Stuffing
       <div class="hidden reveal">Classic holiday centerpiece with savory herbs.</div>
     </li>
@@ -97,10 +121,13 @@
       <div class="hidden reveal">Everyday comfort food joins the feast.</div>
     </li>
   </ul>
-  
-  <!-- Turkey & Stuffing -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>🦃 Roast Turkey with Stuffing</h2>
+
+  <!-- Recipes -->
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🦃 Roast Turkey with Stuffing</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients (Turkey)</h3>
@@ -137,9 +164,11 @@
     </div>
   </div>
 
-  <!-- Cake -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>🍰 Classic Vanilla Cake</h2>
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🍰 Classic Vanilla Cake</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients</h3>
@@ -166,9 +195,11 @@
     </div>
   </div>
 
-  <!-- Ice Cream -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>🍦 Homemade Vanilla Ice Cream</h2>
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🍦 Homemade Vanilla Ice Cream</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients</h3>
@@ -190,9 +221,11 @@
     </div>
   </div>
 
-  <!-- Hot Fudge Sundae -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>🍨 Hot Fudge Sundae</h2>
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🍨 Hot Fudge Sundae</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients</h3>
@@ -215,9 +248,11 @@
     </div>
   </div>
 
-  <!-- Iced Tea -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>🥤 Southern Sweet Iced Tea</h2>
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🥤 Southern Sweet Iced Tea</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients</h3>
@@ -238,9 +273,11 @@
     </div>
   </div>
 
-  <!-- Hot Cocoa -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>☕ Classic Hot Cocoa</h2>
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>☕ Classic Hot Cocoa</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients</h3>
@@ -264,9 +301,11 @@
     </div>
   </div>
 
-  <!-- Fries -->
-  <div class="recipe" onclick="toggleRecipe(this)">
-    <h2>🍟 Crispy French Fries</h2>
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🍟 Crispy French Fries</h2>
+      <span class="chevron">▸</span>
+    </div>
     <div class="content">
       <div class="ingredients">
         <h3>Ingredients</h3>
@@ -280,16 +319,64 @@
         <h3>Steps</h3>
         <ol>
           <li>Cut potatoes into sticks, soak in cold water 30 minutes.</li>
-          <li>Fry at 300°F for 5 minutes,
-          <li>Salt</li>
+          <li>Pat dry thoroughly.</li>
+          <li>First fry at 300°F for ~5 minutes; drain.</li>
+          <li>Second fry at 400°F until golden and crisp.</li>
+          <li>Drain on rack, season with salt.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe">
+    <div class="header" onclick="toggleRecipe(this)">
+      <h2>🍔 Classic Hamburger</h2>
+      <span class="chevron">▸</span>
+    </div>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>1 lb ground beef (80/20)</li>
+          <li>1 tbsp Worcestershire sauce</li>
+          <li>1 tsp garlic powder</li>
+          <li>Salt & pepper</li>
+          <li>4 burger buns</li>
         </ul>
       </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Mix beef with Worcestershire, garlic, salt, and pepper.</li>
+          <li>Shape into 4 patties.</li>
+          <li>Grill or pan-fry ~4–5 minutes per side.</li>
+          <li>Rest 2 minutes; serve on buns with toppings.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // Toggle reveal for the fun top menu
     function toggleReveal(item) {
       const detail = item.querySelector('.reveal');
+      if (!detail) return;
       detail.classList.toggle('hidden');
+    }
+
+    // Toggle recipe card content and rotate chevron
+    function toggleRecipe(headerEl) {
+      // headerEl is the .header div when clicking; if clicked h2 or chevron, normalize
+      const header = headerEl.classList.contains('header') ? headerEl : headerEl.closest('.header');
+      const card = header.closest('.recipe');
+      const content = card.querySelector('.content');
+      const chevron = header.querySelector('.chevron');
+
+      const isOpen = content.style.display === 'block';
+      content.style.display = isOpen ? 'none' : 'block';
+      chevron.textContent = isOpen ? '▸' : '▾';
     }
   </script>
 </body>
 </html>
+
