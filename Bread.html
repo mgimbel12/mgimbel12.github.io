@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bread Basics: Flour, Butter, Eggs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f6f4ff;
+      --primary: #4b3f72;    /* deep purple */
+      --accent: #2b6cb0;     /* blue */
+      --card: #ffffff;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #eaf2ff);
+      color: #1f2937;
+    }
+    header {
+      padding: 32px 20px;
+      text-align: center;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      color: #fff;
+    }
+    header h1 {
+      margin: 0 0 8px 0;
+      font-weight: 700;
+    }
+    header p {
+      margin: 0;
+      opacity: 0.95;
+    }
+    .info-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      padding: 14px 20px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+    .pill {
+      background: #f0f5ff;
+      border: 1px solid #dbeafe;
+      color: var(--accent);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    main {
+      max-width: 960px;
+      margin: 24px auto;
+      padding: 0 20px 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(75, 63, 114, 0.08);
+      overflow: hidden;
+    }
+    .card header {
+      background: linear-gradient(90deg, #5a4a92, #3a79c9);
+      color: #fff;
+      padding: 14px 16px;
+      text-align: left;
+    }
+    .card header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .card .content {
+      padding: 16px;
+    }
+    .content h3 {
+      margin: 10px 0;
+      color: var(--primary);
+      font-size: 16px;
+    }
+    ul, ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    li { margin: 6px 0; }
+    .toggle {
+      background: transparent;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 6px 8px;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+    }
+    .hidden { display: none; }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>How to Make Bread with Flour, Butter, and Eggs</h1>
+    <p>Simple enriched bread: tender crumb, golden crust, pure comfort.</p>
+  </header>
+
+  <div class="info-bar">
+    <span class="pill">📅 <strong>Date:</strong> <span id="dateText">—</span></span>
+    <span class="pill">📆 <strong>Year:</strong> <span id="yearText">—</span></span>
+    <span class="pill">📍 <strong>Place:</strong> <span id="placeText">Henderson, NV</span></span>
+  </div>
+
+  <main>
+    <div class="grid">
+      <!-- Ingredients Card -->
+      <section class="card">
+        <header>
+          <h2>Ingredients</h2>
+          <button class="toggle" onclick="toggleSection(this)">Show</button>
+        </header>
+        <div class="content hidden">
+          <h3>Essential</h3>
+          <ul>
+            <li>All‑purpose flour (about 3–4 cups, add as needed)</li>
+            <li>Unsalted butter (3–4 tbsp, softened or melted)</li>
+            <li>Eggs (2–3, room temperature)</li>
+            <li>Milk or water (about 1–1½ cups, warm)</li>
+            <li>Sugar (1–3 tbsp, optional for slight sweetness)</li>
+            <li>Salt (1–2 tsp)</li>
+            <li>Yeast (2¼ tsp active dry or instant)</li>
+          </ul>
+          <h3>Optional finish</h3>
+          <ul>
+            <li>Egg wash (1 egg + 1 tbsp milk) for shine</li>
+            <li>Butter for brushing after bake</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Method Card -->
+      <section class="card">
+        <header>
+          <h2>Method</h2>
+          <button class="toggle" onclick="toggleSection(this)">Show</button>
+        </header>
+        <div class="content hidden">
+          <h3>Step by step</h3>
+          <ol>
+            <li>Warm the milk/water to lukewarm (not hot). Whisk in yeast and sugar; let sit 5–10 minutes until foamy.</li>
+            <li>In a bowl, whisk eggs and melted butter. Stir in the yeast mixture.</li>
+            <li>Add 2 cups flour and salt; mix until shaggy. Add more flour gradually until a soft, slightly sticky dough forms.</li>
+            <li>Knead 8–10 minutes (stand mixer or by hand) until smooth and elastic. If overly sticky, dust with small amounts of flour.</li>
+            <li>First rise: place dough in a greased bowl, cover, and let rise in a warm spot until doubled (60–90 minutes).</li>
+            <li>Shape: gently deflate, shape into a loaf (or rolls), and place in a greased pan.</li>
+            <li>Second rise: cover and let rise until puffy and near doubled (30–60 minutes).</li>
+            <li>Bake: 350°F (175°C) for 28–35 minutes for a loaf; rolls 18–22 minutes. Top should be golden; internal temp ~190–195°F.</li>
+            <li>Finish: brush with butter or egg wash shine (if not applied pre‑bake). Cool before slicing for best crumb.</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Tips Card -->
+      <section class="card">
+        <header>
+          <h2>Blue & purple kitchen tips</h2>
+          <button class="toggle" onclick="toggleSection(this)">Show</button>
+        </header>
+        <div class="content hidden">
+          <ul>
+            <li><strong>Soft dough:</strong> Enriched breads prefer a slightly tacky dough. Add flour by feel, not only by cups.</li>
+            <li><strong>Warm rise:</strong> A gently warm environment speeds yeast. Avoid hot surfaces that can kill yeast.</li>
+            <li><strong>Shine vs. softness:</strong> Egg wash gives shine; butter brushing gives softness and flavor.</li>
+            <li><strong>Cool to slice:</strong> Let the loaf cool so the crumb sets; slicing too hot compresses the interior.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Crafted with a blue & purple palette. Update the place in the info bar to personalize.
+  </footer>
+
+  <script>
+    // Display current date and year
+    (function showDateYearPlace() {
+      const now = new Date();
+      const dateText = now.toLocaleDateString(undefined, {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
+      document.getElementById('dateText').textContent = dateText;
+      document.getElementById('yearText').textContent = String(now.getFullYear());
+
+      // Place: customize this as needed
+      const place = 'Henderson, NV';
+      document.getElementById('placeText').textContent = place;
+    })();
+
+    // Toggle card sections
+    function toggleSection(btn) {
+      const header = btn.parentElement;
+      const content = header.nextElementSibling;
+      const isHidden = content.classList.contains('hidden');
+      content.classList.toggle('hidden');
+      btn.textContent = isHidden ? 'Hide' : 'Show';
+    }
+  </script>
+</body>
+</html>
