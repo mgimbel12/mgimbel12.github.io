@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grinch Countdown — One Act of Kindness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="grinch8.css" />
+</head>
+<body>
+  <header class="banner">
+    <div class="tag">Grinch</div>
+    <h1 class="title">“Santa—Bye.”</h1>
+    <p class="subtitle">The Grinch’s first word today... and yet kindness sneaks in anyway.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Countdown -->
+    <section class="card countdown">
+      <h2>Christmas countdown</h2>
+      <div id="countdown" class="countdown-display" aria-live="polite">
+        <div class="unit"><span id="days">00</span><label>Days</label></div>
+        <div class="unit"><span id="hours">00</span><label>Hours</label></div>
+        <div class="unit"><span id="minutes">00</span><label>Minutes</label></div>
+        <div class="unit"><span id="seconds">00</span><label>Seconds</label></div>
+      </div>
+      <div class="countdown-note">Counting down to December 25, 12:00 AM.</div>
+    </section>
+
+    <!-- Date / Time / Place -->
+    <section class="card dtp">
+      <h2>Date, time, place and hour</h2>
+      <p id="now">Loading local time…</p>
+      <form id="dtpForm" class="dtp-form">
+        <div class="field">
+          <label for="place">Place</label>
+          <input type="text" id="place" placeholder="Henderson, NV" />
+        </div>
+        <div class="field">
+          <label for="hour">Hour</label>
+          <input type="time" id="hour" />
+        </div>
+        <button type="submit" class="btn">Set</button>
+      </form>
+      <div id="dtpSummary" class="summary" aria-live="polite"></div>
+    </section>
+
+    <!-- Kindness -->
+    <section class="card kindness">
+      <h2>One act of kindness</h2>
+      <p class="hint">Log a single kind act today. Watch the Grinch-heart meter soften.</p>
+      <form id="kindForm" class="kind-form">
+        <div class="field">
+          <label for="kindAct">Your act</label>
+          <input type="text" id="kindAct" maxlength="120" placeholder="Baked cookies for a neighbor" required />
+        </div>
+        <button type="submit" class="btn">Log it</button>
+      </form>
+      <div class="meter">
+        <div id="meterFill" class="fill" style="width: 0%"></div>
+      </div>
+      <ul id="kindList" class="kind-list"></ul>
+    </section>
+
+    <!-- Sugar Cookies -->
+    <section class="card recipe">
+      <h2>Sugar cookies</h2>
+      <div class="recipe-body">
+        <div class="chips">
+          <span class="chip gold">Butter</span>
+          <span class="chip aquamarine">Sugar</span>
+          <span class="chip red">Eggs</span>
+          <span class="chip blue">Vanilla</span>
+          <span class="chip green">Flour</span>
+        </div>
+        <ol class="steps">
+          <li>Beat softened butter and sugar until light.</li>
+          <li>Add eggs and vanilla; mix until smooth.</li>
+          <li>Fold in flour with a pinch of salt; chill 30 minutes.</li>
+          <li>Roll, cut, bake at 350°F until edges are gold.</li>
+          <li>Cool, frost, sprinkle joy. Share one act of kindness.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footline">Green, yellow, blue, white, gold, aquamarine, red — mischief to mercy.</p>
+    <p class="credit">Made with HTML, CSS, and JavaScript • © Your Sanctuary</p>
+  </footer>
+  <script src="Grinch8.js"></script>
+</body>
+</html>
