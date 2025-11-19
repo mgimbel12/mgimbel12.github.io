@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Holiday Feast Page</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #fff8f0, #ffe4c4);
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #b22222;
+      text-shadow: 2px 2px #ffd700;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin: 15px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    li:hover {
+      transform: scale(1.05);
+      background: #fdf5e6;
+    }
+    .hidden {
+      display: none;
+    }
+    .reveal {
+      margin-top: 10px;
+      font-style: italic;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>🍴 Holiday Feast Menu 🍴</h1>
+  <ul>
+    <li onclick="toggleReveal(this)">🍗 Turkey & Stuffing
+      <div class="hidden reveal">Classic holiday centerpiece with savory herbs.</div>
+    </li>
+    <li onclick="toggleReveal(this)">🍰 Cake & Sundae
+      <div class="hidden reveal">Sweet endings with sprinkles and hot fudge.</div>
+    </li>
+    <li onclick="toggleReveal(this)">🍦 Ice Cream
+      <div class="hidden reveal">Watch it melt with a click!</div>
+    </li>
+    <li onclick="toggleReveal(this)">🥤 Iced Tea & Cocoa
+      <div class="hidden reveal">Refreshing or cozy — your choice.</div>
+    </li>
+    <li onclick="toggleReveal(this)">🍔 Hamburger & Fries
+      <div class="hidden reveal">Everyday comfort food joins the feast.</div>
+    </li>
+  </ul>
+
+  <script>
+    function toggleReveal(item) {
+      const detail = item.querySelector('.reveal');
+      detail.classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
+
