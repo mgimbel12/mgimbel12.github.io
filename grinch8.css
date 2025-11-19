@@ -1,0 +1,228 @@
+:root{
+  --green:#1faa00;
+  --yellow:#ffd400;
+  --blue:#1f78ff;
+  --white:#ffffff;
+  --gold:#d4af37;
+  --aquamarine:#7fffd4;
+  --red:#e53935;
+
+  --ink:#0b1b14;
+  --bg:#07190f;
+  --card:#0d2b18;
+  --soft:#124426;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Nunito",system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  background: radial-gradient(1200px 600px at 10% 0%, var(--soft), var(--bg));
+  color:var(--white);
+}
+
+.banner{
+  padding:2.5rem 1.5rem 1rem;
+  text-align:center;
+  position:relative;
+}
+.tag{
+  display:inline-block;
+  background:linear-gradient(90deg,var(--green),var(--yellow));
+  color:var(--ink);
+  font-weight:700;
+  padding:.25rem .5rem;
+  border-radius:999px;
+  box-shadow:0 0 0 3px var(--white) inset;
+  letter-spacing:.06em;
+}
+.title{
+  font-family:"Baloo 2",system-ui;
+  font-size:clamp(2rem,6vw,3.5rem);
+  margin:.75rem 0 .25rem;
+  color:var(--aquamarine);
+  text-shadow:0 2px 0 #000, 0 6px 18px rgba(127,255,212,.25);
+}
+.subtitle{
+  margin:0 auto;
+  max-width:60ch;
+  opacity:.9;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:1rem;
+  padding:1rem;
+}
+
+.card{
+  grid-column:span 12;
+  background:linear-gradient(180deg,var(--card),#0b2315);
+  border:1px solid #0f3a22;
+  border-radius:16px;
+  padding:1rem 1rem 1.25rem;
+  box-shadow:0 10px 32px rgba(0,0,0,.35);
+}
+.card h2{
+  margin:.5rem 0 1rem;
+  font-family:"Baloo 2",system-ui;
+  color:var(--gold);
+  letter-spacing:.02em;
+}
+
+/* Responsive */
+@media (min-width:900px){
+  .countdown{grid-column:span 6}
+  .dtp{grid-column:span 6}
+  .kindness{grid-column:span 7}
+  .recipe{grid-column:span 5}
+}
+
+.countdown-display{
+  display:flex;
+  gap:.75rem;
+  justify-content:space-between;
+  align-items:center;
+}
+.unit{
+  flex:1;
+  background:#0f2e1b;
+  border:1px solid #14522f;
+  border-radius:12px;
+  padding:.75rem;
+  text-align:center;
+}
+.unit span{
+  display:block;
+  font-size:clamp(1.5rem,5vw,2.75rem);
+  font-weight:800;
+  color:var(--yellow);
+}
+.unit label{
+  display:block;
+  font-size:.8rem;
+  opacity:.8;
+}
+
+.countdown-note{
+  margin-top:.75rem;
+  font-size:.95rem;
+  color:var(--aquamarine);
+}
+
+.dtp-form,.kind-form{
+  display:flex;
+  gap:.75rem;
+  flex-wrap:wrap;
+  align-items:flex-end;
+}
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:.35rem;
+  min-width:220px;
+  flex:1;
+}
+input{
+  background:#0f2e1b;
+  border:1px solid #14522f;
+  border-radius:10px;
+  padding:.6rem .7rem;
+  color:var(--white);
+}
+input::placeholder{color:#98b3a5}
+.btn{
+  background:linear-gradient(90deg,var(--green),var(--blue));
+  border:none;
+  color:var(--white);
+  font-weight:700;
+  padding:.65rem 1rem;
+  border-radius:10px;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(31,120,255,.25);
+}
+.btn:hover{filter:saturate(1.2)}
+
+.summary{
+  margin-top:.5rem;
+  padding:.5rem .75rem;
+  border-left:3px solid var(--gold);
+  background:#0e2818;
+  color:var(--aquamarine);
+}
+
+.meter{
+  position:relative;
+  height:12px;
+  border-radius:999px;
+  background:#0f2e1b;
+  border:1px solid #14522f;
+  overflow:hidden;
+  margin:.75rem 0;
+}
+.fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--red),var(--gold),var(--aquamarine),var(--green));
+  width:0%;
+  transition:width .8s ease;
+  box-shadow:0 0 16px rgba(212,175,55,.4) inset;
+}
+
+.kind-list{
+  list-style:none;
+  padding-left:0;
+  margin:.5rem 0 0;
+}
+.kind-list li{
+  padding:.5rem .75rem;
+  margin:.4rem 0;
+  background:#0f2e1b;
+  border:1px solid #14522f;
+  border-radius:10px;
+}
+.kind-list li::marker{content:""}
+
+.recipe-body{margin-top:.25rem}
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+  margin-bottom:.5rem;
+}
+.chip{
+  font-size:.85rem;
+  padding:.25rem .5rem;
+  border-radius:999px;
+  background:#0f2e1b;
+  border:1px solid #14522f;
+}
+.chip.gold{color:var(--gold)}
+.chip.aquamarine{color:var(--aquamarine)}
+.chip.red{color:var(--red)}
+.chip.blue{color:var(--blue)}
+.chip.green{color:var(--green)}
+.steps{
+  margin:.25rem 0 0 1rem;
+}
+.footer{
+  padding:1.25rem;
+  text-align:center;
+  color:#b8d3c5;
+}
+.footline{
+  color:var(--yellow);
+  margin:.25rem 0;
+}
+
+/* Fun entry animation for “Santa—Bye.” */
+.title{
+  opacity:0;
+  transform:translateY(10px);
+  animation:popIn .8s ease .2s forwards;
+}
+@keyframes popIn{
+  to{opacity:1; transform:translateY(0)}
+}
+
