@@ -2,17 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Holiday Feast Page</title>
+  <title>Holiday Feast Cookbook</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(to bottom, #fff8f0, #ffe4c4);
-      text-align: center;
+      margin: 0;
       padding: 40px;
+      text-align: center;
     }
     h1 {
       color: #b22222;
       text-shadow: 2px 2px #ffd700;
+      margin-bottom: 30px;
+    }
+    .recipe {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin: 20px auto;
+      max-width: 700px;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .recipe:hover {
+      transform: scale(1.02);
+      background: #fdf5e6;
+    }
+    .recipe h2 {
+      margin: 0;
+      padding: 15px;
+      background: #b22222;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+    }
+    .content {
+      display: none;
+      padding: 15px;
+    }
+    .ingredients, .steps {
+      margin-bottom: 15px;
+    }
+    .ingredients ul, .steps ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    .ingredients li, .steps li {
+      margin: 5px 0;
     }
     ul {
       list-style: none;
@@ -38,11 +75,11 @@
       margin-top: 10px;
       font-style: italic;
       color: #444;
-    }
+    }   
   </style>
 </head>
 <body>
-  <h1>🍴 Holiday Feast Menu 🍴</h1>
+    <h1>🍴 Holiday Feast Cookbook 🍴</h1>
   <ul>
     <li onclick="toggleReveal(this)">🍗 Turkey & Stuffing
       <div class="hidden reveal">Classic holiday centerpiece with savory herbs.</div>
@@ -60,6 +97,193 @@
       <div class="hidden reveal">Everyday comfort food joins the feast.</div>
     </li>
   </ul>
+  
+  <!-- Turkey & Stuffing -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>🦃 Roast Turkey with Stuffing</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients (Turkey)</h3>
+        <ul>
+          <li>1 whole turkey (12–14 lbs)</li>
+          <li>1 stick unsalted butter</li>
+          <li>2 tbsp olive oil</li>
+          <li>Herbs: rosemary, thyme, sage</li>
+          <li>Salt & pepper</li>
+          <li>1 lemon, halved</li>
+        </ul>
+        <h3>Ingredients (Stuffing)</h3>
+        <ul>
+          <li>1 loaf bread, cubed</li>
+          <li>1 onion, diced</li>
+          <li>2 celery stalks, diced</li>
+          <li>4 tbsp butter</li>
+          <li>2 cups chicken broth</li>
+          <li>Sage, thyme, rosemary</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Preheat oven to 325°F.</li>
+          <li>Rub turkey with butter, oil, herbs, salt, pepper.</li>
+          <li>Place lemon halves inside cavity.</li>
+          <li>Roast until internal temp reaches 165°F.</li>
+          <li>Rest 30 minutes before carving.</li>
+          <li>Sauté onion & celery, toss with bread & herbs.</li>
+          <li>Add broth, bake stuffing at 350°F for 30–40 minutes.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cake -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>🍰 Classic Vanilla Cake</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>2 ½ cups cake flour</li>
+          <li>2 ½ tsp baking powder</li>
+          <li>¾ cup butter</li>
+          <li>2 cups sugar</li>
+          <li>4 eggs</li>
+          <li>1 tbsp vanilla extract</li>
+          <li>1 cup buttermilk</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Preheat oven to 350°F.</li>
+          <li>Cream butter & sugar until fluffy.</li>
+          <li>Add eggs one at a time, then vanilla.</li>
+          <li>Mix dry ingredients, add alternately with buttermilk.</li>
+          <li>Bake 25–30 minutes, cool, frost.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ice Cream -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>🍦 Homemade Vanilla Ice Cream</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>2 cups heavy cream</li>
+          <li>2 cups half-and-half</li>
+          <li>1 cup sugar</li>
+          <li>1 tbsp vanilla extract</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Whisk ingredients until sugar dissolves.</li>
+          <li>Churn in ice cream maker 20–25 minutes.</li>
+          <li>Freeze until firm.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hot Fudge Sundae -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>🍨 Hot Fudge Sundae</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>½ cup heavy cream</li>
+          <li>½ cup sugar</li>
+          <li>¼ cup cocoa powder</li>
+          <li>4 oz bittersweet chocolate</li>
+          <li>2 tbsp butter</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Heat cream, sugar, cocoa until simmering.</li>
+          <li>Stir in chocolate & butter until smooth.</li>
+          <li>Pour over ice cream, top with whipped cream & cherry.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Iced Tea -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>🥤 Southern Sweet Iced Tea</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>6 black tea bags</li>
+          <li>2 cups sugar</li>
+          <li>6 cups cold water</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Steep tea bags in boiling water 15 minutes.</li>
+          <li>Remove bags, stir in sugar.</li>
+          <li>Add cold water, chill, serve over ice.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hot Cocoa -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>☕ Classic Hot Cocoa</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>¼ cup cocoa powder</li>
+          <li>½ cup sugar</li>
+          <li>Pinch of salt</li>
+          <li>⅓ cup hot water</li>
+          <li>4 cups milk</li>
+          <li>1 tsp vanilla</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Mix cocoa, sugar, salt with hot water.</li>
+          <li>Add milk, heat gently.</li>
+          <li>Stir in vanilla, serve with marshmallows.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fries -->
+  <div class="recipe" onclick="toggleRecipe(this)">
+    <h2>🍟 Crispy French Fries</h2>
+    <div class="content">
+      <div class="ingredients">
+        <h3>Ingredients</h3>
+        <ul>
+          <li>4 russet potatoes</li>
+          <li>Oil for frying</li>
+          <li>Salt</li>
+        </ul>
+      </div>
+      <div class="steps">
+        <h3>Steps</h3>
+        <ol>
+          <li>Cut potatoes into sticks, soak in cold water 30 minutes.</li>
+          <li>Fry at 300°F for 5 minutes,
+          <li>Salt</li>
+        </ul>
+      </div>
 
   <script>
     function toggleReveal(item) {
@@ -69,4 +293,3 @@
   </script>
 </body>
 </html>
-
