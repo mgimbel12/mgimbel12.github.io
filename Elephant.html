@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dumbo Circus — Colors, Quote, Countdown, Calendar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --yellow:#ffd63e;
+      --blue:#2e7df6;
+      --orange:#ff7a2f;
+      --purple:#7e46f5;
+      --pink:#ff4fa3;
+      --red:#e4373b;
+      --white:#fff;
+      --ink:#222;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(1200px circle at 10% -10%, #fff7d1 0%, #fff 35%, #fff 100%),
+        linear-gradient(90deg, rgba(255,218,90,0.2), rgba(46,125,246,0.08));
+      color:var(--ink);
+    }
+    header{
+      background:
+        conic-gradient(from 0deg at 50% 50%,
+          var(--yellow), var(--blue), var(--orange), var(--purple),
+          var(--pink), var(--red), var(--yellow));
+      padding: 30px 18px;
+      color: var(--white);
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .title{
+      font-family:'Bangers', cursive;
+      font-size: clamp(32px, 6vw, 72px);
+      letter-spacing:2px;
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+      margin:0 0 8px 0;
+    }
+    .subtitle{
+      font-size: clamp(16px, 2.5vw, 22px);
+      margin:0;
+      font-weight:700;
+    }
+    .stripe{
+      display:flex;
+      gap:6px;
+      justify-content:center;
+      margin-top:16px;
+    }
+    .stripe span{
+      width:60px; height:8px; border-radius:6px;
+      box-shadow:0 1px 0 rgba(0,0,0,0.25);
+    }
+    .container{
+      max-width:1100px;
+      margin: 26px auto;
+      padding: 0 16px;
+    }
+
+    /* Quote card */
+    .quote-card{
+      background:linear-gradient(135deg, #fff 0%, #fff7ea 100%);
+      border: 3px dashed var(--orange);
+      border-radius:20px;
+      padding:20px;
+      display:grid;
+      grid-template-columns: 1fr auto;
+      align-items:center;
+      gap:14px;
+    }
+    .quote-card blockquote{
+      margin:0;
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-weight:700;
+      color:#333;
+    }
+    .quote-card cite{
+      display:block;
+      margin-top:8px;
+      color:#666;
+      font-style:normal;
+      font-weight:700;
+    }
+    .lemon{
+      width:80px; height:80px;
+      background: var(--yellow);
+      border-radius: 60% 40% 55% 45%;
+      box-shadow:
+        inset -8px -6px 0 rgba(0,0,0,0.1),
+        0 6px 14px rgba(0,0,0,0.12);
+      position:relative;
+    }
+    .lemon::after{
+      content:"";
+      position:absolute;
+      right:10px; top:16px;
+      width:18px; height:18px;
+      background:#ffef9a; border-radius:50%;
+      filter: blur(2px);
+    }
+
+    /* Sections grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap:18px;
+      margin-top:24px;
+    }
+    .card{
+      background:#fff;
+      border:1px solid #eee;
+      border-radius:16px;
+      padding:16px;
+      box-shadow:0 12px 26px -14px rgba(0,0,0,0.2);
+    }
+    .card h3{
+      font-family:'Bangers', cursive;
+      letter-spacing:1px;
+      margin:4px 0 10px 0;
+      font-size: clamp(22px, 2.6vw, 28px);
+      color:var(--purple);
+    }
+    .tagline{
+      font-weight:700; color:#444; margin-bottom:8px;
+    }
+    .badge{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px; font-weight:800;
+      background: var(--blue); color:#fff;
+      margin-right:6px;
+    }
+    .circus-list{
+      list-style:none; padding:0; margin:8px 0 0 0;
+    }
+    .circus-list li{ margin:6px 0; }
+    .circus-list li::marker{ content:"🎪 "; }
+
+    /* Countdown */
+    .countdown{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .timebox{
+      background: linear-gradient(180deg, #fff, #f7f7f7);
+      border:2px solid var(--blue);
+      border-radius:12px;
+      padding:10px 14px;
+      min-width:90px;
+      text-align:center;
+    }
+    .timebox .num{
+      font-size: 28px; font-weight:800; color:var(--blue);
+    }
+    .timebox .lbl{
+      font-size:12px; color:#555; font-weight:700;
+      letter-spacing:0.4px;
+    }
+    .countdown input{
+      margin-top:12px; width:100%;
+      padding:10px; border-radius:10px; border:1px solid #ddd;
+      font-size:14px;
+    }
+
+    /* Calendar */
+    .calendar{
+      margin-top:8px;
+    }
+    .calendar header{
+      background:none; padding:0; color:inherit;
+    }
+    .cal-head{
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:8px;
+    }
+    .cal-title{
+      font-weight:800; font-size:18px; color:#333;
+    }
+    .cal-controls button{
+      border:1px solid #ddd; background:#fff; color:#333;
+      padding:6px 10px; border-radius:8px; cursor:pointer;
+      font-weight:700;
+    }
+    .cal-grid{
+      display:grid; grid-template-columns: repeat(7, 1fr);
+      gap:8px;
+    }
+    .cal-day, .cal-weekday{
+      text-align:center; padding:8px; border-radius:10px;
+    }
+    .cal-weekday{
+      font-weight:800; color:#666; background:#fafafa;
+      border:1px solid #eee;
+    }
+    .cal-day{
+      border:1px solid #eee; background:#fff;
+      min-height:70px; position:relative;
+    }
+    .cal-day .date{ font-weight:800; color:#333; }
+    .event-dot{
+      width:8px; height:8px; border-radius:50%;
+      position:absolute; bottom:8px; left:8px;
+      box-shadow:0 0 0 2px #fff inset;
+    }
+
+    /* Video */
+    .video{
+      position:relative; padding-bottom:56.25%; height:0; border-radius:12px; overflow:hidden;
+      border:3px solid var(--pink);
+      box-shadow:0 12px 20px -12px rgba(0,0,0,0.25);
+    }
+    .video iframe{
+      position:absolute; top:0; left:0; width:100%; height:100%;
+    }
+
+    /* Skippy card */
+    .skippy{
+      background: linear-gradient(135deg, #fff, #ffeef3);
+      border:2px solid var(--red);
+    }
+    .skippy .badge{ background: var(--red); }
+
+    /* Footer note */
+    footer{
+      margin:28px auto 36px;
+      text-align:center; color:#666; font-size:13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="title">Dumbo’s Big Top</h1>
+    <p class="subtitle">Yellow • Blue • Orange • Purple • Pink • Red</p>
+    <div class="stripe">
+      <span style="background:var(--yellow)"></span>
+      <span style="background:var(--blue)"></span>
+      <span style="background:var(--orange)"></span>
+      <span style="background:var(--purple)"></span>
+      <span style="background:var(--pink)"></span>
+      <span style="background:var(--red)"></span>
+      <span style="background:var(--pink)"></span>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="quote-card">
+      <div>
+        <blockquote>“When life gives you lemons, make lemonade.”</blockquote>
+        <cite>— Classic proverb, embraced by circus hearts and flying elephants</cite>
+      </div>
+      <div class="lemon" aria-hidden="true"></div>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h3>Circus & clowns</h3>
+        <p class="tagline"><span class="badge">🎪 Circus</span><span class="badge" style="background:var(--orange)">🤡 Clowns</span> Colors loud, hearts proud.</p>
+        <ul class="circus-list">
+          <li><strong>Ringmaster’s call:</strong> Step right up to wonder and courage.</li>
+          <li><strong>Clown chorus:</strong> Laughter as a lantern when nights feel long.</li>
+          <li><strong>Dumbo’s gift:</strong> Different is dazzling when kindness lifts.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Countdown to showtime</h3>
+        <p><strong>Target:</strong> Set your date below. The timer updates live.</p>
+        <div class="countdown" id="countdown">
+          <div class="timebox"><div class="num" id="c-days">0</div><div class="lbl">Days</div></div>
+          <div class="timebox"><div class="num" id="c-hours">0</div><div class="lbl">Hours</div></div>
+          <div class="timebox"><div class="num" id="c-mins">0</div><div class="lbl">Minutes</div></div>
+          <div class="timebox"><div class="num" id="c-secs">0</div><div class="lbl">Seconds</div></div>
+        </div>
+        <input type="datetime-local" id="targetInput" aria-label="Countdown target date/time"/>
+      </article>
+
+      <article class="card">
+        <h3>Calendar of cheers</h3>
+        <div class="calendar" id="calendar">
+          <div class="cal-head">
+            <div class="cal-title" id="calTitle">Month Year</div>
+            <div class="cal-controls">
+              <button id="prevBtn" aria-label="Previous month">◀</button>
+              <button id="nextBtn" aria-label="Next month">▶</button>
+              <button id="todayBtn" aria-label="Jump to today">Today</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <p style="margin-top:10px"><strong>Events:</strong> Pink = Dumbo watch party, Blue = Rehearsal, Orange = Skippy stand.</p>
+      </article>
+
+      <article class="card">
+        <h3>Dumbo video</h3>
+        <p><strong>Watch:</strong> A YouTube feature about Dumbo’s adventure. The classic Disney film is available to buy or rent on YouTube Movies.</p>
+        <div class="video">
+          <!-- You can replace this with another Dumbo-related video URL -->
+          <iframe
+            src="https://www.youtube.com/embed/mqnSiduX1_4"
+            title="Dumbo — YouTube Movies"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </article>
+
+      <article class="card skippy">
+        <h3>Skippy Peanut Butter</h3>
+        <p class="tagline"><span class="badge">🥜 Concession</span> Smooth & crunchy smiles.</p>
+        <ul class="circus-list">
+          <li><strong>Classic sandwich:</strong> Peanut butter & banana, with a drizzle of honey.</li>
+          <li><strong>Lemonade pairing:</strong> Bright, zesty, and joyful next to the main ring.</li>
+          <li><strong>Allergen care:</strong> Clearly label and offer alternatives for inclusion.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>Elephant wisdom</h3>
+        <p><strong>Respect:</strong> Elephants are renowned for their memory, social bonds, and intelligence. Let’s celebrate their wonder without ranking them against other animals.</p>
+        <p><strong>Inspiration:</strong> Courage isn’t about being the smartest—it's about being kind, curious, and brave enough to fly in your own way.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    Made with Yellow, Blue, Orange, Purple, Pink, Red — and a little lemonade.
+  </footer>
+
+  <script>
+    // ======= COUNTDOWN =======
+    // Default target: one week from now (editable)
+    const targetInput = document.getElementById('targetInput');
+    function defaultISODate() {
+      const d = new Date();
+      d.setDate(d.getDate() + 7);
+      // local ISO without seconds for datetime-local
+      const pad = n => String(n).padStart(2, '0');
+      const local = new Date(d.getTime() - d.getTimezoneOffset()*60000);
+      return local.toISOString().slice(0,16);
+    }
+    targetInput.value = defaultISODate();
+
+    let targetTime = new Date(targetInput.value);
+    targetInput.addEventListener('change', () => {
+      targetTime = new Date(targetInput.value);
+    });
+
+    const cDays = document.getElementById('c-days');
+    const cHours = document.getElementById('c-hours');
+    const cMins = document.getElementById('c-mins');
+    const cSecs = document.getElementById('c-secs');
+
+    function updateCountdown(){
+      const now = new Date();
+      const diff = targetTime - now;
+      if (isNaN(diff) || diff <= 0){
+        cDays.textContent = '0';
+        cHours.textContent = '0';
+        cMins.textContent = '0';
+        cSecs.textContent = '0';
+        return;
+      }
+      const s = Math.floor(diff/1000);
+      const days = Math.floor(s / 86400);
+      const hrs = Math.floor((s % 86400) / 3600);
+      const mins = Math.floor((s % 3600) / 60);
+      const secs = s % 60;
+      cDays.textContent = days;
+      cHours.textContent = hrs;
+      cMins.textContent = mins;
+      cSecs.textContent = secs;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ======= CALENDAR =======
+    const calGrid = document.getElementById('calGrid');
+    const calTitle = document.getElementById('calTitle');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const todayBtn = document.getElementById('todayBtn');
+
+    let viewYear, viewMonth; // month 0-11
+
+    function initCalendar(){
+      const now = new Date();
+      viewYear = now.getFullYear();
+      viewMonth = now.getMonth();
+      renderCalendar(viewYear, viewMonth);
+    }
+
+    function renderCalendar(year, month){
+      // Weekday headers
+      const weekdays = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      calGrid.innerHTML = '';
+      weekdays.forEach(w=>{
+        const wd = document.createElement('div');
+        wd.className = 'cal-weekday';
+        wd.textContent = w;
+        calGrid.appendChild(wd);
+      });
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month+1, 0).getDate();
+
+      // Title
+      const monthNames = [
+        'January','February','March','April','May','June',
+        'July','August','September','October','November','December'
+      ];
+      calTitle.textContent = `${monthNames[month]} ${year}`;
+
+      // Leading blanks
+      for(let i=0; i<firstDay; i++){
+        const blank = document.createElement('div');
+        blank.className = 'cal-day';
+        calGrid.appendChild(blank);
+      }
+
+      // Events (edit as needed)
+      // Format: 'YYYY-MM-DD' : { label, color }
+      const events = {
+        // Dumbo watch party
+        [`${year}-${String(month+1).padStart(2,'0')}-05`]: {label:'Dumbo Watch', color:'var(--pink)'},
+        // Rehearsal
+        [`${year}-${String(month+1).padStart(2,'0')}-12`]: {label:'Rehearsal', color:'var(--blue)'},
+        // Skippy stand
+        [`${year}-${String(month+1).padStart(2,'0')}-20`]: {label:'Skippy Stand', color:'var(--orange)'}
+      };
+
+      // Days
+      for(let d=1; d<=daysInMonth; d++){
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        const dateLabel = document.createElement('div');
+        dateLabel.className = 'date';
+        dateLabel.textContent = d;
+        cell.appendChild(dateLabel);
+
+        const key = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        if (events[key]){
+          const dot = document.createElement('div');
+          dot.className = 'event-dot';
+          dot.style.background = events[key].color;
+          dot.title = events[key].label;
+          cell.appendChild(dot);
+        }
+
+        calGrid.appendChild(cell);
+      }
+    }
+
+    prevBtn.addEventListener('click', ()=>{
+      if (viewMonth === 0){ viewMonth = 11; viewYear--; }
+      else { viewMonth--; }
+      renderCalendar(viewYear, viewMonth);
+    });
+    nextBtn.addEventListener('click', ()=>{
+      if (viewMonth === 11){ viewMonth = 0; viewYear++; }
+      else { viewMonth++; }
+      renderCalendar(viewYear, viewMonth);
+    });
+    todayBtn.addEventListener('click', initCalendar);
+
+    initCalendar();
+  </script>
+</body>
+</html>
