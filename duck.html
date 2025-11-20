@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Smallville Echoes — Ducks, Colors, Time, Light</title>
+  <style>
+    /* =========
+       Design tokens
+       ========= */
+    :root{
+      --bg:#ffffff; --fg:#1a1a1a; --muted:#6b7280; --ring:#d7d9de;
+      --accent:#7c7c7c; --accent-contrast:#ffffff;
+      --card:#ffffff; --shadow:0 8px 30px rgba(0,0,0,.08);
+    }
+    .theme-blue  { --bg:#eaf3ff; --fg:#0b2a4a; --muted:#496282; --ring:#a7c6ff; --accent:#2f7df6; --accent-contrast:#ffffff; --card:#f7fbff; }
+    .theme-green { --bg:#e9f7ee; --fg:#0f3b24; --muted:#3c5a4b; --ring:#a6e3c3; --accent:#29a36a; --accent-contrast:#ffffff; --card:#f4fbf7; }
+    .theme-white { --bg:#ffffff; --fg:#1a1a1a; --muted:#6b7280; --ring:#d7d9de; --accent:#888888; --accent-contrast:#ffffff; --card:#ffffff; }
+    .theme-red   { --bg:#fff0f0; --fg:#4a0b0b; --muted:#734040; --ring:#f3b3b3; --accent:#d63b3b; --accent-contrast:#ffffff; --card:#fff7f7; }
+    .theme-yellow{ --bg:#fff9e6; --fg:#3b2b0f; --muted:#6a5224; --ring:#ffe39d; --accent:#f2b600; --accent-contrast:#3b2b0f; --card:#fffdf2; }
+    /* “Sliver” = a slender silver hue */
+    .theme-sliver{ --bg:#f7f8fa; --fg:#1e1e22; --muted:#575d66; --ring:#dfe3e8; --accent:#9aa3ad; --accent-contrast:#1e1e22; --card:#ffffff; }
+
+    /* =========
+       Base layout
+       ========= */
+    html, body { height:100%; }
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:system-ui, Segoe UI, sans-serif;
+      transition: background .3s ease, color .3s ease;
+    }
+    .container{
+      max-width:1000px; margin:0 auto; padding:24px;
+    }
+    header.hero{
+      display:grid; gap:12px; background:var(--card);
+      border:1px solid var(--ring); border-radius:16px; padding:16px; box-shadow:var(--shadow);
+    }
+    .hero-top{
+      display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;
+    }
+    .title{
+      display:flex; align-items:center; gap:10px;
+    }
+    .badge{
+      padding:6px 10px; border-radius:10px; background:var(--accent); color:var(--accent-contrast);
+      font-weight:600; font-size:.9rem;
+    }
+
+    /* Controls */
+    .controls{
+      display:grid; grid-template-columns:1fr; gap:12px;
+    }
+    @media (min-width:760px){
+      .controls{ grid-template-columns: 1.2fr .8fr; }
+    }
+
+    .panel{
+      background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:12px; box-shadow:var(--shadow);
+    }
+    .row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .row label{ color:var(--muted); font-size:.9rem; }
+    button, .chip{
+      border:1px solid var(--ring); background:#fff; color:var(--fg);
+      padding:8px 12px; border-radius:10px; cursor:pointer;
+    }
+    button.accent{
+      background:var(--accent); color:var(--accent-contrast); border:none;
+    }
+    button:focus-visible{ outline:3px solid var(--accent); outline-offset:2px; }
+
+    /* Ships */
+    .ships{ display:flex; gap:8px; }
+    .ships [aria-selected="true"]{
+      background:var(--accent); color:var(--accent-contrast); border:none;
+    }
+
+    /* Cards + grid */
+    .grid-2{ display:grid; grid-template-columns:1fr; gap:12px; }
+    @media (min-width:900px){ .grid-2{ grid-template-columns:1fr 1fr; } }
+
+    .card{
+      background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:12px; box-shadow:var(--shadow);
+    }
+    .subtle{ color:var(--muted); }
+
+    /* Duck strip + hidden ducks */
+    .duck-strip{ display:flex; gap:8px; align-items:center; }
+    .duck-hidden-zone{
+      position:relative; min-height:140px; border:1px dashed var(--ring); border-radius:12px;
+      background:linear-gradient(135deg, rgba(0,0,0,.02), transparent);
+      overflow:hidden;
+    }
+    .duck-hidden{
+      position:absolute; font-size:24px; cursor:pointer; user-select:none;
+      filter:drop-shadow(0 2px 2px rgba(0,0,0,.2));
+      transition: transform .2s ease;
+    }
+    .duck-hidden:focus-visible{ outline:3px solid var(--accent); border-radius:6px; }
+    .duck-hidden:hover{ transform: scale(1.08); }
+
+    /* Flash pulses */
+    .flash-strip{ display:flex; gap:6px; }
+    .flash{
+      width:18px; height:18px; border-radius:50%;
+      background:var(--accent); opacity:.25; animation:pulse 3200ms infinite ease-in-out;
+    }
+    .flash:nth-child(2){ animation-delay:.6s; }
+    .flash:nth-child(3){ animation-delay:1.2s; }
+    @keyframes pulse{
+      0%,100%{ opacity:.25; box-shadow:0 0 0px var(--accent); }
+      35%{ opacity:.55; box-shadow:0 0 10px var(--accent); }
+      50%{ opacity:.8; box-shadow:0 0 16px var(--accent); }
+      65%{ opacity:.55; box-shadow:0 0 10px var(--accent); }
+    }
+
+    /* Reduce motion */
+    .reduce-motion .flash{ animation: none; opacity:.3; }
+    .reduce-motion *{ scroll-behavior:auto; }
+
+    /* Footer reveal / Legacy Loop */
+    .legacy-loop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:12px; box-shadow:var(--shadow);
+    }
+    .progress{
+      height:8px; width:100%; background:#f0f2f6; border-radius:999px; overflow:hidden;
+    }
+    .progress .bar{
+      height:100%; width:0%; background:var(--accent); transition: width .8s ease;
+    }
+
+    /* Affirmations */
+    .affirm-list{ display:grid; gap:6px; }
+    .affirm{
+      background:#fff; border:1px solid var(--ring); border-radius:10px; padding:8px;
+    }
+  </style>
+</head>
+<body class="theme-white" data-reduce-motion="false">
+  <div class="container">
+    <header class="hero">
+      <div class="hero-top">
+        <div class="title">
+          <h1>Smallville Echoes</h1>
+          <span class="badge">Ducks • Colors • Time • Light</span>
+        </div>
+        <div class="flash-strip" aria-hidden="true">
+          <span class="flash"></span><span class="flash"></span><span class="flash"></span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="panel">
+          <div class="row" role="group" aria-label="Color themes">
+            <label>Themes:</label>
+            <button class="chip" data-theme="blue">BLUE</button>
+            <button class="chip" data-theme="green">GREEN</button>
+            <button class="chip" data-theme="white">WHITE</button>
+            <button class="chip" data-theme="red">RED</button>
+            <button class="chip" data-theme="yellow">YELLOW</button>
+            <button class="chip" data-theme="sliver">SLIVER</button>
+            <button id="reduce-motion" class="chip" aria-pressed="false" title="Toggle reduce motion">Reduce motion</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="row" role="tablist" aria-label="Smallville ships">
+            <label>Ships:</label>
+            <button role="tab" aria-selected="true" data-ship="lexana">Lexana</button>
+            <button role="tab" aria-selected="false" data-ship="clex">Clex</button>
+          </div>
+          <div class="row duck-strip" style="margin-top:10px;">
+            <button id="duck-add" class="accent" aria-label="Add a duck">🦆 Add Duck</button>
+            <span id="duck-count" aria-live="polite">Ducks: 0</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main style="margin-top:16px;">
+      <section class="grid-2">
+        <article class="card" aria-labelledby="ship-title">
+          <h2 id="ship-title">Lexana</h2>
+          <p id="ship-quote" class="subtle">“Power meets poise; ambition learns mercy.”</p>
+          <blockquote class="subtle">Tip: Lexana loves RED or SLIVER; Clex breathes BLUE or GREEN.</blockquote>
+        </article>
+
+        <article class="card">
+          <h2>Live clock</h2>
+          <div class="row">
+            <div><strong>Date:</strong> <span id="date"></span></div>
+            <div><strong>Month:</strong> <span id="month"></span></div>
+            <div><strong>Year:</strong> <span id="year"></span></div>
+            <div><strong>Time:</strong> <span id="time"></span></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid-2" style="margin-top:12px;">
+        <article class="card">
+          <h2>Countdown</h2>
+          <div class="row">
+            <label for="target">Target date & time</label>
+            <input id="target" type="datetime-local"/>
+            <button id="start-countdown" class="accent">Start</button>
+          </div>
+          <p id="countdown-display" class="subtle" aria-live="polite">Set a target to begin.</p>
+        </article>
+
+        <article class="card">
+          <h2>Affirmation chorus</h2>
+          <div id="affirmations" class="affirm-list" aria-live="polite"></div>
+        </article>
+      </section>
+
+      <section class="card" style="margin-top:12px;">
+        <h2>Duck hunt — find the three hidden ducks</h2>
+        <p class="subtle">Find all three 🦆 before the countdown ends and earn a 1-minute bonus for each duck found.</p>
+        <div id="duck-zone" class="duck-hidden-zone" aria-describedby="duck-hint"></div>
+        <p id="duck-hint" class="subtle">Hint: Ducks hide along edges and diagonals.</p>
+        <p id="duck-found-status" class="subtle" aria-live="polite">Found: 0 / 3</p>
+      </section>
+
+      <section class="legacy-loop" style="margin-top:12px;">
+        <div style="flex:1;">
+          <h2 style="margin:0;">Legacy Loop</h2>
+          <p id="legacy-text" class="subtle" style="margin:.25rem 0;">Awaiting completion — the loop reveals a message when time completes.</p>
+          <div class="progress"><div id="legacy-bar" class="bar"></div></div>
+        </div>
+        <button id="legacy-reset" class="chip">Reset loop</button>
+      </section>
+    </main>
+
+    <footer style="margin-top:16px;">
+      <p class="subtle">Made for sanctuary play — color, time, ducks, and gentle light. Henderson holiday overlays fit right in.</p>
+    </footer>
+  </div>
+
+  <script>
+    // =========
+    // State
+    // =========
+    const state = {
+      theme: localStorage.getItem('theme') || 'white',
+      reduceMotion: localStorage.getItem('reduceMotion') === 'true',
+      ship: 'lexana',
+      ducks: Number(localStorage.getItem('ducks') || 0),
+      hiddenFound: 0,
+      timerId: null,
+      targetTime: null,
+      bonusMinutes: 0
+    };
+
+    const shipData = {
+      lexana: { title: 'Lexana', quote: '“Power meets poise; ambition learns mercy.”', defaultTheme: 'red' },
+      clex:   { title: 'Clex',   quote: '“Truth tests friendship; destiny finds its mirror.”', defaultTheme: 'blue' }
+    };
+
+    const affirmByTheme = {
+      blue:   ['Calm clarifies choices.', 'Truth steadies the heart.', 'Clarity invites courage.'],
+      green:  ['Growth honors patience.', 'Compassion guides action.', 'Steadiness builds trust.'],
+      white:  ['Presence is enough.', 'Breath restores balance.', 'Simplicity heals gently.'],
+      red:    ['Ambition can be kind.', 'Resolve meets mercy.', 'Power bows to purpose.'],
+      yellow: ['Joy is a discipline.', 'Warmth lights the path.', 'Curiosity sparks insight.'],
+      sliver: ['Elegance in restraint.', 'Reflection reveals edges.', 'Silver lines the thresholds.']
+    };
+
+    // =========
+    // DOM refs
+    // =========
+    const root = document.body;
+    const themeButtons = document.querySelectorAll('[data-theme]');
+    const reduceMotionBtn = document.getElementById('reduce-motion');
+    const shipTabs = document.querySelectorAll('[role="tab"][data-ship]');
+    const shipTitle = document.getElementById('ship-title');
+    const shipQuote = document.getElementById('ship-quote');
+
+    const duckAddBtn = document.getElementById('duck-add');
+    const duckCount = document.getElementById('duck-count');
+
+    const dateEl = document.getElementById('date');
+    const monthEl = document.getElementById('month');
+    const yearEl = document.getElementById('year');
+    const timeEl = document.getElementById('time');
+
+    const targetInput = document.getElementById('target');
+    const startBtn = document.getElementById('start-countdown');
+    const displayEl = document.getElementById('countdown-display');
+
+    const affirmEl = document.getElementById('affirmations');
+
+    const duckZone = document.getElementById('duck-zone');
+    const duckFoundStatus = document.getElementById('duck-found-status');
+
+    const legacyText = document.getElementById('legacy-text');
+    const legacyBar = document.getElementById('legacy-bar');
+    const legacyReset = document.getElementById('legacy-reset');
+
+    // =========
+    // Init UI
+    // =========
+    function applyTheme(theme){
+      root.className = `theme-${theme}`;
+      state.theme = theme;
+      localStorage.setItem('theme', theme);
+      renderAffirmations();
+    }
+    function renderAffirmations(){
+      const set = affirmByTheme[state.theme] || affirmByTheme.white;
+      affirmEl.innerHTML = '';
+      set.forEach(text => {
+        const div = document.createElement('div');
+        div.className = 'affirm';
+        div.textContent = text;
+        affirmEl.appendChild(div);
+      });
+    }
+    function renderShip(ship){
+      state.ship = ship;
+      shipTabs.forEach(btn => btn.setAttribute('aria-selected', btn.dataset.ship === ship ? 'true':'false'));
+      shipTitle.textContent = shipData[ship].title;
+      shipQuote.textContent = shipData[ship].quote;
+      // Optional: auto-align palette to ship
+      applyTheme(shipData[ship].defaultTheme);
+    }
+    function renderDuckCount(){
+      duckCount.textContent = `Ducks: ${state.ducks}`;
+    }
+    function updateClock(){
+      const now = new Date();
+      const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      dateEl.textContent = now.getDate();
+      monthEl.textContent = months[now.getMonth()];
+      yearEl.textContent = now.getFullYear();
+      timeEl.textContent = now.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+    }
+    function applyReduceMotion(flag){
+      state.reduceMotion = flag;
+      root.dataset.reduceMotion = String(flag);
+      reduceMotionBtn.setAttribute('aria-pressed', String(flag));
+      if(flag){ root.classList.add('reduce-motion'); } else { root.classList.remove('reduce-motion'); }
+      localStorage.setItem('reduceMotion', String(flag));
+    }
+
+    // Hidden ducks
+    function spawnHiddenDucks(){
+      duckZone.innerHTML = '';
+      state.hiddenFound = 0;
+      duckFoundStatus.textContent = `Found: ${state.hiddenFound} / 3`;
+      const bounds = duckZone.getBoundingClientRect();
+      const ducks = 3;
+      for(let i=0;i<ducks;i++){
+        const span = document.createElement('span');
+        span.className = 'duck-hidden';
+        span.setAttribute('role','button');
+        span.setAttribute('tabindex','0');
+        span.title = 'Find me';
+        span.textContent = '🦆';
+        const x = Math.random() * (bounds.width - 32);
+        const y = Math.random() * (bounds.height - 32);
+        span.style.left = `${x}px`;
+        span.style.top = `${y}px`;
+        const markFound = ()=>{
+          if(span.dataset.found === 'true') return;
+          span.dataset.found = 'true';
+          span.style.transform = 'scale(1.2)';
+          state.hiddenFound++;
+          duckFoundStatus.textContent = `Found: ${state.hiddenFound} / 3`;
+          // Bonus: minus 1 minute per duck found
+          if(state.targetTime && state.timerId){
+            state.bonusMinutes++;
+            // shift target earlier by 60,000 ms
+            state.targetTime -= 60000;
+          }
+        };
+        span.addEventListener('click', markFound);
+        span.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); markFound(); }});
+        duckZone.appendChild(span);
+      }
+    }
+
+    // =========
+    // Countdown
+    // =========
+    function startCountdown(){
+      const val = targetInput.value;
+      if(!val){ displayEl.textContent = 'Select a target date/time to start.'; return; }
+      state.targetTime = new Date(val).getTime();
+      if(state.timerId){ clearInterval(state.timerId); }
+      displayEl.textContent = 'Counting down...';
+      legacyBar.style.width = '0%';
+      legacyText.textContent = 'Loop warming — progress will reveal a message.';
+      state.bonusMinutes = 0;
+
+      state.timerId = setInterval(()=>{
+        const now = Date.now();
+        const diff = state.targetTime - now;
+        const originalDiff = Math.max(diff, 0);
+        const total = Math.max(new Date(val).getTime() - now + state.bonusMinutes*60000, 1);
+        const progress = Math.min(100, Math.max(0, 100 - (originalDiff/total)*100));
+        legacyBar.style.width = `${progress}%`;
+
+        if(diff <= 0){
+          displayEl.textContent = 'Countdown complete — light the sanctuary.';
+          legacyText.textContent = `Loop complete — ${state.bonusMinutes} bonus minute${state.bonusMinutes===1?'':'s'} earned by ducks.`;
+          celebrate();
+          clearInterval(state.timerId);
+          state.timerId = null;
+          return;
+        }
+        const d = Math.floor(diff / (1000*60*60*24));
+        const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+        const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+        const s = Math.floor((diff % (1000*60)) / 1000);
+        displayEl.textContent = `${d} days ${h} hours ${m} minutes ${s} seconds`;
+      }, 1000);
+    }
+
+    function celebrate(){
+      if(state.reduceMotion) return;
+      document.querySelectorAll('.flash').forEach((el,i)=>{
+        el.animate([{ opacity:.25 }, { opacity:.95 }, { opacity:.25 }], { duration: 900 + i*150, easing: 'ease-out' });
+      });
+    }
+
+    // =========
+    // Events
+    // =========
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        applyTheme(btn.dataset.theme);
+      });
+    });
+
+    reduceMotionBtn.addEventListener('click', ()=>{
+      applyReduceMotion(!state.reduceMotion);
+    });
+
+    shipTabs.forEach(btn => {
+      btn.addEventListener('click', ()=>{
+        renderShip(btn.dataset.ship);
+      });
+    });
+
+    duckAddBtn.addEventListener('click', ()=>{
+      state.ducks++;
+      localStorage.setItem('ducks', String(state.ducks));
+      renderDuckCount();
+      if(!state.reduceMotion){
+        duckAddBtn.animate([{ transform:'scale(1)' }, { transform:'scale(1.08)' }, { transform:'scale(1)' }], { duration: 260, easing: 'ease-out' });
+      }
+    });
+
+    startBtn.addEventListener('click', startCountdown);
+    legacyReset.addEventListener('click', ()=>{
+      legacyBar.style.width = '0%';
+      legacyText.textContent = 'Awaiting completion — the loop reveals a message when time completes.';
+    });
+
+    // =========
+    // Boot
+    // =========
+    applyTheme(state.theme);
+    applyReduceMotion(state.reduceMotion);
+    renderShip(state.ship);
+    renderDuckCount();
+    updateClock(); setInterval(updateClock, 1000);
+    spawnHiddenDucks();
+
+    // Optional: seed a seasonal target (e.g., Christmas)
+    // Uncomment if desired:
+    // const now = new Date();
+    // const christmas = new Date(now.getFullYear(), 11, 25, 9, 0); // Dec 25, 9:00 AM
+    // targetInput.value = new Date(christmas.getTime() - (new Date().getTimezoneOffset()*60000)).toISOString().slice(0,16);
+  </script>
+</body>
+</html>
+
