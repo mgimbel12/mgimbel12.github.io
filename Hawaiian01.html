@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hawaiian • American Heritage Countdown</title>
+
+  <style>
+    :root {
+      --blue: #1e3a8a;   /* deep blue */
+      --red: #c81e1e;    /* kapa red */
+      --green: #047857;  /* maile green */
+      --white: #ffffff;  /* white */
+      --sand: #f5efe6;   /* soft background */
+      --ink: #0f172a;    /* text */
+      --dash: #0ea5e9;   /* dash accent (light blue) */
+    }
+
+    /* Prefer reduced motion for gentle experience */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(180deg, var(--sand), #fff);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      margin: 0;
+    }
+
+    header {
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .lei {
+      display: inline-flex;
+      gap: 0.35rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .bead {
+      width: 12px; height: 12px; border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.05) inset;
+    }
+    .bead.blue  { background: var(--blue); }
+    .bead.red   { background: var(--red); }
+    .bead.green { background: var(--green); }
+    .bead.white { background: var(--white); border: 1px solid #e5e7eb; }
+
+    h1 {
+      margin: 0.25rem 0 0.75rem;
+      font-size: 1.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    /* Card layout */
+    .card {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Rounded heart with dashed line */
+    .heart-wrap {
+      display: grid;
+      place-items: center;
+      padding: 1rem;
+    }
+    .heart {
+      width: 180px; height: 160px;
+      position: relative;
+      transform: translateY(0);
+    }
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 100px; height: 160px;
+      background: linear-gradient(135deg, var(--red) 0%, var(--blue) 50%, var(--green) 100%);
+      border-radius: 100px 100px 0 0;
+      box-shadow: 0 0 0 4px var(--white) inset;
+    }
+    .heart:before { left: 40px; transform: rotate(-45deg); transform-origin: 0 100%; }
+    .heart:after  { left: 40px; transform: rotate(45deg);  transform-origin: 100% 100%; }
+
+    /* Dashed outline using pseudo-element ring */
+    .heart-outline {
+      position: absolute;
+      inset: -8px;
+      border: 3px dashed var(--dash);
+      border-radius: 40px;
+      filter: drop-shadow(0 4px 8px rgba(14,165,233,0.15));
+      /* approximate rounded heart enclosure */
+      clip-path: path("M90,10 C60,10 40,30 40,60 C40,95 85,120 90,140 C95,120 140,95 140,60 C140,30 120,10 90,10 Z");
+      /* fallback if clip-path not supported */
+    }
+
+    .heart-label {
+      margin-top: 0.5rem;
+      text-align: center;
+      font-weight: 600;
+      color: var(--blue);
+    }
+
+    /* Date/time + countdown styles */
+    .time-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    @media (min-width: 560px) {
+      .time-row { grid-template-columns: 1fr 1fr; }
+    }
+
+    .metric {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      border: 1px dashed #cbd5e1;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #ffffff, #f8fafc);
+    }
+    .metric .label {
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .metric .value {
+      font-variant-numeric: tabular-nums;
+      color: var(--blue);
+    }
+
+    /* Countdown digits */
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+    .unit {
+      text-align: center;
+      padding: 0.75rem;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+    }
+    .unit .num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--red);
+    }
+    .unit .tag {
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    /* Subtle banner with Hawaiian motifs (kapa-inspired stripes) */
+    .kapa {
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2px;
+    }
+    .kapa div {
+      height: 8px;
+      border-radius: 2px;
+    }
+    .kapa .b { background: var(--blue); }
+    .kapa .r { background: var(--red); }
+    .kapa .g { background: var(--green); }
+    .kapa .w { background: var(--white); border: 1px solid #e5e7eb; }
+
+    footer {
+      text-align: center;
+      color: #475569;
+      padding: 1rem 0 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Button + inputs */
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+    @media (min-width: 560px) {
+      .controls { grid-template-columns: 1.2fr 1fr 1fr; }
+    }
+    input[type="datetime-local"] {
+      padding: 0.6rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #fff;
+      color: var(--ink);
+    }
+    button {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--blue);
+      border-radius: 10px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover { background: #172554; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="lei" aria-hidden="true">
+      <span class="bead.blue bead"></span>
+      <span class="bead.red bead"></span>
+      <span class="bead.green bead"></span>
+      <span class="bead.white bead"></span>
+      <span class="bead.blue bead"></span>
+      <span class="bead.red bead"></span>
+      <span class="bead.green bead"></span>
+      <span class="bead.white bead"></span>
+    </div>
+    <h1>Hawaiian • American Heritage Countdown</h1>
+    <p role="note">Celebrating resilience, aloha, and shared history in color.</p>
+  </header>
+
+  <main>
+    <section class="grid-2">
+      <div class="card">
+        <div class="heart-wrap" aria-label="Rounded heart with dashed outline">
+          <div class="heart">
+            <div class="heart-outline" aria-hidden="true"></div>
+          </div>
+          <div class="heart-label">Aloha • ʻOnipaʻa • Unity</div>
+        </div>
+
+        <div class="kapa" aria-hidden="true">
+          <div class="b"></div><div class="r"></div><div class="g"></div><div class="w"></div>
+          <div class="b"></div><div class="r"></div><div class="g"></div><div class="w"></div>
+          <div class="b"></div><div class="r"></div><div class="g"></div><div class="w"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="time-row" aria-live="polite">
+          <div class="metric">
+            <span class="label">Date</span>
+            <span id="date" class="value">—</span>
+          </div>
+          <div class="metric">
+            <span class="label">Time</span>
+            <span id="time" class="value">—</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <input id="target" type="datetime-local" aria-label="Select target date and time" />
+          <button id="start">Start countdown</button>
+          <button id="clear">Clear</button>
+        </div>
+
+        <div class="countdown" aria-live="polite" aria-label="Countdown to selected date">
+          <div class="unit">
+            <div id="days" class="num">0</div>
+            <div class="tag">Days</div>
+          </div>
+          <div class="unit">
+            <div id="hours" class="num">0</div>
+            <div class="tag">Hours</div>
+          </div>
+          <div class="unit">
+            <div id="minutes" class="num">0</div>
+            <div class="tag">Minutes</div>
+          </div>
+          <div class="unit">
+            <div id="seconds" class="num">0</div>
+            <div class="tag">Seconds</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Context">
+      <h2 style="margin-top:0">Context and meaning</h2>
+      <ul>
+        <li><strong>Colors:</strong> Blue, red, green, and white honor both American heritage and Hawaiian land and sea.</li>
+        <li><strong>Heart:</strong> Rounded form with dashed outline symbolizes unity held together by many threads.</li>
+        <li><strong>Kapa stripes:</strong> A subtle nod to Hawaiian textile patterns and craft.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Crafted with care for community remembrance and celebration.
+  </footer>
+
+  <script>
+    // Live date/time
+    const dateEl = document.getElementById('date');
+    const timeEl = document.getElementById('time');
+
+    function fmt(n) { return String(n).padStart(2, '0'); }
+
+    function tickClock() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = now.toLocaleString(undefined, { month: 'long' });
+      const d = fmt(now.getDate());
+      const h = fmt(now.getHours());
+      const min = fmt(now.getMinutes());
+      const s = fmt(now.getSeconds());
+      dateEl.textContent = `${m} ${d}, ${y}`;
+      timeEl.textContent = `${h}:${min}:${s}`;
+    }
+
+    setInterval(tickClock, 1000);
+    tickClock();
+
+    // Countdown
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    const targetInput = document.getElementById('target');
+    const startBtn = document.getElementById('start');
+    const clearBtn = document.getElementById('clear');
+
+    let timerId = null;
+    function updateCountdown(targetTime) {
+      const now = Date.now();
+      const diff = targetTime - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = '0';
+        hoursEl.textContent = '0';
+        minutesEl.textContent = '0';
+        secondsEl.textContent = '0';
+        if (timerId) {
+          clearInterval(timerId);
+          timerId = null;
+        }
+        return;
+      }
+
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = d;
+      hoursEl.textContent = h;
+      minutesEl.textContent = m;
+      secondsEl.textContent = s;
+    }
+
+    startBtn.addEventListener('click', () => {
+      const val = targetInput.value;
+      if (!val) {
+        alert('Please choose a target date and time.');
+        return;
+      }
+      const target = new Date(val).getTime();
+      if (isNaN(target)) {
+        alert('Invalid date/time format.');
+        return;
+      }
+      if (timerId) clearInterval(timerId);
+      updateCountdown(target);
+      timerId = setInterval(() => updateCountdown(target), 1000);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+      daysEl.textContent = '0';
+      hoursEl.textContent = '0';
+      minutesEl.textContent = '0';
+      secondsEl.textContent = '0';
+      targetInput.value = '';
+    });
+  </script>
+</body>
+</html>
