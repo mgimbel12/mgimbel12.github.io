@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Festival of Life</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="Flowers.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-castle" aria-hidden="true" title="Disney Castle"></div>
+    <h1 class="svg-title" aria-label="Festival of Life">
+      <!-- SVG Letters composed for title -->
+      <span class="svg-letter">F</span><span class="svg-letter">e</span><span class="svg-letter">s</span>
+      <span class="svg-letter">t</span><span class="svg-letter">i</span><span class="svg-letter">v</span>
+      <span class="svg-letter">a</span><span class="svg-letter">l</span>
+      <span class="svg-letter gap"></span>
+      <span class="svg-letter">o</span><span class="svg-letter">f</span>
+      <span class="svg-letter gap"></span>
+      <span class="svg-letter">L</span><span class="svg-letter">i</span><span class="svg-letter">f</span><span class="svg-letter">e</span>
+    </h1>
+    <p class="meta">
+      <span class="meta-item"><strong>Place:</strong> Henderson, Nevada</span>
+      <span class="meta-item"><strong>Date:</strong> <span id="today"></span></span>
+      <span class="meta-item"><strong>Time:</strong> <span id="now"></span></span>
+    </p>
+  </header>
+
+  <main>
+    <section class="tiles">
+      <article class="tile popcorn"><h2>Popcorn Joy</h2></article>
+      <article class="tile cherries"><h2>Cherries</h2></article>
+      <article class="tile strawberries"><h2>Strawberries</h2></article>
+      <article class="tile watermelon"><h2>Watermelon</h2></article>
+      <article class="tile tulips"><h2>Tulips</h2></article>
+      <article class="tile roses"><h2>Roses</h2></article>
+    </section>
+
+    <section class="countdown">
+      <h2>Countdown to Life</h2>
+      <label class="birth-input">
+        <span>Birthdate</span>
+        <input type="date" id="birthdate" />
+      </label>
+      <div class="counter-grid" aria-live="polite">
+        <div class="counter"><span id="years">—</span><small>Years</small></div>
+        <div class="counter"><span id="months">—</span><small>Months</small></div>
+        <div class="counter"><span id="days">—</span><small>Days</small></div>
+        <div class="counter"><span id="hours">—</span><small>Hours</small></div>
+        <div class="counter"><span id="minutes">—</span><small>Minutes</small></div>
+        <div class="counter"><span id="seconds">—</span><small>Seconds</small></div>
+      </div>
+      <p class="age-line">
+        You have lived <span id="life-moments">—</span> moments worth celebrating.
+      </p>
+    </section>
+
+    <section class="craft">
+      <h2>Crafting & Art Prompts</h2>
+      <ul class="prompts">
+        <li><strong>Tulip Collage:</strong> Layer pinks and aquamarine on green stems.</li>
+        <li><strong>Popcorn Garland:</strong> Yellow-white chain with red ribbon accents.</li>
+        <li><strong>Fruit Stamps:</strong> Watermelon rind + cherry halves as stamp textures.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Colors: Yellow · Pink · Blue · Orange · Red · White · Aquamarine · Green</p>
+    <p>© <span id="year"></span> Festival of Life</p>
+  </footer>
+
+  <script src="Flowers.js"></script>
+</body>
+</html>
+
