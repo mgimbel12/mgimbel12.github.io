@@ -1,0 +1,99 @@
+:root{
+  --yellow:#FFD74A;
+  --pink:#FF7EB6;
+  --blue:#3B82F6;
+  --orange:#FF8A3D;
+  --red:#EF4444;
+  --white:#FFFFFF;
+  --aqua:#7FFFD4; /* Aquamarine */
+  --green:#22C55E;
+  --ink:#1F2937;
+  --bg:#0B1020;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; font-family:Inter, system-ui, sans-serif; color:var(--white);
+  background: radial-gradient(1000px 600px at 10% 0%, #15223a 0%, var(--bg) 60%) fixed;
+}
+
+.hero{
+  padding:48px 24px; text-align:center; position:relative;
+}
+.hero-castle{
+  width:120px; height:120px; margin:0 auto 8px;
+  background:
+    radial-gradient(circle at 50% 70%, var(--blue) 0 6px, transparent 7px),
+    linear-gradient(var(--blue), var(--blue)) 48px 40px/24px 40px no-repeat, /* tower */
+    linear-gradient(var(--aqua), var(--aqua)) 40px 70px/40px 20px no-repeat, /* gate */
+    linear-gradient(var(--pink), var(--pink)) 20px 60px/80px 16px no-repeat; /* wall */
+  filter: drop-shadow(0 6px 18px rgba(59,130,246,0.35));
+  border-radius:12px;
+}
+
+.svg-title{
+  font-family:"Playfair Display", serif; font-weight:700; font-size:clamp(28px,5vw,48px);
+  letter-spacing:.02em; margin:8px 0 12px;
+}
+.svg-letter{
+  display:inline-grid; place-items:center; width:1.05em; height:1.25em;
+  background:conic-gradient(from 180deg, var(--yellow), var(--pink), var(--aqua), var(--blue));
+  -webkit-mask: radial-gradient(circle at 50% 50%, black 98%, transparent 100%);
+  mask: radial-gradient(circle at 50% 50%, black 98%, transparent 100%);
+  color:transparent;
+}
+.svg-letter.gap{background:transparent; width:.4em}
+
+.meta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; color:#cfe4ff}
+.meta-item strong{color:#fff}
+
+.tiles{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; padding:24px;
+}
+.tile{
+  border-radius:16px; padding:18px; min-height:140px; position:relative; overflow:hidden;
+  background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+}
+.tile h2{margin:0 0 6px; font-size:1.1rem}
+
+.tile.popcorn{background:
+  radial-gradient(circle at 20% 30%, var(--yellow) 0 10px, transparent 12px),
+  radial-gradient(circle at 60% 60%, #fff 0 12px, transparent 14px),
+  linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));}
+.tile.cherries{background:
+  radial-gradient(circle at 30% 40%, var(--red) 0 12px, transparent 14px),
+  radial-gradient(circle at 70% 50%, var(--green) 0 6px, transparent 8px),
+  linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));}
+.tile.strawberries{background:
+  radial-gradient(circle at 50% 50%, var(--red) 0 16px, transparent 18px),
+  repeating-radial-gradient(circle at 50% 50%, rgba(255,255,255,.3) 0 2px, transparent 3px 6px);}
+.tile.watermelon{background:
+  conic-gradient(from 180deg, var(--green) 0 20%, var(--aqua) 20% 30%, var(--red) 30% 70%, var(--white) 70% 72%, transparent 72% 100%);}
+.tile.tulips{background:
+  radial-gradient(circle at 40% 35%, var(--pink) 0 12px, transparent 14px),
+  radial-gradient(circle at 60% 65%, var(--yellow) 0 10px, transparent 12px);}
+.tile.roses{background:
+  radial-gradient(circle at 45% 45%, var(--red) 0 14px, transparent 16px),
+  radial-gradient(circle at 55% 55%, var(--pink) 0 12px, transparent 14px);}
+
+.countdown{padding:24px; border-top:1px dashed rgba(255,255,255,0.2)}
+.birth-input{display:flex; gap:10px; align-items:center; margin-bottom:12px}
+.birth-input input{
+  padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,0.25); background:rgba(0,0,0,0.2); color:#fff;
+}
+.counter-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(110px,1fr)); gap:12px;
+}
+.counter{
+  background:linear-gradient(180deg, rgba(127,255,212,0.15), rgba(127,255,212,0.05));
+  border:1px solid rgba(127,255,212,0.4); border-radius:14px; padding:12px; text-align:center;
+}
+.counter span{font-size:1.6rem; font-weight:700}
+.counter small{display:block; opacity:.8}
+
+.age-line{margin-top:10px; color:#cfe4ff}
+.footer{
+  padding:24px; text-align:center; color:#cfe4ff; border-top:1px solid rgba(255,255,255,0.1)
+}
