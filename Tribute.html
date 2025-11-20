@@ -1,572 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Smallville Tribute Timeline — Clark, Lana, Chloe, Lex</title>
-  <meta name="description" content="A full-length, interactive tribute timeline for Smallville characters using HTML, CSS, and dashed-line connections." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lana Lang — Profile</title>
+  <meta name="description" content="An interactive Lana Lang profile built with HTML, CSS, and JavaScript." />
   <style>
     :root{
-      --blue:#1f4fd6;       /* Clark */
-      --red:#c62828;        /* Lex */
-      --white:#ffffff;      /* Lana theme accent */
-      --ink:#222222;        /* Base text */
-      --paper:#f7f9fc;      /* Page bg */
-      --accent:#0d47a1;     /* Link hover/cta */
-      --dash:#3b3b3b;       /* dashed lines */
-      --chloe:#616161;      /* Chloe gray */
-      --ring:#e3e8f2;       /* card bg ring */
+      --bg:#0f0e12;
+      --panel:#171721;
+      --accent:#ff6b6b;  /* warm coral—hopeful, human */
+      --text:#e8ebf2;
+      --muted:#9ca6bf;
+      --linen:#ffd8be;
+      --rose:#ffc2c7;
+      --shadow:0 12px 30px rgba(0,0,0,0.35);
+      --radius:16px;
     }
-
-    /* Global reset & typography */
-    *,*::before,*::after{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: Inter, Segoe UI, system-ui, -apple-system, Arial, sans-serif;
-      color:var(--ink);
-      background:linear-gradient(180deg, var(--paper) 0%, #eef2f7 100%);
-    }
-
-    /* Page frame */
-    .page{
-      max-width:1100px;
-      margin:0 auto;
-      padding:24px;
-    }
-
-    header.site{
-      border-bottom:3px dashed var(--dash);
-      padding-bottom:16px;
-      margin-bottom:24px;
-      display:grid;
-      grid-template-columns: 1fr auto;
-      gap:16px;
-      align-items:center;
-    }
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-    .brand .flag{
-      width:52px; height:32px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      color:var(--text);
       background:
-        linear-gradient(180deg, var(--blue) 0 33%, var(--white) 33% 66%, var(--red) 66% 100%);
-      border:2px dashed var(--dash);
-      box-shadow: 0 2px 0 #00000010;
+        radial-gradient(1200px 700px at 85% 20%, #1a1a26 0%, #0f0e12 60%, #0c0b0f 100%),
+        linear-gradient(180deg,#101018 0%, #0e0d12 100%);
     }
-    .brand h1{
-      font-size:1.25rem;
-      margin:0;
-      letter-spacing:0.2px;
+
+    .wrap{
+      max-width: 980px;
+      margin: 4rem auto;
+      padding: 0 1.25rem;
     }
-    .sub{
-      font-size:0.95rem;
-      color:#4b5563;
-      margin:4px 0 0 0;
+
+    /* Header */
+    header{
+      display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem;
     }
+    .sig{
+      width:56px;height:56px; border-radius:50%;
+      background:linear-gradient(135deg,#141321,#0f0e16 70%);
+      border:1px solid #23243a; box-shadow: var(--shadow);
+      display:grid; place-items:center;
+      position:relative; overflow:hidden;
+    }
+    .sig::before{
+      content:"L";
+      font-weight:700; color:var(--accent);
+      filter:drop-shadow(0 0 8px rgba(255,107,107,0.45));
+    }
+    h1{ margin:0; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing:0.4px }
+    header p{ margin:0; color:var(--muted) }
+
+    /* Card */
+    .card{
+      background: linear-gradient(180deg, rgba(23,23,33,0.93), rgba(16,16,25,0.96));
+      border:1px solid #22243a; border-radius: var(--radius); box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-top{
+      display:grid; grid-template-columns: 200px 1fr; gap:1.25rem;
+      padding:1.25rem 1.25rem 0.75rem;
+    }
+
+    /* Avatar / journal glow */
+    .avatar{
+      position:relative; border-radius:14px; height:200px;
+      background:
+        linear-gradient(180deg,#1c1b27,#12111a),
+        radial-gradient(160px 140px at 48% 40%, #1b1a28 0%, #12121b 70%);
+      border:1px solid #252741; display:grid; place-items:center; overflow:hidden;
+    }
+    .journal-glow{
+      width:110px; height:110px; border-radius:50%;
+      background: radial-gradient(52px 52px at 50% 50%, rgba(255,210,190,0.8) 0%, rgba(255,98,120,0.35) 65%, rgba(255,98,120,0.15) 100%);
+      box-shadow: 0 0 22px rgba(255,130,150,0.55), inset 0 0 18px rgba(255,228,210,0.6);
+      animation: breathe 4.2s ease-in-out infinite;
+      position:relative;
+    }
+    .journal-glow::after{
+      content:"✎"; position:absolute; inset:0;
+      color:#2a2935; font-size:2rem; display:grid; place-items:center; opacity:0.75;
+    }
+    @keyframes breathe{
+      0%{ transform:scale(1); opacity:0.95 }
+      50%{ transform:scale(1.15); opacity:0.75 }
+      100%{ transform:scale(1); opacity:0.95 }
+    }
+
+    .meta{ display:grid; gap:0.45rem; align-content:start }
+    .alias{ font-weight:600; color:var(--linen); letter-spacing:0.5px }
+    .badges{ display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.4rem }
+    .badge{
+      font-size:0.85rem; padding:0.3rem 0.6rem; border-radius:999px;
+      border:1px solid #2a2c46; color:#d8deef; background:#141524;
+    }
+    .badge--accent{ color:var(--accent); border-color:#3a2a2a; background:#171320 }
 
     /* Controls */
     .controls{
-      display:flex;
-      gap:10px;
+      display:flex; flex-wrap:wrap; gap:0.6rem;
+      padding:0.9rem 1.25rem 1.1rem;
+      border-top:1px solid #1f2136;
+      background: linear-gradient(180deg,#121222 0%, #101022 100%);
     }
     .btn{
-      appearance:none;
-      border:2px dashed var(--dash);
-      background:#fff;
-      color:var(--ink);
-      padding:8px 12px;
-      border-radius:8px;
-      cursor:pointer;
-      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
-      font-weight:600;
+      appearance:none; border:1px solid #2a2c46; color:#d8deef;
+      background:#101124; padding:0.55rem 0.85rem; border-radius:10px; cursor:pointer;
+      transition: all .18s ease; font-weight:600;
     }
-    .btn:hover{ transform:translateY(-1px); box-shadow:0 4px 10px #00000012; }
-    .btn.primary{ background:var(--blue); color:white; border-color:#173b9e; }
-    .btn.primary:hover{ background:#173b9e; }
-    .btn.red{ background:var(--red); color:white; border-color:#8b1f1f; }
-    .btn.gray{ background:#fafafa; }
+    .btn:hover{ border-color:#34375a; transform:translateY(-1px) }
+    .btn--accent{ border-color:#3a2a2a; color:#ffe9ea; background:#1a0f12 }
+    .btn--soft{ border-color:#2a3040; color:#e9f3ff; background:#12182a }
 
-    /* Legend */
-    .legend{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin:16px 0 24px 0;
+    /* Sections */
+    .section{
+      padding:1.1rem 1.25rem 1.25rem; border-top:1px solid #1f2136;
     }
-    .chip{
-      display:flex; align-items:center; gap:8px;
-      border:2px dashed var(--dash);
-      padding:8px 12px; border-radius:999px; background:#fff;
-    }
-    .dot{ width:14px; height:14px; border-radius:50%; }
-    .dot.clark{ background:var(--blue); }
-    .dot.lana{ background:#f0f0f0; outline:2px solid #d7d7d7; }
-    .dot.chloe{ background:var(--chloe); }
-    .dot.lex{ background:var(--red); }
+    .section h2{ margin:0 0 0.65rem; font-size:1.15rem; letter-spacing:0.3px }
+    .section p{ margin:0.4rem 0; color:#d3d8ea; line-height:1.6 }
+    .grid-2{ display:grid; gap:1rem; grid-template-columns:1fr 1fr }
+    @media (max-width:760px){ .card-top{ grid-template-columns:1fr } .grid-2{ grid-template-columns:1fr } }
 
-    /* Timeline grid */
-    .timeline{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:18px;
+    /* Specs list */
+    .specs{ list-style:none; padding:0; margin:0 }
+    .specs li{
+      display:flex; justify-content:space-between; gap:1rem;
+      padding:0.5rem 0; border-bottom:1px dashed #24264a;
     }
+    .specs li:last-child{ border-bottom:none }
+    .label{ color:#9ca6bf }
+    .value{ color:#e8ebf2; font-weight:600 }
 
-    @media (min-width: 860px){
-      .timeline{
-        grid-template-columns: repeat(2, 1fr);
-      }
+    /* Memories carousel */
+    .memories{ position:relative; min-height:96px; display:grid; align-content:center }
+    .memory{
+      display:none; opacity:0; transform:translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
     }
+    .memory.active{ display:block; opacity:1; transform:translateY(0) }
+    .memory em{ color:#b9c1d6 }
+    .memory .source{ color:#8893af; font-size:0.9rem }
 
-    /* Event card */
-    .event{
-      position:relative;
-      background: radial-gradient(1200px 1200px at -10% -10%, var(--ring), #ffffff 50%);
-      border:2px dashed var(--dash);
-      border-radius:16px;
-      padding:16px;
-      box-shadow: 0 10px 30px #0000000a;
-      transition: transform 130ms ease, box-shadow 130ms ease;
+    /* Disclosure block */
+    details{
+      border:1px solid #22243a; border-radius:12px; background:#101224; padding:0.7rem 0.85rem;
     }
-    .event:hover{ transform: translateY(-2px); box-shadow: 0 14px 34px #00000012; }
+    summary{ cursor:pointer; font-weight:600; color:#e9ecfb }
+    summary::-webkit-details-marker{ display:none }
 
-    .event header{
-      display:flex; justify-content:space-between; align-items:flex-start;
-      gap:10px; margin-bottom:10px;
-    }
-    .event h2{
-      margin:0; font-size:1.1rem;
-    }
-    .role{
-      display:flex; align-items:center; gap:8px;
-      font-weight:700;
-    }
-    .role .tag{
-      padding:4px 10px; border-radius:999px;
-      border:2px dashed var(--dash);
-      background:white;
-      font-size:0.8rem;
-    }
-    .meta{
-      display:flex; flex-wrap:wrap; gap:8px;
-      margin:8px 0 10px 0;
-    }
-    .meta .badge{
-      padding:6px 10px; border-radius:10px;
-      border:2px dashed var(--dash);
-      background:#fff; font-size:0.8rem;
-      color:#374151;
-    }
-
-    .summary{
-      color:#374151; line-height:1.55;
-      margin:6px 0 10px 0;
-    }
-
-    /* Expandable details */
-    .details{
-      border-top:2px dashed var(--dash);
-      padding-top:10px; margin-top:8px;
-    }
-    .toggle{
-      display:flex; justify-content:space-between; align-items:center;
-      width:100%; text-align:left; border:none; background:transparent; cursor:pointer;
-      padding:8px 0; font-weight:700; color:var(--accent);
-    }
-    .toggle .caret{
-      width:18px; height:18px; border:2px dashed var(--dash); border-radius:4px;
-      display:grid; place-items:center; font-size:12px; color:#4b5563; background:#fff;
-    }
-    .panel{ display:none; padding:6px 0 0 0; }
-    .panel.open{ display:block; }
-
-    /* Character accents */
-    .event.clark { outline: 4px solid rgba(31,79,214,0.08); }
-    .event.clark h2, .event.clark .tag{ color:var(--blue); }
-    .event.lana  { outline: 4px solid rgba(255,255,255,0.35); background:#ffffff; }
-    .event.lana h2{ color:#6b7280; }
-    .event.chloe { outline: 4px solid rgba(97,97,97,0.15); }
-    .event.chloe h2, .event.chloe .tag{ color:var(--chloe); }
-    .event.lex   { outline: 4px solid rgba(198,40,40,0.12); }
-    .event.lex h2, .event.lex .tag{ color:var(--red); }
-
-    /* Connector motif (dashed spine) */
-    .spine{
-      position:relative;
-      margin:24px 0;
-      height:18px;
-    }
-    .spine::before{
-      content:"";
-      position:absolute; left:0; right:0; top:50%;
-      border-top:3px dashed var(--dash);
-      transform:translateY(-50%);
-    }
-
-    /* Footer */
-    footer.site{
-      margin-top:32px;
-      border-top:3px dashed var(--dash);
-      padding-top:16px;
-      color:#6b7280;
-      font-size:0.9rem;
-    }
-    a{ color:var(--accent); text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-
-    /* Utility hidden */
-    .sr-only{
-      position:absolute; width:1px; height:1px; padding:0; margin:-1px;
-      overflow:hidden; clip:rect(0,0,0,0); border:0;
-    }
+    /* Footer note */
+    .note{ margin-top:0.75rem; color:#9fb0d1; font-size:0.9rem }
+    .note a{ color:#c6d3ff; text-decoration:none }
+    .note a:hover{ text-decoration:underline }
   </style>
 </head>
 <body>
-  <div class="page">
-
-    <!-- Header -->
-    <header class="site" aria-label="Smallville tribute header">
-      <div class="brand">
-        <div class="flag" aria-hidden="true"></div>
-        <div>
-          <h1>Smallville Tribute Timeline</h1>
-          <p class="sub">Blue • Red • White • Dashed lines — DATE • YEAR • PLACE • People</p>
-        </div>
+  <div class="wrap">
+    <header>
+      <div class="sig" aria-hidden="true"></div>
+      <div>
+        <h1>Lana Lang</h1>
+        <p>Resilient friend, investigative spirit, and heart of Smallville.</p>
       </div>
-      <nav class="controls" aria-label="Timeline controls">
-        <button class="btn gray" data-filter="all">Show all</button>
-        <button class="btn primary" data-filter="clark">Clark Kent</button>
-        <button class="btn gray" data-filter="lana">Lana Lang</button>
-        <button class="btn gray" data-filter="chloe">Chloe Sullivan</button>
-        <button class="btn red" data-filter="lex">Lex Luthor</button>
-      </nav>
     </header>
 
-    <!-- Legend -->
-    <section class="legend" aria-label="Character legend">
-      <div class="chip"><span class="dot clark"></span><span><strong>Clark:</strong> Blue (truth, heroism)</span></div>
-      <div class="chip"><span class="dot lana"></span><span><strong>Lana:</strong> White (grace, memory)</span></div>
-      <div class="chip"><span class="dot chloe"></span><span><strong>Chloe:</strong> Gray (investigation)</span></div>
-      <div class="chip"><span class="dot lex"></span><span><strong>Lex:</strong> Red (power, conflict)</span></div>
-    </section>
-
-    <div class="spine" aria-hidden="true"></div>
-
-    <!-- Timeline -->
-    <main class="timeline" id="timeline" aria-live="polite">
-
-      <!-- Clark -->
-      <article class="event clark" data-character="clark">
-        <header>
-          <div class="role">
-            <h2>Clark Kent</h2>
-            <span class="tag">People</span>
+    <article class="card" aria-labelledby="title">
+      <div class="card-top">
+        <div class="avatar" aria-hidden="true">
+          <div class="journal-glow" title="Journal of memories"></div>
+        </div>
+        <div class="meta">
+          <div class="alias">Lana Lang</div>
+          <div class="badges" aria-label="Affiliations">
+            <span class="badge badge--accent">Smallville</span>
+            <span class="badge">Daily Planet (adjacent stories)</span>
+            <span class="badge">Community advocate</span>
           </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Sep 2001</span>
-            <span class="badge"><strong>YEAR:</strong> 2001</span>
-            <span class="badge"><strong>PLACE:</strong> Smallville High</span>
-          </div>
-        </header>
-        <p class="summary">
-          Arrival at Smallville High marks a turning point. Blue threads of courage run beneath everyday choices,
-          stitched with dashed lines of secrecy and care.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Clark, Lana, Chloe</li>
-              <li><strong>Motif:</strong> Blue arcs, dashed confidences</li>
-              <li><strong>Echo:</strong> “Lead with quiet strength.”</li>
-            </ul>
+          <p>
+            A grounded, courageous presence who navigates extraordinary circumstances with curiosity and care—
+            often documenting truths that keep heroes human and communities connected.
+          </p>
+        </div>
+      </div>
+
+      <div class="controls" role="toolbar" aria-label="Profile controls">
+        <button class="btn btn--accent" id="toggle-bio" aria-expanded="false" aria-controls="bio">Toggle bio</button>
+        <button class="btn btn--soft" id="next-memory" aria-controls="memories">Next memory</button>
+        <button class="btn" id="theme-btn" aria-pressed="false">Toggle dusk theme</button>
+      </div>
+
+      <section class="section">
+        <h2 id="title">Profile</h2>
+        <div class="grid-2">
+          <ul class="specs" aria-label="Traits">
+            <li><span class="label">Strengths</span><span class="value">Empathy, tenacity, insight</span></li>
+            <li><span class="label">Focus</span><span class="value">Community, truth-seeking, friendship</span></li>
+            <li><span class="label">Skills</span><span class="value">Journalism, leadership, investigation</span></li>
+            <li><span class="label">Signature</span><span class="value">Keeps a living record of what matters</span></li>
+          </ul>
+
+          <div class="memories" id="memories" aria-live="polite">
+            <div class="memory active">
+              <p><em>“We don’t need superpowers to do the right thing.”</em></p>
+              <p class="source">— Lana Lang</p>
+            </div>
+            <div class="memory">
+              <p><em>“Truth isn’t loud. It’s steady.”</em></p>
+              <p class="source">— Lana Lang</p>
+            </div>
+            <div class="memory">
+              <p><em>“Small towns carry big hearts—and bigger stories.”</em></p>
+              <p class="source">— Lana Lang</p>
+            </div>
           </div>
         </div>
-      </article>
+      </section>
 
-      <!-- Lana -->
-      <article class="event lana" data-character="lana">
-        <header>
-          <div class="role">
-            <h2>Lana Lang</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Oct 2002</span>
-            <span class="badge"><strong>YEAR:</strong> 2002</span>
-            <span class="badge"><strong>PLACE:</strong> Talon Coffeehouse</span>
-          </div>
-        </header>
-        <p class="summary">
-          White light and memory gather at the Talon. Rituals of care form gentle borders, like dashed lines
-          around a heart learning its own outline.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Lana, Clark</li>
-              <li><strong>Motif:</strong> White accents, soft borders</li>
-              <li><strong>Echo:</strong> “Hold tenderness as a compass.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
+      <section class="section">
+        <h2>Bio</h2>
+        <details id="bio">
+          <summary>Overview</summary>
+          <p>
+            Lana Lang is a pivotal figure in the Superman mythos, often portrayed as Clark Kent’s close friend and confidante
+            from Smallville. Across interpretations, she balances personal courage with community-minded leadership, serving
+            as a bridge between extraordinary events and everyday life.
+          </p>
+          <p class="note">
+            This profile focuses on character themes and accessible UI; adapt names, roles, and arcs to your preferred continuity.
+          </p>
+        </details>
+      </section>
+    </article>
 
-      <!-- Chloe -->
-      <article class="event chloe" data-character="chloe">
-        <header>
-          <div class="role">
-            <h2>Chloe Sullivan</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Mar 2003</span>
-            <span class="badge"><strong>YEAR:</strong> 2003</span>
-            <span class="badge"><strong>PLACE:</strong> Daily Planet</span>
-          </div>
-        </header>
-        <p class="summary">
-          Gray ink and dashed connections map investigations. Every clue is a kindness to the truth, a steady
-          rhythm against noise.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Chloe, Clark</li>
-              <li><strong>Motif:</strong> Dashed line networks</li>
-              <li><strong>Echo:</strong> “Ask better questions.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- Lex -->
-      <article class="event lex" data-character="lex">
-        <header>
-          <div class="role">
-            <h2>Lex Luthor</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Jun 2004</span>
-            <span class="badge"><strong>YEAR:</strong> 2004</span>
-            <span class="badge"><strong>PLACE:</strong> LuthorCorp</span>
-          </div>
-        </header>
-        <p class="summary">
-          Red lines mark ambition and fracture. Power tests the integrity of the dash—will connections hold,
-          or break into sharper edges?
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Lex, Clark</li>
-              <li><strong>Motif:</strong> Red contrast, decisive borders</li>
-              <li><strong>Echo:</strong> “Choose the cost you can live with.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- Clark (Metropolis) -->
-      <article class="event clark" data-character="clark">
-        <header>
-          <div class="role">
-            <h2>Clark Kent</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Aug 2005</span>
-            <span class="badge"><strong>YEAR:</strong> 2005</span>
-            <span class="badge"><strong>PLACE:</strong> Metropolis</span>
-          </div>
-        </header>
-        <p class="summary">
-          Blue steadiness carries to the city. Responsibility expands; the dashed line becomes a promise
-          threaded through streets and headlines.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Clark, Chloe</li>
-              <li><strong>Motif:</strong> Blue skyline gradients</li>
-              <li><strong>Echo:</strong> “Strength is service.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- Lana (Homecoming) -->
-      <article class="event lana" data-character="lana">
-        <header>
-          <div class="role">
-            <h2>Lana Lang</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Nov 2006</span>
-            <span class="badge"><strong>YEAR:</strong> 2006</span>
-            <span class="badge"><strong>PLACE:</strong> Smallville Homecoming</span>
-          </div>
-        </header>
-        <p class="summary">
-          White borders circle the past, honoring the quiet teachers. The dash is a ribbon—tying community,
-          memory, and becoming.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Lana, community</li>
-              <li><strong>Motif:</strong> White ribbon overlays</li>
-              <li><strong>Echo:</strong> “What we keep, we become.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- Chloe (Archive) -->
-      <article class="event chloe" data-character="chloe">
-        <header>
-          <div class="role">
-            <h2>Chloe Sullivan</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> Feb 2007</span>
-            <span class="badge"><strong>YEAR:</strong> 2007</span>
-            <span class="badge"><strong>PLACE:</strong> Watchtower Archive</span>
-          </div>
-        </header>
-        <p class="summary">
-          Gray maps turn into living archives. The dash becomes connective tissue—evidence curated with care
-          for those who will need it.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Chloe, allies</li>
-              <li><strong>Motif:</strong> Dashed networks, index cards</li>
-              <li><strong>Echo:</strong> “Guard the truth so it can guard others.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-      <!-- Lex (Turning point) -->
-      <article class="event lex" data-character="lex">
-        <header>
-          <div class="role">
-            <h2>Lex Luthor</h2>
-            <span class="tag">People</span>
-          </div>
-          <div class="meta">
-            <span class="badge"><strong>DATE:</strong> May 2008</span>
-            <span class="badge"><strong>YEAR:</strong> 2008</span>
-            <span class="badge"><strong>PLACE:</strong> LexCorp Transition</span>
-          </div>
-        </header>
-        <p class="summary">
-          Red clarity and consequence. The dash is now a boundary—the line you choose not to cross,
-          and the line you decide to enforce.
-        </p>
-        <div class="details">
-          <button class="toggle" aria-expanded="false">
-            <span>Expand notes</span>
-            <span class="caret">▸</span>
-          </button>
-          <div class="panel" role="region">
-            <ul>
-              <li><strong>People:</strong> Lex, rivals</li>
-              <li><strong>Motif:</strong> Red strata, firm borders</li>
-              <li><strong>Echo:</strong> “Power without principle is a debt.”</li>
-            </ul>
-          </div>
-        </div>
-      </article>
-
-    </main>
-
-    <div class="spine" aria-hidden="true"></div>
-
-    <!-- Footer -->
-    <footer class="site" aria-label="Footer">
-      <p>
-        Built with HTML, CSS, and a little JavaScript for toggles and filters.
-        Blue • Red • White • Dashed lines are visual motifs; DATE • YEAR • PLACE • People are narrative anchors.
-      </p>
-      <p>
-        Want to adapt this into your sanctuary style? Duplicate cards, update badges, and remix motifs.
-        <a href="#timeline">Jump to timeline</a>.
-      </p>
-    </footer>
-
+    <p class="note">
+      Use the journal glow and memory carousel to anchor story beats in an interface that honors human resilience.
+    </p>
   </div>
 
   <script>
-    // Expand/collapse panels
-    document.querySelectorAll('.details .toggle').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
-        const panel = btn.parentElement.querySelector('.panel');
-        const open = panel.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        btn.querySelector('.caret').textContent = open ? '▾' : '▸';
-      });
+    // Toggle bio disclosure
+    const toggleBtn = document.getElementById('toggle-bio');
+    const bio = document.getElementById('bio');
+    toggleBtn.addEventListener('click', () => {
+      const wasOpen = bio.open;
+      bio.open = !wasOpen;
+      toggleBtn.setAttribute('aria-expanded', String(bio.open));
+      bio.querySelector('summary').focus();
     });
 
-    // Filter by character
-    const buttons = document.querySelectorAll('[data-filter]');
-    const events = document.querySelectorAll('.event');
-
-    buttons.forEach(b=>{
-      b.addEventListener('click', ()=>{
-        const filter = b.getAttribute('data-filter');
-        buttons.forEach(x=>x.classList.remove('primary'));
-        b.classList.add('primary');
-
-        events.forEach(card=>{
-          const who = card.getAttribute('data-character');
-          const show = (filter==='all') || (who===filter);
-          card.style.display = show ? '' : 'none';
-        });
-      });
+    // Memory carousel
+    const memories = Array.from(document.querySelectorAll('#memories .memory'));
+    const nextMemoryBtn = document.getElementById('next-memory');
+    let mi = 0;
+    nextMemoryBtn.addEventListener('click', () => {
+      memories[mi].classList.remove('active');
+      mi = (mi + 1) % memories.length;
+      memories[mi].classList.add('active');
     });
 
-    // Keyboard affordance: open/close with Enter/Space on toggles
-    document.querySelectorAll('.details .toggle').forEach(btn=>{
-      btn.addEventListener('keydown', (e)=>{
-        if(e.key==='Enter' || e.key===' '){
-          e.preventDefault();
-          btn.click();
-        }
-      });
+    // Theme toggle (subtle dusk shift)
+    const themeBtn = document.getElementById('theme-btn');
+    themeBtn.addEventListener('click', () => {
+      const pressed = themeBtn.getAttribute('aria-pressed') === 'true';
+      themeBtn.setAttribute('aria-pressed', String(!pressed));
+      document.documentElement.classList.toggle('dusk', !pressed);
     });
   </script>
+
+  <style>
+    /* Dusk theme modifier (quick mood shift) */
+    :root, :root.dusk{
+      transition: background .25s ease, color .25s ease;
+    }
+    :root.dusk{
+      --accent:#ffa07a;
+      --panel:#1a1a26;
+      --bg:#0c0b10;
+      --muted:#a6b0cc;
+      --linen:#ffe0ca;
+      --rose:#ffd6da;
+    }
+    :root.dusk body{
+      background:
+        radial-gradient(1100px 640px at 70% 25%, #222238 0%, #12111a 55%, #0c0b10 100%),
+        linear-gradient(180deg,#14142a 0%, #111126 100%);
+    }
+  </style>
 </body>
 </html>
