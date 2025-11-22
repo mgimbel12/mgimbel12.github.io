@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stripes, Stories, and Countdown</title>
+
+  <style>
+    :root {
+      /* Palette */
+      --yellow: #ffd54f;
+      --green: #2e7d32;
+      --pink: #f48fb1;
+      --orange: #fb8c00;
+      --blue: #1976d2;
+      --red: #c62828;
+      --white: #ffffff;
+      --creme: #fff8e1;
+
+      /* Base */
+      --bg: #0f172a;            /* deep slate */
+      --surface: #111827;       /* near-black */
+      --text: #e5e7eb;          /* light gray */
+      --muted: #9ca3af;
+
+      /* Accent (default blue; JS can switch) */
+      --accent: var(--blue);
+    }
+
+    /* Gentle, readable defaults */
+    html, body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    header {
+      display: grid;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .title {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+    .subtitle {
+      color: var(--muted);
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 8px 0 24px;
+    }
+    .chip {
+      border: 1px solid #1f2937;
+      background: #0b1324;
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+      font-size: 0.92rem;
+    }
+    .chip:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .chip[data-color="yellow"] { border-color: var(--yellow); }
+    .chip[data-color="green"]  { border-color: var(--green); }
+    .chip[data-color="pink"]   { border-color: var(--pink); }
+    .chip[data-color="orange"] { border-color: var(--orange); }
+    .chip[data-color="blue"]   { border-color: var(--blue); }
+    .chip[data-color="red"]    { border-color: var(--red); }
+    .chip[data-color="white"]  { border-color: var(--white); color: #111827; background: var(--white); }
+    .chip[data-color="creme"]  { border-color: var(--creme); color: #111827; background: var(--creme); }
+
+    /* Section layout */
+    section {
+      margin: 28px 0;
+      border: 1px solid #1f2937;
+      background: var(--surface);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: linear-gradient(0deg, #0b1324 0%, #0e1a35 100%);
+      border-bottom: 1px solid #1f2937;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+    .accent-bar {
+      width: 6px;
+      height: 24px;
+      border-radius: 3px;
+      background: var(--accent);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 10px var(--accent);
+    }
+    .section-body {
+      padding: 18px;
+    }
+
+    /* Cards grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      border: 1px solid #1f2937;
+      background: #0b1324;
+      border-radius: 12px;
+      padding: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    .meta { color: var(--muted); font-size: 0.9rem; }
+
+    /* American flag */
+    .flag {
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      background: #0b1324;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+    }
+    svg { max-width: 100%; height: auto; display: block; }
+
+    /* Flowers */
+    .flowers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .flower {
+      padding: 12px;
+      border: 1px solid #1f2937;
+      border-radius: 10px;
+      background: #0d1426;
+    }
+
+    /* Hamlet quote */
+    blockquote {
+      margin: 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--accent);
+      background: #0d1529;
+      color: #cbd5e1;
+      border-radius: 8px;
+    }
+    blockquote footer {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* YouTube embed */
+    .embed {
+      position: relative;
+      padding-top: 56.25%;
+      border: 1px solid #1f2937;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #0d1426;
+    }
+    .embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: grid;
+      gap: 8px;
+      align-items: center;
+    }
+    .timer {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .unit {
+      min-width: 90px;
+      padding: 12px;
+      background: #0d1426;
+      border: 1px solid #1f2937;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .unit .num {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    .unit .lab {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Disneyland chips */
+    .lands {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .land {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #0d1426;
+      color: var(--text);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 36px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      border-top: 1px solid #1f2937;
+      padding-top: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">Stripes Flags American • Stories • Countdown</div>
+      <div class="subtitle">Colors you can feel. Toggles you can play. Places you can remember.</div>
+
+      <div class="controls" aria-label="Choose accent color">
+        <button class="chip" data-color="yellow">Yellow</button>
+        <button class="chip" data-color="green">Green</button>
+        <button class="chip" data-color="pink">Pink</button>
+        <button class="chip" data-color="orange">Orange</button>
+        <button class="chip" data-color="blue">Blue</button>
+        <button class="chip" data-color="red">Red</button>
+        <button class="chip" data-color="white">White</button>
+        <button class="chip" data-color="creme">Creme</button>
+      </div>
+    </header>
+
+    <!-- American Flag -->
+    <section aria-labelledby="flag-title">
+      <div class="section-head">
+        <div class="accent-bar"></div>
+        <h2 id="flag-title">America flag</h2>
+      </div>
+      <div class="section-body">
+        <div class="flag" role="img" aria-label="United States flag">
+          <!-- Simplified proportioned U.S. flag SVG -->
+          <svg viewBox="0 0 247 130" aria-hidden="true">
+            <!-- 13 stripes -->
+            <rect width="247" height="10" y="0" fill="#b22234"/>
+            <rect width="247" height="10" y="10" fill="#ffffff"/>
+            <rect width="247" height="10" y="20" fill="#b22234"/>
+            <rect width="247" height="10" y="30" fill="#ffffff"/>
+            <rect width="247" height="10" y="40" fill="#b22234"/>
+            <rect width="247" height="10" y="50" fill="#ffffff"/>
+            <rect width="247" height="10" y="60" fill="#b22234"/>
+            <rect width="247" height="10" y="70" fill="#ffffff"/>
+            <rect width="247" height="10" y="80" fill="#b22234"/>
+            <rect width="247" height="10" y="90" fill="#ffffff"/>
+            <rect width="247" height="10" y="100" fill="#b22234"/>
+            <rect width="247" height="10" y="110" fill="#ffffff"/>
+            <rect width="247" height="10" y="120" fill="#b22234"/>
+            <!-- Canton -->
+            <rect width="99" height="70" x="0" y="0" fill="#3c3b6e"/>
+            <!-- Stars (simplified grid) -->
+            <g fill="#ffffff">
+              <!-- 6 rows of 9 and 5 offset (minimal star dots for simplicity) -->
+              <!-- Row 1 (6) -->
+              <circle cx="8" cy="6" r="1.4"/><circle cx="24" cy="6" r="1.4"/><circle cx="40" cy="6" r="1.4"/><circle cx="56" cy="6" r="1.4"/><circle cx="72" cy="6" r="1.4"/><circle cx="88" cy="6" r="1.4"/>
+              <!-- Row 2 (5) -->
+              <circle cx="16" cy="14" r="1.4"/><circle cx="32" cy="14" r="1.4"/><circle cx="48" cy="14" r="1.4"/><circle cx="64" cy="14" r="1.4"/><circle cx="80" cy="14" r="1.4"/>
+              <!-- Row 3 (6) -->
+              <circle cx="8" cy="22" r="1.4"/><circle cx="24" cy="22" r="1.4"/><circle cx="40" cy="22" r="1.4"/><circle cx="56" cy="22" r="1.4"/><circle cx="72" cy="22" r="1.4"/><circle cx="88" cy="22" r="1.4"/>
+              <!-- Row 4 (5) -->
+              <circle cx="16" cy="30" r="1.4"/><circle cx="32" cy="30" r="1.4"/><circle cx="48" cy="30" r="1.4"/><circle cx="64" cy="30" r="1.4"/><circle cx="80" cy="30" r="1.4"/>
+              <!-- Row 5 (6) -->
+              <circle cx="8" cy="38" r="1.4"/><circle cx="24" cy="38" r="1.4"/><circle cx="40" cy="38" r="1.4"/><circle cx="56" cy="38" r="1.4"/><circle cx="72" cy="38" r="1.4"/><circle cx="88" cy="38" r="1.4"/>
+              <!-- Row 6 (5) -->
+              <circle cx="16" cy="46" r="1.4"/><circle cx="32" cy="46" r="1.4"/><circle cx="48" cy="46" r="1.4"/><circle cx="64" cy="46" r="1.4"/><circle cx="80" cy="46" r="1.4"/>
+              <!-- Row 7 (6) -->
+              <circle cx="8" cy="54" r="1.4"/><circle cx="24" cy="54" r="1.4"/><circle cx="40" cy="54" r="1.4"/><circle cx="56" cy="54" r="1.4"/><circle cx="72" cy="54" r="1.4"/><circle cx="88" cy="54" r="1.4"/>
+            </g>
+          </svg>
+        </div>
+        <p class="meta">If you prefer star paths instead of dots, I can swap to true five-point stars.</p>
+      </div>
+    </section>
+
+    <!-- Betsy Ross, Holes, Flowers, Hamlet -->
+    <section aria-labelledby="stories-title">
+      <div class="section-head">
+        <div class="accent-bar"></div>
+        <h2 id="stories-title">Stories and symbols</h2>
+      </div>
+      <div class="section-body grid">
+        <article class="card">
+          <h3>Betsy Ross</h3>
+          <p>Tribute to the seamstress associated with the early American flag tradition. Add lineage notes, dates, and ceremonial overlays here.</p>
+          <p class="meta">If you meant “Bettie Ross,” tell me your preferred spelling and context.</p>
+        </article>
+
+        <article class="card">
+          <h3>Holes</h3>
+          <p>Feature space for the novel’s themes—generational echoes, justice, and transformation. Use toggles to reveal character arcs or timeline layers.</p>
+          <p class="meta">Interactive: add a “dig and discover” clue game.</p>
+        </article>
+
+        <article class="card">
+          <h3>Flowers</h3>
+          <div class="flowers">
+            <div class="flower">Rose • Love</div>
+            <div class="flower">Sunflower • Joy</div>
+            <div class="flower">Lavender • Calm</div>
+            <div class="flower">Daisy • Innocence</div>
+          </div>
+          <p class="meta">Swap labels for your ceremonial garden of symbols.</p>
+        </article>
+
+        <article class="card">
+          <h3>The play: Hamlet</h3>
+          <blockquote>
+            “There is nothing either good or bad, but thinking makes it so.”
+            <footer>— Hamlet, Act II</footer>
+          </blockquote>
+          <p class="meta">Add scene toggles, character constellations, and soliloquy echoes.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- YouTube -->
+    <section aria-labelledby="youtube-title">
+      <div class="section-head">
+        <div class="accent-bar"></div>
+        <h2 id="youtube-title">YouTube.com feature</h2>
+      </div>
+      <div class="section-body">
+        <div class="embed" aria-label="YouTube video embed">
+          <!-- Replace the src with your chosen video URL -->
+          <iframe
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <p class="meta">Swap the video to your tribute, recipe, or sanctuary walkthrough.</p>
+      </div>
+    </section>
+
+    <!-- Countdown -->
+    <section aria-labelledby="countdown-title">
+      <div class="section-head">
+        <div class="accent-bar"></div>
+        <h2 id="countdown-title">JavaScript countdown</h2>
+      </div>
+      <div class="section-body countdown">
+        <label for="target-date"><strong>Target date:</strong></label>
+        <input id="target-date" type="datetime-local" aria-describedby="countdown-help" />
+        <p id="countdown-help" class="meta">Pick a holiday, ceremony, or launch time. The clock updates every second.</p>
+
+        <div class="timer" aria-live="polite">
+          <div class="unit"><div class="num" id="cd-days">0</div><div class="lab">Days</div></div>
+          <div class="unit"><div class="num" id="cd-hours">0</div><div class="lab">Hours</div></div>
+          <div class="unit"><div class="num" id="cd-mins">0</div><div class="lab">Minutes</div></div>
+          <div class="unit"><div class="num" id="cd-secs">0</div><div class="lab">Seconds</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Places of Disneyland -->
+    <section aria-labelledby="disney-title">
+      <div class="section-head">
+        <div class="accent-bar"></div>
+        <h2 id="disney-title">Places of Disneyland (lands)</h2>
+      </div>
+      <div class="section-body">
+        <p>Core lands at Disneyland Park in Anaheim often include Main Street, U.S.A., Adventureland, New Orleans Square, Frontierland, Critter Country, Fantasyland, Tomorrowland, Mickey’s Toontown, and Star Wars: Galaxy’s Edge. Disney California Adventure adds areas like Buena Vista Street, Cars Land, Grizzly Peak, and Avengers Campus.</p>
+        <div class="lands" aria-label="Disneyland lands">
+          <span class="land">Main Street, U.S.A.</span>
+          <span class="land">Adventureland</span>
+          <span class="land">New Orleans Square</span>
+          <span class="land">Frontierland</span>
+          <span class="land">Critter Country</span>
+          <span class="land">Fantasyland</span>
+          <span class="land">Tomorrowland</span>
+          <span class="land">Mickey’s Toontown</span>
+          <span class="land">Star Wars: Galaxy’s Edge</span>
+          <span class="land">Buena Vista Street</span>
+          <span class="land">Cars Land</span>
+          <span class="land">Grizzly Peak</span>
+          <span class="land">Avengers Campus</span>
+        </div>
+        <p class="meta">Want to swap chips for an interactive map or riddles? I can add toggles and gentle motion.</p>
+      </div>
+    </section>
+
+    <footer>
+      Built for living archives and playful ceremony. Colors are gentle, toggles are kind, and the countdown is yours.
+    </footer>
+  </div>
+
+  <script>
+    // Accent color switching
+    const colorMap = {
+      yellow: getComputedStyle(document.documentElement).getPropertyValue('--yellow').trim(),
+      green:  getComputedStyle(document.documentElement).getPropertyValue('--green').trim(),
+      pink:   getComputedStyle(document.documentElement).getPropertyValue('--pink').trim(),
+      orange: getComputedStyle(document.documentElement).getPropertyValue('--orange').trim(),
+      blue:   getComputedStyle(document.documentElement).getPropertyValue('--blue').trim(),
+      red:    getComputedStyle(document.documentElement).getPropertyValue('--red').trim(),
+      white:  getComputedStyle(document.documentElement).getPropertyValue('--white').trim(),
+      creme:  getComputedStyle(document.documentElement).getPropertyValue('--creme').trim()
+    };
+
+    document.querySelectorAll('.chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const c = btn.dataset.color;
+        document.documentElement.style.setProperty('--accent', colorMap[c] || colorMap.blue);
+      });
+    });
+
+    // Countdown
+    const input = document.getElementById('target-date');
+    const daysEl  = document.getElementById('cd-days');
+    const hoursEl = document.getElementById('cd-hours');
+    const minsEl  = document.getElementById('cd-mins');
+    const secsEl  = document.getElementById('cd-secs');
+
+    let target = null;
+
+    function tick() {
+      if (!target) return;
+      const now = new Date().getTime();
+      const diff = Math.max(0, target - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent  = days;
+      hoursEl.textContent = hours;
+      minsEl.textContent  = mins;
+      secsEl.textContent  = secs;
+    }
+
+    input.addEventListener('change', () => {
+      const val = input.value;
+      target = val ? new Date(val).getTime() : null;
+      tick();
+    });
+
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
+
