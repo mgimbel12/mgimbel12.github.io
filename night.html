@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie & Ice Cream Night</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .popcorn { background: yellow; padding: 20px; }
+    .movies { background: blue; color: white; padding: 20px; }
+    .icecream { background: pink; padding: 20px; }
+    .info { background: purple; color: white; padding: 20px; }
+  </style>
+</head>
+<body>
+  <div class="popcorn">🍿 Popcorn Station</div>
+  <div class="movies">🎬 Movie Time</div>
+  <div class="icecream">🍦 Ice Cream Corner</div>
+  <div class="info">
+    <p id="event">Date, Place, Time, Hour</p>
+  </div>
+
+  <script>
+    const now = new Date();
+    document.getElementById("event").innerText =
+      `Event: ${now.toDateString()} at Henderson Theater, ${now.toLocaleTimeString()}`;
+  </script>
+</body>
+</html>
+
