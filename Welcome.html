@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sanctuary: Welcome Scriptures</title>
+  <meta name="description" content="A gentle, accessible sanctuary of scriptures focused on love, welcome, and rest." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --surface: #11161d;
+      --card: #141a22;
+      --text: #e6edf3;
+      --muted: #9fb0c2;
+      --accent: #6bc4ea;
+      --accent-2: #8ae6b1;
+      --danger: #ff6b6b;
+      --radius: 14px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --ring: rgba(107,196,234,0.35);
+      --anim: 220ms cubic-bezier(.2,.6,.2,1);
+      --font: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      --maxw: 1200px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      :root { --anim: 1ms linear; }
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 10% -10%, #102031, var(--bg));
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Header / Hero */
+    header {
+      position: relative;
+      padding: 32px 24px;
+      border-bottom: 1px solid #1d2633;
+      background:
+        radial-gradient(600px 300px at 0% 0%, rgba(107,196,234,0.12), transparent 70%),
+        linear-gradient(180deg, #0c121a 0%, #0b0f14 100%);
+    }
+    .container { width: min(var(--maxw), 92vw); margin: 0 auto; }
+    .hero {
+      display: grid; gap: 10px;
+      align-items: start;
+    }
+    .title { margin: 0; font-weight: 700; letter-spacing: 0.2px; font-size: clamp(1.6rem, 2.3vw, 2.2rem); }
+    .subtitle { margin: 4px 0 0; color: var(--muted); }
+
+    /* Top controls and nav */
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px; margin-top: 18px;
+    }
+    nav { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      font-size: 14px;
+      background: var(--surface);
+      border: 1px solid #1d2633;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      transition: transform var(--anim), background var(--anim), border-color var(--anim);
+    }
+    .chip[aria-pressed="true"], .chip.active { border-color: var(--accent); background: #182130; }
+    .chip:hover { transform: translateY(-1px); }
+
+    /* Main controls */
+    .controls {
+      margin-top: 18px;
+      display: grid; gap: 12px;
+      grid-template-columns: 1fr 180px 160px 48px;
+    }
+    input[type="search"], select, .btn, .icon-btn {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid #1d2633;
+      border-radius: 10px;
+      padding: 12px 14px;
+      box-shadow: var(--shadow);
+    }
+    input[type="search"]::placeholder { color: #8aa0b7; }
+    .btn, .icon-btn { cursor: pointer; transition: background var(--anim), transform var(--anim); }
+    .btn:hover, .icon-btn:hover { background: #182130; transform: translateY(-1px); }
+    .icon-btn {
+      display: grid; place-items: center; padding: 0; font-size: 20px;
+    }
+    .sr-only {
+      position: absolute !important; height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px,1px,1px,1px);
+      white-space: nowrap;
+    }
+
+    /* Layout split: grid + sidebar */
+    main {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 18px;
+      padding: 20px 0 34px;
+    }
+    @media (max-width: 980px) {
+      main { grid-template-columns: 1fr; }
+      .sidebar { order: -1; }
+    }
+
+    /* Card grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      padding-right: 4px;
+    }
+    .card {
+      background: linear-gradient(180deg, #141a22, #10151c);
+      border: 1px solid #1d2633;
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform var(--anim), box-shadow var(--anim), border-color var(--anim);
+    }
+    .card:hover { transform: translateY(-2px); border-color: #263245; }
+    .card__title { margin: 0 0 6px; font-size: 1.05rem; font-weight: 600; }
+    .card__ref { color: var(--muted); margin: 0 0 12px; }
+    .card__tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .tag {
+      font-size: 12px; color: #0b1118;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      padding: 6px 10px; border-radius: 999px;
+    }
+    .card__actions { display: flex; gap: 8px; align-items: center; }
+    .card__fav { margin-left: auto; background: transparent; border: 1px solid #263245; }
+    .card__fav[aria-pressed="true"] { border-color: var(--accent-2); background: #132020; }
+
+    /* Modal reader */
+    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 50; }
+    .modal[hidden] { display: none; }
+    .modal__backdrop { position: absolute; inset: 0; background: rgba(3,8,13,0.6); }
+    .modal__content {
+      position: relative; background: var(--card); border: 1px solid #1d2633;
+      border-radius: var(--radius); padding: 20px; width: min(760px, 92vw); box-shadow: var(--shadow);
+    }
+    .modal__close {
+      position: absolute; top: 10px; right: 10px;
+      background: transparent; color: var(--text);
+      border: none; font-size: 24px; cursor: pointer;
+    }
+    .ref { color: var(--muted); margin: 4px 0 12px; }
+    .verse { border-left: 3px solid var(--accent); padding-left: 12px; color: var(--text); }
+    .modal__actions { display: flex; gap: 8px; margin-top: 16px; }
+
+    /* Sidebar */
+    .sidebar {
+      background: var(--surface);
+      border: 1px solid #1d2633;
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      height: fit-content;
+      position: sticky; top: 16px;
+    }
+    .sidebar h3 { margin: 6px 0 8px; font-size: 1rem; }
+    .sidebar .section { border-top: 1px solid #1d2633; padding-top: 12px; margin-top: 10px; }
+    .toggle { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+    .range { width: 100%; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #1d2633; padding: 18px 24px; color: var(--muted); text-align: center;
+    }
+
+    /* Focus */
+    :focus-visible { outline: none; box-shadow: 0 0 0 4px var(--ring); border-radius: 8px; }
+
+    /* High contrast mode */
+    .hc :root {}
+    .hc body { background: #000; color: #fff; }
+    .hc .card, .hc .sidebar, .hc header { background: #000; border-color: #fff; }
+    .hc .tag { background: #fff; color: #000; }
+    .hc a { color: #0ff; }
+
+    /* Print-friendly */
+    @media print {
+      header, .controls, .toolbar, .sidebar, .modal, footer { display: none !important; }
+      .grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .card { box-shadow: none; border-color: #999; }
+      body { background: #fff; color: #000; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="hero" role="banner" aria-label="Sanctuary hero">
+        <h1 class="title">Sanctuary: Welcome Scriptures</h1>
+        <p class="subtitle">Love, welcome, rest, and grace—curated for inclusion with gentle motion.</p>
+
+        <div class="toolbar">
+          <nav aria-label="Quick themes">
+            <button class="chip active" data-theme="all" aria-pressed="true">All</button>
+            <button class="chip" data-theme="love" aria-pressed="false">Love</button>
+            <button class="chip" data-theme="welcome" aria-pressed="false">Welcome</button>
+            <button class="chip" data-theme="rest" aria-pressed="false">Rest</button>
+            <button class="chip" data-theme="grace" aria-pressed="false">Grace</button>
+          </nav>
+
+          <div aria-label="Seasonal overlays">
+            <button class="chip" id="seasonToggle" aria-pressed="false">Season: Off</button>
+          </div>
+        </div>
+
+        <div class="controls" aria-label="Search and filters">
+          <label for="search" class="sr-only">Search scriptures</label>
+          <input id="search" type="search" placeholder="Search (e.g., 'love', 'John 3:16')" aria-label="Search scriptures">
+
+          <label for="tag" class="sr-only">Filter by theme</label>
+          <select id="tag" aria-label="Filter by theme">
+            <option value="all">All themes</option>
+            <option value="love">Love</option>
+            <option value="welcome">Welcome</option>
+            <option value="rest">Rest</option>
+            <option value="grace">Grace</option>
+          </select>
+
+          <button id="favoritesToggle" class="btn" aria-pressed="false" aria-label="Toggle favorites">Show favorites</button>
+
+          <button id="settingsBtn" class="icon-btn" aria-label="Open settings" title="Settings">⚙️</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      <section class="grid" aria-live="polite" aria-busy="false">
+        <!-- Cards injected by JS -->
+      </section>
+
+      <aside class="sidebar" aria-label="Sanctuary settings panel" id="settingsPanel" hidden>
+        <h3>Display</h3>
+        <div class="section">
+          <div class="toggle">
+            <input type="checkbox" id="hcToggle" />
+            <label for="hcToggle">High contrast</label>
+          </div>
+          <label for="fontSize" class="sr-only">Font size</label>
+          <input id="fontSize" class="range" type="range" min="14" max="20" value="16" />
+          <small class="muted">Font size</small>
+        </div>
+
+        <h3>Motion</h3>
+        <div class="section">
+          <div class="toggle">
+            <input type="checkbox" id="motionToggle" />
+            <label for="motionToggle">Reduce motion</label>
+          </div>
+        </div>
+
+        <h3>Affirmations</h3>
+        <div class="section">
+          <div class="toggle">
+            <input type="checkbox" id="affirmToggle" checked />
+            <label for="affirmToggle">Show “You are welcome. You are loved.” after copy</label>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Modal Reader -->
+  <div class="modal" id="readerModal" role="dialog" aria-modal="true" aria-labelledby="readerTitle" hidden>
+    <div class="modal__content" role="document">
+      <button class="modal__close" id="closeModal" aria-label="Close">&times;</button>
+      <h2 id="readerTitle"></h2>
+      <p id="readerRef" class="ref"></p>
+      <blockquote id="readerText" class="verse"></blockquote>
+      <div class="modal__actions">
+        <button id="favoriteBtn" class="btn">Add to favorites</button>
+        <button id="copyBtn" class="btn">Copy</button>
+      </div>
+    </div>
+    <div class="modal__backdrop" id="backdrop" aria-hidden="true"></div>
+  </div>
+
+  <footer>
+    <small>Gentle motion. Accessible by design. Henderson-inspired gradients. © Sanctuary</small>
+  </footer>
+
+  <script>
+    // Content data
+    const data = [
+      {
+        id: "john-3-16",
+        title: "God so loved the world",
+        ref: "John 3:16",
+        text: "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.",
+        tags: ["love", "welcome", "grace"]
+      },
+      {
+        id: "matt-11-28",
+        title: "Come to me, all who are weary",
+        ref: "Matthew 11:28",
+        text: "Come to me, all you who are weary and burdened, and I will give you rest.",
+        tags: ["rest", "welcome"]
+      },
+      {
+        id: "john-13-34",
+        title: "A new command: love one another",
+        ref: "John 13:34–35",
+        text: "A new command I give you: Love one another. As I have loved you, so you must love one another.",
+        tags: ["love", "grace"]
+      },
+      {
+        id: "gal-3-28",
+        title: "You are all one",
+        ref: "Galatians 3:28",
+        text: "There is neither Jew nor Greek, slave nor free, male nor female, for you are all one in Christ Jesus.",
+        tags: ["welcome", "grace"]
+      },
+      {
+        id: "luke-15-2",
+        title: "He welcomes sinners and eats with them",
+        ref: "Luke 15:2",
+        text: "But the Pharisees and the teachers of the law muttered, 'This man welcomes sinners and eats with them.'",
+        tags: ["welcome", "love"]
+      }
+    ];
+
+    // Elements
+    const grid = document.querySelector(".grid");
+    const search = document.getElementById("search");
+    const tagSelect = document.getElementById("tag");
+    const favoritesToggle = document.getElementById("favoritesToggle");
+    const themeChips = Array.from(document.querySelectorAll("[data-theme]"));
+    const seasonToggle = document.getElementById("seasonToggle");
+
+    const modal = document.getElementById("readerModal");
+    const backdrop = document.getElementById("backdrop");
+    const closeModalBtn = document.getElementById("closeModal");
+    const readerTitle = document.getElementById("readerTitle");
+    const readerRef = document.getElementById("readerRef");
+    const readerText = document.getElementById("readerText");
+    const favoriteBtn = document.getElementById("favoriteBtn");
+    const copyBtn = document.getElementById("copyBtn");
+
+    const settingsBtn = document.getElementById("settingsBtn");
+    const settingsPanel = document.getElementById("settingsPanel");
+    const hcToggle = document.getElementById("hcToggle");
+    const fontSize = document.getElementById("fontSize");
+    const motionToggle = document.getElementById("motionToggle");
+    const affirmToggle = document.getElementById("affirmToggle");
+
+    // State
+    let favorites = new Set(JSON.parse(localStorage.getItem("sanctuary:favorites") || "[]"));
+    let showFavoritesOnly = false;
+    let currentId = null;
+    let seasonOn = false;
+
+    // Helpers
+    function saveFavorites() {
+      localStorage.setItem("sanctuary:favorites", JSON.stringify([...favorites]));
+    }
+
+    function cardTemplate(item) {
+      const isFav = favorites.has(item.id);
+      return `
+        <article class="card" data-id="${item.id}">
+          <h3 class="card__title">${item.title}</h3>
+          <p class="card__ref">${item.ref}</p>
+          <div class="card__tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+          <div class="card__actions">
+            <button class="btn" data-action="open" aria-label="Open ${item.title}">Read</button>
+            <button class="btn card__fav" data-action="fav" aria-pressed="${isFav}" aria-label="Favorite ${item.title}">
+              ${isFav ? "★ Favorited" : "☆ Favorite"}
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    function render() {
+      grid.setAttribute("aria-busy", "true");
+      const q = search.value.trim().toLowerCase();
+      const t = tagSelect.value;
+
+      let items = data.filter(d => {
+        const matchesQuery =
+          d.title.toLowerCase().includes(q) ||
+          d.ref.toLowerCase().includes(q) ||
+          d.text.toLowerCase().includes(q);
+        const matchesTag = t === "all" ? true : d.tags.includes(t);
+        const matchesFav = showFavoritesOnly ? favorites.has(d.id) : true;
+        return matchesQuery && matchesTag && matchesFav;
+      });
+
+      grid.innerHTML = items.map(cardTemplate).join("") || `<p>No results found.</p>`;
+      grid.setAttribute("aria-busy", "false");
+    }
+
+    function openModal(item) {
+      currentId = item.id;
+      readerTitle.textContent = item.title;
+      readerRef.textContent = item.ref;
+      readerText.textContent = item.text;
+
+      favoriteBtn.textContent = favorites.has(item.id) ? "Remove from favorites" : "Add to favorites";
+      favoriteBtn.dataset.id = item.id;
+
+      modal.hidden = false;
+      closeModalBtn.focus();
+    }
+
+    function closeModal() {
+      modal.hidden = true;
+      currentId = null;
+    }
+
+    function toggleFavorite(id) {
+      if (favorites.has(id)) favorites.delete(id);
+      else favorites.add(id);
+      saveFavorites();
+      favoritesToggle.setAttribute("aria-pressed", showFavoritesOnly ? "true" : "false");
+      render();
+    }
+
+    // Events: grid interactions
+    grid.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const card = e.target.closest(".card");
+      const id = card?.dataset.id;
+      const item = data.find(d => d.id === id);
+      const action = btn.dataset.action;
+
+      if (action === "open") openModal(item);
+      if (action === "fav") toggleFavorite(id);
+    });
+
+    // Modal events
+    favoriteBtn.addEventListener("click", () => {
+      const id = favoriteBtn.dataset.id;
+      toggleFavorite(id);
+      favoriteBtn.textContent = favorites.has(id) ? "Remove from favorites" : "Add to favorites";
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      const text = `${readerTitle.textContent} — ${readerRef.textContent}\n${readerText.textContent}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = "Copied!";
+        if (affirmToggle.checked) {
+          const toast = document.createElement("div");
+          toast.textContent = "You are welcome. You are loved.";
+          Object.assign(toast.style, {
+            position: "fixed", bottom: "16px", left: "50%", transform: "translateX(-50%)",
+            background: "#122233", color: "#e6edf3", padding: "10px 14px",
+            border: "1px solid #1d2633", borderRadius: "10px", boxShadow: "0 6px 20px rgba(0,0,0,0.4)", zIndex: "60"
+          });
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 1400);
+        }
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+      } catch {
+        copyBtn.textContent = "Copy failed";
+        setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
+      }
+    });
+
+    closeModalBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+    document.addEventListener("keydown", (e) => {
+      if (!modal.hidden && e.key === "Escape") closeModal();
+    });
+
+    // Filters and favorites
+    search.addEventListener("input", render);
+    tagSelect.addEventListener("change", render);
+
+    favoritesToggle.addEventListener("click", () => {
+      showFavoritesOnly = !showFavoritesOnly;
+      favoritesToggle.setAttribute("aria-pressed", showFavoritesOnly ? "true" : "false");
+      favoritesToggle.textContent = showFavoritesOnly ? "Showing favorites" : "Show favorites";
+      render();
+    });
+
+    // Theme chips
+    themeChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        themeChips.forEach(c => { c.classList.remove("active"); c.setAttribute("aria-pressed", "false"); });
+        chip.classList.add("active");
+        chip.setAttribute("aria-pressed", "true");
+        tagSelect.value = chip.dataset.theme === "all" ? "all" : chip.dataset.theme;
+        render();
+      });
+    });
+
+    // Seasonal overlay (visual only)
+    seasonToggle.addEventListener("click", () => {
+      seasonOn = !seasonOn;
+      seasonToggle.textContent = seasonOn ? "Season: On" : "Season: Off";
+      seasonToggle.setAttribute("aria-pressed", seasonOn ? "true" : "false");
+      if (seasonOn) {
+        const layer = document.createElement("div");
+        layer.id = "seasonLayer";
+        Object.assign(layer.style, {
+          position: "fixed", inset: "0", pointerEvents: "none", zIndex: "1",
+          backgroundImage: "radial-gradient(4px 4px at 20% 10%, rgba(255,255,255,0.15), transparent 60%), radial-gradient(3px 3px at 70% 20%, rgba(138,230,177,0.12), transparent 60%)"
+        });
+        document.body.appendChild(layer);
+      } else {
+        document.getElementById("seasonLayer")?.remove();
+      }
+    });
+
+    // Settings panel
+    settingsBtn.addEventListener("click", () => {
+      const hidden = settingsPanel.hasAttribute("hidden");
+      if (hidden) settingsPanel.removeAttribute("hidden");
+      else settingsPanel.setAttribute("hidden", "");
+    });
+
+    // High contrast
+    hcToggle.addEventListener("change", () => {
+      document.documentElement.classList.toggle("hc", hcToggle.checked);
+    });
+
+    // Font size
+    fontSize.addEventListener("input", () => {
+      document.documentElement.style.fontSize = fontSize.value + "px";
+    });
+
+    // Reduce motion override
+    motionToggle.addEventListener("change", () => {
+      if (motionToggle.checked) {
+        document.documentElement.style.setProperty("--anim", "1ms linear");
+      } else {
+        document.documentElement.style.setProperty("--anim", "220ms cubic-bezier(.2,.6,.2,1)");
+      }
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
