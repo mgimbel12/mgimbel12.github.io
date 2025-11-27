@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Holiday Sports — Turkey Trot, Race Car, Basketball</title>
+  <style>
+    :root {
+      --red: #d7263d;
+      --orange: #ff8c42;
+      --yellow: #ffd166;
+      --blue: #276ef1;
+      --white: #ffffff;
+      --ink: #1b1f23;
+      --bg: #0c1116;
+      --card: #121821;
+      --muted: #8da2b5;
+      --ring: #276ef155;
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(120deg, #0c1116, #0f1724 60%, #111a2a);
+      color: var(--white);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+      margin: 0;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    header {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    header h1 {
+      font-size: 1.75rem;
+      margin: 0;
+      letter-spacing: 0.2px;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .btn {
+      border: 1px solid var(--ring);
+      color: var(--white);
+      background: transparent;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    }
+    .btn:hover {
+      background: #ffffff10;
+      border-color: #ffffff40;
+    }
+    .btn[aria-pressed="true"] {
+      background: #ffffff15;
+      border-color: #ffffff70;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 720px) {
+      .grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid #1c2533;
+      border-radius: 16px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px #00000040;
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.25rem;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    /* Section accents */
+    .turkey { border-top: 4px solid var(--orange); }
+    .race   { border-top: 4px solid var(--red); }
+    .basket { border-top: 4px solid var(--yellow); }
+
+    /* Decorative stripes (gentle motion) */
+    .stripe {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--blue));
+      opacity: 0.7;
+      transform: translateX(0);
+      animation: slide 12s linear infinite;
+    }
+    @keyframes slide {
+      from { transform: translateX(-20%); }
+      to   { transform: translateX(20%); }
+    }
+
+    /* Reduced motion toggle */
+    .no-motion .stripe,
+    .no-motion .pulse {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    /* Date/Time panel */
+    .datetime {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 18px 0 8px;
+    }
+    .chip {
+      background: #0e1623;
+      border: 1px solid #1d2940;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+    }
+    .chip .label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .chip .value {
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Accent utility classes */
+    .accent-red { color: var(--red); }
+    .accent-orange { color: var(--orange); }
+    .accent-yellow { color: var(--yellow); }
+    .accent-blue { color: var(--blue); }
+    .accent-white { color: var(--white); }
+  </style>
+</head>
+<body>
+  <div class="page" id="page">
+    <header>
+      <h1>Holiday Sports: Turkey Trot, Race Car, Basketball</h1>
+      <p>Colors: Red, Orange, Yellow, Blue, White • Live Date and Time below</p>
+
+      <div class="controls">
+        <button class="btn" id="toggleMotion" aria-pressed="false">Toggle gentle motion</button>
+        <button class="btn" id="cycleTheme" aria-pressed="false">Cycle accent theme</button>
+        <button class="btn" id="refreshTime" aria-pressed="false">Refresh time</button>
+      </div>
+
+      <div class="datetime" aria-live="polite">
+        <div class="chip">
+          <span class="label">Date</span>
+          <span class="value" id="dateChip">—</span>
+        </div>
+        <div class="chip">
+          <span class="label">Hour</span>
+          <span class="value" id="hourChip">—</span>
+        </div>
+        <div class="chip">
+          <span class="label">Time</span>
+          <span class="value" id="timeChip">—</span>
+        </div>
+        <div class="chip">
+          <span class="label">Year</span>
+          <span class="value" id="yearChip">—</span>
+        </div>
+        <div class="chip">
+          <span class="label">Month</span>
+          <span class="value" id="monthChip">—</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card turkey" aria-labelledby="turkeyTitle">
+        <h2 id="turkeyTitle">Turkey Trot</h2>
+        <p>
+          <span class="accent-orange">Stride steady.</span>
+          Celebrate gratitude with each mile: warm socks, shared smiles, and a finish line that feels like home.
+        </p>
+        <div class="stripe" aria-hidden="true"></div>
+      </section>
+
+      <section class="card race" aria-labelledby="raceTitle">
+        <h2 id="raceTitle">Race Car</h2>
+        <p>
+          <span class="accent-red">Throttle true.</span>
+          Precision lines, bright flags, and the hum of courage looping toward the checkered dawn.
+        </p>
+        <div class="stripe" aria-hidden="true"></div>
+      </section>
+
+      <section class="card basket" aria-labelledby="basketTitle">
+        <h2 id="basketTitle">Basketball</h2>
+        <p>
+          <span class="accent-yellow">Pivot calm.</span>
+          Teamwork, rhythm, and a clean swish lighting up winter courts in blue and white.
+        </p>
+        <div class="stripe" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer>
+      Made with Red, Orange, Yellow, Blue, and White • JS-driven Date, Hour, Time, Year, Month
+    </footer>
+  </div>
+
+  <script>
+    // Helpers for Date/Time
+    function pad(n) { return n.toString().padStart(2, "0"); }
+
+    function updateDateTime() {
+      const now = new Date();
+
+      const year = now.getFullYear();
+      const monthIndex = now.getMonth(); // 0–11
+      const day = now.getDate();
+
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const monthNames = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+      ];
+
+      const dateStr = `${monthNames[monthIndex]} ${day}, ${year}`;
+      const hourStr = `${hours}`;
+      const timeStr = `${pad(hours % 24)}:${pad(minutes)}:${pad(seconds)}`;
+      const yearStr = `${year}`;
+      const monthStr = `${monthNames[monthIndex]}`;
+
+      document.getElementById("dateChip").textContent = dateStr;
+      document.getElementById("hourChip").textContent = hourStr;
+      document.getElementById("timeChip").textContent = timeStr;
+      document.getElementById("yearChip").textContent = yearStr;
+      document.getElementById("monthChip").textContent = monthStr;
+    }
+
+    // Initial render + gentle ticking
+    updateDateTime();
+    let tickInterval = setInterval(updateDateTime, 1000);
+
+    // Controls
+    const page = document.getElementById("page");
+    const toggleMotionBtn = document.getElementById("toggleMotion");
+    const cycleThemeBtn = document.getElementById("cycleTheme");
+    const refreshTimeBtn = document.getElementById("refreshTime");
+
+    // Motion toggle (adds/removes .no-motion)
+    toggleMotionBtn.addEventListener("click", () => {
+      const pressed = toggleMotionBtn.getAttribute("aria-pressed") === "true";
+      toggleMotionBtn.setAttribute("aria-pressed", String(!pressed));
+      page.classList.toggle("no-motion");
+    });
+
+    // Theme cycler: rotates accent colors for headings
+    const accents = ["accent-red", "accent-orange", "accent-yellow", "accent-blue", "accent-white"];
+    let accentIndex = 0;
+    cycleThemeBtn.addEventListener("click", () => {
+      accentIndex = (accentIndex + 1) % accents.length;
+      const nextClass = accents[accentIndex];
+
+      const titles = [document.getElementById("turkeyTitle"), document.getElementById("raceTitle"), document.getElementById("basketTitle")];
+      titles.forEach((el) => {
+        // Clear previous accent classes
+        accents.forEach(a => el.classList.remove(a));
+        el.classList.add(nextClass);
+      });
+
+      cycleThemeBtn.setAttribute("aria-pressed", "true");
+      setTimeout(() => cycleThemeBtn.setAttribute("aria-pressed", "false"), 400);
+    });
+
+    // Manual refresh button
+    refreshTimeBtn.addEventListener("click", () => {
+      updateDateTime();
+      refreshTimeBtn.setAttribute("aria-pressed", "true");
+      setTimeout(() => refreshTimeBtn.setAttribute("aria-pressed", "false"), 400);
+    });
+
+    // Respect prefers-reduced-motion
+    const mediaMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    function applyMotionPreference(e) {
+      if (e.matches) page.classList.add("no-motion");
+      else page.classList.remove("no-motion");
+    }
+    applyMotionPreference(mediaMotion);
+    mediaMotion.addEventListener("change", applyMotionPreference);
+
+    // Pause ticking when page is hidden to save resources
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        clearInterval(tickInterval);
+      } else {
+        updateDateTime();
+        tickInterval = setInterval(updateDateTime, 1000);
+      }
+    });
+  </script>
+</body>
+</html>
