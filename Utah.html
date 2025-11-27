@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Utah Jazz Court – Blue & Navy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --navy:#0B1F3A;
+      --blue:#1C5D99;
+      --line:#ffffff;
+      --accent:#7EC8E3; /* highlight for hour */
+      --court:#13375a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100svh;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--navy),var(--blue));
+      color:#fff; font-family:Montserrat,system-ui,-apple-system,segoe ui,roboto;
+    }
+    .app{
+      width:min(1100px,92vw);
+      display:grid; gap:18px;
+    }
+    .header{
+      text-align:center;
+      letter-spacing:0.08em;
+    }
+    .header h1{margin:.2rem 0; font-size:clamp(1.3rem,3.5vw,2.2rem)}
+    .header p{opacity:.8; margin:0}
+    .panel{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+    }
+    .btn{
+      border:2px solid var(--line);
+      background:transparent; color:#fff;
+      padding:.6rem 1rem; text-transform:uppercase; font-weight:700;
+      cursor:pointer; transition:.2s ease; border-radius:8px;
+    }
+    .btn:hover{background:rgba(255,255,255,.08)}
+    .court{
+      position:relative;
+      aspect-ratio:50/28; /* NBA court proportions */
+      width:100%;
+      background:linear-gradient(180deg,var(--court),#0f2d4d);
+      border:6px solid var(--line);
+      border-radius:14px;
+      box-shadow:0 20px 60px rgba(0,0,0,.35), inset 0 0 0 4px rgba(255,255,255,.25);
+      overflow:hidden;
+    }
+    /* Center circle */
+    .center-circle{
+      position:absolute; left:50%; top:50%;
+      width:22%; aspect-ratio:1/1; border:4px solid var(--line);
+      border-radius:50%; transform:translate(-50%,-50%);
+      background:radial-gradient(circle at 30% 30%, var(--blue), var(--navy));
+      display:grid; place-items:center;
+    }
+    .jazz-mark{
+      font-weight:700; font-size:clamp(.9rem,2.5vw,1.4rem); letter-spacing:.2em;
+    }
+    /* Mid court line */
+    .mid{position:absolute; left:50%; top:0; bottom:0; width:4px; background:var(--line); transform:translateX(-50%)}
+    /* Keys and arcs */
+    .half{position:absolute; inset:0}
+    .half.left .key, .half.right .key{
+      position:absolute; width:14%; height:28%;
+      top:50%; transform:translateY(-50%);
+      border:4px solid var(--line); background:rgba(255,255,255,.04);
+    }
+    .half.left .key{left:0}
+    .half.right .key{right:0}
+    .half .ft-circle{
+      position:absolute; width:16%; aspect-ratio:1/1; border:4px solid var(--line);
+      border-radius:50%; top:50%; transform:translateY(-50%);
+      background:transparent;
+    }
+    .half.left .ft-circle{left:11%}
+    .half.right .ft-circle{right:11%}
+    /* Three-point arc approximation */
+    .arc{
+      position:absolute; width:38%; height:70%;
+      top:50%; transform:translateY(-50%);
+      border:4px solid var(--line); border-radius:100%/70%;
+      background:transparent;
+    }
+    .half.left .arc{left:-4%}
+    .half.right .arc{right:-4%}
+    /* Baseline semicircles for restricted area */
+    .rim{
+      position:absolute; width:3.6%; aspect-ratio:1/1; border:4px solid var(--line);
+      border-radius:50%; top:50%; transform:translateY(-50%);
+      background:transparent;
+    }
+    .half.left .rim{left:3.5%}
+    .half.right .rim{right:3.5%}
+    /* Clock */
+    .clock{
+      display:flex; justify-content:center; align-items:center; gap:14px; margin-top:8px;
+    }
+    .digital{
+      font-weight:700; font-variant-numeric:tabular-nums;
+      padding:.5rem .9rem; border:2px solid var(--line); border-radius:8px;
+      background:rgba(0,0,0,.25); box-shadow:inset 0 0 12px rgba(126,200,227,.25);
+    }
+    .hour-glow{
+      position:absolute; inset:0; pointer-events:none;
+      box-shadow:0 0 0 0 rgba(126,200,227,0); transition:box-shadow .6s ease;
+    }
+    .glow-on .hour-glow{box-shadow:0 0 0 6px rgba(126,200,227,.45), inset 0 0 40px rgba(126,200,227,.25)}
+    /* Responsive tweaks */
+    @media (max-width:600px){
+      .btn{padding:.5rem .8rem}
+      .half .ft-circle{width:20%}
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <h1>Utah Jazz Court</h1>
+      <p>Blue & Navy HTML/CSS court with a JavaScript hour clock.</p>
+    </header>
+
+    <div class="panel">
+      <button class="btn" data-theme="navy">HTML</button>
+      <button class="btn" data-theme="blue">CSS</button>
+      <button class="btn" data-theme="altblue">Blue</button>
+      <button class="btn" data-theme="deepnavy">Navy</button>
+    </div>
+
+    <section id="court" class="court">
+      <div class="hour-glow"></div>
+      <div class="mid"></div>
+
+      <div class="half left">
+        <div class="key"></div>
+        <div class="ft-circle"></div>
+        <div class="arc"></div>
+        <div class="rim"></div>
+      </div>
+
+      <div class="half right">
+        <div class="key"></div>
+        <div class="ft-circle"></div>
+        <div class="arc"></div>
+        <div class="rim"></div>
+      </div>
+
+      <div class="center-circle">
+        <div class="jazz-mark">UTAH JAZZ</div>
+      </div>
+    </section>
+
+    <div class="clock">
+      <div id="digital" class="digital">00:00:00</div>
+      <div id="label" aria-hidden="true">HOUR</div>
+    </div>
+  </main>
+
+  <script>
+    // Live digital clock + hour glow
+    const court = document.getElementById('court');
+    const digital = document.getElementById('digital');
+
+    function pad(n){ return String(n).padStart(2,'0'); }
+    function tick(){
+      const d = new Date();
+      const h = pad(d.getHours());
+      const m = pad(d.getMinutes());
+      const s = pad(d.getSeconds());
+      digital.textContent = `${h}:${m}:${s}`;
+
+      // Glow intensifies at the top of the hour
+      const isTopOfHour = m === '00' && s < '10';
+      court.classList.toggle('glow-on', isTopOfHour);
+    }
+    setInterval(tick, 500); tick();
+
+    // Theme toggles
+    const themes = {
+      navy: { '--navy':'#0B1F3A','--blue':'#1C5D99','--court':'#13375a' },
+      blue: { '--navy':'#0A2A52','--blue':'#2F7ABF','--court':'#184a7a' },
+      altblue: { '--navy':'#0b2242','--blue':'#2a79c0','--court':'#163d66' },
+      deepnavy: { '--navy':'#06152B','--blue':'#1B4E82','--court':'#0f2745' }
+    };
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const t = themes[btn.dataset.theme];
+        for(const k in t){ document.documentElement.style.setProperty(k, t[k]); }
+      });
+    });
+  </script>
+</body>
+</html>
