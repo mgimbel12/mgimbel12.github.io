@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Adaptive Car Playground</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f1320;
+      --panel: #141a2b;
+      --card: #1b2238;
+      --accent: #6ec1e4;         /* Cyan = Calm */
+      --accent-2: #f7c948;       /* Gold = Strength */
+      --accent-3: #c3c7ff;       /* Silver = Independence */
+      --accent-4: #b488ff;       /* Violet = Intelligence */
+      --accent-5: #7bd389;       /* Green = Resilience */
+      --text: #eaf2ff;
+      --muted: #9fb1d9;
+      --danger: #ff6b6b;
+      --ok: #7bd389;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    *{box-sizing: border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 700px at 30% 10%, #18203a, var(--bg));
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+    }
+
+    header{
+      padding:18px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background: linear-gradient(180deg, #10172b 0%, #0f1320 100%);
+      border-bottom:1px solid #283357;
+    }
+    header h1{
+      font-size:20px;
+      margin:0;
+      letter-spacing:.4px;
+      font-weight:800;
+    }
+    header .badges{
+      display:flex; gap:8px;
+    }
+    .badge{
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:600;
+      background:#0d1b2a;
+      border:1px solid #2b3b60;
+      color:var(--muted);
+    }
+
+    main{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      padding:18px;
+    }
+
+    .canvas{
+      background:linear-gradient(180deg, #0f1526 0%, #0d1220 100%);
+      border:1px solid #293456;
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .panel{
+      background:var(--panel);
+      border:1px solid #2a365d;
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      max-height:calc(100vh - 160px);
+      overflow:auto;
+    }
+    .panel h2{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:.3px;
+      font-weight:800;
+    }
+
+    /* Car Stage */
+    .stage{
+      position:absolute;
+      inset:0;
+      padding:24px;
+      display:grid;
+      grid-template-rows: 1fr auto;
+      pointer-events:none;
+    }
+    .sky{
+      background: radial-gradient(600px 300px at 80% 20%, rgba(110,193,228,.15), transparent),
+                  radial-gradient(800px 400px at 20% 10%, rgba(180,136,255,.12), transparent);
+    }
+    .road{
+      align-self:end;
+      height:140px;
+      background:linear-gradient(180deg, #101626 0%, #0a0d17 100%);
+      border-top:1px solid #273357;
+      position:relative;
+      overflow:visible;
+    }
+    .road .lane{
+      position:absolute; left:0; right:0;
+      height:6px; top:20px;
+      background:repeating-linear-gradient(90deg, #8899cc 0 40px, transparent 40px 90px);
+      opacity:.25;
+    }
+
+    /* Car SVG wrapper */
+    .car{
+      position:absolute;
+      bottom:18px;
+      left:50%;
+      transform:translateX(-50%);
+      width:640px;
+      pointer-events:none;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
+    }
+
+    /* Ramp animation */
+    .ramp{
+      transform-origin: 10% 50%;
+      transition: transform .6s cubic-bezier(.22,.96,.4,1), opacity .6s;
+      opacity:.85;
+    }
+    .ramp.deployed{ transform: rotate(-38deg) translate(-8px, 10px); }
+
+    /* Calm mode lighting */
+    .calmGlow{
+      position:absolute; inset:-40% -10% auto -10%;
+      height:60%;
+      background: radial-gradient(600px 400px at 50% 60%, rgba(110,193,228,.15), transparent),
+                  radial-gradient(700px 420px at 40% 30%, rgba(123,211,137,.12), transparent);
+      mix-blend-mode: screen;
+      opacity:0;
+      transition: opacity .6s;
+      pointer-events:none;
+    }
+    .calm.on .calmGlow{ opacity:1; }
+
+    /* Controls */
+    .controls{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(0,1fr));
+      gap:10px;
+    }
+    button, .toggle{
+      background:linear-gradient(180deg, #1b2541 0%, #141c33 100%);
+      border:1px solid #304070;
+      color:var(--text);
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      letter-spacing:.2px;
+      box-shadow: 0 2px 0 #0b0f1a;
+      transition: transform .08s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    button:active{ transform: translateY(1px); }
+    button[aria-pressed="true"], .toggle.active{
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(110,193,228,.25) inset;
+    }
+    .small{ font-size:12px; padding:8px 10px; }
+
+    .status{
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap:8px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid #2c3a67;
+      border-radius:12px;
+      padding:12px;
+      box-shadow:var(--shadow);
+    }
+    .card h3{ margin:0 0 8px; font-size:14px; font-weight:800; letter-spacing:.3px;}
+    .stack{ display:flex; flex-direction:column; gap:6px; }
+    .row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .label{ color:var(--muted); font-size:12px; }
+    .val{ font-weight:700; }
+
+    /* Toasts */
+    .toast{
+      position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+      background:#0e1426cc; backdrop-filter: blur(8px);
+      border:1px solid #2b3b60; color:var(--text);
+      padding:10px 14px; border-radius:10px; font-weight:700;
+      max-width: 80vw; text-align:center;
+      opacity:0; pointer-events:none;
+      transition: opacity .25s ease;
+    }
+    .toast.show{ opacity:1; }
+
+    /* Accessibility helpers */
+    .sr-only{
+      position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0);
+      border:0;
+    }
+
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+      .controls{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .car{ width:92vw; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Adaptive Car Playground • Sanctuary Overlay</h1>
+    <div class="badges">
+      <span class="badge">Calm Mode</span>
+      <span class="badge">Caregiver Override</span>
+      <span class="badge">Route Recall</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- Canvas: Car and environment -->
+    <section class="canvas calm" id="canvas" aria-label="Adaptive car simulation">
+      <div class="stage sky">
+        <div class="calmGlow" aria-hidden="true"></div>
+
+        <svg class="car" viewBox="0 0 800 360" role="img" aria-labelledby="carTitle carDesc">
+          <title id="carTitle">Accessible car with adaptive systems</title>
+          <desc id="carDesc">Car shows ramp, lowered floor, raised roof, docking, and hand controls.</desc>
+
+          <!-- Body -->
+          <g id="body">
+            <rect x="120" y="130" width="560" height="120" rx="12" fill="#233255" stroke="#3a4e7a" stroke-width="3"/>
+            <!-- Raised roof -->
+            <rect x="220" y="80" width="380" height="60" rx="10" fill="#1f2b47" stroke="#3a4e7a" stroke-width="3"/>
+            <!-- Windows -->
+            <rect x="240" y="90" width="160" height="46" rx="8" fill="#6ec1e426"/>
+            <rect x="410" y="90" width="170" height="46" rx="8" fill="#6ec1e43a"/>
+          </g>
+
+          <!-- Wheels -->
+          <g id="wheels">
+            <circle cx="220" cy="265" r="40" fill="#0c101a" stroke="#4b5d8a" stroke-width="4"/>
+            <circle cx="575" cy="265" r="40" fill="#0c101a" stroke="#4b5d8a" stroke-width="4"/>
+          </g>
+
+          <!-- Door opening -->
+          <rect x="300" y="136" width="120" height="114" rx="10" fill="#1a2542"/>
+
+          <!-- Ramp -->
+          <g id="ramp" class="ramp" transform="translate(420,240)">
+            <rect width="160" height="14" rx="7" fill="#6ec1e4" />
+            <rect x="4" y="3" width="152" height="8" rx="5" fill="#2c3a67" />
+          </g>
+
+          <!-- Docking station indicator -->
+          <g id="dock" transform="translate(470,190)">
+            <rect width="32" height="32" rx="6" fill="#7bd389"/>
+            <path d="M6,16 h20" stroke="#0b0f1a" stroke-width="3"/>
+            <circle cx="16" cy="16" r="10" fill="#0b0f1a"/>
+          </g>
+
+          <!-- Hand control lever -->
+          <g id="handCtrl" transform="translate(360,170)">
+            <rect width="12" height="48" rx="4" fill="#b488ff"/>
+            <circle cx="6" cy="52" r="6" fill="#b488ff"/>
+          </g>
+        </svg>
+
+        <div class="road">
+          <div class="lane"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Control panel -->
+    <aside class="panel" aria-label="Adaptive systems control panel">
+      <h2>Controls</h2>
+      <div class="controls" role="group" aria-label="Vehicle controls">
+        <button id="btnRamp" aria-pressed="false" aria-label="Toggle ramp">Ramp</button>
+        <button id="btnCalm" aria-pressed="true" aria-label="Toggle calm mode">Calm Mode</button>
+        <button id="btnOverride" aria-pressed="false" aria-label="Toggle caregiver override">Caregiver Override</button>
+        <button id="btnDock" aria-pressed="true" aria-label="Toggle wheelchair docking">Docking</button>
+        <button id="btnAffirm" class="small" aria-label="Show affirmation">Affirmation</button>
+        <button id="btnEmergency" class="small" aria-label="Emergency stop">Emergency Stop</button>
+      </div>
+
+      <div class="status">
+        <div class="card">
+          <h3>Dashboard (pictograms)</h3>
+          <div class="row"><span class="label">🏠 Home</span><span class="val" id="destHome">Ready</span></div>
+          <div class="row"><span class="label">🏫 School</span><span class="val" id="destSchool">Ready</span></div>
+          <div class="row"><span class="label">🏥 Clinic</span><span class="val" id="destClinic">Ready</span></div>
+          <div class="row"><span class="label">🌳 Park</span><span class="val" id="destPark">Ready</span></div>
+          <div class="row"><span class="label">🏕 Camp</span><span class="val" id="destCamp">Ready</span></div>
+        </div>
+
+        <div class="card">
+          <h3>Caregiver monitor</h3>
+          <div class="stack" id="caregiverPanel">
+            <div class="row"><span class="label">Override</span><span class="val">Off</span></div>
+            <div class="row"><span class="label">Calm mode</span><span class="val">On</span></div>
+            <div class="row"><span class="label">Docking</span><span class="val">Locked</span></div>
+            <div class="row"><span class="label">Location</span><span class="val">Base</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Route recall</h3>
+        <div class="row">
+          <input id="routeInput" aria-label="Add destination" placeholder="Type a destination (e.g., Clinic)" style="flex:1; padding:10px; border-radius:8px; border:1px solid #304070; background:#0f1526; color:#eaf2ff;">
+          <button id="btnLog" class="small" aria-label="Log route">Log</button>
+          <button id="btnReplay" class="small" aria-label="Replay route">Replay</button>
+        </div>
+        <div id="routeOut" class="label" style="margin-top:8px;">No routes stored.</div>
+      </div>
+
+      <div class="card">
+        <h3>Obstacle log</h3>
+        <div class="row">
+          <input id="obsType" aria-label="Obstacle type" placeholder="Type (e.g., curb)" style="flex:1; padding:10px; border-radius:8px; border:1px solid #304070; background:#0f1526; color:#eaf2ff;">
+          <input id="obsLoc" aria-label="Obstacle location" placeholder="Location (e.g., parking lot)" style="flex:1; padding:10px; border-radius:8px; border:1px solid #304070; background:#0f1526; color:#eaf2ff;">
+          <button id="btnObs" class="small" aria-label="Log obstacle">Add</button>
+        </div>
+        <div id="obsOut" class="label" style="margin-top:8px;">No obstacles logged.</div>
+      </div>
+
+      <div class="card">
+        <h3>Color chorus</h3>
+        <div class="controls">
+          <button class="small chorus" data-color="cyan">Cyan • Calm</button>
+          <button class="small chorus" data-color="gold">Gold • Strength</button>
+          <button class="small chorus" data-color="silver">Silver • Independence</button>
+          <button class="small chorus" data-color="violet">Violet • Intelligence</button>
+          <button class="small chorus" data-color="green">Green • Resilience</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Drive with dignity, arrive with joy.</div>
+
+  <footer class="badge" style="margin:12px auto 16px;">
+    Adaptation is celebration • Every road remembers
+  </footer>
+
+  <script>
+    // State
+    const state = {
+      ramp: false,
+      calm: true,
+      override: false,
+      docking: true,
+      location: "Base",
+      routes: [],
+      obstacles: []
+    };
+
+    // Elements
+    const canvas = document.getElementById('canvas');
+    const rampEl = document.getElementById('ramp');
+    const dockEl = document.getElementById('dock');
+    const toast = document.getElementById('toast');
+    const caregiverPanel = document.getElementById('caregiverPanel');
+
+    // Controls
+    const btnRamp = document.getElementById('btnRamp');
+    const btnCalm = document.getElementById('btnCalm');
+    const btnOverride = document.getElementById('btnOverride');
+    const btnDock = document.getElementById('btnDock');
+    const btnAffirm = document.getElementById('btnAffirm');
+    const btnEmergency = document.getElementById('btnEmergency');
+
+    // Route elements
+    const routeInput = document.getElementById('routeInput');
+    const btnLog = document.getElementById('btnLog');
+    const btnReplay = document.getElementById('btnReplay');
+    const routeOut = document.getElementById('routeOut');
+
+    // Obstacle elements
+    const obsType = document.getElementById('obsType');
+    const obsLoc = document.getElementById('obsLoc');
+    const btnObs = document.getElementById('btnObs');
+    const obsOut = document.getElementById('obsOut');
+
+    // Utility: Toast
+    const affirmations = [
+      "Mobility is memory in motion.",
+      "Drive with dignity, arrive with joy.",
+      "Every adaptation is a celebration.",
+      "Technology honors resilience.",
+      "Every road remembers."
+    ];
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 2200);
+    }
+
+    // Update caregiver panel
+    function renderCaregiver(){
+      caregiverPanel.innerHTML = `
+        <div class="row"><span class="label">Override</span><span class="val">${state.override ? "Engaged" : "Off"}</span></div>
+        <div class="row"><span class="label">Calm mode</span><span class="val">${state.calm ? "On" : "Off"}</span></div>
+        <div class="row"><span class="label">Docking</span><span class="val">${state.docking ? "Locked" : "Unlocked"}</span></div>
+        <div class="row"><span class="label">Location</span><span class="val">${state.location}</span></div>
+      `;
+      dockEl.setAttribute('fill', state.docking ? '#7bd389' : '#ff6b6b');
+    }
+
+    // Toggle ramp
+    btnRamp.addEventListener('click', ()=>{
+      state.ramp = !state.ramp;
+      btnRamp.setAttribute('aria-pressed', String(state.ramp));
+      rampEl.classList.toggle('deployed', state.ramp);
+      showToast(state.ramp ? "Ramp deployed automatically." : "Ramp retracted.");
+    });
+
+    // Toggle calm
+    btnCalm.addEventListener('click', ()=>{
+      state.calm = !state.calm;
+      btnCalm.setAttribute('aria-pressed', String(state.calm));
+      canvas.classList.toggle('calm', state.calm);
+      showToast(state.calm ? "Calm mode activated." : "Calm mode off.");
+      renderCaregiver();
+    });
+
+    // Toggle caregiver override
+    btnOverride.addEventListener('click', ()=>{
+      state.override = !state.override;
+      btnOverride.setAttribute('aria-pressed', String(state.override));
+      showToast(state.override ? "Caregiver override engaged." : "Caregiver override disengaged.");
+      renderCaregiver();
+    });
+
+    // Toggle docking
+    btnDock.addEventListener('click', ()=>{
+      state.docking = !state.docking;
+      btnDock.setAttribute('aria-pressed', String(state.docking));
+      renderCaregiver();
+      showToast(state.docking ? "Wheelchair secured." : "Wheelchair unlocked. Check docking.");
+    });
+
+    // Affirmation
+    btnAffirm.addEventListener('click', ()=>{
+      const msg = affirmations[Math.floor(Math.random() * affirmations.length)];
+      showToast(msg);
+    });
+
+    // Emergency stop
+    btnEmergency.addEventListener('click', ()=>{
+      showToast("Emergency stop activated. Vehicle halted.");
+    });
+
+    // Route memory
+    btnLog.addEventListener('click', ()=>{
+      const loc = routeInput.value.trim();
+      if(!loc){ showToast("Add a destination first."); return; }
+      state.routes.push(loc);
+      routeInput.value = "";
+      routeOut.textContent = `Stored: ${state.routes.join(" → ")}`;
+      state.location = loc;
+      renderCaregiver();
+      showToast(`Route to ${loc} logged.`);
+    });
+
+    btnReplay.addEventListener('click', ()=>{
+      if(!state.routes.length){ showToast("No routes stored yet."); return; }
+      showToast(`Replaying route: ${state.routes.join(" → ")}`);
+    });
+
+    // Obstacles
+    btnObs.addEventListener('click', ()=>{
+      const type = obsType.value.trim();
+      const loc = obsLoc.value.trim();
+      if(!type || !loc){ showToast("Enter obstacle type and location."); return; }
+      state.obstacles.push({type, loc});
+      obsType.value = ""; obsLoc.value = "";
+      obsOut.textContent = state.obstacles.map(o => `${o.type} at ${o.loc}`).join(" • ");
+      showToast("Obstacle logged.");
+    });
+
+    // Color chorus fun
+    document.querySelectorAll('.chorus').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const color = btn.dataset.color;
+        switch(color){
+          case 'cyan':
+            canvas.style.boxShadow = "inset 0 0 120px rgba(110,193,228,.25)";
+            showToast("Cyan: Calm");
+            break;
+          case 'gold':
+            canvas.style.boxShadow = "inset 0 0 120px rgba(247,201,72,.18)";
+            showToast("Gold: Strength");
+            break;
+          case 'silver':
+            canvas.style.boxShadow = "inset 0 0 120px rgba(195,199,255,.18)";
+            showToast("Silver: Independence");
+            break;
+          case 'violet':
+            canvas.style.boxShadow = "inset 0 0 120px rgba(180,136,255,.2)";
+            showToast("Violet: Intelligence");
+            break;
+          case 'green':
+            canvas.style.boxShadow = "inset 0 0 120px rgba(123,21,137,.18)";
+            showToast("Green: Resilience");
+            break;
+        }
+      });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e)=>{
+      if(e.key.toLowerCase() === 'r') btnRamp.click();
+      if(e.key.toLowerCase() === 'c') btnCalm.click();
+      if(e.key.toLowerCase() === 'o') btnOverride.click();
+      if(e.key.toLowerCase() === 'd') btnDock.click();
+      if(e.key.toLowerCase() === 'a') btnAffirm.click();
+      if(e.key.toLowerCase() === 'e') btnEmergency.click();
+    });
+
+    // Initial render
+    btnCalm.setAttribute('aria-pressed', 'true');
+    btnDock.setAttribute('aria-pressed', 'true');
+    renderCaregiver();
+  </script>
+</body>
+</html>
