@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Color Circle of Friendship</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f1320;
+      --panel: #141a2b;
+      --card: #1b2238;
+      --text: #eaf2ff;
+      --muted: #9fb1d9;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+
+      /* Friendship palette */
+      --cyan: #6ec1e4;      /* Calm & understanding */
+      --gold: #f7c948;      /* Loyalty & gratitude */
+      --violet: #b488ff;    /* Wisdom & deep listening */
+      --green: #7bd389;     /* Support & growth */
+      --rose: #ff7aa2;      /* Compassion & care */
+      --sunset: #ff9966;    /* Joy & celebration */
+      --silver: #c3c7ff;    /* Respect & boundaries */
+      --amber: #f4b942;     /* Trust & reliability */
+    }
+
+    *{ box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 700px at 30% 10%, #18203a, var(--bg));
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      display:grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    header{
+      padding:18px 24px;
+      display:flex; align-items:center; justify-content:space-between;
+      background: linear-gradient(180deg, #10172b 0%, #0f1320 100%);
+      border-bottom:1px solid #283357;
+    }
+    header h1{ margin:0; font-weight:800; font-size:20px; letter-spacing:.3px; }
+    .badges{ display:flex; gap:8px; }
+    .badge{
+      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
+      background:#0d1b2a; border:1px solid #2b3b60; color:var(--muted);
+    }
+
+    main{ display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; padding:18px; }
+
+    .canvas{
+      background:linear-gradient(180deg, #0f1526 0%, #0d1220 100%);
+      border:1px solid #293456; border-radius:16px; box-shadow:var(--shadow);
+      position:relative; overflow:hidden; display:grid; place-items:center;
+    }
+
+    .panel{
+      background:var(--panel);
+      border:1px solid #2a365d; border-radius:16px; box-shadow:var(--shadow);
+      padding:16px; display:flex; flex-direction:column; gap:14px;
+      max-height:calc(100vh - 160px); overflow:auto;
+    }
+    .panel h2{ margin:0 0 8px; font-size:16px; font-weight:800; letter-spacing:.3px; }
+    .card{
+      background:var(--card); border:1px solid #2c3a67; border-radius:12px;
+      padding:12px; box-shadow:var(--shadow);
+    }
+    .row{ display:flex; align-items:center; gap:8px; }
+    .stack{ display:flex; flex-direction:column; gap:6px; }
+    .label{ color:var(--muted); font-size:12px; }
+    .val{ font-weight:700; }
+
+    /* Circle of Friendship */
+    .circle-wrap{
+      width:min(84vmin, 720px);
+      aspect-ratio: 1/1;
+      position:relative;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,.3));
+    }
+
+    .center{
+      position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+      width:28%; aspect-ratio: 1/1; border-radius:50%;
+      background: radial-gradient(120px 120px at 50% 60%, #ffffff22, transparent), #182441;
+      border:2px solid #3a4e7a;
+      display:grid; place-items:center; text-align:center; padding:10px;
+    }
+    .center h3{ margin:0; font-size:14px; font-weight:800; letter-spacing:.3px; }
+    .center p{ margin:6px 0 0; font-size:12px; color:var(--muted); }
+
+    /* Petals */
+    .petal{
+      --color: #6ec1e4;
+      position:absolute; left:50%; top:50%;
+      width:18%; aspect-ratio: 1/2.2;
+      transform-origin: 50% 85%;
+      border-radius: 22px;
+      background: linear-gradient(180deg, var(--color) 0%, color-mix(in srgb, var(--color), #0f1320 35%) 100%);
+      border:2px solid color-mix(in srgb, var(--color), #000 30%);
+      transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      cursor:pointer;
+      outline:none;
+    }
+    .petal:focus-visible{
+      box-shadow: 0 0 0 3px rgba(255,255,255,.15), 0 0 0 6px color-mix(in srgb, var(--color), white 20%);
+    }
+    .petal:hover{ filter:brightness(1.08); }
+    .petal.active{ transform: translate(-50%,-50%) scale(1.06) rotate(var(--rot)); }
+
+    /* Label chip */
+    .chip{
+      position:absolute;
+      left:50%; transform: translateX(-50%);
+      bottom:-28px;
+      background:#0e1426cc; backdrop-filter: blur(6px);
+      color:var(--text); border:1px solid #2b3b60;
+      padding:6px 10px; font-size:12px; font-weight:700; border-radius:999px;
+      white-space:nowrap;
+    }
+
+    /* Toast */
+    .toast{
+      position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+      background:#0e1426cc; backdrop-filter: blur(10px);
+      border:1px solid #2b3b60; color:var(--text);
+      padding:10px 14px; border-radius:10px; font-weight:700;
+      max-width: 80vw; text-align:center;
+      opacity:0; pointer-events:none;
+      transition: opacity .25s ease;
+    }
+    .toast.show{ opacity:1; }
+
+    /* Legend pills */
+    .legend{ display:flex; flex-wrap:wrap; gap:8px; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:999px;
+      background:#0d1b2a; border:1px solid #2b3b60; color:var(--text);
+      font-size:12px; font-weight:700;
+    }
+    .dot{ width:12px; height:12px; border-radius:50%; }
+
+    @media (max-width: 980px){
+      main{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Color Circle of Friendship • Sanctuary Overlay</h1>
+    <div class="badges">
+      <span class="badge">Affirmations</span>
+      <span class="badge">Accessible Keys</span>
+      <span class="badge">Ceremonial Colors</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="canvas" aria-label="Interactive color circle of friendship">
+      <div class="circle-wrap" id="circle" role="group" aria-label="Friendship petals">
+        <!-- Center -->
+        <div class="center" aria-live="polite">
+          <h3 id="centerTitle">Friendship</h3>
+          <p id="centerDesc">Choose a color to reveal a quality and affirmation.</p>
+        </div>
+
+        <!-- Petals: positioned by rotation -->
+        <!-- Petal 1: Calm & Understanding -->
+        <button class="petal" style="--color: var(--cyan); transform: translate(-50%,-50%) rotate(0deg);" data-rot="0" data-title="Calm & Understanding" data-affirm="I meet my friends with calm presence and open heart." aria-label="Calm & Understanding">
+          <span class="chip">Calm</span>
+        </button>
+
+        <!-- Petal 2: Loyalty & Gratitude -->
+        <button class="petal" style="--color: var(--gold); transform: translate(-50%,-50%) rotate(45deg);" data-rot="45" data-title="Loyalty & Gratitude" data-affirm="I show up, cherish memories, and celebrate every milestone." aria-label="Loyalty & Gratitude">
+          <span class="chip">Loyalty</span>
+        </button>
+
+        <!-- Petal 3: Wisdom & Deep Listening -->
+        <button class="petal" style="--color: var(--violet); transform: translate(-50%,-50%) rotate(90deg);" data-rot="90" data-title="Wisdom & Deep Listening" data-affirm="I listen with patience and reflect with care." aria-label="Wisdom & Deep Listening">
+          <span class="chip">Wisdom</span>
+        </button>
+
+        <!-- Petal 4: Support & Growth -->
+        <button class="petal" style="--color: var(--green); transform: translate(-50%,-50%) rotate(135deg);" data-rot="135" data-title="Support & Growth" data-affirm="We grow together; every challenge becomes a shared victory." aria-label="Support & Growth">
+          <span class="chip">Support</span>
+        </button>
+
+        <!-- Petal 5: Compassion & Care -->
+        <button class="petal" style="--color: var(--rose); transform: translate(-50%,-50%) rotate(180deg);" data-rot="180" data-title="Compassion & Care" data-affirm="I offer gentle care and receive it with gratitude." aria-label="Compassion & Care">
+          <span class="chip">Compassion</span>
+        </button>
+
+        <!-- Petal 6: Joy & Celebration -->
+        <button class="petal" style="--color: var(--sunset); transform: translate(-50%,-50%) rotate(225deg);" data-rot="225" data-title="Joy & Celebration" data-affirm="We celebrate small moments with big hearts." aria-label="Joy & Celebration">
+          <span class="chip">Joy</span>
+        </button>
+
+        <!-- Petal 7: Respect & Boundaries -->
+        <button class="petal" style="--color: var(--silver); transform: translate(-50%,-50%) rotate(270deg);" data-rot="270" data-title="Respect & Boundaries" data-affirm="We honor each other’s time, space, and truth." aria-label="Respect & Boundaries">
+          <span class="chip">Respect</span>
+        </button>
+
+        <!-- Petal 8: Trust & Reliability -->
+        <button class="petal" style="--color: var(--amber); transform: translate(-50%,-50%) rotate(315deg);" data-rot="315" data-title="Trust & Reliability" data-affirm="Trust is our foundation; reliability is our daily practice." aria-label="Trust & Reliability">
+          <span class="chip">Trust</span>
+        </button>
+      </div>
+    </section>
+
+    <aside class="panel" aria-label="Legend and controls">
+      <h2>Legend</h2>
+      <div class="card">
+        <div class="legend">
+          <span class="pill"><span class="dot" style="background:var(--cyan)"></span> Calm</span>
+          <span class="pill"><span class="dot" style="background:var(--gold)"></span> Loyalty</span>
+          <span class="pill"><span class="dot" style="background:var(--violet)"></span> Wisdom</span>
+          <span class="pill"><span class="dot" style="background:var(--green)"></span> Support</span>
+          <span class="pill"><span class="dot" style="background:var(--rose)"></span> Compassion</span>
+          <span class="pill"><span class="dot" style="background:var(--sunset)"></span> Joy</span>
+          <span class="pill"><span class="dot" style="background:var(--silver)"></span> Respect</span>
+          <span class="pill"><span class="dot" style="background:var(--amber)"></span> Trust</span>
+        </div>
+      </div>
+
+      <h2>Controls</h2>
+      <div class="card stack">
+        <div class="row">
+          <button id="shuffle" aria-label="Shuffle affirmation">Shuffle affirmation</button>
+          <button id="pulse" aria-label="Pulse petals">Pulse petals</button>
+        </div>
+        <div class="row">
+          <span class="label">Keyboard: Arrow keys move focus • Enter/Space activate</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">Welcome to the Circle of Friendship.</div>
+
+  <footer class="badge" style="margin:12px auto 16px;">
+    Adaptation is celebration • Every road remembers • Friendship is a sanctuary
+  </footer>
+
+  <script>
+    const toast = document.getElementById('toast');
+    const petals = Array.from(document.querySelectorAll('.petal'));
+    const centerTitle = document.getElementById('centerTitle');
+    const centerDesc  = document.getElementById('centerDesc');
+    const shuffleBtn  = document.getElementById('shuffle');
+    const pulseBtn    = document.getElementById('pulse');
+
+    const globalAffirmations = [
+      "Friendship is a sanctuary we build together.",
+      "We honor each other’s pace, voice, and journey.",
+      "Loyalty is love practiced over time.",
+      "Joy multiplies when shared.",
+      "Boundaries are bridges of respect.",
+      "Trust is steady, gentle, and true.",
+      "Calm presence changes everything.",
+      "We grow stronger, one conversation at a time."
+    ];
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(()=>toast.classList.remove('show'), 2200);
+    }
+
+    // Activate a petal
+    function activatePetal(el){
+      petals.forEach(p=>p.classList.remove('active'));
+      el.classList.add('active');
+      const title = el.dataset.title;
+      const affirm = el.dataset.affirm;
+      centerTitle.textContent = title;
+      centerDesc.textContent = affirm;
+      showToast(affirm);
+    }
+
+    // Click & keyboard activation
+    petals.forEach((p, idx)=>{
+      p.setAttribute('tabindex', '0'); // focusable
+      p.addEventListener('click', ()=> activatePetal(p));
+      p.addEventListener('keydown', (e)=>{
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activatePetal(p); }
+        // arrow navigation in the circle
+        if(['ArrowRight','ArrowDown','ArrowLeft','ArrowUp'].includes(e.key)){
+          e.preventDefault();
+          const dir = {ArrowRight:1, ArrowDown:2, ArrowLeft:-1, ArrowUp:-2}[e.key];
+          let next = (idx + dir) % petals.length;
+          if(next < 0) next = petals.length + next;
+          petals[next].focus();
+        }
+      });
+    });
+
+    // Shuffle affirmation (center only)
+    shuffleBtn.addEventListener('click', ()=>{
+      const msg = globalAffirmations[Math.floor(Math.random() * globalAffirmations.length)];
+      centerDesc.textContent = msg;
+      showToast(msg);
+    });
+
+    // Pulse petals (fun animation via temporary scaling)
+    pulseBtn.addEventListener('click', ()=>{
+      petals.forEach(p=>{
+        const rot = p.dataset.rot || '0';
+        p.style.transform = `translate(-50%,-50%) rotate(${rot}deg) scale(1.08)`;
+        setTimeout(()=> p.style.transform = `translate(-50%,-50%) rotate(${rot}deg)`, 350);
+      });
+      showToast("The circle pulses with friendship.");
+    });
+
+    // Welcome toast
+    setTimeout(()=>showToast("Choose a color to reveal a friendship quality."), 600);
+  </script>
+</body>
+</html>
