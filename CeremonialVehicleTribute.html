@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ceremonial Vehicle Tribute Page</title>
+  <meta name="description" content="A sanctuary-style tribute page for accessible vehicles: car, truck, and van, with interactive overlays and maps." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f172a;           /* slate-900 */
+      --panel: #111827;        /* gray-900 */
+      --panel-2:#0b1220;       /* deeper */
+      --text: #e5e7eb;         /* gray-200 */
+      --muted: #9ca3af;        /* gray-400 */
+      --primary: #3b82f6;      /* blue-500 */
+      --primary-2:#60a5fa;     /* blue-400 */
+      --accent: #a78bfa;       /* violet-400 */
+      --gold: #f59e0b;         /* amber-500 */
+      --green:#34d399;         /* emerald-400 */
+      --danger:#ef4444;        /* red-500 */
+      --calm:#22d3ee;          /* cyan-400 */
+      --focus: 0 0 0 3px rgba(59,130,246,.45);
+      --radius: 14px;
+    }
+
+    *{ box-sizing:border-box }
+    html,body{ height:100% }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 600px at 80% 10%, #0b1220, #0f172a 55%);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol", sans-serif;
+      line-height:1.5;
+    }
+
+    header{
+      position:sticky; top:0; z-index:10;
+      background:linear-gradient(0deg, rgba(17,24,39,.85), rgba(11,18,32,.85));
+      backdrop-filter:saturate(140%) blur(6px);
+      border-bottom:1px solid #1f2937;
+    }
+    .wrap{ max-width:1200px; margin:0 auto; padding:16px 24px }
+    h1{
+      margin:0 0 6px;
+      font-weight:800; letter-spacing:.2px; font-size:28px;
+      background:linear-gradient(90deg, #93c5fd, #a78bfa 60%, #34d399);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .subtitle{ color:var(--muted); font-size:14px }
+
+    main{ padding:24px 0 48px }
+
+    .grid{
+      display:grid; gap:16px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .panel{
+      grid-column: span 12;
+      background:linear-gradient(180deg, var(--panel), var(--panel-2));
+      border:1px solid #1f2937; border-radius:var(--radius);
+      box-shadow: 0 10px 24px rgba(3, 6, 23, .65), inset 0 1px 0 rgba(255,255,255,.04);
+      overflow:hidden;
+    }
+    @media (min-width:900px){
+      .panel.half{ grid-column: span 6 }
+      .panel.third{ grid-column: span 4 }
+    }
+
+    .panel > header{
+      padding:14px 18px;
+      border-bottom:1px solid #1f2937;
+      display:flex; justify-content:space-between; align-items:center;
+      background:linear-gradient(0deg, rgba(17,24,39,.7), rgba(11,18,32,.7));
+    }
+    .panel h2{
+      margin:0; font-size:18px; font-weight:700; letter-spacing:.2px;
+    }
+    .panel .body{ padding:16px 18px }
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:12px; color:#cbd5e1;
+      background:#0b1220; border:1px solid #1f2937; border-radius:999px;
+      padding:6px 10px;
+    }
+
+    .btn{
+      appearance:none; border:none; cursor:pointer;
+      padding:10px 12px; border-radius:10px;
+      font-weight:600; color:#e5e7eb; background:#0b1220;
+      border:1px solid #1f2937; transition: all .18s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); background:#111827 }
+    .btn:focus-visible{ outline:none; box-shadow: var(--focus) }
+
+    .btn.primary{ background:linear-gradient(180deg, #1e3a8a, #0b1220); border-color:#1f3c78 }
+    .btn.primary:hover{ background:linear-gradient(180deg, #1e40af, #0b1220) }
+    .btn.calm{ background:linear-gradient(180deg, #0b1220, #0b1220); border-color:#0ea5e9; color:#67e8f9 }
+    .btn.gold{ border-color:#f59e0b; color:#f59e0b }
+    .btn.danger{ border-color:#ef4444; color:#ef4444 }
+
+    .stack{ display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+
+    .label-list{
+      display:grid; gap:10px;
+      grid-template-columns: repeat(2, minmax(160px, 1fr));
+    }
+    .label{
+      padding:10px 12px; border-radius:10px;
+      background:#0b1220; border:1px solid #1f2937;
+      display:flex; align-items:center; gap:10px;
+    }
+    .label .dot{ width:10px; height:10px; border-radius:50% }
+    .label .name{ font-weight:600 }
+
+    /* Affirmation toast */
+    .toast{
+      position:fixed; right:18px; bottom:18px; z-index:20;
+      max-width:380px; padding:12px 14px; border-radius:12px;
+      background:linear-gradient(180deg, #0b1220, #111827);
+      border:1px solid #1f2937; color:#cbd5e1;
+      box-shadow:0 12px 24px rgba(3,6,23,.55);
+    }
+
+    /* Map (simulated) */
+    .map{
+      height:300px; border-radius:12px; border:1px solid #1f2937;
+      background:
+        radial-gradient(180px 180px at 18% 32%, rgba(59,130,246,.15), transparent 60%),
+        radial-gradient(220px 220px at 78% 65%, rgba(167,139,250,.18), transparent 60%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 1px, transparent 2px 10px),
+        linear-gradient(180deg, #0b1220, #0f172a 50%);
+      position:relative; overflow:hidden;
+    }
+    .pin{
+      position:absolute; transform:translate(-50%, -100%);
+      background:#3b82f6; color:#09243c; font-weight:700;
+      border:2px solid #93c5fd; width:24px; height:24px; border-radius:50%;
+      display:grid; place-items:center;
+      box-shadow:0 6px 14px rgba(59,130,246,.45);
+    }
+    .pin.violet{ background:#a78bfa; border-color:#c4b5fd; box-shadow:0 6px 14px rgba(167,139,250,.45) }
+    .pin.gold{ background:#f59e0b; border-color:#fcd34d; box-shadow:0 6px 14px rgba(245,158,11,.45) }
+
+    /* Calm mode overlay */
+    .calm-overlay{
+      position:fixed; inset:0; pointer-events:none;
+      background: radial-gradient(800px 320px at 50% 80%, rgba(34,211,238,.08), transparent 60%);
+      transition: opacity .25s ease;
+      opacity:0;
+    }
+    .calm-active .calm-overlay{ opacity:1 }
+
+    /* Accessible switches */
+    .switch{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:8px 10px; border-radius:12px; border:1px solid #1f2937;
+      background:#0b1220; color:#cbd5e1;
+    }
+    .switch input{ width:0; height:0; position:absolute; opacity:0 }
+    .toggle{
+      width:44px; height:24px; border-radius:999px; border:1px solid #1f2937;
+      position:relative; background:#0f172a;
+    }
+    .toggle::after{
+      content:""; position:absolute; top:2px; left:2px;
+      width:18px; height:18px; border-radius:50%; background:#93c5fd;
+      transition: left .18s ease;
+    }
+    .switch input:checked + .toggle{ background:#0ea5e9 }
+    .switch input:checked + .toggle::after{ left:24px }
+
+    /* Caregiver override status */
+    .status{
+      font-family: JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background:#0b1220; border:1px dashed #1f2937; border-radius:10px;
+      padding:10px 12px; color:#9ca3af;
+    }
+
+    /* Vehicle illustration placeholders */
+    .vehicle{
+      border:1px solid #1f2937; border-radius:12px; padding:12px;
+      background:linear-gradient(180deg, #0b1220, #0f172a);
+    }
+    .vehicle h3{ margin:0 0 10px; font-size:16px }
+
+    /* Footer */
+    footer{
+      margin-top:24px; padding:16px; color:#9ca3af; font-size:12px;
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="calm-overlay" aria-hidden="true"></div>
+
+  <header role="banner" aria-label="Ceremonial Vehicle Tribute header">
+    <div class="wrap">
+      <h1>Ceremonial Vehicle Tribute</h1>
+      <div class="subtitle">A sanctuary of mobility, accessibility, and celebration — Car, Truck, Van</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap grid">
+
+      <!-- Controls -->
+      <section class="panel half" aria-labelledby="controls-title">
+        <header>
+          <h2 id="controls-title">Interactive controls</h2>
+          <span class="badge" aria-label="Symbol legend">🛞 Mobility • 🧠 Intelligence • 🕊 Inclusion • 🏁 Journey</span>
+        </header>
+        <div class="body">
+          <div class="stack">
+            <button class="btn calm" id="calmBtn" aria-pressed="false">Calm mode</button>
+            <button class="btn primary" id="replayBtn">Replay route</button>
+            <button class="btn gold" id="affirmationBtn">Affirmation toast</button>
+            <button class="btn danger" id="overrideBtn">Caregiver override</button>
+          </div>
+          <div style="margin-top:12px" class="status" id="overrideStatus" aria-live="polite">
+            Override: idle • Doors locked: false • Ramp deployed: false
+          </div>
+        </div>
+      </section>
+
+      <!-- Route Recall Map -->
+      <section class="panel half" aria-labelledby="map-title">
+        <header>
+          <h2 id="map-title">Route recall map</h2>
+          <span class="badge">🏠 Home • 🏫 School • 🏥 Clinic</span>
+        </header>
+        <div class="body">
+          <div class="map" id="map" role="img" aria-label="Simulated map with pins for Home, School, and Clinic">
+            <!-- Pins injected by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Vehicles: Car -->
+      <section class="panel third" aria-labelledby="car-title">
+        <header>
+          <h2 id="car-title">Car model — labels</h2>
+          <span class="badge">♿ Swivel seat • Hand controls • Pedal mods</span>
+        </header>
+        <div class="body">
+          <div class="vehicle">
+            <h3>Core design</h3>
+            <div class="label-list">
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Engine block</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Transmission</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Steering wheel</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Pedals</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Seats</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Doors</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Trunk</span></div>
+            </div>
+
+            <h3 style="margin-top:12px">Accessibility systems</h3>
+            <div class="label-list">
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Swivel transfer seat</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Hand controls</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Pedal modification</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Compact wheelchair carrier</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Pictogram dashboard</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vehicles: Truck -->
+      <section class="panel third" aria-labelledby="truck-title">
+        <header>
+          <h2 id="truck-title">Truck model — labels</h2>
+          <span class="badge">♿ Hydraulic lift • Adaptive seating • Caregiver override</span>
+        </header>
+        <div class="body">
+          <div class="vehicle">
+            <h3>Core design</h3>
+            <div class="label-list">
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Cab</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Bed</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Engine</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Suspension</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Extended cab doors</span></div>
+            </div>
+
+            <h3 style="margin-top:12px">Accessibility systems</h3>
+            <div class="label-list">
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Hydraulic lift</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Adaptive seating (transfer assist)</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Steering adaptations (joystick/spinner)</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Caregiver override system</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Voice-activated secondary controls</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vehicles: Van -->
+      <section class="panel third" aria-labelledby="van-title">
+        <header>
+          <h2 id="van-title">Van model — labels</h2>
+          <span class="badge">♿ Ramp • Lowered floor • Docking • Calm mode</span>
+        </header>
+        <div class="body">
+          <div class="vehicle">
+            <h3>Core design</h3>
+            <div class="label-list">
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Sliding doors</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Automatic ramp / lift</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Lowered floor</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Raised roof</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Dashboard (large surface)</span></div>
+              <div class="label"><span class="dot" style="background:#93c5fd"></span><span class="name">Rear storage</span></div>
+            </div>
+
+            <h3 style="margin-top:12px">Accessibility systems</h3>
+            <div class="label-list">
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Wheelchair docking station</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Swivel transfer seat</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Pictogram dashboard</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Routine route memory</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Calm mode lighting & airflow</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Emergency stop button</span></div>
+              <div class="label"><span class="dot" style="background:#34d399"></span><span class="name">Caregiver override app</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Obstacle Log -->
+      <section class="panel half" aria-labelledby="obstacle-title">
+        <header>
+          <h2 id="obstacle-title">Obstacle log</h2>
+          <span class="badge">🧠 Reflection • 🕊 Inclusion</span>
+        </header>
+        <div class="body">
+          <form id="logForm" class="stack" aria-label="Add an obstacle entry">
+            <label class="switch" for="typeSelect">
+              <span>Type</span>
+              <select id="typeSelect" class="btn" aria-label="Obstacle type">
+                <option>Curbs</option>
+                <option>Weather</option>
+                <option>Traffic</option>
+                <option>Parking</option>
+                <option>Sensory</option>
+              </select>
+            </label>
+            <input id="noteInput" class="btn" type="text" placeholder="Notes (what helped?)" aria-label="Notes" />
+            <button class="btn primary" type="submit">Add</button>
+            <button class="btn" type="button" id="clearLog">Clear</button>
+          </form>
+          <ul id="logList" style="margin-top:12px; padding-left:18px"></ul>
+        </div>
+      </section>
+
+      <!-- Pictogram Dashboard + Toggles -->
+      <section class="panel half" aria-labelledby="pictogram-title">
+        <header>
+          <h2 id="pictogram-title">Pictogram dashboard</h2>
+          <span class="badge">🏠 Home • 🏫 School • 🏥 Clinic</span>
+        </header>
+        <div class="body">
+          <div class="stack" role="group" aria-label="Pictogram quick actions">
+            <button class="btn" data-pictogram="Home">🏠 Home</button>
+            <button class="btn" data-pictogram="School">🏫 School</button>
+            <button class="btn" data-pictogram="Clinic">🏥 Clinic</button>
+            <button class="btn" data-pictogram="Park">🌳 Park</button>
+            <button class="btn" data-pictogram="Store">🛒 Store</button>
+          </div>
+
+          <div style="margin-top:14px" class="stack">
+            <label class="switch">
+              <span>Doors locked</span>
+              <input type="checkbox" id="doorLock" />
+              <span class="toggle" aria-hidden="true"></span>
+            </label>
+            <label class="switch">
+              <span>Ramp deployed</span>
+              <input type="checkbox" id="rampDeploy" />
+              <span class="toggle" aria-hidden="true"></span>
+            </label>
+            <label class="switch">
+              <span>Calm mode</span>
+              <input type="checkbox" id="calmToggle" />
+              <span class="toggle" aria-hidden="true"></span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      “Drive with dignity, arrive with joy.” • “Every road remembers.” • “Adaptation is celebration.”
+    </footer>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite" style="display:none"></div>
+
+  <script>
+    // Calm Mode
+    const calmBtn = document.getElementById('calmBtn');
+    const calmToggle = document.getElementById('calmToggle');
+    calmBtn.addEventListener('click', () => {
+      const isActive = document.body.classList.toggle('calm-active');
+      calmBtn.setAttribute('aria-pressed', String(isActive));
+      calmToggle.checked = isActive;
+      showToast(isActive ? "Calm mode: soft lighting, gentle airflow, quiet audio." : "Calm mode off.");
+    });
+    calmToggle.addEventListener('change', (e) => {
+      const active = e.target.checked;
+      document.body.classList.toggle('calm-active', active);
+      calmBtn.setAttribute('aria-pressed', String(active));
+      showToast(active ? "Calm mode: Soft lighting engaged." : "Calm mode off.");
+    });
+
+    // Affirmations
+    const affirmations = [
+      "Drive with dignity, arrive with joy.",
+      "Every road remembers.",
+      "Adaptation is celebration.",
+      "Power meets compassion in every mile.",
+      "A sanctuary on wheels, welcoming all."
+    ];
+    const affirmationBtn = document.getElementById('affirmationBtn');
+    affirmationBtn.addEventListener('click', () => {
+      const msg = affirmations[Math.floor(Math.random() * affirmations.length)];
+      showToast(msg);
+    });
+
+    // Caregiver override simulation
+    const overrideBtn = document.getElementById('overrideBtn');
+    const overrideStatus = document.getElementById('overrideStatus');
+    const doorLock = document.getElementById('doorLock');
+    const rampDeploy = document.getElementById('rampDeploy');
+    overrideBtn.addEventListener('click', () => {
+      // Toggle a safe override: lock doors, retract ramp
+      const locked = doorLock.checked = true;
+      const ramp = rampDeploy.checked = false;
+      overrideStatus.textContent = `Override: active • Doors locked: ${locked} • Ramp deployed: ${ramp}`;
+      showToast("Caregiver override: Doors locked, ramp retracted. Safety first.");
+      setTimeout(() => {
+        overrideStatus.textContent = "Override: idle • Doors locked: true • Ramp deployed: false";
+      }, 4000);
+    });
+
+    // Pictogram dashboard actions
+    document.querySelectorAll('[data-pictogram]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const label = btn.getAttribute('data-pictogram');
+        showToast(`${label} set as destination. Route memory updated.`);
+        dropPinFor(label);
+      });
+    });
+
+    // Route Recall Map (simulated)
+    const map = document.getElementById('map');
+    const pins = {
+      Home: { x: 20, y: 68, color: 'blue', emoji:'🏠' },
+      School: { x: 72, y: 38, color: 'violet', emoji:'🏫' },
+      Clinic: { x: 48, y: 58, color: 'gold', emoji:'🏥' },
+      Park: { x: 30, y: 30, color: 'violet', emoji:'🌳' },
+      Store: { x: 80, y: 22, color: 'blue', emoji:'🛒' }
+    };
+
+    function renderBasePins(){
+      map.innerHTML = '';
+      ['Home','School','Clinic'].forEach(name => {
+        const p = pins[name];
+        const el = document.createElement('div');
+        el.className = 'pin ' + (p.color === 'violet' ? 'violet' : p.color === 'gold' ? 'gold' : '');
+        el.style.left = p.x + '%';
+        el.style.top = p.y + '%';
+        el.setAttribute('title', name);
+        el.setAttribute('aria-label', name + ' pin');
+        el.textContent = '•';
+        map.appendChild(el);
+      });
+    }
+    function dropPinFor(name){
+      const p = pins[name];
+      if(!p) return;
+      const el = document.createElement('div');
+      el.className = 'pin ' + (p.color === 'violet' ? 'violet' : p.color === 'gold' ? 'gold' : '');
+      el.style.left = p.x + '%';
+      el.style.top = p.y + '%';
+      el.setAttribute('title', name);
+      el.setAttribute('aria-label', name + ' pin');
+      el.textContent = '•';
+      map.appendChild(el);
+    }
+    renderBasePins();
+
+    // Replay route animation
+    const replayBtn = document.getElementById('replayBtn');
+    replayBtn.addEventListener('click', () => {
+      const seq = ['Home','School','Clinic','Park','Store'];
+      let i = 0;
+      showToast("Replaying route memory…");
+      const interval = setInterval(() => {
+        if(i >= seq.length){ clearInterval(interval); showToast("Route replay complete."); return; }
+        dropPinFor(seq[i++]);
+      }, 550);
+    });
+
+    // Obstacle log
+    const logForm = document.getElementById('logForm');
+    const typeSelect = document.getElementById('typeSelect');
+    const noteInput = document.getElementById('noteInput');
+    const logList = document.getElementById('logList');
+    document.getElementById('clearLog').addEventListener('click', () => {
+      logList.innerHTML = '';
+      showToast("Obstacle log cleared.");
+    });
+    logForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const type = typeSelect.value;
+      const note = (noteInput.value || '').trim();
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${type}:</strong> ${note || "No notes added."}`;
+      logList.prepend(li);
+      noteInput.value = '';
+      showToast(`Logged obstacle: ${type}`);
+    });
+
+    // Toast utility
+    const toast = document.getElementById('toast');
+    let toastTimer;
+    function showToast(message){
+      clearTimeout(toastTimer);
+      toast.textContent = message;
+      toast.style.display = 'block';
+      toastTimer = setTimeout(() => toast.style.display = 'none', 3200);
+    }
+  </script>
+</body>
+</html>
