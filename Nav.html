@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Nativity Overlay — Sanctuary Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --sky: #0b1b3d;
+      --horizon: #172e5c;
+      --sand: #3b2f2a;
+      --stable: #2a231e;
+      --accent: #ffd86b; /* star, candle glow */
+      --snow: rgba(255,255,255,0.85);
+      --text: #f2f6ff;
+      --dim: rgba(255,255,255,0.75);
+      --card: rgba(14, 24, 47, 0.85);
+      --primary: #b6c8ff;
+      --highlight: #ffe7a1;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--sky), var(--horizon) 55%, var(--sand));
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+    }
+
+    /* Layout */
+    .scene {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Star of Bethlehem */
+    .star {
+      position: absolute;
+      top: 8vh;
+      left: 12vw;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow:
+        0 0 16px var(--accent),
+        0 0 32px var(--accent),
+        0 0 64px var(--accent);
+      animation: twinkle 2.4s ease-in-out infinite;
+    }
+    .star::before,
+    .star::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 2px;
+      height: 26px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    .star::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1); filter: brightness(1); }
+      50% { transform: scale(1.25); filter: brightness(1.3); }
+    }
+
+    /* Stable silhouette */
+    .stable {
+      position: absolute;
+      bottom: 18vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 62vw;
+      height: 38vh;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.35)),
+        var(--stable);
+      clip-path: polygon(10% 100%, 10% 55%, 50% 20%, 90% 55%, 90% 100%);
+      box-shadow: 0 -12px 40px rgba(0,0,0,0.35) inset;
+    }
+    .manger {
+      position: absolute;
+      bottom: 6vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22vw;
+      height: 8vh;
+      background: #4a3e35;
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+    }
+    .halo {
+      position: absolute;
+      bottom: 10vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12vw;
+      height: 12vw;
+      border-radius: 50%;
+      box-shadow: 0 0 60px 20px var(--accent);
+      filter: blur(1.5px);
+    }
+
+    /* Characters (clickable hotspots) */
+    .characters {
+      position: absolute;
+      bottom: 10vh;
+      left: 50%;
+      transform: translateX(-50%);
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 16px;
+      width: 80vw;
+      justify-items: center;
+      align-items: end;
+    }
+    .char {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(0,0,0,0.35));
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      backdrop-filter: blur(2px);
+      cursor: pointer;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+    .char:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    .char label {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      color: var(--dim);
+    }
+    /* Simple icon shapes */
+    .icon {
+      position: absolute;
+      top: 16px; left: 50%;
+      transform: translateX(-50%);
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 45%, #e6d9c7 0%, #bba98b 40%, #5b4a3b 100%);
+      box-shadow: 0 0 12px rgba(0,0,0,0.35);
+    }
+    .icon.star {
+      background: radial-gradient(circle, var(--accent), #a37b22 60%, #4a3916 100%);
+    }
+
+    /* Verse overlay */
+    .overlay {
+      position: absolute;
+      left: 50%;
+      top: 10vh;
+      transform: translateX(-50%);
+      width: min(720px, 92vw);
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 16px 18px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+      display: none;
+    }
+    .overlay.active { display: block; }
+    .overlay h3 {
+      margin: 0 0 6px;
+      font-weight: 600;
+      color: var(--highlight);
+    }
+    .overlay p {
+      margin: 6px 0;
+      line-height: 1.45;
+      color: var(--primary);
+    }
+    .overlay .ref {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--dim);
+    }
+    .close {
+      position: absolute;
+      right: 10px; top: 10px;
+      background: transparent; border: 0; color: var(--dim);
+      font-size: 16px; cursor: pointer;
+    }
+    .chorus {
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-left: 3px solid var(--accent);
+      background: rgba(255, 216, 107, 0.08);
+      color: var(--highlight);
+      font-style: italic;
+    }
+
+    /* Snow particles */
+    .snow {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .flake {
+      position: absolute;
+      top: -10px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--snow);
+      filter: drop-shadow(0 0 2px rgba(255,255,255,0.6));
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(-5vh); opacity: 0; }
+      10%  { opacity: 0.9; }
+      100% { transform: translateY(105vh); opacity: 0.95; }
+    }
+
+    /* Footer ribbon */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--dim);
+      text-align: center;
+      background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
+    }
+
+    /* Responsive */
+    @media (max-width: 680px) {
+      .characters { grid-template-columns: repeat(3, 1fr); width: 92vw; }
+      .manger { width: 52vw; }
+      .halo { width: 46vw; height: 46vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" aria-label="Nativity scene with star, stable, and characters">
+    <div class="star" aria-hidden="true"></div>
+    <div class="snow" id="snow"></div>
+
+    <div class="stable" aria-hidden="true"></div>
+    <div class="manger" aria-hidden="true"></div>
+    <div class="halo" aria-hidden="true"></div>
+
+    <!-- Verse overlay -->
+    <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ov-title">
+      <button class="close" id="close" aria-label="Close overlay">✕</button>
+      <h3 id="ov-title">Nativity verse</h3>
+      <p id="ov-text"></p>
+      <div class="chorus" id="ov-chorus"></div>
+      <div class="ref" id="ov-ref"></div>
+    </div>
+
+    <!-- Characters -->
+    <div class="characters" aria-label="Nativity characters menu">
+      <button class="char" data-id="mary" aria-label="Mary">
+        <div class="icon"></div>
+        <label>Mary</label>
+      </button>
+      <button class="char" data-id="joseph" aria-label="Joseph">
+        <div class="icon"></div>
+        <label>Joseph</label>
+      </button>
+      <button class="char" data-id="child" aria-label="Child Jesus">
+        <div class="icon"></div>
+        <label>Child</label>
+      </button>
+      <button class="char" data-id="shepherds" aria-label="Shepherds">
+        <div class="icon"></div>
+        <label>Shepherds</label>
+      </button>
+      <button class="char" data-id="magi" aria-label="Magi">
+        <div class="icon star"></div>
+        <label>Magi</label>
+      </button>
+    </div>
+
+    <div class="footer">“Behold this child” — a sanctuary overlay celebrating hope, humility, and joy.</div>
+  </div>
+
+  <script>
+    // Snow generator
+    const snow = document.getElementById('snow');
+    const flakes = 120; // adjust snow density
+    for (let i = 0; i < flakes; i++) {
+      const f = document.createElement('div');
+      f.className = 'flake';
+      const size = Math.random() * 3 + 2; // 2–5 px
+      f.style.width = size + 'px';
+      f.style.height = size + 'px';
+      f.style.left = Math.random() * 100 + 'vw';
+      const duration = Math.random() * 6 + 6; // 6–12s fall
+      f.style.animationDuration = duration + 's';
+      f.style.animationDelay = Math.random() * 6 + 's';
+      snow.appendChild(f);
+    }
+
+    // Verse data
+    const verses = {
+      mary: {
+        title: 'Mary — Annunciation & Nativity',
+        text: '“The virgin will conceive and give birth to a son, and will call him Immanuel.” — Isaiah 7:14; see Luke 1:26–38',
+        chorus: 'Behold this child, promised light,\nHope made flesh in holy night.',
+        ref: 'Themes: Incarnation, promise fulfilled.'
+      },
+      joseph: {
+        title: 'Joseph — Guardian and Guide',
+        text: '“Joseph… do not be afraid to take Mary home as your wife… she will give birth to a son, and you are to give him the name Jesus.” — Matthew 1:20–21',
+        chorus: 'Quiet courage, steadfast hand,\nGuiding love to promised land.',
+        ref: 'Themes: Obedience, protection, naming.'
+      },
+      child: {
+        title: 'Child Jesus — Simeon’s Prophecy',
+        text: '“Behold, this child is set for the fall and rising of many in Israel, and for a sign which shall be spoken against.” — Luke 2:34 (KJV)',
+        chorus: 'Sign of mercy, truth revealed,\nHearts made whole, the broken healed.',
+        ref: 'Themes: Salvation, sign of contradiction.'
+      },
+      shepherds: {
+        title: 'Shepherds — Good News for All',
+        text: '“I bring you good news of great joy that will be for all the people… a Savior has been born to you; he is Christ the Lord.” — Luke 2:10–11',
+        chorus: 'Fields awake to angel song,\nJoy for all, both weak and strong.',
+        ref: 'Themes: Humility, proclamation, inclusion.'
+      },
+      magi: {
+        title: 'Magi — Journey by the Star',
+        text: '“We saw his star when it rose and have come to worship him.” — Matthew 2:2',
+        chorus: 'Star that leads, wisdom’s art,\nGifts of faith, the seeking heart.',
+        ref: 'Themes: Guidance, homage, universality.'
+      }
+    };
+
+    const overlay = document.getElementById('overlay');
+    const closeBtn = document.getElementById('close');
+    const ovTitle = document.getElementById('ov-title');
+    const ovText = document.getElementById('ov-text');
+    const ovChorus = document.getElementById('ov-chorus');
+    const ovRef = document.getElementById('ov-ref');
+
+    document.querySelectorAll('.char').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.id;
+        const v = verses[id];
+        ovTitle.textContent = v.title;
+        ovText.textContent = v.text;
+        ovChorus.textContent = v.chorus;
+        ovRef.textContent = v.ref;
+        overlay.classList.add('active');
+      });
+    });
+
+    closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') overlay.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
