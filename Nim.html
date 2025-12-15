@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nim (1–3 tokens)</title>
+<style>
+  body { margin:0; background:#111827; color:#e5e7eb; font:16px/1.5 system-ui, sans-serif; display:grid; place-items:center; height:100vh; }
+  .wrap { width:min(720px,92vw); }
+  .pile { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 8px; }
+  .token { width:26px; height:26px; border-radius:50%; background:#3b82f6; box-shadow:0 0 0 2px #1f2937 inset; }
+  .controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:10px; }
+  button, select { background:#10b981; color:#062b23; border:none; border-radius:10px; padding:0.5rem 0.8rem; font-weight:700; cursor:pointer; }
+  .status { font-weight:700; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Nim — take 1–3</h1>
+  <label>Starting tokens:
+    <select id="start">
+      <option>15</option><option>21</option><option>25</option><option>31</option>
+    </select>
+  </label>
+  <div class="pile" id="pile" aria-live="polite"></div>
+  <div class="controls">
+    <span id="turn" class="status">Player A’s turn</span>
+    <button data-n="1">Take 1</button>
+    <button data-n="2">Take 2</button>
+    <button data-n="3">Take 3</button>
+    <button id="reset">Reset</button>
+  </div>
+  <p id="msg" class="status"></p>
+</div>
+
+<script>
+  const pileEl = document.getElementById('pile');
+  const turnEl = document.getElementById('turn');
+  const msgEl = document.getElementById('msg');
+  const resetBtn = document.getElementById('reset');
+  const startSel = document.getElementById('start');
+  const takeBtns = [...document.querySelectorAll('button[data-n]')];
+
+  let total = +startSel.value;
+  let aTurn = true;
+  let over = false;
+
+  function drawPile() {
+    pileEl.innerHTML = '';
+    for (let i = 0; i < total; i++) {
+      const t = document.createElement('div');
+      t.className = 'token';
+      pileEl.appendChild(t);
+    }
+  }
+
+  function setTurnText() {
+    turnEl.textContent = over ? '' : `Player ${aTurn ? 'A' : 'B'}’s turn`;
+  }
+
+  function take(n) {
+    if (over) return;
+    if (n < 1 || n > 3) return;
+    if (total - n < 0) return;
+    total -= n;
+    drawPile();
+    if (total === 0) {
+      over = true;
+      msgEl.textContent = `Player ${aTurn ? 'A' : 'B'} wins!`;
+      takeBtns.forEach(b => b.disabled = true);
+      return;
+    }
+    aTurn = !aTurn;
+    setTurnText();
+  }
+
+  resetBtn.onclick = () => {
+    total = +startSel.value;
+    over = false;
+    aTurn = true;
+    msgEl.textContent = '';
+    takeBtns.forEach(b => b.disabled = false);
+    drawPile();
+    setTurnText();
+  };
+
+  takeBtns.forEach(b => b.onclick = () => take(+b.dataset.n));
+  startSel.onchange = resetBtn.onclick;
+
+  drawPile(); setTurnText();
+</script>
+</body>
+</html>
