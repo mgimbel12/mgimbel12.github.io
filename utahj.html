@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Utah Jazz vs Lakers — Puzzles & Games</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --bg: #0f1320;
+    --panel: #1b2035;
+    --text: #eaf0ff;
+    --accent: #6b7cff;
+    --jazz1: #002b5c; /* Jazz navy */
+    --jazz2: #f9a01b; /* Jazz gold */
+    --lakers1: #552583; /* Lakers purple */
+    --lakers2: #fdb927; /* Lakers gold */
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: linear-gradient(120deg, #0b1020, #0f1b3d);
+    color: var(--text); font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+  }
+  header {
+    padding: 16px; display: flex; align-items: center; justify-content: space-between;
+    background: rgba(0,0,0,0.35); backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  h1 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: 0.4px; }
+  .tabs { display: flex; gap: 8px; }
+  .tab {
+    padding: 8px 12px; border-radius: 10px; background: #202744; cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.08); user-select: none;
+  }
+  .tab.active { background: var(--accent); color: #0b1020; border-color: transparent; }
+  main { max-width: 1100px; margin: 24px auto; padding: 0 16px 32px; }
+  section { display: none; }
+  section.active { display: block; }
+
+  .wrap { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
+  .panel {
+    background: var(--panel); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 16px; box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+  }
+  .panel h3 { margin: 0 0 8px; font-size: 16px; }
+  .row { margin: 8px 0; }
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  button {
+    padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.18);
+    background: #2a3256; color: var(--text); cursor: pointer;
+  }
+  button.primary { background: var(--accent); color: #0f1320; border-color: transparent; }
+  select, input[type="number"], input[type="file"] {
+    width: 100%; padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.18);
+    background: #1f2646; color: var(--text);
+  }
+  .small { font-size: 12px; opacity: 0.8; }
+
+  /* Jigsaw */
+  .jigsaw-area {
+    position: relative; height: 600px; background: #0a0f24;
+    border-radius: 14px; overflow: hidden; border: 10px solid #152043;
+    display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr);
+    grid-template-rows: repeat(var(--rows, 3), 1fr);
+    gap: 2px;
+  }
+  .piece {
+    background-size: var(--bg-size, 100% 100%);
+    background-position: var(--bg-pos, 0% 0%);
+    border-radius: 6px; outline: 1px solid rgba(255,255,255,0.12);
+    cursor: grab; position: relative;
+  }
+  .piece.dragging { cursor: grabbing; z-index: 2; }
+  .slot {
+    background: rgba(255,255,255,0.04); border-radius: 6px; outline: 1px dashed rgba(255,255,255,0.12);
+  }
+  .win-banner {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    background: rgba(0,0,0,0.35); backdrop-filter: blur(2px);
+    font-size: 24px; letter-spacing: 0.5px;
+  }
+
+  /* 15-slide */
+  .slide-area {
+    width: 600px; max-width: 100%; aspect-ratio: 1/1;
+    border-radius: 14px; overflow: hidden; border: 10px solid #152043;
+    display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr);
+    gap: 2px; background: #0a0f24;
+  }
+  .tile {
+    display: grid; place-items: center; font-size: 22px; font-weight: 600;
+    color: #0f1320; background: linear-gradient(180deg, #cfe3ff, #88a8ff);
+    border-radius: 8px; cursor: pointer; user-select: none;
+  }
+  .tile.jazz { background: linear-gradient(180deg, var(--jazz2), var(--jazz1)); color: #eaf0ff; }
+  .tile.lakers { background: linear-gradient(180deg, var(--lakers2), var(--lakers1)); color: #fff7da; }
+  .tile.empty { background: transparent; outline: 1px dashed rgba(255,255,255,0.12); cursor: default; }
+
+  /* Trivia */
+  .trivia-area { background: #0a0f24; border-radius: 14px; border: 10px solid #152043; padding: 16px; }
+  .q { margin: 14px 0; }
+  .answers { display: grid; gap: 8px; }
+  .answers button { text-align: left; }
+  .correct { background: #19c57b !important; color: #04100a !important; }
+  .wrong { background: #ff6b6b !important; color: #2b0000 !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Utah Jazz vs Lakers — Puzzles & Games</h1>
+  <div class="tabs">
+    <div class="tab active" data-target="jigsaw">Jigsaw</div>
+    <div class="tab" data-target="slide">15-Slide</div>
+    <div class="tab" data-target="trivia">Trivia</div>
+  </div>
+</header>
+
+<main>
+  <!-- JIGSAW -->
+  <section id="jigsaw" class="active">
+    <div class="wrap">
+      <div class="jigsaw-area" id="jigsawArea" aria-label="Jigsaw puzzle grid"></div>
+      <div class="panel">
+        <h3>Jigsaw controls</h3>
+        <div class="row"><strong>Team:</strong>
+          <select id="teamSelect">
+            <option value="jazz">Utah Jazz</option>
+            <option value="lakers">Los Angeles Lakers</option>
+          </select>
+        </div>
+        <div class="row"><strong>Pieces (cols × rows):</strong>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+            <input type="number" id="colsInput" min="2" max="8" value="4" />
+            <input type="number" id="rowsInput" min="2" max="6" value="3" />
+          </div>
+        </div>
+        <div class="row"><strong>Custom image:</strong>
+          <input type="file" id="imgInput" accept="image/*" />
+          <div class="small">Load your own Jazz/Lakers photo or poster.</div>
+        </div>
+        <div class="btn-row">
+          <button class="primary" id="newJigsawBtn">New jigsaw</button>
+          <button id="shuffleJigsawBtn">Shuffle</button>
+          <button id="showImageBtn">Preview image</button>
+        </div>
+        <p class="small">Drag pieces into the correct slots. When all are placed, you’ll see the win banner.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15-SLIDE -->
+  <section id="slide">
+    <div class="wrap">
+      <div class="slide-area" id="slideArea" aria-label="15-slide puzzle"></div>
+      <div class="panel">
+        <h3>15-slide controls</h3>
+        <div class="row"><strong>Theme:</strong>
+          <select id="slideTheme">
+            <option value="jazz">Jazz</option>
+            <option value="lakers">Lakers</option>
+          </select>
+        </div>
+        <div class="btn-row">
+          <button class="primary" id="newSlideBtn">New puzzle</button>
+          <button id="shuffleSlideBtn">Shuffle</button>
+        </div>
+        <p class="small">Click a tile next to the empty space to slide it. Solve in ascending order.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIVIA -->
+  <section id="trivia">
+    <div class="wrap">
+      <div class="trivia-area" id="triviaArea"></div>
+      <div class="panel">
+        <h3>Trivia controls</h3>
+        <div class="btn-row">
+          <button class="primary" id="newTriviaBtn">New quiz</button>
+          <button id="clearTriviaBtn">Clear</button>
+        </div>
+        <p class="small">Pick the best answer. Scores show instantly; try another round to improve.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // ---------- Tabs ----------
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.target;
+      document.querySelectorAll('section').forEach(sec => {
+        sec.classList.toggle('active', sec.id === target);
+      });
+    });
+  });
+
+  // ---------- Assets ----------
+  // Replace with your own images (public URLs or local paths)
+  const TEAM_IMAGES = {
+    jazz: 'https://images.unsplash.com/photo-1518401549354-c0b2fe0ff525?q=80&w=1200&auto=format&fit=crop',    // placeholder basketball court
+    lakers: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=1200&auto=format&fit=crop'  // placeholder arena lights
+  };
+
+  // ---------- JIGSAW ----------
+  const jigsawArea = document.getElementById('jigsawArea');
+  const teamSelect = document.getElementById('teamSelect');
+  const colsInput = document.getElementById('colsInput');
+  const rowsInput = document.getElementById('rowsInput');
+  const imgInput = document.getElementById('imgInput');
+  const newJigsawBtn = document.getElementById('newJigsawBtn');
+  const shuffleJigsawBtn = document.getElementById('shuffleJigsawBtn');
+  const showImageBtn = document.getElementById('showImageBtn');
+
+  let jigsawCols = +colsInput.value;
+  let jigsawRows = +rowsInput.value;
+  let jigsawImg = TEAM_IMAGES[teamSelect.value];
+  let jigsawPieces = []; // state
+
+  function buildJigsaw() {
+    jigsawArea.innerHTML = '';
+    jigsawArea.style.setProperty('--cols', jigsawCols);
+    jigsawArea.style.setProperty('--rows', jigsawRows);
+    jigsawArea.style.setProperty('--bg-size', '100% 100%');
+
+    const total = jigsawCols * jigsawRows;
+    jigsawPieces = [];
+    // Create slots
+    for (let i = 0; i < total; i++) {
+      const slot = document.createElement('div');
+      slot.className = 'slot';
+      slot.dataset.idx = i;
+      jigsawArea.appendChild(slot);
+    }
+    // Create draggable pieces with background-position mapped to grid coordinates
+    for (let r = 0; r < jigsawRows; r++) {
+      for (let c = 0; c < jigsawCols; c++) {
+        const idx = r * jigsawCols + c;
+        const piece = document.createElement('div');
+        piece.className = 'piece';
+        piece.draggable = true;
+        piece.dataset.correct = idx;
+        piece.style.backgroundImage = `url("${jigsawImg}")`;
+        const x = (100 / (jigsawCols - 1)) * c;
+        const y = (100 / (jigsawRows - 1)) * r;
+        piece.style.setProperty('--bg-pos', `${x}% ${y}%`);
+        jigsawPieces.push(piece);
+      }
+    }
+    // Randomly attach pieces to slots
+    shuffleArray(jigsawPieces);
+    attachPiecesToSlots(jigsawPieces);
+
+    bindDragAndDrop();
+    removeWinBanner();
+  }
+
+  function attachPiecesToSlots(pieces) {
+    const slots = [...jigsawArea.querySelectorAll('.slot')];
+    for (let i = 0; i < slots.length; i++) {
+      slots[i].innerHTML = '';
+      slots[i].appendChild(pieces[i]);
+    }
+  }
+
+  function bindDragAndDrop() {
+    jigsawArea.querySelectorAll('.piece').forEach(p => {
+      p.addEventListener('dragstart', e => {
+        p.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', p.dataset.correct);
+      });
+      p.addEventListener('dragend', () => p.classList.remove('dragging'));
+    });
+    jigsawArea.querySelectorAll('.slot').forEach(slot => {
+      slot.addEventListener('dragover', e => e.preventDefault());
+      slot.addEventListener('drop', e => {
+        e.preventDefault();
+        const dragging = jigsawArea.querySelector('.piece.dragging');
+        if (!dragging) return;
+        // Swap pieces if target slot occupied
+        const existing = slot.querySelector('.piece');
+        const fromSlot = dragging.parentElement;
+        if (existing) fromSlot.appendChild(existing);
+        slot.appendChild(dragging);
+        checkJigsawWin();
+      });
+    });
+  }
+
+  function checkJigsawWin() {
+    const slots = jigsawArea.querySelectorAll('.slot');
+    for (let i = 0; i < slots.length; i++) {
+      const piece = slots[i].querySelector('.piece');
+      if (!piece || +piece.dataset.correct !== i) return;
+    }
+    showWinBanner('Jigsaw complete! Nice work.');
+  }
+
+  function showWinBanner(text) {
+    removeWinBanner();
+    const banner = document.createElement('div');
+    banner.className = 'win-banner';
+    banner.textContent = text;
+    jigsawArea.appendChild(banner);
+  }
+  function removeWinBanner() {
+    const b = jigsawArea.querySelector('.win-banner');
+    if (b) b.remove();
+  }
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+  }
+
+  newJigsawBtn.addEventListener('click', () => {
+    jigsawCols = clamp(+colsInput.value, 2, 8);
+    jigsawRows = clamp(+rowsInput.value, 2, 6);
+    colsInput.value = jigsawCols; rowsInput.value = jigsawRows;
+    jigsawImg = TEAM_IMAGES[teamSelect.value];
+    buildJigsaw();
+  });
+
+  shuffleJigsawBtn.addEventListener('click', () => {
+    shuffleArray(jigsawPieces);
+    attachPiecesToSlots(jigsawPieces);
+    removeWinBanner();
+  });
+
+  showImageBtn.addEventListener('click', () => {
+    // Preview: temporarily lay pieces in correct order
+    const slots = [...jigsawArea.querySelectorAll('.slot')];
+    jigsawPieces.sort((a,b) => +a.dataset.correct - +b.dataset.correct);
+    attachPiecesToSlots(jigsawPieces);
+    showWinBanner('Image preview — click Shuffle to play again.');
+  });
+
+  imgInput.addEventListener('change', () => {
+    const file = imgInput.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      jigsawImg = e.target.result;
+      buildJigsaw();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // ---------- 15-SLIDE ----------
+  const slideArea = document.getElementById('slideArea');
+  const slideTheme = document.getElementById('slideTheme');
+  const newSlideBtn = document.getElementById('newSlideBtn');
+  const shuffleSlideBtn = document.getElementById('shuffleSlideBtn');
+
+  let slideTiles = []; // array of numbers 1..15 with 0 as empty
+
+  function buildSlide() {
+    slideArea.innerHTML = '';
+    slideTiles = Array.from({length: 16}, (_, i) => i); // 0..15
+    // Place tiles in solved order first
+    for (let i = 0; i < 16; i++) {
+      const tile = document.createElement('div');
+      const theme = slideTheme.value;
+      if (slideTiles[i] === 0) {
+        tile.className = 'tile empty';
+      } else {
+        tile.className = `tile ${theme}`;
+        tile.textContent = slideTiles[i];
+        tile.addEventListener('click', () => slideMove(i));
+      }
+      tile.dataset.index = i;
+      slideArea.appendChild(tile);
+    }
+  }
+
+  function slideMove(i) {
+    const emptyIndex = slideTiles.indexOf(0);
+    if (!isNeighbor(i, emptyIndex)) return;
+    // Swap
+    [slideTiles[i], slideTiles[emptyIndex]] = [slideTiles[emptyIndex], slideTiles[i]];
+    renderSlide();
+    checkSlideWin();
+  }
+
+  function isNeighbor(a, b) {
+    const ax = a % 4, ay = Math.floor(a / 4);
+    const bx = b % 4, by = Math.floor(b / 4);
+    return (Math.abs(ax - bx) + Math.abs(ay - by)) === 1;
+  }
+
+  function renderSlide() {
+    const tiles = slideArea.querySelectorAll('.tile');
+    for (let i = 0; i < 16; i++) {
+      const tile = tiles[i];
+      const val = slideTiles[i];
+      tile.className = (val === 0) ? 'tile empty' : `tile ${slideTheme.value}`;
+      tile.textContent = (val === 0) ? '' : val;
+      tile.onclick = (val === 0) ? null : () => slideMove(i);
+    }
+  }
+
+  function shuffleSlide() {
+    // Generate a solvable shuffle by random moves from solved state
+    for (let k = 0; k < 400; k++) {
+      const empty = slideTiles.indexOf(0);
+      const neighbors = [empty - 1, empty + 1, empty - 4, empty + 4].filter(n =>
+        n >= 0 && n < 16 && isNeighbor(n, empty));
+      const pick = neighbors[Math.floor(Math.random() * neighbors.length)];
+      [slideTiles[pick], slideTiles[empty]] = [slideTiles[empty], slideTiles[pick]];
+    }
+    renderSlide();
+  }
+
+  function checkSlideWin() {
+    for (let i = 1; i <= 15; i++) {
+      if (slideTiles[i-1] !== i) return;
+    }
+    if (slideTiles[15] === 0) {
+      alert('15-slide solved! Great job.');
+    }
+  }
+
+  newSlideBtn.addEventListener('click', buildSlide);
+  shuffleSlideBtn.addEventListener('click', shuffleSlide);
+
+  // ---------- Trivia ----------
+  const triviaArea = document.getElementById('triviaArea');
+  const newTriviaBtn = document.getElementById('newTriviaBtn');
+  const clearTriviaBtn = document.getElementById('clearTriviaBtn');
+
+  const QUESTIONS = [
+    {
+      q: 'Which franchise has more NBA championships?',
+      a: ['Utah Jazz', 'Los Angeles Lakers', 'They are tied'],
+      correct: 1
+    },
+    {
+      q: 'What is the common nickname for Utah’s team color scheme?',
+      a: ['Purple & Gold', 'Navy & Gold', 'Green & White'],
+      correct: 1
+    },
+    {
+      q: 'In a puzzle context, what’s key to solving a 15-slide?',
+      a: ['Random clicking', 'Recognizing neighbor swaps and patterns', 'Avoid moving tiles'],
+      correct: 1
+    },
+    {
+      q: 'Best first step when starting a jigsaw?',
+      a: ['Find edge and corner pieces', 'Start in the center', 'Ignore image details'],
+      correct: 0
+    }
+  ];
+
+  function buildTrivia() {
+    triviaArea.innerHTML = '';
+    QUESTIONS.forEach((item, idx) => {
+      const block = document.createElement('div');
+      block.className = 'q';
+      const title = document.createElement('div');
+      title.innerHTML = `<strong>Q${idx+1}:</strong> ${item.q}`;
+      block.appendChild(title);
+      const answers = document.createElement('div');
+      answers.className = 'answers';
+      item.a.forEach((txt, ai) => {
+        const btn = document.createElement('button');
+        btn.textContent = txt;
+        btn.addEventListener('click', () => {
+          const isCorrect = ai === item.correct;
+          btn.classList.add(isCorrect ? 'correct' : 'wrong');
+        });
+        answers.appendChild(btn);
+      });
+      block.appendChild(answers);
+      triviaArea.appendChild(block);
+    });
+  }
+
+  newTriviaBtn.addEventListener('click', buildTrivia);
+  clearTriviaBtn.addEventListener('click', () => triviaArea.innerHTML = '');
+
+  // ---------- Helpers ----------
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+  // Init defaults
+  buildJigsaw();
+  buildSlide();
+  buildTrivia();
+</script>
+</body>
+</html>
+
