@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hot Air Balloon — Accessible Simulator</title>
+<style>
+  :root{
+    --bg:#0f172a; --skyTop:#0b1f3a; --skyBot:#133b6b; --sun:#ffd166; --cloud:#d6e6f5;
+    --accent:#06d6a0; --accent2:#4cc9f0; --warn:#ef476f; --text:#e8eef7;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif;}
+  .wrap{display:grid;grid-template-columns:1fr 320px;gap:12px;min-height:100vh;}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr;} canvas{height:60vh}}
+  .canvas-wrap{display:grid;place-items:center;background:linear-gradient(var(--skyTop),var(--skyBot))}
+  canvas{width:100%;height:100%;max-height:100vh}
+  .panel{padding:12px;background:#111827;display:flex;flex-direction:column;gap:10px}
+  h1{margin:0 0 6px;font-size:20px;font-weight:800}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{flex:1;min-width:120px;padding:0.8rem 1rem;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+  .primary{background:var(--accent);color:#062b23}
+  .secondary{background:var(--accent2);color:#07121f}
+  .warn{background:var(--warn);color:#1a0b0b}
+  .group{border:1px solid #243145;border-radius:12px;padding:10px}
+  label{display:flex;align-items:center;gap:8px}
+  input[type="range"]{width:100%}
+  .status{font-weight:700;background:#0b1220;border-radius:12px;padding:8px}
+  .leader{font-size:14px;line-height:1.4;background:#0b1220;border-radius:12px;padding:8px}
+  .kbd{display:inline-block;padding:2px 6px;border-radius:6px;background:#1f2937}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="canvas-wrap">
+    <canvas id="c" width="1024" height="640" aria-label="Hot air balloon sky"></canvas>
+  </div>
+  <aside class="panel" aria-label="Controls">
+    <h1>Hot Air Balloon — Accessible</h1>
+    <div class="status" id="status">Ready</div>
+
+    <div class="group">
+      <div class="row">
+        <button class="btn primary" id="start">Start</button>
+        <button class="btn warn" id="pause">Pause</button>
+        <button class="btn secondary" id="reset">Reset</button>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="burner">Burner +</button>
+        <button class="btn secondary" id="vent">Vent −</button>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="nudgeUp">Nudge up</button>
+        <button class="btn secondary" id="nudgeDown">Nudge down</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <label><input type="checkbox" id="assist" checked /> Assist mode (smooth temp, limit vertical speed)</label>
+      <label>Lift efficiency
+        <input type="range" id="liftEff" min="0.6" max="1.8" step="0.1" value="1.0" />
+      </label>
+      <label>Cooling rate
+        <input type="range" id="coolRate" min="0.6" max="1.8" step="0.1" value="1.0" />
+      </label>
+      <label>Target rings
+        <input type="range" id="rings" min="2" max="8" step="1" value="4" />
+      </label>
+    </div>
+
+    <p>Keyboard: <span class="kbd">W</span> burner, <span class="kbd">S</span> vent, <span class="kbd">ArrowUp/Down</span> nudge, <span class="kbd">Space</span> start/pause.</p>
+    <div class="leader" id="info">Course info appears here.</div>
+  </aside>
+</div>
+
+<script>
+const cvs = document.getElementById('c'), ctx = cvs.getContext('2d');
+const W = cvs.width, H = cvs.height;
+
+// UI
+const statusEl = document.getElementById('status');
+const infoEl = document.getElementById('info');
+const startBtn = document.getElementById('start');
+const pauseBtn = document.getElementById('pause');
+const resetBtn = document.getElementById('reset');
+const burnerBtn = document.getElementById('burner');
+const ventBtn = document.getElementById('vent');
+const nudgeUpBtn = document.getElementById('nudgeUp');
+const nudgeDownBtn = document.getElementById('nudgeDown');
+const assistChk = document.getElementById('assist');
+const liftEffR = document.getElementById('liftEff');
+const coolRateR = document.getElementById('coolRate');
+const ringsR = document.getElementById('rings');
+
+// World: layered winds change with altitude (y)
+const windLayers = [
+  { yMin: 0,   yMax: 160, speed: 22, dir: 0 },   // rightward
+  { yMin: 160, yMax: 320, speed: 14, dir: 180 }, // leftward
+  { yMin: 320, yMax: 480, speed: 10, dir: 45 },  // diag up-right
+  { yMin: 480, yMax: 640, speed: 8,  dir: 225 }  // diag down-left
+];
+
+// Balloon state
+const balloon = {
+  x: W*0.2, y: H*0.6,
+  vx: 0, vy: 0,
+  temp: 40,           // internal air temp (°C)
+  ambient: 20,        // ambient temp (°C)
+  liftBase: 0.8,      // base lift factor
+  drag: 0.98,         // horizontal drag
+  verticalDrag: 0.995 // vertical damping
+};
+
+// Course rings
+let course = [];
+let collected = 0, targetRings = +ringsR.value;
+let running = false, paused = false;
+
+// Input
+const input = { burner:0, vent:0, nudge:0 };
+window.addEventListener('keydown', (e)=>{
+  if (e.code==='Space'){ paused = !paused; running = !paused; }
+  if (e.code==='KeyW'){ input.burner = 1; }
+  if (e.code==='KeyS'){ input.vent = 1; }
+  if (e.code==='ArrowUp'){ input.nudge = -1; }
+  if (e.code==='ArrowDown'){ input.nudge = 1; }
+});
+window.addEventListener('keyup', (e)=>{
+  if (e.code==='KeyW'){ input.burner = 0; }
+  if (e.code==='KeyS'){ input.vent = 0; }
+  if (e.code==='ArrowUp' || e.code==='ArrowDown'){ input.nudge = 0; }
+});
+
+// Buttons
+startBtn.onclick = ()=>{ running = true; paused = false; };
+pauseBtn.onclick = ()=>{ paused = !paused; running = !paused; };
+resetBtn.onclick = resetGame;
+burnerBtn.onclick = ()=>{ pulse('burner'); };
+ventBtn.onclick = ()=>{ pulse('vent'); };
+nudgeUpBtn.onclick = ()=>{ pulse('nudge', -1); };
+nudgeDownBtn.onclick = ()=>{ pulse('nudge', 1); };
+liftEffR.oninput = ()=>{};
+coolRateR.oninput = ()=>{};
+ringsR.oninput = ()=>{ targetRings = +ringsR.value; genCourse(); updateInfo(); };
+
+// Helpers
+function currentLayer(y){
+  return windLayers.find(l => y >= l.yMin && y < l.yMax) || windLayers[windLayers.length-1];
+}
+function vecFrom(speed, deg){
+  const r = deg * Math.PI/180;
+  return { x: Math.cos(r)*speed, y: Math.sin(r)*speed };
+}
+function pulse(kind, val){
+  if (kind==='burner'){ input.burner = 1; setTimeout(()=>input.burner=0, 220); }
+  if (kind==='vent'){ input.vent = 1; setTimeout(()=>input.vent=0, 220); }
+  if (kind==='nudge'){ input.nudge = val; setTimeout(()=>input.nudge=0, 220); }
+}
+
+// Physics step
+function step(dt){
+  // Temperature change
+  const heatRate = 8 * +liftEffR.value;
+  const coolRate = 6 * +coolRateR.value;
+  const assist = assistChk.checked ? 0.6 : 1.0;
+
+  // Smooth burner/vent in assist
+  const burnerEff = input.burner * heatRate * assist;
+  const ventEff   = input.vent   * coolRate * assist;
+  balloon.temp += burnerEff * dt;
+  balloon.temp -= ventEff * dt;
+  // Passive cooling towards ambient
+  const passive = (balloon.temp - balloon.ambient) * 0.15 * dt;
+  balloon.temp -= passive;
+
+  // Lift = function of temp difference (simplified buoyancy)
+  const deltaT = Math.max(0, balloon.temp - balloon.ambient);
+  const lift = balloon.liftBase * (deltaT / 30); // normalize
+  // Vertical acceleration: lift up minus gravity-like term
+  let ay = -lift + 0.45; // 0.45 ~ gravity; negative ay goes up
+  // Nudge adds small vertical change
+  ay += input.nudge * 0.35;
+
+  // Limit vertical extremes in assist
+  if (assistChk.checked){
+    ay = Math.max(-0.35, Math.min(0.35, ay));
+  }
+
+  balloon.vy += ay * 200 * dt;                // scale to px/s
+  balloon.vy *= balloon.verticalDrag;         // damping
+  balloon.y += balloon.vy * dt;
+
+  // Wind drift by layer
+  const layer = currentLayer(balloon.y);
+  const wv = vecFrom(layer.speed, layer.dir);
+  balloon.vx += wv.x * 0.08; // gentle push
+  balloon.vx *= balloon.drag;
+  balloon.x += balloon.vx * dt;
+
+  // Keep in bounds
+  balloon.x = Math.max(20, Math.min(W-20, balloon.x));
+  balloon.y = Math.max(20, Math.min(H-20, balloon.y));
+
+  // Collect rings
+  for (const r of course){
+    if (r.hit) continue;
+    const d = Math.hypot(balloon.x - r.x, balloon.y - r.y);
+    if (d < r.r){
+      r.hit = true; collected++;
+      statusEl.textContent = `Ring ${collected}/${targetRings} collected!`;
+    }
+  }
+
+  // Finish
+  if (collected >= targetRings){
+    running = false;
+    statusEl.textContent = '🏁 Course complete!';
+  }
+}
+
+// Drawing
+function drawSky(){
+  // Sun
+  ctx.fillStyle = 'transparent';
+  ctx.clearRect(0,0,W,H);
+  const grad = ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,'#0b1f3a'); grad.addColorStop(1,'#133b6b');
+  ctx.fillStyle = grad; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = '#ffd166';
+  ctx.beginPath(); ctx.arc(W-120, 100, 48, 0, Math.PI*2); ctx.fill();
+  // Clouds
+  ctx.fillStyle = '#d6e6f5';
+  for (let i=0;i<6;i++){
+    const cx = (i*180 + performance.now()*0.02) % (W+200) - 100;
+    const cy = 80 + (i%3)*60;
+    ctx.beginPath();
+    ctx.ellipse(cx, cy, 70, 24, 0, 0, Math.PI*2);
+    ctx.ellipse(cx+40, cy+8, 50, 20, 0, 0, Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function drawBalloon(){
+  ctx.save();
+  ctx.translate(balloon.x, balloon.y);
+  // Shadow
+  ctx.fillStyle = '#0005'; ctx.beginPath(); ctx.ellipse(0, 26, 24, 10, 0, 0, Math.PI*2); ctx.fill();
+  // Envelope
+  ctx.fillStyle = '#f94144'; ctx.strokeStyle = '#222'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.roundRect(-26,-50,52,60,24); ctx.fill(); ctx.stroke();
+  // Stripes
+  ctx.fillStyle = '#4cc9f0'; ctx.fillRect(-26,-26,52,6);
+  ctx.fillStyle = '#06d6a0'; ctx.fillRect(-26,-10,52,6);
+  // Basket
+  ctx.fillStyle = '#b08968'; ctx.beginPath(); ctx.roundRect(-16,10,32,18,6); ctx.fill(); ctx.stroke();
+  // Cables
+  ctx.strokeStyle = '#a67c52'; ctx.beginPath();
+  ctx.moveTo(-18,10); ctx.lineTo(-12,-2);
+  ctx.moveTo(18,10); ctx.lineTo(12,-2);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawWinds(){
+  // Visual bands for wind layers
+  windLayers.forEach((l,i)=>{
+    ctx.fillStyle = i%2===0 ? '#ffffff0d' : '#0000000d';
+    ctx.fillRect(0, l.yMin, W, l.yMax - l.yMin);
+    // small arrows
+    const v = vecFrom(30, l.dir);
+    ctx.strokeStyle = '#ffffff33'; ctx.lineWidth = 2;
+    for (let x=40; x<W; x+=140){
+      const y = l.yMin + 20;
+      ctx.beginPath();
+      ctx.moveTo(x,y); ctx.lineTo(x+v.x*0.6, y+v.y*0.6);
+      ctx.stroke();
+    }
+  });
+}
+
+function drawRings(){
+  for (const r of course){
+    ctx.save();
+    ctx.translate(r.x,r.y);
+    ctx.strokeStyle = r.hit ? '#06d6a0' : '#ffd166';
+    ctx.lineWidth = r.hit ? 6 : 3;
+    ctx.beginPath(); ctx.arc(0,0,r.r,0,Math.PI*2); ctx.stroke();
+    ctx.restore();
+  }
+}
+
+function updateInfo(){
+  infoEl.textContent =
+    `Temp ${balloon.temp.toFixed(1)}°C (ambient ${balloon.ambient}°C) • ` +
+    `Vertical ${(balloon.vy).toFixed(1)} • ` +
+    `Layer wind dir ${currentLayer(balloon.y).dir}° @ ${currentLayer(balloon.y).speed} ` +
+    `• Rings ${collected}/${targetRings}`;
+}
+
+// Course generation
+function genCourse(){
+  course = []; collected = 0;
+  for (let i=0; i<targetRings; i++){
+    const y = 80 + i*(H-160)/(targetRings-1);
+    const layer = currentLayer(y);
+    // place slightly against wind to encourage steering
+    const x = W*0.55 + (i%2===0 ? -120 : 120) + (layer.dir===180?-100:layer.dir===0?100:0);
+    course.push({ x, y, r: 28, hit:false });
+  }
+}
+
+// Reset
+function resetGame(){
+  balloon.x = W*0.2; balloon.y = H*0.6;
+  balloon.vx = 0; balloon.vy = 0;
+  balloon.temp = 40; balloon.ambient = 20;
+  running = false; paused = false;
+  genCourse();
+  statusEl.textContent = 'Ready';
+  updateInfo();
+}
+
+// Loop
+let last = performance.now();
+function loop(now){
+  const dt = Math.min(0.06, (now-last)/1000); last = now;
+
+  if (running && !paused) step(dt);
+
+  drawSky();
+  drawWinds();
+  drawRings();
+  drawBalloon();
+
+  updateInfo();
+  requestAnimationFrame(loop);
+}
+
+// Init
+resetGame();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
