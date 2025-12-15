@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Race to 100</title>
+<style>
+  body { margin:0; background:#0d0f15; color:#f5f7fb; font:16px/1.5 system-ui, sans-serif; display:grid; place-items:center; height:100vh; }
+  .wrap { width:min(700px,92vw); text-align:center; }
+  .total { font-size:clamp(28px,6vmin,48px); margin:10px 0; font-weight:800; }
+  .pad { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .pad button { min-width:56px; padding:0.6rem 0.8rem; border-radius:12px; border:none; background:#ef476f; color:#fff; font-weight:800; cursor:pointer; }
+  .pad button:disabled { opacity:0.6; cursor:not-allowed; }
+  .status { margin-top:10px; font-weight:700; }
+  .controls { margin-top:10px; display:flex; gap:10px; justify-content:center; }
+  .controls button { background:#06d6a0; color:#062b23; border:none; border-radius:12px; padding:0.6rem 0.9rem; font-weight:800; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Race to 100</h1>
+  <div class="total" id="total">Total: 0</div>
+  <div class="pad" id="pad"></div>
+  <div class="status" id="status">Player 1’s turn</div>
+  <div class="controls">
+    <button id="reset">Reset</button>
+  </div>
+  <p id="msg" class="status"></p>
+</div>
+
+<script>
+  const totalEl = document.getElementById('total');
+  const statusEl = document.getElementById('status');
+  const padEl = document.getElementById('pad');
+  const resetBtn = document.getElementById('reset');
+  const msgEl = document.getElementById('msg');
+
+  let total = 0;
+  let p1Turn = true;
+  let over = false;
+
+  function buildPad() {
+    padEl.innerHTML = '';
+    for (let n = 1; n <= 10; n++) {
+      const btn = document.createElement('button');
+      btn.textContent = `+${n}`;
+      btn.onclick = () => add(n);
+      padEl.appendChild(btn);
+    }
+  }
+
+  function add(n) {
+    if (over) return;
+    if (total + n > 100) return; // cannot overshoot
+    total += n;
+    totalEl.textContent = `Total: ${total}`;
+    if (total === 100) {
+      over = true;
+      msgEl.textContent = `Player ${p1Turn ? '1' : '2'} wins!`;
+      disablePad();
+      statusEl.textContent = '';
+      return;
+    }
+    p1Turn = !p1Turn;
+    statusEl.textContent = `Player ${p1Turn ? '1' : '2'}’s turn`;
+    updatePadState();
+  }
+
+  function disablePad() {
+    [...padEl.children].forEach(b => b.disabled = true);
+  }
+
+  function updatePadState() {
+    [...padEl.children].forEach(b => {
+      const n = +b.textContent.slice(1);
+      b.disabled = total + n > 100;
+    });
+  }
+
+  resetBtn.onclick = () => {
+    total = 0; p1Turn = true; over = false;
+    totalEl.textContent = 'Total: 0';
+    msgEl.textContent = '';
+    statusEl.textContent = 'Player 1’s turn';
+    buildPad(); updatePadState();
+  };
+
+  buildPad(); updatePadState();
+</script>
+</body>
+</html>
