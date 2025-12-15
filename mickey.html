@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mickey-style Mouse Animation</title>
+<style>
+  :root{
+    --bg:#0f172a; --text:#e6edf7; --accent:#ffd166; --accent2:#06d6a0;
+    --mouse:#111; --shorts:#e63946; --glove:#f8fafc; --shoes:#f4a261;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif;}
+  .wrap{display:grid;grid-template-columns:1fr 320px;gap:12px;min-height:100vh;}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr;} .stage{height:60vh}}
+  .stage{display:grid;place-items:center; background:radial-gradient(1200px at 50% 20%, #10233f 0%, #0f172a 55%, #0a1124 100%);}
+  .panel{padding:12px;background:#111827;display:flex;flex-direction:column;gap:10px}
+  h1{margin:0 0 6px;font-size:20px;font-weight:800}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{flex:1;min-width:120px;padding:0.8rem 1rem;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+  .primary{background:var(--accent);color:#1a1500}
+  .secondary{background:var(--accent2);color:#001a12}
+  .group{border:1px solid #243145;border-radius:12px;padding:10px}
+  label{display:flex;align-items:center;gap:8px}
+  input[type="range"], select{width:100%}
+  .status{font-weight:700;background:#0b1220;border-radius:12px;padding:8px}
+
+  /* Mouse figure */
+  .mouse{
+    position:relative; width:min(380px,70vw); height:min(380px,70vw);
+    transform-origin:50% 85%;
+    animation: bob 3s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%     { transform: translateY(-6px) rotate(-1.2deg); }
+  }
+  @keyframes nod {
+    0%,100% { transform: rotate(0deg); }
+    50%     { transform: rotate(-2deg); }
+  }
+  @keyframes blink {
+    0%, 47%, 53%, 100% { height:10%; }
+    49%, 51% { height:2%; }
+  }
+  @keyframes wave {
+    0%,100% { transform: rotate(0deg); }
+    50%     { transform: rotate(-18deg); }
+  }
+  @keyframes gloveWiggle {
+    0%,100% { transform: rotate(0deg) translateX(0); }
+    50%     { transform: rotate(6deg) translateX(2px); }
+  }
+
+  /* Ears */
+  .ear{
+    position:absolute; width:38%; aspect-ratio:1/1; background:var(--mouse); border-radius:50%;
+    top:0; filter:drop-shadow(0 2px 2px #0006);
+  }
+  .ear.left{ left:8%; }
+  .ear.right{ right:8%; }
+
+  /* Head */
+  .head{
+    position:absolute; width:56%; aspect-ratio:1/1; background:var(--mouse); border-radius:50%;
+    top:12%; left:22%; box-shadow: inset 0 -6px 0 #0003, 0 2px 2px #0006;
+    animation: nod 5s ease-in-out infinite;
+  }
+
+  /* Face features (minimal) */
+  .eye{
+    position:absolute; width:8%; height:10%; background:#fff; border-radius:50%;
+    top:38%; filter:drop-shadow(0 1px 0 #0004);
+  }
+  .eye.left{ left:36%; }
+  .eye.right{ right:36%; }
+  .pupil{
+    position:absolute; width:40%; height:60%; background:#000; border-radius:50%;
+    left:30%; top:15%;
+  }
+  .lid{
+    position:absolute; width:100%; height:10%; background:var(--mouse); border-radius:50%;
+    top:0; left:0; animation: blink 4.6s ease-in-out infinite;
+  }
+  .nose{
+    position:absolute; width:10%; height:7%; background:#000; border-radius:50%;
+    left:45%; top:52%; box-shadow:0 1px 0 #0008;
+  }
+
+  /* Body */
+  .body{
+    position:absolute; width:48%; height:42%; background:var(--mouse);
+    left:26%; top:44%; border-radius:44% 44% 40% 40%; box-shadow:0 2px 2px #0006;
+  }
+  .shorts{
+    position:absolute; width:48%; height:24%; background:var(--shorts); left:26%; top:62%;
+    border-radius:40% 40% 50% 50%; box-shadow: inset 0 -4px 0 #0003;
+  }
+  .button{
+    position:absolute; width:4.5%; height:6.5%; background:#f8f9fa; border-radius:50%;
+    top:68%; box-shadow: inset 0 -2px 0 #ddd;
+  }
+  .button.left{ left:38%; } .button.right{ right:38%; }
+
+  /* Arm + glove */
+  .arm{
+    position:absolute; width:8%; height:24%; background:var(--mouse);
+    top:56%; left:16%; border-radius:12px; transform-origin:50% 12%;
+    animation: wave 3.6s ease-in-out infinite;
+  }
+  .glove{
+    position:absolute; width:16%; height:12%; background:var(--glove);
+    top:72%; left:8%; border-radius:16px; box-shadow:0 2px 0 #dbe0e7;
+    transform-origin:60% 50%; animation: gloveWiggle 3.6s ease-in-out infinite;
+  }
+  .glove::before, .glove::after{
+    content:''; position:absolute; width:18%; height:60%; background:#eef2f7; border-radius:10px;
+    top:20%;
+  }
+  .glove::before{ left:6%; }
+  .glove::after{ left:26%; }
+
+  /* Legs + shoes */
+  .leg{
+    position:absolute; width:8%; height:26%; background:var(--mouse);
+    top:70%; border-radius:12px; box-shadow:0 2px 2px #0006;
+  }
+  .leg.left{ left:38%; } .leg.right{ right:38%; }
+  .shoe{
+    position:absolute; width:16%; height:10%; background:var(--shoes);
+    top:90%; border-radius:20px; box-shadow: inset 0 -4px 0 #d2843f;
+  }
+  .shoe.left{ left:34%; } .shoe.right{ right:34%; }
+
+  /* Ground shadow */
+  .shadow{
+    position:absolute; width:48%; height:6%; left:26%; top:94%;
+    background: radial-gradient(closest-side, #0005, transparent); border-radius:50%;
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .mouse, .head, .arm, .glove .lid { animation-duration: 0s !important; animation-iteration-count: 1 !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage" aria-label="Mouse animation scene">
+    <div class="mouse" id="mouse" role="img" aria-label="Mouse with round ears waving">
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+
+      <div class="head">
+        <div class="eye left"><div class="pupil"></div><div class="lid"></div></div>
+        <div class="eye right"><div class="pupil"></div><div class="lid"></div></div>
+        <div class="nose"></div>
+      </div>
+
+      <div class="body"></div>
+      <div class="shorts"></div>
+      <div class="button left"></div>
+      <div class="button right"></div>
+
+      <div class="arm"></div>
+      <div class="glove"></div>
+
+      <div class="leg left"></div>
+      <div class="shoe left"></div>
+      <div class="leg right"></div>
+      <div class="shoe right"></div>
+
+      <div class="shadow"></div>
+    </div>
+  </div>
+
+  <aside class="panel" aria-label="Controls">
+    <h1>Mickey‑style Mouse Animation</h1>
+    <div class="status" id="status">Playing — speed 1.0×</div>
+
+    <div class="group">
+      <div class="row">
+        <button class="btn primary" id="play">Play</button>
+        <button class="btn secondary" id="pause">Pause</button>
+        <button class="btn secondary" id="reset">Reset</button>
+      </div>
+      <label>Speed
+        <input type="range" id="speed" min="0.5" max="2.0" step="0.1" value="1.0" />
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="classic">Classic</option>
+          <option value="midnight">Midnight</option>
+          <option value="sunny">Sunny</option>
+          <option value="festival">Festival</option>
+        </select>
+      </label>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const mouse = document.getElementById('mouse');
+  const statusEl = document.getElementById('status');
+  const playBtn = document.getElementById('play');
+  const pauseBtn = document.getElementById('pause');
+  const resetBtn = document.getElementById('reset');
+  const speedR = document.getElementById('speed');
+  const themeSel = document.getElementById('theme');
+
+  function setPlayState(play){
+    const durBob   = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--durBob')) || 3;
+    const durNod   = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--durNod')) || 5;
+    const durWave  = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--durWave')) || 3.6;
+    const durBlink = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--durBlink')) || 4.6;
+    const all = mouse.querySelectorAll('.mouse, .head, .arm, .glove, .lid');
+    all.forEach(el => el.style.animationPlayState = play ? 'running' : 'paused');
+    statusEl.textContent = play ? `Playing — speed ${speedR.value}×` : `Paused — speed ${speedR.value}×`;
+  }
+
+  function setSpeed(mult){
+    const parts = [
+      { sel: '.mouse', name: 'bob', base: 3 },
+      { sel: '.head',  name: 'nod', base: 5 },
+      { sel: '.arm',   name: 'wave', base: 3.6 },
+      { sel: '.glove', name: 'gloveWiggle', base: 3.6 },
+      { sel: '.lid',   name: 'blink', base: 4.6 },
+    ];
+    parts.forEach(p=>{
+      const el = mouse.querySelector(p.sel);
+      if (el) el.style.animationDuration = (p.base / mult) + 's';
+    });
+    statusEl.textContent = `Playing — speed ${mult.toFixed(1)}×`;
+  }
+
+  function setTheme(name){
+    const root = document.documentElement.style;
+    if (name === 'classic'){
+      root.setProperty('--bg', '#0f172a');
+      root.setProperty('--accent', '#ffd166');
+      root.setProperty('--accent2', '#06d6a0');
+      root.setProperty('--mouse', '#111');
+      root.setProperty('--shorts', '#e63946');
+      root.setProperty('--glove', '#f8fafc');
+      root.setProperty('--shoes', '#f4a261');
+    } else if (name === 'midnight'){
+      root.setProperty('--bg', '#0b1020');
+      root.setProperty('--accent', '#64dfdf');
+      root.setProperty('--accent2', '#80ffdb');
+      root.setProperty('--mouse', '#0a0a0a');
+      root.setProperty('--shorts', '#3a0ca3');
+      root.setProperty('--glove', '#eef2ff');
+      root.setProperty('--shoes', '#4361ee');
+    } else if (name === 'sunny'){
+      root.setProperty('--bg', '#ffe8a1');
+      root.setProperty('--accent', '#f3722c');
+      root.setProperty('--accent2', '#90be6d');
+      root.setProperty('--mouse', '#2d2d2d');
+      root.setProperty('--shorts', '#f94144');
+      root.setProperty('--glove', '#fffdf5');
+      root.setProperty('--shoes', '#f9c74f');
+    } else if (name === 'festival'){
+      root.setProperty('--bg', '#1a1a2e');
+      root.setProperty('--accent', '#e43f5a');
+      root.setProperty('--accent2', '#16213e');
+      root.setProperty('--mouse', '#0d0d0d');
+      root.setProperty('--shorts', '#f72585');
+      root.setProperty('--glove', '#fafafa');
+      root.setProperty('--shoes', '#7209b7');
+    }
+  }
+
+  // Events
+  playBtn.onclick = ()=> setPlayState(true);
+  pauseBtn.onclick = ()=> setPlayState(false);
+  resetBtn.onclick = ()=>{
+    speedR.value = 1.0; setSpeed(1.0); setPlayState(true);
+  };
+  speedR.oninput = ()=> setSpeed(parseFloat(speedR.value));
+  themeSel.onchange = ()=> setTheme(themeSel.value);
+
+  // Init
+  setTheme('classic');
+  setSpeed(parseFloat(speedR.value));
+  setPlayState(true);
+</script>
+</body>
+</html>
