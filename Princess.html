@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fairytale Castle Princess</title>
+<style>
+  :root{
+    --skyTop:#bde0fe; --skyBot:#a2d2ff; --text:#102a43; --panel:#111827; --accent:#ffd166; --accent2:#06d6a0;
+    --castle:#d9d9e3; --stone:#b9b9c9; --roof:#6c63ff; --flag:#ff6b6b; --window:#ffe9a3;
+    --dress:#f72585; --trim:#ffd6e0; --hair:#774936; --skin:#fcd5b5;
+    --ground:#84a59d;
+  }
+  body{margin:0;background:linear-gradient(var(--skyTop),var(--skyBot));color:var(--text);font:16px/1.5 system-ui,sans-serif;}
+  .wrap{display:grid;grid-template-columns:1fr 320px;gap:12px;min-height:100vh;}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr;} .stage{height:60vh}}
+  .stage{display:grid;place-items:center;position:relative;overflow:hidden}
+  .panel{padding:12px;background:var(--panel);color:#e6edf7;display:flex;flex-direction:column;gap:10px}
+  h1{margin:0 0 6px;font-size:20px;font-weight:800}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{flex:1;min-width:120px;padding:0.8rem 1rem;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+  .primary{background:var(--accent);color:#1a1500}
+  .secondary{background:var(--accent2);color:#001a12}
+  .group{border:1px solid #243145;border-radius:12px;padding:10px}
+  label{display:flex;align-items:center;gap:8px}
+  input[type="range"], select{width:100%}
+  .status{font-weight:700;background:#0b1220;border-radius:12px;padding:8px}
+
+  /* Ground */
+  .ground{
+    position:absolute; left:0; right:0; bottom:0; height:20%;
+    background:linear-gradient(#6a9b90, var(--ground));
+  }
+
+  /* Castle container */
+  .castle-wrap{
+    position:relative; width:min(900px, 88vw); aspect-ratio:16/9;
+  }
+
+  /* Simple SVG scaling */
+  svg{width:100%; height:100%}
+
+  /* Princess */
+  .princess{
+    position:absolute; bottom:12%; left:12%;
+    width:min(240px, 30vw); transform-origin:50% 90%;
+    filter:drop-shadow(0 6px 10px #0003);
+  }
+  .princess .twirl{ animation: twirl 5s ease-in-out infinite; }
+  .princess .wave{ animation: wave 3.6s ease-in-out infinite; transform-origin:70% 30%; }
+  .princess .sparkle{ position:absolute; inset:0; pointer-events:none; }
+  .sparkle i{
+    position:absolute; width:8px; height:8px; background:#ffe066; border-radius:50%; opacity:0;
+    animation: sparkle 2.2s ease-in-out infinite;
+  }
+  .sparkle i:nth-child(1){ left:16%; top:20%; animation-delay:0.2s }
+  .sparkle i:nth-child(2){ left:56%; top:8%;  animation-delay:0.6s }
+  .sparkle i:nth-child(3){ left:72%; top:36%; animation-delay:1.0s }
+  .sparkle i:nth-child(4){ left:30%; top:46%; animation-delay:1.4s }
+
+  @keyframes twirl {
+    0%,100% { transform: rotate(0deg) }
+    50%     { transform: rotate(-6deg) }
+  }
+  @keyframes wave {
+    0%,100% { transform: rotate(0deg) }
+    50%     { transform: rotate(-16deg) }
+  }
+  @keyframes sparkle {
+    0% { transform: scale(0.6); opacity:0 }
+    30%{ transform: scale(1.2); opacity:1 }
+    100%{ transform: scale(0.6); opacity:0 }
+  }
+
+  /* Parade path */
+  .parade{
+    position:absolute; bottom:12%; left:6%; right:6%; height:2px; background:#ffffff33;
+    border-radius:2px; box-shadow:0 0 6px #ffffff55;
+  }
+  .princess.parading{ animation: march 12s linear infinite }
+  @keyframes march {
+    0%   { transform: translateX(0) }
+    50%  { transform: translateX(60vw) }
+    100% { transform: translateX(0) }
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    .princess .twirl, .princess .wave, .sparkle i, .princess.parading { animation: none !important }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage" aria-label="Fairytale castle scene">
+    <div class="castle-wrap" id="castle">
+      <!-- Castle SVG -->
+      <svg viewBox="0 0 800 450" role="img" aria-label="Fairytale castle with towers and flags">
+        <!-- Glow -->
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="30%" r="60%">
+            <stop offset="0%" stop-color="#ffffff55"/>
+            <stop offset="100%" stop-color="#ffffff00"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="800" height="450" fill="url(#glow)"/>
+
+        <!-- Main keep -->
+        <rect x="280" y="140" width="240" height="190" fill="var(--castle)" stroke="var(--stone)" stroke-width="2"/>
+        <polygon points="280,140 400,90 520,140" fill="var(--roof)" />
+        <!-- Central door -->
+        <rect x="360" y="230" width="80" height="100" rx="10" fill="#8d6e63" stroke="#5d463f" stroke-width="3"/>
+        <circle cx="430" cy="280" r="5" fill="#3c2e28" />
+
+        <!-- Left tower -->
+        <rect x="180" y="160" width="80" height="170" fill="var(--castle)" stroke="var(--stone)" stroke-width="2"/>
+        <polygon points="180,160 220,120 260,160" fill="var(--roof)" />
+        <!-- Right tower -->
+        <rect x="540" y="160" width="80" height="170" fill="var(--castle)" stroke="var(--stone)" stroke-width="2"/>
+        <polygon points="540,160 580,120 620,160" fill="var(--roof)" />
+
+        <!-- Flags -->
+        <path d="M220 120 L220 90" stroke="#222" stroke-width="4"/>
+        <path d="M580 120 L580 90" stroke="#222" stroke-width="4"/>
+        <path d="M220 90 Q235 100 220 110 Q205 100 220 90" fill="var(--flag)"/>
+        <path d="M580 90 Q595 100 580 110 Q565 100 580 90" fill="var(--flag)"/>
+
+        <!-- Windows -->
+        <g fill="var(--window)" stroke="#b2913d">
+          <rect x="305" y="180" width="36" height="54" rx="8"/>
+          <rect x="459" y="180" width="36" height="54" rx="8"/>
+          <rect x="200" y="190" width="28" height="42" rx="6"/>
+          <rect x="572" y="190" width="28" height="42" rx="6"/>
+        </g>
+
+        <!-- Battlements -->
+        <g fill="var(--castle)">
+          <rect x="290" y="135" width="18" height="10"/>
+          <rect x="314" y="135" width="18" height="10"/>
+          <rect x="338" y="135" width="18" height="10"/>
+          <rect x="362" y="135" width="18" height="10"/>
+          <rect x="386" y="135" width="18" height="10"/>
+          <rect x="410" y="135" width="18" height="10"/>
+          <rect x="434" y="135" width="18" height="10"/>
+          <rect x="458" y="135" width="18" height="10"/>
+          <rect x="482" y="135" width="18" height="10"/>
+        </g>
+      </svg>
+
+      <!-- Princess figure -->
+      <div class="princess" id="princess" aria-label="Princess twirling and waving">
+        <!-- Body -->
+        <svg viewBox="0 0 200 240">
+          <!-- Dress -->
+          <g class="twirl">
+            <path d="M40 140 Q100 90 160 140 L180 220 Q100 230 20 220 Z"
+                  fill="var(--dress)" stroke="var(--trim)" stroke-width="3"/>
+            <!-- Trim lines -->
+            <path d="M40 160 Q100 120 160 160" stroke="var(--trim)" stroke-width="2" fill="none"/>
+            <path d="M30 190 Q100 150 170 190" stroke="var(--trim)" stroke-width="2" fill="none"/>
+          </g>
+
+          <!-- Torso -->
+          <rect x="80" y="110" width="40" height="36" rx="10" fill="var(--dress)" stroke="var(--trim)" stroke-width="3"/>
+
+          <!-- Head -->
+          <circle cx="100" cy="90" r="20" fill="var(--skin)" stroke="#d9a87d" stroke-width="2"/>
+          <!-- Hair -->
+          <path d="M80 78 Q100 60 120 78 Q115 98 85 98 Z" fill="var(--hair)"/>
+          <!-- Eyes -->
+          <circle cx="92" cy="86" r="3" fill="#222"/>
+          <circle cx="108" cy="86" r="3" fill="#222"/>
+          <!-- Smile -->
+          <path d="M92 98 Q100 104 108 98" stroke="#a35d2c" stroke-width="2" fill="none"/>
+
+          <!-- Crown -->
+          <polygon points="92,66 100,54 108,66 100,70" fill="#ffd166" stroke="#b39135" stroke-width="2"/>
+
+          <!-- Arms -->
+          <rect x="66" y="116" width="12" height="34" rx="6" fill="var(--skin)"/>
+          <rect x="122" y="116" width="12" height="34" rx="6" fill="var(--skin)" class="wave"/>
+          <!-- Hand accent -->
+          <circle cx="128" cy="148" r="5" fill="#fff"/>
+
+          <!-- Cape (optional glow) -->
+          <path d="M70 118 Q40 140 46 190 Q60 210 80 200" fill="#ffd6e044"/>
+        </svg>
+
+        <!-- Sparkles -->
+        <div class="sparkle">
+          <i></i><i></i><i></i><i></i>
+        </div>
+      </div>
+
+      <!-- Parade path -->
+      <div class="parade" id="parade" aria-hidden="true"></div>
+    </div>
+
+    <div class="ground" aria-hidden="true"></div>
+  </div>
+
+  <aside class="panel" aria-label="Controls">
+    <h1>Fairytale Castle Princess</h1>
+    <div class="status" id="status">Playing — speed 1.0×</div>
+
+    <div class="group">
+      <div class="row">
+        <button class="btn primary" id="play">Play</button>
+        <button class="btn secondary" id="pause">Pause</button>
+        <button class="btn secondary" id="reset">Reset</button>
+      </div>
+      <label>Speed
+        <input type="range" id="speed" min="0.5" max="2.0" step="0.1" value="1.0" />
+      </label>
+      <label>Theme
+        <select id="theme">
+          <option value="day">Day</option>
+          <option value="dusk">Dusk</option>
+          <option value="night">Night</option>
+          <option value="festival">Festival</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="paradeToggle" /> Parade mode (walk across courtyard)</label>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const statusEl = document.getElementById('status');
+  const speedR = document.getElementById('speed');
+  const themeSel = document.getElementById('theme');
+  const playBtn = document.getElementById('play');
+  const pauseBtn = document.getElementById('pause');
+  const resetBtn = document.getElementById('reset');
+  const princess = document.getElementById('princess');
+  const paradeToggle = document.getElementById('paradeToggle');
+
+  function setSpeed(mult){
+    // Adjust animation durations
+    const twirlEls = princess.querySelectorAll('.twirl');
+    const waveEls = princess.querySelectorAll('.wave');
+    const sparkleEls = princess.querySelectorAll('.sparkle i');
+
+    twirlEls.forEach(el => el.style.animationDuration = (5 / mult) + 's');
+    waveEls.forEach(el => el.style.animationDuration = (3.6 / mult) + 's');
+    sparkleEls.forEach(el => el.style.animationDuration = (2.2 / mult) + 's');
+
+    if (princess.classList.contains('parading')){
+      princess.style.animationDuration = (12 / mult) + 's';
+    }
+    statusEl.textContent = `Playing — speed ${mult.toFixed(1)}×`;
+  }
+
+  function setPlayState(play){
+    const all = document.querySelectorAll('.twirl, .wave, .sparkle i');
+    all.forEach(el => el.style.animationPlayState = play ? 'running' : 'paused');
+    if (princess.classList.contains('parading')){
+      princess.style.animationPlayState = play ? 'running' : 'paused';
+    }
+    statusEl.textContent = play ? `Playing — speed ${speedR.value}×` : `Paused — speed ${speedR.value}×`;
+  }
+
+  function setTheme(name){
+    const root = document.documentElement.style;
+    if (name === 'day'){
+      root.setProperty('--skyTop','#bde0fe'); root.setProperty('--skyBot','#a2d2ff'); root.setProperty('--ground','#84a59d');
+      root.setProperty('--roof','#6c63ff'); root.setProperty('--dress','#f72585'); root.setProperty('--trim','#ffd6e0');
+      root.setProperty('--flag','#ff6b6b'); root.setProperty('--window','#ffe9a3');
+    } else if (name === 'dusk'){
+      root.setProperty('--skyTop','#6c5b7b'); root.setProperty('--skyBot','#355c7d'); root.setProperty('--ground','#52796f');
+      root.setProperty('--roof','#4f46e5'); root.setProperty('--dress','#e0aaff'); root.setProperty('--trim','#ffd6ff');
+      root.setProperty('--flag','#ffadad'); root.setProperty('--window','#ffd166');
+    } else if (name === 'night'){
+      root.setProperty('--skyTop','#0b1020'); root.setProperty('--skyBot','#0f172a'); root.setProperty('--ground','#315a63');
+      root.setProperty('--roof','#3a0ca3'); root.setProperty('--dress','#7209b7'); root.setProperty('--trim','#bde0fe');
+      root.setProperty('--flag','#ffd166'); root.setProperty('--window','#fff3bf');
+    } else if (name === 'festival'){
+      root.setProperty('--skyTop','#ffafcc'); root.setProperty('--skyBot','#ffc8dd'); root.setProperty('--ground','#c8e7e1');
+      root.setProperty('--roof','#ff006e'); root.setProperty('--dress','#fb5607'); root.setProperty('--trim','#ffd166');
+      root.setProperty('--flag','#8338ec'); root.setProperty('--window','#f1fa8c');
+    }
+  }
+
+  function setParade(on){
+    if (on){
+      princess.classList.add('parading');
+      princess.style.animationDuration = (12 / parseFloat(speedR.value)) + 's';
+      princess.style.animationPlayState = 'running';
+    } else {
+      princess.classList.remove('parading');
+      princess.style.animationDuration = '';
+      princess.style.animationPlayState = '';
+    }
+  }
+
+  // Events
+  playBtn.onclick = ()=> setPlayState(true);
+  pauseBtn.onclick = ()=> setPlayState(false);
+  resetBtn.onclick = ()=>{ speedR.value = 1.0; setSpeed(1.0); setPlayState(true); };
+  speedR.oninput = ()=> setSpeed(parseFloat(speedR.value));
+  themeSel.onchange = ()=> setTheme(themeSel.value);
+  paradeToggle.onchange = ()=> setParade(paradeToggle.checked);
+
+  // Init
+  setTheme('day');
+  setSpeed(parseFloat(speedR.value));
+  setPlayState(true);
+</script>
+</body>
+</html>
+
