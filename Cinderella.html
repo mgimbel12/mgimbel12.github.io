@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Character Showcase & Cinderella's Shoe Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f1220;
+      --panel: #171a2b;
+      --accent: #ffd166;
+      --accent2: #06d6a0;
+      --text: #eaeaea;
+      --muted: #9aa1b5;
+      --focus: #4cc9f0;
+      --danger: #ef476f;
+      --success: #06d6a0;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 20% 0%, #1b2040, var(--bg));
+    }
+
+    header {
+      padding: 24px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255, 209, 102, 0.12), rgba(255, 209, 102, 0));
+      border-bottom: 1px solid #272c45;
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      letter-spacing: 0.5px;
+    }
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .card {
+      background: linear-gradient(180deg, #1c213b, #151a2f);
+      border: 1px solid #2a325a;
+      border-radius: 14px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(76, 201, 240, 0.12);
+    }
+    .card h3 {
+      margin: 8px 0 6px;
+      font-size: 20px;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      color: #0e1022;
+      background: var(--accent);
+      padding: 4px 8px;
+      border-radius: 999px;
+      margin-right: 8px;
+      font-weight: 600;
+    }
+    .desc {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 8px 0 10px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    button, .btn {
+      cursor: pointer;
+      border: 1px solid #2a325a;
+      background: #1a1f39;
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: background 160ms ease, border-color 160ms ease, transform 120ms;
+    }
+    button:hover, .btn:hover {
+      background: #20264a;
+      border-color: #3a4575;
+    }
+    button:focus-visible, .btn:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+    .accent {
+      background: #232a55;
+      border-color: #3b4582;
+    }
+
+    /* Carousel */
+    .carousel {
+      position: relative;
+      background: var(--panel);
+      border: 1px solid #2a325a;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+    .carousel-track {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .carousel-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: center;
+      background: #12162a;
+      border: 1px solid #26315a;
+      border-radius: 12px;
+      padding: 12px;
+    }
+    .avatar {
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4cc9f0, #4361ee);
+      display: grid;
+      place-items: center;
+      color: #0e1022;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.6px;
+    }
+    .carousel-title { font-size: 18px; margin: 0; }
+    .carousel-text { color: var(--muted); margin: 6px 0 0; font-size: 14px; }
+
+    .carousel-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+    }
+
+    /* Mini game */
+    .game {
+      margin-top: 10px;
+      background: var(--panel);
+      border: 1px solid #2a325a;
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .game-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .game-status {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+    }
+    .tile {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      background: #12162a;
+      border: 1px solid #26315a;
+      position: relative;
+      overflow: hidden;
+      transition: transform 120ms, box-shadow 160ms;
+    }
+    .tile:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+    .tile button {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      border: 0;
+      color: var(--text);
+      font-weight: 700;
+    }
+    .tile.revealed {
+      background: linear-gradient(135deg, #ffd166, #ef476f);
+      border-color: #f7a600;
+    }
+    .tile.miss {
+      background: linear-gradient(135deg, #2b3157, #1a1f39);
+      border-color: #394276;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px dashed #3a4270;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 560px) {
+      .carousel-item { grid-template-columns: 1fr; }
+      .avatar { height: 80px; }
+      .tiles { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Character Showcase & Cinderella's Shoe</h1>
+    <p>Explore the characters, then play the mini-game to find Cinderella's glass slipper.</p>
+  </header>
+
+  <main class="container">
+    <!-- Carousel -->
+    <section class="carousel" aria-label="Character carousel">
+      <div class="controls" role="group" aria-label="Carousel controls">
+        <button id="prevBtn" class="btn" aria-label="Previous character">← Prev</button>
+        <span class="pill" id="carouselStatus" aria-live="polite">1 / 6</span>
+        <button id="nextBtn" class="btn" aria-label="Next character">Next →</button>
+      </div>
+      <div class="carousel-track" id="carouselTrack"></div>
+      <div class="carousel-nav">
+        <small class="pill">Tip: Use Left/Right arrows to navigate.</small>
+        <button id="shuffleBtn" class="btn accent" aria-label="Shuffle order">Shuffle</button>
+      </div>
+    </section>
+
+    <!-- Cards -->
+    <section aria-label="Character cards">
+      <div class="grid" id="cardsGrid"></div>
+    </section>
+
+    <!-- Mini Game -->
+    <section class="game" aria-label="Find Cinderella's shoe game">
+      <div class="game-header">
+        <h2 style="margin:0;font-size:20px;">Find Cinderella's Shoe</h2>
+        <div class="pill">Goal: Click tiles to reveal the hidden slipper.</div>
+      </div>
+      <div class="controls">
+        <button id="newRoundBtn" class="btn" aria-label="Start new round">New round</button>
+        <button id="hintBtn" class="btn" aria-label="Show a hint">Hint</button>
+        <span id="gameStatus" class="game-status" aria-live="polite">0 guesses | 1 slipper hidden</span>
+      </div>
+      <div class="tiles" id="tiles" role="grid" aria-label="Tiles"></div>
+    </section>
+  </main>
+
+  <footer>
+    Built with HTML, CSS, and JavaScript. Keyboard-friendly and accessible.
+  </footer>
+
+  <script>
+    // Data
+    const characters = [
+      {
+        id: "donald",
+        name: "Donald Duck",
+        tag: "Classic",
+        color: ["#4cc9f0","#4361ee"],
+        blurb: "A spirited duck known for his charm and occasional squawks of frustration."
+      },
+      {
+        id: "mickey",
+        name: "Mickey Mouse",
+        tag: "Iconic",
+        color: ["#06d6a0","#118ab2"],
+        blurb: "Optimistic, curious, and always up for an adventure."
+      },
+      {
+        id: "daffy",
+        name: "Daffy Duck",
+        tag: "Looney",
+        color: ["#ef476f","#ffd166"],
+        blurb: "Witty, unpredictable, and delightfully dramatic."
+      },
+      {
+        id: "cinderella",
+        name: "Cinderella",
+        tag: "Fairytale",
+        color: ["#a8dadc","#457b9d"],
+        blurb: "Grace and resilience—she believes in the magic of kindness."
+      },
+      {
+        id: "charming",
+        name: "Prince Charming",
+        tag: "Fairytale",
+        color: ["#f1faee","#a8dadc"],
+        blurb: "Steadfast and true, always searching for the one who fits the slipper."
+      },
+      {
+        id: "snowwhite",
+        name: "Snow White & Her Prince",
+        tag: "Fairytale",
+        color: ["#ff9e00","#fb5607"],
+        blurb: "Gentle hearts and a love that awakens hope."
+      }
+    ];
+
+    // Elements
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const status = document.getElementById('carouselStatus');
+    const cardsGrid = document.getElementById('cardsGrid');
+
+    // Render carousel (single item view)
+    let index = 0;
+    function renderCarousel() {
+      track.innerHTML = '';
+      const c = characters[index];
+      const item = document.createElement('div');
+      item.className = 'carousel-item';
+      item.setAttribute('role', 'group');
+      item.setAttribute('aria-label', c.name);
+
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      avatar.style.background = `linear-gradient(135deg, ${c.color[0]}, ${c.color[1]})`;
+      avatar.textContent = c.name.split(' ').slice(0,2).join(' ');
+
+      const info = document.createElement('div');
+      const title = document.createElement('h3');
+      title.className = 'carousel-title';
+      title.textContent = c.name;
+      const text = document.createElement('p');
+      text.className = 'carousel-text';
+      text.textContent = c.blurb;
+
+      info.appendChild(title);
+      info.appendChild(text);
+      item.appendChild(avatar);
+      item.appendChild(info);
+      track.appendChild(item);
+      status.textContent = `${index+1} / ${characters.length}`;
+    }
+
+    // Render cards
+    function renderCards() {
+      cardsGrid.innerHTML = '';
+      characters.forEach(c => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.setAttribute('aria-label', c.name);
+
+        const badges = document.createElement('div');
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = c.tag;
+        badges.appendChild(tag);
+
+        const title = document.createElement('h3');
+        title.textContent = c.name;
+
+        const desc = document.createElement('p');
+        desc.className = 'desc';
+        desc.textContent = c.blurb;
+
+        const more = document.createElement('button');
+        more.className = 'btn';
+        more.textContent = 'Highlight in carousel';
+        more.addEventListener('click', () => {
+          index = characters.findIndex(x => x.id === c.id);
+          renderCarousel();
+          track.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        card.appendChild(badges);
+        card.appendChild(title);
+        card.appendChild(desc);
+        card.appendChild(more);
+        cardsGrid.appendChild(card);
+      });
+    }
+
+    // Carousel controls
+    prevBtn.addEventListener('click', () => {
+      index = (index - 1 + characters.length) % characters.length;
+      renderCarousel();
+    });
+    nextBtn.addEventListener('click', () => {
+      index = (index + 1) % characters.length;
+      renderCarousel();
+    });
+    shuffleBtn.addEventListener('click', () => {
+      for (let i = characters.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [characters[i], characters[j]] = [characters[j], characters[i]];
+      }
+      index = 0;
+      renderCarousel();
+      renderCards();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    // Mini game: Find Cinderella's shoe
+    const tilesEl = document.getElementById('tiles');
+    const gameStatus = document.getElementById('gameStatus');
+    const newRoundBtn = document.getElementById('newRoundBtn');
+    const hintBtn = document.getElementById('hintBtn');
+
+    const GRID_SIZE = 24; // number of tiles
+    let slipperIndex = 0;
+    let guesses = 0;
+    let revealed = false;
+
+    function setupTiles() {
+      tilesEl.innerHTML = '';
+      revealed = false;
+      guesses = 0;
+      slipperIndex = Math.floor(Math.random() * GRID_SIZE);
+
+      for (let i = 0; i < GRID_SIZE; i++) {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.setAttribute('role', 'gridcell');
+
+        const btn = document.createElement('button');
+        btn.setAttribute('aria-label', `Tile ${i+1}`);
+        btn.textContent = '';
+
+        btn.addEventListener('click', () => {
+          if (revealed) return;
+          guesses++;
+          if (i === slipperIndex) {
+            tile.classList.add('revealed');
+            btn.textContent = '👠 Slipper!';
+            gameStatus.textContent = `${guesses} guesses | You found the slipper!`;
+            revealed = true;
+          } else {
+            tile.classList.add('miss');
+            btn.textContent = '✦';
+            gameStatus.textContent = `${guesses} guesses | Keep looking…`;
+          }
+        });
+
+        tile.appendChild(btn);
+        tilesEl.appendChild(tile);
+      }
+      gameStatus.textContent = `${guesses} guesses | 1 slipper hidden`;
+    }
+
+    newRoundBtn.addEventListener('click', setupTiles);
+    hintBtn.addEventListener('click', () => {
+      if (revealed) return;
+      const hint = slipperIndex < GRID_SIZE / 2 ? 'Top half' : 'Bottom half';
+      gameStatus.textContent = `${guesses} guesses | Hint: ${hint}`;
+    });
+
+    // Init
+    renderCarousel();
+    renderCards();
+    setupTiles();
+  </script>
+</body>
+</html>
