@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Holiday Playground: Count to 100, Pie, Colors, Flag, Countdown</title>
+  <style>
+    :root {
+      /* Theme variables (updated by JS) */
+      --bg: #0b0d12;
+      --text: #f7f8fa;
+      --accent: #e63946;
+      --muted: #b6c2cf;
+      --card: #141820;
+      --ring: #2a2f3a;
+      --good: #2fbf71;
+      --warning: #f4a261;
+      --link: #4ca3ff;
+
+      /* Flag palette (static) */
+      --flag-red: #b22234;
+      --flag-white: #ffffff;
+      --flag-blue: #3c3b6e;
+    }
+
+    /* Base */
+    * { box-sizing: border-box }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      background: radial-gradient(1200px 800px at 20% -10%, #18202b, var(--bg)),
+                  radial-gradient(900px 700px at 120% 20%, #12161c, var(--bg));
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    a { color: var(--link); text-decoration: none }
+    a:hover { text-decoration: underline }
+
+    /* Flag banner */
+    .flag-banner {
+      position: relative;
+      display: grid;
+      grid-template-columns: 40% 60%;
+      width: 100%;
+      min-height: 140px;
+      border-bottom: 2px solid var(--ring);
+      background:
+        linear-gradient(90deg,
+          var(--flag-blue) 0 40%,
+          transparent 40% 100%
+        );
+    }
+    .flag-stars {
+      padding: 12px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-auto-rows: 18px;
+      gap: 6px;
+    }
+    .star {
+      width: 0; height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 12px solid var(--flag-white);
+      transform: translateY(2px);
+      filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));
+    }
+    .flag-stripes {
+      display: grid;
+      grid-template-rows: repeat(13, 1fr);
+      height: 100%;
+    }
+    .flag-stripes div:nth-child(odd) { background: var(--flag-red) }
+    .flag-stripes div:nth-child(even) { background: var(--flag-white) }
+
+    /* Layout */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-top: 18px;
+      margin-bottom: 8px;
+    }
+    .title {
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: 0.3px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* Theme buttons */
+    .themes {
+      margin-left: auto;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border: 1px solid var(--ring);
+      background: var(--card);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 120ms ease, background 140ms ease, border 140ms ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn:focus-visible { outline: 2px solid var(--link); outline-offset: 2px }
+
+    /* Grid sections */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    @media (min-width: 900px) {
+      .grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    /* Cards */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.12)), var(--card);
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.2px;
+    }
+    .card .help { color: var(--muted); font-size: 0.9rem }
+
+    /* Count to 100 pie */
+    .pie-wrap {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .pie-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .score {
+      margin-left: auto;
+      font-weight: 700;
+      color: var(--good);
+    }
+    .pie {
+      --size: 280px;
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto;
+      background: conic-gradient(var(--accent) 0 0, transparent 0 360deg);
+      outline: 6px solid var(--ring);
+    }
+    .slice {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      left: 50%;
+      top: 50%;
+      transform-origin: 0% 0%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+      transition: filter 120ms ease, transform 120ms ease;
+    }
+    .slice:hover { filter: brightness(1.2) }
+    .slice.done { filter: saturate(1.2) brightness(1.1); }
+    .legend { display: flex; gap: 8px; flex-wrap: wrap }
+    .tag {
+      border: 1px dashed var(--ring);
+      padding: 4px 8px;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    /* Recipe card */
+    .recipe {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .recipe h3 { margin: 0 0 4px 0 }
+    .ingredients, .instructions {
+      display: grid;
+      gap: 8px;
+    }
+    .ingredients li, .instructions li {
+      margin-left: 6px;
+      padding-left: 0;
+    }
+    .ingredients li::marker, .instructions li::marker { color: var(--muted) }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--ring);
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-right: 8px;
+    }
+
+    /* Countdown */
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .unit {
+      background: var(--card);
+      border: 1px solid var(--ring);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .unit .num {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .unit .lab {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--ring);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- American flag motif -->
+  <section class="flag-banner" aria-label="American flag banner">
+    <div class="flag-stars" aria-hidden="true">
+      <!-- 30 stars for visual rhythm (not exact count) -->
+      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+      <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+    </div>
+    <div class="flag-stripes" aria-hidden="true">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="header">
+      <div>
+        <div class="title">Holiday Playground</div>
+        <div class="subtitle">Count to 100 with pie slices, switch color themes, read a classic apple pie, and watch the Christmas countdown.</div>
+      </div>
+      <div class="themes" role="toolbar" aria-label="Theme colors">
+        <button class="btn" data-theme="green">Green</button>
+        <button class="btn" data-theme="red">Red</button>
+        <button class="btn" data-theme="blue">Blue</button>
+        <button class="btn" data-theme="white">White</button>
+        <button class="btn" id="reset">Reset</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left column: Count to 100 + Christmas countdown -->
+      <section class="card">
+        <h2>Counting pie slices to 100</h2>
+        <p class="help">Click slices 1 to 100 in order. Use “Auto-fill tens” when you reach 10, 20, 30… to highlight the next ring. Great for number sense and rhythm.</p>
+        <div class="pie-wrap">
+          <div class="pie-controls">
+            <button class="btn" id="prev">Previous</button>
+            <button class="btn" id="next">Next</button>
+            <button class="btn" id="autotens">Auto-fill tens</button>
+            <span class="score" id="score">0 / 100</span>
+          </div>
+          <div class="legend" aria-hidden="true">
+            <span class="tag">Outer: 1–20</span>
+            <span class="tag">Second: 21–40</span>
+            <span class="tag">Third: 41–60</span>
+            <span class="tag">Fourth: 61–80</span>
+            <span class="tag">Center: 81–100</span>
+          </div>
+          <div class="pie" id="pie" aria-label="Pie slices counting game"></div>
+        </div>
+
+        <h2 style="margin-top:20px;">Christmas countdown</h2>
+        <p class="help">Live countdown to Christmas Day at midnight, Henderson, NV time (PST). Refreshes every second.</p>
+        <div class="countdown" aria-live="polite">
+          <div class="unit"><div class="num" id="dd">0</div><div class="lab">Days</div></div>
+          <div class="unit"><div class="num" id="hh">0</div><div class="lab">Hours</div></div>
+          <div class="unit"><div class="num" id="mm">0</div><div class="lab">Minutes</div></div>
+          <div class="unit"><div class="num" id="ss">0</div><div class="lab">Seconds</div></div>
+        </div>
+      </section>
+
+      <!-- Right column: Apple pie recipe + theme info -->
+      <section class="card">
+        <h2>Apple pie recipe (classic, cozy)</h2>
+        <div class="recipe">
+          <div>
+            <span class="badge">Double-crust</span>
+            <span class="badge">Bake ~375–425°F</span>
+            <span class="badge">Apples + cinnamon</span>
+          </div>
+
+          <h3>Ingredients (typical)</h3>
+          <ul class="ingredients">
+            <li>Pie dough for double crust</li>
+            <li>Firm baking apples (e.g., Granny Smith, Honeycrisp), about 6–8 cups sliced</li>
+            <li>Granulated sugar and/or brown sugar</li>
+            <li>Flour or cornstarch (thickener)</li>
+            <li>Ground cinnamon; optional nutmeg, ginger, cardamom, allspice</li>
+            <li>Pinch of salt; splash lemon juice</li>
+            <li>Butter (to dot on top)</li>
+            <li>Egg wash or milk + coarse sugar for the top crust</li>
+          </ul>
+
+          <h3>Steps (summary)</h3>
+          <ol class="instructions">
+            <li>Make or unroll a double-crust pie dough. Preheat oven about 375–425°F.</li>
+            <li>Peel, core, and slice apples. Toss with sugars, salt, spices, and a little flour/cornstarch; add lemon juice.</li>
+            <li>Line the pie plate with bottom crust. Pack apples in; dot with butter.</li>
+            <li>Top with full crust (vent slits) or lattice; crimp edges. Brush with egg wash or milk; sprinkle coarse sugar.</li>
+            <li>Bake until the crust is golden and juices bubble through vents; cool at least 2 hours so the filling sets.</li>
+          </ol>
+
+          <p class="help">This classic approach matches trusted, widely used methods and spice profiles found in popular apple pie references and tutorials.</p>
+        </div>
+
+        <h2 style="margin-top:18px;">Theme colors</h2>
+        <p class="help">Switch between Green, Red, Blue, and White themes above. Colors update backgrounds, accents, and highlights in real time.</p>
+      </section>
+    </div>
+
+    <footer>
+      Built for play, celebration, and learning. Accessible labels, keyboard-friendly buttons, and high-contrast themes included.
+    </footer>
+  </div>
+
+  <script>
+    // Theme switching
+    const themes = {
+      green: { bg: "#0b1210", text: "#e9f7ef", accent: "#2fbf71", muted: "#a9cbb2", card: "#0f1814", ring: "#1f2b24", link: "#38c172" },
+      red:   { bg: "#140c0c", text: "#fff6f6", accent: "#e63946", muted: "#e6b3b3", card: "#1a0f10", ring: "#2a1617", link: "#ff7b7b" },
+      blue:  { bg: "#0c1118", text: "#eaf4ff", accent: "#4ca3ff", muted: "#b6cbe3", card: "#0f1620", ring: "#1e2734", link: "#7bc3ff" },
+      white: { bg: "#fafafa", text: "#0d0f14", accent: "#2a2f3a", muted: "#5f6b7a", card: "#ffffff", ring: "#d8dde6", link: "#1e64d6" }
+    };
+    function applyTheme(name) {
+      const t = themes[name];
+      if (!t) return;
+      const root = document.documentElement;
+      root.style.setProperty("--bg", t.bg);
+      root.style.setProperty("--text", t.text);
+      root.style.setProperty("--accent", t.accent);
+      root.style.setProperty("--muted", t.muted);
+      root.style.setProperty("--card", t.card);
+      root.style.setProperty("--ring", t.ring);
+      root.style.setProperty("--link", t.link);
+    }
+    document.querySelectorAll(".btn[data-theme]").forEach(b=>{
+      b.addEventListener("click", ()=>applyTheme(b.dataset.theme));
+    });
+    document.getElementById("reset").addEventListener("click", ()=>{
+      document.location.reload();
+    });
+
+    // Pie slices 1..100 in 5 rings of 20
+    const pie = document.getElementById("pie");
+    const scoreEl = document.getElementById("score");
+    let current = 1;
+    let done = Array(100).fill(false);
+
+    function polarToTransform(angleDeg, radius) {
+      // Each slice is positioned from center; we rotate the element and scale to radius
+      return `rotate(${angleDeg}deg) translate(${radius}px) rotate(${90}deg)`;
+    }
+    function colorFor(index) {
+      // Alternate hues for clarity
+      const ring = Math.floor((index-1)/20); // 0..4
+      const pos  = (index-1) % 20;
+      const palette = [
+        ["#ff6b6b","#ff8787","#fa5252","#e03131"],
+        ["#4dabf7","#339af0","#1c7ed6","#1971c2"],
+        ["#51cf66","#40c057","#2f9e44","#2b8a3e"],
+        ["#f59f00","#f08c00","#e67700","#d9480f"],
+        ["#b197fc","#9775fa","#845ef7","#7048e8"]
+      ];
+      return palette[ring][pos % palette[ring].length];
+    }
+    function buildSlices() {
+      pie.innerHTML = "";
+      const size = parseInt(getComputedStyle(pie).getPropertyValue("--size"));
+      const radii = [size/2 - 8, size/2 - 40, size/2 - 72, size/2 - 104, size/2 - 136];
+      let idx = 1;
+      for (let r=0; r<5; r++) {
+        for (let s=0; s<20; s++) {
+          const slice = document.createElement("div");
+          slice.className = "slice";
+          const angle = (360/20) * s;
+          slice.style.transform = polarToTransform(angle, radii[r]);
+          slice.style.background = colorFor(idx);
+          slice.textContent = idx;
+          slice.setAttribute("role","button");
+          slice.setAttribute("aria-label", `Slice ${idx}`);
+          slice.addEventListener("click", ()=>handleClick(idx, slice));
+          pie.appendChild(slice);
+          idx++;
+        }
+      }
+      updateScore();
+    }
+    function handleClick(idx, el) {
+      if (idx !== current) {
+        el.style.transform += " scale(0.98)";
+        setTimeout(()=>{ el.style.transform = el.style.transform.replace(" scale(0.98)",""); }, 140);
+        return;
+      }
+      done[idx-1] = true;
+      el.classList.add("done");
+      current++;
+      updateScore();
+    }
+    function updateScore() {
+      const count = done.filter(Boolean).length;
+      scoreEl.textContent = `${count} / 100`;
+      if (count === 100) scoreEl.textContent += " • Complete!";
+      // Accent progress ring
+      const deg = (count/100) * 360;
+      pie.style.background = `conic-gradient(var(--accent) 0 ${deg}deg, transparent ${deg}deg 360deg)`;
+    }
+    buildSlices();
+
+    // Controls
+    document.getElementById("next").addEventListener("click", ()=>{
+      const slice = [...pie.children].find(el=>parseInt(el.textContent,10)===current);
+      if (slice) handleClick(current, slice);
+    });
+    document.getElementById("prev").addEventListener("click", ()=>{
+      if (current <= 1) return;
+      const prevIdx = current-1;
+      done[prevIdx-1] = false;
+      const slice = [...pie.children].find(el=>parseInt(el.textContent,10)===prevIdx);
+      if (slice) slice.classList.remove("done");
+      current = prevIdx;
+      updateScore();
+    });
+    document.getElementById("autotens").addEventListener("click", ()=>{
+      const nextTen = Math.ceil(current/10)*10;
+      for (let i=current; i<=nextTen && i<=100; i++) {
+        const slice = [...pie.children].find(el=>parseInt(el.textContent,10)===i);
+        if (slice) handleClick(i, slice);
+      }
+    });
+
+    // Christmas countdown (local time Henderson, NV, PST)
+    function nextChristmasMidnight() {
+      const now = new Date();
+      const year = now.getMonth() === 11 && now.getDate() > 25 ? now.getFullYear()+1 : now.getFullYear();
+      // Christmas Day start (midnight at start of Dec 25, local)
+      return new Date(year, 11, 25, 0, 0, 0, 0);
+    }
+    const dd = document.getElementById("dd");
+    const hh = document.getElementById("hh");
+    const mm = document.getElementById("mm");
+    const ss = document.getElementById("ss");
+    function tick() {
+      const target = nextChristmasMidnight();
+      const now = new Date();
+      let diff = target.getTime() - now.getTime();
+      if (diff < 0) diff = 0;
+      const s = Math.floor(diff/1000);
+      const days = Math.floor(s / 86400);
+      const hours = Math.floor((s % 86400) / 3600);
+      const mins = Math.floor((s % 3600) / 60);
+      const secs = s % 60;
+      dd.textContent = days;
+      hh.textContent = hours.toString().padStart(2,"0");
+      mm.textContent = mins.toString().padStart(2,"0");
+      ss.textContent = secs.toString().padStart(2,"0");
+    }
+    tick();
+    setInterval(tick, 1000);
+  </script>
+</body>
+</html>
+
