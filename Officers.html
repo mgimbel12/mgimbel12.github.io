@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emergency Contacts + Christmas Countdown</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card: #111827;
+      --text: #e5e7eb;
+      --muted: #9aa4b2;
+      --ring: #233043;
+      --accent: #ef4444; /* red accent for urgency */
+      --good: #22c55e;
+      --warn: #f59e0b;
+      --link: #60a5fa;
+    }
+    * { box-sizing: border-box }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial;
+      background: radial-gradient(1200px 800px at 20% -10%, #0f172a, var(--bg)),
+                  radial-gradient(900px 700px at 120% 20%, #0b1220, var(--bg));
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px }
+    header {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px;
+    }
+    .title { font-weight: 800; font-size: 1.6rem; letter-spacing: 0.3px }
+    .subtitle { color: var(--muted); font-size: 0.95rem }
+    .grid {
+      display: grid; gap: 18px; grid-template-columns: 1fr; 
+    }
+    @media (min-width: 920px) { .grid { grid-template-columns: 1.1fr 0.9fr } }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.12)), var(--card);
+      border: 1px solid var(--ring);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+    .card h2 { margin: 0 0 8px; font-size: 1.2rem }
+    .help { color: var(--muted); font-size: 0.9rem }
+
+    .emergency-list { display: grid; gap: 10px; margin-top: 10px }
+    .row {
+      display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 10px; align-items: center;
+      border: 1px solid var(--ring); border-radius: 12px; padding: 10px;
+      background: rgba(255,255,255,0.03);
+    }
+    .tag { display: inline-block; font-size: 0.8rem; color: var(--muted); border: 1px dashed var(--ring); padding: 2px 8px; border-radius: 8px }
+    .call {
+      background: var(--accent); color: white; border: none; border-radius: 10px; padding: 8px 12px; cursor: pointer;
+    }
+    .call.secondary { background: var(--link); color: #0b1220 }
+    .call:focus-visible { outline: 2px solid #fff; outline-offset: 2px }
+
+    .advice { display: grid; gap: 8px; margin-top: 10px }
+    .advice li { margin-left: 18px }
+
+    /* Countdown */
+    .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px }
+    .unit { border: 1px solid var(--ring); border-radius: 12px; padding: 12px; text-align: center; background: rgba(255,255,255,0.04) }
+    .num { font-size: 1.6rem; font-weight: 800 }
+    .lab { font-size: 0.8rem; color: var(--muted) }
+
+    /* Calendar */
+    .calendar {
+      margin-top: 14px; border: 1px solid var(--ring); border-radius: 16px; overflow: hidden;
+    }
+    .cal-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 12px; background: rgba(255,255,255,0.06);
+    }
+    .cal-title { font-weight: 700 }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; padding: 12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+    }
+    .dow { color: var(--muted); text-align: center; font-size: 0.9rem }
+    .day {
+      border: 1px solid var(--ring); border-radius: 10px; min-height: 70px; padding: 8px; position: relative; background: var(--card);
+    }
+    .day .num { position: absolute; top: 8px; right: 10px; font-weight: 700; color: var(--muted) }
+    .day.christmas { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35) inset }
+    .day .badge { position: absolute; bottom: 8px; left: 8px; font-size: 0.75rem; color: #fff; background: var(--accent); border-radius: 6px; padding: 2px 6px }
+
+    footer { margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--ring); color: var(--muted); font-size: 0.9rem }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="title">Emergency contacts + Christmas countdown</div>
+      <div class="subtitle">Tap-to-call police/emergency numbers, practical safety tips, and a live countdown with a December calendar.</div>
+    </header>
+
+    <div class="grid">
+      <!-- Left: Emergency -->
+      <section class="card" aria-labelledby="em-head">
+        <h2 id="em-head">Emergency numbers and calling guidance</h2>
+        <p class="help">In the U.S., dial 911 for emergencies. For the Las Vegas area, non-emergency police is 311. Henderson Police non-emergency is 702-267-5000. Use 911 if there is immediate danger to life, health, or property.</p>
+
+        <div class="emergency-list" role="list">
+          <div class="row" role="listitem">
+            <div><strong>Emergency (US):</strong> 911</div>
+            <div><span class="tag">Police • Fire • Medical</span></div>
+            <div><a class="call" href="tel:911" aria-label="Call 911">Call 911</a></div>
+          </div>
+
+          <div class="row" role="listitem">
+            <div><strong>Las Vegas metro non-emergency:</strong> 311 or 702-828-3111</div>
+            <div><span class="tag">LVMPD dispatch (non-urgent)</span></div>
+            <div><a class="call secondary" href="tel:311" aria-label="Call 311">Call 311</a></div>
+          </div>
+
+          <div class="row" role="listitem">
+            <div><strong>Henderson Police non-emergency:</strong> 702-267-5000</div>
+            <div><span class="tag">Henderson PD (non-urgent)</span></div>
+            <div><a class="call secondary" href="tel:+1-702-267-5000" aria-label="Call Henderson Police non-emergency">Call 702-267-5000</a></div>
+          </div>
+        </div>
+
+        <ul class="advice">
+          <li><strong>If in doubt:</strong> call 911. Describe the situation, your location, and any immediate risks clearly.</li>
+          <li><strong>Non-emergency:</strong> use 311 or your local non-emergency line for noise complaints, past incidents, or general concerns.</li>
+          <li><strong>Stay safe:</strong> do not put yourself at risk to gather details; share what you know, then move to safety.</li>
+        </ul>
+
+        <p class="help">Many countries use a short emergency number like 911 or 112; in the U.S., 911 reaches local emergency services. For Las Vegas, LVMPD lists 311 as non‑emergency. Henderson Police publishes 702‑267‑5000 for non‑emergency.</p>
+      </section>
+
+      <!-- Right: Countdown + Calendar -->
+      <section class="card" aria-labelledby="cc-head">
+        <h2 id="cc-head">Christmas countdown</h2>
+        <p class="help">Live countdown to the start of Christmas Day (12:00 AM on December 25, local time).</p>
+        <div class="countdown" aria-live="polite">
+          <div class="unit"><div class="num" id="dd">0</div><div class="lab">Days</div></div>
+          <div class="unit"><div class="num" id="hh">00</div><div class="lab">Hours</div></div>
+          <div class="unit"><div class="num" id="mm">00</div><div class="lab">Minutes</div></div>
+          <div class="unit"><div class="num" id="ss">00</div><div class="lab">Seconds</div></div>
+        </div>
+
+        <div class="calendar" aria-label="December calendar">
+          <div class="cal-head">
+            <div class="cal-title" id="cal-title">December</div>
+            <div class="help">Henderson, NV (local)</div>
+          </div>
+          <div class="cal-grid" id="cal-grid" role="grid" aria-readonly="true">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Built for clarity and accessibility. Buttons are keyboard-focusable, with ARIA labels and high-contrast design.
+    </footer>
+  </div>
+
+  <script>
+    // Countdown to local midnight at start of Dec 25
+    function nextChristmasMidnight() {
+      const now = new Date();
+      const year = (now.getMonth() === 11 && now.getDate() > 25) ? now.getFullYear() + 1 : now.getFullYear();
+      return new Date(year, 11, 25, 0, 0, 0, 0);
+    }
+    const dd = document.getElementById("dd");
+    const hh = document.getElementById("hh");
+    const mm = document.getElementById("mm");
+    const ss = document.getElementById("ss");
+    function tick() {
+      const target = nextChristmasMidnight();
+      const now = new Date();
+      let diff = target.getTime() - now.getTime();
+      if (diff < 0) diff = 0;
+      const s = Math.floor(diff / 1000);
+      const days = Math.floor(s / 86400);
+      const hours = Math.floor((s % 86400) / 3600);
+      const mins = Math.floor((s % 3600) / 60);
+      const secs = s % 60;
+      dd.textContent = days;
+      hh.textContent = hours.toString().padStart(2, "0");
+      mm.textContent = mins.toString().padStart(2, "0");
+      ss.textContent = secs.toString().padStart(2, "0");
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // December calendar builder (marks Dec 25)
+    function buildDecemberCalendar() {
+      const grid = document.getElementById("cal-grid");
+      grid.innerHTML = "";
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = 11; // December
+      const first = new Date(year, month, 1);
+      const startDow = first.getDay(); // 0=Sun
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const dows = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      dows.forEach(d => {
+        const h = document.createElement("div");
+        h.className = "dow";
+        h.textContent = d;
+        grid.appendChild(h);
+      });
+      // blanks
+      for (let i = 0; i < startDow; i++) {
+        const blank = document.createElement("div");
+        blank.className = "day";
+        grid.appendChild(blank);
+      }
+      // days
+      for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement("div");
+        cell.className = "day";
+        const num = document.createElement("div");
+        num.className = "num";
+        num.textContent = day;
+        cell.appendChild(num);
+        if (day === 25) {
+          cell.classList.add("christmas");
+          const badge = document.createElement("div");
+          badge.className = "badge";
+          badge.textContent = "Christmas";
+          cell.appendChild(badge);
+        }
+        grid.appendChild(cell);
+      }
+    }
+    buildDecemberCalendar();
+  </script>
+</body>
+</html>
+
