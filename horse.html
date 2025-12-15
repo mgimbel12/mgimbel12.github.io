@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Adaptive Horse Riding Simulator</title>
+<style>
+  :root {
+    --bg:#0f172a; --panel:#111827; --accent:#06d6a0; --accent2:#4cc9f0; --text:#e5e7eb;
+    --warn:#ef476f; --track:#1f2937; --grass:#0b3a2a; --fence:#b8a07a;
+  }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui, sans-serif; }
+  .wrap { display:grid; grid-template-columns: 1fr 320px; gap:14px; min-height:100vh; }
+  .canvas-wrap { display:grid; place-items:center; background:linear-gradient(#062d22, var(--grass)); }
+  canvas { width:100%; height:100%; max-height:100vh; background:radial-gradient(1200px at 50% 20%, #0e442f, var(--grass)); }
+  .panel { background:var(--panel); padding:12px; display:flex; flex-direction:column; gap:10px; }
+  h1 { font-size:20px; margin:6px 0; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; }
+  .btn { flex:1; min-width:120px; padding:0.8rem 1rem; border:none; border-radius:12px; font-weight:800; cursor:pointer; }
+  .btn.primary { background:var(--accent); color:#062b23; }
+  .btn.secondary { background:var(--accent2); color:#07121f; }
+  .btn.warn { background:var(--warn); color:#1a0b0b; }
+  .group { border:1px solid #243145; border-radius:12px; padding:10px; }
+  label { display:flex; align-items:center; gap:8px; }
+  input[type="range"] { width:100%; }
+  .status { font-weight:700; background:#0b1220; border-radius:12px; padding:8px; }
+  .hint { font-size:13px; opacity:0.8; }
+  .kbd { display:inline-block; padding:2px 6px; border-radius:6px; background:#1f2937; }
+  @media (max-width:860px) {
+    .wrap { grid-template-columns: 1fr; }
+    canvas { height: 60vh; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="canvas-wrap">
+    <canvas id="game" width="960" height="600" aria-label="Horse riding simulation"></canvas>
+  </div>
+
+  <aside class="panel" aria-label="Controls">
+    <h1>Adaptive Horse Riding</h1>
+
+    <div class="status" id="status">Stopped — speed 0.0, direction 0°</div>
+
+    <div class="group">
+      <div class="row">
+        <button class="btn primary" id="start">Start</button>
+        <button class="btn warn" id="stop">Stop</button>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="turnLeft">Turn Left</button>
+        <button class="btn secondary" id="turnRight">Turn Right</button>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="slower">Slower</button>
+        <button class="btn secondary" id="faster">Faster</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <label><input type="checkbox" id="assist" /> Assist mode (auto‑straighten, gentle turns, obstacle avoidance)</label>
+      <label><input type="checkbox" id="safeMode" /> Safe mode (no obstacles, stabilized speed)</label>
+      <label><input type="checkbox" id="vibrate" /> Subtle vibration on bumps (where supported)</label>
+    </div>
+
+    <div class="group">
+      <label>Max speed
+        <input type="range" id="maxSpeed" min="0.5" max="8" step="0.5" value="4" />
+      </label>
+      <label>Turn sensitivity
+        <input type="range" id="turnRate" min="30" max="220" step="10" value="120" />
+      </label>
+      <label>Zoom
+        <input type="range" id="zoom" min="0.8" max="1.6" step="0.05" value="1" />
+      </label>
+    </div>
+
+    <p class="hint">Keyboard: <span class="kbd">W/S</span> speed, <span class="kbd">A/D</span> turn, <span class="kbd">Space</span> start/stop.</p>
+    <p class="hint">Touch: press to show joystick, drag to steer; release to stop.</p>
+  </aside>
+</div>
+
+<script>
+  // Basic 2D engine
+  const cvs = document.getElementById('game');
+  const ctx = cvs.getContext('2d');
+
+  const statusEl = document.getElementById('status');
+  const startBtn = document.getElementById('start');
+  const stopBtn = document.getElementById('stop');
+  const turnLeftBtn = document.getElementById('turnLeft');
+  const turnRightBtn = document.getElementById('turnRight');
+  const slowerBtn = document.getElementById('slower');
+  const fasterBtn = document.getElementById('faster');
+  const assistChk = document.getElementById('assist');
+  const safeModeChk = document.getElementById('safeMode');
+  const vibrateChk = document.getElementById('vibrate');
+  const maxSpeedR = document.getElementById('maxSpeed');
+  const turnRateR = document.getElementById('turnRate');
+  const zoomR = document.getElementById('zoom');
+
+  const W = cvs.width, H = cvs.height;
+
+  // World state
+  const world = {
+    obstacles: [],
+    time: 0,
+    zoom: +zoomR.value
+  };
+
+  // Horse and rider
+  const horse = {
+    x: W/2, y: H/2,
+    dir: 0,          // degrees
+    speed: 0,        // px/s
+    maxSpeed: +maxSpeedR.value * 20, // scale for pixels
+    turnRate: +turnRateR.value,      // deg/s at full input
+    running: false
+  };
+
+  // Input state
+  const input = { turn: 0, throttle: 0, pointerDown:false, px:0, py:0 };
+
+  // Build obstacles (fences) unless safe mode
+  function buildObstacles() {
+    world.obstacles = [];
+    if (safeModeChk.checked) return;
+    // Simple fences rectangles
+    for (let i = 0; i < 10; i++) {
+      const w = 100 + Math.random() * 200;
+      const h = 20 + Math.random() * 40;
+      const x = Math.random() * (W - w);
+      const y = Math.random() * (H - h);
+      world.obstacles.push({ x, y, w, h });
+    }
+  }
+
+  // Draw functions
+  function drawBackground() {
+    ctx.fillStyle = '#0a3b2b';
+    ctx.fillRect(0, 0, W, H);
+    // Simple track ring
+    ctx.strokeStyle = '#154f3b';
+    ctx.lineWidth = 20;
+    ctx.beginPath();
+    ctx.ellipse(W/2, H/2, 360, 220, 0, 0, Math.PI*2);
+    ctx.stroke();
+  }
+
+  function drawObstacles() {
+    ctx.fillStyle = '#b8a07a';
+    for (const f of world.obstacles) {
+      ctx.fillRect(f.x, f.y, f.w, f.h);
+      ctx.strokeStyle = '#8f7a59';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(f.x, f.y, f.w, f.h);
+    }
+  }
+
+  function drawHorse() {
+    const z = world.zoom;
+    ctx.save();
+    ctx.translate(horse.x, horse.y);
+    ctx.rotate((horse.dir * Math.PI)/180);
+    ctx.scale(z, z);
+
+    // Body
+    ctx.fillStyle = '#3b2f2a';
+    ctx.strokeStyle = '#201916';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(-28, -14, 56, 28, 10);
+    ctx.fill(); ctx.stroke();
+
+    // Head/neck
+    ctx.beginPath();
+    ctx.moveTo(28, -10);
+    ctx.lineTo(46, -6);
+    ctx.lineTo(50, -2);
+    ctx.lineTo(46, 6);
+    ctx.lineTo(28, 10);
+    ctx.closePath();
+    ctx.fill(); ctx.stroke();
+
+    // Legs (simple animated)
+    const t = world.time * 0.01;
+    const swing = Math.min(1, horse.speed / horse.maxSpeed) * 10;
+    ctx.fillStyle = '#2b231f';
+    for (let i = 0; i < 4; i++) {
+      const dx = i < 2 ? -18 : 18;
+      const dy = i % 2 === 0 ? -12 : 12;
+      const oo = Math.sin(t + i) * swing;
+      ctx.fillRect(dx + oo, dy, 6, 16);
+    }
+
+    // Rider (circle + torso)
+    ctx.fillStyle = '#4cc9f0';
+    ctx.beginPath();
+    ctx.arc(-6, -16, 6, 0, Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#3a506b';
+    ctx.fillRect(-10, -8, 20, 12);
+
+    // Direction arrow
+    ctx.strokeStyle = '#06d6a0';
+    ctx.beginPath();
+    ctx.moveTo(0,0);
+    ctx.lineTo(36,0);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // Collision detection
+  function collides(nx, ny) {
+    for (const f of world.obstacles) {
+      if (nx > f.x && nx < f.x + f.w && ny > f.y && ny < f.y + f.h) return true;
+    }
+    return false;
+  }
+
+  // Gentle avoidance
+  function avoidIfNeeded(nx, ny) {
+    if (!assistChk.checked) return { x:nx, y:ny };
+    if (!collides(nx, ny)) return { x:nx, y:ny };
+    // Try slight sideways offsets
+    for (let d = -20; d <= 20; d+=5) {
+      const ax = nx + Math.cos((horse.dir + 90 + d) * Math.PI/180) * 10;
+      const ay = ny + Math.sin((horse.dir + 90 + d) * Math.PI/180) * 10;
+      if (!collides(ax, ay)) return { x:ax, y:ay };
+    }
+    // As a last resort, slow down
+    horse.speed *= 0.6;
+    return { x:horse.x, y:horse.y };
+  }
+
+  // Update loop
+  let last = performance.now();
+  function loop(now) {
+    const dt = Math.min(0.05, (now - last) / 1000);
+    last = now;
+    world.time += dt * 1000;
+
+    // Update speed
+    const targetMax = +maxSpeedR.value * 20;
+    horse.maxSpeed = targetMax;
+    const accel = (input.throttle) * 180; // px/s^2
+    horse.speed += accel * dt;
+    // Stabilize in safe mode
+    const cap = safeModeChk.checked ? targetMax * 0.6 : targetMax;
+    horse.speed = Math.max(0, Math.min(horse.speed, cap));
+    if (!horse.running) horse.speed = 0;
+
+    // Update direction; clamp turn rate in assist mode
+    const baseTurn = +turnRateR.value;
+    const turnLimit = assistChk.checked ? baseTurn * 0.6 : baseTurn;
+    horse.dir += input.turn * turnLimit * dt;
+
+    // Auto-straighten when no turning input
+    if (assistChk.checked && Math.abs(input.turn) < 0.1) {
+      horse.dir = Math.round(horse.dir / 5) * 5;
+    }
+
+    // Move forward
+    const rad = (horse.dir * Math.PI)/180;
+    let nx = horse.x + Math.cos(rad) * horse.speed * dt;
+    let ny = horse.y + Math.sin(rad) * horse.speed * dt;
+
+    // Keep inside bounds
+    nx = Math.max(10, Math.min(W-10, nx));
+    ny = Math.max(10, Math.min(H-10, ny));
+
+    // Avoid obstacles if needed
+    const pos = avoidIfNeeded(nx, ny);
+    horse.x = pos.x; horse.y = pos.y;
+
+    // Draw
+    drawBackground();
+    drawObstacles();
+    drawHorse();
+
+    // Status
+    statusEl.textContent = `${horse.running ? 'Riding' : 'Stopped'} — speed ${(horse.speed/20).toFixed(1)}, direction ${Math.round(((horse.dir%360)+360)%360)}°`;
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // Controls
+  startBtn.onclick = () => { horse.running = true; if (vibrateChk.checked && navigator.vibrate) navigator.vibrate(10); };
+  stopBtn.onclick = () => { horse.running = false; if (vibrateChk.checked && navigator.vibrate) navigator.vibrate(5); };
+  turnLeftBtn.onclick = () => { input.turn = -1; setTimeout(()=>input.turn=0, 200); };
+  turnRightBtn.onclick = () => { input.turn = 1; setTimeout(()=>input.turn=0, 200); };
+  slowerBtn.onclick = () => { input.throttle = -0.8; setTimeout(()=>input.throttle=0, 200); };
+  fasterBtn.onclick = () => { input.throttle = 0.8; setTimeout(()=>input.throttle=0, 200); };
+  maxSpeedR.oninput = () => {}; turnRateR.oninput = () => {}; zoomR.oninput = () => { world.zoom = +zoomR.value; };
+  assistChk.onchange = buildObstacles; safeModeChk.onchange = buildObstacles;
+
+  // Keyboard
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') { horse.running = !horse.running; }
+    if (['KeyW','ArrowUp'].includes(e.code)) input.throttle = 1;
+    if (['KeyS','ArrowDown'].includes(e.code)) input.throttle = -1;
+    if (['KeyA','ArrowLeft'].includes(e.code)) input.turn = -1;
+    if (['KeyD','ArrowRight'].includes(e.code)) input.turn = 1;
+  });
+  window.addEventListener('keyup', (e) => {
+    if (['KeyW','ArrowUp','KeyS','ArrowDown'].includes(e.code)) input.throttle = 0;
+    if (['KeyA','ArrowLeft','KeyD','ArrowRight'].includes(e.code)) input.turn = 0;
+  });
+
+  // Pointer joystick
+  cvs.addEventListener('pointerdown', (e) => {
+    input.pointerDown = true;
+    const rect = cvs.getBoundingClientRect();
+    input.px = e.clientX - rect.left;
+    input.py = e.clientY - rect.top;
+    horse.running = true;
+  });
+  cvs.addEventListener('pointermove', (e) => {
+    if (!input.pointerDown) return;
+    const rect = cvs.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    const dx = x - horse.x, dy = y - horse.y;
+    const ang = Math.atan2(dy, dx) * 180/Math.PI;
+    // steer toward pointer, throttle by distance
+    const d = Math.hypot(dx, dy);
+    input.turn = ((ang - horse.dir + 540) % 360) > 180 ? -1 : 1;
+    input.throttle = Math.min(1, d / 200);
+  });
+  window.addEventListener('pointerup', () => {
+    input.pointerDown = false; input.turn = 0; input.throttle = 0; horse.running = false;
+  });
+
+  // Initialize
+  buildObstacles();
+</script>
+</body>
+</html>
