@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tic-Tac-Toe</title>
+<style>
+  :root { --bg:#0b132b; --board:#1c2541; --accent:#5bc0be; --text:#e0fbfc; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.4 system-ui, sans-serif; display:grid; place-items:center; height:100vh; }
+  .wrap { text-align:center; }
+  .status { margin:0.5rem 0 1rem; font-weight:600; }
+  .board { width:min(90vmin,420px); display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .cell { aspect-ratio:1/1; background:var(--board); border:2px solid #2e3a59; border-radius:12px;
+          font-size:clamp(32px,9vmin,64px); font-weight:800; color:var(--accent); display:grid; place-items:center; cursor:pointer; }
+  .cell:disabled { cursor:not-allowed; opacity:0.8; }
+  .controls { margin-top:1rem; display:flex; gap:10px; justify-content:center; }
+  button { background:var(--accent); color:#061019; border:none; border-radius:10px; padding:0.6rem 0.9rem; font-weight:700; cursor:pointer; }
+  .win .cell { animation:flash 0.5s ease-in-out 3; }
+  @keyframes flash { 50% { background:#3a506b; } }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Tic‑Tac‑Toe</h1>
+    <p class="status" id="status">Player X’s turn</p>
+    <div class="board" id="board" role="grid" aria-label="Tic Tac Toe board"></div>
+    <div class="controls">
+      <button id="reset">Reset</button>
+    </div>
+  </div>
+
+<script>
+  const boardEl = document.getElementById('board');
+  const statusEl = document.getElementById('status');
+  const resetBtn = document.getElementById('reset');
+
+  let board = Array(9).fill('');
+  let xTurn = true;
+  let gameOver = false;
+
+  const wins = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+
+  function draw() {
+    boardEl.innerHTML = '';
+    board.forEach((val, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'cell';
+      btn.setAttribute('role','gridcell');
+      btn.setAttribute('aria-label', val ? `Cell ${i+1}: ${val}` : `Cell ${i+1}: empty`);
+      btn.textContent = val;
+      btn.disabled = !!val || gameOver;
+      btn.onclick = () => move(i);
+      boardEl.appendChild(btn);
+    });
+  }
+
+  function move(i) {
+    if (gameOver || board[i]) return;
+    board[i] = xTurn ? 'X' : 'O';
+    const winner = checkWin();
+    if (winner) {
+      gameOver = true;
+      statusEl.textContent = `Player ${winner} wins!`;
+      boardEl.classList.add('win');
+      disableAll();
+      return;
+    }
+    if (board.every(c => c)) {
+      gameOver = true;
+      statusEl.textContent = 'Draw!';
+      disableAll();
+      return;
+    }
+    xTurn = !xTurn;
+    statusEl.textContent = `Player ${xTurn ? 'X' : 'O'}’s turn`;
+    draw();
+  }
+
+  function checkWin() {
+    for (const [a,b,c] of wins) {
+      if (board[a] && board[a] === board[b] && board[b] === board[c]) return board[a];
+    }
+    return null;
+  }
+
+  function disableAll() {
+    [...boardEl.children].forEach(c => c.disabled = true);
+  }
+
+  resetBtn.onclick = () => {
+    board = Array(9).fill('');
+    xTurn = true;
+    gameOver = false;
+    boardEl.classList.remove('win');
+    statusEl.textContent = 'Player X’s turn';
+    draw();
+  };
+
+  draw();
+</script>
+</body>
+</html>
+
