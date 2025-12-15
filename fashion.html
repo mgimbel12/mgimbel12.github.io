@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fashion Show Contest</title>
+<style>
+  :root{
+    --bg:#0f172a; --stage:#111827; --runway:#222; --accent:#ffd166; --accent2:#06d6a0; --text:#e6edf7;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif;}
+  .wrap{display:grid;grid-template-columns:1fr 320px;gap:12px;min-height:100vh;}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr;} .stage{height:60vh}}
+  .stage{position:relative;overflow:hidden;background:var(--stage);display:grid;place-items:center}
+  .runway{position:absolute;bottom:0;left:0;right:0;height:30%;background:var(--runway);}
+  .model{
+    position:absolute;bottom:30%;width:120px;height:240px;border-radius:12px;
+    background:var(--accent);color:#000;font-weight:700;display:flex;align-items:center;justify-content:center;
+    animation: walk 12s linear infinite;
+  }
+  .model:nth-child(2){background:var(--accent2);animation-delay:4s}
+  .model:nth-child(3){background:#f94144;animation-delay:8s}
+  @keyframes walk{
+    0%{left:-140px}
+    50%{left:calc(50% - 60px)}
+    100%{left:100%}
+  }
+  .panel{padding:12px;background:#111827;display:flex;flex-direction:column;gap:10px}
+  h1{margin:0 0 6px;font-size:20px;font-weight:800}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{flex:1;min-width:120px;padding:0.8rem 1rem;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+  .primary{background:var(--accent);color:#1a1500}
+  .secondary{background:var(--accent2);color:#001a12}
+  .warn{background:#ef476f;color:#1a0b0b}
+  .status{font-weight:700;background:#0b1220;border-radius:12px;padding:8px}
+  .results{font-size:14px;line-height:1.4;background:#0b1220;border-radius:12px;padding:8px;white-space:pre-line}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="stage" aria-label="Fashion show runway">
+    <div class="model" id="m1">Model A</div>
+    <div class="model" id="m2">Model B</div>
+    <div class="model" id="m3">Model C</div>
+    <div class="runway"></div>
+  </div>
+  <aside class="panel" aria-label="Controls">
+    <h1>Fashion Show Contest</h1>
+    <div class="status" id="status">Vote for your favorite model!</div>
+    <div class="row">
+      <button class="btn primary" onclick="vote('A')">Vote A</button>
+      <button class="btn secondary" onclick="vote('B')">Vote B</button>
+      <button class="btn warn" onclick="vote('C')">Vote C</button>
+    </div>
+    <div class="results" id="results">Results will appear here.</div>
+  </aside>
+</div>
+
+<script>
+  const votes = {A:0,B:0,C:0};
+  function vote(name){
+    votes[name]++;
+    document.getElementById('status').textContent = `You voted for Model ${name}!`;
+    updateResults();
+  }
+  function updateResults(){
+    const total = votes.A+votes.B+votes.C;
+    const pct = (n)=> total? ((n/total)*100).toFixed(1)+'%' : '0%';
+    document.getElementById('results').textContent =
+      `Model A: ${votes.A} votes (${pct(votes.A)})\n`+
+      `Model B: ${votes.B} votes (${pct(votes.B)})\n`+
+      `Model C: ${votes.C} votes (${pct(votes.C)})\n`+
+      `Total votes: ${total}`;
+  }
+</script>
+</body>
+</html>
