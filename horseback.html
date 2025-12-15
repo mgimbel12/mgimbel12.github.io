@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Horse Racing — Accessible</title>
+<style>
+  :root{
+    --bg:#0f172a; --text:#e5e7eb; --accent:#06d6a0; --accent2:#4cc9f0; --warn:#ef476f;
+    --grass:#0a3b2b; --track:#7b5f3d; --line:#e9c46a;
+  }
+  body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,sans-serif;}
+  .wrap{display:grid;grid-template-columns:1fr 320px;gap:12px;min-height:100vh;}
+  @media (max-width:900px){.wrap{grid-template-columns:1fr;} canvas{height:60vh}}
+  .canvas-wrap{background:linear-gradient(#083326,var(--grass));display:grid;place-items:center}
+  canvas{width:100%;height:100%;max-height:100vh;background:radial-gradient(1300px at 50% 20%,#0e442f,var(--grass))}
+  .panel{padding:12px;background:#111827;display:flex;flex-direction:column;gap:10px}
+  h1{margin:0 0 6px;font-size:20px;font-weight:800}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{flex:1;min-width:120px;padding:0.8rem 1rem;border:none;border-radius:12px;font-weight:800;cursor:pointer}
+  .primary{background:var(--accent);color:#062b23}
+  .secondary{background:var(--accent2);color:#07121f}
+  .warn{background:var(--warn);color:#1a0b0b}
+  .group{border:1px solid #243145;border-radius:12px;padding:10px}
+  label{display:flex;align-items:center;gap:8px}
+  input[type="range"]{width:100%}
+  .status{font-weight:700;background:#0b1220;border-radius:12px;padding:8px}
+  .kbd{display:inline-block;padding:2px 6px;border-radius:6px;background:#1f2937}
+  .leader{font-size:14px;line-height:1.4;background:#0b1220;border-radius:12px;padding:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="canvas-wrap">
+    <canvas id="c" width="1024" height="640" aria-label="Horse racing track"></canvas>
+  </div>
+  <aside class="panel" aria-label="Controls">
+    <h1>Horse Racing — Accessible</h1>
+    <div class="status" id="status">Ready</div>
+
+    <div class="group">
+      <div class="row">
+        <button class="btn primary" id="start">Start</button>
+        <button class="btn warn" id="pause">Pause</button>
+        <button class="btn secondary" id="reset">Reset</button>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="left">Turn Left</button>
+        <button class="btn secondary" id="right">Turn Right</button>
+      </div>
+      <div class="row">
+        <button class="btn secondary" id="slower">Slower</button>
+        <button class="btn secondary" id="faster">Faster</button>
+      </div>
+    </div>
+
+    <div class="group">
+      <label><input type="checkbox" id="assist" checked /> Assist mode (auto-straighten, gentle off-track slowdown)</label>
+      <label>Max speed
+        <input type="range" id="maxSpeed" min="0.6" max="2.0" step="0.1" value="1.2" />
+      </label>
+      <label>Turn sensitivity
+        <input type="range" id="turnRate" min="80" max="240" step="10" value="140" />
+      </label>
+      <label>Laps to win
+        <input type="range" id="laps" min="1" max="5" step="1" value="3" />
+      </label>
+    </div>
+
+    <p>Keyboard: <span class="kbd">W/S</span> speed, <span class="kbd">A/D</span> turn, <span class="kbd">Space</span> start/pause.</p>
+    <div class="leader" id="leader">Leaderboard will appear here.</div>
+  </aside>
+</div>
+
+<script>
+const cvs = document.getElementById('c'), ctx = cvs.getContext('2d');
+const W = cvs.width, H = cvs.height;
+
+const statusEl = document.getElementById('status');
+const startBtn = document.getElementById('start');
+const pauseBtn = document.getElementById('pause');
+const resetBtn = document.getElementById('reset');
+const leftBtn = document.getElementById('left');
+const rightBtn = document.getElementById('right');
+const slowerBtn = document.getElementById('slower');
+const fasterBtn = document.getElementById('faster');
+const assistChk = document.getElementById('assist');
+const maxSpeedR = document.getElementById('maxSpeed');
+const turnRateR = document.getElementById('turnRate');
+const lapsR = document.getElementById('laps');
+const leaderEl = document.getElementById('leader');
+
+// Track geometry
+const track = {
+  cx: W/2, cy: H/2,
+  a: 360, b: 220, // ellipse radii
+  width: 40
+};
+
+// Horses
+function mkHorse(name, color, x, y) {
+  return {
+    name, color,
+    x, y, dir: 0, speed: 0,
+    max: +maxSpeedR.value * 300, // px/s
+    turn: +turnRateR.value,      // deg/s
+    laps: 0, progress: 0, // progress 0..1 of current lap
+    ai: false, finished: false
+  };
+}
+const player = mkHorse('You', '#06d6a0', W/2 + track.a, H/2);
+const rivals = [
+  mkHorse('Rival A', '#f77f00', W/2 + track.a - 20, H/2 - 10),
+  mkHorse('Rival B', '#e63946', W/2 + track.a - 40, H/2 + 12)
+];
+rivals[0].ai = true; rivals[1].ai = true;
+
+let running = false, paused = false, targetLaps = +lapsR.value;
+
+// Input
+const input = { turn:0, throttle:0 };
+window.addEventListener('keydown',(e)=>{
+  if (e.code==='Space') { paused = !paused; running = !paused; }
+  if (['KeyW','ArrowUp'].includes(e.code)) input.throttle = 1;
+  if (['KeyS','ArrowDown'].includes(e.code)) input.throttle = -1;
+  if (['KeyA','ArrowLeft'].includes(e.code)) input.turn = -1;
+  if (['KeyD','ArrowRight'].includes(e.code)) input.turn = 1;
+});
+window.addEventListener('keyup',(e)=>{
+  if (['KeyW','ArrowUp','KeyS','ArrowDown'].includes(e.code)) input.throttle = 0;
+  if (['KeyA','ArrowLeft','KeyD','ArrowRight'].includes(e.code)) input.turn = 0;
+});
+
+// Buttons
+startBtn.onclick = ()=>{ running = true; paused = false; };
+pauseBtn.onclick = ()=>{ paused = !paused; running = !paused; };
+resetBtn.onclick = resetGame;
+leftBtn.onclick = ()=>{ input.turn = -1; setTimeout(()=>input.turn=0,180); };
+rightBtn.onclick = ()=>{ input.turn = 1; setTimeout(()=>input.turn=0,180); };
+slowerBtn.onclick = ()=>{ input.throttle = -1; setTimeout(()=>input.throttle=0,180); };
+fasterBtn.onclick = ()=>{ input.throttle = 1; setTimeout(()=>input.throttle=0,180); };
+maxSpeedR.oninput = ()=>{ player.max = +maxSpeedR.value * 300; };
+turnRateR.oninput = ()=>{ player.turn = +turnRateR.value; };
+lapsR.oninput = ()=>{ targetLaps = +lapsR.value; };
+
+// Utilities
+function drawTrack(){
+  ctx.fillStyle = '#0a3b2b'; ctx.fillRect(0,0,W,H);
+  // Outer ellipse
+  ctx.strokeStyle = '#154f3b'; ctx.lineWidth = 24; ctx.beginPath();
+  ctx.ellipse(track.cx,track.cy,track.a,track.b,0,0,Math.PI*2); ctx.stroke();
+  // Track surface
+  ctx.strokeStyle = track.width ? '#7b5f3d' : '#7b5f3d'; ctx.lineWidth = track.width; ctx.beginPath();
+  ctx.ellipse(track.cx,track.cy,track.a-8,track.b-8,0,0,Math.PI*2); ctx.stroke();
+  // Center line
+  ctx.strokeStyle = '#e9c46a'; ctx.lineWidth = 3; ctx.setLineDash([14,10]); ctx.beginPath();
+  ctx.ellipse(track.cx,track.cy,track.a-28,track.b-28,0,0,Math.PI*2); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+function drawHorse(h, isPlayer){
+  ctx.save();
+  ctx.translate(h.x,h.y);
+  ctx.rotate(h.dir*Math.PI/180);
+  // Shadow
+  ctx.fillStyle = '#0005';
+  ctx.beginPath(); ctx.ellipse(0,10,20,8,0,0,Math.PI*2); ctx.fill();
+
+  // Body
+  ctx.fillStyle = h.color; ctx.strokeStyle = '#222'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.roundRect(-26,-14,52,28,8); ctx.fill(); ctx.stroke();
+
+  // Head
+  ctx.beginPath();
+  ctx.moveTo(26,-8); ctx.lineTo(44,-6); ctx.lineTo(48,0); ctx.lineTo(44,6); ctx.lineTo(26,8);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+
+  // Legs animate with speed
+  const swing = Math.min(1,h.speed/h.max)*10, t = performance.now()*0.001;
+  ctx.fillStyle = '#27333d';
+  for (let i=0;i<4;i++){
+    const dx = i<2?-18:18, dy = i%2===0?-10:10, oo = Math.sin(t+i)*swing;
+    ctx.fillRect(dx+oo,dy,6,14);
+  }
+  // Rider
+  ctx.fillStyle = isPlayer ? '#4cc9f0' : '#adb5bd';
+  ctx.beginPath(); ctx.arc(-6,-15,6,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#3a506b'; ctx.fillRect(-10,-8,20,10);
+
+  // Direction arrow
+  ctx.strokeStyle = '#06d6a0'; ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(34,0); ctx.stroke();
+  ctx.restore();
+}
+
+function onTrack(x,y){
+  // Point distance from center: inside band ≈ track
+  const dx = x-track.cx, dy = y-track.cy;
+  const d = Math.sqrt((dx*dx)/(track.a*track.a) + (dy*dy)/(track.b*track.b));
+  return d > 0.75 && d < 1.05; // rough band
+}
+
+function stepHorse(h, dt, isPlayer){
+  // Speed
+  const accel = (isPlayer ? input.throttle : (h.ai ? 0.7 : 0)) * 240;
+  h.speed += accel*dt;
+  // Off-track slowdown with assist
+  if (assistChk.checked && !onTrack(h.x,h.y)) h.speed *= 0.96;
+  h.speed = Math.max(0, Math.min(h.speed, h.max));
+
+  // Turn
+  let turnInput = isPlayer ? input.turn : (h.ai ? aiTurn(h) : 0);
+  const turnRate = h.turn * (assistChk.checked ? 0.8 : 1);
+  h.dir += turnInput * turnRate * dt;
+
+  // Auto-straighten when no input
+  if (assistChk.checked && Math.abs(turnInput) < 0.2) h.dir = Math.round(h.dir/5)*5;
+
+  // Move forward
+  const rad = h.dir*Math.PI/180;
+  h.x += Math.cos(rad)*h.speed*dt;
+  h.y += Math.sin(rad)*h.speed*dt;
+
+  // Boundaries
+  h.x = Math.max(8, Math.min(W-8, h.x));
+  h.y = Math.max(8, Math.min(H-8, h.y));
+
+  // Lap progress (angle around center)
+  const ang = Math.atan2(h.y-track.cy, h.x-track.cx);
+  const prog = ((ang + Math.PI*2) % (Math.PI*2)) / (Math.PI*2);
+  // Detect crossing start line near angle 0 with on-track
+  const crossedStart = h.progress > 0.95 && prog < 0.05 && onTrack(h.x,h.y);
+  h.progress = prog;
+  if (crossedStart && !h.finished) {
+    h.laps++;
+    if (h.laps >= targetLaps) { h.finished = true; h.speed *= 0.4; }
+    flashStatus(`${h.name} completed lap ${h.laps}/${targetLaps}`);
+  }
+}
+
+function aiTurn(h){
+  // Steer toward nearest point on center line ellipse
+  const ang = Math.atan2(h.y-track.cy, h.x-track.cx);
+  const targetX = track.cx + (track.a-28)*Math.cos(ang);
+  const targetY = track.cy + (track.b-28)*Math.sin(ang);
+  const desired = Math.atan2(targetY-h.y, targetX-h.x) * 180/Math.PI;
+  const diff = ((desired - h.dir + 540) % 360) - 180;
+  // Rival personality: one nimble, one steady
+  const gain = h.name==='Rival A' ? 0.9 : 0.6;
+  return Math.max(-1, Math.min(1, diff/120*gain));
+}
+
+function flashStatus(text){
+  statusEl.textContent = text;
+}
+
+function updateLeaderboard(){
+  const all = [player, ...rivals];
+  all.sort((a,b)=> (b.laps - a.laps) || (b.progress - a.progress));
+  const lines = all.map(h => {
+    const flag = h.finished ? '🏁' : '';
+    return `${flag} ${h.name}: ${h.laps}/${targetLaps} laps • speed ${(h.speed/300).toFixed(2)}`;
+  });
+  leaderEl.textContent = lines.join('\n');
+}
+
+function resetGame(){
+  player.x = W/2 + track.a; player.y = H/2; player.dir = 180; player.speed=0; player.laps=0; player.finished=false;
+  player.max = +maxSpeedR.value * 300; player.turn = +turnRateR.value;
+
+  rivals[0].x = W/2 + track.a - 20; rivals[0].y = H/2 - 10; rivals[0].dir = 180; rivals[0].speed=0; rivals[0].laps=0; rivals[0].finished=false;
+  rivals[1].x = W/2 + track.a - 40; rivals[1].y = H/2 + 12; rivals[1].dir = 180; rivals[1].speed=0; rivals[1].laps=0; rivals[1].finished=false;
+
+  targetLaps = +lapsR.value;
+  running = false; paused = false;
+  statusEl.textContent = 'Ready';
+  updateLeaderboard();
+}
+
+// Loop
+let last = performance.now();
+function loop(now){
+  const dt = Math.min(0.06, (now-last)/1000); last = now;
+  // Draw
+  drawTrack();
+
+  // Step
+  if (running && !paused){
+    stepHorse(player, dt, true);
+    rivals.forEach(r => stepHorse(r, dt, false));
+  }
+
+  // Finish check
+  const winners = [player, ...rivals].filter(h => h.finished);
+  if (running && winners.length){
+    running = false;
+    const first = winners[0];
+    statusEl.textContent = `Winner: ${first.name}!`;
+  }
+
+  // Render horses
+  drawHorse(player, true);
+  rivals.forEach(r => drawHorse(r, false));
+
+  updateLeaderboard();
+  requestAnimationFrame(loop);
+}
+resetGame();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>
