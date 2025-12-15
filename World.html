@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Checkers + Moving World Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --accent: #2f7ed8;
+      --dark: #1b1f23;
+      --light: #ffffff;
+      --board-dark: #432f25;
+      --board-light: #e8d5b5;
+      --red: #d83a3a;
+      --black: #30323d;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--dark);
+      background: #f7f7f8;
+    }
+
+    header {
+      background: var(--dark);
+      color: var(--light);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    header h1 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: 600;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+    }
+    .tab {
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #2a2e33;
+      color: var(--light);
+      cursor: pointer;
+      user-select: none;
+    }
+    .tab.active { background: var(--accent); }
+
+    main {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 32px;
+    }
+    section { display: none; }
+    section.active { display: block; }
+
+    /* -------- Checkers -------- */
+    .checkers-wrap {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 24px;
+      align-items: start;
+    }
+    .board {
+      width: 600px;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(8, 1fr);
+      border: 10px solid #3b2b22;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      background: #3b2b22;
+    }
+    .square {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      user-select: none;
+    }
+    .light { background: var(--board-light); }
+    .dark { background: var(--board-dark); }
+
+    .piece {
+      width: 80%;
+      height: 80%;
+      border-radius: 50%;
+      box-shadow: inset 0 3px 8px rgba(255,255,255,0.3), inset 0 -3px 8px rgba(0,0,0,0.3);
+      border: 3px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transform: translateZ(0);
+    }
+    .piece.red { background: var(--red); }
+    .piece.black { background: var(--black); }
+    .piece.king {
+      outline: 3px solid gold;
+      box-shadow: inset 0 3px 10px rgba(255,255,255,0.4), 0 0 10px rgba(255,215,0,0.4);
+    }
+
+    .hint {
+      position: absolute;
+      width: 30%;
+      height: 30%;
+      border-radius: 50%;
+      border: 2px dashed #00c853;
+      box-shadow: 0 0 0 3px rgba(0,200,83,0.15);
+      pointer-events: none;
+    }
+
+    .panel {
+      background: #fff;
+      border: 1px solid #e4e6eb;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+    }
+    .panel h3 { margin-top: 0; }
+    .info-row { margin: 8px 0; }
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    button {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #d0d4d9;
+      background: #fff;
+      cursor: pointer;
+    }
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* -------- Moving Map -------- */
+    .map-wrap {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+      align-items: start;
+    }
+    .map-container {
+      position: relative;
+      height: 600px;
+      max-width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 10px solid #263238;
+      background: #0b1020;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .map {
+      position: absolute;
+      inset: 0;
+      background-image:
+        /* Replace this with your world map image path for realism, e.g. url('world.jpg') */
+        radial-gradient(closest-side, rgba(20,40,100,0.6), transparent),
+        url('');
+      background-size: 120% auto, var(--bg-size, 140% auto);
+      background-position: center, var(--bg-pos, 0px 0px);
+      background-repeat: no-repeat, no-repeat;
+      transition: background-size 0.2s ease-out;
+      cursor: grab;
+      animation: drift var(--drift-duration, 40s) linear infinite;
+    }
+    .map.paused { animation-play-state: paused; }
+    .map.dragging { cursor: grabbing; }
+
+    /* Fallback "grid oceans" if no image is set */
+    .map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(0,180,216,0.15), transparent 40%),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 100% 100%, 60px 60px, 60px 60px;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes drift {
+      0%   { --bg-pos: 0px 0px; }
+      50%  { --bg-pos: -300px -150px; }
+      100% { --bg-pos: 0px 0px; }
+    }
+
+    .ctrl label { display: block; margin: 8px 0 4px; font-size: 14px; }
+    .ctrl input[type="range"] { width: 100%; }
+    .small { font-size: 12px; color: #5a6169; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Checkers + Moving World Map</h1>
+    <div class="tabs">
+      <div class="tab active" data-target="checkers">Checkers</div>
+      <div class="tab" data-target="map">World Map</div>
+    </div>
+  </header>
+
+  <main>
+    <!-- CHECKERS -->
+    <section id="checkers" class="active">
+      <div class="checkers-wrap">
+        <div class="board" id="board" aria-label="Checkers board"></div>
+        <div class="panel">
+          <h3>Game controls</h3>
+          <div class="info-row"><strong>Turn:</strong> <span id="turnLabel">Red</span></div>
+          <div class="info-row"><strong>Status:</strong> <span id="statusLabel">Select a piece to move.</span></div>
+          <div class="btn-row">
+            <button class="primary" id="newGameBtn">New game</button>
+            <button id="toggleHintsBtn">Toggle hints</button>
+          </div>
+          <p class="small">
+            Basic rules: diagonal moves; captures by jumping over opponent; kings move both directions.
+            Multiple jumps are not enforced; play casually or restart for a clean round.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section id="map">
+      <div class="map-wrap">
+        <div class="map-container" id="mapContainer">
+          <div class="map paused" id="mapEl" title="Drag to pan. Use controls to zoom/speed."></div>
+        </div>
+        <div class="panel">
+          <h3>Map controls</h3>
+          <div class="ctrl">
+            <label><strong>Animation:</strong></label>
+            <div class="btn-row">
+              <button class="primary" id="playBtn">Play</button>
+              <button id="pauseBtn">Pause</button>
+              <button id="resetPosBtn">Reset position</button>
+            </div>
+          </div>
+          <div class="ctrl">
+            <label for="speedRange"><strong>Drift speed:</strong></label>
+            <input type="range" id="speedRange" min="10" max="120" value="40" />
+            <div class="small">Lower = faster drift</div>
+          </div>
+          <div class="ctrl">
+            <label for="zoomRange"><strong>Zoom:</strong></label>
+            <input type="range" id="zoomRange" min="80" max="240" value="140" />
+            <div class="small">Adjusts background size</div>
+          </div>
+          <div class="ctrl">
+            <label for="imgInput"><strong>World image:</strong></label>
+            <input type="file" id="imgInput" accept="image/*" />
+            <div class="small">Load a world map image to replace the placeholder effect.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // -------- Tabs --------
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const target = tab.getAttribute('data-target');
+        document.querySelectorAll('section').forEach(sec => {
+          sec.classList.toggle('active', sec.id === target);
+        });
+      });
+    });
+
+    // -------- Checkers Logic --------
+    const boardEl = document.getElementById('board');
+    const turnLabel = document.getElementById('turnLabel');
+    const statusLabel = document.getElementById('statusLabel');
+    const newGameBtn = document.getElementById('newGameBtn');
+    const toggleHintsBtn = document.getElementById('toggleHintsBtn');
+
+    const SIZE = 8;
+    let board = []; // 2D array of { color: 'red'|'black', king: boolean } or null
+    let turn = 'red';
+    let selected = null;
+    let showHints = true;
+
+    function initBoard() {
+      board = Array.from({ length: SIZE }, () => Array(SIZE).fill(null));
+      // Place pieces: rows 0-2 black, 5-7 red on dark squares only
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          const darkSquare = (r + c) % 2 === 1;
+          if (!darkSquare) continue;
+          if (r <= 2) board[r][c] = { color: 'black', king: false };
+          else if (r >= 5) board[r][c] = { color: 'red', king: false };
+        }
+      }
+      turn = 'red';
+      selected = null;
+      renderBoard();
+      updateLabels("Select a piece to move.");
+    }
+
+    function renderBoard() {
+      boardEl.innerHTML = '';
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          const sq = document.createElement('div');
+          sq.className = 'square ' + (((r + c) % 2 === 0) ? 'light' : 'dark');
+          sq.dataset.r = r;
+          sq.dataset.c = c;
+
+          // Coordinates on edge (optional) — kept clean for now
+
+          const piece = board[r][c];
+          if (piece) {
+            const el = document.createElement('div');
+            el.className = `piece ${piece.color}` + (piece.king ? ' king' : '');
+            el.dataset.r = r;
+            el.dataset.c = c;
+            el.setAttribute('role', 'button');
+            el.setAttribute('aria-label', `${piece.color} piece at ${r},${c}`);
+            el.addEventListener('click', onPieceClick);
+            sq.appendChild(el);
+          }
+
+          // Hints
+          if (showHints && selected && ((r + c) % 2 === 1)) {
+            const moves = computeMoves(selected.r, selected.c);
+            if (moves.some(m => m.r === r && m.c === c)) {
+              const hint = document.createElement('div');
+              hint.className = 'hint';
+              sq.appendChild(hint);
+            }
+          }
+
+          sq.addEventListener('click', onSquareClick);
+          boardEl.appendChild(sq);
+        }
+      }
+    }
+
+    function updateLabels(msg) {
+      turnLabel.textContent = capitalize(turn);
+      statusLabel.textContent = msg;
+    }
+
+    function capitalize(s) { return s[0].toUpperCase() + s.slice(1); }
+
+    function onPieceClick(e) {
+      const r = +e.currentTarget.dataset.r;
+      const c = +e.currentTarget.dataset.c;
+      const piece = board[r][c];
+      if (!piece || piece.color !== turn) {
+        updateLabels("It's " + capitalize(turn) + "'s turn.");
+        return;
+      }
+      selected = { r, c };
+      const moves = computeMoves(r, c);
+      updateLabels(moves.length ? "Choose a highlighted destination." : "No legal moves for this piece.");
+      renderBoard();
+    }
+
+    function onSquareClick(e) {
+      const r = +e.currentTarget.dataset.r;
+      const c = +e.currentTarget.dataset.c;
+      if (!selected) return;
+
+      const legal = computeMoves(selected.r, selected.c);
+      const target = legal.find(m => m.r === r && m.c === c);
+      if (!target) {
+        updateLabels("Pick a highlighted destination or choose another piece.");
+        return;
+      }
+
+      // Execute move
+      const piece = board[selected.r][selected.c];
+      board[selected.r][selected.c] = null;
+      board[r][c] = piece;
+
+      // Capture handling
+      if (target.capture) {
+        const mr = (selected.r + r) / 2;
+        const mc = (selected.c + c) / 2;
+        board[mr][mc] = null;
+      }
+
+      // King promotion
+      if (!piece.king) {
+        if (piece.color === 'red' && r === 0) piece.king = true;
+        if (piece.color === 'black' && r === SIZE - 1) piece.king = true;
+      }
+
+      selected = null;
+      // Switch turn
+      turn = (turn === 'red') ? 'black' : 'red';
+
+      // End check
+      const winner = checkWin();
+      if (winner) {
+        updateLabels(capitalize(winner) + " wins! Start a new game to play again.");
+      } else {
+        updateLabels("Select a piece to move.");
+      }
+      renderBoard();
+    }
+
+    function computeMoves(r, c) {
+      const piece = board[r][c];
+      if (!piece) return [];
+      const dirs = [];
+      if (piece.king || piece.color === 'red') dirs.push({ dr: -1, dc: -1 }, { dr: -1, dc: 1 });
+      if (piece.king || piece.color === 'black') dirs.push({ dr: 1, dc: -1 }, { dr: 1, dc: 1 });
+
+      const moves = [];
+      for (const d of dirs) {
+        const nr = r + d.dr, nc = c + d.dc;
+        if (inBounds(nr, nc) && !board[nr][nc]) {
+          moves.push({ r: nr, c: nc, capture: false });
+        } else if (inBounds(nr, nc) && board[nr][nc] && board[nr][nc].color !== piece.color) {
+          const jr = nr + d.dr, jc = nc + d.dc;
+          if (inBounds(jr, jc) && !board[jr][jc]) {
+            moves.push({ r: jr, c: jc, capture: true });
+          }
+        }
+      }
+      return moves;
+    }
+
+    function inBounds(r, c) { return r >= 0 && r < SIZE && c >= 0 && c < SIZE; }
+
+    function checkWin() {
+      const reds = countPieces('red');
+      const blacks = countPieces('black');
+      if (reds === 0) return 'black';
+      if (blacks === 0) return 'red';
+      // Also check if current player has no moves
+      const canMoveTurn = anyMoves(turn);
+      if (!canMoveTurn) return (turn === 'red') ? 'black' : 'red';
+      return null;
+    }
+
+    function countPieces(color) {
+      let count = 0;
+      for (let r = 0; r < SIZE; r++) for (let c = 0; c < SIZE; c++) {
+        if (board[r][c]?.color === color) count++;
+      }
+      return count;
+    }
+
+    function anyMoves(color) {
+      for (let r = 0; r < SIZE; r++) {
+        for (let c = 0; c < SIZE; c++) {
+          const p = board[r][c];
+          if (p && p.color === color && computeMoves(r,c).length) return true;
+        }
+      }
+      return false;
+    }
+
+    newGameBtn.addEventListener('click', () => initBoard());
+    toggleHintsBtn.addEventListener('click', () => {
+      showHints = !showHints;
+      renderBoard();
+    });
+
+    initBoard();
+
+    // -------- Moving Map Interaction --------
+    const mapEl = document.getElementById('mapEl');
+    const speedRange = document.getElementById('speedRange');
+    const zoomRange = document.getElementById('zoomRange');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const resetPosBtn = document.getElementById('resetPosBtn');
+    const imgInput = document.getElementById('imgInput');
+
+    // Set initial CSS custom properties
+    mapEl.style.setProperty('--drift-duration', speedRange.value + 's');
+    mapEl.style.setProperty('--bg-size', zoomRange.value + '% auto');
+
+    speedRange.addEventListener('input', () => {
+      mapEl.style.setProperty('--drift-duration', speedRange.value + 's');
+    });
+
+    zoomRange.addEventListener('input', () => {
+      mapEl.style.setProperty('--bg-size', zoomRange.value + '% auto');
+    });
+
+    playBtn.addEventListener('click', () => {
+      mapEl.classList.remove('paused');
+    });
+    pauseBtn.addEventListener('click', () => {
+      mapEl.classList.add('paused');
+    });
+    resetPosBtn.addEventListener('click', () => {
+      mapEl.style.setProperty('--bg-pos', '0px 0px');
+    });
+
+    // Drag-to-pan by adjusting background-position
+    let dragging = false;
+    let startX = 0, startY = 0;
+    let bgX = 0, bgY = 0;
+
+    function parseBgPos() {
+      const s = getComputedStyle(mapEl).getPropertyValue('--bg-pos').trim();
+      const [xStr, yStr] = s.split(' ');
+      return [parseFloat(xStr || '0'), parseFloat(yStr || '0')];
+    }
+
+    mapEl.addEventListener('mousedown', e => {
+      dragging = true;
+      mapEl.classList.add('dragging');
+      [bgX, bgY] = parseBgPos();
+      startX = e.clientX;
+      startY = e.clientY;
+      mapEl.classList.add('paused'); // pause while dragging
+    });
+    window.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      mapEl.style.setProperty('--bg-pos', `${bgX + dx}px ${bgY + dy}px`);
+    });
+    window.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      mapEl.classList.remove('dragging');
+    });
+
+    // Load a user-provided world map image
+    imgInput.addEventListener('change', () => {
+      const file = imgInput.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        mapEl.style.backgroundImage =
+          `radial-gradient(closest-side, rgba(20,40,100,0.6), transparent), url('${e.target.result}')`;
+        // Encourage repeat-free fit
+        mapEl.style.backgroundRepeat = 'no-repeat, no-repeat';
+        mapEl.style.backgroundSize = `120% auto, ${zoomRange.value}% auto`;
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
