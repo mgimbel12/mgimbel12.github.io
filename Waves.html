@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sanctuary Calendar — Flowers, Waves, Balloons, Swirls</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-top: #cbe9ff;          /* Blue sky */
+      --bg-mid: #ffffff;
+      --bg-bottom: #e8ffe8;       /* Gentle green */
+      --rose-red: #c21807;
+      --stem-green: #1b8a3e;
+      --sun-yellow: #ffc107;
+      --wave-blue: #2f6dd5;
+      --swirl-purple: #7b5bdc;
+      --text: #173043;
+      --accent: #0f5c8f;
+      --panel: rgba(255, 255, 255, 0.85);
+      --shadow: 0 8px 20px rgba(0,0,0,0.15);
+      --radius: 14px;
+    }
+
+    /* Background gradient + subtle swirls */
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 500px at 20% -180px, rgba(123, 91, 220, 0.15), transparent 60%),
+        radial-gradient(1000px 400px at 80% -140px, rgba(47, 109, 213, 0.12), transparent 60%),
+        linear-gradient(to bottom, var(--bg-top), var(--bg-mid) 50%, var(--bg-bottom));
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header with sun + rose motif */
+    header {
+      position: relative;
+      padding: 28px 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 14px;
+    }
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .sun {
+      width: 48px;
+      height: 48px;
+      background: var(--sun-yellow);
+      border-radius: 50%;
+      box-shadow: 0 0 24px rgba(255, 193, 7, 0.6);
+      position: relative;
+      flex-shrink: 0;
+    }
+    .sun::before,
+    .sun::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 70px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, rgba(255, 193, 7, 0.9), transparent);
+      transform-origin: left;
+      animation: rays 7s linear infinite;
+    }
+    .sun::after {
+      transform: rotate(60deg);
+      animation-delay: 1.2s;
+    }
+    @keyframes rays {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .rose {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      color: var(--rose-red);
+    }
+    .rose-icon {
+      width: 22px; height: 22px; position: relative;
+    }
+    .rose-icon::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 60% 40%, #ff6b6b 28%, transparent 30%),
+        radial-gradient(circle at 40% 60%, #ff4d4d 28%, transparent 30%);
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 2px var(--rose-red);
+    }
+    .rose-stem {
+      width: 3px; height: 18px; background: var(--stem-green);
+      border-radius: 2px; margin-left: 6px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .control {
+      background: var(--panel);
+      border: 1px solid #dbe7f3;
+      border-radius: 10px;
+      padding: 8px 12px;
+      box-shadow: var(--shadow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    select, button {
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      cursor: pointer;
+    }
+    button.primary {
+      color: white;
+      background: var(--accent);
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    /* Calendar container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 24px 60px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid #dbe7f3;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .month-bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 14px 16px;
+      background: linear-gradient(to right, rgba(47, 109, 213, 0.08), rgba(123, 91, 220, 0.08));
+      border-bottom: 1px solid #dbe7f3;
+    }
+    .month-bar h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .nav {
+      display: inline-flex;
+      gap: 8px;
+    }
+    .nav button {
+      background: white;
+      border: 1px solid #cfe0ef;
+      border-radius: 8px;
+      padding: 6px 10px;
+    }
+
+    .weekdays, .grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+    .weekdays {
+      background: #f6fbff;
+      border-bottom: 1px solid #e5f1fb;
+    }
+    .weekdays div {
+      padding: 12px;
+      text-align: center;
+      font-weight: 600;
+      color: #4a6b88;
+      font-size: 13px;
+    }
+
+    .grid .day {
+      min-height: 110px;
+      border-right: 1px solid #edf3f9;
+      border-bottom: 1px solid #edf3f9;
+      background:
+        radial-gradient(120px 40px at 85% -10px, rgba(255, 193, 7, 0.15), transparent 60%),
+        radial-gradient(160px 60px at -10% 120%, rgba(27, 138, 62, 0.1), transparent 65%);
+      position: relative;
+      overflow: hidden;
+    }
+    .grid .day:nth-child(7n) { border-right: none; }
+    .date {
+      position: absolute;
+      top: 8px; left: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #25465f;
+    }
+    .tags {
+      position: absolute;
+      right: 8px; top: 8px;
+      display: inline-flex; gap: 6px; flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 11px;
+      padding: 3px 6px;
+      border-radius: 10px;
+      background: white;
+      border: 1px solid #cfe0ef;
+      color: #2b5678;
+    }
+    .scripture-ref {
+      position: absolute;
+      left: 10px; bottom: 10px;
+      right: 10px;
+      padding: 8px 10px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid #dbe7f3;
+      border-radius: 10px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      font-style: italic;
+      font-size: 13px;
+      color: #2d4b63;
+      display: none;
+    }
+    .day.active .scripture-ref { display: block; }
+
+    /* Balloon lift animation on click */
+    .balloon {
+      position: absolute;
+      bottom: -30px; left: 50%;
+      transform: translateX(-50%);
+      width: 20px; height: 26px;
+      background: linear-gradient(to bottom, #ff6ec7, #ff3cac);
+      border-radius: 50% 50% 55% 55% / 60% 60% 40% 40%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      animation: lift 2.6s ease-out forwards;
+    }
+    .balloon::after {
+      content: "";
+      position: absolute;
+      top: 24px; left: 9px;
+      width: 2px; height: 12px;
+      background: #534d4d;
+    }
+    @keyframes lift {
+      0%   { transform: translate(-50%, 0) scale(0.9); opacity: 0.7; }
+      30%  { transform: translate(-50%, -30px) scale(1.0); opacity: 1; }
+      100% { transform: translate(-50%, -120px) scale(1.05); opacity: 0; }
+    }
+
+    /* Blue wave stripe at footer */
+    .waves {
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      height: 120px;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .wave {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 60px;
+      background: linear-gradient(to right, rgba(47, 109, 213, 0.18), rgba(47, 109, 213, 0.12));
+      transform: translateY(0);
+      animation: waveMove 9s ease-in-out infinite;
+      filter: blur(1px);
+    }
+    .wave:nth-child(2) {
+      height: 80px;
+      background: linear-gradient(to right, rgba(47, 109, 213, 0.28), rgba(47, 109, 213, 0.16));
+      animation-duration: 12s;
+      animation-delay: 1.2s;
+    }
+    .wave:nth-child(3) {
+      height: 100px;
+      background: linear-gradient(to right, rgba(47, 109, 213, 0.38), rgba(47, 109, 213, 0.22));
+      animation-duration: 15s;
+      animation-delay: 2s;
+    }
+    @keyframes waveMove {
+      0% { transform: translateY(4px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(4px); }
+    }
+
+    /* Petal confetti overlay */
+    .petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      width: 12px; height: 18px;
+      background: radial-gradient(circle at 50% 40%, #ff7b8a 40%, #ff5066 41% 60%, transparent 61%);
+      transform: rotate(8deg);
+      opacity: 0.9;
+      animation: fall 6s linear forwards;
+      border-radius: 50%;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+    }
+    @keyframes fall {
+      0% { transform: translateY(-30px) rotate(0deg); opacity: 0.9; }
+      50% { transform: translateY(40vh) rotate(80deg); opacity: 0.8; }
+      100% { transform: translateY(92vh) rotate(150deg); opacity: 0; }
+    }
+
+    /* Footer mini legend */
+    footer {
+      max-width: 1100px;
+      margin: 20px auto 160px;
+      padding: 10px 24px;
+      color: #3b5872;
+      font-size: 13px;
+    }
+    .legend {
+      display: inline-flex; gap: 10px; flex-wrap: wrap;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid #dbe7f3;
+      border-radius: 12px;
+      padding: 8px 12px;
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .dot.red { background: var(--rose-red); }
+    .dot.green { background: var(--stem-green); }
+    .dot.yellow { background: var(--sun-yellow); }
+    .dot.blue { background: var(--wave-blue); }
+    .dot.purple { background: var(--swirl-purple); }
+
+    /* Accessibility tweaks */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    .day:focus-within, .day:focus { outline: 2px solid #7b5bdc; outline-offset: -2px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <div class="sun" aria-hidden="true"></div>
+      <h1>Sanctuary Calendar</h1>
+      <span class="rose" aria-label="Rose motif">
+        <span class="rose-icon" aria-hidden="true"></span><span class="rose-stem" aria-hidden="true"></span>
+      </span>
+    </div>
+    <div class="controls">
+      <div class="control">
+        <label for="theme"><strong>Theme:</strong></label>
+        <select id="theme" aria-label="Select scripture theme">
+          <option value="flowers">Flowers & Roses</option>
+          <option value="sun">Sun</option>
+          <option value="balloons">Air Balloons</option>
+          <option value="christmas">Merry Christmas</option>
+          <option value="waves">Blue Waves</option>
+        </select>
+      </div>
+      <div class="control">
+        <button id="petalBtn" class="primary" aria-label="Release petals"><strong>Petals:</strong> Celebrate</button>
+        <button id="balloonBtn" aria-label="Lift balloons"><strong>Balloons:</strong> Lift</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel" aria-label="Calendar">
+      <div class="month-bar">
+        <div class="nav">
+          <button id="prevMonth" aria-label="Previous month">◀</button>
+          <button id="today" aria-label="Jump to current month">Today</button>
+          <button id="nextMonth" aria-label="Next month">▶</button>
+        </div>
+        <h2 id="monthLabel" aria-live="polite">Month Year</h2>
+        <div class="swirls">
+          <!-- Decorative swirls as simple SVG -->
+          <svg width="120" height="30" viewBox="0 0 120 30" aria-hidden="true">
+            <path d="M5 20 C 25 5, 45 35, 65 20 S 105 5, 115 20" fill="none" stroke="#7b5bdc" stroke-width="2" opacity="0.35"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="weekdays" role="row">
+        <div role="columnheader">Sun</div>
+        <div role="columnheader">Mon</div>
+        <div role="columnheader">Tue</div>
+        <div role="columnheader">Wed</div>
+        <div role="columnheader">Thu</div>
+        <div role="columnheader">Fri</div>
+        <div role="columnheader">Sat</div>
+      </div>
+
+      <div class="grid" id="grid" role="grid" aria-label="Month days"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="legend">
+      <span><span class="dot red"></span><strong>Roses:</strong> Celebration</span>
+      <span><span class="dot green"></span><strong>Stems:</strong> Growth</span>
+      <span><span class="dot yellow"></span><strong>Sun:</strong> Warmth</span>
+      <span><span class="dot blue"></span><strong>Waves:</strong> Peace</span>
+      <span><span class="dot purple"></span><strong>Swirls:</strong> Joy</span>
+    </div>
+  </footer>
+
+  <!-- Blue waves background -->
+  <div class="waves" aria-hidden="true">
+    <div class="wave"></div>
+    <div class="wave"></div>
+    <div class="wave"></div>
+  </div>
+
+  <!-- Petal overlay container -->
+  <div class="petals" id="petals" aria-hidden="true"></div>
+
+  <script>
+    // Scripture references by theme (references only, no verses)
+    const SCRIPTURES = {
+      flowers: [
+        "Song of Solomon 2:12",       // flowers appear on the earth
+        "Isaiah 35:1",                // desert shall blossom
+        "Matthew 6:28-29",            // consider the lilies
+        "Psalm 103:15",               // man like grass and flower
+        "1 Peter 1:24"                // flower falls
+      ],
+      sun: [
+        "Psalm 84:11",                // the Lord God is a sun and shield
+        "Ecclesiastes 11:7",          // light is sweet
+        "Malachi 4:2",                // Sun of righteousness
+        "Psalm 19:4-6",               // sun like a bridegroom
+        "Judges 5:31"                 // those who love Him be like the sun
+      ],
+      balloons: [
+        "Isaiah 40:31",               // they shall mount up with wings
+        "Psalm 121:1-2",              // help comes from the Lord
+        "Philippians 4:4",            // rejoice always
+        "Psalm 145:14",               // the Lord lifts up
+        "Psalm 37:4"                  // delight and desires
+      ],
+      christmas: [
+        "Luke 2:10-11",               // good news of great joy
+        "Matthew 1:21",               // He will save His people
+        "Isaiah 9:6",                 // unto us a child is born
+        "Luke 2:14",                  // peace on earth
+        "John 1:14"                   // Word became flesh
+      ],
+      waves: [
+        "Psalm 93:4",                 // mightier than the waves
+        "Mark 4:39",                  // peace, be still
+        "Psalm 23:2",                 // beside still waters
+        "Isaiah 43:2",                // waters shall not overwhelm
+        "Psalm 107:29"                // He stills the storm
+      ]
+    };
+
+    // State
+    let current = new Date();
+    current.setDate(1);
+
+    const grid = document.getElementById("grid");
+    const monthLabel = document.getElementById("monthLabel");
+    const themeSelect = document.getElementById("theme");
+    const petalsLayer = document.getElementById("petals");
+
+    // Build calendar
+    function renderCalendar() {
+      grid.innerHTML = "";
+      const year = current.getFullYear();
+      const month = current.getMonth();
+      const firstWeekday = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const monthName = new Intl.DateTimeFormat(undefined, { month: "long" }).format(current);
+      monthLabel.textContent = `${monthName} ${year}`;
+
+      // Fill leading blanks
+      for (let i = 0; i < firstWeekday; i++) {
+        const blank = document.createElement("div");
+        blank.className = "day";
+        blank.setAttribute("aria-hidden", "true");
+        grid.appendChild(blank);
+      }
+
+      // Theme references
+      const refs = SCRIPTURES[themeSelect.value] || [];
+
+      // Build day cells
+      for (let d = 1; d <= daysInMonth; d++) {
+        const day = document.createElement("button");
+        day.className = "day";
+        day.type = "button";
+        day.setAttribute("role", "gridcell");
+        day.setAttribute("aria-label", `Day ${d}`);
+        day.style.cursor = "pointer";
+
+        // Date label
+        const date = document.createElement("span");
+        date.className = "date";
+        date.textContent = d;
+
+        // Tag cluster
+        const tags = document.createElement("div");
+        tags.className = "tags";
+        // Motif tags by weekday to vary visual accents
+        const weekday = (firstWeekday + d - 1) % 7;
+        const tagData = motifTagsForWeekday(weekday);
+        tagData.forEach(t => {
+          const el = document.createElement("span");
+          el.className = "tag";
+          el.textContent = t;
+          tags.appendChild(el);
+        });
+
+        // Scripture ref
+        const ref = document.createElement("div");
+        ref.className = "scripture-ref";
+        ref.textContent = refs[(d - 1) % refs.length] || "";
+
+        // Click behavior: toggle scripture, launch balloon lift for balloon theme
+        day.addEventListener("click", () => {
+          day.classList.toggle("active");
+          if (themeSelect.value === "balloons") spawnBalloon(day);
+        });
+
+        // Append
+        day.appendChild(date);
+        day.appendChild(tags);
+        day.appendChild(ref);
+        grid.appendChild(day);
+      }
+    }
+
+    function motifTagsForWeekday(weekday) {
+      // Rotate motifs across the week
+      const motifs = [
+        ["Rose", "Stem"],              // Sun
+        ["Sun", "Swirl"],              // Mon
+        ["Waves", "Stem"],             // Tue
+        ["Rose", "Swirl"],             // Wed
+        ["Sun", "Waves"],              // Thu
+        ["Stem", "Rose"],              // Fri
+        ["Swirl", "Waves"]             // Sat
+      ];
+      return motifs[weekday] || ["Swirl"];
+    }
+
+    // Petals celebration
+    function releasePetals(count = 26) {
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement("div");
+        p.className = "petal";
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = (4 + Math.random() * 3) + "s";
+        p.style.transform = `rotate(${Math.random() * 120}deg)`;
+        petalsLayer.appendChild(p);
+        setTimeout(() => p.remove(), 7000);
+      }
+    }
+
+    // Balloon lift from a day cell
+    function spawnBalloon(dayEl) {
+      const b = document.createElement("div");
+      b.className = "balloon";
+      dayEl.appendChild(b);
+      setTimeout(() => b.remove(), 3000);
+    }
+
+    // Controls
+    document.getElementById("prevMonth").addEventListener("click", () => {
+      current.setMonth(current.getMonth() - 1);
+      renderCalendar();
+    });
+    document.getElementById("nextMonth").addEventListener("click", () => {
+      current.setMonth(current.getMonth() + 1);
+      renderCalendar();
+    });
+    document.getElementById("today").addEventListener("click", () => {
+      const now = new Date();
+      current = new Date(now.getFullYear(), now.getMonth(), 1);
+      renderCalendar();
+    });
+    document.getElementById("petalBtn").addEventListener("click", () => releasePetals());
+    document.getElementById("balloonBtn").addEventListener("click", () => {
+      // Lift balloons from a few random visible day cells
+      const days = [...document.querySelectorAll(".day")].filter(d => d.querySelector(".date"));
+      const picks = shuffle(days).slice(0, 5);
+      picks.forEach(spawnBalloon);
+    });
+    themeSelect.addEventListener("change", renderCalendar);
+
+    // Utility
+    function shuffle(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Init
+    renderCalendar();
+  </script>
+</body>
+</html>
