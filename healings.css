@@ -1,0 +1,181 @@
+:root {
+  --bg: #eef6f9;
+  --card-bg: #ffffff;
+  --text: #333333;
+  --border: #4CAF50;
+  --aura: #A5D6A7;
+  --contrast-text: #000000;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.overlay {
+  width: 420px;
+  max-width: 100%;
+  background: var(--card-bg);
+  border: 5px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 12px;
+  padding: 16px;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.mode-toggle {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+.mode-toggle button {
+  padding: 6px 10px;
+  border: 2px solid var(--border);
+  background: transparent;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.mode-toggle button.active {
+  background: var(--border);
+  color: #fff;
+}
+
+.healers {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.healer {
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 150ms ease;
+  background: #fff;
+}
+.healer:focus { outline: 3px solid var(--border); }
+.healer:hover { transform: scale(1.05); }
+.healer.active { background: var(--aura); }
+
+.message {
+  min-height: 64px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #f8fbff 0%, #f3f7fc 100%);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+.btn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background: var(--border);
+  transition: opacity 150ms ease;
+}
+.btn.secondary {
+  background: #607D8B;
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--border);
+}
+.btn:hover { opacity: 0.9; }
+
+.meter {
+  position: relative;
+  height: 16px;
+  border-radius: 10px;
+  background: #e3edf5;
+  overflow: hidden;
+  border: 2px solid var(--border);
+}
+.meter-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--border);
+  transition: width 250ms ease;
+}
+.meter-label {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+/* Ceremony modes */
+.playful .overlay { border-color: #FFB300; }
+.playful .btn { background: #FFB300; }
+.reverent .overlay { border-color: #5C6BC0; }
+.reverent .btn { background: #5C6BC0; }
+
+/* Aura pulse */
+.aura-pulse {
+  box-shadow: 0 0 0 0 rgba(76,175,80,0.5);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(76,175,80,0.5); }
+  70% { box-shadow: 0 0 0 20px rgba(76,175,80,0); }
+  100% { box-shadow: 0 0 0 0 rgba(76,175,80,0); }
+}
+
+/* High contrast mode (optional) */
+.high-contrast {
+  --bg: #ffffff;
+  --card-bg: #ffffff;
+  --text: #000000;
+  --border: #000000;
+  --aura: #e0e0e0;
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0; margin: -1px;
+}
