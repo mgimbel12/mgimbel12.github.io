@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Healing Sanctuary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="healing.css" />
+</head>
+<body class="reverent">
+  <div class="container">
+    <div class="overlay" role="region" aria-label="Healing Sanctuary Overlay">
+      <div class="header">
+        <div class="title">Healing Sanctuary</div>
+
+        <div class="mode-toggle" aria-label="Ceremony Mode Toggle">
+          <button id="modeReverent" class="active" aria-pressed="true">Reverent</button>
+          <button id="modePlayful" aria-pressed="false">Playful</button>
+        </div>
+      </div>
+
+      <div class="healers" role="listbox" aria-label="Choose a healer">
+        <button class="healer active" id="h-doctor" role="option" aria-selected="true" data-key="doctor" title="Doctor">👩‍⚕️</button>
+        <button class="healer" id="h-nurse" role="option" aria-selected="false" data-key="nurse" title="Nurse">🫶</button>
+        <button class="healer" id="h-guide" role="option" aria-selected="false" data-key="guide" title="Spiritual Guide">🕊️</button>
+        <button class="healer" id="h-elder" role="option" aria-selected="false" data-key="elder" title="Wise Elder">🧓</button>
+        <button class="healer" id="h-child" role="option" aria-selected="false" data-key="child" title="Child of Joy">🎈</button>
+        <button class="healer" id="h-advocate" role="option" aria-selected="false" data-key="advocate" title="Community Advocate">🤝</button>
+      </div>
+
+      <div id="message" class="message" aria-live="polite">Choose a healer to receive comfort...</div>
+      <div id="sr-message" class="sr-only" aria-live="assertive"></div>
+
+      <div class="controls">
+        <button id="btnAffirm" class="btn">Receive affirmation</button>
+        <button id="btnAuto" class="btn secondary">Auto-play</button>
+        <button id="btnRandom" class="btn ghost">Randomize</button>
+      </div>
+
+      <div class="meter" aria-label="Shared healing meter">
+        <div id="meterFill" class="meter-fill"></div>
+      </div>
+      <div id="meterLabel" class="meter-label">Healing: 0%</div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
