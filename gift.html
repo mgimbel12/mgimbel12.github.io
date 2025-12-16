@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Christmas Tree with Snowflakes</title>
+  <style>
+    :root {
+      --bg: #0b1225;
+      --snow: #ffffff;
+      --tree-green: #0e6b3c;
+      --tree-dark: #094d2b;
+      --star: #ffd86b;
+      --garland1: #ff4d6d;
+      --garland2: #4dd4ff;
+      --garland3: #9dff57;
+      --trunk: #6b3e2e;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: radial-gradient(1200px circle at 50% 10%, #13204a 0%, var(--bg) 60%);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color: #eaeff7;
+      overflow: hidden;
+    }
+
+    /* Scene container */
+    .scene {
+      position: relative;
+      height: 100vh;
+      width: 100vw;
+      display: grid;
+      place-items: center;
+    }
+
+    /* Snowfall layer */
+    .snow {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .flake {
+      position: absolute;
+      top: -2rem;
+      color: var(--snow);
+      filter: drop-shadow(0 0 4px rgba(255,255,255,0.6));
+      animation: fall linear var(--dur) infinite, sway ease-in-out var(--sway) infinite;
+      font-size: var(--size);
+      opacity: var(--alpha);
+      left: var(--x);
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh); }
+    }
+    @keyframes sway {
+      0%   { transform: translateY(0) translateX(0); }
+      50%  { transform: translateY(50vh) translateX(20px); }
+      100% { transform: translateY(110vh) translateX(-10px); }
+    }
+
+    /* Ground */
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 16vh;
+      background: linear-gradient(to top, #dfe9f7 0%, #bcd0ea 60%, transparent 100%);
+      filter: blur(0.6px);
+    }
+
+    /* Tree wrapper */
+    .tree {
+      position: relative;
+      width: clamp(220px, 28vw, 420px);
+      aspect-ratio: 1 / 1.4;
+      display: grid;
+      place-items: center;
+      transform: translateY(-2vh);
+    }
+
+    /* Star */
+    .star {
+      position: absolute;
+      top: -5%;
+      font-size: clamp(28px, 3vw, 48px);
+      color: var(--star);
+      text-shadow: 0 0 8px rgba(255,216,107,0.9), 0 0 18px rgba(255,216,107,0.6);
+      animation: twinkle 3s ease-in-out infinite;
+      cursor: pointer;
+    }
+    @keyframes twinkle {
+      0%, 100% { filter: drop-shadow(0 0 4px #ffd86b); transform: scale(1); }
+      50%      { filter: drop-shadow(0 0 14px #ffe9a8); transform: scale(1.08); }
+    }
+
+    /* Tree layers */
+    .layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+      background: linear-gradient(160deg, var(--tree-green), var(--tree-dark));
+      border-radius: 8px;
+      box-shadow: inset 0 -8px 18px rgba(0,0,0,0.25);
+    }
+    .layer.l1 { top: 10%; width: 70%; height: 20%; }
+    .layer.l2 { top: 26%; width: 85%; height: 26%; }
+    .layer.l3 { top: 48%; width: 100%; height: 34%; }
+
+    /* Trunk */
+    .trunk {
+      position: absolute;
+      bottom: 4%;
+      width: 14%;
+      height: 14%;
+      background: linear-gradient(180deg, #81503d, var(--trunk));
+      border-radius: 4px;
+      box-shadow: inset 0 -8px 12px rgba(0,0,0,0.3);
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Garland lights */
+    .garland {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .light {
+      position: absolute;
+      width: clamp(8px, 1.2vw, 14px);
+      height: clamp(8px, 1.2vw, 14px);
+      border-radius: 50%;
+      box-shadow: 0 0 10px currentColor;
+      animation: glow 1.8s var(--delay) infinite alternate;
+      opacity: 0.9;
+    }
+    @keyframes glow {
+      0%   { filter: brightness(0.7); transform: scale(0.9); }
+      100% { filter: brightness(1.8); transform: scale(1.15); }
+    }
+
+    /* Toggle button */
+    .controls {
+      position: absolute;
+      bottom: 3vh;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: rgba(20, 30, 60, 0.45);
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      backdrop-filter: blur(6px);
+    }
+    .btn {
+      cursor: pointer;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      color: #0b1225;
+      background: #ffd86b;
+      font-weight: 600;
+    }
+    .btn.secondary { background: #cfe3ff; }
+
+    /* Credits */
+    .credit {
+      position: absolute;
+      top: 2vh;
+      right: 2vw;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    /* Accessibility: reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .flake, .light, .star { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" aria-label="Festive winter scene with Christmas tree and snowfall">
+    <div class="snow" aria-hidden="true" id="snow"></div>
+
+    <div class="tree" role="img" aria-label="Christmas tree with star and garlands">
+      <div class="star" id="star" title="Toggle light twinkle">★</div>
+
+      <div class="layer l1"></div>
+      <div class="layer l2"></div>
+      <div class="layer l3"></div>
+      <div class="trunk"></div>
+
+      <!-- Garland lights (positions set inline for simplicity) -->
+      <div class="garland" id="garland">
+        <!-- Row 1 -->
+        <span class="light" style="--delay:0.0s; color: var(--garland1); left: 42%; top: 22%;"></span>
+        <span class="light" style="--delay:0.2s; color: var(--garland2); left: 52%; top: 24%;"></span>
+        <span class="light" style="--delay:0.4s; color: var(--garland3); left: 60%; top: 26%;"></span>
+        <span class="light" style="--delay:0.6s; color: var(--garland2); left: 34%; top: 26%;"></span>
+        <span class="light" style="--delay:0.8s; color: var(--garland1); left: 28%; top: 28%;"></span>
+
+        <!-- Row 2 -->
+        <span class="light" style="--delay:0.1s; color: var(--garland3); left: 25%; top: 40%;"></span>
+        <span class="light" style="--delay:0.3s; color: var(--garland1); left: 35%; top: 42%;"></span>
+        <span class="light" style="--delay:0.5s; color: var(--garland2); left: 47%; top: 44%;"></span>
+        <span class="light" style="--delay:0.7s; color: var(--garland1); left: 58%; top: 46%;"></span>
+        <span class="light" style="--delay:0.9s; color: var(--garland3); left: 68%; top: 48%;"></span>
+
+        <!-- Row 3 -->
+        <span class="light" style="--delay:0.15s; color: var(--garland2); left: 20%; top: 60%;"></span>
+        <span class="light" style="--delay:0.35s; color: var(--garland3); left: 32%; top: 62%;"></span>
+        <span class="light" style="--delay:0.55s; color: var(--garland1); left: 46%; top: 64%;"></span>
+        <span class="light" style="--delay:0.75s; color: var(--garland2); left: 60%; top: 66%;"></span>
+        <span class="light" style="--delay:0.95s; color: var(--garland1); left: 72%; top: 68%;"></span>
+      </div>
+    </div>
+
+    <div class="ground" aria-hidden="true"></div>
+
+    <div class="controls" aria-label="Scene controls">
+      <button class="btn" id="toggleSnow">Toggle snow</button>
+      <button class="btn secondary" id="toggleLights">Toggle lights</button>
+    </div>
+
+    <div class="credit">Made with HTML, CSS, and JavaScript</div>
+  </div>
+
+  <script>
+    // Snowflake generator
+    const snowContainer = document.getElementById('snow');
+    const snowSymbols = ['❆','✻','✽','✾','❄','✧','＊'];
+
+    function makeFlake() {
+      const flake = document.createElement('span');
+      flake.className = 'flake';
+      flake.textContent = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
+
+      const size = (Math.random() * 1.2 + 0.8); // 0.8–2.0 rem
+      const dur = (Math.random() * 8 + 6);      // 6–14 s
+      const sway = (Math.random() * 5 + 3);     // 3–8 s
+      const alpha = (Math.random() * 0.6 + 0.4);// 0.4–1.0
+      const x = Math.floor(Math.random() * 100) + '%';
+
+      flake.style.setProperty('--size', size + 'rem');
+      flake.style.setProperty('--dur', dur + 's');
+      flake.style.setProperty('--sway', sway + 's');
+      flake.style.setProperty('--alpha', alpha);
+      flake.style.setProperty('--x', x);
+
+      snowContainer.appendChild(flake);
+
+      // Cleanup when off-screen
+      setTimeout(() => {
+        flake.remove();
+      }, (dur + 0.2) * 1000);
+    }
+
+    // Continuous snowfall
+    let snowOn = true;
+    let snowTimer = null;
+    function startSnow() {
+      stopSnow();
+      snowTimer = setInterval(() => {
+        // Burst density varies
+        for (let i = 0; i < 3; i++) makeFlake();
+      }, 500);
+    }
+    function stopSnow() {
+      if (snowTimer) clearInterval(snowTimer);
+      snowTimer = null;
+    }
+    startSnow();
+
+    // Toggle snow
+    document.getElementById('toggleSnow').addEventListener('click', () => {
+      snowOn = !snowOn;
+      if (snowOn) startSnow(); else stopSnow();
+    });
+
+    // Toggle lights (pause animations)
+    const garland = document.getElementById('garland');
+    document.getElementById('toggleLights').addEventListener('click', () => {
+      const paused = garland.style.animationPlayState === 'paused';
+      const lights = garland.querySelectorAll('.light, .star');
+      lights.forEach(el => {
+        el.style.animationPlayState = paused ? 'running' : 'paused';
+      });
+      garland.style.animationPlayState = paused ? 'running' : 'paused';
+    });
+
+    // Star acts as a quick toggle too
+    document.getElementById('star').addEventListener('click', () => {
+      document.getElementById('toggleLights').click();
+    });
+  </script>
+</body>
+</html>
+
