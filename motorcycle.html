@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Motorcycle Sanctuary Simulator</title>
+<style>
+  :root {
+    --bg: #111;
+    --fg: #f7f7f7;
+    --accent: #ff3366;
+    --hud: rgba(0,0,0,0.45);
+    --road: #2b2b2b;
+    --lane: #dcdcdc;
+    --pickup: #ffd84a;
+    --danger: #ff5a3c;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, 360px);
+    grid-template-rows: auto 1fr;
+    min-height: 100vh;
+  }
+
+  header {
+    grid-column: 1 / -1;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #0b0b0b;
+    border-bottom: 1px solid #222;
+  }
+
+  header h1 {
+    font-size: 18px;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  header .mode {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+  }
+
+  header .mode button {
+    background: #222;
+    color: var(--fg);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  header .mode button.active { border-color: var(--accent); color: var(--accent); }
+
+  #game {
+    position: relative;
+    display: grid;
+    place-items: center;
+    background: #0f0f13 radial-gradient(70% 70% at 50% 50%, #15151d 0%, #0f0f13 70%);
+  }
+
+  canvas {
+    width: min(1000px, 100%);
+    height: 600px;
+    border: 1px solid #222;
+    background: linear-gradient(#1a1a22, #0f0f13);
+  }
+
+  /* HUD */
+  .hud {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--hud);
+    backdrop-filter: blur(6px);
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 10px 12px;
+    display: grid;
+    gap: 6px;
+    font-size: 14px;
+  }
+  .hud .row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .chip {
+    background: #1d1d1d;
+    border: 1px solid #2a2a2a;
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-weight: 600;
+  }
+  .affirm {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #171717;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 10px 12px;
+    max-width: 320px;
+    font-size: 14px;
+    opacity: 0.95;
+  }
+  .affirm strong { color: var(--accent); }
+
+  /* Controls panel */
+  aside {
+    padding: 16px;
+    border-left: 1px solid #222;
+    background: #0b0b0b;
+    display: grid;
+    gap: 16px;
+  }
+
+  .panel {
+    background: #131313;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 12px;
+    display: grid;
+    gap: 8px;
+  }
+  .panel h2 {
+    font-size: 16px;
+    margin: 0;
+    border-bottom: 1px dashed #222;
+    padding-bottom: 6px;
+  }
+
+  .btn {
+    background: #1b1b1b;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--fg);
+    cursor: pointer;
+  }
+  .btn.primary {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* Pause & end overlays */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+  }
+  .overlay .card {
+    background: #121212;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 16px;
+    width: min(520px, 90%);
+    display: grid;
+    gap: 10px;
+  }
+  .overlay.show { display: grid; }
+
+  /* Accessibility toggles */
+  .toggle {
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* High contrast */
+  .high-contrast {
+    --bg: #000;
+    --fg: #fff;
+    --accent: #00e5ff;
+    --hud: #000;
+    --road: #000;
+    --lane: #fff;
+  }
+
+  /* Large text */
+  .large-text { font-size: 18px; }
+
+  /* Reduced motion */
+  .reduced-motion canvas { background: #111; }
+</style>
+</head>
+<body>
+  <header aria-label="Game header">
+    <h1>Motorcycle Sanctuary Simulator</h1>
+    <div class="mode" role="group" aria-label="Ride modes">
+      <button data-mode="calm" class="active">Calm Ride</button>
+      <button data-mode="sport">Sport Mode</button>
+      <button data-mode="night">Night Run</button>
+    </div>
+    <button id="pauseBtn" class="btn">Pause</button>
+  </header>
+
+  <main id="game" aria-label="Game canvas area">
+    <canvas id="gameCanvas" width="1000" height="600" role="img" aria-label="Motorcycle road and obstacles"></canvas>
+
+    <div class="hud" aria-live="polite">
+      <div class="row">
+        <div class="chip" id="speedChip">Speed: 0 km/h</div>
+        <div class="chip" id="distChip">Distance: 0 m</div>
+        <div class="chip" id="timeChip">Time: 0 s</div>
+        <div class="chip" id="scoreChip">Score: 0</div>
+        <div class="chip" id="livesChip">Lives: 3</div>
+      </div>
+      <div class="row">
+        <div class="chip" id="modeChip">Mode: Calm Ride</div>
+      </div>
+    </div>
+
+    <div class="affirm" id="affirmBox">
+      <strong>Affirmation:</strong> Steady hands, open road. You belong to the journey.
+    </div>
+
+    <div class="overlay" id="pauseOverlay" aria-modal="true" role="dialog" aria-label="Pause menu">
+      <div class="card">
+        <h2>Paused</h2>
+        <div class="grid2">
+          <button id="resumeBtn" class="btn primary">Resume</button>
+          <button id="restartBtn" class="btn">Restart</button>
+        </div>
+        <div class="panel">
+          <h2>Settings</h2>
+          <label class="toggle"><input type="checkbox" id="toggleContrast"> High contrast</label>
+          <label class="toggle"><input type="checkbox" id="toggleMotion"> Reduced motion</label>
+          <label class="toggle"><input type="checkbox" id="toggleText"> Large text</label>
+          <label class="toggle"><input type="checkbox" id="toggleEngine"> Engine sound</label>
+        </div>
+        <div class="panel">
+          <h2>Controls</h2>
+          <p>Keyboard: Arrow keys/WASD to steer, Space to brake, Shift to boost (Sport/Night), P to pause.</p>
+          <p>Gamepad: Left stick to steer, A to accelerate, B to brake, Start to pause.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="endOverlay" aria-modal="true" role="dialog" aria-label="End screen">
+      <div class="card">
+        <h2>Ride Complete</h2>
+        <p id="endStats"></p>
+        <div class="panel">
+          <h2>Leaderboard (Local)</h2>
+          <ol id="leaderboard"></ol>
+        </div>
+        <div class="grid2">
+          <button id="playAgainBtn" class="btn primary">Play again</button>
+          <button id="clearLbBtn" class="btn">Clear leaderboard</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside aria-label="Controls and overlays">
+    <div class="panel">
+      <h2>On-screen controls</h2>
+      <div class="grid2">
+        <button id="btnLeft" class="btn">Left</button>
+        <button id="btnRight" class="btn">Right</button>
+        <button id="btnAccel" class="btn primary">Accelerate</button>
+        <button id="btnBrake" class="btn">Brake</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>Affirmation overlay</h2>
+      <p id="affirmText">Steady hands, open road. You belong to the journey.</p>
+      <div class="grid2">
+        <button class="btn" data-affirm="Steady hands, open road. You belong to the journey.">Calm confidence</button>
+        <button class="btn" data-affirm="You can lean with grace. Speed serves your focus.">Sport focus</button>
+        <button class="btn" data-affirm="Night is gentle; your light knows the way.">Night serenity</button>
+        <button class="btn" data-affirm="Every turn honors your presence.">Ceremonial dignity</button>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>How to play</h2>
+      <ul>
+        <li>Collect stars for points. Avoid cones and cars.</li>
+        <li>Faster speeds increase score but risk collisions.</li>
+        <li>Survive as long as you can; finish with dignity.</li>
+      </ul>
+      <button id="startBtn" class="btn primary">Start ride</button>
+    </div>
+  </aside>
+
+<script>
+/* ===== State and config ===== */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+const HUD = {
+  speed: document.getElementById('speedChip'),
+  dist: document.getElementById('distChip'),
+  time: document.getElementById('timeChip'),
+  score: document.getElementById('scoreChip'),
+  lives: document.getElementById('livesChip'),
+  mode: document.getElementById('modeChip'),
+};
+
+const overlays = {
+  pause: document.getElementById('pauseOverlay'),
+  end: document.getElementById('endOverlay'),
+  endStats: document.getElementById('endStats'),
+  leaderboard: document.getElementById('leaderboard'),
+};
+
+const affirmBox = document.getElementById('affirmBox');
+const affirmText = document.getElementById('affirmText');
+const pauseBtn = document.getElementById('pauseBtn');
+const resumeBtn = document.getElementById('resumeBtn');
+const restartBtn = document.getElementById('restartBtn');
+const startBtn = document.getElementById('startBtn');
+const playAgainBtn = document.getElementById('playAgainBtn');
+const clearLbBtn = document.getElementById('clearLbBtn');
+
+const btnLeft = document.getElementById('btnLeft');
+const btnRight = document.getElementById('btnRight');
+const btnAccel = document.getElementById('btnAccel');
+const btnBrake = document.getElementById('btnBrake');
+
+const modeButtons = Array.from(document.querySelectorAll('header .mode button'));
+
+const settings = {
+  highContrast: false,
+  reducedMotion: false,
+  largeText: false,
+  engineSound: false,
+};
+
+const options = {
+  mode: 'calm', // calm, sport, night
+  maxLives: 3,
+  laneCount: 3,
+  roadWidth: canvas.width * 0.6,
+  frictionBase: 0.98,
+  accelBase: 0.12,
+  brakePower: 0.2,
+  turnRateBase: 0.032,
+  pickupScore: 25,
+  crashPenalty: 1, // lives lost
+  kmhFactor: 42, // speed units to km/h approx
+};
+
+let game = {
+  running: false,
+  paused: false,
+  timeStart: 0,
+  elapsed: 0,
+  score: 0,
+  lives: options.maxLives,
+  distance: 0,
+  speed: 0,
+  angle: 0, // lean/visual; movement is lane drift
+  laneOffset: 0, // -1..1 drift across width
+  scrollY: 0,
+  objects: [],
+  pickups: [],
+};
+
+/* ===== Audio (simple beeps) ===== */
+const audio = {
+  ctx: null,
+  engine: null,
+};
+
+function initAudio() {
+  if (audio.ctx) return;
+  audio.ctx = new (window.AudioContext || window.webkitAudioContext)();
+}
+function playEngine() {
+  if (!settings.engineSound) return;
+  initAudio();
+  stopEngine();
+  const osc = audio.ctx.createOscillator();
+  const gain = audio.ctx.createGain();
+  osc.type = 'sawtooth';
+  osc.frequency.value = 110 + game.speed * 30;
+  gain.gain.value = 0.03;
+  osc.connect(gain).connect(audio.ctx.destination);
+  osc.start();
+  audio.engine = {osc, gain};
+}
+function stopEngine() {
+  if (audio.engine) {
+    audio.engine.osc.stop();
+    audio.engine = null;
+  }
+}
+function playBeep(freq = 660, dur = 0.08) {
+  initAudio();
+  const osc = audio.ctx.createOscillator();
+  const gain = audio.ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.value = 0.06;
+  osc.connect(gain).connect(audio.ctx.destination);
+  osc.start();
+  setTimeout(() => { osc.stop(); }, dur * 1000);
+}
+
+/* ===== Utilities ===== */
+function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+function rand(min, max) { return Math.random() * (max - min) + min; }
+function choice(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+/* ===== Mode presets ===== */
+const modePresets = {
+  calm: {
+    accel: options.accelBase,
+    friction: options.frictionBase,
+    turnRate: options.turnRateBase * 0.9,
+    maxSpeed: 3.4,
+    visuals: { laneColor: '#dcdcdc', roadColor: '#2b2b2b', sky: ['#1a1a22','#0f0f13'] },
+    affirmation: 'Steady hands, open road. You belong to the journey.',
+  },
+  sport: {
+    accel: options.accelBase * 1.35,
+    friction: options.frictionBase * 0.985,
+    turnRate: options.turnRateBase * 1.1,
+    maxSpeed: 5.5,
+    visuals: { laneColor: '#eaf27a', roadColor: '#2f2f1f', sky: ['#1b1b0f','#0e0e08'] },
+    affirmation: 'You can lean with grace. Speed serves your focus.',
+  },
+  night: {
+    accel: options.accelBase * 1.15,
+    friction: options.frictionBase,
+    turnRate: options.turnRateBase,
+    maxSpeed: 4.4,
+    visuals: { laneColor: '#9fdcff', roadColor: '#161a24', sky: ['#0a0e16','#04060a'] },
+    affirmation: 'Night is gentle; your light knows the way.',
+  },
+};
+
+function applyMode(mode) {
+  options.mode = mode;
+  const m = modePresets[mode];
+  HUD.mode.textContent = 'Mode: ' + (mode === 'calm' ? 'Calm Ride' : mode === 'sport' ? 'Sport Mode' : 'Night Run');
+  affirmBox.innerHTML = `<strong>Affirmation:</strong> ${m.affirmation}`;
+}
+
+/* ===== Objects ===== */
+function spawnWave() {
+  const lanes = options.laneCount;
+  const roadX = canvas.width / 2 - options.roadWidth / 2;
+  const laneWidth = options.roadWidth / lanes;
+
+  // Decide obstacles and pickups per wave
+  const slots = Array.from({length: lanes}, (_, i) => i);
+  const obstacleCount = Math.random() < 0.6 ? 1 : 2;
+  const pickupCount = Math.random() < 0.7 ? 1 : 2;
+
+  // Obstacles
+  for (let i = 0; i < obstacleCount; i++) {
+    if (!slots.length) break;
+    const lane = slots.splice(Math.floor(Math.random()*slots.length),1)[0];
+    game.objects.push({
+      type: choice(['cone','car']),
+      x: roadX + laneWidth * lane + laneWidth/2,
+      y: -100,
+      w: 32, h: 60,
+      speed: rand(1.2, 2.2),
+    });
+  }
+  // Pickups
+  for (let i = 0; i < pickupCount; i++) {
+    const lane = Math.floor(Math.random()*lanes);
+    game.pickups.push({
+      x: roadX + laneWidth * lane + laneWidth/2,
+      y: -100 - rand(0,150),
+      r: 14,
+      speed: rand(1.2, 2.0),
+    });
+  }
+}
+
+/* ===== Drawing ===== */
+function drawBackground() {
+  const m = modePresets[options.mode];
+  // Sky gradient
+  const grad = ctx.createLinearGradient(0,0,0,canvas.height);
+  grad.addColorStop(0, m.visuals.sky[0]);
+  grad.addColorStop(1, m.visuals.sky[1]);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  // Road
+  const roadX = canvas.width / 2 - options.roadWidth / 2;
+  ctx.fillStyle = m.visuals.roadColor;
+  ctx.fillRect(roadX, 0, options.roadWidth, canvas.height);
+
+  // Lane markers (scrolling)
+  const laneWidth = options.roadWidth / options.laneCount;
+  ctx.strokeStyle = m.visuals.laneColor;
+  ctx.lineWidth = 3;
+  for (let i = 1; i < options.laneCount; i++) {
+    const x = roadX + laneWidth * i;
+    ctx.setLineDash([24, 24]);
+    ctx.beginPath();
+    ctx.moveTo(x, (game.scrollY % 48) - 48);
+    ctx.lineTo(x, canvas.height);
+    ctx.stroke();
+  }
+}
+
+function drawBike() {
+  // Bike position based on laneOffset
+  const roadX = canvas.width / 2 - options.roadWidth / 2;
+  const laneMid = roadX + options.roadWidth / 2 + game.laneOffset * (options.roadWidth / 2 - 24);
+  const y = canvas.height - 100;
+
+  ctx.save();
+  ctx.translate(laneMid, y);
+  ctx.rotate(game.angle);
+
+  // Bike body
+  ctx.fillStyle = '#ff3366';
+  ctx.fillRect(-16, -36, 32, 72);
+
+  // Wheels
+  ctx.fillStyle = '#111';
+  ctx.beginPath(); ctx.arc(-12, 24, 10, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(12, -24, 10, 0, Math.PI*2); ctx.fill();
+
+  // Headlight (night mode)
+  if (options.mode === 'night') {
+    const grd = ctx.createRadialGradient(0, -42, 2, 0, -42, 90);
+    grd.addColorStop(0, 'rgba(255,255,200,0.6)');
+    grd.addColorStop(1, 'rgba(255,255,200,0.0)');
+    ctx.fillStyle = grd;
+    ctx.beginPath();
+    ctx.moveTo(0,-36);
+    ctx.arc(0,-42,90, -Math.PI*0.2, Math.PI*0.2);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+function drawObjects() {
+  ctx.fillStyle = '#ff5a3c';
+  game.objects.forEach(o => {
+    if (o.type === 'cone') {
+      ctx.save();
+      ctx.translate(o.x, o.y);
+      ctx.fillStyle = '#ff5a3c';
+      ctx.beginPath();
+      ctx.moveTo(0, -30); ctx.lineTo(20, 30); ctx.lineTo(-20, 30); ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    } else if (o.type === 'car') {
+      ctx.save();
+      ctx.translate(o.x, o.y);
+      ctx.fillStyle = '#4bd1ff';
+      ctx.fillRect(-28, -50, 56, 100);
+      ctx.fillStyle = '#0b0b0b';
+      ctx.fillRect(-24, -46, 48, 92);
+      ctx.restore();
+    }
+  });
+
+  // Pickups
+  game.pickups.forEach(p => {
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.fillStyle = '#ffd84a';
+    ctx.beginPath();
+    ctx.arc(0,0,p.r,0,Math.PI*2);
+    ctx.fill();
+    ctx.fillStyle = '#fff';
+    ctx.font = '12px system-ui';
+    ctx.textAlign = 'center';
+    ctx.fillText('★', 0, 4);
+    ctx.restore();
+  });
+}
+
+/* ===== Update & collisions ===== */
+function update(dt) {
+  const m = modePresets[options.mode];
+  // Physics
+  game.speed *= m.friction;
+  game.speed = clamp(game.speed, 0, m.maxSpeed);
+  game.scrollY += game.speed * 12;
+  game.distance += game.speed * 3;
+  game.elapsed += dt;
+
+  // Move objects down
+  const all = [...game.objects, ...game.pickups];
+  all.forEach(o => { o.y += (o.speed + game.speed * 0.6) * (settings.reducedMotion ? 0.8 : 1); });
+
+  // Despawn
+  game.objects = game.objects.filter(o => o.y < canvas.height + 120);
+  game.pickups = game.pickups.filter(p => p.y < canvas.height + 120);
+
+  // Collisions
+  const roadX = canvas.width / 2 - options.roadWidth / 2;
+  const bikeX = roadX + options.roadWidth / 2 + game.laneOffset * (options.roadWidth / 2 - 24);
+  const bikeY = canvas.height - 100;
+
+  // Obstacles
+  game.objects.forEach(o => {
+    if (Math.abs(o.x - bikeX) < 34 && Math.abs(o.y - bikeY) < 60) {
+      // Crash
+      game.lives -= options.crashPenalty;
+      game.speed *= 0.5;
+      playBeep(220, 0.15);
+      // brief shake
+      game.angle = (Math.random() < 0.5 ? -1 : 1) * 0.2;
+    }
+  });
+
+  // Pickups
+  game.pickups = game.pickups.filter(p => {
+    const hit = Math.hypot(p.x - bikeX, p.y - bikeY) < p.r + 24;
+    if (hit) {
+      game.score += options.pickupScore + Math.round(game.speed * 10);
+      playBeep(880, 0.08);
+      return false;
+    }
+    return true;
+  });
+
+  // Wave spawning
+  if (Math.random() < 0.02) spawnWave();
+
+  // End when out of lives
+  if (game.lives <= 0) endGame();
+}
+
+/* ===== Render ===== */
+function render() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawBackground();
+  drawObjects();
+  drawBike();
+}
+
+/* ===== HUD update ===== */
+function updateHUD() {
+  HUD.speed.textContent = 'Speed: ' + Math.round(game.speed * options.kmhFactor) + ' km/h';
+  HUD.dist.textContent = 'Distance: ' + Math.round(game.distance) + ' m';
+  HUD.time.textContent = 'Time: ' + Math.floor(game.elapsed) + ' s';
+  HUD.score.textContent = 'Score: ' + game.score;
+  HUD.lives.textContent = 'Lives: ' + game.lives;
+}
+
+/* ===== Game loop ===== */
+let lastTs = 0;
+function loop(ts) {
+  if (!game.running || game.paused) return;
+  const dt = (ts - lastTs) / 1000;
+  lastTs = ts;
+
+  update(dt);
+  render();
+  updateHUD();
+
+  // update engine pitch
+  if (audio.engine) {
+    audio.engine.osc.frequency.value = 110 + game.speed * 30;
+  }
+
+  requestAnimationFrame(loop);
+}
+
+/* ===== Controls ===== */
+const keys = { ArrowLeft:false, ArrowRight:false, ArrowUp:false, ArrowDown:false, Space:false, Shift:false, A:false, D:false, W:false, S:false, P:false };
+window.addEventListener('keydown', e => {
+  if (e.repeat) return;
+  if (e.key === 'p' || e.key === 'P') { togglePause(); return; }
+  keys[e.key] = true;
+  if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','W','A','S','D',' '].includes(e.key)) e.preventDefault();
+});
+window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+function handleInput() {
+  const m = modePresets[options.mode];
+  if (keys.ArrowLeft || keys.A) {
+    game.laneOffset -= m.turnRate;
+    game.angle = clamp(game.angle - 0.02, -0.25, 0.25);
+  }
+  if (keys.ArrowRight || keys.D) {
+    game.laneOffset += m.turnRate;
+    game.angle = clamp(game.angle + 0.02, -0.25, 0.25);
+  }
+  if (keys.ArrowUp || keys.W) {
+    game.speed += m.accel;
+  }
+  if (keys.Space || keys.ArrowDown || keys.S) {
+    game.speed = Math.max(0, game.speed - options.brakePower);
+  }
+  if (keys.Shift && options.mode !== 'calm') {
+    game.speed = Math.min(m.maxSpeed, game.speed + m.accel * 1.2);
+  }
+  game.laneOffset = clamp(game.laneOffset, -1, 1);
+  // gradual lean recovery
+  game.angle *= 0.94;
+}
+
+/* On-screen buttons */
+btnLeft.addEventListener('mousedown', () => { keys.A = true; });
+btnLeft.addEventListener('mouseup', () => { keys.A = false; });
+btnRight.addEventListener('mousedown', () => { keys.D = true; });
+btnRight.addEventListener('mouseup', () => { keys.D = false; });
+btnAccel.addEventListener('mousedown', () => { keys.W = true; });
+btnAccel.addEventListener('mouseup', () => { keys.W = false; });
+btnBrake.addEventListener('mousedown', () => { keys.Space = true; });
+btnBrake.addEventListener('mouseup', () => { keys.Space = false; });
+
+/* Gamepad polling */
+let gpInterval = null;
+function startGamepad() {
+  if (gpInterval) return;
+  gpInterval = setInterval(() => {
+    const gp = navigator.getGamepads ? navigator.getGamepads()[0] : null;
+    if (!gp) return;
+    const lx = gp.axes[0] || 0;
+    const accelBtn = gp.buttons[0]?.pressed; // A
+    const brakeBtn = gp.buttons[1]?.pressed; // B
+    const pauseBtn = gp.buttons[9]?.pressed; // Start
+    if (pauseBtn) togglePause();
+    // steer
+    if (Math.abs(lx) > 0.1) {
+      const m = modePresets[options.mode];
+      game.laneOffset = clamp(game.laneOffset + lx * m.turnRate * 1.4, -1, 1);
+      game.angle = clamp(game.angle + lx * 0.02, -0.25, 0.25);
+    }
+    if (accelBtn) { const m = modePresets[options.mode]; game.speed += m.accel; }
+    if (brakeBtn) { game.speed = Math.max(0, game.speed - options.brakePower); }
+  }, 50);
+}
+
+/* ===== Start/End/Pause ===== */
+function startGame() {
+  game.running = true;
+  game.paused = false;
+  game.timeStart = performance.now();
+  game.elapsed = 0;
+  game.score = 0;
+  game.lives = options.maxLives;
+  game.distance = 0;
+  game.speed = 0.2;
+  game.angle = 0;
+  game.laneOffset = 0;
+  game.scrollY = 0;
+  game.objects = [];
+  game.pickups = [];
+  spawnWave();
+  lastTs = performance.now();
+  requestAnimationFrame(loop);
+  startGamepad();
+  if (settings.engineSound) playEngine();
+}
+
+function endGame() {
+  game.running = false;
+  game.paused = false;
+  stopEngine();
+  const summary = `Score: ${game.score} | Distance: ${Math.round(game.distance)} m | Time: ${Math.floor(game.elapsed)} s`;
+  overlays.endStats.textContent = summary;
+  saveLeaderboard({ score: game.score, distance: Math.round(game.distance), time: Math.floor(game.elapsed), mode: options.mode, date: new Date().toLocaleString() });
+  renderLeaderboard();
+  overlays.end.classList.add('show');
+}
+
+function togglePause() {
+  if (!game.running) return;
+  game.paused = !game.paused;
+  overlays.pause.classList.toggle('show', game.paused);
+  if (!game.paused) {
+    lastTs = performance.now();
+    requestAnimationFrame(loop);
+  } else {
+    stopEngine();
+  }
+}
+
+/* ===== Leaderboard ===== */
+function loadLeaderboard() {
+  const raw = localStorage.getItem('moto_lb') || '[]';
+  try { return JSON.parse(raw); } catch { return []; }
+}
+function saveLeaderboard(entry) {
+  const lb = loadLeaderboard();
+  lb.push(entry);
+  lb.sort((a,b) => b.score - a.score);
+  localStorage.setItem('moto_lb', JSON.stringify(lb.slice(0,10)));
+}
+function renderLeaderboard() {
+  const lb = loadLeaderboard();
+  overlays.leaderboard.innerHTML = '';
+  lb.forEach((e,i) => {
+    const li = document.createElement('li');
+    li.textContent = `#${i+1} — ${e.score} pts | ${e.distance} m | ${e.time} s | ${e.mode} | ${e.date}`;
+    overlays.leaderboard.appendChild(li);
+  });
+}
+
+/* ===== Settings toggles ===== */
+document.getElementById('toggleContrast').addEventListener('change', e => {
+  settings.highContrast = e.target.checked;
+  document.body.classList.toggle('high-contrast', settings.highContrast);
+});
+document.getElementById('toggleMotion').addEventListener('change', e => {
+  settings.reducedMotion = e.target.checked;
+  document.body.classList.toggle('reduced-motion', settings.reducedMotion);
+});
+document.getElementById('toggleText').addEventListener('change', e => {
+  settings.largeText = e.target.checked;
+  document.body.classList.toggle('large-text', settings.largeText);
+});
+document.getElementById('toggleEngine').addEventListener('change', e => {
+  settings.engineSound = e.target.checked;
+  if (game.running && !game.paused && settings.engineSound) playEngine();
+  else stopEngine();
+});
+
+/* ===== Mode buttons ===== */
+modeButtons.forEach(b => {
+  b.addEventListener('click', () => {
+    modeButtons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    applyMode(b.dataset.mode);
+  });
+});
+
+/* ===== Affirmation buttons ===== */
+Array.from(document.querySelectorAll('[data-affirm]')).forEach(btn => {
+  btn.addEventListener('click', () => {
+    const msg = btn.getAttribute('data-affirm');
+    affirmBox.innerHTML = `<strong>Affirmation:</strong> ${msg}`;
+    affirmText.textContent = msg;
+    playBeep(660, 0.06);
+  });
+});
+
+/* ===== Buttons ===== */
+pauseBtn.addEventListener('click', togglePause);
+resumeBtn.addEventListener('click', togglePause);
+restartBtn.addEventListener('click', () => { overlays.pause.classList.remove('show'); startGame(); });
+startBtn.addEventListener('click', () => { overlays.end.classList.remove('show'); startGame(); });
+playAgainBtn.addEventListener('click', () => { overlays.end.classList.remove('show'); startGame(); });
+clearLbBtn.addEventListener('click', () => { localStorage.removeItem('moto_lb'); renderLeaderboard(); });
+
+/* ===== Frame driver ===== */
+function driver() {
+  if (game.running && !game.paused) handleInput();
+  requestAnimationFrame(driver);
+}
+driver();
+
+/* ===== Init ===== */
+applyMode(options.mode);
+renderLeaderboard();
+</script>
+</body>
+</html>
+
