@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Festive Holiday Calendar</title>
+  <style>
+    :root {
+      /* Default theme (neutral winter) */
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #22d3ee;
+      --accent-2: #a78bfa;
+      --badge-bg: #374151;
+      --focus: #ffffff;
+    }
+
+    /* Christmas theme: green/red */
+    .theme-christmas {
+      --bg: #062e0a;
+      --panel: #0c3b12;
+      --text: #f0fdf4;
+      --muted: #bbf7d0;
+      --accent: #16a34a;   /* green */
+      --accent-2: #dc2626; /* red */
+      --badge-bg: #14532d;
+      --focus: #fef2f2;
+    }
+
+    /* Halloween theme: orange/purple */
+    .theme-halloween {
+      --bg: #1a1124;
+      --panel: #241132;
+      --text: #f8fafc;
+      --muted: #d1d5db;
+      --accent: #ea580c;   /* orange */
+      --accent-2: #7c3aed; /* purple */
+      --badge-bg: #2a1840;
+      --focus: #ffedd5;
+    }
+
+    /* 4th of July theme: red/white/blue */
+    .theme-july4 {
+      --bg: #0b1a39;
+      --panel: #0f274f;
+      --text: #f8fafc;     /* white */
+      --muted: #cbd5e1;
+      --accent: #1d4ed8;   /* blue */
+      --accent-2: #dc2626; /* red */
+      --badge-bg: #1e3a8a;
+      --focus: #ffffff;
+    }
+
+    /* Layout */
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(135deg, var(--bg), #000);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+
+    .container {
+      width: min(920px, 94vw);
+      padding: 24px;
+    }
+
+    .calendar {
+      background: var(--panel);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Header */
+    .calendar-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .month-title {
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      justify-self: center;
+    }
+
+    .nav button, .themes button {
+      background: var(--badge-bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+    }
+
+    .nav button:hover, .themes button:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    .nav button:focus-visible, .themes button:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .themes {
+      display: flex;
+      gap: 8px;
+      justify-self: end;
+      flex-wrap: wrap;
+    }
+
+    .themes .tag {
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    /* Weekdays row */
+    .weekdays, .weeks {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .weekdays {
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .weekday {
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    /* Day cells */
+    .weeks {
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .day {
+      background: var(--panel);
+      min-height: 92px;
+      padding: 10px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: relative;
+    }
+
+    .day.inactive {
+      opacity: 0.35;
+    }
+
+    .date {
+      font-weight: 700;
+    }
+
+    .badge {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: var(--text);
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .legend {
+      display: flex;
+      gap: 12px;
+      padding: 12px 20px 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      align-items: center;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--badge-bg);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+    }
+
+    .chip .dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border: 1px solid rgba(0,0,0,0.2);
+    }
+
+    /* Focus state for day cells */
+    .day:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: -3px;
+    }
+
+    /* Small screen tweaks */
+    @media (max-width: 600px) {
+      .day { min-height: 72px; padding: 8px; }
+      .month-title { font-size: 1rem; }
+      .badge { font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="calendar theme-christmas" aria-label="Festive calendar">
+      <header class="calendar-header">
+        <div class="month-title" id="monthTitle" aria-live="polite">Month Year</div>
+        <div class="nav" role="group" aria-label="Month navigation">
+          <button id="prevBtn" aria-label="Previous month">←</button>
+          <button id="todayBtn" aria-label="Go to current month">Today</button>
+          <button id="nextBtn" aria-label="Next month">→</button>
+        </div>
+        <div class="themes" role="group" aria-label="Theme selector">
+          <button data-theme="theme-christmas" class="tag" aria-label="Christmas theme">Christmas</button>
+          <button data-theme="theme-halloween" aria-label="Halloween theme">Halloween</button>
+          <button data-theme="theme-july4" aria-label="4th of July theme">4th of July</button>
+          <button data-theme="" aria-label="Neutral theme">Neutral</button>
+        </div>
+      </header>
+
+      <div class="weekdays" aria-hidden="true">
+        <div class="weekday">Sun</div>
+        <div class="weekday">Mon</div>
+        <div class="weekday">Tue</div>
+        <div class="weekday">Wed</div>
+        <div class="weekday">Thu</div>
+        <div class="weekday">Fri</div>
+        <div class="weekday">Sat</div>
+      </div>
+
+      <div id="weeks" class="weeks" role="grid" aria-label="Month days"></div>
+
+      <footer class="legend">
+        <span class="chip"><span class="dot"></span> Holiday</span>
+        <span class="chip">Use arrow buttons to change months</span>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    const monthTitle = document.getElementById('monthTitle');
+    const weeksEl = document.getElementById('weeks');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const todayBtn = document.getElementById('todayBtn');
+    const themeButtons = document.querySelectorAll('.themes button');
+    const calendarEl = document.querySelector('.calendar');
+
+    // Holiday map: month index (0-11) -> array of {day, label}
+    const HOLIDAYS = {
+      0: [],  // Jan
+      1: [],  // Feb
+      2: [],  // Mar
+      3: [],  // Apr
+      4: [],  // May
+      5: [{ day: 14, label: "Flag Day" }], // Jun
+      6: [{ day: 4, label: "Independence Day" }], // Jul
+      7: [],  // Aug
+      8: [{ day: 31, label: "Halloween" }], // Oct
+      9: [],  // Sep (index 8 is Oct, 9 is Nov)
+      10: [{ day: 25, label: "Christmas" }], // Dec (index 11)
+      11: []
+    };
+
+    // Note: months are 0-11; we’ll render dynamically
+    let viewDate = new Date();
+
+    function getMonthMatrix(year, month) {
+      const firstDay = new Date(year, month, 1);
+      const startWeekday = firstDay.getDay(); // 0=Sun
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const prevMonthDays = new Date(year, month, 0).getDate();
+      const cells = [];
+
+      // Leading inactive days (from previous month)
+      for (let i = 0; i < startWeekday; i++) {
+        cells.push({
+          date: new Date(year, month - 1, prevMonthDays - startWeekday + 1 + i),
+          inactive: true
+        });
+      }
+
+      // Current month days
+      for (let d = 1; d <= daysInMonth; d++) {
+        cells.push({
+          date: new Date(year, month, d),
+          inactive: false
+        });
+      }
+
+      // Trailing inactive days (fill to 6 rows of 7 = 42 cells)
+      while (cells.length % 7 !== 0) {
+        const nextDay = cells.length - (startWeekday + daysInMonth) + 1;
+        cells.push({
+          date: new Date(year, month + 1, nextDay),
+          inactive: true
+        });
+      }
+
+      // Ensure 6 rows for consistent height
+      while (cells.length < 42) {
+        const last = cells[cells.length - 1].date;
+        const next = new Date(last);
+        next.setDate(last.getDate() + 1);
+        cells.push({ date: next, inactive: true });
+      }
+
+      return cells;
+    }
+
+    function formatMonthYear(date) {
+      return date.toLocaleString(undefined, { month: 'long', year: 'numeric' });
+    }
+
+    function isHoliday(date) {
+      const month = date.getMonth();
+      const day = date.getDate();
+      const list = HOLIDAYS[month] || [];
+      const match = list.find(h => h.day === day);
+      return match ? match.label : null;
+    }
+
+    function render() {
+      const year = viewDate.getFullYear();
+      const month = viewDate.getMonth();
+
+      monthTitle.textContent = formatMonthYear(viewDate);
+      weeksEl.innerHTML = '';
+
+      const cells = getMonthMatrix(year, month);
+      cells.forEach((cell, i) => {
+        const d = cell.date.getDate();
+        const holidayLabel = isHoliday(cell.date);
+
+        const div = document.createElement('div');
+        div.className = 'day' + (cell.inactive ? ' inactive' : '');
+        div.setAttribute('role', 'gridcell');
+        div.setAttribute('tabindex', cell.inactive ? '-1' : '0');
+
+        const dateEl = document.createElement('div');
+        dateEl.className = 'date';
+        dateEl.textContent = d;
+
+        div.appendChild(dateEl);
+
+        if (holidayLabel && !cell.inactive) {
+          const badge = document.createElement('div');
+          badge.className = 'badge';
+          badge.textContent = holidayLabel;
+          div.appendChild(badge);
+        }
+
+        weeksEl.appendChild(div);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      viewDate.setMonth(viewDate.getMonth() - 1);
+      render();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      viewDate.setMonth(viewDate.getMonth() + 1);
+      render();
+    });
+
+    todayBtn.addEventListener('click', () => {
+      viewDate = new Date();
+      render();
+    });
+
+    themeButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        calendarEl.classList.remove('theme-christmas', 'theme-halloween', 'theme-july4');
+        const theme = btn.getAttribute('data-theme');
+        if (theme) calendarEl.classList.add(theme);
+        else calendarEl.classList.add(''); // neutral (root vars)
+      });
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
