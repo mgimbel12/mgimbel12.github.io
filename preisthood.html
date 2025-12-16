@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Priesthood Blessing | Ceremony Overlay</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1c1c1c;
+      --muted: #5b5b5b;
+      --accent: #2f6df6;
+      --accent-2: #2fb986;
+      --border: #e4e4e4;
+      --panel: #ffffff;
+      --focus: rgba(47, 109, 246, 0.25);
+    }
+    [data-theme="dark"] {
+      --bg: #0f1115;
+      --text: #e7e7ea;
+      --muted: #b6b6bf;
+      --accent: #6aa0ff;
+      --accent-2: #50d3a9;
+      --border: #2a2e37;
+      --panel: #151821;
+      --focus: rgba(106, 160, 255, 0.18);
+    }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      margin: 0;
+    }
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    button, select {
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button:hover, select:hover { border-color: var(--accent); }
+    button.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    button.success { background: var(--accent-2); color: white; border-color: var(--accent-2); }
+    button.ghost { background: transparent; }
+    .grid {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+    .meta {
+      display: grid;
+      gap: 8px;
+    }
+    label {
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+    textarea, .blessing {
+      width: 100%;
+      min-height: 180px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px;
+      background: transparent;
+      color: var(--text);
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+    .blessing[contenteditable="true"]:focus,
+    textarea:focus {
+      outline: 3px solid var(--focus);
+      border-color: var(--accent);
+    }
+    .steps {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0 12px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+    .chip.active { background: var(--accent); color: white; border-color: var(--accent); }
+    .chip.done { background: var(--accent-2); color: white; border-color: var(--accent-2); }
+    .reading {
+      position: relative;
+      padding: 20px;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      min-height: 240px;
+    }
+    .line {
+      margin: 0 0 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      transition: background 0.2s ease;
+    }
+    .line.active { background: rgba(47, 109, 246, 0.08); }
+    .line small { color: var(--muted); display: block; margin-top: 4px; }
+    .affirmation {
+      margin-top: 8px;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(80, 211, 169, 0.12);
+      border: 1px solid var(--border);
+      display: none;
+    }
+    .affirmation.show { display: block; }
+    .footer-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .ceremony-mode {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(47,109,246,0.08), rgba(80,211,169,0.08)), var(--bg);
+      backdrop-filter: blur(2px);
+      display: none;
+      padding: 24px;
+      overflow-y: auto;
+      z-index: 999;
+    }
+    .ceremony-mode.active { display: block; }
+    .ceremony-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .focus-ring {
+      border: 2px solid var(--accent);
+      border-radius: 18px;
+      padding: 18px;
+      animation: breathe 6s ease-in-out infinite;
+    }
+    @keyframes breathe {
+      0% { box-shadow: 0 0 0 0 rgba(47,109,246,0.5); }
+      50% { box-shadow: 0 0 0 16px rgba(47,109,246,0.0); }
+      100% { box-shadow: 0 0 0 0 rgba(47,109,246,0.5); }
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .sr-only {
+      position: absolute !important;
+      height: 1px; width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap; border: 0; padding: 0; margin: -1px;
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="container" role="main">
+    <header>
+      <h1>Priesthood Blessing — Ceremony Overlay</h1>
+      <div class="controls" aria-label="Global controls">
+        <button id="toggleTheme" aria-pressed="false">Theme: Light</button>
+        <select id="fontSize" aria-label="Font size">
+          <option value="100">Font: 100%</option>
+          <option value="112">Font: 112%</option>
+          <option value="125">Font: 125%</option>
+          <option value="140">Font: 140%</option>
+          <option value="160">Font: 160%</option>
+        </select>
+        <button id="print" class="ghost">Print</button>
+        <button id="copy" class="ghost">Copy text</button>
+        <button id="save" class="ghost">Save to file</button>
+        <button id="ceremony" class="primary">Start ceremony mode</button>
+      </div>
+    </header>
+
+    <div class="grid" aria-label="Editor and reader layout">
+      <section class="panel" aria-labelledby="editor-heading">
+        <h2 id="editor-heading">Editor</h2>
+        <div class="meta">
+          <div>
+            <label for="title">Title</label>
+            <input id="title" type="text" value="Blessing for the Sick and Needy" aria-label="Blessing title"
+                   style="width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); background:transparent; color:var(--text);" />
+          </div>
+          <div>
+            <label for="phase">Blessing phase</label>
+            <div class="steps" role="tablist" aria-label="Blessing phases">
+              <button class="chip active" role="tab" aria-selected="true" data-phase="anointing">Anointing</button>
+              <button class="chip" role="tab" aria-selected="false" data-phase="sealing">Sealing</button>
+              <button class="chip" role="tab" aria-selected="false" data-phase="pronouncing">Pronouncing</button>
+            </div>
+          </div>
+          <div>
+            <label for="editorText">Blessing text (editable)</label>
+            <div id="editorText" class="blessing" contenteditable="true" aria-label="Editable blessing text">
+By the authority of the Melchizedek Priesthood, and in the sacred name of Jesus Christ, we lay our hands upon your head to seal the anointing and to pronounce a blessing.
+
+Our Heavenly Father is mindful of you. He knows the desires of your heart, the pain you carry, and the faith with which you have come seeking His help. We bless you that your body may be strengthened and healed according to His will. May the power of the Atonement of Jesus Christ flow into your life, bringing relief from affliction and renewal of spirit.
+
+We bless you with peace in your mind and comfort in your soul. May you feel the presence of the Holy Ghost resting upon you, calming your fears and lifting your burdens. We bless you with courage to endure trials and with assurance that you are not alone—that angels are round about you to bear you up.
+
+We bless you with clarity in your thoughts, that you may know the Lord’s will for you and recognize His hand in your life. We bless you with patience and hope, that even in times of waiting or uncertainty, you will feel His love guiding you forward.
+
+We bless your home and family, that they may be strengthened as they support you, and that together you may feel unity, love, and divine protection. May your faith increase, and may you be a light to others who are in need, sharing the testimony of God’s goodness and mercy.
+
+We seal these blessings upon you, according to your faith and the will of the Lord, in the name of Jesus Christ, amen.
+            </div>
+          </div>
+          <div>
+            <label for="affirmations">Affirmations (one per line)</label>
+            <textarea id="affirmations" aria-label="Affirmations">You are known and loved of God.
+Angels are round about you to bear you up.
+Peace in Christ is yours today.
+Strength will meet you in this moment.
+            </textarea>
+          </div>
+        </div>
+        <div class="footer-controls">
+          <button id="inject" class="success">Load into reader</button>
+          <button id="toggleAffirm" class="ghost">Toggle affirmations</button>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="reader-heading">
+        <h2 id="reader-heading">Reader</h2>
+        <p class="muted">Keyboard: Arrow keys navigate lines • A toggles affirmations • T toggles theme • C ceremony mode • +/- font size</p>
+        <div id="reading" class="reading" aria-live="polite">
+          <div id="lines"></div>
+          <div id="affirmation" class="affirmation" aria-hidden="true"></div>
+          <div class="footer-controls">
+            <button id="prev" class="ghost" aria-label="Previous line">← Previous</button>
+            <button id="next" class="primary" aria-label="Next line">Next →</button>
+            <button id="markPhase" class="ghost" aria-label="Mark phase complete">Mark phase complete</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Ceremony Mode Overlay -->
+  <div id="ceremonyOverlay" class="ceremony-mode" aria-hidden="true">
+    <div class="ceremony-inner">
+      <h2 id="ceremonyTitle">Blessing for the Sick and Needy</h2>
+      <div class="focus-ring">
+        <div id="ceremonyLines"></div>
+        <div id="ceremonyAffirm" class="affirmation" aria-hidden="true"></div>
+        <div class="footer-controls" style="margin-top:16px;">
+          <button id="ceremonyPrev" class="ghost">← Previous</button>
+          <button id="ceremonyNext" class="primary">Next →</button>
+          <button id="exitCeremony" class="ghost">Exit</button>
+        </div>
+        <p class="muted">Tip: Read slowly. Pause for breath and reverence. Let promises arise naturally.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const state = {
+      theme: 'light',
+      fontSize: 100,
+      phase: 'anointing',
+      phasesDone: { anointing: false, sealing: false, pronouncing: false },
+      lines: [],
+      index: 0,
+      affirmations: [],
+      showAffirm: false,
+    };
+
+    const el = {
+      toggleTheme: document.getElementById('toggleTheme'),
+      fontSize: document.getElementById('fontSize'),
+      print: document.getElementById('print'),
+      copy: document.getElementById('copy'),
+      save: document.getElementById('save'),
+      ceremony: document.getElementById('ceremony'),
+      title: document.getElementById('title'),
+      phaseChips: Array.from(document.querySelectorAll('.chip')),
+      editorText: document.getElementById('editorText'),
+      affirmations: document.getElementById('affirmations'),
+      inject: document.getElementById('inject'),
+      toggleAffirm: document.getElementById('toggleAffirm'),
+      reading: document.getElementById('reading'),
+      lines: document.getElementById('lines'),
+      affirm: document.getElementById('affirmation'),
+      prev: document.getElementById('prev'),
+      next: document.getElementById('next'),
+      markPhase: document.getElementById('markPhase'),
+      ceremonyOverlay: document.getElementById('ceremonyOverlay'),
+      ceremonyTitle: document.getElementById('ceremonyTitle'),
+      ceremonyLines: document.getElementById('ceremonyLines'),
+      ceremonyAffirm: document.getElementById('ceremonyAffirm'),
+      ceremonyPrev: document.getElementById('ceremonyPrev'),
+      ceremonyNext: document.getElementById('ceremonyNext'),
+      exitCeremony: document.getElementById('exitCeremony'),
+      body: document.body
+    };
+
+    function renderLines(target, linesArr, activeIndex) {
+      target.innerHTML = '';
+      linesArr.forEach((line, i) => {
+        const div = document.createElement('div');
+        div.className = 'line' + (i === activeIndex ? ' active' : '');
+        div.setAttribute('role', 'paragraph');
+        div.textContent = line.text;
+        const meta = document.createElement('small');
+        meta.textContent = line.meta || '';
+        div.appendChild(meta);
+        target.appendChild(div);
+      });
+    }
+
+    function parseEditorText() {
+      // Split on blank lines for paragraphs
+      const raw = el.editorText.innerText
+        .split(/\n{2,}/)
+        .map(s => s.trim())
+        .filter(Boolean);
+      state.lines = raw.map((t, idx) => ({
+        text: t,
+        meta: idx === 0 ? 'Authority & sealing' :
+              idx === raw.length - 1 ? 'Sealing in the name of Jesus Christ' :
+              'Blessing'
+      }));
+      state.index = 0;
+    }
+
+    function parseAffirmations() {
+      state.affirmations = el.affirmations.value
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+
+    function updateAffirmation(target) {
+      if (!state.showAffirm || state.affirmations.length === 0) {
+        target.classList.remove('show');
+        target.setAttribute('aria-hidden', 'true');
+        target.textContent = '';
+        return;
+      }
+      const msg = state.affirmations[state.index % state.affirmations.length];
+      target.textContent = msg;
+      target.classList.add('show');
+      target.setAttribute('aria-hidden', 'false');
+    }
+
+    function toggleTheme() {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      el.body.setAttribute('data-theme', state.theme);
+      el.toggleTheme.textContent = 'Theme: ' + (state.theme === 'light' ? 'Light' : 'Dark');
+      el.toggleTheme.setAttribute('aria-pressed', state.theme === 'dark');
+    }
+
+    function setFontSize(val) {
+      state.fontSize = parseInt(val, 10);
+      document.documentElement.style.fontSize = state.fontSize + '%';
+    }
+
+    function markPhaseDone() {
+      state.phasesDone[state.phase] = true;
+      el.phaseChips.forEach(chip => {
+        const key = chip.dataset.phase;
+        chip.classList.toggle('done', !!state.phasesDone[key]);
+      });
+    }
+
+    function setPhase(key) {
+      state.phase = key;
+      el.phaseChips.forEach(chip => {
+        chip.classList.toggle('active', chip.dataset.phase === key);
+        chip.setAttribute('aria-selected', chip.dataset.phase === key ? 'true' : 'false');
+      });
+    }
+
+    function toNext() {
+      if (state.index < state.lines.length - 1) {
+        state.index++;
+      }
+      renderLines(el.lines, state.lines, state.index);
+      updateAffirmation(el.affirm);
+      renderLines(el.ceremonyLines, state.lines, state.index);
+      updateAffirmation(el.ceremonyAffirm);
+    }
+
+    function toPrev() {
+      if (state.index > 0) {
+        state.index--;
+      }
+      renderLines(el.lines, state.lines, state.index);
+      updateAffirmation(el.affirm);
+      renderLines(el.ceremonyLines, state.lines, state.index);
+      updateAffirmation(el.ceremonyAffirm);
+    }
+
+    function enterCeremony() {
+      el.ceremonyOverlay.classList.add('active');
+      el.ceremonyOverlay.setAttribute('aria-hidden', 'false');
+      el.ceremonyTitle.textContent = el.title.value || 'Priesthood Blessing';
+      renderLines(el.ceremonyLines, state.lines, state.index);
+      updateAffirmation(el.ceremonyAffirm);
+    }
+
+    function exitCeremony() {
+      el.ceremonyOverlay.classList.remove('active');
+      el.ceremonyOverlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function copyText() {
+      const text = [el.title.value, ...state.lines.map(l => l.text)].join('\n\n');
+      navigator.clipboard.writeText(text).then(() => {
+        el.copy.textContent = 'Copied!';
+        setTimeout(() => el.copy.textContent = 'Copy text', 1200);
+      });
+    }
+
+    function saveToFile() {
+      const blob = new Blob([JSON.stringify({
+        title: el.title.value,
+        phase: state.phase,
+        lines: state.lines,
+        affirmations: state.affirmations
+      }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = (el.title.value || 'blessing') + '.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    // Event wiring
+    el.toggleTheme.addEventListener('click', toggleTheme);
+    el.fontSize.addEventListener('change', e => setFontSize(e.target.value));
+    el.print.addEventListener('click', () => window.print());
+    el.copy.addEventListener('click', copyText);
+    el.save.addEventListener('click', saveToFile);
+    el.inject.addEventListener('click', () => {
+      parseEditorText();
+      parseAffirmations();
+      renderLines(el.lines, state.lines, state.index);
+      updateAffirmation(el.affirm);
+    });
+    el.toggleAffirm.addEventListener('click', () => {
+      state.showAffirm = !state.showAffirm;
+      updateAffirmation(el.affirm);
+      updateAffirmation(el.ceremonyAffirm);
+      el.toggleAffirm.textContent = state.showAffirm ? 'Hide affirmations' : 'Show affirmations';
+    });
+    el.prev.addEventListener('click', toPrev);
+    el.next.addEventListener('click', toNext);
+    el.markPhase.addEventListener('click', markPhaseDone);
+    el.ceremony.addEventListener('click', () => {
+      if (state.lines.length === 0) { parseEditorText(); parseAffirmations(); }
+      enterCeremony();
+    });
+    el.exitCeremony.addEventListener('click', exitCeremony);
+    el.ceremonyPrev.addEventListener('click', toPrev);
+    el.ceremonyNext.addEventListener('click', toNext);
+
+    el.phaseChips.forEach(chip => chip.addEventListener('click', () => setPhase(chip.dataset.phase)));
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { toNext(); }
+      else if (e.key === 'ArrowLeft') { toPrev(); }
+      else if (e.key.toLowerCase() === 'a') {
+        state.showAffirm = !state.showAffirm;
+        updateAffirmation(el.affirm);
+        updateAffirmation(el.ceremonyAffirm);
+      }
+      else if (e.key.toLowerCase() === 't') { toggleTheme(); }
+      else if (e.key.toLowerCase() === 'c') { enterCeremony(); }
+      else if (e.key === '+') { setFontSize(Math.min(state.fontSize + 12, 180)); el.fontSize.value = state.fontSize; }
+      else if (e.key === '-') { setFontSize(Math.max(state.fontSize - 12, 90)); el.fontSize.value = state.fontSize; }
+    });
+
+    // Initial render
+    parseEditorText();
+    parseAffirmations();
+    renderLines(el.lines, state.lines, state.index);
+    updateAffirmation(el.affirm);
+  </script>
+</body>
+</html>
