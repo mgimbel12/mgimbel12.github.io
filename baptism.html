@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LDS Baptism Program</title>
+  <style>
+    :root {
+      --bg: #f7fafc;
+      --text: #1f2a44;
+      --muted: #5b6b84;
+      --card: #ffffff;
+      --accent: #2b6cb0;
+      --accent-2: #63b3ed;
+      --border: #e2e8f0;
+      --shadow: 0 6px 18px rgba(0,0,0,0.08);
+      --font: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --leading: 1.5;
+    }
+
+    /* High contrast theme variables */
+    .high-contrast {
+      --bg: #ffffff;
+      --text: #000000;
+      --muted: #222222;
+      --card: #ffffff;
+      --accent: #000000;
+      --accent-2: #000000;
+      --border: #000000;
+    }
+
+    html { font-size: 16px; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      line-height: var(--leading);
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header.program-header {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    /* Water motif */
+    .motif-water::before {
+      content: "";
+      position: absolute;
+      inset: -60% -10% auto -10%;
+      height: 180%;
+      background:
+        radial-gradient(120px 60px at 20% 40%, rgba(99,179,237,0.25), transparent 60%),
+        radial-gradient(160px 80px at 60% 30%, rgba(43,108,176,0.18), transparent 60%),
+        radial-gradient(100px 50px at 80% 70%, rgba(99,179,237,0.20), transparent 60%);
+      transform: rotate(-3deg);
+      pointer-events: none;
+    }
+
+    /* Light motif */
+    .motif-light::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1200px 400px at 50% -10%, rgba(255,255,255,0.8), transparent 50%),
+        radial-gradient(900px 300px at 50% -20%, rgba(99,179,237,0.15), transparent 55%);
+      pointer-events: none;
+    }
+
+    .program-title {
+      margin: 0;
+      font-size: 1.75rem;
+      letter-spacing: 0.3px;
+    }
+
+    .program-subtitle {
+      margin: 8px 0 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.125rem;
+      color: var(--accent);
+      letter-spacing: 0.2px;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px dashed var(--border);
+    }
+    .item:first-child { border-top: none; }
+
+    .item .label { color: var(--muted); }
+    .item .value { color: var(--text); }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-right: 8px;
+      margin-top: 6px;
+    }
+
+    .scripture, .quote {
+      background: #f9fbff;
+      border-left: 4px solid var(--accent-2);
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: var(--text);
+      margin-top: 10px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin: 14px 0;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .btn.active { border-color: var(--accent); color: var(--accent); }
+
+    /* Large text toggle */
+    .large-text {
+      font-size: 18px;
+    }
+
+    /* Print styles */
+    @media print {
+      body { background: #ffffff; }
+      .controls { display: none !important; }
+      .container { max-width: 100%; padding: 6mm; }
+      header.program-header, .card {
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+      .grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+      .tag { border-color: #000; color: #000; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="page-title">
+    <div class="controls" aria-label="Display settings">
+      <button class="btn" id="theme-water" aria-pressed="true">Water theme</button>
+      <button class="btn" id="theme-light" aria-pressed="false">Light theme</button>
+      <button class="btn" id="theme-neutral" aria-pressed="false">Neutral</button>
+      <button class="btn" id="toggle-contrast" aria-pressed="false">High contrast</button>
+      <button class="btn" id="toggle-text" aria-pressed="false">Large text</button>
+      <button class="btn" id="toggle-lang" aria-pressed="false">Español</button>
+      <button class="btn" onclick="window.print()">Print</button>
+    </div>
+
+    <header class="program-header motif-water" id="header" role="banner">
+      <h1 class="program-title" id="page-title">Baptism Program</h1>
+      <p class="program-subtitle" id="subtitle">The Church of Jesus Christ of Latter-day Saints</p>
+    </header>
+
+    <section class="grid" aria-label="Program details and schedule">
+      <article class="card" aria-labelledby="details-title">
+        <h2 id="details-title">Details</h2>
+        <div class="item">
+          <div class="label">Candidate</div>
+          <div class="value" id="candidate"></div>
+        </div>
+        <div class="item">
+          <div class="label">Date & time</div>
+          <div class="value" id="datetime"></div>
+        </div>
+        <div class="item">
+          <div class="label">Location</div>
+          <div class="value" id="location"></div>
+        </div>
+        <div class="item">
+          <div class="label">Presiding</div>
+          <div class="value" id="presiding"></div>
+        </div>
+        <div class="item">
+          <div class="label">Conducting</div>
+          <div class="value" id="conducting"></div>
+        </div>
+        <div class="item">
+          <div class="label">Witnesses</div>
+          <div class="value" id="witnesses"></div>
+        </div>
+        <div class="item">
+          <div class="label">Officiator</div>
+          <div class="value" id="officiator"></div>
+        </div>
+        <div class="scripture" id="scripture"></div>
+        <div class="quote" id="quote"></div>
+        <div id="tags"></div>
+      </article>
+
+      <article class="card" aria-labelledby="schedule-title">
+        <h2 id="schedule-title">Order of service</h2>
+        <div id="schedule"></div>
+      </article>
+
+      <article class="card" aria-labelledby="confirmation-title">
+        <h2 id="confirmation-title">Confirmation</h2>
+        <div class="item">
+          <div class="label">Confirming</div>
+          <div class="value" id="confirming"></div>
+        </div>
+        <div class="item">
+          <div class="label">Circle</div>
+          <div class="value" id="circle"></div>
+        </div>
+        <div class="item">
+          <div class="label">Gift of the Holy Ghost</div>
+          <div class="value">Bestowed during confirmation</div>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="notes-title">
+        <h2 id="notes-title">Announcements & notes</h2>
+        <div id="notes"></div>
+        <div class="item">
+          <div class="label">Photos</div>
+          <div class="value" id="photos"></div>
+        </div>
+        <div class="item">
+          <div class="label">Refreshments</div>
+          <div class="value" id="refreshments"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    // CONFIG: Edit this object to customize the program
+    const config = {
+      language: "en", // "en" or "es"
+      theme: "water", // "water" | "light" | "neutral"
+      largeText: false,
+      highContrast: false,
+
+      header: {
+        title_en: "Baptism Program",
+        title_es: "Programa de Bautismo",
+        subtitle_en: "The Church of Jesus Christ of Latter-day Saints",
+        subtitle_es: "La Iglesia de Jesucristo de los Santos de los Últimos Días"
+      },
+
+      details: {
+        candidate: "Ava Marie Jensen",
+        datetime: "Saturday, January 10, 2026 • 10:00 AM",
+        location: "Henderson Nevada Stake Center • Baptismal Font",
+        presiding: "Bishop Thomas Reed",
+        conducting: "Primary President: Emily Carter",
+        witnesses: ["Daniel Ortiz", "Michael Lee"],
+        officiator: "Father: Jared Jensen",
+        scripture_en: "“Come unto Christ, and be perfected in him.” — Moroni 10:32",
+        scripture_es: "“Venid a Cristo y perfeccionaos en él.” — Moroni 10:32",
+        quote_en: "Baptism is a covenant of belonging and beginning.",
+        quote_es: "El bautismo es un convenio de pertenencia y comienzo.",
+        tags: ["Family", "Covenants", "Community"]
+      },
+
+      schedule: [
+        { label_en: "Prelude", label_es: "Preludio", value: "Pianist: Sarah Kim" },
+        { label_en: "Welcome", label_es: "Bienvenida", value: "Conducting: Emily Carter" },
+        { label_en: "Opening hymn", label_es: "Himno de apertura", value: "“When I Am Baptized” (Children’s Songbook #103)" },
+        { label_en: "Opening prayer", label_es: "Oración de apertura", value: "Grandmother: Linda Parker" },
+        { label_en: "Talk on baptism", label_es: "Discurso sobre el bautismo", value: "Primary Teacher: Nate Sullivan" },
+        { label_en: "Musical number", label_es: "Número musical", value: "“I Feel My Savior’s Love” — Primary Choir" },
+        { label_en: "Baptism ordinance", label_es: "Ordenanza de bautismo", value: "Performed by Jared Jensen; witnesses: Ortiz & Lee" },
+        { label_en: "Confirmation", label_es: "Confirmación", value: "Immediately following the baptism" },
+        { label_en: "Talk on Holy Ghost", label_es: "Discurso sobre el Espíritu Santo", value: "Young Women President: Mia Rodriguez" },
+        { label_en: "Closing hymn", label_es: "Himno de clausura", value: "“I Am a Child of God” (Hymns #301)" },
+        { label_en: "Closing prayer", label_es: "Oración de clausura", value: "Friend: Jackson Wright" },
+        { label_en: "Benediction & fellowship", label_es: "Bendición y convivencia", value: "Please join us in the cultural hall" }
+      ],
+
+      confirmation: {
+        confirming: "Jared Jensen",
+        circle: ["Bishop Reed", "Daniel Ortiz", "Michael Lee", "Grandfather: Mark Jensen"]
+      },
+
+      notes: [
+        "Please be reverent near the font area.",
+        "Family photo to follow in the chapel foyer."
+      ],
+
+      photos: "Kindly avoid flash during the ordinance; photos welcome after.",
+      refreshments: "Light refreshments served in the cultural hall."
+    };
+
+    // Helpers for language
+    function t(en, es) {
+      return config.language === "es" ? es : en;
+    }
+
+    // Render header
+    function renderHeader() {
+      document.querySelector(".program-title").textContent =
+        t(config.header.title_en, config.header.title_es);
+      document.querySelector(".program-subtitle").textContent =
+        t(config.header.subtitle_en, config.header.subtitle_es);
+    }
+
+    // Render details
+    function renderDetails() {
+      const d = config.details;
+      document.getElementById("candidate").textContent = d.candidate;
+      document.getElementById("datetime").textContent = d.datetime;
+      document.getElementById("location").textContent = d.location;
+      document.getElementById("presiding").textContent = d.presiding;
+      document.getElementById("conducting").textContent = d.conducting;
+      document.getElementById("witnesses").textContent = d.witnesses.join(", ");
+      document.getElementById("officiator").textContent = d.officiator;
+      document.getElementById("scripture").textContent = t(d.scripture_en, d.scripture_es);
+      document.getElementById("quote").textContent = t(d.quote_en, d.quote_es);
+
+      const tagsEl = document.getElementById("tags");
+      tagsEl.innerHTML = "";
+      d.tags.forEach(tag => {
+        const el = document.createElement("span");
+        el.className = "tag";
+        el.textContent = tag;
+        tagsEl.appendChild(el);
+      });
+    }
+
+    // Render schedule
+    function renderSchedule() {
+      const s = config.schedule;
+      const scheduleEl = document.getElementById("schedule");
+      scheduleEl.innerHTML = "";
+      s.forEach((row) => {
+        const wrap = document.createElement("div");
+        wrap.className = "item";
+
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = t(row.label_en, row.label_es);
+
+        const value = document.createElement("div");
+        value.className = "value";
+        value.textContent = row.value;
+
+        wrap.append(label, value);
+        scheduleEl.appendChild(wrap);
+      });
+    }
+
+    // Render confirmation
+    function renderConfirmation() {
+      const c = config.confirmation;
+      document.getElementById("confirming").textContent = c.confirming;
+      document.getElementById("circle").textContent = c.circle.join(", ");
+    }
+
+    // Render notes
+    function renderNotes() {
+      const notesEl = document.getElementById("notes");
+      notesEl.innerHTML = "";
+      config.notes.forEach(n => {
+        const wrap = document.createElement("div");
+        wrap.className = "item";
+        const label = document.createElement("div");
+        label.className = "label";
+        label.textContent = "Note";
+        const value = document.createElement("div");
+        value.className = "value";
+        value.textContent = n;
+        wrap.append(label, value);
+        notesEl.appendChild(wrap);
+      });
+      document.getElementById("photos").textContent = config.photos;
+      document.getElementById("refreshments").textContent = config.refreshments;
+    }
+
+    // Theme controls
+    function applyTheme() {
+      const header = document.getElementById("header");
+      header.classList.remove("motif-water", "motif-light");
+      if (config.theme === "water") header.classList.add("motif-water");
+      if (config.theme === "light") header.classList.add("motif-light");
+      if (config.highContrast) document.body.classList.add("high-contrast");
+      else document.body.classList.remove("high-contrast");
+      if (config.largeText) document.body.classList.add("large-text");
+      else document.body.classList.remove("large-text");
+    }
+
+    // Button setup
+    function setupControls() {
+      const buttons = {
+        water: document.getElementById("theme-water"),
+        light: document.getElementById("theme-light"),
+        neutral: document.getElementById("theme-neutral"),
+        contrast: document.getElementById("toggle-contrast"),
+        text: document.getElementById("toggle-text"),
+        lang: document.getElementById("toggle-lang")
+      };
+
+      function setActive(btnKey) {
+        Object.values(buttons).forEach(b => b.classList.remove("active"));
+        if (btnKey) buttons[btnKey].classList.add("active");
+      }
+
+      buttons.water.addEventListener("click", () => {
+        config.theme = "water";
+        setActive("water");
+        buttons.water.setAttribute("aria-pressed", "true");
+        buttons.light.setAttribute("aria-pressed", "false");
+        buttons.neutral.setAttribute("aria-pressed", "false");
+        applyTheme();
+      });
+
+      buttons.light.addEventListener("click", () => {
+        config.theme = "light";
+        setActive("light");
+        buttons.water.setAttribute("aria-pressed", "false");
+        buttons.light.setAttribute("aria-pressed", "true");
+        buttons.neutral.setAttribute("aria-pressed", "false");
+        applyTheme();
+      });
+
+      buttons.neutral.addEventListener("click", () => {
+        config.theme = "neutral";
+        setActive("neutral");
+        buttons.water.setAttribute("aria-pressed", "false");
+        buttons.light.setAttribute("aria-pressed", "false");
+        buttons.neutral.setAttribute("aria-pressed", "true");
+        applyTheme();
+      });
+
+      buttons.contrast.addEventListener("click", () => {
+        config.highContrast = !config.highContrast;
+        buttons.contrast.setAttribute("aria-pressed", String(config.highContrast));
+        applyTheme();
+      });
+
+      buttons.text.addEventListener("click", () => {
+        config.largeText = !config.largeText;
+        buttons.text.setAttribute("aria-pressed", String(config.largeText));
+        applyTheme();
+      });
+
+      buttons.lang.addEventListener("click", () => {
+        config.language = config.language === "en" ? "es" : "en";
+        buttons.lang.textContent = config.language === "en" ? "Español" : "English";
+        renderHeader();
+        renderDetails();
+        renderSchedule();
+      });
+
+      // Initialize active state
+      setActive(config.theme === "water" ? "water" :
+                config.theme === "light" ? "light" : "neutral");
+      buttons.contrast.setAttribute("aria-pressed", String(config.highContrast));
+      buttons.text.setAttribute("aria-pressed", String(config.largeText));
+      buttons.lang.textContent = config.language === "en" ? "Español" : "English");
+    }
+
+    function init() {
+      renderHeader();
+      renderDetails();
+      renderSchedule();
+      renderConfirmation();
+      renderNotes();
+      applyTheme();
+      setupControls();
+    }
+
+    // Kickoff
+    init();
+  </script>
+</body>
+</html>
