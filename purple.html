@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Purple IQ Calendar</title>
+  <style>
+    :root{
+      --purple-900:#3b0a57;  /* deep plum */
+      --purple-700:#5e2b8a;  /* royal purple */
+      --purple-500:#7b45b3;  /* vibrant accent */
+      --purple-300:#a57ad6;  /* lilac */
+      --purple-100:#efe7fb;  /* lavender wash */
+      --ink-900:#1a1b1e;
+      --ink-600:#4a4d57;
+      --white:#ffffff;
+      --focus:#ffcf4d;       /* warm gold focus ring */
+      --success:#4caf50;
+      --danger:#d9365b;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      color:var(--ink-900);
+      background:linear-gradient(135deg,var(--purple-100),#fff);
+    }
+
+    .wrap{
+      max-width:1000px;
+      margin:2rem auto;
+      padding:1rem;
+    }
+
+    .header{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:.75rem;
+      background:var(--white);
+      border:1px solid var(--purple-300);
+      border-radius:14px;
+      padding:1rem;
+      box-shadow:0 8px 24px rgba(91, 49, 153, .12);
+    }
+
+    .brand{
+      display:flex; align-items:center; gap:.75rem;
+    }
+    .brand .dot{
+      width:18px; height:18px; border-radius:50%;
+      background:linear-gradient(135deg,var(--purple-700),var(--purple-500));
+      box-shadow:0 0 0 4px var(--purple-100);
+    }
+    .title{
+      font-weight:700; letter-spacing:.2px; color:var(--purple-900);
+    }
+
+    .controls{
+      display:flex; flex-wrap:wrap; align-items:center; gap:.5rem;
+    }
+    .btn{
+      appearance:none; border:1px solid var(--purple-300);
+      background:var(--white); color:var(--purple-900);
+      padding:.55rem .8rem; border-radius:10px; cursor:pointer;
+      transition:.18s ease;
+    }
+    .btn:hover{border-color:var(--purple-500); box-shadow:0 4px 14px rgba(91,49,153,.16)}
+    .btn:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+    .select{
+      appearance:none; border:1px solid var(--purple-300);
+      background:var(--white); color:var(--ink-900);
+      padding:.55rem .8rem; border-radius:10px;
+    }
+    .select:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+
+    .grid{
+      margin-top:1rem;
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap:.5rem;
+    }
+
+    .weekday{
+      font-size:.85rem; color:var(--ink-600); text-transform:uppercase; letter-spacing:.08em;
+    }
+
+    .day{
+      position:relative;
+      background:var(--white);
+      border:1px solid var(--purple-300);
+      border-radius:12px;
+      min-height:84px;
+      padding:.6rem;
+      display:flex; flex-direction:column; gap:.35rem;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .day:hover{border-color:var(--purple-500); box-shadow:0 6px 18px rgba(91,49,153,.12)}
+    .day:focus{outline:none}
+    .day:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+    .day[data-today="true"]{
+      border-color:var(--purple-700);
+      box-shadow:inset 0 0 0 2px var(--purple-700);
+    }
+    .day[data-other-month="true"]{
+      opacity:.55;
+    }
+
+    .date-num{
+      font-weight:700; color:var(--purple-900);
+    }
+
+    .badges{
+      display:flex; flex-wrap:wrap; gap:.3rem;
+    }
+    .badge{
+      font-size:.75rem;
+      background:var(--purple-100);
+      color:var(--purple-700);
+      border:1px solid var(--purple-300);
+      border-radius:999px;
+      padding:.15rem .45rem;
+    }
+
+    .panel{
+      margin-top:1rem;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:1rem;
+    }
+    @media (max-width:820px){
+      .panel{grid-template-columns:1fr}
+    }
+
+    .card{
+      background:var(--white);
+      border:1px solid var(--purple-300);
+      border-radius:14px;
+      padding:1rem;
+      box-shadow:0 8px 24px rgba(91,49,153,.12);
+    }
+    .card h2, .card h3{
+      margin:.2rem 0 .6rem;
+      color:var(--purple-900);
+    }
+    .muted{color:var(--ink-600); font-size:.9rem}
+
+    .event-list{
+      display:flex; flex-direction:column; gap:.5rem;
+      max-height:240px; overflow:auto; padding-right:.25rem;
+    }
+    .ev{
+      display:flex; align-items:flex-start; gap:.5rem;
+      border:1px dashed var(--purple-300);
+      border-radius:10px; padding:.5rem;
+    }
+    .ev .dot{
+      width:10px; height:10px; border-radius:50%;
+      margin-top:.35rem;
+      background:var(--purple-500);
+    }
+    .ev-title{font-weight:600}
+    .ev-time{font-size:.85rem; color:var(--ink-600)}
+
+    form.event-form{
+      display:grid; grid-template-columns:1fr 1fr; gap:.5rem; margin-top:.5rem;
+    }
+    form.event-form input, form.event-form select{
+      padding:.5rem; border:1px solid var(--purple-300); border-radius:10px;
+    }
+    form.event-form input:focus-visible, form.event-form select:focus-visible{
+      outline:3px solid var(--focus); outline-offset:2px;
+    }
+    .row-2{grid-column:1 / -1}
+    .actions{display:flex; gap:.5rem; justify-content:flex-end}
+
+    .affirm{
+      display:flex; align-items:center; justify-content:space-between; gap:.75rem;
+      padding:.75rem; border-radius:12px;
+      background:linear-gradient(135deg,var(--purple-100),#fff);
+      border:1px solid var(--purple-300);
+    }
+    .affirm .status{font-weight:600; color:var(--purple-700)}
+    .affirm .toggle{
+      appearance:none; border:1px solid var(--purple-300);
+      background:var(--white); color:var(--purple-900);
+      padding:.45rem .7rem; border-radius:10px; cursor:pointer;
+    }
+    .affirm .toggle[aria-pressed="true"]{
+      background:var(--purple-500); color:#fff; border-color:var(--purple-700);
+    }
+
+    .iq{
+      margin-top:.75rem;
+      display:grid; gap:.5rem;
+    }
+    .iq .q{
+      font-weight:600; color:var(--purple-700);
+    }
+    .iq textarea{
+      min-height:84px; resize:vertical;
+      padding:.6rem; border:1px solid var(--purple-300); border-radius:12px;
+    }
+    .iq textarea:focus-visible{outline:3px solid var(--focus); outline-offset:2px}
+    .iq .save{
+      justify-self:end;
+      appearance:none; border:1px solid var(--purple-300);
+      background:var(--purple-500); color:#fff;
+      padding:.5rem .8rem; border-radius:10px; cursor:pointer;
+    }
+    .iq .save:hover{background:var(--purple-700)}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="application" aria-label="Purple IQ Calendar">
+    <div class="header" aria-label="Calendar controls">
+      <div class="brand">
+        <div class="dot" aria-hidden="true"></div>
+        <div class="title">Purple IQ Calendar</div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="prevBtn" aria-label="Previous month">◀</button>
+        <div id="monthYear" class="muted" aria-live="polite"></div>
+        <button class="btn" id="nextBtn" aria-label="Next month">▶</button>
+        <select class="select" id="jumpMonth" aria-label="Jump to month"></select>
+        <select class="select" id="jumpYear" aria-label="Jump to year"></select>
+        <button class="btn" id="todayBtn">Today</button>
+      </div>
+    </div>
+
+    <div class="grid" id="weekdayHeader" aria-hidden="true"></div>
+    <div class="grid" id="calendarGrid" role="grid" aria-label="Calendar dates"></div>
+
+    <div class="panel">
+      <div class="card" id="eventsCard">
+        <h2 id="selectedDateLabel">Selected date</h2>
+        <p class="muted">Add or view events for the selected day.</p>
+        <div class="event-list" id="eventList" aria-live="polite"></div>
+
+        <form class="event-form" id="eventForm" aria-label="Add event">
+          <input type="text" id="evTitle" placeholder="Event title" required />
+          <input type="time" id="evTime" />
+          <input type="text" id="evTag" placeholder="Tag (e.g., Outreach, Ceremony)" />
+          <input type="color" id="evColor" value="#7b45b3" aria-label="Event color" />
+          <input class="row-2" type="text" id="evNote" placeholder="Notes (optional)" />
+          <div class="actions row-2">
+            <button type="submit" class="btn">Add event</button>
+            <button type="button" class="btn" id="clearDay">Clear day</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Daily tone</h3>
+        <div class="affirm">
+          <div>
+            <div class="status" id="affirmStatus">Affirmation: Off</div>
+            <div class="muted">A gentle nudge toward gratitude and presence.</div>
+          </div>
+          <button class="toggle" id="affirmToggle" aria-pressed="false">Affirm</button>
+        </div>
+
+        <div class="iq" aria-label="IQ: Insight/Question">
+          <div class="q" id="iqPrompt">Today’s IQ prompt will appear here.</div>
+          <textarea id="iqNote" placeholder="Your reflection or answer..."></textarea>
+          <button class="save" id="iqSave">Save reflection</button>
+          <p class="muted" id="iqSaved" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Utilities
+    const WEEKDAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const MONTHS = [
+      "January","February","March","April","May","June",
+      "July","August","September","October","November","December"
+    ];
+
+    const IQ_PROMPTS = [
+      "What do I want to celebrate today?",
+      "Which connection needs a gentle check-in?",
+      "What would make this day feel spacious?",
+      "What small advocacy can I honor now?",
+      "Where can I bring playful ceremony?",
+      "What is one task I can make kinder?",
+      "What gratitude wants to be named?"
+    ];
+
+    const grid = document.getElementById("calendarGrid");
+    const weekdayHeader = document.getElementById("weekdayHeader");
+    const monthYear = document.getElementById("monthYear");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const todayBtn = document.getElementById("todayBtn");
+    const jumpMonth = document.getElementById("jumpMonth");
+    const jumpYear = document.getElementById("jumpYear");
+
+    const selectedDateLabel = document.getElementById("selectedDateLabel");
+    const eventList = document.getElementById("eventList");
+    const eventForm = document.getElementById("eventForm");
+    const evTitle = document.getElementById("evTitle");
+    const evTime = document.getElementById("evTime");
+    const evTag = document.getElementById("evTag");
+    const evColor = document.getElementById("evColor");
+    const evNote = document.getElementById("evNote");
+    const clearDayBtn = document.getElementById("clearDay");
+
+    const affirmToggle = document.getElementById("affirmToggle");
+    const affirmStatus = document.getElementById("affirmStatus");
+
+    const iqPrompt = document.getElementById("iqPrompt");
+    const iqNote = document.getElementById("iqNote");
+    const iqSave = document.getElementById("iqSave");
+    const iqSaved = document.getElementById("iqSaved");
+
+    let state = {
+      year: new Date().getFullYear(),
+      month: new Date().getMonth(),
+      selected: new Date(),
+      events: loadEvents(),         // { "YYYY-MM-DD": [ {title,time,tag,color,note} ] }
+      affirm: loadAffirm(),         // { "YYYY-MM-DD": boolean }
+      iq: loadIQNotes()             // { "YYYY-MM-DD": string }
+    };
+
+    // Init weekday header
+    WEEKDAYS.forEach(d=>{
+      const el = document.createElement("div");
+      el.className="weekday";
+      el.textContent=d;
+      weekdayHeader.appendChild(el);
+    });
+
+    // Populate jump controls
+    MONTHS.forEach((m,i)=>{
+      const opt=document.createElement("option");
+      opt.value=i; opt.textContent=m;
+      jumpMonth.appendChild(opt);
+    });
+    const yearNow = new Date().getFullYear();
+    for(let y=yearNow-5; y<=yearNow+5; y++){
+      const opt=document.createElement("option");
+      opt.value=y; opt.textContent=y;
+      jumpYear.appendChild(opt);
+    }
+
+    jumpMonth.addEventListener("change", ()=>{
+      state.month = Number(jumpMonth.value);
+      render();
+    });
+    jumpYear.addEventListener("change", ()=>{
+      state.year = Number(jumpYear.value);
+      render();
+    });
+
+    prevBtn.addEventListener("click", ()=>{
+      state.month--;
+      if(state.month<0){ state.month=11; state.year--; }
+      render();
+    });
+    nextBtn.addEventListener("click", ()=>{
+      state.month++;
+      if(state.month>11){ state.month=0; state.year++; }
+      render();
+    });
+    todayBtn.addEventListener("click", ()=>{
+      const now = new Date();
+      state.year = now.getFullYear();
+      state.month = now.getMonth();
+      state.selected = now;
+      render();
+    });
+
+    // Render calendar
+    function render(){
+      monthYear.textContent = `${MONTHS[state.month]} ${state.year}`;
+      jumpMonth.value = state.month;
+      jumpYear.value = state.year;
+
+      grid.innerHTML="";
+      const first = new Date(state.year, state.month, 1);
+      const startDay = first.getDay();
+      const daysInMonth = new Date(state.year, state.month+1, 0).getDate();
+      const prevMonthDays = new Date(state.year, state.month, 0).getDate();
+
+      const totalCells = 42; // 6 rows x 7 cols
+      for(let i=0;i<totalCells;i++){
+        const cell = document.createElement("button");
+        cell.className="day";
+        cell.setAttribute("role","gridcell");
+
+        let dayNum, inMonth=true;
+        if(i<startDay){
+          dayNum = prevMonthDays - startDay + i + 1;
+          inMonth = false;
+        } else if(i >= startDay + daysInMonth){
+          dayNum = i - (startDay + daysInMonth) + 1;
+          inMonth = false;
+        } else {
+          dayNum = i - startDay + 1;
+        }
+
+        const cellDate = inMonth
+          ? new Date(state.year, state.month, dayNum)
+          : (i<startDay
+              ? new Date(state.year, state.month-1, dayNum)
+              : new Date(state.year, state.month+1, dayNum));
+
+        const iso = isoDate(cellDate);
+
+        const dateNum = document.createElement("div");
+        dateNum.className="date-num";
+        dateNum.textContent=dayNum;
+
+        const badges = document.createElement("div");
+        badges.className="badges";
+
+        const evs = state.events[iso] || [];
+        if(evs.length){
+          const b = document.createElement("span");
+          b.className="badge";
+          b.textContent = `${evs.length} event${evs.length>1?"s":""}`;
+          badges.appendChild(b);
+          cell.title = evs.map(e => `${e.time||""} ${e.title}`).join("\n");
+        }
+
+        if(!inMonth) cell.dataset.otherMonth = "true";
+
+        const todayIso = isoDate(new Date());
+        if(iso===todayIso) cell.dataset.today = "true";
+
+        cell.appendChild(dateNum);
+        cell.appendChild(badges);
+
+        cell.addEventListener("click", ()=>{
+          state.selected = cellDate;
+          updateSidePanel();
+        });
+
+        cell.addEventListener("keydown",(e)=>{
+          const key = e.key;
+          let d = new Date(state.selected);
+          if(key==="ArrowRight"){ d.setDate(d.getDate()+1); e.preventDefault(); }
+          else if(key==="ArrowLeft"){ d.setDate(d.getDate()-1); e.preventDefault(); }
+          else if(key==="ArrowDown"){ d.setDate(d.getDate()+7); e.preventDefault(); }
+          else if(key==="ArrowUp"){ d.setDate(d.getDate()-7); e.preventDefault(); }
+          else if(key==="Enter"){ state.selected = cellDate; updateSidePanel(); return; }
+          else return;
+
+          state.selected = d;
+          state.year = d.getFullYear();
+          state.month = d.getMonth();
+          render();
+          focusSelected();
+        });
+
+        grid.appendChild(cell);
+      }
+      updateSidePanel();
+      focusSelected();
+    }
+
+    function focusSelected(){
+      const cells = grid.querySelectorAll(".day");
+      // Find the exact match by title tooltip or date num; fallback to today
+      const targetIso = isoDate(state.selected);
+      let idx = -1;
+      cells.forEach((c, i)=>{
+        const parentDate = deriveCellDate(i);
+        if(isoDate(parentDate)===targetIso) idx = i;
+      });
+      if(idx>=0) cells[idx].focus();
+    }
+
+    function deriveCellDate(i){
+      const first = new Date(state.year, state.month, 1);
+      const startDay = first.getDay();
+      const daysInMonth = new Date(state.year, state.month+1, 0).getDate();
+      const prevMonthDays = new Date(state.year, state.month, 0).getDate();
+
+      let dayNum, inMonth=true;
+      if(i<startDay){
+        dayNum = prevMonthDays - startDay + i + 1;
+        return new Date(state.year, state.month-1, dayNum);
+      } else if(i >= startDay + daysInMonth){
+        dayNum = i - (startDay + daysInMonth) + 1;
+        return new Date(state.year, state.month+1, dayNum);
+      } else {
+        dayNum = i - startDay + 1;
+        return new Date(state.year, state.month, dayNum);
+      }
+    }
+
+    function updateSidePanel(){
+      const iso = isoDate(state.selected);
+      selectedDateLabel.textContent = `${MONTHS[state.selected.getMonth()]} ${state.selected.getDate()}, ${state.selected.getFullYear()}`;
+
+      // Events
+      eventList.innerHTML="";
+      const evs = state.events[iso] || [];
+      if(evs.length===0){
+        const empty = document.createElement("div");
+        empty.className="muted";
+        empty.textContent="No events yet — add one below.";
+        eventList.appendChild(empty);
+      } else {
+        evs.forEach(ev=>{
+          const item = document.createElement("div");
+          item.className="ev";
+          const dot = document.createElement("div");
+          dot.className="dot";
+          dot.style.background = ev.color || "var(--purple-500)";
+          const body = document.createElement("div");
+          const title = document.createElement("div");
+          title.className="ev-title";
+          title.textContent = ev.title;
+          const meta = document.createElement("div");
+          meta.className="ev-time";
+          meta.textContent = [ev.time, ev.tag].filter(Boolean).join(" • ");
+          const note = document.createElement("div");
+          note.className="muted";
+          note.textContent = ev.note || "";
+          body.appendChild(title);
+          body.appendChild(meta);
+          body.appendChild(note);
+          item.appendChild(dot);
+          item.appendChild(body);
+          eventList.appendChild(item);
+        });
+      }
+
+      // Affirmation
+      const on = !!(state.affirm[iso]);
+      affirmToggle.setAttribute("aria-pressed", on ? "true" : "false");
+      affirmStatus.textContent = `Affirmation: ${on ? "On" : "Off"}`;
+
+      // IQ prompt & note
+      const prompt = IQ_PROMPTS[(state.selected.getDay() + state.selected.getDate()) % IQ_PROMPTS.length];
+      iqPrompt.textContent = prompt;
+      iqNote.value = state.iq[iso] || "";
+    }
+
+    // Event form handlers
+    eventForm.addEventListener("submit", (e)=>{
+      e.preventDefault();
+      const iso = isoDate(state.selected);
+      const ev = {
+        title: evTitle.value.trim(),
+        time: evTime.value,
+        tag: evTag.value.trim(),
+        color: evColor.value,
+        note: evNote.value.trim()
+      };
+      if(!ev.title){ return; }
+      state.events[iso] = [...(state.events[iso]||[]), ev];
+      saveEvents(state.events);
+      evTitle.value=""; evTime.value=""; evTag.value=""; evNote.value="";
+      updateSidePanel();
+      render(); // refresh badges
+    });
+
+    clearDayBtn.addEventListener("click", ()=>{
+      const iso = isoDate(state.selected);
+      delete state.events[iso];
+      saveEvents(state.events);
+      updateSidePanel();
+      render();
+    });
+
+    // Affirmation toggle
+    affirmToggle.addEventListener("click", ()=>{
+      const iso = isoDate(state.selected);
+      const current = !!state.affirm[iso];
+      state.affirm[iso] = !current;
+      saveAffirm(state.affirm);
+      updateSidePanel();
+    });
+
+    // IQ save
+    iqSave.addEventListener("click", ()=>{
+      const iso = isoDate(state.selected);
+      state.iq[iso] = iqNote.value.trim();
+      saveIQNotes(state.iq);
+      iqSaved.textContent = "Reflection saved.";
+      setTimeout(()=>{ iqSaved.textContent=""; }, 1800);
+    });
+
+    // Storage helpers
+    function isoDate(d){
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${day}`;
+    }
+    function loadEvents(){
+      try{ return JSON.parse(localStorage.getItem("purpleCalendar.events")) || {}; }
+      catch{ return {}; }
+    }
+    function saveEvents(obj){
+      localStorage.setItem("purpleCalendar.events", JSON.stringify(obj));
+    }
+    function loadAffirm(){
+      try{ return JSON.parse(localStorage.getItem("purpleCalendar.affirm")) || {}; }
+      catch{ return {}; }
+    }
+    function saveAffirm(obj){
+      localStorage.setItem("purpleCalendar.affirm", JSON.stringify(obj));
+    }
+    function loadIQNotes(){
+      try{ return JSON.parse(localStorage.getItem("purpleCalendar.iq")) || {}; }
+      catch{ return {}; }
+    }
+    function saveIQNotes(obj){
+      localStorage.setItem("purpleCalendar.iq", JSON.stringify(obj));
+    }
+
+    // Start
+    render();
+  </script>
+</body>
+</html>
