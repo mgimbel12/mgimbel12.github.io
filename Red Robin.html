@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Birds & Bites — Red Robin Edition</title>
+  <style>
+    :root {
+      --red: #d81b60;
+      --white: #ffffff;
+      --green: #2e7d32;
+      --purple: #6a1b9a;
+      --ink: #1a1a1a;
+      --bg: #f8f8ff;
+      --shadow: rgba(0,0,0,0.08);
+    }
+
+    /* Base */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    a { color: var(--purple); text-decoration: none; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--red), var(--purple));
+      color: var(--white);
+      box-shadow: 0 6px 16px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 0;
+    }
+    .brand-logo {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--white);
+      display: grid; place-items: center;
+      color: var(--red); font-weight: 800;
+    }
+    .brand h1 {
+      font-size: 1.25rem; margin: 0;
+    }
+
+    /* Hamburger + Hot Dog Menu */
+    .nav-row { display: flex; align-items: center; justify-content: space-between; }
+    .menu-toggle {
+      background: var(--white); color: var(--red);
+      border: none; border-radius: 12px; padding: 10px 12px;
+      font-weight: 700; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .menu-toggle .bun { width: 20px; height: 2px; background: var(--red); position: relative; }
+    .menu-toggle .bun::before, .menu-toggle .bun::after {
+      content: ""; position: absolute; left: 0; width: 20px; height: 2px; background: var(--red);
+    }
+    .menu-toggle .bun::before { top: -6px; }
+    .menu-toggle .bun::after { top: 6px; }
+
+    nav {
+      display: none;
+      background: var(--white);
+      border-radius: 14px;
+      margin: 12px 0 16px;
+      box-shadow: 0 10px 24px var(--shadow);
+    }
+    nav.open { display: block; }
+    .nav-list {
+      list-style: none; margin: 0; padding: 8px;
+      display: grid; gap: 8px;
+    }
+    .nav-link {
+      display: block; padding: 12px 14px; border-radius: 999px;
+      font-weight: 700; color: var(--white);
+      background: linear-gradient(90deg, var(--green), var(--purple));
+      text-align: center;
+    }
+    .nav-link:hover { filter: brightness(1.05); }
+
+    /* Desktop “hot dog” pill menu */
+    @media (min-width: 800px) {
+      nav { display: block; }
+      .menu-toggle { display: none; }
+      .nav-list {
+        grid-auto-flow: column; justify-content: start;
+      }
+      .nav-link { text-align: left; }
+    }
+
+    /* Hero */
+    .hero {
+      background:
+        radial-gradient(1200px 400px at 10% 10%, rgba(255,255,255,0.6), transparent),
+        linear-gradient(135deg, #ffffff, #fafaff);
+      border-bottom: 4px solid var(--red);
+    }
+    .hero .wrap {
+      padding: 24px 16px 28px;
+      display: grid; gap: 16px;
+    }
+    .hero-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      margin: 6px 0;
+      color: var(--red);
+    }
+    .hero-sub {
+      margin: 0; color: var(--purple);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green); color: var(--white);
+      padding: 8px 12px; border-radius: 999px; font-weight: 700;
+    }
+
+    /* Main grid */
+    main .wrap { padding: 24px 16px; }
+    .grid {
+      display: grid; gap: 20px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 980px) {
+      .grid { grid-template-columns: 1.2fr 0.8fr; }
+    }
+
+    /* Cards */
+    .card {
+      background: var(--white);
+      border: 2px solid #e9e9ff;
+      border-radius: 16px;
+      box-shadow: 0 10px 24px var(--shadow);
+      padding: 16px;
+    }
+    .card h2 {
+      margin-top: 0; color: var(--green);
+    }
+
+    /* Birds section */
+    .birds-list {
+      display: grid; gap: 12px;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (min-width: 700px) {
+      .birds-list { grid-template-columns: repeat(3, 1fr); }
+    }
+    .bird {
+      background: #fdfcff; border: 1px dashed #ddd;
+      border-radius: 14px; padding: 12px;
+    }
+    .bird h3 { margin: 0 0 4px; color: var(--red); }
+
+    /* Red Robin feature */
+    .robin {
+      background: linear-gradient(135deg, #fff, #ffe5ec);
+      border: 2px solid #ffd0de;
+    }
+    .robin h2 { color: var(--red); }
+
+    /* Calendar */
+    .calendar {
+      display: grid; gap: 6px;
+    }
+    .cal-head {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .cal-title {
+      font-weight: 800; color: var(--purple);
+    }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 4px; margin-top: 8px;
+    }
+    .cal-day, .cal-cell {
+      text-align: center; font-size: 0.9rem;
+      padding: 6px; border-radius: 10px;
+    }
+    .cal-day { font-weight: 700; background: #f1f0ff; color: var(--purple); }
+    .cal-cell {
+      background: #fff; border: 1px solid #eee; cursor: pointer;
+    }
+    .cal-cell:hover { background: #f8f5ff; }
+    .cal-cell.selected { background: var(--green); color: var(--white); border-color: var(--green); }
+
+    /* Video gallery */
+    .video-grid {
+      display: grid; gap: 12px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 700px) {
+      .video-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .video {
+      position: relative; padding-top: 56.25%; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 8px 18px var(--shadow);
+    }
+    .video iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 24px; background: var(--ink); color: var(--white);
+    }
+    footer .wrap { padding: 20px 16px; }
+    .foot-row { display: grid; gap: 12px; grid-template-columns: 1fr; }
+    @media (min-width: 800px) { .foot-row { grid-template-columns: 1fr 1fr; } }
+    .foot-badge { font-weight: 700; color: var(--white); background: var(--red); padding: 8px 12px; border-radius: 999px; display: inline-block; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav-row">
+        <div class="brand" aria-label="Site branding">
+          <div class="brand-logo" aria-hidden="true">BR</div>
+          <h1>Birds & Bites</h1>
+        </div>
+        <button class="menu-toggle" aria-controls="site-nav" aria-expanded="false">
+          <span class="bun" aria-hidden="true"></span>
+          Menu
+        </button>
+      </div>
+
+      <nav id="site-nav" aria-label="Main" class="">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#robin">Red Robin</a></li>
+          <li><a class="nav-link" href="#birds">Birds</a></li>
+          <li><a class="nav-link" href="#calendar">Calendar</a></li>
+          <li><a class="nav-link" href="#videos">YouTube</a></li>
+          <li><a class="nav-link" href="#menu">Menu</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <span class="hero-badge" aria-label="Seasonal badge">Red • White • Green • Purple</span>
+      <h2 class="hero-title">A festive hub for birds, dates, and delicious bites</h2>
+      <p class="hero-sub">Explore Red Robin highlights, browse the birds gallery, pick dates on the calendar, and watch curated YouTube videos.</p>
+    </div>
+  </section>
+
+  <main>
+    <div class="wrap grid">
+      <!-- Left column -->
+      <section class="card robin" id="robin">
+        <h2>Featured: Red Robin</h2>
+        <p><strong>About:</strong> The red robin symbolizes renewal and cheerful presence. This section celebrates its bright, melodic spirit.</p>
+        <div class="birds-list">
+          <div class="bird">
+            <h3>Red Robin</h3>
+            <p><strong>Traits:</strong> Cheerful song, vibrant chest, familiar garden guest.</p>
+          </div>
+          <div class="bird">
+            <h3>Cardinal</h3>
+            <p><strong>Traits:</strong> Bold red, crisp calls, year-round color.</p>
+          </div>
+          <div class="bird">
+            <h3>Hummingbird</h3>
+            <p><strong>Traits:</strong> Quick wings, iridescent hues, nectar seeker.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right column -->
+      <aside class="card" id="calendar">
+        <h2>Calendar</h2>
+        <div class="calendar" aria-label="Interactive calendar">
+          <div class="cal-head">
+            <button id="prevMonth" class="menu-toggle" aria-label="Previous month">
+              <span class="bun" aria-hidden="true"></span>Prev
+            </button>
+            <div class="cal-title" id="calTitle" aria-live="polite">Month Year</div>
+            <button id="nextMonth" class="menu-toggle" aria-label="Next month">
+              <span class="bun" aria-hidden="true"></span>Next
+            </button>
+          </div>
+          <div class="cal-grid" id="calGrid" role="grid" aria-label="Calendar dates">
+            <!-- Days of week -->
+            <div class="cal-day" role="columnheader">Sun</div>
+            <div class="cal-day" role="columnheader">Mon</div>
+            <div class="cal-day" role="columnheader">Tue</div>
+            <div class="cal-day" role="columnheader">Wed</div>
+            <div class="cal-day" role="columnheader">Thu</div>
+            <div class="cal-day" role="columnheader">Fri</div>
+            <div class="cal-day" role="columnheader">Sat</div>
+            <!-- Dates injected by JS -->
+          </div>
+          <p id="selectedDate" style="margin-top:8px;"><strong>Selected:</strong> None</p>
+        </div>
+      </aside>
+
+      <!-- Birds gallery -->
+      <section class="card" id="birds">
+        <h2>Birds gallery</h2>
+        <p><strong>Theme:</strong> Red, white, green, and purple — a playful, seasonal palette for our feathered friends.</p>
+        <div class="birds-list">
+          <div class="bird"><h3>Blue Jay</h3><p><strong>Notes:</strong> Confident calls, vivid blues.</p></div>
+          <div class="bird"><h3>Goldfinch</h3><p><strong>Notes:</strong> Sunny yellow, agile flight.</p></div>
+          <div class="bird"><h3>Robin</h3><p><strong>Notes:</strong> Early songs, garden sentinel.</p></div>
+          <div class="bird"><h3>Oriole</h3><p><strong>Notes:</strong> Orange glow, woven nests.</p></div>
+          <div class="bird"><h3>Dove</h3><p><strong>Notes:</strong> Gentle coos, peace symbol.</p></div>
+          <div class="bird"><h3>Swallow</h3><p><strong>Notes:</strong> Graceful arcs, sky dancer.</p></div>
+        </div>
+      </section>
+
+      <!-- YouTube videos -->
+      <section class="card" id="videos">
+        <h2>YouTube videos</h2>
+        <p><strong>Tip:</strong> Add your own video IDs below to curate a themed playlist.</p>
+        <div class="video-grid">
+          <div class="video" aria-label="YouTube embed 1">
+            <iframe
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="Birdsong Highlight 1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+          <div class="video" aria-label="YouTube embed 2">
+            <iframe
+              src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+              title="Nature Walk 2"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menu (food) -->
+      <section class="card" id="menu">
+        <h2>Menu</h2>
+        <p><strong>Style:</strong> “Hot dog” pill buttons for quick ordering or browsing categories.</p>
+        <div class="birds-list">
+          <a class="nav-link" href="#menu-burgers" style="background: linear-gradient(90deg, var(--red), var(--green));">Burgers</a>
+          <a class="nav-link" href="#menu-dogs" style="background: linear-gradient(90deg, var(--purple), var(--green));">Hot Dogs</a>
+          <a class="nav-link" href="#menu-sides" style="background: linear-gradient(90deg, var(--green), var(--purple));">Sides</a>
+        </div>
+        <div style="margin-top:12px;">
+          <h3 id="menu-burgers" style="margin:8px 0;color:var(--red);">Burgers</h3>
+          <p><strong>Red Robin Classic:</strong> Gourmet patty, crisp lettuce, tomato, and house sauce.</p>
+          <p><strong>Garden Delight:</strong> Veggie patty with green pesto and purple slaw.</p>
+
+          <h3 id="menu-dogs" style="margin:12px 0;color:var(--purple);">Hot Dogs</h3>
+          <p><strong>Festive Dog:</strong> Classic dog with red relish, white onions, and green herbs.</p>
+
+          <h3 id="menu-sides" style="margin:12px 0;color:var(--green);">Sides</h3>
+          <p><strong>Purple Potato Wedges:</strong> Crispy with rosemary and sea salt.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap foot-row">
+      <div>
+        <span class="foot-badge">Red • White • Green • Purple</span>
+        <p style="margin-top:8px;">Crafted with accessibility and play — hamburger menu on mobile, hot dog pills on desktop.</p>
+      </div>
+      <div>
+        <p><strong>Contact:</strong> hello@birdsandbites.example</p>
+        <p><strong>Credits:</strong> Icons & colors inspired by seasonal festivities and birdwatching joy.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Hamburger toggle
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const nav = document.getElementById('site-nav');
+
+    function setExpanded(open) {
+      toggleBtn.setAttribute('aria-expanded', String(open));
+      nav.classList.toggle('open', open);
+    }
+    toggleBtn.addEventListener('click', () => {
+      const open = nav.classList.contains('open');
+      setExpanded(!open);
+    });
+
+    // Calendar logic
+    const calTitle = document.getElementById('calTitle');
+    const calGrid = document.getElementById('calGrid');
+    const selectedDateEl = document.getElementById('selectedDate');
+    const prevBtn = document.getElementById('prevMonth');
+    const nextBtn = document.getElementById('nextMonth');
+
+    let current = new Date();
+    current.setDate(1);
+
+    function renderCalendar() {
+      // Remove old cells
+      [...calGrid.querySelectorAll('.cal-cell')].forEach(n => n.remove());
+
+      const year = current.getFullYear();
+      const month = current.getMonth(); // 0-11
+      const monthName = current.toLocaleString('default', { month: 'long' });
+      calTitle.textContent = `${monthName} ${year}`;
+
+      const firstDayIndex = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      // blanks before first day
+      for (let i = 0; i < firstDayIndex; i++) {
+        const blank = document.createElement('div');
+        blank.className = 'cal-cell';
+        blank.setAttribute('aria-hidden', 'true');
+        blank.style.visibility = 'hidden';
+        calGrid.appendChild(blank);
+      }
+
+      // dates
+      for (let d = 1; d <= daysInMonth; d++) {
+        const cell = document.createElement('button');
+        cell.className = 'cal-cell';
+        cell.textContent = d;
+        cell.setAttribute('aria-label', `Select ${monthName} ${d}, ${year}`);
+        cell.addEventListener('click', () => {
+          calGrid.querySelectorAll('.selected').forEach(c => c.classList.remove('selected'));
+          cell.classList.add('selected');
+          selectedDateEl.innerHTML = `<strong>Selected:</strong> ${monthName} ${d}, ${year}`;
+        });
+        calGrid.appendChild(cell);
+      }
+    }
+
+    prevBtn.addEventListener('click', () => {
+      current.setMonth(current.getMonth() - 1);
+      renderCalendar();
+    });
+    nextBtn.addEventListener('click', () => {
+      current.setMonth(current.getMonth() + 1);
+      renderCalendar();
+    });
+
+    renderCalendar();
+  </script>
+</body>
+</html>
