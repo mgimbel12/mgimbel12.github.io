@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Countdown to Happy Day 🇺🇸</title>
+  <style>
+    :root{
+      --blue: #0a2e73;
+      --red: #c9202e;
+      --white: #ffffff;
+      --star: #ffffff;
+      --bg: #061a3a;
+    }
+
+    /* Base layout */
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #0b1f46 60%, #0e2a5e);
+      color: var(--white);
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+    }
+
+    .container{
+      width: min(960px, 92vw);
+      display: grid;
+      gap: 1.25rem;
+      align-items: center;
+    }
+
+    /* Flag banner (stylized stripes + stars panel) */
+    .flag{
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      outline: 2px solid rgba(255,255,255,.15);
+    }
+
+    .flag::before{
+      content: "";
+      display: block;
+      height: 180px;
+      background:
+        /* red stripes */
+        linear-gradient(var(--red) 0 0) 0 0/100% 14%,
+        linear-gradient(var(--white) 0 0) 0 14%/100% 14%,
+        linear-gradient(var(--red) 0 0) 0 28%/100% 14%,
+        linear-gradient(var(--white) 0 0) 0 42%/100% 14%,
+        linear-gradient(var(--red) 0 0) 0 56%/100% 14%,
+        linear-gradient(var(--white) 0 0) 0 70%/100% 14%,
+        linear-gradient(var(--red) 0 0) 0 84%/100% 16%;
+      background-repeat: no-repeat;
+    }
+
+    .canton{
+      position: absolute;
+      inset: 0 auto auto 0;
+      width: clamp(180px, 40%, 340px);
+      height: 180px;
+      background: var(--blue);
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .star{
+      align-self: center;
+      justify-self: center;
+      width: 10px; height: 10px;
+      background: radial-gradient(circle, var(--star) 35%, transparent 36%);
+      filter: drop-shadow(0 0 2px rgba(255,255,255,.6));
+      border-radius: 50%;
+    }
+
+    /* Heading */
+    h1{
+      margin: 0.5rem 0 0;
+      font-weight: 800;
+      letter-spacing: .5px;
+      text-align: center;
+      color: var(--white);
+      text-shadow: 0 2px 10px rgba(0,0,0,.4);
+    }
+
+    /* Countdown grid */
+    .countdown{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: .5rem;
+    }
+
+    .unit{
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(6px);
+      border-radius: 14px;
+      padding: 18px 16px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+
+    .value{
+      font-size: clamp(1.8rem, 4.8vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1;
+      color: var(--white);
+    }
+
+    .label{
+      margin-top: 8px;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #e6eefc;
+    }
+
+    /* CTA / message */
+    .message{
+      margin-top: .5rem;
+      text-align: center;
+      font-size: clamp(1rem, 3.5vw, 1.25rem);
+      color: #e8f1ff;
+    }
+
+    /* Celebrate state */
+    .celebrate{
+      animation: glow 1.5s ease-in-out infinite alternate;
+      color: #fff7d6;
+    }
+    @keyframes glow{
+      from { text-shadow: 0 0 10px rgba(255,255,255,.35), 0 0 0 rgba(255,0,0,0); }
+      to   { text-shadow: 0 0 20px rgba(255,255,255,.8), 0 0 12px rgba(201,32,46,.6); }
+    }
+
+    /* Buttons */
+    .controls{
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .btn{
+      appearance: none;
+      border: 2px solid var(--white);
+      color: var(--white);
+      background: transparent;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .08s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      background: var(--white);
+      color: var(--blue);
+      border-color: var(--white);
+    }
+
+    /* Accessibility: focus visible */
+    .btn:focus-visible{
+      outline: 3px solid #ffd45e;
+      outline-offset: 3px;
+    }
+
+    /* Small screens */
+    @media (max-width: 560px){
+      .countdown{ grid-template-columns: repeat(2, 1fr); }
+      .canton{ width: 50%; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-labelledby="title">
+    <!-- Flag header -->
+    <section class="flag" aria-label="Stylized American flag banner">
+      <div class="canton" aria-hidden="true">
+        <!-- 30 simple dot-stars (stylized) -->
+        <!-- Row 1 -->
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <!-- Row 2 -->
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <!-- Row 3 -->
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <!-- Row 4 -->
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <!-- Row 5 -->
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+        <span class="star"></span><span class="star"></span><span class="star"></span>
+      </div>
+    </section>
+
+    <!-- Title -->
+    <h1 id="title">Countdown to Happy Day</h1>
+
+    <!-- Countdown -->
+    <section class="countdown" role="group" aria-label="Countdown timer">
+      <div class="unit" aria-live="polite">
+        <div class="value" id="days">0</div>
+        <div class="label">Days</div>
+      </div>
+      <div class="unit" aria-live="polite">
+        <div class="value" id="hours">0</div>
+        <div class="label">Hours</div>
+      </div>
+      <div class="unit" aria-live="polite">
+        <div class="value" id="minutes">0</div>
+        <div class="label">Minutes</div>
+      </div>
+      <div class="unit" aria-live="polite">
+        <div class="value" id="seconds">0</div>
+        <div class="label">Seconds</div>
+      </div>
+    </section>
+
+    <!-- Message + controls -->
+    <p class="message" id="message" aria-live="polite">Set your date and let the celebration begin.</p>
+    <div class="controls">
+      <button class="btn" id="setJuly4">Set to July 4</button>
+      <button class="btn" id="setCustom">Pick date…</button>
+      <button class="btn" id="toggleTheme">Toggle stripe glow</button>
+    </div>
+  </main>
+
+  <script>
+    // Configuration
+    let targetDate = new Date(new Date().getFullYear(), 6, 4, 0, 0, 0); // July 4 this year
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const messageEl = document.getElementById('message');
+
+    function format(n){ return Math.max(0, Math.floor(n)); }
+
+    function updateCountdown(){
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0){
+        daysEl.textContent = '0';
+        hoursEl.textContent = '0';
+        minutesEl.textContent = '0';
+        secondsEl.textContent = '0';
+        messageEl.textContent = 'Happy Day! Celebrate freedom, unity, and hope.';
+        messageEl.classList.add('celebrate');
+        return;
+      }
+
+      const d = diff / (1000 * 60 * 60 * 24);
+      const h = (diff / (1000 * 60 * 60)) % 24;
+      const m = (diff / (1000 * 60)) % 60;
+      const s = (diff / 1000) % 60;
+
+      daysEl.textContent = format(d);
+      hoursEl.textContent = format(h);
+      minutesEl.textContent = format(m);
+      secondsEl.textContent = format(s);
+    }
+
+    // Controls
+    document.getElementById('setJuly4').addEventListener('click', () => {
+      const now = new Date();
+      const year = now.getMonth() > 6 || (now.getMonth() === 6 && now.getDate() > 4)
+        ? now.getFullYear() + 1
+        : now.getFullYear();
+      targetDate = new Date(year, 6, 4, 0, 0, 0);
+      messageEl.textContent = 'Counting down to Independence Day.';
+      messageEl.classList.remove('celebrate');
+      updateCountdown();
+    });
+
+    document.getElementById('setCustom').addEventListener('click', () => {
+      const input = prompt('Enter your happy day (YYYY-MM-DD HH:MM, 24h). Example: 2026-01-01 00:00');
+      if (!input) return;
+      const parts = input.trim().split(' ');
+      let dateStr = parts[0], timeStr = parts[1] || '00:00';
+      const [y, mo, d] = dateStr.split('-').map(Number);
+      const [hh, mm] = timeStr.split(':').map(Number);
+      const dt = new Date(y, (mo - 1), d, hh || 0, mm || 0, 0);
+      if (isNaN(dt.getTime())){
+        alert('Invalid date. Please try again.');
+        return;
+      }
+      targetDate = dt;
+      messageEl.textContent = 'Counting down to your happy day.';
+      messageEl.classList.remove('celebrate');
+      updateCountdown();
+    });
+
+    // Fun theme toggle (adds subtle glowing stripes)
+    const toggleBtn = document.getElementById('toggleTheme');
+    let glowOn = false;
+    toggleBtn.addEventListener('click', () => {
+      glowOn = !glowOn;
+      document.querySelector('.flag').style.filter = glowOn
+        ? 'drop-shadow(0 0 12px rgba(201,32,46,.6)) saturate(1.2)'
+        : 'none';
+      toggleBtn.textContent = glowOn ? 'Stripe glow on' : 'Toggle stripe glow';
+    });
+
+    // Start
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
