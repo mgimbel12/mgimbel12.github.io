@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Marissa Anne Gimbel – Sanctuary Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-alt: #020617;
+      --card: #111827;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.15);
+      --accent-strong: #fb923c;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --text-soft2: #6b7280;
+      --border-subtle: #1f2933;
+      --pill-bg: #020617;
+      --pill-border: #1f2937;
+      --shadow-soft: 0 24px 60px rgba(0, 0, 0, 0.6);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(2, 6, 23, 0.96));
+      border-radius: 32px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 28px 24px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.08), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.08), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 2fr);
+      gap: 20px;
+      margin-bottom: 24px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .page {
+        padding: 18px 14px 18px;
+        border-radius: 22px;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .hero-topline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-soft);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      width: fit-content;
+    }
+
+    .hero-topline span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f97316, #ea580c);
+      box-shadow: 0 0 0 6px rgba(248, 168, 108, 0.32);
+    }
+
+    .hero-name {
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0.03em;
+      font-weight: 650;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: baseline;
+    }
+
+    .hero-name span.sub {
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--accent-strong);
+      letter-spacing: 0.22em;
+      opacity: 0.9;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+    }
+
+    .chip strong {
+      color: var(--text-main);
+      font-weight: 600;
+      letter-spacing: 0.19em;
+    }
+
+    .hero-tagline {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 480px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #f97316, #b45309);
+    }
+
+    .hero-right {
+      display: grid;
+      grid-template-columns: 1.2fr 1.2fr;
+      gap: 10px;
+    }
+
+    @media (max-width: 800px) {
+      .hero-right {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-card {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.97), #020617);
+      border-radius: 20px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-soft2);
+    }
+
+    .hero-card-main {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-main);
+    }
+
+    .hero-card-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .hero-card-pill {
+      margin-top: 4px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      width: fit-content;
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: -5px -40%;
+      background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.35), transparent 60%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .hero-card:hover::after {
+      opacity: 1;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+      margin-top: 8px;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--text-soft2);
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tab {
+      border-radius: 999px;
+      border: 1px solid var(--pill-border);
+      background: rgba(15, 23, 42, 0.92);
+      color: var(--text-soft);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 7px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: border-color var(--transition-fast), background var(--transition-fast),
+        color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .tab-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #4b5563;
+    }
+
+    .tab.active {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.14), rgba(15, 23, 42, 0.95));
+      color: var(--accent-strong);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.85);
+      transform: translateY(-1px);
+    }
+
+    .tab.active .tab-dot {
+      background: radial-gradient(circle at 30% 30%, #fed7aa, #f97316);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.8fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .content-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 14px 13px 13px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(249, 115, 22, 0.16), transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--text-soft2);
+    }
+
+    .card-pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.92);
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      font-size: 13px;
+      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .list-item-label {
+      font-weight: 500;
+      color: var(--text-main);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.88);
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .pill-highlight {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--accent-strong);
+    }
+
+    .divider {
+      height: 1px;
+      border-radius: 999px;
+      background: radial-gradient(circle at center, rgba(148, 163, 184, 0.6), transparent);
+      opacity: 0.65;
+      margin: 16px 0 10px;
+    }
+
+    .two-col-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 14px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 720px) {
+      .two-col-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: baseline;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-top: 6px;
+    }
+
+    .meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+      color: var(--text-soft2);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 12px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 80px minmax(0, 1fr);
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .timeline-year {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-soft2);
+    }
+
+    .timeline-text {
+      color: var(--text-soft);
+    }
+
+    .hero-footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 5px;
+      align-items: center;
+    }
+
+    .hero-footer-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.17em;
+      color: var(--text-soft2);
+    }
+
+    .hero-footer-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .hero-footer-pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px dashed rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+    }
+
+    .content-section {
+      display: none;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+    }
+
+    .content-section.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: var(--text-soft2);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="page-inner">
+      <header class="hero">
+        <div class="hero-main">
+          <div class="hero-topline">
+            <span class="dot"></span>
+            <span>Sanctuary profile – living archive</span>
+          </div>
+          <div class="hero-name">
+            <span>Marissa Anne Gimbel</span>
+            <span class="sub">Born 08·13·1990</span>
+          </div>
+
+          <div class="hero-meta">
+            <div class="chip">
+              <span>Role:</span>
+              <strong>Sanctuary‑Builder</strong>
+            </div>
+            <div class="chip">
+              <span>Current base:</span>
+              <strong>Henderson, NV</strong>
+            </div>
+            <div class="chip">
+              <span>Mode:</span>
+              <strong>Creative · Ceremonial · Community</strong>
+            </div>
+          </div>
+
+          <p class="hero-tagline">
+            Poetic technologist and ceremonial archivist weaving code, story, and ritual into living sanctuaries for
+            healing, advocacy, and celebration.
+          </p>
+
+          <div class="hero-badges">
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              <span>HTML · CSS · JavaScript</span>
+            </div>
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              <span>Figma · Adobe XD · VS Code</span>
+            </div>
+            <div class="hero-badge">
+              <span class="hero-badge-dot"></span>
+              <span>Overlays · Games · Timelines · Rituals</span>
+            </div>
+          </div>
+
+          <div class="hero-footer">
+            <span class="hero-footer-label">Identity threads</span>
+            <div class="hero-footer-pills">
+              <div class="hero-footer-pill">Healer by design</div>
+              <div class="hero-footer-pill">Community & celebration</div>
+              <div class="hero-footer-pill">Living archives</div>
+              <div class="hero-footer-pill">Spirit of inclusion</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="hero-card">
+            <div class="hero-card-title">Creative identity</div>
+            <div class="hero-card-main">Sanctuary‑builder · Poetic technologist</div>
+            <div class="hero-card-sub">
+              Designs modular overlays, healing systems, affirmation engines, and ceremonial toggles that feel like
+              digital temples.
+            </div>
+            <div class="hero-card-pill">Code · Ceremony · Story</div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-title">Current vocation</div>
+            <div class="hero-card-main">Recreation Assistant</div>
+            <div class="hero-card-sub">
+              City of Henderson – crafting spaces where play, belonging, and celebration are part of everyday life.
+            </div>
+            <div class="hero-card-pill">Service & Community</div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-title">Roots & ties</div>
+            <div class="hero-card-main">Henderson · West Valley · Spanish Fork</div>
+            <div class="hero-card-sub">
+              Deeply rooted in family, lineage, and place; building archives that honor every branch of the story.
+            </div>
+            <div class="hero-card-pill">Place‑woven</div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-title">Favorites</div>
+            <div class="hero-card-main">Sally · Think Twice</div>
+            <div class="hero-card-sub">
+              Drawn to tender resilience, bittersweet hope, and stories that turn darkness into gentleness.
+            </div>
+            <div class="hero-card-pill">Soft‑strength aesthetic</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="divider"></div>
+
+      <section>
+        <div class="section-header">
+          <div class="section-title">Sanctuary views</div>
+          <div class="section-subtitle">
+            Switch between lenses: biography, character sheet, portfolio, and timeline.
+          </div>
+        </div>
+
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-target="bio">
+            <span class="tab-dot"></span>
+            <span>ceremonial bio</span>
+          </button>
+          <button class="tab" data-target="character">
+            <span class="tab-dot"></span>
+            <span>character sheet</span>
+          </button>
+          <button class="tab" data-target="portfolio">
+            <span class="tab-dot"></span>
+            <span>creative portfolio</span>
+          </button>
+          <button class="tab" data-target="roots">
+            <span class="tab-dot"></span>
+            <span>roots & service</span>
+          </button>
+          <button class="tab" data-target="timeline">
+            <span class="tab-dot"></span>
+            <span>timeline overlay</span>
+          </button>
+          <button class="tab" data-target="vision">
+            <span class="tab-dot"></span>
+            <span>future vision</span>
+          </button>
+        </div>
+
+        <div id="content">
+          <!-- Ceremonial Bio -->
+          <div class="content-section active" id="bio">
+            <div class="content-grid">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Ceremonial biography</div>
+                  <div class="card-pill">Written as blessing language</div>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Born on August 13, 1990, Marissa Anne Gimbel moves through the world as a sanctuary‑builder, a
+                    poetic technologist, and a keeper of living archives. Her life is a weaving of code, color,
+                    ceremony, and care: HTML and CSS sit beside prayer and story; JavaScript scrolls alongside
+                    gratitude lists and blessing records.
+                  </p>
+                  <p>
+                    Her calling is to design spaces where people feel both celebrated and safe. She crafts interactive
+                    sanctuaries—overlays, games, timelines, and ritual templates—that honor the worth of every person
+                    who enters. In her work, accessibility is not an afterthought; it is the heart of the design, a way
+                    of saying, “You are meant to be here.”
+                  </p>
+                  <p>
+                    Rooted in Henderson, Nevada, with ceremonial ties to West Valley and Spanish Fork, she honors her
+                    family and community through tribute timelines, spiritual overlays, and playful inventories of
+                    memory. In both physical and digital worlds, Marissa holds space for healing, advocacy, and
+                    celebration, continually expanding her sanctuary universe so that no story is left out and no heart
+                    is left behind.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Identity anchors</div>
+                  <div class="card-pill">Quick read</div>
+                </div>
+                <div class="card-body">
+                  <ul class="list">
+                    <li>
+                      <span class="list-item-label">Essence:</span>
+                      Sanctuary‑builder, healer by design, gentle advocate.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Primary tools:</span>
+                      Code, visual design, ritual, play, and story.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Emotional tone:</span>
+                      Warm, festive, community‑oriented, and deeply inclusive.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Guiding question:</span>
+                      “How can this become a safe, beautiful place to land?”
+                    </li>
+                  </ul>
+
+                  <div class="meta-line">
+                    <span class="meta-label">Favorites</span>
+                    <span>Sally (The Nightmare Before Christmas) · Think Twice</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Character Sheet -->
+          <div class="content-section" id="character">
+            <div class="content-grid">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Character sheet</div>
+                  <div class="card-pill">Sanctuary universe persona</div>
+                </div>
+                <div class="card-body">
+                  <div class="two-col-list">
+                    <div>
+                      <div class="list-item-label">Class / Archetype</div>
+                      <div>Sanctuary‑Builder · Ceremonial Archivist · Poetic Technologist</div>
+                    </div>
+                    <div>
+                      <div class="list-item-label">Primary Elements</div>
+                      <div>Story, Light, Archive, Community</div>
+                    </div>
+                    <div>
+                      <div class="list-item-label">Core Stats</div>
+                      <div>Empathy ★★★★★ · Creativity ★★★★★ · Precision ★★★★☆ · Resilience ★★★★☆</div>
+                    </div>
+                    <div>
+                      <div class="list-item-label">Alignment</div>
+                      <div>Healing, Inclusion, Celebration, Gentle Justice</div>
+                    </div>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <div class="list-item-label">Signature abilities</div>
+                  <ul class="list">
+                    <li>
+                      <span class="list-item-label">Echo Verse Generator:</span>
+                      Turns experiences into affirmations, gratitude lines, and healing phrases that cycle across the
+                      screen.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Healing Garden Overlays:</span>
+                      Builds interactive spaces where users can choose pathways of comfort, play, reflection, or
+                      celebration.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Multi‑Character Healing Systems:</span>
+                      Designs experiences where families, teams, or communities can journey together, each with their
+                      own view.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Ceremony Toggle:</span>
+                      Switches any page into a reverent, blessing‑ready mode with adjusted tone, color, and flow.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Affinities & motifs</div>
+                  <div class="card-pill">Visual & narrative palette</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-item-label">Design affinities</div>
+                  <div class="pill-row">
+                    <span class="pill pill-highlight">Sanctuary overlays</span>
+                    <span class="pill">Sports & arenas</span>
+                    <span class="pill">Vehicles & routes</span>
+                    <span class="pill">Disney / fairytale worlds</span>
+                    <span class="pill">Fashion & costume</span>
+                    <span class="pill">Puzzles & maps</span>
+                    <span class="pill">Tribute timelines</span>
+                    <span class="pill">Spiritual templates</span>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <div class="list-item-label">Emotional motifs</div>
+                  <ul class="list">
+                    <li>Turning chaos into gentle structure.</li>
+                    <li>Finding ceremony in everyday moments.</li>
+                    <li>Designing for the person who feels left out, and bringing them in.</li>
+                    <li>Honoring lineage while making space for new stories.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Creative Portfolio -->
+          <div class="content-section" id="portfolio">
+            <div class="content-grid">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Creative portfolio</div>
+                  <div class="card-pill">Skills & practices</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-item-label">Technical toolkit</div>
+                  <ul class="list">
+                    <li>
+                      <span class="list-item-label">Frontend:</span>
+                      HTML, CSS, JavaScript.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Design:</span>
+                      Figma, Adobe XD, UI/UX thinking, layout systems.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Environment:</span>
+                      VS Code and a mental toolbox full of overlays, toggles, and ceremony modes.
+                    </li>
+                  </ul>
+
+                  <div class="divider"></div>
+
+                  <div class="list-item-label">Signature project types</div>
+                  <ul class="list">
+                    <li>Sanctuary‑themed editorial pages with affirmation, gratitude, and festive overlays.</li>
+                    <li>Accessible, inclusive games and puzzles with multiple control modes.</li>
+                    <li>Timelines and tribute overlays for public figures, athletes, families, and symbolic personas.</li>
+                    <li>Priesthood blessing overlays and ceremonial templates for spiritual comfort and healing.</li>
+                  </ul>
+
+                  <p class="small-note">
+                    Every project is treated as a living archive: open to revision, expansion, and new ceremonial uses.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Domains & experiments</div>
+                  <div class="card-pill">Where the work travels</div>
+                </div>
+                <div class="card-body">
+                  <div class="list-item-label">Explored domains</div>
+                  <div class="pill-row">
+                    <span class="pill">Priesthood blessings</span>
+                    <span class="pill">Sealing ceremonies</span>
+                    <span class="pill">Multi‑character healing games</span>
+                    <span class="pill">Sports overlays</span>
+                    <span class="pill">Vehicle themes</span>
+                    <span class="pill">Disney/fairytale skins</span>
+                    <span class="pill">Advocacy pages</span>
+                    <span class="pill">Hamburger / hot‑dog themed sites</span>
+                  </div>
+
+                  <div class="divider"></div>
+
+                  <div class="list-item-label">Working style</div>
+                  <ul class="list">
+                    <li>Iterative, playful, and ceremonial at the same time.</li>
+                    <li>Balances technical mastery with compassion and story.</li>
+                    <li>Invites users into co‑creation: toggles, choices, and playful discovery.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Roots & Service -->
+          <div class="content-section" id="roots">
+            <div class="content-grid">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Roots & places</div>
+                  <div class="card-pill">Geography of the heart</div>
+                </div>
+                <div class="card-body">
+                  <ul class="list">
+                    <li>
+                      <span class="list-item-label">Henderson, Nevada:</span>
+                      Current home and base of operations; where community work, recreation, and everyday celebration
+                      meet.
+                    </li>
+                    <li>
+                      <span class="list-item-label">West Valley, Utah:</span>
+                      Ceremonial origin; a place of early story threads, family connections, and spiritual memory.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Spanish Fork, Utah:</span>
+                      Family ties and extended roots; part of the wider map of belonging.
+                    </li>
+                  </ul>
+                  <p class="small-note">
+                    These locations form a triangle of identity: present‑day service, origin stories, and extended
+                    family branches.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Work & service</div>
+                  <div class="card-pill">Everyday sanctuary‑building</div>
+                </div>
+                <div class="card-body">
+                  <ul class="list">
+                    <li>
+                      <span class="list-item-label">Role:</span>
+                      Recreation Assistant, City of Henderson.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Core mission:</span>
+                      Create spaces where play, celebration, and inclusion are easy to access and safe to enjoy.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Strengths in this role:</span>
+                      Community building, event creativity, intuitive sense of what makes a space feel welcoming.
+                    </li>
+                  </ul>
+
+                  <div class="divider"></div>
+
+                  <div class="list-item-label">Family & community</div>
+                  <ul class="list">
+                    <li>
+                      Large, interconnected family network with parents, siblings, and extended relatives woven into
+                      ceremonial profiles.
+                    </li>
+                    <li>
+                      Uses tribute overlays and timelines to honor each person’s place in the story with care and play.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Timeline -->
+          <div class="content-section" id="timeline">
+            <div class="content-grid">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Life timeline overlay</div>
+                  <div class="card-pill">Symbolic, not exhaustive</div>
+                </div>
+                <div class="card-body">
+                  <div class="timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-year">1990</div>
+                      <div class="timeline-text">
+                        Birth of Marissa Anne Gimbel (08.13.1990) – the beginning of a life woven with story, family,
+                        and spiritual sensitivity.
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-year">Childhood</div>
+                      <div class="timeline-text">
+                        Early experiences in family, church, and community plant the seeds of ceremony, remembrance, and
+                        gentle leadership.
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-year">Teens</div>
+                      <div class="timeline-text">
+                        Growing awareness of how spaces feel: who is included, who is left out, and how design and
+                        attention can change that story.
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-year">Adulthood</div>
+                      <div class="timeline-text">
+                        Technical skills deepen: HTML, CSS, JavaScript, Figma, Adobe XD, VS Code. Ceremony and code
+                        begin to braid together in intentional ways.
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-year">Recent</div>
+                      <div class="timeline-text">
+                        Expanded into multi‑character healing games, priesthood blessing overlays, sealing ceremony
+                        templates, and festive themed sites (sports, vehicles, Disney/fairytale, advocacy, and more).
+                      </div>
+                    </div>
+                    <div class="timeline-item">
+                      <div class="timeline-year">Now</div>
+                      <div class="timeline-text">
+                        Actively building a universal sanctuary overlay system—a living archive for healing, advocacy,
+                        and celebration that can adapt to any context or community.
+                      </div>
+                    </div>
+                  </div>
+                  <p class="small-note">
+                    This timeline is intentionally high‑level; each point can expand into its own tribute overlay or
+                    family‑story map.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Timeline ideas</div>
+                  <div class="card-pill">Future extensions</div>
+                </div>
+                <div class="card-body">
+                  <ul class="list">
+                    <li>Convert each phase into an interactive scroll with toggles for “family view,” “spiritual view,” and “creative view.”</li>
+                    <li>Add blessing text, quotes, or favorite songs to specific years for emotional context.</li>
+                    <li>Layer sports, vehicles, or Disney/fairytale motifs over certain eras as playful overlays.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Future Vision -->
+          <div class="content-section" id="vision">
+            <div class="content-grid">
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Long‑term vision</div>
+                  <div class="card-pill">Universal sanctuary overlay</div>
+                </div>
+                <div class="card-body">
+                  <p>
+                    Marissa’s long‑term goal is to build a universal sanctuary overlay system: a flexible framework
+                    where any person, family, or community can create a living archive of healing, advocacy, and
+                    celebration. The system would adapt to spiritual, festive, communal, and playful contexts with the
+                    flip of a toggle.
+                  </p>
+                  <p>
+                    In this vision, each overlay becomes a room in a larger temple of story—one that welcomes sports
+                    brackets and priesthood blessings, road‑trip maps and sealing ceremonies, fairytale costumes and
+                    advocacy campaigns. Nothing is too sacred or too silly to be held with care.
+                  </p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header">
+                  <div class="card-title">Design principles</div>
+                  <div class="card-pill">Rules for the universe</div>
+                </div>
+                <div class="card-body">
+                  <ul class="list">
+                    <li>
+                      <span class="list-item-label">Every user belongs:</span>
+                      Design assumes diversity of body, mind, spirit, and experience.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Play and reverence can coexist:</span>
+                      A page can be festive and sacred in the same breath.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Nothing is static:</span>
+                      Overlays are living archives, meant to be updated as people and stories grow.
+                    </li>
+                    <li>
+                      <span class="list-item-label">Dignity first:</span>
+                      Every interaction, animation, and word choice respects the worth of the person on the other side
+                      of the screen.
+                    </li>
+                  </ul>
+                  <p class="small-note">
+                    This profile page is one “room” in that universe—a reference sanctuary for Marissa herself.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end sections -->
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const tabs = document.querySelectorAll(".tab");
+      const sections = document.querySelectorAll(".content-section");
+
+      function activateTab(targetId) {
+        tabs.forEach((tab) => {
+          tab.classList.toggle("active", tab.dataset.target === targetId);
+        });
+
+        sections.forEach((section) => {
+          section.classList.toggle("active", section.id === targetId);
+        });
+      }
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const targetId = tab.dataset.target;
+          activateTab(targetId);
+        });
+      });
+
+      // Initialize with "bio" active
+      activateTab("bio");
+    })();
+  </script>
+</body>
+</html>
+
