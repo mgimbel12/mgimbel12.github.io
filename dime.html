@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Design on a Dime Countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* ====== BASE STYLES ====== */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f7f1e8; /* soft creme background */
+      color: #2f2a24;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* ====== PADDING WALL CONTAINER ====== */
+    .padding-wall {
+      background: #fffaf2;
+      border-radius: 24px;
+      padding: 2.5rem 2.75rem;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.10),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+      max-width: 480px;
+      width: 90%;
+      border: 1px solid #e4d7c6;
+    }
+
+    /* ====== HEADER / TITLE ====== */
+    .title {
+      font-size: 1.9rem;
+      margin: 0 0 0.35rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #3d3328;
+    }
+
+    .subtitle {
+      margin: 0 0 1.5rem;
+      font-size: 0.95rem;
+      color: #7c6a54;
+    }
+
+    /* ====== TAGLINE STRIP ====== */
+    .tagline {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8f7c64;
+      padding: 0.55rem 0.9rem;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #f0e0c8, #f9efe0);
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ====== COUNTDOWN GRID ====== */
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .time-box {
+      background: #f5e7d5;
+      border-radius: 16px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      border: 1px solid #e2cfb3;
+    }
+
+    .time-value {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #3a3126;
+      margin-bottom: 0.2rem;
+    }
+
+    .time-label {
+      font-size: 0.73rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #826f59;
+    }
+
+    /* ====== FOOTER LINE ====== */
+    .footer-line {
+      font-size: 0.85rem;
+      color: #7b6852;
+      border-top: 1px dashed #decab0;
+      padding-top: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .price-tag {
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: #f0e0c6;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #dfc8a7;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: #a08460;
+    }
+
+    /* ====== RESPONSIVE TWEAK ====== */
+    @media (max-width: 480px) {
+      .padding-wall {
+        padding: 2rem 1.6rem;
+      }
+
+      .title {
+        font-size: 1.55rem;
+      }
+
+      .countdown {
+        gap: 0.6rem;
+      }
+
+      .time-value {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="padding-wall">
+    <h1 class="title">Design on a Dime</h1>
+    <p class="subtitle">
+      Creme-colored comfort, countdown energy, and a cushioned padding wall for your next big moment.
+    </p>
+
+    <div class="tagline">
+      Creme &amp; Countdown · August 13 Launch
+    </div>
+
+    <section class="countdown" aria-label="Countdown to August 13">
+      <div class="time-box">
+        <div class="time-value" id="days">--</div>
+        <div class="time-label">Days</div>
+      </div>
+      <div class="time-box">
+        <div class="time-value" id="hours">--</div>
+        <div class="time-label">Hours</div>
+      </div>
+      <div class="time-box">
+        <div class="time-value" id="minutes">--</div>
+        <div class="time-label">Minutes</div>
+      </div>
+      <div class="time-box">
+        <div class="time-value" id="seconds">--</div>
+        <div class="time-label">Seconds</div>
+      </div>
+    </section>
+
+    <div class="footer-line">
+      <span class="status" id="statusText">
+        Counting down to August 13…
+      </span>
+      <span class="price-tag">
+        Design on a dime, glow on a creme
+      </span>
+    </div>
+  </main>
+
+  <script>
+    // ====== COUNTDOWN TO AUGUST 13 ======
+    function getNextAugust13() {
+      const now = new Date();
+      const year = now.getFullYear();
+      let target = new Date(year, 7, 13, 0, 0, 0); // Months are 0-based (7 = August)
+
+      if (target < now) {
+        target = new Date(year + 1, 7, 13, 0, 0, 0);
+      }
+
+      return target;
+    }
+
+    const targetDate = getNextAugust13();
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const statusText = document.getElementById('statusText');
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      if (distance <= 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        statusText.textContent = 'It’s August 13 — time to celebrate the design!';
+        return;
+      }
+
+      const day = 1000 * 60 * 60 * 24;
+      const hour = 1000 * 60 * 60;
+      const minute = 1000 * 60;
+
+      const days = Math.floor(distance / day);
+      const hours = Math.floor((distance % day) / hour);
+      const minutes = Math.floor((distance % hour) / minute);
+      const seconds = Math.floor((distance % minute) / 1000);
+
+      daysEl.textContent = String(days).padStart(2, '0');
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
