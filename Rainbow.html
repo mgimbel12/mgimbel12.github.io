@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rainbow Babies Sanctuary</title>
+  <style>
+    /* Base layout */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #ffe6f2, #ffffff);
+      color: #333;
+    }
+
+    header {
+      padding: 20px;
+      text-align: center;
+      color: white;
+      background: linear-gradient(
+        90deg,
+        red,
+        orange,
+        yellow,
+        green,
+        blue,
+        indigo,
+        violet
+      );
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+    }
+
+    section {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #ffd6e9;
+      padding-bottom: 6px;
+    }
+
+    /* Rainbow babies list */
+    .baby-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .baby-list li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fdf5ff;
+    }
+
+    .baby-name {
+      font-weight: 600;
+    }
+
+    .baby-date {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    /* Color wheel / mixing */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .color-card {
+      border-radius: 10px;
+      padding: 10px;
+      background: #f9f9ff;
+      border: 1px solid #eee;
+    }
+
+    .swatch {
+      width: 100%;
+      height: 40px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    /* Specific color swatches using pink, blue, red, white, green */
+    .swatch-pink { background: pink; }
+    .swatch-blue { background: #4da3ff; }
+    .swatch-red { background: red; }
+    .swatch-white { background: white; }
+    .swatch-green { background: #3cb371; }
+    .swatch-purple { background: purple; }
+    .swatch-orange { background: orange; }
+    .swatch-yellow { background: yellow; }
+
+    .mix-note {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Date / time / calendar */
+    .time-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .clock-panel,
+    .calendar-panel {
+      flex: 1 1 260px;
+      background: #f7f0ff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid #e3d6ff;
+    }
+
+    .clock-label {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .clock-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .calendar-day-name {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .calendar-cell {
+      padding: 4px 0;
+      border-radius: 6px;
+    }
+
+    .calendar-cell.today {
+      background: #ffb6c1;
+      color: #222;
+      font-weight: 700;
+    }
+
+    .calendar-cell.other-month {
+      color: #bbb;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rainbow Babies &amp; Color Sanctuary</h1>
+  </header>
+
+  <main>
+    <!-- Rainbow Babies Dates of Birth -->
+    <section>
+      <h2>Rainbow Babies Dates of Birth</h2>
+      <p>
+        A gentle place to remember and celebrate each rainbow baby’s arrival.
+      </p>
+      <ul class="baby-list">
+        <!-- You can edit/add names and dates here -->
+        <li>
+          <span class="baby-name">Aurora Hope</span>
+          <span class="baby-date">Born: March 12, 2018</span>
+        </li>
+        <li>
+          <span class="baby-name">Skyler Grace</span>
+          <span class="baby-date">Born: July 29, 2019</span>
+        </li>
+        <li>
+          <span class="baby-name">Iris Joy</span>
+          <span class="baby-date">Born: November 5, 2020</span>
+        </li>
+        <li>
+          <span class="baby-name">Phoenix Ray</span>
+          <span class="baby-date">Born: May 21, 2022</span>
+        </li>
+        <li>
+          <span class="baby-name">Harmony Star</span>
+          <span class="baby-date">Born: January 3, 2024</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Color Wheel / How to Make Colors -->
+    <section>
+      <h2>Color Wheel &amp; Mixing Guide</h2>
+      <p>
+        A simple color wheel reminder and how to mix some favorite rainbow shades.
+      </p>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="swatch swatch-red"></div>
+          <div class="mix-note"><strong>Red:</strong> A primary color—cannot be mixed from others.</div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-blue"></div>
+          <div class="mix-note"><strong>Blue:</strong> A primary color—cool and calming.</div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-yellow"></div>
+          <div class="mix-note"><strong>Yellow:</strong> A primary color—bright and sunny.</div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-green"></div>
+          <div class="mix-note">
+            <strong>Green:</strong> Mix <span style="color:green;">blue</span> + <span style="color:goldenrod;">yellow</span>.
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-purple"></div>
+          <div class="mix-note">
+            <strong>Purple:</strong> Mix <span style="color:red;">red</span> + <span style="color:blue;">blue</span>.
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-orange"></div>
+          <div class="mix-note">
+            <strong>Orange:</strong> Mix <span style="color:red;">red</span> + <span style="color:goldenrod;">yellow</span>.
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-pink"></div>
+          <div class="mix-note">
+            <strong>Pink:</strong> Mix <span style="color:red;">red</span> + <span style="color:#f0f0f0;">white</span>.
+          </div>
+        </div>
+        <div class="color-card">
+          <div class="swatch swatch-white"></div>
+          <div class="mix-note">
+            <strong>White:</strong> Light, space, and softness—used to lighten any color.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JavaScript Date / Time / Year / Calendar -->
+    <section>
+      <h2>Today’s Date, Time &amp; Calendar</h2>
+      <p>
+        A small timekeeper for this rainbow space—showing the current date, time, year, and a simple monthly calendar.
+      </p>
+      <div class="time-box">
+        <div class="clock-panel">
+          <div class="clock-label">Current Date:</div>
+          <div class="clock-value" id="current-date"></div>
+
+          <div class="clock-label" style="margin-top: 8px;">Current Time:</div>
+          <div class="clock-value" id="current-time"></div>
+
+          <div class="clock-label" style="margin-top: 8px;">Current Year:</div>
+          <div class="clock-value" id="current-year"></div>
+        </div>
+
+        <div class="calendar-panel">
+          <div class="calendar-header">
+            <span id="calendar-month-year"></span>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar will be generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Rainbow page crafted with pink, blue, red, white, green, and every color in between.
+  </footer>
+
+  <script>
+    // --- Date, Time, Year ---
+    function updateClock() {
+      const now = new Date();
+
+      const dateOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      const timeOptions = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
+
+      document.getElementById("current-date").textContent =
+        now.toLocaleDateString(undefined, dateOptions);
+
+      document.getElementById("current-time").textContent =
+        now.toLocaleTimeString(undefined, timeOptions);
+
+      document.getElementById("current-year").textContent = now.getFullYear();
+    }
+
+    // --- Simple Calendar for current month ---
+    function buildCalendar() {
+      const calendarGrid = document.getElementById("calendar-grid");
+      const header = document.getElementById("calendar-month-year");
+      calendarGrid.innerHTML = "";
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth(); // 0-11
+
+      const firstDayOfMonth = new Date(year, month, 1);
+      const lastDayOfMonth = new Date(year, month + 1, 0);
+
+      const monthName = firstDayOfMonth.toLocaleString(undefined, { month: "long" });
+      header.textContent = monthName + " " + year;
+
+      // Day names
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      dayNames.forEach((d) => {
+        const cell = document.createElement("div");
+        cell.className = "calendar-day-name";
+        cell.textContent = d;
+        calendarGrid.appendChild(cell);
+      });
+
+      const startWeekday = firstDayOfMonth.getDay(); // 0-6
+      const totalDays = lastDayOfMonth.getDate();
+
+      // Fill in blank cells before the first day
+      for (let i = 0; i < startWeekday; i++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell other-month";
+        cell.textContent = "";
+        calendarGrid.appendChild(cell);
+      }
+
+      // Fill in days of the month
+      for (let day = 1; day <= totalDays; day++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell";
+        cell.textContent = day;
+
+        if (
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
+          cell.classList.add("today");
+        }
+
+        calendarGrid.appendChild(cell);
+      }
+    }
+
+    // Initialize
+    updateClock();
+    buildCalendar();
+    setInterval(updateClock, 1000);
+  </script>
+<footer>
+  <div style="
+    background: linear-gradient(
+      90deg,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      indigo,
+      violet
+    );
+    padding: 18px 0;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  ">
+    Rainbow Babies • Color Wheel • Calendar of Light
+  </div>
+
+  <div style="
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(90deg, pink, white, lightblue, lightgreen);
+    border-top: 3px solid #ffd6e9;
+    color: #444;
+    font-size: 0.9rem;
+  ">
+    Crafted with pink, blue, red, white, and green —  
+    a sanctuary of remembrance, color, and gentle timekeeping.
+  </div>
+
+  <div style="
+    padding: 16px;
+    text-align: center;
+    background: #fff0fa;
+    border-top: 4px solid #ff9acb;
+    font-size: 0.95rem;
+    color: #555;
+  ">
+    May every color bring comfort, every date hold meaning,  
+    and every rainbow baby be remembered with light.
+  </div>
+</footer>
+</body>
+</html>
