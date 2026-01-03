@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Honorable Cops &amp; Community Fun</title>
+  <style>
+    /* Base */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050811;
+      color: #f5f5f5;
+    }
+
+    a {
+      color: #ffdd57;
+      text-decoration: none;
+    }
+
+    /* Header + Flag */
+    header {
+      position: relative;
+      background: linear-gradient(
+        90deg,
+        #b22234,
+        #ffffff,
+        #3c3b6e,
+        #ffffff,
+        #b22234
+      );
+      color: #000;
+      padding-top: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .flag-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px 4px;
+    }
+
+    .flag-canton {
+      width: 80px;
+      height: 50px;
+      background: #3c3b6e;
+      border-radius: 4px;
+      margin-right: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f5f5f5;
+      font-size: 0.65rem;
+      text-align: center;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
+    }
+
+    .header-text {
+      text-align: left;
+    }
+
+    .header-text h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .header-text p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+    }
+
+    /* Moving text banner */
+    .moving-text-bar {
+      background: #000;
+      color: #ffdd57;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 2px solid #ffdd57;
+      border-bottom: 2px solid #ffdd57;
+    }
+
+    .moving-text {
+      display: inline-block;
+      padding: 6px 0;
+      animation: marquee 18s linear infinite;
+      font-size: 0.9rem;
+    }
+
+    @keyframes marquee {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    /* Menu bar */
+    nav {
+      background: #111827;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .menu {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      padding: 8px 16px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .menu-left,
+    .menu-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .menu a {
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .menu a:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Layout */
+    main {
+      max-width: 1100px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+    }
+
+    section {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      border-bottom: 2px solid #3b82f6;
+      padding-bottom: 6px;
+    }
+
+    /* Color tags */
+    .color-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .tag-blue { background: #3b82f6; }
+    .tag-red { background: #ef4444; }
+    .tag-white { background: #f9fafb; }
+    .tag-orange { background: #fb923c; }
+    .tag-green { background: #22c55e; }
+    .tag-purple { background: #a855f7; }
+    .tag-black { background: #111827; color: #f9fafb; }
+
+    /* Honorable discharge cops */
+    .honor-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .honor-list li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      background: rgba(37, 99, 235, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .name-label {
+      font-weight: 600;
+    }
+
+    .detail-label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Moving cops (simple animation) */
+    .cops-row {
+      position: relative;
+      overflow: hidden;
+      height: 70px;
+      margin-top: 10px;
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cop-car {
+      position: absolute;
+      top: 18px;
+      font-size: 2rem;
+      animation: drive 10s linear infinite;
+    }
+
+    .cop-car:nth-child(1) { left: -10%; animation-delay: 0s; }
+    .cop-car:nth-child(2) { left: -30%; animation-delay: 3s; }
+    .cop-car:nth-child(3) { left: -50%; animation-delay: 6s; }
+
+    @keyframes drive {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(140vw); }
+    }
+
+    /* Siren button */
+    .siren-controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-siren {
+      background: linear-gradient(90deg, #ef4444, #3b82f6);
+      color: #f9fafb;
+    }
+
+    .btn-stop {
+      background: #111827;
+      color: #f9fafb;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Jokes & fun */
+    .joke-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .joke-list li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      background: rgba(248, 250, 252, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.9rem;
+    }
+
+    /* Babies & cops */
+    .baby-cop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .baby-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .baby-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .baby-note {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Victim help numbers (placeholders) */
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .help-card {
+      background: rgba(185, 28, 28, 0.2);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      font-size: 0.85rem;
+    }
+
+    .help-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Sandwich & hotdog models */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .food-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .food-emoji {
+      font-size: 2rem;
+    }
+
+    .food-text-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .food-text-note {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Time & calendar */
+    .time-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .clock-panel,
+    .calendar-panel {
+      flex: 1 1 260px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clock-label {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .clock-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .calendar-day-name {
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .calendar-cell {
+      padding: 4px 0;
+      border-radius: 6px;
+      background: rgba(248, 250, 252, 0.04);
+    }
+
+    .calendar-cell.today {
+      background: #22c55e;
+      color: #000;
+      font-weight: 700;
+    }
+
+    .calendar-cell.other-month {
+      opacity: 0.4;
+    }
+
+    /* Moving calendar effect */
+    .calendar-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: skewX(-20deg);
+      animation: sweep 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sweep {
+      0% { left: -40%; }
+      100% { left: 120%; }
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 20px;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+    }
+
+    .footer-bar {
+      text-align: center;
+      padding: 12px;
+      background: linear-gradient(
+        90deg,
+        #000000,
+        #3b82f6,
+        #ef4444,
+        #22c55e,
+        #a855f7,
+        #000000
+      );
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    .footer-soft {
+      text-align: center;
+      padding: 12px;
+      background: #020617;
+      border-top: 1px solid rgba(148, 163, 184, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="flag-strip">
+      <div class="flag-canton">
+        <span>USA<br />BLUE • RED • WHITE</span>
+      </div>
+      <div class="header-text">
+        <h1>Honorable Cops &amp; Community Fun</h1>
+        <p>Service, laughter, music, and a little rainbow of snacks and sirens.</p>
+      </div>
+    </div>
+    <div class="moving-text-bar">
+      <div class="moving-text">
+        Honorable discharge • Community helpers • Blue, red, white, orange, green, purple, black •
+        Moving cops • Musical sirens • Sandwich &amp; hotdog models • Calendar in motion •
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="menu">
+      <div class="menu-left">
+        <a href="#honor">Honorable Cops</a>
+        <a href="#fun">Fun &amp; Jokes</a>
+        <a href="#babies">Babies &amp; Cops</a>
+        <a href="#help">Help Lines</a>
+        <a href="#food">Sandwich &amp; Hotdog</a>
+        <a href="#time">Date &amp; Calendar</a>
+      </div>
+      <div class="menu-right">
+        <span style="font-size:0.8rem; opacity:0.8;">Today: <span id="menu-date"></span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Honorable discharge cops -->
+    <section id="honor">
+      <h2>Honorable Discharge of Cops</h2>
+      <p>Celebrating officers who served with integrity and stepped into a new chapter with honor.</p>
+      <div class="color-tags">
+        <span class="tag tag-blue">Blue</span>
+        <span class="tag tag-red">Red</span>
+        <span class="tag tag-white">White</span>
+        <span class="tag tag-orange">Orange</span>
+        <span class="tag tag-green">Green</span>
+        <span class="tag tag-purple">Purple</span>
+        <span class="tag tag-black">Black</span>
+      </div>
+      <ul class="honor-list">
+        <li>
+          <span class="name-label">Officer Jordan M. Blake</span>
+          <span class="detail-label">City Police • Honorable Discharge • 2021</span>
+        </li>
+        <li>
+          <span class="name-label">Sergeant Riley A. Chen</span>
+          <span class="detail-label">County Sheriff • Honorable Discharge • 2018</span>
+        </li>
+        <li>
+          <span class="name-label">Lieutenant Casey L. Ortiz</span>
+          <span class="detail-label">State Patrol • Honorable Discharge • 2023</span>
+        </li>
+      </ul>
+
+      <div class="cops-row">
+        <div class="cop-car">🚓</div>
+        <div class="cop-car">🚔</div>
+        <div class="cop-car">🚓</div>
+      </div>
+
+      <div class="siren-controls">
+        <button class="btn btn-siren" id="play-siren">Play Siren Rhythm</button>
+        <button class="btn btn-stop" id="stop-siren">Stop Siren</button>
+        <span style="font-size:0.8rem; opacity:0.8;">
+          A playful beep-boop siren pattern (no real emergency).
+        </span>
+      </div>
+    </section>
+
+    <!-- Fun & jokes -->
+    <section id="fun">
+      <h2>Cops Having Fun &amp; Light Jokes</h2>
+      <p>Gentle, family-friendly jokes and moments of laughter after long shifts.</p>
+      <ul class="joke-list">
+        <li>
+          Why did the officer bring a ladder to work?<br />
+          Because the job had “high” expectations.
+        </li>
+        <li>
+          A cop and a kid are both wearing superhero capes.<br />
+          The kid says, “We match!” The cop smiles and says, “Good—heroes work better in teams.”
+        </li>
+        <li>
+          Why did the traffic cone get invited to the station party?<br />
+          Because it was great at helping everyone “slow down” and enjoy the moment.
+        </li>
+      </ul>
+    </section>
+
+    <!-- Babies & cops -->
+    <section id="babies">
+      <h2>Babies &amp; Cops Moments</h2>
+      <p>Soft snapshots of officers reading stories, making silly faces, and keeping the world gentle for little ones.</p>
+      <div class="baby-cop-grid">
+        <div class="baby-card">
+          <div class="baby-title">Storytime Squad</div>
+          <div class="baby-note">
+            Officer reads a picture book while a baby grabs the shiny badge (and everyone laughs).
+          </div>
+        </div>
+        <div class="baby-card">
+          <div class="baby-title">Bubble Patrol</div>
+          <div class="baby-note">
+            Cops blowing bubbles in the park, toddlers chasing them like tiny superheroes in training.
+          </div>
+        </div>
+        <div class="baby-card">
+          <div class="baby-title">Tiny High-Fives</div>
+          <div class="baby-note">
+            A baby in a stroller gives a high-five to a passing officer—world’s smallest fist bump.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help numbers (placeholders) -->
+    <section id="help">
+      <h2>Phone Numbers to Help Victims</h2>
+      <p>
+        These are <strong>example placeholders</strong>. Replace them with real, local or national support numbers
+        for victims of crime, domestic violence, or emergencies in your area.
+      </p>
+      <div class="help-grid">
+        <div class="help-card">
+          <strong>Emergency Services (Example)</strong>
+          Phone: (000) 000-0000<br />
+          For immediate danger or urgent emergencies. Replace with your local emergency number.
+        </div>
+        <div class="help-card">
+          <strong>Victim Support Line (Example)</strong>
+          Phone: (111) 111-1111<br />
+          For emotional support, reporting, and guidance. Replace with a real hotline.
+        </div>
+        <div class="help-card">
+          <strong>Community Resource Center (Example)</strong>
+          Phone: (222) 222-2222<br />
+          For counseling, shelter information, and legal referrals. Replace with real contacts.
+        </div>
+      </div>
+    </section>
+
+    <!-- Sandwich & hotdog models -->
+    <section id="food">
+      <h2>Sandwich &amp; Hotdog Models</h2>
+      <p>Because even heroes need snacks—tiny models of comfort food in the break room.</p>
+      <div class="food-grid">
+        <div class="food-card">
+          <div class="food-emoji">🥪</div>
+          <div>
+            <div class="food-text-title">Stacked Sandwich Model</div>
+            <div class="food-text-note">
+              Layers of lettuce (green), tomato (red), cheese (orange), and bread (golden)—a color wheel you can eat.
+            </div>
+          </div>
+        </div>
+        <div class="food-card">
+          <div class="food-emoji">🌭</div>
+          <div>
+            <div class="food-text-title">Hotdog Patrol Model</div>
+            <div class="food-text-note">
+              Mustard yellow, ketchup red, relish green—lined up like a tiny parade on a bun.
+            </div>
+          </div>
+        </div>
+        <div class="food-card">
+          <div class="food-emoji">🥤</div>
+          <div>
+            <div class="food-text-title">Purple Soda Break</div>
+            <div class="food-text-note">
+              A fizzy purple drink to match the night sky and the flashing lights outside.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Date, year, moving calendar -->
+    <section id="time">
+      <h2>Date, Time, Year &amp; Moving Calendar</h2>
+      <p>A musical little timekeeper for this page of honor and fun.</p>
+      <div class="time-box">
+        <div class="clock-panel">
+          <div class="clock-label">Current Date:</div>
+          <div class="clock-value" id="current-date"></div>
+
+          <div class="clock-label" style="margin-top: 8px;">Current Time:</div>
+          <div class="clock-value" id="current-time"></div>
+
+          <div class="clock-label" style="margin-top: 8px;">Current Year:</div>
+          <div class="clock-value" id="current-year"></div>
+        </div>
+
+        <div class="calendar-panel">
+          <div class="calendar-header">
+            <span id="calendar-month-year"></span>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-bar">
+      HONORABLE COPS • BLUE &amp; RED LIGHTS • LAUGHTER • SANDWICHES &amp; HOTDOGS • CALENDAR IN MOTION
+    </div>
+    <div class="footer-soft">
+      May every shift end in safety, every victim find support, and every community share a little laughter.
+    </div>
+  </footer>
+
+  <script>
+    // Date, Time, Year
+    function updateClock() {
+      const now = new Date();
+
+      const dateOptions = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const timeOptions = {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      };
+
+      const dateText = now.toLocaleDateString(undefined, dateOptions);
+      const timeText = now.toLocaleTimeString(undefined, timeOptions);
+      const yearText = now.getFullYear();
+
+      document.getElementById("current-date").textContent = dateText;
+      document.getElementById("current-time").textContent = timeText;
+      document.getElementById("current-year").textContent = yearText;
+      document.getElementById("menu-date").textContent = dateText;
+    }
+
+    // Simple Calendar for current month
+    function buildCalendar() {
+      const calendarGrid = document.getElementById("calendar-grid");
+      const header = document.getElementById("calendar-month-year");
+      calendarGrid.innerHTML = "";
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth(); // 0-11
+
+      const firstDayOfMonth = new Date(year, month, 1);
+      const lastDayOfMonth = new Date(year, month + 1, 0);
+
+      const monthName = firstDayOfMonth.toLocaleString(undefined, {
+        month: "long",
+      });
+      header.textContent = monthName + " " + year;
+
+      // Day names
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      dayNames.forEach((d) => {
+        const cell = document.createElement("div");
+        cell.className = "calendar-day-name";
+        cell.textContent = d;
+        calendarGrid.appendChild(cell);
+      });
+
+      const startWeekday = firstDayOfMonth.getDay(); // 0-6
+      const totalDays = lastDayOfMonth.getDate();
+
+      // Blank cells before first day
+      for (let i = 0; i < startWeekday; i++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell other-month";
+        cell.textContent = "";
+        calendarGrid.appendChild(cell);
+      }
+
+      // Days of the month
+      for (let day = 1; day <= totalDays; day++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell";
+        cell.textContent = day;
+
+        if (
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
+          cell.classList.add("today");
+        }
+
+        calendarGrid.appendChild(cell);
+      }
+    }
+
+    // Simple siren rhythm using Web Audio API (beeps)
+    let audioContext = null;
+    let sirenInterval = null;
+
+    function playBeep(frequency, duration) {
+      if (!audioContext) return;
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.type = "sine";
+      osc.frequency.value = frequency;
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+      osc.start();
+      osc.stop(audioContext.currentTime + duration / 1000);
+    }
+
+    function startSiren() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (sirenInterval) return;
+
+      let toggle = false;
+      sirenInterval = setInterval(() => {
+        toggle = !toggle;
+        const freq = toggle ? 800 : 500; // two tones
+        playBeep(freq, 200);
+      }, 300);
+    }
+
+    function stopSiren() {
+      if (sirenInterval) {
+        clearInterval(sirenInterval);
+        sirenInterval = null;
+      }
+    }
+
+    document.getElementById("play-siren").addEventListener("click", startSiren);
+    document.getElementById("stop-siren").addEventListener("click", stopSiren);
+
+    // Initialize
+    updateClock();
+    buildCalendar();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
