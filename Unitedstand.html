@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>United States Heroes & Community Fun</title>
+  <style>
+    /* Base */
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #020617, #020617 40%, #020617 60%, #020617);
+      color: #f9fafb;
+    }
+
+    a {
+      color: #facc15;
+      text-decoration: none;
+    }
+
+    /* Header + Flag + Sky */
+    header {
+      position: relative;
+      color: #000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .flag-banner {
+      background: linear-gradient(
+        90deg,
+        #b22234,
+        #ffffff,
+        #3c3b6e,
+        #ffffff,
+        #b22234
+      );
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .flag-canton {
+      position: absolute;
+      left: 16px;
+      top: 10px;
+      width: 90px;
+      height: 55px;
+      background: #3c3b6e;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f9fafb;
+      font-size: 0.65rem;
+      text-align: center;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .flag-canton span {
+      line-height: 1.2;
+    }
+
+    .header-text {
+      text-align: center;
+      color: #000;
+      text-shadow: 0 1px 3px rgba(255, 255, 255, 0.6);
+    }
+
+    .header-text h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    .header-text p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+    }
+
+    /* Sky: clouds, rain, rainbow */
+    .sky {
+      position: relative;
+      height: 120px;
+      background: linear-gradient(180deg, #1f2937, #020617);
+      overflow: hidden;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .cloud {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 50px;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .cloud.cloud-1 {
+      width: 120px;
+      height: 50px;
+      top: 20px;
+      left: 10%;
+    }
+
+    .cloud.cloud-2 {
+      width: 160px;
+      height: 60px;
+      top: 10px;
+      left: 55%;
+    }
+
+    .cloud.cloud-3 {
+      width: 100px;
+      height: 40px;
+      top: 40px;
+      left: 75%;
+    }
+
+    .rain {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(148, 163, 184, 0.7) 2px,
+        transparent 2px
+      );
+      background-size: 2px 10px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .rainbow-arc {
+      position: absolute;
+      bottom: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 130px;
+      border-radius: 130px 130px 0 0;
+      background: conic-gradient(
+        from 180deg,
+        red,
+        orange,
+        yellow,
+        green,
+        blue,
+        indigo,
+        violet,
+        red
+      );
+      filter: saturate(1.2);
+      opacity: 0.9;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Moving text banner */
+    .moving-text-bar {
+      background: #000;
+      color: #facc15;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 2px solid #facc15;
+      border-bottom: 2px solid #facc15;
+    }
+
+    .moving-text {
+      display: inline-block;
+      padding: 6px 0;
+      animation: marquee 18s linear infinite;
+      font-size: 0.9rem;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Menu bar */
+    nav {
+      background: #020617;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .menu {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 16px;
+      padding: 8px 16px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .menu-left,
+    .menu-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .menu a:hover {
+      background: rgba(148, 163, 184, 0.2);
+    }
+
+    /* Layout */
+    main {
+      max-width: 1200px;
+      margin: 20px auto 40px;
+      padding: 0 16px;
+    }
+
+    section {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      border-bottom: 2px solid #a855f7; /* purple accent */
+      padding-bottom: 6px;
+    }
+
+    /* Color tags */
+    .color-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #000;
+    }
+
+    .tag-blue { background: #3b82f6; }
+    .tag-red { background: #ef4444; }
+    .tag-white { background: #f9fafb; }
+    .tag-orange { background: #fb923c; }
+    .tag-green { background: #22c55e; }
+    .tag-purple { background: #a855f7; }
+    .tag-black { background: #000000; color: #f9fafb; }
+
+    /* Lists */
+    .honor-list,
+    .eagle-list,
+    .battle-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .honor-list li,
+    .eagle-list li,
+    .battle-list li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      background: rgba(30, 64, 175, 0.35);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .name-label {
+      font-weight: 600;
+    }
+
+    .detail-label {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Cops row (moving) */
+    .cops-row {
+      position: relative;
+      overflow: hidden;
+      height: 70px;
+      margin-top: 10px;
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .cop-car {
+      position: absolute;
+      top: 18px;
+      font-size: 2rem;
+      animation: drive 10s linear infinite;
+    }
+
+    .cop-car:nth-child(1) { left: -10%; animation-delay: 0s; }
+    .cop-car:nth-child(2) { left: -30%; animation-delay: 3s; }
+    .cop-car:nth-child(3) { left: -50%; animation-delay: 6s; }
+
+    @keyframes drive {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(140vw); }
+    }
+
+    /* Siren controls */
+    .siren-controls {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .btn-siren {
+      background: linear-gradient(90deg, #ef4444, #3b82f6);
+      color: #f9fafb;
+    }
+
+    .btn-stop {
+      background: #020617;
+      color: #f9fafb;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+    }
+
+    /* Jokes */
+    .joke-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+    }
+
+    .joke-list li {
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-bottom: 6px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 0.9rem;
+    }
+
+    /* Babies & heroes */
+    .baby-hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .baby-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .baby-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .baby-note {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Help numbers */
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .help-card {
+      background: rgba(185, 28, 28, 0.25);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(248, 113, 113, 0.8);
+      font-size: 0.85rem;
+    }
+
+    .help-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Food models */
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .food-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .food-emoji {
+      font-size: 2rem;
+    }
+
+    .food-text-title {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .food-text-note {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    /* Time & calendar */
+    .time-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .clock-panel,
+    .calendar-panel {
+      flex: 1 1 260px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .clock-label {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .clock-value {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .calendar-day-name {
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .calendar-cell {
+      padding: 4px 0;
+      border-radius: 6px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .calendar-cell.today {
+      background: #22c55e;
+      color: #000;
+      font-weight: 700;
+    }
+
+    .calendar-cell.other-month {
+      opacity: 0.4;
+    }
+
+    /* Moving calendar highlight */
+    .calendar-panel::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -40%;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      transform: skewX(-20deg);
+      animation: sweep 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sweep {
+      0% { left: -40%; }
+      100% { left: 120%; }
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 20px;
+      color: #e5e7eb;
+      font-size: 0.85rem;
+    }
+
+    .footer-bar {
+      text-align: center;
+      padding: 12px;
+      background: linear-gradient(
+        90deg,
+        #000000,
+        #3b82f6,
+        #ef4444,
+        #22c55e,
+        #a855f7,
+        #000000
+      );
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    .footer-soft {
+      text-align: center;
+      padding: 12px;
+      background: #020617;
+      border-top: 1px solid rgba(148, 163, 184, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="flag-banner">
+      <div class="flag-canton">
+        <span>USA<br />BLUE • RED • WHITE</span>
+      </div>
+      <div class="header-text">
+        <h1>United States Heroes &amp; Community Fun</h1>
+        <p>Military, cops, Eagle Scouts, rain, clouds, rainbows, jokes, food, and timekeeping in one sky.</p>
+      </div>
+    </div>
+    <div class="sky">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+      <div class="rain"></div>
+      <div class="rainbow-arc"></div>
+    </div>
+    <div class="moving-text-bar">
+      <div class="moving-text">
+        Honorable discharge • Military &amp; Cops • Eagle Scouts • Battles remembered • Babies &amp; heroes •
+        Sandwich &amp; hotdog models • Blue, red, white, orange, green, purple, black • Moving cops • Musical sirens •
+        Date, time, year &amp; moving calendar •
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <div class="menu">
+      <div class="menu-left">
+        <a href="#military">Military Honor</a>
+        <a href="#cops">Cops Honor &amp; Sirens</a>
+        <a href="#eagles">Eagle Scouts</a>
+        <a href="#battles">Battles</a>
+        <a href="#babies">Babies &amp; Heroes</a>
+        <a href="#help">Help Lines</a>
+        <a href="#food">Sandwich &amp; Hotdog</a>
+        <a href="#time">Date &amp; Calendar</a>
+      </div>
+      <div class="menu-right">
+        <span style="font-size:0.8rem; opacity:0.8;">Today: <span id="menu-date"></span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Military honor -->
+    <section id="military">
+      <h2>United States Military &amp; Honorable Discharge</h2>
+      <p>Honoring those who served and were honorably discharged, under a sky of clouds, rain, and rainbows.</p>
+      <div class="color-tags">
+        <span class="tag tag-blue">Blue</span>
+        <span class="tag tag-red">Red</span>
+        <span class="tag tag-white">White</span>
+        <span class="tag tag-orange">Orange</span>
+        <span class="tag tag-green">Green</span>
+        <span class="tag tag-purple">Purple</span>
+        <span class="tag tag-black">Black</span>
+      </div>
+      <ul class="honor-list">
+        <li>
+          <span class="name-label">Staff Sergeant Michael R. Carter</span>
+          <span class="detail-label">U.S. Army • Honorable Discharge • 2012</span>
+        </li>
+        <li>
+          <span class="name-label">Petty Officer 2nd Class Elena J. Rivera</span>
+          <span class="detail-label">U.S. Navy • Honorable Discharge • 2016</span>
+        </li>
+        <li>
+          <span class="name-label">Captain Daniel K. Thompson</span>
+          <span class="detail-label">U.S. Air Force • Honorable Discharge • 2008</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Cops honor & sirens -->
+    <section id="cops">
+      <h2>Honorable Discharge of Cops &amp; Moving Sirens</h2>
+      <p>Celebrating officers who served with integrity, now stepping into new chapters—with a little playful siren rhythm.</p>
+      <ul class="honor-list">
+        <li>
+          <span class="name-label">Officer Jordan M. Blake</span>
+          <span class="detail-label">City Police • Honorable Discharge • 2021</span>
+        </li>
+        <li>
+          <span class="name-label">Sergeant Riley A. Chen</span>
+          <span class="detail-label">County Sheriff • Honorable Discharge • 2018</span>
+        </li>
+        <li>
+          <span class="name-label">Lieutenant Casey L. Ortiz</span>
+          <span class="detail-label">State Patrol • Honorable Discharge • 2023</span>
+        </li>
+      </ul>
+
+      <div class="cops-row">
+        <div class="cop-car">🚓</div>
+        <div class="cop-car">🚔</div>
+        <div class="cop-car">🚓</div>
+      </div>
+
+      <div class="siren-controls">
+        <button class="btn btn-siren" id="play-siren">Play Siren Rhythm</button>
+        <button class="btn btn-stop" id="stop-siren">Stop Siren</button>
+        <span style="font-size:0.8rem; opacity:0.8;">
+          A playful beep-boop siren pattern (no real emergency).
+        </span>
+      </div>
+    </section>
+
+    <!-- Eagle Scouts -->
+    <section id="eagles">
+      <h2>America Eagle Scouts</h2>
+      <p>Recognizing Eagle Scouts whose leadership and service echo the same spirit of honor.</p>
+      <ul class="eagle-list">
+        <li>
+          <span class="name-label">Alex M. Johnson</span>
+          <span class="detail-label">Eagle Scout • Troop 145 • 2015</span>
+        </li>
+        <li>
+          <span class="name-label">Taylor S. Nguyen</span>
+          <span class="detail-label">Eagle Scout • Troop 82 • 2018</span>
+        </li>
+        <li>
+          <span class="name-label">Jordan P. Lee</span>
+          <span class="detail-label">Eagle Scout • Crew 21 • 2020</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Battles -->
+    <section id="battles">
+      <h2>United States Battles Remembered</h2>
+      <p>Key battles that shaped the nation, held here as a brief roll of history.</p>
+      <ul class="battle-list">
+        <li>
+          <span class="name-label">Battle of Gettysburg</span>
+          <span class="detail-label">American Civil War • July 1–3, 1863</span>
+        </li>
+        <li>
+          <span class="name-label">D-Day (Normandy Landings)</span>
+          <span class="detail-label">World War II • June 6, 1944</span>
+        </li>
+        <li>
+          <span class="name-label">Battle of Midway</span>
+          <span class="detail-label">World War II • June 4–7, 1942</span>
+        </li>
+        <li>
+          <span class="name-label">Battle of Fallujah</span>
+          <span class="detail-label">Iraq War • 2004</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Babies & heroes -->
+    <section id="babies">
+      <h2>Babies &amp; Heroes Moments</h2>
+      <p>Soft snapshots of officers and service members sharing gentle, funny moments with little ones.</p>
+      <div class="baby-hero-grid">
+        <div class="baby-card">
+          <div class="baby-title">Storytime Squad</div>
+          <div class="baby-note">
+            An officer reads a picture book while a baby grabs the shiny badge—everyone laughs.
+          </div>
+        </div>
+        <div class="baby-card">
+          <div class="baby-title">Bubble Patrol</div>
+          <div class="baby-note">
+            Heroes blowing bubbles in the park, toddlers chasing them like tiny superheroes in training.
+          </div>
+        </div>
+        <div class="baby-card">
+          <div class="baby-title">Tiny High-Fives</div>
+          <div class="baby-note">
+            A baby in a stroller gives a high-five to a passing officer—world’s smallest fist bump.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Help numbers (placeholders only) -->
+    <section id="help">
+      <h2>Phone Numbers to Help Victims</h2>
+      <p>
+        These are <strong>example placeholders</strong>.  
+        Please replace them with real, verified local or national support numbers for your area (emergency, victim support, domestic violence, etc.).
+      </p>
+      <div class="help-grid">
+        <div class="help-card">
+          <strong>Emergency Services (Example)</strong>
+          Phone: (000) 000-0000<br />
+          Use your local emergency number (for many places, this is 911).
+        </div>
+        <div class="help-card">
+          <strong>Victim Support Line (Example)</strong>
+          Phone: (111) 111-1111<br />
+          Replace with a real hotline that offers emotional support and guidance.
+        </div>
+        <div class="help-card">
+          <strong>Community Resource Center (Example)</strong>
+          Phone: (222) 222-2222<br />
+          Replace with a real center that provides counseling, shelter info, and legal referrals.
+        </div>
+      </div>
+    </section>
+
+    <!-- Sandwich & hotdog models -->
+    <section id="food">
+      <h2>Sandwich &amp; Hotdog Models</h2>
+      <p>Because even heroes need snacks—tiny models of comfort food in the break room.</p>
+      <div class="food-grid">
+        <div class="food-card">
+          <div class="food-emoji">🥪</div>
+          <div>
+            <div class="food-text-title">Stacked Sandwich Model</div>
+            <div class="food-text-note">
+              Layers of lettuce (green), tomato (red), cheese (orange), and bread (golden)—a color wheel you can eat.
+            </div>
+          </div>
+        </div>
+        <div class="food-card">
+          <div class="food-emoji">🌭</div>
+          <div>
+            <div class="food-text-title">Hotdog Patrol Model</div>
+            <div class="food-text-note">
+              Mustard yellow, ketchup red, relish green—lined up like a tiny parade on a bun.
+            </div>
+          </div>
+        </div>
+        <div class="food-card">
+          <div class="food-emoji">🥤</div>
+          <div>
+            <div class="food-text-title">Purple Soda Break</div>
+            <div class="food-text-note">
+              A fizzy purple drink to match the night sky and the flashing lights outside.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Date, time, year, moving calendar -->
+    <section id="time">
+      <h2>Date, Time, Year &amp; Moving Calendar</h2>
+      <p>A musical little timekeeper for this page of honor, history, and fun.</p>
+      <div class="time-box">
+        <div class="clock-panel">
+          <div class="clock-label">Current Date:</div>
+          <div class="clock-value" id="current-date"></div>
+
+          <div class="clock-label" style="margin-top: 8px;">Current Time:</div>
+          <div class="clock-value" id="current-time"></div>
+
+          <div class="clock-label" style="margin-top: 8px;">Current Year:</div>
+          <div class="clock-value" id="current-year"></div>
+        </div>
+
+        <div class="calendar-panel">
+          <div class="calendar-header">
+            <span id="calendar-month-year"></span>
+          </div>
+          <div class="calendar-grid" id="calendar-grid">
+            <!-- Calendar generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-bar">
+      UNITED STATES HEROES • MILITARY • COPS • EAGLE SCOUTS • RAIN • CLOUDS • RAINBOWS • CALENDAR IN MOTION
+    </div>
+    <div class="footer-soft">
+      May every name be spoken with respect, every victim find support, and every community share a little laughter.
+    </div>
+  </footer>
+
+  <script>
+    // Date, Time, Year
+    function updateClock() {
+      const now = new Date();
+
+      const dateOptions = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const timeOptions = {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      };
+
+      const dateText = now.toLocaleDateString(undefined, dateOptions);
+      const timeText = now.toLocaleTimeString(undefined, timeOptions);
+      const yearText = now.getFullYear();
+
+      document.getElementById("current-date").textContent = dateText;
+      document.getElementById("current-time").textContent = timeText;
+      document.getElementById("current-year").textContent = yearText;
+      document.getElementById("menu-date").textContent = dateText;
+    }
+
+    // Simple Calendar for current month
+    function buildCalendar() {
+      const calendarGrid = document.getElementById("calendar-grid");
+      const header = document.getElementById("calendar-month-year");
+      calendarGrid.innerHTML = "";
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth(); // 0-11
+
+      const firstDayOfMonth = new Date(year, month, 1);
+      const lastDayOfMonth = new Date(year, month + 1, 0);
+
+      const monthName = firstDayOfMonth.toLocaleString(undefined, {
+        month: "long",
+      });
+      header.textContent = monthName + " " + year;
+
+      // Day names
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      dayNames.forEach((d) => {
+        const cell = document.createElement("div");
+        cell.className = "calendar-day-name";
+        cell.textContent = d;
+        calendarGrid.appendChild(cell);
+      });
+
+      const startWeekday = firstDayOfMonth.getDay(); // 0-6
+      const totalDays = lastDayOfMonth.getDate();
+
+      // Blank cells before first day
+      for (let i = 0; i < startWeekday; i++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell other-month";
+        cell.textContent = "";
+        calendarGrid.appendChild(cell);
+      }
+
+      // Days of the month
+      for (let day = 1; day <= totalDays; day++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell";
+        cell.textContent = day;
+
+        if (
+          day === today.getDate() &&
+          month === today.getMonth() &&
+          year === today.getFullYear()
+        ) {
+          cell.classList.add("today");
+        }
+
+        calendarGrid.appendChild(cell);
+      }
+    }
+
+    // Simple siren rhythm using Web Audio API (beeps)
+    let audioContext = null;
+    let sirenInterval = null;
+
+    function playBeep(frequency, duration) {
+      if (!audioContext) return;
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.type = "sine";
+      osc.frequency.value = frequency;
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      gain.gain.setValueAtTime(0.15, audioContext.currentTime);
+      osc.start();
+      osc.stop(audioContext.currentTime + duration / 1000);
+    }
+
+    function startSiren() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (sirenInterval) return;
+
+      let toggle = false;
+      sirenInterval = setInterval(() => {
+        toggle = !toggle;
+        const freq = toggle ? 800 : 500; // two tones
+        playBeep(freq, 200);
+      }, 300);
+    }
+
+    function stopSiren() {
+      if (sirenInterval) {
+        clearInterval(sirenInterval);
+        sirenInterval = null;
+      }
+    }
+
+    document.getElementById("play-siren").addEventListener("click", startSiren);
+    document.getElementById("stop-siren").addEventListener("click", stopSiren);
+
+    // Initialize
+    updateClock();
+    buildCalendar();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
