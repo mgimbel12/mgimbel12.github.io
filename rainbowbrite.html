@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rainbow Brite • Color & Honor Overlay</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #ffe6ff, #0b1020);
+      color: #111;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #002868, #ffffff, #bf0a30);
+      color: #000;
+    }
+
+    .flag-title {
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .forces-tag {
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.1);
+      font-size: 0.8rem;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(8px);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #333;
+    }
+
+    .rainbow-brite {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .rainbow-orbit {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #0000ff,
+        #4b0082,
+        #8f00ff,
+        #ff0000
+      );
+      position: relative;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    }
+
+    .rainbow-orbit::after {
+      content: "RB";
+      position: absolute;
+      inset: 20%;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #ff3ba7;
+      font-size: 1.2rem;
+    }
+
+    .color-wheel {
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .color-preview {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #333;
+    }
+
+    .label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+    }
+
+    .bow-game {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .target-area {
+      position: relative;
+      height: 160px;
+      border-radius: 0.75rem;
+      background: linear-gradient(135deg, #e0f7ff, #f0e6ff);
+      overflow: hidden;
+    }
+
+    .target {
+      position: absolute;
+      top: 50%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0, #ff0000 40%, #ffffff 60%, #0000ff 100%);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .arrow {
+      position: absolute;
+      left: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 70px;
+      height: 4px;
+      background: #333;
+      border-radius: 999px;
+      transition: transform 0.6s ease-out;
+      transform-origin: left center;
+    }
+
+    .arrow::after {
+      content: "";
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      border-left: 10px solid #333;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    .arrow.fired {
+      transform: translateY(-50%) translateX(220px);
+    }
+
+    .rain-toggle {
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .rain-visual {
+      height: 60px;
+      border-radius: 0.5rem;
+      background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 255, 0.2) 1px,
+        transparent 1px
+      );
+      background-size: 100% 6px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .rain-visual.active {
+      opacity: 1;
+    }
+
+    .if-else {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .if-else button,
+    .bow-game button,
+    .rain-toggle button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      background: #002868;
+      color: #fff;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.2s;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      background: #0040a8;
+    }
+
+    .if-else-output {
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      background: #f7f7ff;
+      font-size: 0.85rem;
+      min-height: 60px;
+    }
+
+    .if-else-output.good {
+      border-left: 4px solid #00a651;
+    }
+
+    .if-else-output.bad {
+      border-left: 4px solid #bf0a30;
+    }
+
+    .cops-alert {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      background: #fff5f5;
+      color: #7a0010;
+      display: none;
+    }
+
+    .cops-alert.active {
+      display: block;
+    }
+
+    .presidents-list {
+      max-height: 260px;
+      overflow-y: auto;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 0.5rem 0.75rem;
+      background: linear-gradient(180deg, #ffffff, #f5f7ff);
+    }
+
+    .pres-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1.2fr 1fr;
+      gap: 0.5rem;
+      padding: 0.35rem 0.25rem;
+      font-size: 0.8rem;
+      align-items: center;
+      border-bottom: 1px dashed rgba(0, 0, 0, 0.08);
+    }
+
+    .pres-row:last-child {
+      border-bottom: none;
+    }
+
+    .pres-name {
+      font-weight: 600;
+      color: #002868;
+    }
+
+    .pres-dates {
+      color: #bf0a30;
+    }
+
+    .pres-notes {
+      color: #333;
+      font-size: 0.75rem;
+    }
+
+    footer {
+      padding: 0.5rem 2rem 1rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #eee;
+      background: #0b1020;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flag-dots {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .flag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .flag-dot.red {
+      background: #bf0a30;
+    }
+
+    .flag-dot.white {
+      background: #ffffff;
+    }
+
+    .flag-dot.blue {
+      background: #002868;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="flag-title">Rainbow Brite • Color & Honor</div>
+      <div style="font-size:0.8rem;">United States • Blue • Red • White • Forces</div>
+    </div>
+    <div class="forces-tag">Ceremony Mode: <span id="ceremonyStatus">Calm</span></div>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN: Rainbow Brite + Bow & Arrow + IF/ELSE -->
+    <section>
+      <h2>Rainbow Brite • Color Wheel • Rain</h2>
+      <div class="rainbow-brite">
+        <div class="rainbow-orbit"></div>
+        <div>
+          <div class="label">Color Wheel</div>
+          <div class="color-wheel">
+            <input type="color" id="colorPicker" value="#ff3ba7" />
+            <div class="color-preview" id="colorPreview"></div>
+          </div>
+          <div style="margin-top:0.5rem;font-size:0.8rem;">
+            Selected Hex: <span id="colorHex">#ff3ba7</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rain-toggle">
+        <div>
+          <div class="label">Raining Sounds</div>
+          <button id="rainButton">Toggle Rain</button>
+        </div>
+        <div class="rain-visual" id="rainVisual"></div>
+      </div>
+
+      <audio id="rainAudio" loop>
+        <!-- You can replace this with a real rain sound file URL -->
+        <source src="" type="audio/mpeg" />
+      </audio>
+
+      <hr style="margin:1rem 0;border:none;border-top:1px solid rgba(0,0,0,0.08);" />
+
+      <h2>Bow & Arrow • If / Else Game</h2>
+      <div class="bow-game">
+        <div class="target-area">
+          <div class="arrow" id="arrow"></div>
+          <div class="target"></div>
+        </div>
+        <div>
+          <p style="font-size:0.8rem;margin-top:0;">
+            Press <strong>Fire Arrow</strong>. If you “hit” the target, you get a calm outcome.
+            Else, a “cops calling” alert appears.
+          </p>
+          <button id="fireArrow">Fire Arrow</button>
+          <div class="cops-alert" id="copsAlert">
+            IF this goes wrong, THEN cops are calling. ELSE we stay safe and calm.
+          </div>
+        </div>
+      </div>
+
+      <div class="if-else">
+        <div>
+          <h2>IF this… THEN this…</h2>
+          <p style="font-size:0.8rem;margin-top:0;">
+            Choose a path. The overlay will show a different outcome block.
+          </p>
+          <button id="ifGood">IF Respectful Choice</button>
+          <button id="ifBad" style="margin-left:0.5rem;background:#bf0a30;">IF Harmful Choice</button>
+        </div>
+        <div class="if-else-output" id="ifElseOutput">
+          <!-- Outcome text appears here -->
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: Presidents, Dates, Times, Flag Colors -->
+    <section>
+      <h2>Presidents • Dates • Years • Times</h2>
+      <p style="font-size:0.8rem;margin-top:0;">
+        A small ceremonial list of U.S. Presidents with years in red, names in blue, and notes in neutral.
+      </p>
+      <div class="presidents-list">
+        <div class="pres-row">
+          <div class="pres-name">George Washington</div>
+          <div class="pres-dates">1789 – 1797</div>
+          <div class="pres-notes">First President • Founding era</div>
+        </div>
+        <div class="pres-row">
+          <div class="pres-name">Abraham Lincoln</div>
+          <div class="pres-dates">1861 – 1865</div>
+          <div class="pres-notes">Civil War • Emancipation</div>
+        </div>
+        <div class="pres-row">
+          <div class="pres-name">Franklin D. Roosevelt</div>
+          <div class="pres-dates">1933 – 1945</div>
+          <div class="pres-notes">Great Depression • WWII</div>
+        </div>
+        <div class="pres-row">
+          <div class="pres-name">John F. Kennedy</div>
+          <div class="pres-dates">1961 – 1963</div>
+          <div class="pres-notes">New Frontier • Space vision</div>
+        </div>
+        <div class="pres-row">
+          <div class="pres-name">Ronald Reagan</div>
+          <div class="pres-dates">1981 – 1989</div>
+          <div class="pres-notes">Cold War era</div>
+        </div>
+        <div class="pres-row">
+          <div class="pres-name">Barack Obama</div>
+          <div class="pres-dates">2009 – 2017</div>
+          <div class="pres-notes">Modern era • Hope theme</div>
+        </div>
+        <div class="pres-row">
+          <div class="pres-name">Joseph R. Biden Jr.</div>
+          <div class="pres-dates">2021 – Present</div>
+          <div class="pres-notes">Current administration</div>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;">
+        <div class="label">Current Date & Time</div>
+        <div style="font-size:0.9rem;margin-top:0.25rem;">
+          <span id="currentDate"></span> • <span id="currentTime"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>Design-on-a-dime • Rainbow Brite • Ceremony Overlay</div>
+    <div class="flag-dots">
+      <div class="flag-dot.red"></div>
+      <div class="flag-dot.white"></div>
+      <div class="flag-dot.blue"></div>
+    </div>
+  </footer>
+
+  <script>
+    // Color wheel preview
+    const colorPicker = document.getElementById("colorPicker");
+    const colorPreview = document.getElementById("colorPreview");
+    const colorHex = document.getElementById("colorHex");
+    const ceremonyStatus = document.getElementById("ceremonyStatus");
+
+    colorPicker.addEventListener("input", () => {
+      const value = colorPicker.value;
+      colorPreview.style.background = value;
+      colorHex.textContent = value.toLowerCase();
+      // Simple ceremony mood: warm vs cool
+      const isCool = ["#0000ff", "#00ffff", "#0080ff"];
+      ceremonyStatus.textContent = isCool.includes(value.toLowerCase())
+        ? "Cool & Calm"
+        : "Warm & Bright";
+    });
+
+    // Rain toggle (visual + optional sound)
+    const rainButton = document.getElementById("rainButton");
+    const rainVisual = document.getElementById("rainVisual");
+    const rainAudio = document.getElementById("rainAudio");
+    let rainOn = false;
+
+    rainButton.addEventListener("click", () => {
+      rainOn = !rainOn;
+      rainVisual.classList.toggle("active", rainOn);
+      rainButton.textContent = rainOn ? "Rain: On" : "Rain: Off";
+
+      // If you add a real audio source, you can uncomment:
+      // if (rainOn) rainAudio.play();
+      // else rainAudio.pause();
+    });
+
+    // Bow & arrow game: simple IF/ELSE outcome
+    const fireArrow = document.getElementById("fireArrow");
+    const arrow = document.getElementById("arrow");
+    const copsAlert = document.getElementById("copsAlert");
+
+    fireArrow.addEventListener("click", () => {
+      arrow.classList.remove("fired");
+      copsAlert.classList.remove("active");
+
+      // Small delay to let CSS reflow
+      setTimeout(() => {
+        arrow.classList.add("fired");
+
+        // Random hit or miss
+        const hit = Math.random() > 0.5;
+
+        if (hit) {
+          copsAlert.textContent =
+            "IF the arrow lands safely, THEN everyone stays calm and protected.";
+          copsAlert.style.background = "#f0fff5";
+          copsAlert.style.color = "#005522";
+        } else {
+          copsAlert.textContent =
+            "IF the arrow goes wild, THEN cops are calling and boundaries are enforced.";
+          copsAlert.style.background = "#fff5f5";
+          copsAlert.style.color = "#7a0010";
+        }
+        copsAlert.classList.add("active");
+      }, 50);
+    });
+
+    // IF / ELSE buttons
+    const ifGood = document.getElementById("ifGood");
+    const ifBad = document.getElementById("ifBad");
+    const ifElseOutput = document.getElementById("ifElseOutput");
+
+    ifGood.addEventListener("click", () => {
+      ifElseOutput.textContent =
+        "IF I choose respect, THEN I get safety, calm voices, and support from trusted forces.";
+      ifElseOutput.classList.remove("bad");
+      ifElseOutput.classList.add("good");
+    });
+
+    ifBad.addEventListener("click", () => {
+      ifElseOutput.textContent =
+        "IF I choose harm, THEN boundaries, laws, and protective forces step in to keep everyone safe.";
+      ifElseOutput.classList.remove("good");
+      ifElseOutput.classList.add("bad");
+    });
+
+    // Date & time display
+    const currentDate = document.getElementById("currentDate");
+    const currentTime = document.getElementById("currentTime");
+
+    function updateDateTime() {
+      const now = new Date();
+      currentDate.textContent = now.toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+      currentTime.textContent = now.toLocaleTimeString(undefined, {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+  </script>
+<!-- ========================= -->
+<!-- ⭐ RAINBOW BRITE CEREMONY FOOTER ⭐ -->
+<!-- ========================= -->
+
+<footer class="rb-footer">
+  <div class="rb-footer-left">
+    <div class="rb-footer-title">Rainbow Brite • Color & Honor Overlay</div>
+    <div class="rb-footer-sub">United States • Blue • Red • White • Forces</div>
+  </div>
+
+  <div class="rb-footer-center">
+    <div class="rb-footer-stars">
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+    </div>
+    <div class="rb-footer-tag">Ceremony Mode Active</div>
+  </div>
+
+  <div class="rb-footer-right">
+    <div class="flag-dots">
+      <div class="flag-dot red"></div>
+      <div class="flag-dot white"></div>
+      <div class="flag-dot blue"></div>
+    </div>
+    <div class="rb-footer-year">© <span id="footerYear"></span> Sanctuary System</div>
+  </div>
+</footer>
+
+<style>
+  .rb-footer {
+    padding: 1rem 2rem;
+    background: #0b1020;
+    color: #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  .rb-footer-left,
+  .rb-footer-right {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .rb-footer-title {
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .rb-footer-sub {
+    font-size: 0.7rem;
+    opacity: 0.8;
+  }
+
+  .rb-footer-center {
+    text-align: center;
+  }
+
+  .rb-footer-stars .star {
+    color: #ffffff;
+    font-size: 1rem;
+    margin: 0 0.15rem;
+  }
+
+  .rb-footer-tag {
+    margin-top: 0.25rem;
+    font-size: 0.7rem;
+    color: #9ecbff;
+    text-transform: uppercase;
+  }
+
+  .flag-dots {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .flag-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .flag-dot.red { background: #bf0a30; }
+  .flag-dot.white { background: #ffffff; }
+  .flag-dot.blue { background: #002868; }
+
+  .rb-footer-year {
+    font-size: 0.7rem;
+    opacity: 0.8;
+  }
+</style>
+
+<script>
+  document.getElementById("footerYear").textContent = new Date().getFullYear();
+</script>
+
+
+</body>
+</html>
+
