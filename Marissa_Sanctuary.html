@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marissa’s Combined Sanctuary</title>
+
+<style>
+/* ---------- COLOR PALETTE ---------- */
+:root {
+  --blue: #3b6cff;
+  --babyPink: #ffb7d5;
+  --babyGreen: #b8f5c1;
+  --navy: #001f3f;
+  --forcesRed: #b30000;
+}
+
+/* ---------- GLOBAL ---------- */
+body {
+  font-family: Arial, sans-serif;
+  background: var(--babyGreen);
+  padding: 20px;
+  color: var(--navy);
+}
+
+h1, h2 {
+  color: var(--blue);
+}
+
+/* ---------- DRAWING TOOL ---------- */
+#drawArea {
+  border: 2px solid var(--navy);
+  background: white;
+  width: 300px;
+  height: 200px;
+  cursor: crosshair;
+}
+
+/* ---------- MICKEY EARS ---------- */
+.mickey {
+  width: 150px;
+  height: 150px;
+  background: black;
+  border-radius: 50%;
+  position: relative;
+  margin: 20px 0;
+}
+.mickey::before, .mickey::after {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: -40px;
+}
+.mickey::before { left: -20px; }
+.mickey::after { right: -20px; }
+
+/* ---------- RAINBOW ---------- */
+.rainbow {
+  width: 200px;
+  height: 100px;
+  border-radius: 100px 100px 0 0;
+  background: conic-gradient(red, orange, yellow, green, blue, indigo, violet);
+  margin: 20px 0;
+}
+
+/* ---------- TIC TAC TOE ---------- */
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 5px;
+  margin: 20px 0;
+}
+.cell {
+  width: 80px;
+  height: 80px;
+  background: white;
+  border: 2px solid var(--navy);
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* ---------- COUNTING SHEEP ---------- */
+.sheep {
+  font-size: 30px;
+  margin: 5px 0;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  margin-top: 40px;
+  padding: 20px;
+  background: var(--babyPink);
+  text-align: center;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Marissa’s Combined HTML Sanctuary</h1>
+
+<!-- DRAWING TOOL -->
+<h2>🎨 Drawing Tool</h2>
+<canvas id="drawArea"></canvas>
+
+<!-- MICKEY EARS -->
+<h2>🐭 Mickey Mouse Ears</h2>
+<div class="mickey"></div>
+
+<!-- RAINBOW -->
+<h2>🌈 Rainbow</h2>
+<div class="rainbow"></div>
+
+<!-- TIC TAC TOE -->
+<h2>❌ Tic Tac Toe ⭕</h2>
+<div id="board"></div>
+
+<!-- COUNTING SHEEP -->
+<h2>🐑 Counting Sheep</h2>
+<div id="sheepContainer"></div>
+
+<!-- BLUE EARRINGS -->
+<h2>🔵 Blue Earrings</h2>
+<svg width="120" height="80">
+  <circle cx="30" cy="40" r="20" fill="var(--blue)"/>
+  <circle cx="90" cy="40" r="20" fill="var(--blue)"/>
+</svg>
+
+<!-- ORANGE JUICE RECIPE -->
+<h2>🍊 Orange Juice Recipe</h2>
+<ul>
+  <li>Fresh oranges</li>
+  <li>Cold water</li>
+  <li>Ice</li>
+  <li>Optional: sugar or honey</li>
+</ul>
+
+<!-- FLOUR/SUGAR/MILK RECIPES -->
+<h2>🥣 Flour, Sugar & Milk Recipes</h2>
+<ul>
+  <li>Pancakes</li>
+  <li>Biscuits</li>
+  <li>Crepes</li>
+  <li>Simple cake batter</li>
+</ul>
+
+<!-- CITY OF HENDERSON -->
+<h2>🏙️ City of Henderson • 89015</h2>
+<p>Community pride, parks, recreation, and local support programs.</p>
+
+<!-- HELPING HANDS -->
+<h2>🤝 Helping Hands</h2>
+<p>Volunteer opportunities, food assistance, senior support, and community outreach.</p>
+
+<!-- FOOTER -->
+<footer>
+  <div id="dateTime"></div>
+</footer>
+
+<script>
+/* ---------- DRAWING TOOL ---------- */
+const canvas = document.getElementById("drawArea");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+canvas.addEventListener("mousedown", () => drawing = true);
+canvas.addEventListener("mouseup", () => drawing = false);
+canvas.addEventListener("mousemove", draw);
+
+function draw(e) {
+  if (!drawing) return;
+  ctx.fillStyle = "black";
+  ctx.beginPath();
+  ctx.arc(e.offsetX, e.offsetY, 3, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+/* ---------- TIC TAC TOE ---------- */
+const board = document.getElementById("board");
+let turn = "X";
+
+for (let i = 0; i < 9; i++) {
+  const cell = document.createElement("div");
+  cell.className = "cell";
+  cell.onclick = () => {
+    if (!cell.textContent) {
+      cell.textContent = turn;
+      turn = turn === "X" ? "O" : "X";
+    }
+  };
+  board.appendChild(cell);
+}
+
+/* ---------- COUNTING SHEEP ---------- */
+const sheepContainer = document.getElementById("sheepContainer");
+for (let i = 1; i <= 10; i++) {
+  const s = document.createElement("div");
+  s.className = "sheep";
+  s.textContent = "🐑 " + i;
+  sheepContainer.appendChild(s);
+}
+
+/* ---------- DATE / TIME FOOTER ---------- */
+function updateDateTime() {
+  const now = new Date();
+  document.getElementById("dateTime").textContent =
+    now.toLocaleString();
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+</script>
+
+</body>
+</html>
+
