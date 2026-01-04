@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Circus Connection Sanctuary — Local Hangout</title>
+  <style>
+    :root {
+      --blue: #1e88e5;
+      --red: #e53935;
+      --pink: #f48fb1;
+      --orange: #fb8c00;
+      --white: #ffffff;
+      --green: #43a047;
+      --purple: #8e24aa;
+      --soft-bg: #fdf7ff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: var(--soft-bg);
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--red), var(--orange), yellow, var(--green), var(--blue), var(--purple));
+      color: var(--white);
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .clock {
+      margin-top: 8px;
+      font-size: 0.95rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 16px;
+    }
+
+    section {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .rainbow-panel { border-top: 6px solid var(--purple); }
+    .sanctuary { border-left: 6px solid var(--pink); }
+    .fruit-bowl { border-left: 6px solid var(--orange); }
+    .game-area { border-left: 6px solid var(--blue); }
+    .puzzle { border-left: 6px solid var(--green); }
+    .safety { border-left: 6px solid var(--red); background: #ffebee; }
+    .locals { border-left: 6px solid var(--purple); }
+
+    .affirmation {
+      padding: 8px;
+      border-radius: 8px;
+      background: #fff3f7;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .fruit-list span {
+      display: inline-block;
+      margin: 4px 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #fff7e6;
+      font-size: 0.9rem;
+    }
+
+    .game-display {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      background: #e3f2fd;
+      text-align: center;
+    }
+
+    .clown {
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
+
+    .score { margin-top: 6px; font-weight: bold; }
+
+    .puzzle-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .puzzle-token {
+      flex: 1 0 30%;
+      min-width: 70px;
+      text-align: center;
+      padding: 8px;
+      border-radius: 8px;
+      background: #e8f5e9;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .puzzle-token.active {
+      background: #c8e6c9;
+      font-weight: bold;
+    }
+
+    .siren {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .siren-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ffcccb;
+      box-shadow: 0 0 8px rgba(255,255,255,0.9);
+    }
+
+    footer {
+      margin-top: 16px;
+      padding: 16px;
+      text-align: center;
+      font-size: 0.85rem;
+      background: #f1f1f1;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Circus Connection Sanctuary — Local Hangout</h1>
+  <div class="clock" id="clock"></div>
+  <div>Baby of Mine • Rainbow • Games • Community</div>
+</header>
+
+<main>
+
+  <!-- Rainbow Panel -->
+  <section class="rainbow-panel">
+    <h2>Ceremonial Rainbow Panel</h2>
+    <p>Colors of comfort, play, and protection:</p>
+    <ul>
+      <li><strong>Blue:</strong> Calm, job connection</li>
+      <li><strong>Red:</strong> Emergency boundaries</li>
+      <li><strong>Pink:</strong> Baby-of-mine softness</li>
+      <li><strong>Orange:</strong> Circus joy</li>
+      <li><strong>White:</strong> Clarity</li>
+      <li><strong>Green:</strong> Community</li>
+      <li><strong>Purple:</strong> Ceremony & imagination</li>
+    </ul>
+  </section>
+
+  <!-- Sanctuary -->
+  <section class="sanctuary">
+    <h2>Sanctuary Overlay — Baby of Mine</h2>
+    <p>A soft corner for breathing, pausing, and remembering you are not alone.</p>
+    <div class="affirmation" id="affirmation">
+      You are worthy of rest, color, and kindness.
+    </div>
+    <button id="newAffirmationBtn">New Affirmation</button>
+  </section>
+
+  <!-- Fruit Bowl -->
+  <section class="fruit-bowl">
+    <h2>Fruit Bowl of the Circus</h2>
+    <div class="fruit-list">
+      <span>🍎 Apples — Wisdom</span>
+      <span>🍌 Bananas — Energy</span>
+      <span>🍇 Grapes — Teamwork</span>
+      <span>🥣 Fruit Bowl — Bonus Round</span>
+    </div>
+  </section>
+
+  <!-- Clown Game -->
+  <section class="game-area">
+    <h2>Circus Clown Game</h2>
+    <p>Click the clown when he appears!</p>
+    <div class="game-display">
+      <div id="clownArea"></div>
+      <div class="score">Score: <span id="score">0</span></div>
+      <button id="startGameBtn">Start Game</button>
+    </div>
+  </section>
+
+  <!-- Puzzle -->
+  <section class="puzzle">
+    <h2>Fruit & Clown Puzzle</h2>
+    <p>Tap tokens to mark what you “collect” today.</p>
+    <div class="puzzle-grid" id="puzzleGrid">
+      <div class="puzzle-token">🤡 Clown Smile</div>
+      <div class="puzzle-token">🍎 Apple Wisdom</div>
+      <div class="puzzle-token">🍌 Banana Energy</div>
+      <div class="puzzle-token">🍇 Grape Teamwork</div>
+      <div class="puzzle-token">🌈 Rainbow Moment</div>
+      <div class="puzzle-token">🍼 Baby of Mine</div>
+    </div>
+  </section>
+
+  <!-- Safety -->
+  <section class="safety">
+    <h2>Safety & Support Panel</h2>
+    <div class="siren">
+      <div class="siren-icon"></div>
+      <span>Cops Siren — Safety Reminder</span>
+    </div>
+    <p><strong>Emergency:</strong> 911</p>
+    <p><strong>Police Non‑Emergency:</strong> [Local Number]</p>
+    <p><strong>Medical Help:</strong> [Local Line]</p>
+    <p><strong>Emotional Support:</strong> [Support Line]</p>
+  </section>
+
+  <!-- Locals Hangout -->
+  <section class="locals">
+    <h2>Place of Locals Hangout</h2>
+    <ul>
+      <li><strong>Community Park:</strong> Walks & families</li>
+      <li><strong>Library Corner:</strong> Job boards & computers</li>
+      <li><strong>Recreation Center:</strong> Games & classes</li>
+      <li><strong>Café:</strong> Conversation & job leads</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>Circus Connection Sanctuary • HTML + JavaScript</p>
+</footer>
+
+<script>
+  // CLOCK
+  function updateClock() {
+    const now = new Date();
+    const options = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+    document.getElementById('clock').textContent =
+      now.toLocaleDateString('en-US', options) + " — " + now.toLocaleTimeString();
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // AFFIRMATIONS
+  const affirmations = [
+    "You are worthy of rest, color, and kindness.",
+    "Your story matters more than your productivity.",
+    "You are allowed to be both playful and serious about healing.",
+    "Even small joys can carry big comfort.",
+    "You are not behind. You are right on time."
+  ];
+  document.getElementById('newAffirmationBtn').onclick = () => {
+    const random = affirmations[Math.floor(Math.random() * affirmations.length)];
+    document.getElementById('affirmation').textContent = random;
+  };
+
+  // CLOWN GAME
+  let score = 0;
+  let gameInterval = null;
+  const clownArea = document.getElementById('clownArea');
+  const scoreEl = document.getElementById('score');
+
+  function showClown() {
+    clownArea.innerHTML = "";
+    const clown = document.createElement('div');
+    clown.textContent = "🤡";
+    clown.className = "clown";
+    clown.onclick = () => {
+      score++;
+      scoreEl.textContent = score;
+      clownArea.innerHTML = "";
+    };
+    clownArea.appendChild(clown);
+    setTimeout(() => {
+      if (clownArea.contains(clown)) clownArea.innerHTML = "";
+    }, 1200);
+  }
+
+  document.getElementById('startGameBtn').onclick = () => {
+    score = 0;
+    scoreEl.textContent = score;
+    clownArea.innerHTML = "";
+    if (gameInterval) clearInterval(gameInterval);
+    gameInterval = setInterval(showClown, 1800);
+  };
+
+  // PUZZLE
+  document.getElementById('puzzleGrid').onclick = (e) => {
+    if (e.target.classList.contains('puzzle-token')) {
+      e.target.classList.toggle('active');
+    }
+  };
+</script>
+<footer>
+  <div class="flag-footer">
+    <div class="flag-stars">
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+    </div>
+
+    <div class="flag-stripe flag-red"></div>
+    <div class="flag-stripe flag-white"></div>
+    <div class="flag-stripe flag-red"></div>
+    <div class="flag-stripe flag-white"></div>
+    <div class="flag-stripe flag-red"></div>
+  </div>
+
+  <div class="footer-text">
+    <p>Circus Connection Sanctuary • Local Hangout • United States of America</p>
+    <p>Red • White • Blue • Community • Care • Celebration</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    margin-top: 20px;
+    padding: 16px;
+    text-align: center;
+    font-size: 0.9rem;
+    background: #f1f1f1;
+    border-top: 1px solid #ccc;
+  }
+
+  /* FLAG CONTAINER */
+  .flag-footer {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto 10px auto;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #b0b0b0;
+  }
+
+  /* STRIPES */
+  .flag-stripe {
+    height: 12px;
+  }
+
+  .flag-red { background: #b22234; }
+  .flag-white { background: #ffffff; }
+
+  /* BLUE FIELD + STARS */
+  .flag-stars {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 90px;
+    height: 55px;
+    background: #3c3b6e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 4px;
+  }
+
+  .star {
+    color: #ffffff;
+    font-size: 0.9rem;
+    animation: spinStar 4s linear infinite;
+  }
+
+  .star:nth-child(2) { animation-delay: 0.4s; }
+  .star:nth-child(3) { animation-delay: 0.8s; }
+  .star:nth-child(4) { animation-delay: 1.2s; }
+  .star:nth-child(5) { animation-delay: 1.6s; }
+
+  @keyframes spinStar {
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(1.25); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  .footer-text p {
+    margin: 3px 0;
+  }
+</style>
+
+<script>
+  // Gentle pulse animation on page load
+  window.addEventListener('load', () => {
+    const stars = document.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+      star.style.transition = 'transform 0.6s ease';
+      setTimeout(() => {
+        star.style.transform = 'scale(1.4)';
+        setTimeout(() => {
+          star.style.transform = '';
+        }, 600);
+      }, 200 * index);
+    });
+  });
+</script>
+</body>
+</html>
+
