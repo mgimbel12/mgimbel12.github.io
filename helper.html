@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Homework Helper Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      color: #111;
+    }
+
+    header {
+      background: linear-gradient(90deg, #b30000, #003366, #ff8c00);
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 1.5rem auto;
+      padding: 0 1rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    section {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 0.3rem;
+    }
+
+    .helper-textarea,
+    .article-input {
+      width: 100%;
+      min-height: 100px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      font-size: 0.95rem;
+      resize: vertical;
+    }
+
+    button {
+      background: #003366;
+      color: white;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 0.4rem;
+    }
+
+    button:hover {
+      background: #b30000;
+    }
+
+    .calendar-display,
+    .article-output,
+    .copyright-output,
+    .even-odd-output {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      border-radius: 6px;
+      background: #f0f4ff;
+      border: 1px solid #ccd6ff;
+      font-size: 0.9rem;
+      min-height: 40px;
+    }
+
+    .color-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .color-box {
+      flex: 1 1 80px;
+      min-width: 80px;
+      height: 40px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: bold;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .red { background: #b30000; }
+    .blue { background: #003366; }
+    .white { background: #ffffff; color: #111; text-shadow: none; border: 1px solid #ccc; }
+    .black { background: #000000; }
+    .orange { background: #ff8c00; }
+    .gold { background: #d4af37; }
+
+    .coloring-idea {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      background: #111;
+      color: white;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Homework Helper • Calendar • Reader • Creative Lab</h1>
+  </header>
+
+  <main>
+    <!-- Homework Helper -->
+    <section>
+      <h2>Homework Helper Notes</h2>
+      <p>Write your homework tasks, questions, or ideas here.</p>
+      <textarea class="helper-textarea" id="homeworkNotes" placeholder="Math: page 42, problems 1–10&#10;Science: read article and summarize..."></textarea>
+      <button onclick="saveHomework()">Save Notes (console)</button>
+    </section>
+
+    <!-- Calendar & Date/Time -->
+    <section>
+      <h2>Calendar & Date/Time</h2>
+      <p>Shows today’s date, year, and time.</p>
+      <div class="calendar-display" id="calendarDisplay"></div>
+      <button onclick="updateDateTime()">Refresh Date & Time</button>
+    </section>
+
+    <!-- Article Reader -->
+    <section>
+      <h2>Article Reader</h2>
+      <p>Paste an article or paragraph, then click “Highlight Key Points”.</p>
+      <textarea class="article-input" id="articleInput" placeholder="Paste your article or paragraph here..."></textarea>
+      <button onclick="summarizeArticle()">Highlight Key Points</button>
+      <div class="article-output" id="articleOutput"></div>
+    </section>
+
+    <!-- Copyright Machine -->
+    <section>
+      <h2>Copyright Machine</h2>
+      <p>Type your name and a title to generate a simple copyright line.</p>
+      <input type="text" id="authorName" placeholder="Your name" style="width:100%; margin-bottom:0.4rem; padding:0.3rem;">
+      <input type="text" id="workTitle" placeholder="Title of your work" style="width:100%; margin-bottom:0.4rem; padding:0.3rem;">
+      <button onclick="generateCopyright()">Generate Copyright</button>
+      <div class="copyright-output" id="copyrightOutput"></div>
+    </section>
+
+    <!-- Coloring Paper Sheet Idea -->
+    <section>
+      <h2>Coloring Paper Sheet Idea</h2>
+      <p class="coloring-idea">
+        Idea: Draw a big shield or badge in the center of the page.  
+        Inside the shield, divide it into 6 sections:
+        <br>• Red for courage  
+        <br>• Blue for calm  
+        <br>• White for peace  
+        <br>• Black for mystery or space  
+        <br>• Orange for energy  
+        <br>• Gold for something precious or a trophy  
+        Add stars, numbers, or words in each section that match the feeling of the color.
+      </p>
+      <div class="color-palette">
+        <div class="color-box red">RED</div>
+        <div class="color-box blue">BLUE</div>
+        <div class="color-box white">WHITE</div>
+        <div class="color-box black">BLACK</div>
+        <div class="color-box orange">ORANGE</div>
+        <div class="color-box gold">GOLD</div>
+      </div>
+    </section>
+
+    <!-- Even or Odd (If / Else) -->
+    <section>
+      <h2>JavaScript If / Else • Even or Odd</h2>
+      <p>Type a number to check if it is even or odd.</p>
+      <input type="number" id="numberInput" placeholder="Enter a number" style="width:100%; margin-bottom:0.4rem; padding:0.3rem;">
+      <button onclick="checkEvenOdd()">Check Even / Odd</button>
+      <div class="even-odd-output" id="evenOddOutput"></div>
+      <p style="font-size:0.8rem; margin-top:0.5rem;">
+        Example code:
+        <br><code>if (num % 2 === 0) { /* even */ } else { /* odd */ }</code>
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="footerYear"></span> Homework Helper Lab. All rights reserved.
+  </footer>
+
+  <script>
+    // Show current year in footer
+    function setFooterYear() {
+      const year = new Date().getFullYear();
+      document.getElementById('footerYear').textContent = year;
+    }
+
+    // Calendar & Date/Time
+    function updateDateTime() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.toLocaleString('default', { month: 'long' });
+      const day = now.getDate();
+      const weekday = now.toLocaleString('default', { weekday: 'long' });
+      const time = now.toLocaleTimeString();
+
+      const text = `Today is ${weekday}, ${month} ${day}, ${year}. Current time: ${time}`;
+      document.getElementById('calendarDisplay').textContent = text;
+    }
+
+    // Homework helper (simple example: log to console)
+    function saveHomework() {
+      const notes = document.getElementById('homeworkNotes').value;
+      console.log('Homework Notes:', notes);
+      alert('Homework notes saved to console (press F12 → Console to view).');
+    }
+
+    // Article reader: simple "highlight" by picking longer words
+    function summarizeArticle() {
+      const text = document.getElementById('articleInput').value.trim();
+      const output = document.getElementById('articleOutput');
+
+      if (!text) {
+        output.textContent = 'Please paste some text first.';
+        return;
+      }
+
+      const words = text.split(/\s+/);
+      const keyWords = words.filter(w => w.length > 6).slice(0, 15);
+      output.innerHTML =
+        '<strong>Key words / ideas:</strong> ' +
+        (keyWords.length ? keyWords.join(', ') : 'No long words found—try a longer article.');
+    }
+
+    // Copyright machine
+    function generateCopyright() {
+      const name = document.getElementById('authorName').value.trim();
+      const title = document.getElementById('workTitle').value.trim();
+      const year = new Date().getFullYear();
+      const output = document.getElementById('copyrightOutput');
+
+      if (!name || !title) {
+        output.textContent = 'Please enter both your name and a title.';
+        return;
+      }
+
+      output.textContent = `© ${year} ${name}. "${title}". All rights reserved.`;
+    }
+
+    // Even or Odd (If / Else)
+    function checkEvenOdd() {
+      const value = document.getElementById('numberInput').value;
+      const output = document.getElementById('evenOddOutput');
+
+      if (value === '') {
+        output.textContent = 'Please enter a number.';
+        return;
+      }
+
+      const num = Number(value);
+
+      if (isNaN(num)) {
+        output.textContent = 'That is not a valid number.';
+        return;
+      }
+
+      if (num % 2 === 0) {
+        output.textContent = num + ' is EVEN.';
+      } else {
+        output.textContent = num + ' is ODD.';
+      }
+    }
+
+    // Initialize on load
+    setFooterYear();
+    updateDateTime();
+  </script>
+<footer class="college-footer">
+  <!-- Color Palette Strip -->
+  <div class="footer-color-strip"></div>
+
+  <!-- Main Footer Content -->
+  <div class="footer-main">
+    <h3 class="footer-title">Homework Helper Lab</h3>
+
+    <p class="footer-tools">
+      📝 Homework • 🎨 Coloring Ideas • 📚 Articles • ⏰ Date & Time Tools
+    </p>
+
+    <p class="footer-copy">
+      &copy; <span id="footerYear"></span> Homework Helper Lab  
+      <br>Academic Edition • All Rights Reserved
+    </p>
+  </div>
+</footer>
+
+<style>
+  /* Top color strip using your palette */
+  .footer-color-strip {
+    height: 8px;
+    width: 100%;
+    background: linear-gradient(
+      90deg,
+      #b30000,   /* red */
+      #003366,   /* blue */
+      #ffffff,   /* white */
+      #000000,   /* black */
+      #ff8c00,   /* orange */
+      #d4af37    /* gold */
+    );
+  }
+
+  /* Main footer container */
+  .college-footer {
+    background: #003366;
+    color: white;
+    text-align: center;
+    padding: 1.8rem 1rem;
+    border-top: 4px solid #d4af37;
+    font-family: "Georgia", "Times New Roman", serif;
+    letter-spacing: 0.4px;
+  }
+
+  /* Title */
+  .footer-title {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Tools line with icons */
+  .footer-tools {
+    margin: 0.7rem 0 1.2rem;
+    font-size: 0.95rem;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Copyright */
+  .footer-copy {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    line-height: 1.4;
+  }
+</style>
+<script>
+  document.getElementById('footerYear').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
