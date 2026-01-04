@@ -1,221 +1,758 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Marissa’s Combined Sanctuary</title>
+  <meta charset="UTF-8" />
+  <title>Marissa’s Creative Sanctuary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-/* ---------- COLOR PALETTE ---------- */
-:root {
-  --blue: #3b6cff;
-  --babyPink: #ffb7d5;
-  --babyGreen: #b8f5c1;
-  --navy: #001f3f;
-  --forcesRed: #b30000;
-}
+  <!-- =========================
+       GLOBAL STYLES (CSS)
+  ========================== -->
+  <style>
+    /* ---------- COLOR PALETTE ---------- */
+    :root {
+      --blue: #3b6cff;
+      --babyPink: #ffb7d5;
+      --babyGreen: #b8f5c1;
+      --navy: #001f3f;
+      --forcesRed: #b30000; /* American First Forces accent */
+      --white: #ffffff;
+      --lightGray: #f5f5f5;
+    }
 
-/* ---------- GLOBAL ---------- */
-body {
-  font-family: Arial, sans-serif;
-  background: var(--babyGreen);
-  padding: 20px;
-  color: var(--navy);
-}
+    /* ---------- BASE LAYOUT ---------- */
+    * {
+      box-sizing: border-box;
+    }
 
-h1, h2 {
-  color: var(--blue);
-}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: var(--babyGreen);
+      color: var(--navy);
+      line-height: 1.5;
+    }
 
-/* ---------- DRAWING TOOL ---------- */
-#drawArea {
-  border: 2px solid var(--navy);
-  background: white;
-  width: 300px;
-  height: 200px;
-  cursor: crosshair;
-}
+    header {
+      background: linear-gradient(
+        135deg,
+        var(--babyPink),
+        var(--blue),
+        var(--babyGreen)
+      );
+      color: var(--navy);
+      padding: 1.5rem;
+      text-align: center;
+    }
 
-/* ---------- MICKEY EARS ---------- */
-.mickey {
-  width: 150px;
-  height: 150px;
-  background: black;
-  border-radius: 50%;
-  position: relative;
-  margin: 20px 0;
-}
-.mickey::before, .mickey::after {
-  content: "";
-  width: 80px;
-  height: 80px;
-  background: black;
-  border-radius: 50%;
-  position: absolute;
-  top: -40px;
-}
-.mickey::before { left: -20px; }
-.mickey::after { right: -20px; }
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+    }
 
-/* ---------- RAINBOW ---------- */
-.rainbow {
-  width: 200px;
-  height: 100px;
-  border-radius: 100px 100px 0 0;
-  background: conic-gradient(red, orange, yellow, green, blue, indigo, violet);
-  margin: 20px 0;
-}
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 0.95rem;
+    }
 
-/* ---------- TIC TAC TOE ---------- */
-#board {
-  display: grid;
-  grid-template-columns: repeat(3, 80px);
-  gap: 5px;
-  margin: 20px 0;
-}
-.cell {
-  width: 80px;
-  height: 80px;
-  background: white;
-  border: 2px solid var(--navy);
-  font-size: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
 
-/* ---------- COUNTING SHEEP ---------- */
-.sheep {
-  font-size: 30px;
-  margin: 5px 0;
-}
+    section {
+      background: var(--white);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
 
-/* ---------- FOOTER ---------- */
-footer {
-  margin-top: 40px;
-  padding: 20px;
-  background: var(--babyPink);
-  text-align: center;
-  font-weight: bold;
-}
-</style>
+    section h2 {
+      margin-top: 0;
+      color: var(--blue);
+      font-size: 1.3rem;
+      border-bottom: 2px solid var(--babyPink);
+      padding-bottom: 0.3rem;
+      display: inline-block;
+    }
+
+    .section-note {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ---------- FLEX HELPERS ---------- */
+    .flex-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .flex-col {
+      flex: 1 1 250px;
+    }
+
+    /* ---------- DRAWING TOOL ---------- */
+    #drawArea {
+      border: 2px solid var(--navy);
+      background: var(--white);
+      width: 100%;
+      max-width: 400px;
+      height: 250px;
+      cursor: crosshair;
+      border-radius: 8px;
+    }
+
+    .draw-controls {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .draw-controls label {
+      font-size: 0.85rem;
+    }
+
+    /* ---------- MICKEY EARS ---------- */
+    .mickey-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .mickey {
+      width: 150px;
+      height: 150px;
+      background: black;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .mickey::before,
+    .mickey::after {
+      content: "";
+      width: 80px;
+      height: 80px;
+      background: black;
+      border-radius: 50%;
+      position: absolute;
+      top: -40px;
+    }
+
+    .mickey::before {
+      left: -20px;
+    }
+
+    .mickey::after {
+      right: -20px;
+    }
+
+    /* ---------- RAINBOW ---------- */
+    .rainbow {
+      width: 220px;
+      height: 110px;
+      border-radius: 110px 110px 0 0;
+      background: conic-gradient(
+        red,
+        orange,
+        yellow,
+        green,
+        blue,
+        indigo,
+        violet
+      );
+      margin-top: 0.5rem;
+      border: 3px solid var(--navy);
+    }
+
+    /* ---------- TIC TAC TOE ---------- */
+    .tictactoe-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    #board {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      gap: 5px;
+    }
+
+    .cell {
+      width: 80px;
+      height: 80px;
+      background: var(--white);
+      border: 2px solid var(--navy);
+      font-size: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .cell:hover {
+      background: var(--lightGray);
+    }
+
+    .ttt-status {
+      font-size: 0.9rem;
+      color: var(--forcesRed);
+    }
+
+    .btn {
+      padding: 0.35rem 0.75rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn.secondary {
+      background: var(--navy);
+    }
+
+    /* ---------- COUNTING SHEEP ---------- */
+    #sheepContainer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .sheep {
+      font-size: 1.4rem;
+      background: var(--babyPink);
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+
+    /* ---------- BLUE EARRINGS ---------- */
+    .earrings-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ---------- RECIPE LISTS ---------- */
+    .recipe-list ul {
+      margin: 0.25rem 0 0.75rem;
+      padding-left: 1.25rem;
+    }
+
+    .recipe-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* ---------- CITY / HELPING HANDS ---------- */
+    .info-block {
+      background: var(--lightGray);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      border-left: 4px solid var(--forcesRed);
+      font-size: 0.9rem;
+    }
+
+    /* ---------- FOOTER / DATE / TIME / CALENDAR ---------- */
+    footer {
+      background: var(--babyPink);
+      margin-top: 2rem;
+      padding: 1.25rem;
+      text-align: center;
+      border-top: 3px solid var(--navy);
+    }
+
+    .footer-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
+    }
+
+    #dateTime {
+      font-size: 0.95rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .calendar {
+      display: inline-block;
+      background: var(--white);
+      border-radius: 8px;
+      padding: 0.75rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+      font-size: 0.8rem;
+      text-align: left;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1.5rem);
+      gap: 0.25rem;
+      text-align: center;
+    }
+
+    .calendar-day-name {
+      font-weight: 600;
+      font-size: 0.7rem;
+    }
+
+    .calendar-day {
+      padding: 0.1rem;
+      border-radius: 4px;
+    }
+
+    .calendar-day.today {
+      background: var(--blue);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      #board {
+        grid-template-columns: repeat(3, 60px);
+      }
+      .cell {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- =========================
+       HEADER
+  ========================== -->
+  <header>
+    <h1>Marissa’s Creative Sanctuary</h1>
+    <p>Drawing, play, recipes, Henderson pride, and Helping Hands—wrapped in one colorful page.</p>
+  </header>
 
-<h1>Marissa’s Combined HTML Sanctuary</h1>
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+  <main>
+    <!-- DRAWING TOOL -->
+    <section id="drawing-section">
+      <h2>Drawing Tool</h2>
+      <p class="section-note">
+        Freehand drawing canvas—perfect for doodles, ceremony sketches, or quick overlay ideas.
+      </p>
+      <div class="flex-row">
+        <div class="flex-col">
+          <canvas id="drawArea"></canvas>
+        </div>
+        <div class="flex-col">
+          <div class="draw-controls">
+            <label>
+              Color:
+              <input type="color" id="drawColor" value="#000000" />
+            </label>
+            <label>
+              Size:
+              <input type="range" id="drawSize" min="1" max="15" value="4" />
+            </label>
+            <button class="btn secondary" id="clearCanvas">Clear</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<!-- DRAWING TOOL -->
-<h2>🎨 Drawing Tool</h2>
-<canvas id="drawArea"></canvas>
+    <!-- MICKEY EARS + RAINBOW -->
+    <section id="mickey-rainbow-section">
+      <h2>Mickey Mouse Ears & Rainbow</h2>
+      <p class="section-note">
+        A little Disney/fairytale nod with a rainbow arc—perfect for your playful overlays.
+      </p>
+      <div class="mickey-wrapper">
+        <div>
+          <div class="mickey" aria-label="Mickey Mouse ears"></div>
+        </div>
+        <div>
+          <div class="rainbow" aria-label="Rainbow arc"></div>
+        </div>
+      </div>
+    </section>
 
-<!-- MICKEY EARS -->
-<h2>🐭 Mickey Mouse Ears</h2>
-<div class="mickey"></div>
+    <!-- TIC TAC TOE -->
+    <section id="tictactoe-section">
+      <h2>Tic Tac Toe</h2>
+      <p class="section-note">
+        Simple X/O game—could become a healing game, affirmation game, or ceremony toggle.
+      </p>
+      <div class="tictactoe-wrapper">
+        <div id="board" aria-label="Tic Tac Toe board"></div>
+        <div class="ttt-status" id="tttStatus">Turn: X</div>
+        <button class="btn" id="resetTicTacToe">Reset Game</button>
+      </div>
+    </section>
 
-<!-- RAINBOW -->
-<h2>🌈 Rainbow</h2>
-<div class="rainbow"></div>
+    <!-- COUNTING SHEEP -->
+    <section id="sheep-section">
+      <h2>Counting Sheep</h2>
+      <p class="section-note">
+        Gentle counting from 1–10—could be adapted into sleep, breathing, or gratitude overlays.
+      </p>
+      <div id="sheepContainer"></div>
+    </section>
 
-<!-- TIC TAC TOE -->
-<h2>❌ Tic Tac Toe ⭕</h2>
-<div id="board"></div>
+    <!-- BLUE EARRINGS -->
+    <section id="earrings-section">
+      <h2>Blue Earrings</h2>
+      <p class="section-note">
+        Simple SVG earrings in your blue palette—can be expanded into fashion or avatar overlays.
+      </p>
+      <div class="earrings-wrapper">
+        <svg width="140" height="90" aria-label="Blue earrings">
+          <circle cx="40" cy="45" r="22" fill="var(--blue)" />
+          <rect x="35" y="15" width="4" height="15" fill="var(--navy)" />
+          <circle cx="100" cy="45" r="22" fill="var(--blue)" />
+          <rect x="95" y="15" width="4" height="15" fill="var(--navy)" />
+        </svg>
+        <p style="max-width: 260px; font-size: 0.9rem;">
+          Imagine these as part of a character wardrobe, a fashion overlay, or a “dress-up” sanctuary game.
+        </p>
+      </div>
+    </section>
 
-<!-- COUNTING SHEEP -->
-<h2>🐑 Counting Sheep</h2>
-<div id="sheepContainer"></div>
+    <!-- RECIPES -->
+    <section id="recipes-section">
+      <h2>Orange Juice & Flour/Sugar/Milk Recipes</h2>
+      <p class="section-note">
+        Simple, comforting recipes—perfect for design-on-a-dime kitchen overlays or family tradition pages.
+      </p>
+      <div class="flex-row recipe-list">
+        <div class="flex-col">
+          <h3>Orange Juice Recipe</h3>
+          <ul>
+            <li>Fresh oranges (4–6, depending on size)</li>
+            <li>Cold water (optional, to dilute)</li>
+            <li>Ice cubes</li>
+            <li>Optional: sugar or honey to taste</li>
+          </ul>
+        </div>
+        <div class="flex-col">
+          <h3>Flour, Sugar & Milk Ideas</h3>
+          <ul>
+            <li>Pancakes</li>
+            <li>Biscuits</li>
+            <li>Crepes</li>
+            <li>Simple cake batter</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-<!-- BLUE EARRINGS -->
-<h2>🔵 Blue Earrings</h2>
-<svg width="120" height="80">
-  <circle cx="30" cy="40" r="20" fill="var(--blue)"/>
-  <circle cx="90" cy="40" r="20" fill="var(--blue)"/>
-</svg>
+    <!-- CITY OF HENDERSON / HELPING HANDS -->
+    <section id="henderson-section">
+      <h2>City of Henderson • 89015</h2>
+      <p class="section-note">
+        A nod to your home base—community, service, and local pride.
+      </p>
+      <div class="info-block">
+        <strong>Henderson, NV 89015</strong><br />
+        Parks, recreation, neighborhood events, and community programs that bring people together.
+      </div>
 
-<!-- ORANGE JUICE RECIPE -->
-<h2>🍊 Orange Juice Recipe</h2>
-<ul>
-  <li>Fresh oranges</li>
-  <li>Cold water</li>
-  <li>Ice</li>
-  <li>Optional: sugar or honey</li>
-</ul>
+      <h3 style="margin-top: 1rem;">Helping Hands</h3>
+      <div class="info-block">
+        <strong>Helping Hands & Community Support</strong><br />
+        Volunteer opportunities, food assistance, senior support, and outreach programs—spaces where kindness becomes action.
+      </div>
+    </section>
+  </main>
 
-<!-- FLOUR/SUGAR/MILK RECIPES -->
-<h2>🥣 Flour, Sugar & Milk Recipes</h2>
-<ul>
-  <li>Pancakes</li>
-  <li>Biscuits</li>
-  <li>Crepes</li>
-  <li>Simple cake batter</li>
-</ul>
+  <!-- =========================
+       FOOTER (DATE, TIME, CALENDAR)
+  ========================== -->
+  <footer>
+    <div class="footer-title">American First Forces • Time & Calendar Footer</div>
+    <div id="dateTime"></div>
 
-<!-- CITY OF HENDERSON -->
-<h2>🏙️ City of Henderson • 89015</h2>
-<p>Community pride, parks, recreation, and local support programs.</p>
+    <div class="calendar" aria-label="Monthly calendar">
+      <div class="calendar-header">
+        <span id="calendarMonth"></span>
+        <span id="calendarYear"></span>
+      </div>
+      <div class="calendar-grid" id="calendarGrid">
+        <!-- Day names + days will be injected by JS -->
+      </div>
+    </div>
+  </footer>
 
-<!-- HELPING HANDS -->
-<h2>🤝 Helping Hands</h2>
-<p>Volunteer opportunities, food assistance, senior support, and community outreach.</p>
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+  <script>
+    // -------------------------
+    // DRAWING TOOL
+    // -------------------------
+    (function () {
+      const canvas = document.getElementById("drawArea");
+      const ctx = canvas.getContext("2d");
+      const colorInput = document.getElementById("drawColor");
+      const sizeInput = document.getElementById("drawSize");
+      const clearBtn = document.getElementById("clearCanvas");
 
-<!-- FOOTER -->
-<footer>
-  <div id="dateTime"></div>
+      let drawing = false;
+      let drawColor = colorInput.value;
+      let drawSize = parseInt(sizeInput.value, 10);
+
+      function getCanvasPos(event) {
+        const rect = canvas.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top,
+        };
+      }
+
+      canvas.addEventListener("mousedown", (e) => {
+        drawing = true;
+        const pos = getCanvasPos(e);
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      });
+
+      canvas.addEventListener("mouseup", () => {
+        drawing = false;
+      });
+
+      canvas.addEventListener("mouseleave", () => {
+        drawing = false;
+      });
+
+      canvas.addEventListener("mousemove", (e) => {
+        if (!drawing) return;
+        const pos = getCanvasPos(e);
+        ctx.strokeStyle = drawColor;
+        ctx.lineWidth = drawSize;
+        ctx.lineCap = "round";
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+      });
+
+      colorInput.addEventListener("input", () => {
+        drawColor = colorInput.value;
+      });
+
+      sizeInput.addEventListener("input", () => {
+        drawSize = parseInt(sizeInput.value, 10);
+      });
+
+      clearBtn.addEventListener("click", () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      });
+    })();
+
+    // -------------------------
+    // TIC TAC TOE
+    // -------------------------
+    (function () {
+      const board = document.getElementById("board");
+      const statusEl = document.getElementById("tttStatus");
+      const resetBtn = document.getElementById("resetTicTacToe");
+
+      let cells = [];
+      let turn = "X";
+      let gameOver = false;
+
+      function createBoard() {
+        board.innerHTML = "";
+        cells = [];
+        turn = "X";
+        gameOver = false;
+        statusEl.textContent = "Turn: " + turn;
+
+        for (let i = 0; i < 9; i++) {
+          const cell = document.createElement("div");
+          cell.className = "cell";
+          cell.dataset.index = i;
+          cell.addEventListener("click", onCellClick);
+          board.appendChild(cell);
+          cells.push(cell);
+        }
+      }
+
+      function onCellClick(e) {
+        if (gameOver) return;
+        const cell = e.target;
+        if (cell.textContent) return;
+
+        cell.textContent = turn;
+        if (checkWin(turn)) {
+          statusEl.textContent = "Winner: " + turn;
+          gameOver = true;
+          return;
+        }
+        if (cells.every((c) => c.textContent)) {
+          statusEl.textContent = "Draw!";
+          gameOver = true;
+          return;
+        }
+        turn = turn === "X" ? "O" : "X";
+        statusEl.textContent = "Turn: " + turn;
+      }
+
+      function checkWin(player) {
+        const combos = [
+          [0, 1, 2],
+          [3, 4, 5],
+          [6, 7, 8],
+          [0, 3, 6],
+          [1, 4, 7],
+          [2, 5, 8],
+          [0, 4, 8],
+          [2, 4, 6],
+        ];
+        return combos.some((combo) =>
+          combo.every((index) => cells[index].textContent === player)
+        );
+      }
+
+      resetBtn.addEventListener("click", createBoard);
+
+      createBoard();
+    })();
+
+    // -------------------------
+    // COUNTING SHEEP
+    // -------------------------
+    (function () {
+      const sheepContainer = document.getElementById("sheepContainer");
+      for (let i = 1; i <= 10; i++) {
+        const s = document.createElement("div");
+        s.className = "sheep";
+        s.textContent = "🐑 " + i;
+        sheepContainer.appendChild(s);
+      }
+    })();
+
+    // -------------------------
+    // DATE / TIME + CALENDAR FOOTER
+    // -------------------------
+    (function () {
+      const dateTimeEl = document.getElementById("dateTime");
+      const calendarMonthEl = document.getElementById("calendarMonth");
+      const calendarYearEl = document.getElementById("calendarYear");
+      const calendarGridEl = document.getElementById("calendarGrid");
+
+      function updateDateTime() {
+        const now = new Date();
+        dateTimeEl.textContent = now.toLocaleString();
+      }
+
+      function buildCalendar(date) {
+        calendarGridEl.innerHTML = "";
+
+        const year = date.getFullYear();
+        const month = date.getMonth(); // 0-based
+        const today = new Date();
+
+        const monthName = date.toLocaleString("default", { month: "long" });
+        calendarMonthEl.textContent = monthName;
+        calendarYearEl.textContent = year;
+
+        const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
+        dayNames.forEach((d) => {
+          const el = document.createElement("div");
+          el.textContent = d;
+          el.className = "calendar-day-name";
+          calendarGridEl.appendChild(el);
+        });
+
+        const firstDay = new Date(year, month, 1);
+        const startingWeekday = firstDay.getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        for (let i = 0; i < startingWeekday; i++) {
+          const emptyCell = document.createElement("div");
+          calendarGridEl.appendChild(emptyCell);
+        }
+
+        for (let day = 1; day <= daysInMonth; day++) {
+          const dayEl = document.createElement("div");
+          dayEl.textContent = day;
+          dayEl.className = "calendar-day";
+
+          if (
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            year === today.getFullYear()
+          ) {
+            dayEl.classList.add("today");
+          }
+
+          calendarGridEl.appendChild(dayEl);
+        }
+      }
+
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+
+      buildCalendar(new Date());
+    })();
+  </script>
+<!-- =========================
+     COLLEGE‑FORMAT FOOTER
+========================= -->
+<footer class="college-footer">
+  <div class="footer-container">
+
+    <!-- Column 1 -->
+    <div class="footer-col">
+      <h4>American First Forces</h4>
+      <p>Community • Service • Leadership</p>
+      <div id="dateTime"></div>
+    </div>
+
+    <!-- Column 2 -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li>City of Henderson</li>
+        <li>Helping Hands</li>
+        <li>Recreation & Programs</li>
+        <li>Local Resources</li>
+      </ul>
+    </div>
+
+    <!-- Column 3 -->
+    <div class="footer-col">
+      <h4>Monthly Calendar</h4>
+      <div class="calendar">
+        <div class="calendar-header">
+          <span id="calendarMonth"></span>
+          <span id="calendarYear"></span>
+        </div>
+        <div class="calendar-grid" id="calendarGrid"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Marissa’s Creative Sanctuary • Henderson, NV 89015
+  </div>
 </footer>
-
-<script>
-/* ---------- DRAWING TOOL ---------- */
-const canvas = document.getElementById("drawArea");
-const ctx = canvas.getContext("2d");
-let drawing = false;
-
-canvas.addEventListener("mousedown", () => drawing = true);
-canvas.addEventListener("mouseup", () => drawing = false);
-canvas.addEventListener("mousemove", draw);
-
-function draw(e) {
-  if (!drawing) return;
-  ctx.fillStyle = "black";
-  ctx.beginPath();
-  ctx.arc(e.offsetX, e.offsetY, 3, 0, Math.PI * 2);
-  ctx.fill();
-}
-
-/* ---------- TIC TAC TOE ---------- */
-const board = document.getElementById("board");
-let turn = "X";
-
-for (let i = 0; i < 9; i++) {
-  const cell = document.createElement("div");
-  cell.className = "cell";
-  cell.onclick = () => {
-    if (!cell.textContent) {
-      cell.textContent = turn;
-      turn = turn === "X" ? "O" : "X";
-    }
-  };
-  board.appendChild(cell);
-}
-
-/* ---------- COUNTING SHEEP ---------- */
-const sheepContainer = document.getElementById("sheepContainer");
-for (let i = 1; i <= 10; i++) {
-  const s = document.createElement("div");
-  s.className = "sheep";
-  s.textContent = "🐑 " + i;
-  sheepContainer.appendChild(s);
-}
-
-/* ---------- DATE / TIME FOOTER ---------- */
-function updateDateTime() {
-  const now = new Date();
-  document.getElementById("dateTime").textContent =
-    now.toLocaleString();
-}
-setInterval(updateDateTime, 1000);
-updateDateTime();
-</script>
-
 </body>
 </html>
-
