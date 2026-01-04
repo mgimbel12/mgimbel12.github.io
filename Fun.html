@@ -1,814 +1,628 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Marissa’s Creative Sanctuary</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8" />
+<title>Marissa’s Creative Sanctuary</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    /* =========================================
-       COLOR PALETTE
-    ========================================= */
-    :root {
-      --blue: #3b6cff;
-      --babyPink: #ffb7d5;
-      --babyGreen: #b8f5c1;
-      --navy: #001f3f;
-      --forcesRed: #b30000;
-      --white: #ffffff;
-      --lightGray: #f5f5f5;
-    }
+<style>
+/* =========================================
+   COLOR PALETTE
+========================================= */
+:root {
+  --blue: #3b6cff;
+  --babyPink: #ffb7d5;
+  --babyGreen: #b8f5c1;
+  --navy: #001f3f;
+  --forcesRed: #b30000;
+  --white: #ffffff;
+  --lightGray: #f5f5f5;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+/* =========================================
+   GLOBAL STYLES
+========================================= */
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      background: linear-gradient(135deg, var(--babyGreen), var(--babyPink));
-      color: var(--navy);
-      line-height: 1.5;
-    }
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: linear-gradient(135deg, var(--babyGreen), var(--babyPink));
+  color: var(--navy);
+  line-height: 1.5;
+}
 
-    /* =========================================
-       HEADER
-    ========================================= */
-    header {
-      background: linear-gradient(
-        135deg,
-        var(--babyPink),
-        var(--blue),
-        var(--babyGreen)
-      );
-      color: var(--navy);
-      padding: 1.75rem 1.25rem;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+/* =========================================
+   HEADER
+========================================= */
+header {
+  background: linear-gradient(135deg, var(--babyPink), var(--blue), var(--babyGreen));
+  color: var(--navy);
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
 
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 0.95rem;
-    }
+header p {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+}
 
-    /* =========================================
-       MAIN LAYOUT
-    ========================================= */
-    main {
-      max-width: 1200px;
-      margin: 2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+main {
+  max-width: 1200px;
+  margin: 2rem auto 3rem;
+  padding: 0 1.25rem;
+}
 
-    .card {
-      background: var(--white);
-      border-radius: 14px;
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
-    }
+.card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
 
-    .card h2 {
-      margin-top: 0;
-      color: var(--blue);
-      font-size: 1.35rem;
-      border-bottom: 3px solid var(--babyPink);
-      padding-bottom: 0.3rem;
-      display: inline-block;
-    }
+.card h2 {
+  margin-top: 0;
+  color: var(--blue);
+  font-size: 1.35rem;
+  border-bottom: 3px solid var(--babyPink);
+  padding-bottom: 0.3rem;
+  display: inline-block;
+}
 
-    .card-note {
-      font-size: 0.85rem;
-      color: #555;
-      margin-bottom: 0.75rem;
-    }
+.card-note {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
 
-    .flex-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.25rem;
-      align-items: flex-start;
-    }
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
 
-    .flex-col {
-      flex: 1 1 260px;
-    }
+.flex-col {
+  flex: 1 1 260px;
+}
 
-    /* =========================================
-       DRAWING TOOL
-    ========================================= */
-    #drawArea {
-      border: 2px solid var(--navy);
-      background: var(--white);
-      width: 100%;
-      max-width: 420px;
-      height: 260px;
-      cursor: crosshair;
-      border-radius: 10px;
-    }
+/* =========================================
+   DRAWING TOOL
+========================================= */
+#drawArea {
+  border: 2px solid var(--navy);
+  background: var(--white);
+  width: 100%;
+  max-width: 420px;
+  height: 260px;
+  cursor: crosshair;
+  border-radius: 10px;
+}
 
-    .draw-controls {
-      margin-top: 0.75rem;
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      flex-wrap: wrap;
-      font-size: 0.9rem;
-    }
+.draw-controls {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+}
 
-    .draw-controls label {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
+.draw-controls label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
 
-    .btn {
-      padding: 0.4rem 0.9rem;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.85rem;
-      background: var(--blue);
-      color: var(--white);
-      font-weight: 600;
-    }
+.btn {
+  padding: 0.4rem 0.9rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  background: var(--blue);
+  color: var(--white);
+  font-weight: 600;
+}
 
-    .btn.secondary {
-      background: var(--navy);
-    }
+.btn.secondary {
+  background: var(--navy);
+}
 
-    /* =========================================
-       MICKEY EARS & RAINBOW
-    ========================================= */
-    .mickey-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
+/* =========================================
+   MICKEY MOUSE + MOVING TEXT
+========================================= */
+.mickey-banner {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  border-bottom: 3px solid var(--babyPink);
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
 
-    .mickey {
-      width: 150px;
-      height: 150px;
-      background: black;
-      border-radius: 50%;
-      position: relative;
-    }
+.mickey-scroll {
+  display: inline-block;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--navy);
+  animation: scrollText 12s linear infinite;
+}
 
-    .mickey::before,
-    .mickey::after {
-      content: "";
-      width: 80px;
-      height: 80px;
-      background: black;
-      border-radius: 50%;
-      position: absolute;
-      top: -40px;
-    }
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
 
-    .mickey::before {
-      left: -20px;
-    }
+.mickey-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    .mickey::after {
-      right: -20px;
-    }
+.mickey {
+  width: 180px;
+  height: 180px;
+  background: black;
+  border-radius: 50%;
+  position: relative;
+}
 
-    .rainbow {
-      width: 230px;
-      height: 115px;
-      border-radius: 115px 115px 0 0;
-      background: conic-gradient(
-        red,
-        orange,
-        yellow,
-        green,
-        blue,
-        indigo,
-        violet
-      );
-      border: 3px solid var(--navy);
-    }
+.mickey::before,
+.mickey::after {
+  content: "";
+  width: 100px;
+  height: 100px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: -55px;
+}
 
-    /* =========================================
-       TIC TAC TOE
-    ========================================= */
-    .tictactoe-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
+.mickey::before { left: -35px; }
+.mickey::after { right: -35px; }
 
-    #board {
-      display: grid;
-      grid-template-columns: repeat(3, 80px);
-      gap: 6px;
-    }
+.mickey:hover {
+  box-shadow: 0 0 20px var(--blue);
+  transition: 0.3s ease;
+}
 
-    .cell {
-      width: 80px;
-      height: 80px;
-      background: var(--white);
-      border: 2px solid var(--navy);
-      font-size: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
-      user-select: none;
-      border-radius: 8px;
-      transition: background 0.15s;
-    }
+/* =========================================
+   RAINBOW
+========================================= */
+.rainbow {
+  width: 230px;
+  height: 115px;
+  border-radius: 115px 115px 0 0;
+  background: conic-gradient(red, orange, yellow, green, blue, indigo, violet);
+  border: 3px solid var(--navy);
+}
 
-    .cell:hover {
-      background: var(--lightGray);
-    }
+/* =========================================
+   TIC TAC TOE
+========================================= */
+.tictactoe-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 
-    .ttt-status {
-      font-size: 0.9rem;
-      color: var(--forcesRed);
-      font-weight: 600;
-    }
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 80px);
+  gap: 6px;
+}
 
-    /* =========================================
-       COUNTING SHEEP
-    ========================================= */
-    #sheepContainer {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+.cell {
+  width: 80px;
+  height: 80px;
+  background: var(--white);
+  border: 2px solid var(--navy);
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
 
-    .sheep {
-      font-size: 1.4rem;
-      background: var(--babyPink);
-      padding: 0.3rem 0.6rem;
-      border-radius: 8px;
-    }
+.cell:hover {
+  background: var(--lightGray);
+}
 
-    /* =========================================
-       BLUE EARRINGS
-    ========================================= */
-    .earrings-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      flex-wrap: wrap;
-    }
+.ttt-status {
+  font-size: 0.9rem;
+  color: var(--forcesRed);
+  font-weight: 600;
+}
 
-    /* =========================================
-       RECIPES
-    ========================================= */
-    .recipe-list h3 {
-      margin: 0.25rem 0 0.4rem;
-      font-size: 1rem;
-      color: var(--navy);
-    }
+/* =========================================
+   COUNTING SHEEP
+========================================= */
+#sheepContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
 
-    .recipe-list ul {
-      margin: 0.25rem 0 0.75rem;
-      padding-left: 1.25rem;
-      font-size: 0.95rem;
-    }
+.sheep {
+  font-size: 1.4rem;
+  background: var(--babyPink);
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+}
 
-    .recipe-list li {
-      margin-bottom: 0.25rem;
-    }
+/* =========================================
+   BLUE EARRINGS
+========================================= */
+.earrings-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
 
-    /* =========================================
-       HENDERSON & HELPING HANDS
-    ========================================= */
-    .info-block {
-      background: var(--lightGray);
-      border-radius: 10px;
-      padding: 0.9rem;
-      margin-top: 0.6rem;
-      border-left: 4px solid var(--forcesRed);
-      font-size: 0.9rem;
-    }
+/* =========================================
+   RECIPES
+========================================= */
+.recipe-list h3 {
+  margin: 0.25rem 0 0.4rem;
+  font-size: 1rem;
+  color: var(--navy);
+}
 
-    /* =========================================
-       MODERN COLLEGE‑STYLE FOOTER
-    ========================================= */
-    .footer {
-      background: #f7f7f7;
-      border-top: 5px solid var(--navy);
-      padding: 3rem 1.5rem;
-      margin-top: 4rem;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
+.recipe-list ul {
+  margin: 0.25rem 0 0.75rem;
+  padding-left: 1.25rem;
+  font-size: 0.95rem;
+}
 
-    .footer-inner {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2.5rem;
-    }
+.recipe-list li {
+  margin-bottom: 0.25rem;
+}
 
-    .footer-section {
-      min-width: 0;
-    }
+/* =========================================
+   HENDERSON & HELPING HANDS
+========================================= */
+.info-block {
+  background: var(--lightGray);
+  border-radius: 10px;
+  padding: 0.9rem;
+  margin-top: 0.6rem;
+  border-left: 4px solid var(--forcesRed);
+  font-size: 0.9rem;
+}
 
-    .footer-title {
-      font-size: 1.25rem;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-      border-bottom: 3px solid var(--babyPink);
-      padding-bottom: 0.25rem;
-      font-weight: 700;
-    }
+/* =========================================
+   MODERN COLLEGE FOOTER
+========================================= */
+.footer {
+  background: #f7f7f7;
+  border-top: 5px solid var(--navy);
+  padding: 3rem 1.5rem;
+  margin-top: 4rem;
+}
 
-    .footer-subtitle {
-      font-size: 0.95rem;
-      color: #444;
-      margin-bottom: 1rem;
-    }
+.footer-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.5rem;
+}
 
-    .footer-datetime {
-      font-size: 0.9rem;
-      color: var(--forcesRed);
-      font-weight: 600;
-    }
+.footer-title {
+  font-size: 1.25rem;
+  color: var(--navy);
+  margin-bottom: 0.5rem;
+  border-bottom: 3px solid var(--babyPink);
+  padding-bottom: 0.25rem;
+  font-weight: 700;
+}
 
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+.footer-subtitle {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 1rem;
+}
 
-    .footer-links li {
-      margin-bottom: 0.5rem;
-    }
+.footer-datetime {
+  font-size: 0.9rem;
+  color: var(--forcesRed);
+  font-weight: 600;
+}
 
-    .footer-links a {
-      text-decoration: none;
-      color: #333;
-      font-size: 0.95rem;
-    }
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    .footer-links a:hover {
-      color: var(--blue);
-      text-decoration: underline;
-    }
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
 
-    .calendar-box {
-      background: white;
-      padding: 1rem;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-    }
+.footer-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.95rem;
+}
 
-    .calendar-header {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      font-size: 0.95rem;
-    }
+.footer-links a:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
 
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 0.35rem;
-      text-align: center;
-      font-size: 0.8rem;
-    }
+.calendar-box {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
 
-    .calendar-day-name {
-      font-weight: 700;
-      color: var(--navy);
-    }
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
 
-    .calendar-day {
-      padding: 0.25rem;
-      border-radius: 5px;
-    }
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.35rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
 
-    .calendar-day.today {
-      background: var(--blue);
-      color: white;
-      font-weight: 700;
-    }
+.calendar-day-name {
+  font-weight: 700;
+  color: var(--navy);
+}
 
-    .footer-bottom {
-      text-align: center;
-      margin-top: 3rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #ccc;
-      color: #555;
-      font-size: 0.9rem;
-    }
+.calendar-day {
+  padding: 0.25rem;
+  border-radius: 5px;
+}
 
-    @media (max-width: 600px) {
-      #board {
-        grid-template-columns: repeat(3, 60px);
-      }
-      .cell {
-        width: 60px;
-        height: 60px;
-        font-size: 30px;
-      }
-    }
-  </style>
+.calendar-day.today {
+  background: var(--blue);
+  color: white;
+  font-weight: 700;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #ccc;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  #board {
+    grid-template-columns: repeat(3, 60px);
+  }
+  .cell {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <!-- =========================================
-       HEADER
-  ========================================= -->
-  <header>
-    <h1>Marissa’s Creative Sanctuary</h1>
-    <p>Drawing, play, recipes, Henderson pride, and Helping Hands—wrapped in one colorful page.</p>
-  </header>
 
-  <!-- =========================================
-       MAIN CONTENT
-  ========================================= -->
-  <main>
-    <!-- DRAWING TOOL -->
-    <section class="card" id="drawing-section">
-      <h2>Drawing Tool</h2>
-      <p class="card-note">
-        Freehand drawing canvas—perfect for doodles, ceremony sketches, or quick overlay ideas.
-      </p>
-      <div class="flex-row">
-        <div class="flex-col">
-          <canvas id="drawArea"></canvas>
-        </div>
-        <div class="flex-col">
-          <div class="draw-controls">
-            <label>
-              Color:
-              <input type="color" id="drawColor" value="#000000" />
-            </label>
-            <label>
-              Size:
-              <input type="range" id="drawSize" min="1" max="15" value="4" />
-            </label>
-            <button class="btn secondary" id="clearCanvas">Clear</button>
-          </div>
-        </div>
-      </div>
-    </section>
+<header>
+  <h1>Marissa’s Creative Sanctuary</h1>
+  <p>Drawing, play, recipes, Henderson pride, and Helping Hands—wrapped in one colorful page.</p>
+</header>
 
-    <!-- MICKEY EARS + RAINBOW -->
-    <section class="card" id="mickey-rainbow-section">
-      <h2>Mickey Mouse Ears & Rainbow</h2>
-      <p class="card-note">
-        A little Disney/fairytale nod with a rainbow arc—perfect for your playful overlays.
-      </p>
-      <div class="mickey-wrapper">
-        <div>
-          <div class="mickey" aria-label="Mickey Mouse ears"></div>
-        </div>
-        <div>
-          <div class="rainbow" aria-label="Rainbow arc"></div>
-        </div>
-      </div>
-    </section>
+<main>
 
-    <!-- TIC TAC TOE -->
-    <section class="card" id="tictactoe-section">
-      <h2>Tic Tac Toe</h2>
-      <p class="card-note">
-        Simple X/O game—could become a healing game, affirmation game, or ceremony toggle.
-      </p>
-      <div class="tictactoe-wrapper">
-        <div id="board" aria-label="Tic Tac Toe board"></div>
-        <div class="ttt-status" id="tttStatus">Turn: X</div>
-        <button class="btn" id="resetTicTacToe">Reset Game</button>
-      </div>
-    </section>
+<!-- DRAWING TOOL -->
+<section class="card">
+  <h2>Drawing Tool</h2>
+  <p class="card-note">Freehand drawing canvas for doodles and overlays.</p>
 
-    <!-- COUNTING SHEEP -->
-    <section class="card" id="sheep-section">
-      <h2>Counting Sheep</h2>
-      <p class="card-note">
-        Gentle counting from 1–10—could be adapted into sleep, breathing, or gratitude overlays.
-      </p>
-      <div id="sheepContainer"></div>
-    </section>
-
-    <!-- BLUE EARRINGS -->
-    <section class="card" id="earrings-section">
-      <h2>Blue Earrings</h2>
-      <p class="card-note">
-        Simple SVG earrings in your blue palette—can be expanded into fashion or avatar overlays.
-      </p>
-      <div class="earrings-wrapper">
-        <svg width="140" height="90" aria-label="Blue earrings">
-          <circle cx="40" cy="45" r="22" fill="var(--blue)" />
-          <rect x="35" y="15" width="4" height="15" fill="var(--navy)" />
-          <circle cx="100" cy="45" r="22" fill="var(--blue)" />
-          <rect x="95" y="15" width="4" height="15" fill="var(--navy)" />
-        </svg>
-        <p style="max-width: 260px; font-size: 0.9rem;">
-          Imagine these as part of a character wardrobe, a fashion overlay, or a “dress-up” sanctuary game.
-        </p>
-      </div>
-    </section>
-
-    <!-- RECIPES -->
-    <section class="card" id="recipes-section">
-      <h2>Orange Juice & Flour/Sugar/Milk Recipes</h2>
-      <p class="card-note">
-        Simple, comforting recipes—perfect for design-on-a-dime kitchen overlays or family tradition pages.
-      </p>
-      <div class="flex-row recipe-list">
-        <div class="flex-col">
-          <h3>Orange Juice Recipe</h3>
-          <ul>
-            <li>Fresh oranges (4–6, depending on size)</li>
-            <li>Cold water (optional, to dilute)</li>
-            <li>Ice cubes</li>
-            <li>Optional: sugar or honey to taste</li>
-          </ul>
-        </div>
-        <div class="flex-col">
-          <h3>Flour, Sugar & Milk Ideas</h3>
-          <ul>
-            <li>Pancakes</li>
-            <li>Biscuits</li>
-            <li>Crepes</li>
-            <li>Simple cake batter</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- CITY OF HENDERSON / HELPING HANDS -->
-    <section class="card" id="henderson-section">
-      <h2>City of Henderson • 89015</h2>
-      <p class="card-note">
-        A nod to your home base—community, service, and local pride.
-      </p>
-      <div class="info-block">
-        <strong>Henderson, NV 89015</strong><br />
-        Parks, recreation, neighborhood events, and community programs that bring people together.
-      </div>
-
-      <h3 style="margin-top: 1rem;">Helping Hands</h3>
-      <div class="info-block">
-        <strong>Helping Hands & Community Support</strong><br />
-        Volunteer opportunities, food assistance, senior support, and outreach programs—spaces where kindness becomes action.
-      </div>
-    </section>
-  </main>
-
-  <!-- =========================================
-       MODERN COLLEGE‑STYLE FOOTER
-  ========================================= -->
-  <footer class="footer">
-    <div class="footer-inner">
-
-      <!-- Column 1: Organization -->
-      <div class="footer-section">
-        <h3 class="footer-title">American First Forces</h3>
-        <p class="footer-subtitle">Community • Service • Leadership</p>
-        <div id="footerDateTime" class="footer-datetime"></div>
-      </div>
-
-      <!-- Column 2: Navigation -->
-      <div class="footer-section">
-        <h3 class="footer-title">Quick Links</h3>
-        <ul class="footer-links">
-          <li><a href="#">City of Henderson</a></li>
-          <li><a href="#">Helping Hands</a></li>
-          <li><a href="#">Recreation & Programs</a></li>
-          <li><a href="#">Local Resources</a></li>
-        </ul>
-      </div>
-
-      <!-- Column 3: Calendar -->
-      <div class="footer-section">
-        <h3 class="footer-title">Monthly Calendar</h3>
-        <div class="calendar-box">
-          <div class="calendar-header">
-            <span id="calMonth"></span>
-            <span id="calYear"></span>
-          </div>
-          <div id="calGrid" class="calendar-grid"></div>
-        </div>
-      </div>
-
+  <div class="flex-row">
+    <div class="flex-col">
+      <canvas id="drawArea"></canvas>
     </div>
 
-    <div class="footer-bottom">
-      © 2026 Marissa’s Creative Sanctuary • Henderson, NV 89015
+    <div class="flex-col">
+      <div class="draw-controls">
+        <label>Color: <input type="color" id="drawColor" value="#000000" /></label>
+        <label>Size: <input type="range" id="drawSize" min="1" max="15" value="4" /></label>
+        <button class="btn secondary" id="clearCanvas">Clear</button>
+      </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- =========================================
-       JAVASCRIPT
-  ========================================= -->
-  <script>
-    /* DRAWING TOOL */
-    (function () {
-      const canvas = document.getElementById("drawArea");
-      const ctx = canvas.getContext("2d");
-      const colorInput = document.getElementById("drawColor");
-      const sizeInput = document.getElementById("drawSize");
-      const clearBtn = document.getElementById("clearCanvas");
+<!-- MICKEY MOUSE + MOVING TEXT -->
+<section class="card">
+  <h2>Mickey Mouse Ears & Rainbow</h2>
+  <p class="card-note">Disney‑style magic with animated text.</p>
 
-      let drawing = false;
-      let drawColor = colorInput.value;
-      let drawSize = parseInt(sizeInput.value, 10);
+  <div class="mickey-banner">
+    <span class="mickey-scroll">✨ Welcome to the Magic ✨ Welcome to the Magic ✨ Welcome to the Magic ✨</span>
+  </div>
 
-      function getCanvasPos(event) {
-        const rect = canvas.getBoundingClientRect();
-        return {
-          x: event.clientX - rect.left,
-          y: event.clientY - rect.top,
-        };
-      }
+  <div class="mickey-wrapper">
+    <div><div class="mickey"></div></div>
+    <div><div class="rainbow"></div></div>
+  </div>
+</section>
 
-      canvas.addEventListener("mousedown", (e) => {
-        drawing = true;
-        const pos = getCanvasPos(e);
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      });
+<!-- TIC TAC TOE -->
+<section class="card">
+  <h2>Tic Tac Toe</h2>
+  <p class="card-note">A simple X/O game.</p>
 
-      canvas.addEventListener("mouseup", () => {
-        drawing = false;
-      });
+  <div class="tictactoe-wrapper">
+    <div id="board"></div>
+    <div class="ttt-status" id="tttStatus">Turn: X</div>
+    <button class="btn" id="resetTicTacToe">Reset Game</button>
+  </div>
+</section>
 
-      canvas.addEventListener("mouseleave", () => {
-        drawing = false;
-      });
+<!-- COUNTING SHEEP -->
+<section class="card">
+  <h2>Counting Sheep</h2>
+  <p class="card-note">Gentle counting from 1–10.</p>
+  <div id="sheepContainer"></div>
+</section>
 
-      canvas.addEventListener("mousemove", (e) => {
-        if (!drawing) return;
-        const pos = getCanvasPos(e);
-        ctx.strokeStyle = drawColor;
-        ctx.lineWidth = drawSize;
-        ctx.lineCap = "round";
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
-      });
+<!-- BLUE EARRINGS -->
+<section class="card">
+  <h2>Blue Earrings</h2>
+  <p class="card-note">Simple SVG earrings in your palette.</p>
 
-      colorInput.addEventListener("input", () => {
-        drawColor = colorInput.value;
-      });
+  <div class="earrings-wrapper">
+    <svg width="140" height="90">
+      <circle cx="40" cy="45" r="22" fill="var(--blue)" />
+      <rect x="35" y="15" width="4" height="15" fill="var(--navy)" />
+      <circle cx="100" cy="45" r="22" fill="var(--blue)" />
+      <rect x="95" y="15" width="4" height="15" fill="var(--navy)" />
+    </svg>
+  </div>
+</section>
 
-      sizeInput.addEventListener("input", () => {
-        drawSize = parseInt(sizeInput.value, 10);
-      });
+<!-- RECIPES -->
+<section class="card">
+  <h2>Recipes</h2>
+  <p class="card-note">Simple, comforting recipes.</p>
 
-      clearBtn.addEventListener("click", () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-      });
-    })();
+  <div class="flex-row recipe-list">
+    <div class="flex-col">
+      <h3>Orange Juice</h3>
+      <ul>
+        <li>Fresh oranges</li>
+        <li>Cold water</li>
+        <li>Ice</li>
+        <li>Optional sweetener</li>
+      </ul>
+    </div>
 
-    /* TIC TAC TOE */
-    (function () {
-      const board = document.getElementById("board");
-      const statusEl = document.getElementById("tttStatus");
-      const resetBtn = document.getElementById("resetTicTacToe");
+    <div class="flex-col">
+      <h3>Flour/Sugar/Milk Ideas</h3>
+      <ul>
+        <li>Pancakes</li>
+        <li>Biscuits</li>
+        <li>Crepes</li>
+        <li>Cake batter</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-      let cells = [];
-      let turn = "X";
-      let gameOver = false;
+<!-- HENDERSON + HELPING HANDS -->
+<section class="card">
+  <h2>City of Henderson • 89015</h2>
+  <p class="card-note">Community pride and support.</p>
 
-      function createBoard() {
-        board.innerHTML = "";
-        cells = [];
-        turn = "X";
-        gameOver = false;
-        statusEl.textContent = "Turn: " + turn;
+  <div class="info-block">
+    <strong>Henderson, NV 89015</strong><br />
+    Parks, recreation, and community programs.
+  </div>
 
-        for (let i = 0; i < 9; i++) {
-          const cell = document.createElement("div");
-          cell.className = "cell";
-          cell.dataset.index = i;
-          cell.addEventListener("click", onCellClick);
-          board.appendChild(cell);
-          cells.push(cell);
-        }
-      }
+  <h3 style="margin-top: 1rem;">Helping Hands</h3>
+  <div class="info-block">
+    <strong>Helping Hands Support</strong><br />
+    Volunteer opportunities, food assistance, senior support.
+  </div>
+</section>
 
-      function onCellClick(e) {
-        if (gameOver) return;
-        const cell = e.target;
-        if (cell.textContent) return;
+</main>
 
-        cell.textContent = turn;
-        if (checkWin(turn)) {
-          statusEl.textContent = "Winner: " + turn;
-          gameOver = true;
-          return;
-        }
-        if (cells.every((c) => c.textContent)) {
-          statusEl.textContent = "Draw!";
-          gameOver = true;
-          return;
-        }
-        turn = turn === "X" ? "O" : "X";
-        statusEl.textContent = "Turn: " + turn;
-      }
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
 
-      function checkWin(player) {
-        const combos = [
-          [0, 1, 2],
-          [3, 4, 5],
-          [6, 7, 8],
-          [0, 3, 6],
-          [1, 4, 7],
-          [2, 5, 8],
-          [0, 4, 8],
-          [2, 4, 6],
-        ];
-        return combos.some((combo) =>
-          combo.every((index) => cells[index].textContent === player)
-        );
-      }
+    <div class="footer-section">
+      <h3 class="footer-title">American First Forces</h3>
+      <p class="footer-subtitle">Community • Service • Leadership</p>
+      <div id="footerDateTime" class="footer-datetime"></div>
+    </div>
 
-      resetBtn.addEventListener("click", createBoard);
+    <div class="footer-section">
+      <h3 class="footer-title">Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="#">City of Henderson</a></li>
+        <li><a href="#">Helping Hands</a></li>
+        <li><a href="#">Recreation & Programs</a></li>
+        <li><a href="#">Local Resources</a></li>
+      </ul>
+    </div>
 
-      createBoard();
-    })();
+    <div class="footer-section">
+      <h3 class="footer-title">Monthly Calendar</h3>
+      <div class="calendar-box">
+        <div class="calendar-header">
+          <span id="calMonth"></span>
+          <span id="calYear"></span>
+        </div>
+        <div id="calGrid" class="calendar-grid"></div>
+      </div>
+    </div>
 
-    /* COUNTING SHEEP */
-    (function () {
-      const sheepContainer = document.getElementById("sheepContainer");
-      for (let i = 1; i <= 10; i++) {
-        const s = document.createElement("div");
-        s.className = "sheep";
-        s.textContent = "🐑 " + i;
-        sheepContainer.appendChild(s);
-      }
-    })();
+  </div>
 
-    /* FOOTER DATE + TIME */
-    function updateFooterClock() {
-      const now = new Date();
-      document.getElementById("footerDateTime").textContent =
-        now.toLocaleString();
-    }
-    setInterval(updateFooterClock, 1000);
-    updateFooterClock();
+  <div class="footer-bottom">
+    © 2026 Marissa’s Creative Sanctuary • Henderson, NV 89015
+  </div>
+</footer>
 
-    /* FOOTER MONTHLY CALENDAR */
-    function buildFooterCalendar(date) {
-      const grid = document.getElementById("calGrid");
-      const monthEl = document.getElementById("calMonth");
-      const yearEl = document.getElementById("calYear");
+<script>
+/* =========================================
+   DRAWING TOOL
+========================================= */
+(function () {
+  const canvas = document.getElementById("drawArea");
+  const ctx = canvas.getContext("2d");
+  const colorInput = document.getElementById("drawColor");
+  const sizeInput = document.getElementById("drawSize");
+  const clearBtn = document.getElementById("clearCanvas");
 
-      grid.innerHTML = "";
+  let drawing = false;
+  let drawColor = colorInput.value;
+  let drawSize = parseInt(sizeInput.value, 10);
 
-      const year = date.getFullYear();
-      const month = date.getMonth();
-      const today = new Date();
+  function getCanvasPos(event) {
+    const rect = canvas.getBoundingClientRect();
+    return { x: event.clientX - rect.left, y: event.clientY - rect.top };
+  }
 
-      monthEl.textContent = date.toLocaleString("default", { month: "long" });
-      yearEl.textContent = year;
+  canvas.addEventListener("mousedown", (e) => {
+    drawing = true;
+    const pos = getCanvasPos(e);
+    ctx.beginPath();
+    ctx
 
-      const dayNames = ["S", "M", "T", "W", "T", "F", "S"];
-      dayNames.forEach(d => {
-        const el = document.createElement("div");
-        el.textContent = d;
-        el.className = "calendar-day-name";
-        grid.appendChild(el);
-      });
 
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-      for (let i = 0; i < firstDay; i++) {
-        grid.appendChild(document.createElement("div"));
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const el = document.createElement("div");
-        el.textContent = day;
-        el.className = "calendar-day";
-
-        if (
-          day === today.getDate() &&
-          month === today.getMonth() &&
-          year === today.getFullYear()
-        ) {
-          el.classList.add("today");
-        }
-
-        grid.appendChild(el);
-      }
-    }
-
-    buildFooterCalendar(new Date());
-  </script>
-</body>
-</html>
