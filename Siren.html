@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Safety Services Panel — Cops, Firefighters, Ambulance</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: system-ui, sans-serif;
+      background: #fafafa;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #b22234;
+    }
+
+    /* SAFETY SERVICES PANEL */
+    .safety-services {
+      border-left: 6px solid #e53935;
+      background: #fff4f4;
+      border-radius: 12px;
+      padding: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .safety-services h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    /* SERVICE BUTTONS */
+    .service-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 18px 0;
+    }
+
+    .service-btn {
+      flex: 1 0 120px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .service-police { background: #1e88e5; }
+    .service-fire { background: #fb8c00; }
+    .service-ambulance { background: #8e24aa; }
+
+    .service-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    /* SIREN BAR */
+    .siren-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .siren-light {
+      width: 30px;
+      height: 30px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .siren-red {
+      background: #e53935;
+      animation: flashRed 1s infinite alternate;
+    }
+
+    .siren-blue {
+      background: #1e88e5;
+      animation: flashBlue 1s infinite alternate;
+    }
+
+    @keyframes flashRed {
+      0% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes flashBlue {
+      0% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    /* SIREN BUTTON */
+    .siren-toggle {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid #333;
+      background: #ffffff;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .siren-toggle:hover {
+      background: #f0f0f0;
+    }
+
+    /* SAFETY NOTE */
+    .safety-note {
+      font-size: 0.85rem;
+      color: #555;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Emergency Safety Panel</h1>
+
+<section class="safety-services">
+  <h2>Cops • Firefighters • Ambulance</h2>
+  <p>This panel is a visual reminder of real‑world help and protection.</p>
+
+  <div class="service-buttons">
+    <button class="service-btn service-police">🚓 Cops / Police</button>
+    <button class="service-btn service-fire">🚒 Firefighters</button>
+    <button class="service-btn service-ambulance">🚑 Ambulance / Medical</button>
+  </div>
+
+  <div class="siren-bar">
+    <div class="siren-light siren-red"></div>
+    <div class="siren-light siren-blue"></div>
+    <button id="playSirenBtn" class="siren-toggle">Play Siren</button>
+  </div>
+
+  <p class="safety-note">
+    In a real emergency, call your local emergency number (like 911 in the United States).
+  </p>
+
+  <!-- Siren Sound -->
+  <audio id="sirenAudio">
+    <source src="https://actions.google.com/sounds/v1/alarms/police_siren.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+  </audio>
+</section>
+
+<script>
+  // Siren play/pause toggle
+  const sirenAudio = document.getElementById('sirenAudio');
+  const playSirenBtn = document.getElementById('playSirenBtn');
+
+  if (sirenAudio && playSirenBtn) {
+    let sirenPlaying = false;
+
+    playSirenBtn.addEventListener('click', () => {
+      if (!sirenPlaying) {
+        sirenAudio.currentTime = 0;
+        sirenAudio.play();
+        sirenPlaying = true;
+        playSirenBtn.textContent = "Stop Siren";
+      } else {
+        sirenAudio.pause();
+        sirenPlaying = false;
+        playSirenBtn.textContent = "Play Siren";
+      }
+    });
+
+    // Reset button text when audio ends
+    sirenAudio.addEventListener('ended', () => {
+      sirenPlaying = false;
+      playSirenBtn.textContent = "Play Siren";
+    });
+  }
+</script>
+</body>
+</html>
+
