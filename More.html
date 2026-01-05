@@ -1,157 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Universal Sanctuary Engine</title>
+  <meta charset="UTF-8">
+  <title>Universal Sanctuary Engine</title>
 
-<style>
-/* ====== CSS (All Combined) ====== */
+  <style>
+    /* ====== GLOBAL STYLES ====== */
+    body {
+      font-family: Arial, sans-serif;
+      background: white;
+      color: #333;
+      padding: 20px;
+      margin: 0;
+    }
 
-body {
-  font-family: Arial, sans-serif;
-  background: white;
-  color: #333;
-  padding: 20px;
-}
+    header {
+      background: linear-gradient(to right, red, orange, pink, blue, green);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
 
-header {
-  background: linear-gradient(to right, red, orange, pink, blue, green);
-  color: white;
-  padding: 20px;
-  border-radius: 10px;
-}
+    header h1 {
+      margin: 0 0 10px 0;
+    }
 
-nav button {
-  margin: 5px;
-  padding: 10px;
-  background: pink;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
+    nav {
+      margin-top: 15px;
+      text-align: center;
+    }
 
-section {
-  margin-top: 20px;
-  padding: 15px;
-  background: #f0f8ff;
-  border-left: 5px solid blue;
-}
-</style>
+    nav button {
+      margin: 5px;
+      padding: 10px 14px;
+      background: pink;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
+    nav button:hover {
+      background: orange;
+      color: white;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    section {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f0f8ff;
+      border-left: 5px solid blue;
+      border-radius: 6px;
+    }
+
+    section h2 {
+      margin-top: 0;
+    }
+
+    #recipes ul {
+      padding-left: 20px;
+    }
+
+    #calculator input {
+      margin-right: 5px;
+      padding: 5px;
+      width: 120px;
+    }
+
+    #calculator button {
+      padding: 6px 10px;
+      background: lightgreen;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #calculator button:hover {
+      background: green;
+      color: white;
+    }
+
+    #homework input {
+      width: 70%;
+      padding: 6px;
+      margin-right: 5px;
+    }
+
+    #homework button {
+      padding: 6px 10px;
+      background: lightblue;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #homework button:hover {
+      background: blue;
+      color: white;
+    }
+
+    pre {
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 4px;
+      overflow-x: auto;
+      border: 1px solid #ccc;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
 </head>
+
 <body>
+  <header>
+    <h1>Universal Sanctuary Engine</h1>
+    <p id="dateDisplay"></p>
+  </header>
 
-<header>
-  <h1>Universal Sanctuary Engine</h1>
-  <p id="dateDisplay"></p>
-</header>
+  <nav>
+    <button onclick="switchTheme('circus')">Circus</button>
+    <button onclick="switchTheme('lion')">Lion</button>
+    <button onclick="switchTheme('tiger')">Tiger</button>
+    <button onclick="switchTheme('pooh')">Winnie the Pooh</button>
+    <button onclick="switchTheme('halloween')">Halloween Town</button>
+    <button onclick="switchTheme('christmas')">Christmas</button>
+    <button onclick="switchTheme('newyear')">New Years</button>
+    <button onclick="switchTheme('unique')">Unique Mode</button>
+  </nav>
 
-<nav>
-  <button onclick="switchTheme('circus')">Circus</button>
-  <button onclick="switchTheme('lion')">Lion</button>
-  <button onclick="switchTheme('tiger')">Tiger</button>
-  <button onclick="switchTheme('pooh')">Winnie the Pooh</button>
-  <button onclick="switchTheme('halloween')">Halloween Town</button>
-  <button onclick="switchTheme('christmas')">Christmas</button>
-  <button onclick="switchTheme('newyear')">New Years</button>
-  <button onclick="switchTheme('unique')">Unique Mode</button>
-</nav>
+  <main>
+    <section id="themeArea">
+      <h2>Theme Display</h2>
+      <p id="themeText">Choose a theme above.</p>
+    </section>
 
-<section id="themeArea">
-  <h2>Theme Display</h2>
-  <p id="themeText">Choose a theme above</p>
-</section>
+    <section id="perfume">
+      <h2>Perfume Concept</h2>
+      <p id="perfumeText">
+        A warm blend of honey, citrus, and vanilla — comforting, nostalgic, and softly magical, like a memory that never left.
+      </p>
+    </section>
 
-<section id="perfume">
-  <h2>Perfume Concept</h2>
-  <p id="perfumeText">
-    A warm blend of honey, citrus, and vanilla — comforting, nostalgic, and softly magical.
-  </p>
-</section>
+    <section id="recipes">
+      <h2>Recipes</h2>
+      <ul>
+        <li><strong>Pie:</strong> Honey-apple with cinnamon crumble.</li>
+        <li><strong>Cake:</strong> Vanilla cloud cake with berry glaze.</li>
+        <li><strong>Ice Cream:</strong> Pumpkin spice swirl.</li>
+        <li><strong>Other:</strong> Citrus-sugar cookies.</li>
+      </ul>
+    </section>
 
-<section id="recipes">
-  <h2>Recipes</h2>
-  <ul>
-    <li>Pie: Honey-apple with cinnamon crumble</li>
-    <li>Cake: Vanilla cloud cake with berry glaze</li>
-    <li>Ice Cream: Pumpkin spice swirl</li>
-    <li>Other: Citrus-sugar cookies</li>
-  </ul>
-</section>
+    <section id="calculator">
+      <h2>Basic Calculator</h2>
+      <input id="num1" type="number" placeholder="Number 1">
+      <input id="num2" type="number" placeholder="Number 2">
+      <button onclick="calculate()">Add</button>
+      <p id="calcResult"></p>
+    </section>
 
-<section id="calculator">
-  <h2>Basic Calculator</h2>
-  <input id="num1" type="number" placeholder="Number 1">
-  <input id="num2" type="number" placeholder="Number 2">
-  <button onclick="calculate()">Add</button>
-  <p id="calcResult"></p>
-</section>
+    <section id="homework">
+      <h2>Homework Helper</h2>
+      <input id="hwQuestion" type="text" placeholder="Ask a question (e.g., What is photosynthesis?)">
+      <button onclick="helpHomework()">Help Me</button>
+      <p id="hwAnswer"></p>
+    </section>
 
-<section id="homework">
-  <h2>Homework Helper</h2>
-  <input id="hwQuestion" type="text" placeholder="Ask a question">
-  <button onclick="helpHomework()">Help Me</button>
-  <p id="hwAnswer"></p>
-</section>
+    <section id="datastructure">
+      <h2>Basic Data Structure Example</h2>
+      <pre id="dataOutput"></pre>
+    </section>
+  </main>
 
-<section id="datastructure">
-  <h2>Basic Data Structure Example</h2>
-  <pre id="dataOutput"></pre>
-</section>
+  <footer>
+    Universal Sanctuary Engine • HTML • CSS • JavaScript • Colors: Red, Orange, Pink, Blue, White, Green
+  </footer>
 
-<script>
-/* ====== JavaScript (All Combined) ====== */
+  <script>
+    /* ====== DATE DISPLAY ====== */
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById("dateDisplay").textContent =
+      now.toLocaleDateString(undefined, options);
 
-// Date Display
-document.getElementById("dateDisplay").textContent =
-  new Date().toLocaleDateString();
+    /* ====== THEME SWITCHER ====== */
+    function switchTheme(theme) {
+      const text = {
+        circus: "🎪 Welcome to the Circus — bright, bold, and full of wonder.",
+        lion: "🦁 Lion Mode — courage, strength, and golden warmth.",
+        tiger: "🐯 Tiger Mode — fierce, focused, beautifully striped energy.",
+        pooh: "🍯 Winnie the Pooh — gentle, sweet, and full of honey-hearted comfort.",
+        halloween: "🎃 Halloween Town — spooky magic and glowing pumpkins.",
+        christmas: "🎄 Christmas — peppermint joy and warm lights.",
+        newyear: "🎆 New Years — fresh starts, bright sparks, and new beginnings.",
+        unique: "✨ Unique Mode — undefined, limitless, entirely your own."
+      };
 
-// Theme Switcher
-function switchTheme(theme) {
-  const text = {
-    circus: "🎪 Welcome to the Circus — bright, bold, and full of wonder.",
-    lion: "🦁 Lion Mode — courage, strength, and golden warmth.",
-    tiger: "🐯 Tiger Mode — fierce, focused, beautifully striped energy.",
-    pooh: "🍯 Winnie the Pooh — gentle, sweet, and full of honey-hearted comfort.",
-    halloween: "🎃 Halloween Town — spooky magic and glowing pumpkins.",
-    christmas: "🎄 Christmas — peppermint joy and warm lights.",
-    newyear: "🎆 New Years — fresh starts, bright sparks, and new beginnings.",
-    unique: "✨ Unique Mode — undefined, limitless, entirely your own."
-  };
-  document.getElementById("themeText").textContent = text[theme];
-}
+      document.getElementById("themeText").textContent = text[theme];
 
-// Calculator
-function calculate() {
-  const a = Number(document.getElementById("num1").value);
-  const b = Number(document.getElementById("num2").value);
-  document.getElementById("calcResult").textContent = "Result: " + (a + b);
-}
+      // Optional: subtle background color shift by theme
+      const body = document.body;
+      switch (theme) {
+        case 'circus':
+          body.style.background = "linear-gradient(to bottom, #fff7e6, #ffe0e0)";
+          break;
+        case 'lion':
+          body.style.background = "linear-gradient(to bottom, #fff3cd, #ffe5b4)";
+          break;
+        case 'tiger':
+          body.style.background = "linear-gradient(to bottom, #ffe6cc, #ffcc99)";
+          break;
+        case 'pooh':
+          body.style.background = "linear-gradient(to bottom, #fffbe6, #ffe6b3)";
+          break;
+        case 'halloween':
+          body.style.background = "linear-gradient(to bottom, #1a1a2e, #3a3a52)";
+          break;
+        case 'christmas':
+          body.style.background = "linear-gradient(to bottom, #e6f7ff, #e6ffe6)";
+          break;
+        case 'newyear':
+          body.style.background = "linear-gradient(to bottom, #f0f8ff, #f5f5f5)";
+          break;
+        case 'unique':
+          body.style.background = "linear-gradient(to bottom, #fdfbff, #ffe6ff)";
+          break;
+        default:
+          body.style.background = "white";
+      }
+    }
 
-// Homework Helper
-function helpHomework() {
-  const q = document.getElementById("hwQuestion").value.toLowerCase();
-  let answer = "I can help explain that.";
+    /* ====== CALCULATOR ====== */
+    function calculate() {
+      const a = Number(document.getElementById("num1").value);
+      const b = Number(document.getElementById("num2").value);
 
-  if (q.includes("photosynthesis")) answer = "Plants convert sunlight into energy.";
-  if (q.includes("pi")) answer = "Pi is approximately 3.14159.";
-  if (q.includes("fraction")) answer = "A fraction represents part of a whole.";
+      if (isNaN(a) || isNaN(b)) {
+        document.getElementById("calcResult").textContent = "Please enter two valid numbers.";
+        return;
+      }
 
-  document.getElementById("hwAnswer").textContent = answer;
-}
+      document.getElementById("calcResult").textContent = "Result: " + (a + b);
+    }
 
-// Data Structure Example
-const data = {
-  animals: ["Lion", "Tiger"],
-  holidays: ["Halloween", "Christmas", "New Years"],
-  desserts: ["Pie", "Cake", "Ice Cream"],
-  colors: ["Red", "Orange", Pink", "Blue", "White", "Green"]
-};
+    /* ====== HOMEWORK HELPER ====== */
+    function helpHomework() {
+      const q = document.getElementById("hwQuestion").value.toLowerCase().trim();
+      let answer = "I can help explain that. Try asking about photosynthesis, pi, or fractions.";
 
-document.getElementById("dataOutput").textContent =
-  JSON.stringify(data, null, 2);
+      if (q.includes("photosynthesis")) {
+        answer = "Photosynthesis is the process where plants use sunlight, water, and carbon dioxide to make their own food.";
+      } else if (q.includes("pi")) {
+        answer = "Pi (π) is a mathematical constant, approximately 3.14159, representing the ratio of a circle's circumference to its diameter.";
+      } else if (q.includes("fraction")) {
+        answer = "A fraction represents part of a whole, written as a numerator over a denominator (e.g., 1/2).";
+      } else if (q.includes("newton")) {
+        answer = "Newton's laws describe motion and forces, like an object in motion staying in motion unless acted on by another force.";
+      }
 
-</script>
+      document.getElementById("hwAnswer").textContent = answer;
+    }
 
+    /* ====== DATA STRUCTURE EXAMPLE ====== */
+    const data = {
+      animals: ["Lion", "Tiger"],
+      holidays: ["Halloween Town", "Christmas", "New Years"],
+      desserts: ["Pie", "Cake", "Ice Cream", "Citrus Cookies"],
+      colors: ["Red", "Orange", "Pink", "Blue", "White", "Green"]
+    };
+
+    document.getElementById("dataOutput").textContent =
+      JSON.stringify(data, null, 2);
+  </script>
 </body>
 </html>
+
