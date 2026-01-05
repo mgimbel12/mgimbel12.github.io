@@ -5,9 +5,6 @@
   <title>Lex Luthor • Smallville (2001–2011)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ============================
-       CSS STYLES
-  ============================= -->
   <style>
     :root {
       --lex-purple: #5b2c83;
@@ -32,15 +29,8 @@
       flex-direction: column;
     }
 
-    /* ----------------------------
-       American Flag Header
-    ----------------------------- */
     header {
-      background: linear-gradient(
-        to right,
-        var(--accent-blue) 0 40%,
-        var(--accent-red) 40% 100%
-      );
+      background: linear-gradient(to right, var(--accent-blue) 0 40%, var(--accent-red) 40% 100%);
       padding: 1.5rem 1rem;
       color: white;
       display: flex;
@@ -78,9 +68,6 @@
       font-size: 0.85rem;
     }
 
-    /* ----------------------------
-       Main Content
-    ----------------------------- */
     main {
       max-width: 960px;
       margin: 2rem auto;
@@ -135,9 +122,6 @@
       color: #e6e6e6;
     }
 
-    /* ----------------------------
-       YouTube Embed
-    ----------------------------- */
     .video-wrapper {
       position: relative;
       width: 100%;
@@ -156,9 +140,6 @@
       border: 0;
     }
 
-    /* ----------------------------
-       Footer
-    ----------------------------- */
     footer {
       margin-top: auto;
       padding: 1rem;
@@ -189,9 +170,6 @@
 
 <body>
 
-  <!-- ============================
-       HEADER
-  ============================= -->
   <header>
     <div class="flag-stars">
       <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
@@ -212,9 +190,6 @@
     </div>
   </header>
 
-  <!-- ============================
-       MAIN CONTENT
-  ============================= -->
   <main>
     <section class="lex-card">
 
@@ -224,7 +199,6 @@
 
       <div class="lex-grid">
 
-        <!-- Left Column -->
         <div>
           <h2 class="lex-section-title">Character Focus</h2>
           <p class="lex-copy">
@@ -234,31 +208,27 @@
           </p>
         </div>
 
-        <!-- Right Column: YouTube -->
-     <div>
-  <h2 class="lex-section-title">Featured YouTube Clip</h2>
-  <div class="video-wrapper">
-    <iframe
-      src="https://youtu.be/g8ION4kodjM?si=jEPkyBmSoebzkCjP"
-      title="Lex Luthor • Smallville Tribute"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen>
-    </iframe>
-  </div>
-</div>
+        <!-- ✅ FIXED YOUTUBE EMBED -->
+        <div>
+          <h2 class="lex-section-title">Featured YouTube Clip</h2>
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/g8ION4kodjM?si=jEPkyBmSoebzkCjP"
+              title="Lex Luthor • Smallville Tribute"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+
+      </div>
     </section>
   </main>
 
-  <!-- ============================
-       FOOTER
-  ============================= -->
   <footer>
     Lex Luthor • Smallville Tribute • HTML • CSS • JavaScript • USA Motif
   </footer>
 
-  <!-- ============================
-       JAVASCRIPT
-  ============================= -->
   <script>
     function updateDateTime() {
       const now = new Date();
