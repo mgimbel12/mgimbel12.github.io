@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>White Sisters Learning Sanctuary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f5ff;
+      --card-bg: #ffffff;
+      --accent: #7b5cff;
+      --accent-soft: #e4ddff;
+      --text-main: #222222;
+      --text-soft: #555555;
+      --border-soft: #dddddd;
+      --shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.06);
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease-in-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #fdfbff, #f3f0ff);
+      color: var(--text-main);
+    }
+
+    header {
+      padding: 1.5rem 1.5rem 0.75rem;
+      border-bottom: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+    }
+
+    header p {
+      margin: 0.35rem 0 0.75rem;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .mode-toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .chip-toggle {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      background: #ffffff;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: var(--transition-fast);
+    }
+
+    .chip-toggle span.icon {
+      font-size: 1rem;
+    }
+
+    .chip-toggle.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: var(--shadow-soft);
+    }
+
+    main {
+      padding: 1.25rem;
+      max-width: 1120px;
+      margin: 0 auto 2.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    section {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      padding: 1rem 1.1rem 1.2rem;
+      border: 1px solid rgba(123, 92, 255, 0.06);
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    section h2 span.emoji {
+      font-size: 1.2rem;
+    }
+
+    section p {
+      margin: 0.25rem 0 0.75rem;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .character-card {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #ffffff, #faf7ff);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .character-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(123, 92, 255, 0.12), transparent 55%);
+      opacity: 0;
+      transition: var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .character-card.active::before {
+      opacity: 1;
+    }
+
+    .character-name {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.98rem;
+    }
+
+    .character-tagline {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .character-role {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-pill);
+      background: var(--accent-soft);
+      color: #4b3ab0;
+      align-self: flex-start;
+      margin-top: 0.25rem;
+    }
+
+    .character-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-top: 0.25rem;
+    }
+
+    .character-chip {
+      font-size: 0.72rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: var(--radius-pill);
+      background: #f3f0ff;
+      color: #4b3ab0;
+    }
+
+    .pill-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-pill);
+      background: #f5f3ff;
+      color: #4b3ab0;
+      margin: 0.7rem 0;
+    }
+
+    .pill-label span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7b5cff;
+    }
+
+    .module-panel {
+      border-radius: var(--radius-md);
+      border: 1px dashed #d6cffc;
+      padding: 0.75rem;
+      background: #fbfaff;
+      margin-top: 0.75rem;
+    }
+
+    .module-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .module-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-bottom: 0.5rem;
+    }
+
+    .mini-input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+      align-items: center;
+    }
+
+    .mini-input-row input[type="text"],
+    .mini-input-row input[type="number"] {
+      padding: 0.3rem 0.45rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-soft);
+      font-size: 0.8rem;
+      min-width: 140px;
+    }
+
+    .mini-input-row button {
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #ffffff;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .mini-input-row button:hover {
+      filter: brightness(1.05);
+    }
+
+    .output-box {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.55rem;
+      border-radius: 6px;
+      background: #f7f4ff;
+      border: 1px dashed #d3c9ff;
+      min-height: 1.4rem;
+    }
+
+    .tab-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .tab-button {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      padding: 0.35rem 0.85rem;
+      font-size: 0.82rem;
+      background: #ffffff;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .tab-button.active {
+      background: var(--accent-soft);
+      color: #3b2a9f;
+      border-color: #c1b4ff;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .module-card {
+      border-radius: var(--radius-md);
+      border: 1px solid #e3ddff;
+      padding: 0.55rem 0.6rem;
+      background: #ffffff;
+      font-size: 0.8rem;
+    }
+
+    .module-card strong {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+
+    .color-wheel-container {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    #color-wheel-canvas {
+      cursor: crosshair;
+      border-radius: 50%;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+    }
+
+    .color-wheel-output {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .color-preview {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 0.9rem 1.5rem 1.4rem;
+      background: #f9f7ff;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .footer-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 800px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #3b2a9f;
+    }
+
+    .footer-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.2rem 0 0;
+    }
+
+    .footer-list li {
+      margin-bottom: 0.15rem;
+    }
+
+    .footer-tagline {
+      font-style: italic;
+      margin-top: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>White Sisters Learning Sanctuary</h1>
+    <p>A design-on-a-dime universe where Snow, Apple, Cherry, and Prue White guide learning, comfort, and celebration.</p>
+
+    <div class="mode-toggle-row" aria-label="Global modes">
+      <button class="chip-toggle active" data-mode="design">
+        <span class="icon">🎨</span>Design on a Dime
+      </button>
+      <button class="chip-toggle" data-mode="learning">
+        <span class="icon">📚</span>Learning Is Fun
+      </button>
+      <button class="chip-toggle" data-mode="homework">
+        <span class="icon">✏️</span>Homework Helper
+      </button>
+      <button class="chip-toggle" data-mode="teaching">
+        <span class="icon">🧰</span>Teaching Tools
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN -->
+    <section aria-labelledby="white-sisters-heading">
+      <h2 id="white-sisters-heading">
+        <span class="emoji">🤍</span> The White Sisters
+      </h2>
+      <p>Choose a sister to lead the tone of your overlays and learning moments.</p>
+
+      <div class="pill-label">
+        <span class="dot"></span>
+        Current guide:
+        <span id="current-guide-label">Snow White · Comfort & Gratitude</span>
+      </div>
+
+      <div class="character-grid">
+        <article class="character-card active" data-guide="Snow White" data-tagline="Comfort & Gratitude">
+          <div class="character-name">Snow White <span>🍎</span></div>
+          <div class="character-tagline">Gentle, nurturing, classic fairytale comfort.</div>
+          <div class="character-role">Comfort overlay · Gratitude mode</div>
+          <div class="character-chip-row">
+            <span class="character-chip">Calm prompts</span>
+            <span class="character-chip">Gratitude lists</span>
+            <span class="character-chip">Soft colors</span>
+          </div>
+        </article>
+
+        <article class="character-card" data-guide="Apple White" data-tagline="Academic & Polished">
+          <div class="character-name">Apple White <span>📖</span></div>
+          <div class="character-tagline">Bright, studious, and organized.</div>
+          <div class="character-role">Academic overlays · Study templates</div>
+          <div class="character-chip-row">
+            <span class="character-chip">Checklists</span>
+            <span class="character-chip">Study grids</span>
+            <span class="character-chip">Clean typography</span>
+          </div>
+        </article>
+
+        <article class="character-card" data-guide="Cherry White" data-tagline="Festive & Playful">
+          <div class="character-name">Cherry White <span>🎉</span></div>
+          <div class="character-tagline">Bold, celebratory, and fun.</div>
+          <div class="character-role">Celebration overlays · Countdowns</div>
+          <div class="character-chip-row">
+            <span class="character-chip">Confetti edges</span>
+            <span class="character-chip">Countdown timers</span>
+            <span class="character-chip">Party palettes</span>
+          </div>
+        </article>
+
+        <article class="character-card" data-guide="Prue White" data-tagline="Wise & Grounded">
+          <div class="character-name">Prue White <span>🕊️</span></div>
+          <div class="character-tagline">Calm, reflective, and wise.</div>
+          <div class="character-role">Teaching tools · Reflection prompts</div>
+          <div class="character-chip-row">
+            <span class="character-chip">Reflection questions</span>
+            <span class="character-chip">Gentle structure</span>
+            <span class="character-chip">Ceremonial tone</span>
+          </div>
+        </article>
+      </div>
+
+      <hr style="margin: 0.9rem 0; border: none; border-top: 1px dashed #e0dcff;" />
+
+      <h2>
+        <span class="emoji">🎨</span> Design on a Dime Engine
+      </h2>
+      <p>Describe an overlay idea in a few words and get a simple, semantic layout suggestion.</p>
+
+      <div class="module-panel">
+        <div class="module-title">Overlay Blueprint</div>
+        <div class="module-sub">Purpose + feeling → quick structure idea.</div>
+
+        <div class="mini-input-row">
+          <input type="text" id="overlay-purpose" placeholder="e.g., spelling practice with celebration" />
+          <button id="overlay-generate">Generate layout idea</button>
+        </div>
+        <div class="output-box" id="overlay-output" aria-live="polite"></div>
+      </div>
+
+      <h2>
+        <span class="emoji">🌈</span> Color Wheel · Palette Picker
+      </h2>
+      <p>Pick a color to influence your theme, overlays, and White Sister palettes.</p>
+
+      <div class="module-panel">
+        <div class="module-title">Interactive Color Wheel</div>
+        <div class="module-sub">Click or drag on the wheel to choose a hue.</div>
+
+        <div class="color-wheel-container">
+          <canvas id="color-wheel-canvas" width="220" height="220"></canvas>
+          <div class="color-wheel-output">
+            <div class="color-preview" id="color-preview"></div>
+            <div><strong>HEX:</strong> <span id="color-hex">—</span></div>
+            <div><strong>RGB:</strong> <span id="color-rgb">—</span></div>
+            <div><strong>HSL:</strong> <span id="color-hsl">—</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section aria-labelledby="learning-suite-heading">
+      <h2 id="learning-suite-heading">
+        <span class="emoji">📚</span> Learning & Teaching Suite
+      </h2>
+      <p>Switch between student, homework, and teaching tools—each guided by your chosen White Sister.</p>
+
+      <div class="tab-row" role="tablist">
+        <button class="tab-button active" data-tab="learning-fun" role="tab">Learning Is Fun</button>
+        <button class="tab-button" data-tab="homework-helper" role="tab">Homework Helper</button>
+        <button class="tab-button" data-tab="teaching-tools" role="tab">Teaching Tools</button>
+      </div>
+
+      <!-- Learning Is Fun -->
+      <div class="tab-panel active" id="learning-fun" role="tabpanel">
+        <div class="module-grid">
+          <div class="module-card">
+            <strong>Affirmation Flashcard</strong>
+            <span>Generate a gentle learning affirmation.</span>
+            <div class="mini-input-row" style="margin-top: 0.35rem;">
+              <button id="affirmation-generate">New affirmation</button>
+            </div>
+            <div class="output-box" id="affirmation-output"></div>
+          </div>
+
+          <div class="module-card">
+            <strong>Mini Quiz Prompt</strong>
+            <span>Type a topic and get a playful question.</span>
+            <div class="mini-input-row" style="margin-top: 0.35rem;">
+              <input type="text" id="quiz-topic" placeholder="e.g., planets, fractions, spelling" />
+              <button id="quiz-generate">Create question</button>
+            </div>
+            <div class="output-box" id="quiz-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Homework Helper -->
+      <div class="tab-panel" id="homework-helper" role="tabpanel">
+        <div class="module-grid">
+          <div class="module-card">
+            <strong>3-Step Plan</strong>
+            <span>Enter the assignment and get a simple 3-step plan.</span>
+            <div class="mini-input-row" style="margin-top: 0.35rem;">
+              <input type="text" id="homework-task" placeholder="e.g., write a paragraph about my hero" />
+              <button id="homework-generate">Plan it</button>
+            </div>
+            <div class="output-box" id="homework-output"></div>
+          </div>
+
+          <div class="module-card">
+            <strong>Gentle Timer Idea</strong>
+            <span>Suggest a time chunk to stay focused.</span>
+            <div class="mini-input-row" style="margin-top: 0.35rem;">
+              <input type="number" id="minutes-input" min="5" max="60" step="5" placeholder="e.g., 15" />
+              <button id="timer-generate">Suggest rhythm</button>
+            </div>
+            <div class="output-box" id="timer-output"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teaching Tools -->
+      <div class="tab-panel" id="teaching-tools" role="tabpanel">
+        <div class="module-grid">
+          <div class="module-card">
+            <strong>Lesson Focus Sentence</strong>
+            <span>Type a topic and get a simple “Today we will…” sentence.</span>
+            <div class="mini-input-row" style="margin-top: 0.35rem;">
+              <input type="text" id="lesson-topic" placeholder="e.g., sharing, patterns, letter S" />
+              <button id="lesson-generate">Create focus</button>
+            </div>
+            <div class="output-box" id="lesson-output"></div>
+          </div>
+
+          <div class="module-card">
+            <strong>Celebration Note</strong>
+            <span>Generate a short, kind note for a student or class.</span>
+            <div class="mini-input-row" style="margin-top: 0.35rem;">
+              <input type="text" id="student-name" placeholder="Name or 'our class'" />
+              <button id="celebration-generate">Write note</button>
+            </div>
+            <div class="output-box" id="celebration-output"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-heading">Sanctuary Overlay Studio</div>
+        <p class="footer-tagline">
+          A design-on-a-dime, fairytale-inspired lab for learning, comfort, and celebration.
+        </p>
+      </div>
+      <div>
+        <div class="footer-heading">White Sisters Roles</div>
+        <ul class="footer-list">
+          <li>Snow White · Comfort & Gratitude</li>
+          <li>Apple White · Academic & Polished</li>
+          <li>Cherry White · Festive & Playful</li>
+          <li>Prue White · Wise & Grounded</li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Modes & Tools</div>
+        <ul class="footer-list">
+          <li>Design on a Dime Engine</li>
+          <li>Learning Is Fun · Student</li>
+          <li>Homework Helper · Structure</li>
+          <li>Teaching Tools · Educator</li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mode chips (visual only for now)
+    const modeChips = document.querySelectorAll(".chip-toggle");
+    modeChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        modeChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+      });
+    });
+
+    // White Sisters selection
+    const characterCards = document.querySelectorAll(".character-card");
+    const currentGuideLabel = document.getElementById("current-guide-label");
+
+    characterCards.forEach(card => {
+      card.addEventListener("click", () => {
+        characterCards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        const name = card.getAttribute("data-guide");
+        const tagline = card.getAttribute("data-tagline");
+        currentGuideLabel.textContent = name + " · " + tagline;
+      });
+    });
+
+    // Tabs
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-tab");
+        tabButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        tabPanels.forEach(panel => {
+          panel.classList.toggle("active", panel.id === target);
+        });
+      });
+    });
+
+    // Design on a Dime overlay generator
+    const overlayInput = document.getElementById("overlay-purpose");
+    const overlayButton = document.getElementById("overlay-generate");
+    const overlayOutput = document.getElementById("overlay-output");
+
+    overlayButton.addEventListener("click", () => {
+      const text = overlayInput.value.trim();
+      if (!text) {
+        overlayOutput.textContent =
+          "Try a short phrase like “spelling practice with a tiny celebration banner.”";
+        return;
+      }
+      overlayOutput.innerHTML =
+        "Suggested structure:<br>" +
+        "• Header: simple title bar with the White Sister guide name<br>" +
+        "• Main: 2-column layout — left for the task (“" + text +
+        "”), right for a small celebration or reflection box<br>" +
+        "• Footer: gentle affirmation and a tiny progress tracker (3 circles to fill in).";
+    });
+
+    // Learning Is Fun: affirmation generator
+    const affirmationButton = document.getElementById("affirmation-generate");
+    const affirmationOutput = document.getElementById("affirmation-output");
+
+    const affirmations = [
+      "I am learning at my own kind and steady pace.",
+      "Every try counts as real progress.",
+      "It is okay to ask for help and try again.",
+      "My questions are welcome and important.",
+      "Small steps still move me forward.",
+      "I can celebrate effort, not just answers."
+    ];
+
+    affirmationButton.addEventListener("click", () => {
+      const pick = affirmations[Math.floor(Math.random() * affirmations.length)];
+      affirmationOutput.textContent = pick;
+    });
+
+    // Learning Is Fun: quiz prompt generator
+    const quizTopicInput = document.getElementById("quiz-topic");
+    const quizButton = document.getElementById("quiz-generate");
+    const quizOutput = document.getElementById("quiz-output");
+
+    quizButton.addEventListener("click", () => {
+      const topic = quizTopicInput.value.trim() || "your topic";
+      quizOutput.textContent =
+        "Playful question: “Can you tell me three things you know about " +
+        topic +
+        "? If you get stuck, pick just one and describe it.”";
+    });
+
+    // Homework Helper: 3-step plan
+    const homeworkTaskInput = document.getElementById("homework-task");
+    const homeworkButton = document.getElementById("homework-generate");
+    const homeworkOutput = document.getElementById("homework-output");
+
+    homeworkButton.addEventListener("click", () => {
+      const task = homeworkTaskInput.value.trim() || "this assignment";
+      homeworkOutput.innerHTML =
+        "1. Read or think about " + task +
+        " for a few quiet minutes.<br>" +
+        "2. Write a quick rough version without worrying if it is perfect.<br>" +
+        "3. Read it once more and fix just one or two things you notice.";
+    });
+
+    // Homework Helper: gentle timer idea
+    const minutesInput = document.getElementById("minutes-input");
+    const timerButton = document.getElementById("timer-generate");
+    const timerOutput = document.getElementById("timer-output");
+
+    timerButton.addEventListener("click", () => {
+      const minutes = parseInt(minutesInput.value, 10) || 15;
+      timerOutput.textContent =
+        "Try " + minutes +
+        " minutes of focus, then a 3-minute stretch or water break. Repeat once if you still have energy.";
+    });
+
+    // Teaching Tools: lesson focus sentence
+    const lessonTopicInput = document.getElementById("lesson-topic");
+    const lessonButton = document.getElementById("lesson-generate");
+    const lessonOutput = document.getElementById("lesson-output");
+
+    lessonButton.addEventListener("click", () => {
+      const topic = lessonTopicInput.value.trim() || "our lesson";
+      lessonOutput.textContent =
+        "Today we will practice " +
+        topic +
+        " in a calm, kind way so everyone can try and grow.";
+    });
+
+    // Teaching Tools: celebration note
+    const studentNameInput = document.getElementById("student-name");
+    const celebrationButton = document.getElementById("celebration-generate");
+    const celebrationOutput = document.getElementById("celebration-output");
+
+    celebrationButton.addEventListener("click", () => {
+      const name = studentNameInput.value.trim() || "our class";
+      celebrationOutput.textContent =
+        name +
+        ", thank you for showing up, trying, and being part of this learning space. Your effort matters so much.";
+    });
+
+    // COLOR WHEEL
+    const wheelCanvas = document.getElementById("color-wheel-canvas");
+    const wheelCtx = wheelCanvas.getContext("2d");
+    const previewBox = document.getElementById("color-preview");
+    const hexOut = document.getElementById("color-hex");
+    const rgbOut = document.getElementById("color-rgb");
+    const hslOut = document.getElementById("color-hsl");
+
+    function drawColorWheel() {
+      const radius = wheelCanvas.width / 2;
+      const image = wheelCtx.createImageData(wheelCanvas.width, wheelCanvas.height);
+
+      for (let x = -radius; x < radius; x++) {
+        for (let y = -radius; y < radius; y++) {
+          const distance = Math.sqrt(x * x + y * y);
+          if (distance <= radius) {
+            const angle = Math.atan2(y, x) * (180 / Math.PI);
+            const hue = (angle + 360) % 360;
+            const sat = distance / radius;
+
+            const [r, g, b] = hslToRgb(hue / 360, sat, 0.5);
+            const px = (y + radius) * wheelCanvas.width + (x + radius);
+            image.data[px * 4] = r;
+            image.data[px * 4 + 1] = g;
+            image.data[px * 4 + 2] = b;
+            image.data[px * 4 + 3] = 255;
+          }
+        }
+      }
+      wheelCtx.putImageData(image, 0, 0);
+    }
+
+    function hslToRgb(h, s, l) {
+      let r, g, b;
+      if (s === 0) {
+        r = g = b = l;
+      } else {
+        const hue2rgb = (p, q, t) => {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1 / 6) return p + (q - p) * 6 * t;
+          if (t < 1 / 2) return q;
+          if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+          return p;
+        };
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        r = hue2rgb(p, q, h + 1 / 3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1 / 3);
+      }
+      return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s;
+      let l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+    }
+
+    function rgbToHex(r, g, b) {
+      return (
+        "#" +
+        [r, g, b]
+          .map(v => v.toString(16).padStart(2, "0"))
+          .join("")
+          .toUpperCase()
+      );
+    }
+
+    function pickColor(e) {
+      const rect = wheelCanvas.getBoundingClientRect();
+      const x = Math.floor(e.clientX - rect.left);
+      const y = Math.floor(e.clientY - rect.top);
+
+      const pixel = wheelCtx.getImageData(x, y, 1, 1).data;
+      const [r, g, b] = pixel;
+
+      const hex = rgbToHex(r, g, b);
+      const hsl = rgbToHsl(r, g, b);
+
+      previewBox.style.background = hex;
+      hexOut.textContent = hex;
+      rgbOut.textContent = `rgb(${r}, ${g}, ${b})`;
+      hslOut.textContent = `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+
+      applyThemeColor(hex);
+      tintWhiteSisters(hex);
+    }
+
+    wheelCanvas.addEventListener("mousedown", pickColor);
+    wheelCanvas.addEventListener("mousemove", e => {
+      if (e.buttons === 1) pickColor(e);
+    });
+
+    function applyThemeColor(hex) {
+      document.body.style.background =
+        `radial-gradient(circle at top left, ${hex}22, #f3f0ff)`;
+      document.documentElement.style.setProperty("--accent", hex);
+      document.documentElement.style.setProperty("--accent-soft", hex + "33");
+    }
+
+    function tintWhiteSisters(hex) {
+      document.querySelectorAll(".character-card").forEach(card => {
+        card.style.borderColor = hex + "55";
+        card.style.boxShadow = `0 4px 10px ${hex}33`;
+      });
+    }
+
+    previewBox.addEventListener("click", () => {
+      const hex = hexOut.textContent;
+      if (hex && hex !== "—" && navigator.clipboard) {
+        navigator.clipboard.writeText(hex);
+        previewBox.style.outline = "2px solid var(--accent)";
+        setTimeout(() => (previewBox.style.outline = "none"), 600);
+      }
+    });
+
+    drawColorWheel();
+    console.log("Sanctuary system fully initialized and ready.");
+  </script>
+</body>
+</html>
