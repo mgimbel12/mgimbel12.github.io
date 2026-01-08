@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Helper Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #020617;
+      --radius: 10px;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b, #020617 55%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      background: linear-gradient(120deg, rgba(56, 189, 248, 0.12), transparent);
+      backdrop-filter: blur(10px);
+    }
+
+    .site-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    .tagline {
+      margin: 0.25rem 0 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 1.5rem;
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    .sidebar {
+      background: linear-gradient(160deg, var(--bg-soft), #020617);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tab-button {
+      width: 100%;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      padding: 0.6rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      text-align: left;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+
+    .tab-button:hover {
+      background: rgba(30, 64, 175, 0.7);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .tab-button.active {
+      background: linear-gradient(120deg, var(--accent-soft), var(--accent));
+      color: #0b1120;
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .content {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.18), transparent 55%),
+                  var(--bg-soft);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .panel p {
+      color: var(--muted);
+    }
+
+    pre {
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    code {
+      font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.85rem;
+    }
+
+    .site-footer {
+      padding: 0.75rem 2rem 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      background: #020617;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .tab-button {
+        flex: 1 1 45%;
+        font-size: 0.8rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <h1>Creative Helper Panel</h1>
+    <p class="tagline">HTML • CSS • JavaScript • Homework • Math • Music</p>
+  </header>
+
+  <main class="layout">
+    <nav class="sidebar">
+      <button class="tab-button active" data-target="html-helper">HTML Helper</button>
+      <button class="tab-button" data-target="css-helper">CSS Helper</button>
+      <button class="tab-button" data-target="js-helper">JavaScript Helper</button>
+      <button class="tab-button" data-target="homework-helper">Homework Helper</button>
+      <button class="tab-button" data-target="math-helper">Math Helper</button>
+      <button class="tab-button" data-target="music-helper">Music Helper</button>
+    </nav>
+
+    <section class="content">
+      <div class="panel active" id="html-helper">
+        <h2>HTML Helper</h2>
+        <p>Use semantic tags like &lt;header&gt;, &lt;main&gt;, &lt;section&gt;, and &lt;footer&gt;.</p>
+      </div>
+
+      <div class="panel" id="css-helper">
+        <h2>CSS Helper</h2>
+        <p>Think in layers: layout, typography, color, and motion.</p>
+      </div>
+
+      <div class="panel" id="js-helper">
+        <h2>JavaScript Helper</h2>
+        <p>Use JS to add interactivity—toggles, counters, games, and more.</p>
+      </div>
+
+      <div class="panel" id="homework-helper">
+        <h2>Homework Helper</h2>
+        <p>Drop your question here and break it into smaller steps.</p>
+      </div>
+
+      <div class="panel" id="math-helper">
+        <h2>Math Helper</h2>
+        <p>We can walk through problems step by step.</p>
+      </div>
+
+      <div class="panel" id="music-helper">
+        <h2>Music Helper</h2>
+        <p>Chords, progressions, and practice ideas live here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built with curiosity and care.</p>
+  </footer>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-button");
+    const panels = document.querySelectorAll(".panel");
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const targetId = button.getAttribute("data-target");
+
+        tabButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
