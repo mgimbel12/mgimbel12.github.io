@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mental Health Safety Plan</title>
+
+<style>
+:root {
+  --bg: #0f172a;
+  --bg-soft: #111827;
+  --card-bg: #020617;
+  --accent: #38bdf8;
+  --accent-soft: rgba(56, 189, 248, 0.15);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --danger: #f97373;
+  --radius: 10px;
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.8);
+  --border-subtle: 1px solid rgba(148, 163, 184, 0.25);
+  --focus-ring: 0 0 0 2px rgba(56, 189, 248, 0.7);
+  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Light mode overrides */
+body.light {
+  --bg: #f3f4f6;
+  --bg-soft: #e5e7eb;
+  --card-bg: #ffffff;
+  --accent: #2563eb;
+  --accent-soft: rgba(37, 99, 235, 0.12);
+  --text-main: #111827;
+  --text-muted: #4b5563;
+  --danger: #b91c1c;
+  --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.15);
+  --border-subtle: 1px solid rgba(148, 163, 184, 0.4);
+  --focus-ring: 0 0 0 2px rgba(37, 99, 235, 0.6);
+}
+
+/* Base reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-main);
+  background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.light {
+  background: radial-gradient(circle at top, #e5e7eb 0, #f9fafb 40%, #e5e7eb 100%);
+}
+
+/* Header */
+.app-header {
+  padding: 1.2rem 1.5rem 0.8rem;
+  text-align: center;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), transparent);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.app-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
+}
+
+.subtitle {
+  margin: 0.2rem auto 0.4rem;
+  max-width: 40rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Toggle button */
+.mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.mode-toggle button {
+  padding: 0.25rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: 999px;
+}
+
+/* Layout */
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 1.2rem auto 2.5rem;
+  padding: 0 1rem 2rem;
+}
+
+/* Notice */
+.notice {
+  background: rgba(248, 250, 252, 0.03);
+  border-left: 4px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Cards */
+.card {
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%),
+              var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1rem 1rem 0.9rem;
+  margin-bottom: 0.9rem;
+  border: var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+}
+
+.card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.hint {
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Inputs */
+textarea,
+input[type="text"],
+input[type="tel"] {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 0.55rem 0.7rem;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+body.light textarea,
+body.light input[type="text"],
+body.light input[type="tel"] {
+  background: #f9fafb;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus {
+  border-color: var(--accent);
+  box-shadow: var(--focus-ring);
+  background: rgba(15, 23, 42, 1);
+}
+
+body.light textarea:focus,
+body.light input[type="text"]:focus,
+body.light input[type="tel"]:focus {
+  background: #ffffff;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: rgba(148, 163, 184, 0.7);
+}
+
+/* Contacts grid */
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.contact-block label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+  margin-top: 0.3rem;
+}
+
+/* Grounding card */
+.grounding-card {
+  border-left: 3px solid var(--accent);
+  background: radial-gradient(circle at top right, var(--accent-soft), transparent 60%),
+              var(--card-bg);
+}
+
+#groundingText {
+  margin: 0 0 0.7rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+/* Actions */
+.actions {
+  margin-top: 1.2rem;
+  text-align: center;
+}
+
+button {
+  cursor: pointer;
+  border-radius: 999px;
+  border: none;
+  padding: 0.5rem 1.3rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #0b1120;
+  box-shadow: 0 10px 24px rgba(56, 189, 248, 0.4);
+  margin: 0.25rem;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 14px 32px rgba(56, 189, 248, 0.55);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 7px 18px rgba(56, 189, 248, 0.35);
+}
+
+button.secondary {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  box-shadow: none;
+}
+
+button.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+}
+
+button.outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  box-shadow: none;
+}
+
+button.outline:hover {
+  background: var(--accent-soft);
+}
+
+/* Save note + feedback */
+.save-note {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.save-feedback {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--accent);
+  transition: opacity 0.3s ease;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: auto;
+  padding: 0.8rem 1rem 1.2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(15, 23, 42, 0.9);
+  background: radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), #020617);
+}
+
+body.light .app-footer {
+  background: #e5e7eb;
+}
+
+/* Import file input (hidden, styled via label) */
+#fileInput {
+  display: none;
+}
+
+/* Print styles */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .app-header,
+  .app-footer {
+    background: #ffffff !important;
+    border: none;
+    box-shadow: none;
+  }
+  .card {
+    box-shadow: none;
+    background: #ffffff !important;
+    border: 1px solid #d1d5db;
+  }
+  .notice {
+    background: #f9fafb !important;
+    border-left-color: #b91c1c !important;
+  }
+  .actions,
+  .mode-toggle {
+    display: none !important;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .app-header h1 {
+    font-size: 1.4rem;
+  }
+  .card {
+    padding: 0.9rem 0.8rem;
+  }
+}
+</style>
+</head>
+
+<body class="dark">
+<header class="app-header">
+  <div class="app-header-top">
+    <div>
+      <h1>My Mental Health Safety Plan</h1>
+    </div>
+    <div class="mode-toggle">
+      <span id="modeLabel">Night mode</span>
+      <button id="modeToggleBtn" type="button" class="secondary">Switch to day</button>
+    </div>
+  </div>
+  <p class="subtitle">A calm place to organize support, grounding, and reminders.</p>
+</header>
+
+<main class="container">
+  <section class="notice">
+    This page helps you organize your support plan. It does not replace professional care or emergency services.
+  </section>
+
+  <section class="card">
+    <h2>1. Warning signs I might be struggling</h2>
+    <p class="hint">Examples: changes in sleep, withdrawing, racing thoughts, feeling numb.</p>
+    <textarea id="warningSigns" rows="4"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>2. Things I can do on my own</h2>
+    <p class="hint">Examples: breathing exercises, music, journaling, going for a walk.</p>
+    <textarea id="copingStrategies" rows="4"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>3. People and places that help me feel safer</h2>
+    <p class="hint">Examples: friends, family, community centers, parks, faith spaces.</p>
+    <textarea id="peoplePlaces" rows="4"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>4. Supportive contacts</h2>
+    <p class="hint">Trusted people I can reach out to.</p>
+    <div class="contacts-grid">
+      <div class="contact-block">
+        <label>Contact 1 name</label>
+        <input id="contact1Name" type="text" />
+        <label>Contact 1 phone</label>
+        <input id="contact1Phone" type="tel" />
+      </div>
+      <div class="contact-block">
+        <label>Contact 2 name</label>
+        <input id="contact2Name" type="text" />
+        <label>Contact 2 phone</label>
+        <input id="contact2Phone" type="tel" />
+      </div>
+      <div class="contact-block">
+        <label>Contact 3 name</label>
+        <input id="contact3Name" type="text" />
+        <label>Contact 3 phone</label>
+        <input id="contact3Phone" type="tel" />
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>5. Professional and crisis resources I trust</h2>
+    <p class="hint">Therapists, clinics, local hotlines, or other resources you know and trust.</p>
+    <textarea id="professionalResources" rows="4"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>6. Reasons I want to stay safe</h2>
+    <p class="hint">People you care about, goals, values, future moments you want to see.</p>
+    <textarea id="reasonsToLive" rows="4"></textarea>
+  </section>
+
+  <section class="card">
+    <h2>7. Making my environment safer</h2>
+    <p class="hint">Steps like removing or securing items that feel risky, or asking someone to help.</p>
+    <textarea id="environmentSafety" rows="4"></textarea>
+  </section>
+
+  <section class="card grounding-card">
+    <h2>Grounding reminder</h2>
+    <p id="groundingText">
+      Take one slow breath in through your nose, hold for a moment, and exhale gently.
+    </p>
+    <button id="newGroundingBtn" type="button">New grounding prompt</button>
+  </section>
+
+  <section class="actions">
+    <button id="saveBtn" type="button">Save my plan</button>
+    <button id="clearBtn" type="button" class="secondary">Clear all</button>
+    <button id="printBtn" type="button" class="outline">Print</button>
+    <button id="exportBtn" type="button" class="outline">Export</button>
+    <label for="fileInput" class="outline" style="display:inline-block; padding:0.5rem 1.3rem; cursor:pointer;">
+      Import
+    </label>
+    <input id="fileInput" type="file" accept="application/json" />
+    <p class="save-note">
+      Your plan is stored only in this browser using local storage. Export if you want a backup.
+    </p>
+  </section>
+</main>
+
+<footer class="app-footer">
+  This page is not a substitute for professional care or emergency services.
+</footer>
+
+<script>
+const STORAGE_KEY = "mentalHealthSafetyPlan_v2";
+
+const fields = [
+  "warningSigns",
+  "copingStrategies",
+  "peoplePlaces",
+  "professionalResources",
+  "reasonsToLive",
+  "environmentSafety",
+  "contact1Name",
+  "contact1Phone",
+  "contact2Name",
+  "contact2Phone",
+  "contact3Name",
+  "contact3Phone"
+];
+
+const groundingPrompts = [
+  "Name five things you can see, four you can touch, three you can hear, two you can smell, and one you can taste.",
+  "Place your feet on the floor, notice the support beneath you, and take three slow breaths.",
+  "Look around and name three colors you can see and three shapes you notice.",
+  "Gently stretch your hands, arms, and shoulders, noticing how your muscles feel as they move.",
+  "Think of one place where you have felt safe or calm. Picture it in as much detail as you can.",
+  "Place a hand over your heart or your stomach and notice the rise and fall of your breathing."
+];
+
+function loadPlan() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return;
+    const data = JSON.parse(saved);
+    fields.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el && data[id] !== undefined) {
+        el.value = data[id];
+      }
+    });
+  } catch (e) {
+    console.warn("Could not load saved plan:", e);
+  }
+}
+
+function savePlan() {
+  const data = {};
+  fields.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      data[id] = el.value;
+    }
+  });
+
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    showTemporaryMessage("Plan saved on this device.");
+  } catch (e) {
+    console.warn("Could not save plan:", e);
+    showTemporaryMessage("Could not save. Check browser storage settings.");
+  }
+}
+
+function clearPlan() {
+  if (!confirm("This will clear all fields on this page. Continue?")) return;
+
+  fields.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch (e) {
+    console.warn("Could not clear storage:", e);
+  }
+
+  showTemporaryMessage("All fields cleared.");
+}
+
+function showTemporaryMessage(text) {
+  let note = document.querySelector(".save-feedback");
+  if (!note) {
+    note = document.createElement("div");
+    note.className = "save-feedback";
+    document.querySelector(".actions").appendChild(note);
+  }
+  note.textContent = text;
+  note.style.opacity = "1";
+
+  setTimeout(() => {
+    note.style.opacity = "0";
+  }, 2500);
+}
+
+function newGroundingPrompt() {
+  const el = document.getElementById("groundingText");
+  if (!el) return;
+  const index = Math.floor(Math.random() * groundingPrompts.length);
+  el.textContent = groundingPrompts[index];
+}
+
+/* Day/Night toggle */
+function initMode() {
+  const savedMode = localStorage.getItem("mhsp_mode");
+  const body = document.body;
+  const label = document.getElementById("modeLabel");
+  const btn = document.getElementById("modeToggleBtn");
+
+  function applyMode(mode) {
+    if (mode === "light") {
+      body.classList.add("light");
+      label.textContent = "Day mode";
+      btn.textContent = "Switch to night";
+    } else {
+      body.classList.remove("light");
+      label.textContent = "Night mode";
+      btn.textContent = "Switch to day";
+    }
+    localStorage.setItem("mhsp_mode", mode);
+  }
+
+  const initialMode = savedMode === "light" ? "light" : "dark";
+  applyMode(initialMode);
+
+  btn.addEventListener("click", () => {
+    const current = document.body.classList.contains("light") ? "light" : "dark";
+    applyMode(current === "light" ? "dark" : "light");
+  });
+}
+
+/* Print */
+function printPlan() {
+  window.print();
+}
+
+/* Export */
+function exportPlan() {
+  const data = {};
+  fields.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) data[id] = el.value;
+  });
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "mental-health-safety-plan.json";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* Import */
+function importPlan(file) {
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && data[id] !== undefined) {
+          el.value = data[id];
+        }
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      showTemporaryMessage("Plan imported.");
+    } catch (err) {
+      console.error("Import error:", err);
+      showTemporaryMessage("Could not import file. Make sure it is a valid JSON export.");
+    }
+  };
+  reader.readAsText(file);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadPlan();
+  initMode();
+
+  const saveBtn = document.getElementById("saveBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const groundingBtn = document.getElementById("newGroundingBtn");
+  const printBtn = document.getElementById("printBtn");
+  const exportBtn = document.getElementById("exportBtn");
+  const fileInput = document.getElementById("fileInput");
+
+  if (saveBtn) saveBtn.addEventListener("click", savePlan);
+  if (clearBtn) clearBtn.addEventListener("click", clearPlan);
+  if (groundingBtn) groundingBtn.addEventListener("click", newGroundingPrompt);
+  if (printBtn) printBtn.addEventListener("click", printPlan);
+  if (exportBtn) exportBtn.addEventListener("click", exportPlan);
+  if (fileInput) {
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (file) importPlan(file);
+      e.target.value = "";
+    });
+  }
+});
+</script>
+</body>
+</html>
