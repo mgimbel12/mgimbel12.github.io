@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Printable Recipe</title>
+<style>
+    body {
+        font-family: Georgia, serif;
+        margin: 0;
+        padding: 20px;
+        background: #faf7f2;
+        color: #333;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 2rem;
+    }
+
+    .meta {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+        resize: vertical;
+    }
+
+    .section-title {
+        margin-top: 25px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 5px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        background: #d87b4a;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #b9653d;
+    }
+
+    /* PRINT MODE */
+    @media print {
+        body {
+            background: white;
+        }
+        button {
+            display: none;
+        }
+        .container {
+            box-shadow: none;
+            border: none;
+        }
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1 contenteditable="true" id="title">Recipe Title</h1>
+    <div class="meta">
+        <span contenteditable="true" id="author">Author Name</span> • 
+        <span contenteditable="true" id="date">Date</span>
+    </div>
+
+    <div class="section-title">Ingredients</div>
+    <textarea id="ingredients" placeholder="List ingredients here..."></textarea>
+
+    <div class="section-title">Instructions</div>
+    <textarea id="instructions" placeholder="Write step-by-step instructions..."></textarea>
+
+    <div class="section-title">Notes</div>
+    <textarea id="notes" placeholder="Extra notes, tips, or variations..."></textarea>
+
+    <button onclick="window.print()">Print Recipe</button>
+</div>
+
+<script>
+    const fields = ["title", "author", "date", "ingredients", "instructions", "notes"];
+
+    function saveRecipe() {
+        fields.forEach(id => {
+            const el = document.getElementById(id);
+            const value = el.tagName === "TEXTAREA" ? el.value : el.innerText;
+            localStorage.setItem("recipe_" + id, value);
+        });
+    }
+
+    function loadRecipe() {
+        fields.forEach(id => {
+            const saved = localStorage.getItem("recipe_" + id);
+            if (saved) {
+                const el = document.getElementById(id);
+                if (el.tagName === "TEXTAREA") el.value = saved;
+                else el.innerText = saved;
+            }
+        });
+    }
+
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener("input", saveRecipe);
+    });
+
+    loadRecipe();
+</script>
+
+</body>
+</html>
