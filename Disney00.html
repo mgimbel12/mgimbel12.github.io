@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Disneyland · Color · Time — Learning Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --red: #b22234;
+      --white: #ffffff;
+      --blue: #003366;
+      --purple: #5b2c83;
+      --black: #111111;
+      --pumpkin: #f28c28;
+      --evergreen: #0b3b2e;
+      --vanilla: #f7f1e6;
+      --creme: #f3e3cf;
+      --glass: rgba(255, 255, 255, 0.18);
+      --border-radius: 14px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #111;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.4), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(0,0,0,0.4), #000000);
+      min-height: 100vh;
+    }
+
+    .castle-glass-bg {
+      min-height: 100vh;
+      padding: 1.5rem 1rem 2.5rem;
+      background:
+        linear-gradient(135deg, rgba(0,0,0,0.7), rgba(91,44,131,0.9)),
+        url("https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg") center/cover fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-shell {
+      width: 100%;
+      max-width: 1200px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(247,241,230,0.95));
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.6);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 1.5rem 1.5rem 1.25rem;
+      background:
+        linear-gradient(90deg, var(--blue), var(--red)),
+        linear-gradient(135deg, var(--purple), var(--black));
+      color: var(--white);
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0.4rem 0 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .header-badges {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .badge {
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(255,255,255,0.7);
+      background: rgba(0,0,0,0.2);
+    }
+
+    .badge.halloween {
+      background: linear-gradient(90deg, var(--pumpkin), var(--black));
+    }
+
+    .badge.christmas {
+      background: linear-gradient(90deg, var(--evergreen), var(--red));
+    }
+
+    .badge.color {
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+    }
+
+    main {
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.2fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      background: var(--vanilla);
+      border-radius: var(--border-radius);
+      padding: 1rem 1.1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(255,255,255,0.7), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    section.dark-panel {
+      background: linear-gradient(135deg, #1b1024, #050308);
+      color: #f5f5f5;
+      border-color: rgba(255,255,255,0.12);
+    }
+
+    section.dark-panel::before {
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.15), transparent 60%);
+    }
+
+    h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    section.dark-panel h2 {
+      color: var(--pumpkin);
+    }
+
+    .subheading {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.6rem;
+    }
+
+    section.dark-panel .subheading {
+      color: #ddd;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0.25rem 0;
+    }
+
+    ul {
+      margin: 0.35rem 0 0.35rem 1.1rem;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+
+    li {
+      margin-bottom: 0.2rem;
+    }
+
+    .tag-row {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.05);
+      color: #333;
+    }
+
+    .tag.dark {
+      background: rgba(255,255,255,0.12);
+      color: #f5f5f5;
+    }
+
+    .color-swatches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .swatch {
+      width: 60px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swatch span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      color: #111;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+    }
+
+    .swatch.dark span {
+      color: #f5f5f5;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    }
+
+    .swatch.red { background: var(--red); }
+    .swatch.white { background: var(--white); }
+    .swatch.blue { background: var(--blue); }
+    .swatch.purple { background: var(--purple); }
+    .swatch.black { background: var(--black); }
+    .swatch.pumpkin { background: var(--pumpkin); }
+    .swatch.evergreen { background: var(--evergreen); }
+    .swatch.vanilla { background: var(--vanilla); }
+    .swatch.creme { background: var(--creme); }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 700px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .date-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .date-box {
+      background: var(--creme);
+      border-radius: 10px;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.85rem;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .date-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+    }
+
+    .date-value {
+      font-weight: 600;
+      margin-top: 0.15rem;
+    }
+
+    .calendar-grid {
+      margin-top: 0.6rem;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 0.2rem;
+      font-size: 0.7rem;
+    }
+
+    .calendar-cell {
+      text-align: center;
+      padding: 0.25rem 0;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.7);
+    }
+
+    .calendar-cell.header {
+      font-weight: 700;
+      background: rgba(0,0,0,0.06);
+    }
+
+    .calendar-cell.today {
+      background: linear-gradient(135deg, var(--blue), var(--red));
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 0.75rem 1.5rem 1.1rem;
+      font-size: 0.75rem;
+      color: #444;
+      background: rgba(255,255,255,0.9);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="castle-glass-bg">
+    <div class="page-shell">
+      <header>
+        <h1>Disneyland · Color · Time</h1>
+        <p>One-page learning sheet — rides, stories, color theory, and the history of time & calendars.</p>
+        <div class="header-badges">
+          <span class="badge halloween">Pumpkins · Haunted Mansion · Jack & Sally</span>
+          <span class="badge christmas">Christmas Tree · Castle · Winter Lights</span>
+          <span class="badge color">Color Wheel · Red · White · Blue · Purple · Black</span>
+        </div>
+      </header>
+
+      <main>
+        <!-- LEFT COLUMN: DISNEYLAND + COLOR -->
+        <div>
+          <section aria-labelledby="disneyland-overview">
+            <h2 id="disneyland-overview">Disneyland overview</h2>
+            <p class="subheading">A quick snapshot of the park, its rides, and its origin story.</p>
+            <p><strong>Opening:</strong> Disneyland in Anaheim, California opened on July 17, 1955, as Walt Disney’s
+              dream of a “family park” where parents and children could enjoy attractions together.</p>
+            <p><strong>Rides & lands:</strong> Disneyland is divided into themed lands such as Main Street, U.S.A.,
+              Adventureland, Frontierland, Fantasyland, Tomorrowland, New Orleans Square, Critter Country, and Star Wars:
+              Galaxy’s Edge. Each land holds multiple attractions, shows, and experiences.</p>
+            <p><strong>Number of rides:</strong> The exact number changes over time as attractions are added, updated, or
+              retired, but Disneyland Park typically has several dozen attractions, including classic dark rides, roller
+              coasters, boat rides, and interactive experiences.</p>
+            <ul>
+              <li><strong>Classics:</strong> Pirates of the Caribbean, Haunted Mansion, “it’s a small world,” Jungle Cruise.</li>
+              <li><strong>Mountains:</strong> Space Mountain, Big Thunder Mountain Railroad, Matterhorn Bobsleds.</li>
+              <li><strong>Modern favorites:</strong> Indiana Jones Adventure, Star Wars: Rise of the Resistance.</li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag">Walt Disney</span>
+              <span class="tag">Anaheim</span>
+              <span class="tag">1955</span>
+              <span class="tag">Family Park</span>
+            </div>
+          </section>
+
+          <section class="dark-panel" aria-labelledby="haunted-mansion">
+            <h2 id="haunted-mansion">Haunted Mansion & seasonal overlays</h2>
+            <p class="subheading">Spooky elegance, ghostly storytelling, and Jack & Sally’s holiday takeover.</p>
+            <p><strong>Haunted Mansion:</strong> Located in New Orleans Square, the Haunted Mansion blends eerie humor
+              with elaborate illusions. Guests board “Doom Buggies” and travel through a haunted estate filled with
+              singing busts, dancing ghosts, and the famous ballroom scene.</p>
+            <p><strong>Backstory:</strong> The mansion’s lore hints at restless spirits, mysterious hosts, and a playful
+              tone—more spooky fun than true horror. The attraction is known for its use of classic stage tricks like
+              Pepper’s Ghost and detailed set design.</p>
+            <p><strong>Haunted Mansion Holiday:</strong> Each year, the attraction transforms into a “The Nightmare Before
+              Christmas” overlay, featuring Jack Skellington, Sally, Oogie Boogie, pumpkins, and a twisted Christmas
+              aesthetic. The façade and interior blend Halloween and Christmas—pumpkin patches, eerie wreaths, and a
+              towering haunted Christmas tree.</p>
+            <div class="tag-row">
+              <span class="tag dark">New Orleans Square</span>
+              <span class="tag dark">Ghosts</span>
+              <span class="tag dark">Jack Skellington</span>
+              <span class="tag dark">Sally</span>
+              <span class="tag dark">Pumpkins</span>
+              <span class="tag dark">Christmas Tree</span>
+            </div>
+          </section>
+
+          <section aria-labelledby="color-wheel">
+            <h2 id="color-wheel">History of the color wheel</h2>
+            <p class="subheading">From early theories of color to modern design and storytelling.</p>
+            <p><strong>Early ideas:</strong> Artists and scientists have studied color for centuries. Isaac Newton’s work
+              with prisms in the 1600s helped show how white light splits into a spectrum of colors.</p>
+            <p><strong>Color wheel:</strong> The color wheel organizes hues in a circle, showing relationships between
+              primary, secondary, and tertiary colors. Traditional art theory often uses red, yellow, and blue as
+              primaries, while modern digital systems use red, green, and blue (RGB).</p>
+            <p><strong>Different aspects of color:</strong></p>
+            <ul>
+              <li><strong>Hue:</strong> The basic color family (red, blue, green, etc.).</li>
+              <li><strong>Saturation:</strong> Intensity or purity of a color.</li>
+              <li><strong>Value:</strong> Lightness or darkness of a color.</li>
+              <li><strong>Temperature:</strong> Warm vs. cool colors and how they affect mood.</li>
+            </ul>
+            <p>Disney parks use color to guide emotion: warm, inviting tones on Main Street, eerie purples and greens for
+              spooky areas, and bright, high-contrast palettes for celebrations and parades.</p>
+
+            <div class="color-swatches">
+              <div class="swatch red"><span>Red</span></div>
+              <div class="swatch white"><span>White</span></div>
+              <div class="swatch blue"><span>Blue</span></div>
+              <div class="swatch purple dark"><span>Purple</span></div>
+              <div class="swatch black dark"><span>Black</span></div>
+              <div class="swatch pumpkin"><span>Pumpkin</span></div>
+              <div class="swatch evergreen dark"><span>Evergreen</span></div>
+              <div class="swatch vanilla"><span>Vanilla</span></div>
+              <div class="swatch creme"><span>Crème</span></div>
+            </div>
+          </section>
+        </div>
+
+        <!-- RIGHT COLUMN: TIME, DATES, CALENDAR -->
+        <div>
+          <section aria-labelledby="time-history">
+            <h2 id="time-history">Background of time & dates</h2>
+            <p class="subheading">How humans have measured days, years, and the passing of time.</p>
+            <p><strong>Early timekeeping:</strong> Ancient civilizations used the movement of the sun, moon, and stars to
+              track time. Sundials, water clocks, and later mechanical clocks helped people divide the day into hours.</p>
+            <p><strong>Calendars:</strong> Many cultures developed calendars based on lunar cycles, solar cycles, or a
+              combination. The modern Gregorian calendar, widely used today, was introduced in 1582 to better align the
+              calendar year with the solar year.</p>
+            <p><strong>Years & eras:</strong> Years are often counted from a reference point (an “era”), such as BCE/CE
+              (Before Common Era / Common Era). Over time, societies have adjusted calendars to keep seasons and dates in
+              sync with astronomical events.</p>
+            <div class="tag-row">
+              <span class="tag">Sundials</span>
+              <span class="tag">Calendars</span>
+              <span class="tag">Gregorian</span>
+              <span class="tag">Solar & Lunar</span>
+            </div>
+
+            <div class="date-row">
+              <div class="date-box">
+                <div class="date-label">Today’s Date</div>
+                <div class="date-value" id="today-date">--</div>
+              </div>
+              <div class="date-box">
+                <div class="date-label">Current Time</div>
+                <div class="date-value" id="today-time">--</div>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="calendar-section">
+            <h2 id="calendar-section">Mini calendar</h2>
+            <p class="subheading">A simple month view to connect dates, weeks, and today.</p>
+            <div class="date-row">
+              <div class="date-box">
+                <div class="date-label">Month & Year</div>
+                <div class="date-value" id="month-year">--</div>
+              </div>
+              <div class="date-box">
+                <div class="date-label">Day of Week</div>
+                <div class="date-value" id="day-of-week">--</div>
+              </div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </section>
+
+          <section class="dark-panel" aria-labelledby="disney-story">
+            <h2 id="disney-story">Disneyland story & symbolism</h2>
+            <p class="subheading">How color, time, and storytelling weave together in the park.</p>
+            <div class="two-column">
+              <div>
+                <p><strong>Background story of Disney:</strong> Walt Disney began with animation and storytelling, then
+                  expanded into theme parks to create immersive worlds. Disneyland was designed as a living storybook,
+                  where each land feels like stepping into a different narrative.</p>
+                <p><strong>Castle & glass:</strong> The central castle acts as a visual anchor. Glass-like surfaces,
+                  reflective pools, and nighttime lighting turn it into a beacon—especially during fireworks and holiday
+                  shows.</p>
+              </div>
+              <div>
+                <p><strong>Holidays & overlays:</strong> Halloween brings pumpkins, eerie lighting, and villains; Christmas
+                  brings garlands, trees, and warm lights. Attractions like Haunted Mansion Holiday and “it’s a small
+                  world” Holiday show how the same ride can feel completely different with new color, music, and decor.</p>
+                <p><strong>Color & time together:</strong> Morning, afternoon, and night each have different color moods in
+                  the park—soft pastels at sunrise, bright primaries midday, and deep purples, blues, and sparkling
+                  whites at night.</p>
+              </div>
+            </div>
+            <div class="tag-row">
+              <span class="tag dark">Castle</span>
+              <span class="tag dark">Glass</span>
+              <span class="tag dark">Storytelling</span>
+              <span class="tag dark">Holidays</span>
+              <span class="tag dark">Nighttime Spectaculars</span>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        Single-page HTML · CSS · JavaScript learning sheet — Disneyland, color theory, and the history of time & dates.
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // DATE & TIME DISPLAY
+    function updateDateTime() {
+      const now = new Date();
+      const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+      const timeOptions = { hour: "numeric", minute: "2-digit", second: "2-digit" };
+
+      document.getElementById("today-date").textContent =
+        now.toLocaleDateString(undefined, dateOptions);
+      document.getElementById("today-time").textContent =
+        now.toLocaleTimeString(undefined, timeOptions);
+
+      document.getElementById("month-year").textContent =
+        now.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+
+      document.getElementById("day-of-week").textContent =
+        now.toLocaleDateString(undefined, { weekday: "long" });
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // MINI CALENDAR
+    function buildCalendar() {
+      const grid = document.getElementById("calendar-grid");
+      grid.innerHTML = "";
+
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const today = now.getDate();
+
+      const firstDay = new Date(year, month, 1);
+      const startDay = firstDay.getDay(); // 0-6
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+      weekdays.forEach(d => {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell header";
+        cell.textContent = d;
+        grid.appendChild(cell);
+      });
+
+      for (let i = 0; i < startDay; i++) {
+        const empty = document.createElement("div");
+        empty.className = "calendar-cell";
+        empty.textContent = "";
+        grid.appendChild(empty);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const cell = document.createElement("div");
+        cell.className = "calendar-cell";
+        cell.textContent = day;
+        if (day === today) {
+          cell.classList.add("today");
+        }
+        grid.appendChild(cell);
+      }
+    }
+
+    buildCalendar();
+  </script>
+</body>
+</html>
