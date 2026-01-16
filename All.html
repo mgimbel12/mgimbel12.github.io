@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All‑In‑One Helper Panel — Homework · Citations · Election Countdown</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* -----------------------------------------------------------
+   ROOT COLORS — RED · WHITE · BLUE + NIGHT MODE
+----------------------------------------------------------- */
+:root {
+  --blue: #003366;
+  --red: #b22234;
+  --white: #ffffff;
+  --light-bg: #f5f7fa;
+  --dark-bg: #1a1a1a;
+  --dark-text: #e6e6e6;
+  --radius: 10px;
+  --transition: 0.3s ease;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--light-bg);
+  color: #111;
+  transition: var(--transition);
+}
+
+/* NIGHT MODE */
+body.night {
+  background: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* -----------------------------------------------------------
+   HEADER — FLAG THEME
+----------------------------------------------------------- */
+header {
+  background: linear-gradient(90deg, var(--blue), var(--red));
+  color: var(--white);
+  padding: 1.5rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+/* -----------------------------------------------------------
+   LAYOUT
+----------------------------------------------------------- */
+main {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -----------------------------------------------------------
+   PANELS
+----------------------------------------------------------- */
+.panel {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-top: 6px solid var(--blue);
+  transition: var(--transition);
+}
+
+body.night .panel {
+  background: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+}
+
+/* -----------------------------------------------------------
+   HEADINGS
+----------------------------------------------------------- */
+h2 {
+  margin-top: 0;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+body.night h2 {
+  color: var(--red);
+}
+
+/* -----------------------------------------------------------
+   INPUTS
+----------------------------------------------------------- */
+label {
+  font-weight: 600;
+  margin-top: 0.6rem;
+  display: block;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 0.55rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+body.night input,
+body.night textarea,
+body.night select {
+  background: #333;
+  color: var(--dark-text);
+  border: 1px solid #555;
+}
+
+/* -----------------------------------------------------------
+   BUTTONS
+----------------------------------------------------------- */
+.btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--blue);
+  color: var(--white);
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: var(--red);
+}
+
+.btn.secondary {
+  background: var(--red);
+}
+
+.btn.secondary:hover {
+  background: var(--blue);
+}
+
+/* -----------------------------------------------------------
+   OUTPUT BOX
+----------------------------------------------------------- */
+.output {
+  background: #f0f0f0;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 0.75rem;
+  white-space: pre-wrap;
+  font-family: Consolas, monospace;
+}
+
+body.night .output {
+  background: #333;
+  color: var(--dark-text);
+}
+
+/* -----------------------------------------------------------
+   FLAG STRIPES
+----------------------------------------------------------- */
+.flag-stripes {
+  margin-top: 1rem;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.flag-stripes div {
+  height: 12px;
+}
+
+.stripe-blue { background: var(--blue); }
+.stripe-white { background: var(--white); }
+.stripe-red { background: var(--red); }
+
+/* -----------------------------------------------------------
+   COUNTDOWN GRID
+----------------------------------------------------------- */
+.count-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.count-box {
+  background: #fafafa;
+  padding: 0.75rem;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.count-box span.value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.count-box span.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* NIGHT MODE COUNTDOWN */
+body.night .count-box {
+  background: #333;
+  border-color: #555;
+}
+
+body.night .count-box span.value {
+  color: var(--red);
+}
+
+/* -----------------------------------------------------------
+   TOGGLES
+----------------------------------------------------------- */
+.toggle-row {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.print-note {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 0.5rem;
+}
+
+/* PRINT MODE */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .btn, .toggle-row {
+    display: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  All‑In‑One Helper Panel — Homework · Citations · Election Countdown
+</header>
+
+<main>
+
+<!-- ---------------------------------------------------------
+     LEFT SIDE — HOMEWORK + CITATIONS
+--------------------------------------------------------- -->
+<div class="panel">
+
+<h2>Homework Helper</h2>
+
+<label>Assignment Title</label>
+<input id="hw-title">
+
+<label>Subject</label>
+<input id="hw-subject">
+
+<label>Due Date</label>
+<input type="date" id="hw-date">
+
+<label>Due Time</label>
+<input type="time" id="hw-time">
+
+<label>Notes</label>
+<textarea id="hw-notes"></textarea>
+
+<button class="btn" id="hw-generate">Generate Summary</button>
+
+<div class="output" id="hw-output"></div>
+
+<hr>
+
+<h2>Citation Machine</h2>
+
+<label>Title</label>
+<input id="cit-title">
+
+<label>Author</label>
+<input id="cit-author">
+
+<label>Publisher</label>
+<input id="cit-publisher">
+
+<label>City</label>
+<input id="cit-city">
+
+<label>Copyright Year</label>
+<input id="cit-year">
+
+<label>Serial / ISBN</label>
+<input id="cit-serial">
+
+<label>Month</label>
+<input id="cit-month">
+
+<label>Day</label>
+<input id="cit-day">
+
+<button class="btn secondary" id="cit-generate">Build Citation</button>
+
+<div class="output" id="cit-output"></div>
+
+</div>
+
+<!-- ---------------------------------------------------------
+     RIGHT SIDE — ELECTION COUNTDOWN
+--------------------------------------------------------- -->
+<div class="panel">
+
+<h2>Henderson, NV Election Countdown</h2>
+<p>Next Nevada general election: <strong>November 3, 2026</strong></p>
+
+<div class="count-grid">
+  <div class="count-box"><span class="value" id="cd-days">–</span><span class="label">Days</span></div>
+  <div class="count-box"><span class="value" id="cd-hours">–</span><span class="label">Hours</span></div>
+  <div class="count-box"><span class="value" id="cd-minutes">–</span><span class="label">Minutes</span></div>
+  <div class="count-box"><span class="value" id="cd-seconds">–</span><span class="label">Seconds</span></div>
+</div>
+
+<div class="flag-stripes">
+  <div class="stripe-blue"></div>
+  <div class="stripe-white"></div>
+  <div class="stripe-red"></div>
+  <div class="stripe-white"></div>
+  <div class="stripe-red"></div>
+</div>
+
+<div class="toggle-row">
+  <button class="btn" id="toggle-night">Day/Night</button>
+  <button class="btn" id="export-json">Export</button>
+  <button class="btn" id="import-json">Import</button>
+</div>
+
+<input type="file" id="file-input" style="display:none">
+
+<p class="print-note">Print Mode: Use Ctrl+P or browser print menu.</p>
+
+</div>
+
+</main>
+
+<script>
+/* -----------------------------------------------------------
+   HOMEWORK HELPER
+----------------------------------------------------------- */
+document.getElementById("hw-generate").onclick = () => {
+  const title = hw-title.value.trim();
+  const subject = hw-subject.value.trim();
+  const date = hw-date.value;
+  const time = hw-time.value;
+  const notes = hw-notes.value.trim();
+
+  let out = "";
+  out += title ? `Assignment: ${title}\n` : "";
+  out += subject ? `Subject: ${subject}\n` : "";
+  out += date ? `Due Date: ${date}\n` : "";
+  out += time ? `Due Time: ${time}\n` : "";
+  out += "\nNotes:\n" + (notes || "(No notes added)");
+
+  hw-output.textContent = out;
+
+  localStorage.setItem("hw-data", JSON.stringify({title,subject,date,time,notes}));
+};
+
+/* -----------------------------------------------------------
+   CITATION MACHINE
+----------------------------------------------------------- */
+document.getElementById("cit-generate").onclick = () => {
+  const t = cit-title.value.trim();
+  const a = cit-author.value.trim();
+  const p = cit-publisher.value.trim();
+  const c = cit-city.value.trim();
+  const y = cit-year.value.trim();
+  const s = cit-serial.value.trim();
+  const m = cit-month.value.trim();
+  const d = cit-day.value.trim();
+
+  let cit = "";
+  if (a) cit += a + ". ";
+  if (y) {
+    cit += "(" + y;
+    if (m || d) cit += ", " + m + (d ? " " + d : "");
+    cit += "). ";
+  }
+  if (t) cit += t + ". ";
+  if (c || p) cit += c + (c && p ? ": " : "") + p + ". ";
+  if (s) cit += "ISBN: " + s + ".";
+
+  cit-output.textContent = cit || "Add details to build a citation.";
+
+  localStorage.setItem("cit-data", JSON.stringify({t,a,p,c,y,s,m,d}));
+};
+
+/* -----------------------------------------------------------
+   ELECTION COUNTDOWN
+----------------------------------------------------------- */
+const electionDate = new Date("2026-11-03T00:00:00");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = electionDate - now;
+
+  if (diff <= 0) return;
+
+  const sec = Math.floor(diff / 1000);
+  const days = Math.floor(sec / 86400);
+  const hours = Math.floor((sec % 86400) / 3600);
+  const minutes = Math.floor((sec % 3600) / 60);
+  const seconds = sec % 60;
+
+  cd-days.textContent = days;
+  cd-hours.textContent = hours.toString().padStart(2,"0");
+  cd-minutes.textContent = minutes.toString().padStart(2,"0");
+  cd-seconds.textContent = seconds.toString().padStart(2,"0");
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* -----------------------------------------------------------
+   NIGHT MODE
+----------------------------------------------------------- */
+document.getElementById("toggle-night").onclick = () => {
+  document.body.classList.toggle("night");
+  localStorage.setItem("night-mode", document.body.classList.contains("night"));
+};
+
+if (localStorage.getItem("night-mode") === "true") {
+  document.body.classList.add("night");
+}
+
+/* -----------------------------------------------------------
+   EXPORT / IMPORT JSON
+----------------------------------------------------------- */
+document.getElementById("export-json").onclick = () => {
+  const data = {
+    homework: JSON.parse(localStorage.getItem("hw-data") || "{}"),
+    citation: JSON.parse(localStorage.getItem("cit-data") || "{}"),
+    night: document.body.classList.contains("night")
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "panel-data.json";
+  a.click();
+};
+
+document.getElementById("import-json").onclick = () => {
+  file-input.click();
+};
+
+file-input.onchange = (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const data = JSON.parse(reader.result);
+
+    if (data.homework) {
+      hw-title.value = data.homework.title || "";
+      hw-subject.value = data.homework.subject || "";
+      hw-date.value = data.homework.date || "";
+      hw-time.value = data.homework.time || "";
+      hw-notes.value = data.homework.notes || "";
+    }
+
+    if (data.citation) {
+      cit-title.value = data.citation.t || "";
+      cit-author.value = data.citation.a || "";
+      cit-publisher.value = data.citation.p || "";
+      cit-city.value = data.citation.c || "";
+      cit-year.value = data.citation.y || "";
+      cit-serial.value = data.citation.s || "";
+      cit-month.value = data.citation.m || "";
+      cit-day.value = data.citation.d || "";
+    }
+
+    if (data.night) {
+      document.body.classList.add("night");
+    } else {
+      document.body.classList.remove("night");
+    }
+  };
+
+  reader.readAsText(file);
+};
+</script>
+
+</body>
+</html>
+
