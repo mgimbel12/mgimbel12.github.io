@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework Helper & NV Election Countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --blue: #003366;
+      --red: #b22234;
+      --white: #ffffff;
+      --light: #f5f5f5;
+      --dark: #222222;
+      --accent: #1e90ff;
+      --border-radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #e6f0ff, #ffffff);
+      color: #111;
+    }
+
+    header {
+      background: linear-gradient(90deg, var(--blue), var(--red));
+      color: var(--white);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0.3rem 0 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 1.5rem auto 2.5rem;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 1.25rem 1.25rem 1.5rem;
+      border-top: 5px solid var(--blue);
+    }
+
+    section.flag-panel {
+      border-top-color: var(--red);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+
+    .subheading {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 0.5rem 0 0.2rem;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.45rem 0.55rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn.secondary {
+      background: var(--red);
+    }
+
+    .output-box {
+      margin-top: 0.75rem;
+      padding: 0.6rem 0.7rem;
+      background: var(--light);
+      border-radius: 4px;
+      font-family: "Consolas", "SF Mono", Menlo, monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.04);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 0.4rem;
+    }
+
+    .pill.blue {
+      color: var(--blue);
+      border: 1px solid rgba(0, 51, 102, 0.2);
+    }
+
+    .pill.red {
+      color: var(--red);
+      border: 1px solid rgba(178, 34, 52, 0.2);
+    }
+
+    .pill.flag {
+      background: linear-gradient(90deg, var(--blue) 0 33%, var(--white) 33% 66%, var(--red) 66% 100%);
+      color: #000;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    /* Election countdown */
+
+    .countdown-wrapper {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    @media (max-width: 600px) {
+      .countdown-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .time-box {
+      background: #fdfdfd;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      text-align: center;
+      padding: 0.5rem 0.4rem;
+    }
+
+    .time-box span.value {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .time-box span.label {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #555;
+    }
+
+    .flag-stripes {
+      margin-top: 0.75rem;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .flag-stripes div {
+      height: 10px;
+    }
+
+    .flag-stripes .stripe-red {
+      background: var(--red);
+    }
+
+    .flag-stripes .stripe-white {
+      background: var(--white);
+    }
+
+    .flag-stripes .stripe-blue {
+      background: var(--blue);
+    }
+
+    .disclaimer {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #555;
+      padding: 0.75rem 1rem 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Homework Helper & Henderson, NV Election Countdown</h1>
+    <p>HTML · CSS · JavaScript · Citation Machine · Red · White · Blue · American Flag Spirit</p>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN: HOMEWORK + CITATION MACHINE -->
+    <section aria-labelledby="homework-helper-heading">
+      <h2 id="homework-helper-heading">Homework helper</h2>
+      <p class="subheading">Quick notes for assignments, due dates, and time blocks.</p>
+
+      <div class="pill blue">HTML · CSS · JavaScript</div>
+      <div class="pill red">Homework</div>
+
+      <label for="hw-title">Assignment title</label>
+      <input type="text" id="hw-title" placeholder="e.g., American Government Essay">
+
+      <div class="row">
+        <div>
+          <label for="hw-subject">Subject</label>
+          <input type="text" id="hw-subject" placeholder="e.g., U.S. History">
+        </div>
+        <div>
+          <label for="hw-due-date">Due date</label>
+          <input type="date" id="hw-due-date">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="hw-due-time">Due time</label>
+          <input type="time" id="hw-due-time">
+        </div>
+        <div>
+          <label for="hw-priority">Priority</label>
+          <select id="hw-priority">
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="hw-notes">Notes / steps</label>
+      <textarea id="hw-notes" placeholder="Break the assignment into small steps, questions, or reminders..."></textarea>
+
+      <button class="btn" id="hw-generate">Generate summary</button>
+
+      <div class="output-box" id="hw-output" aria-live="polite"></div>
+
+      <hr style="margin:1.25rem 0; border:none; border-top:1px solid #ddd;">
+
+      <h2>Citation machine</h2>
+      <p class="subheading">Basic book-style citation builder (APA-ish / MLA-ish skeleton).</p>
+
+      <div class="pill blue">Title</div>
+      <div class="pill red">Author</div>
+      <div class="pill blue">Book · Serial · Copyright</div>
+
+      <label for="cit-title">Title</label>
+      <input type="text" id="cit-title" placeholder="Book or article title">
+
+      <label for="cit-author">Author(s)</label>
+      <input type="text" id="cit-author" placeholder="Last, First M. (or multiple authors)">
+
+      <div class="row">
+        <div>
+          <label for="cit-publisher">Publisher</label>
+          <input type="text" id="cit-publisher" placeholder="Publisher name">
+        </div>
+        <div>
+          <label for="cit-city">City</label>
+          <input type="text" id="cit-city" placeholder="City of publication">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="cit-year">Copyright year</label>
+          <input type="number" id="cit-year" placeholder="2024">
+        </div>
+        <div>
+          <label for="cit-serial">Serial / ISBN</label>
+          <input type="text" id="cit-serial" placeholder="ISBN or serial number (optional)">
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="cit-month">Month (optional)</label>
+          <input type="text" id="cit-month" placeholder="e.g., March">
+        </div>
+        <div>
+          <label for="cit-day">Day (optional)</label>
+          <input type="number" id="cit-day" placeholder="15">
+        </div>
+      </div>
+
+      <button class="btn secondary" id="cit-generate">Build citation</button>
+
+      <div class="output-box" id="cit-output" aria-live="polite"></div>
+    </section>
+
+    <!-- RIGHT COLUMN: ELECTION COUNTDOWN + FLAG -->
+    <section class="flag-panel" aria-labelledby="election-countdown-heading">
+      <h2 id="election-countdown-heading">Henderson, NV election countdown</h2>
+      <p class="subheading">
+        Next major Nevada general election (statewide & local): <strong>November 3, 2026</strong> — applies to Henderson, NV.
+      </p>
+
+      <div class="pill flag">Red · White · Blue · American Flag</div>
+
+      <div class="countdown-wrapper" id="countdown">
+        <div class="time-box">
+          <span class="value" id="cd-days">–</span>
+          <span class="label">Days</span>
+        </div>
+        <div class="time-box">
+          <span class="value" id="cd-hours">–</span>
+          <span class="label">Hours</span>
+        </div>
+        <div class="time-box">
+          <span class="value" id="cd-minutes">–</span>
+          <span class="label">Minutes</span>
+        </div>
+        <div class="time-box">
+          <span class="value" id="cd-seconds">–</span>
+          <span class="label">Seconds</span>
+        </div>
+      </div>
+
+      <div class="flag-stripes" aria-hidden="true">
+        <div class="stripe-blue"></div>
+        <div class="stripe-white"></div>
+        <div class="stripe-red"></div>
+        <div class="stripe-white"></div>
+        <div class="stripe-red"></div>
+      </div>
+
+      <div class="disclaimer">
+        Countdown is based on publicly available information for Nevada’s 2026 general election date (November 3, 2026).
+        Always confirm election dates, registration deadlines, and polling details with official Nevada and Clark County
+        election offices or other trusted sources.
+      </div>
+
+      <div style="margin-top:0.9rem;">
+        <label for="local-time-note">Local time note (optional)</label>
+        <textarea id="local-time-note" placeholder="Add notes like: Polls open 7:00 a.m. – 7:00 p.m. in Henderson, NV (verify with official sources)."></textarea>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Built as a learning panel for HTML · CSS · JavaScript · Homework · Citations · Civic countdowns.
+  </footer>
+
+  <script>
+    // -----------------------------
+    // Homework helper summary
+    // -----------------------------
+    const hwGenerateBtn = document.getElementById('hw-generate');
+    const hwOutput = document.getElementById('hw-output');
+
+    hwGenerateBtn.addEventListener('click', () => {
+      const title = document.getElementById('hw-title').value.trim();
+      const subject = document.getElementById('hw-subject').value.trim();
+      const dueDate = document.getElementById('hw-due-date').value;
+      const dueTime = document.getElementById('hw-due-time').value;
+      const priority = document.getElementById('hw-priority').value;
+      const notes = document.getElementById('hw-notes').value.trim();
+
+      let summary = '';
+
+      summary += title ? `Assignment: ${title}\n` : 'Assignment: (add a title)\n';
+      summary += subject ? `Subject: ${subject}\n` : '';
+      summary += dueDate ? `Due date: ${dueDate}\n` : '';
+      summary += dueTime ? `Due time: ${dueTime}\n` : '';
+      summary += `Priority: ${priority}\n\n`;
+
+      if (notes) {
+        summary += 'Notes / steps:\n' + notes + '\n';
+      } else {
+        summary += 'Notes / steps:\n- Break this into 3–5 small tasks.\n- Estimate how long each will take.\n- Schedule time blocks.\n';
+      }
+
+      hwOutput.textContent = summary;
+    });
+
+    // -----------------------------
+    // Citation machine
+    // Very simple book-style format:
+    // Author. (Year). Title. City: Publisher. Serial.
+    // -----------------------------
+    const citGenerateBtn = document.getElementById('cit-generate');
+    const citOutput = document.getElementById('cit-output');
+
+    citGenerateBtn.addEventListener('click', () => {
+      const title = document.getElementById('cit-title').value.trim();
+      const author = document.getElementById('cit-author').value.trim();
+      const publisher = document.getElementById('cit-publisher').value.trim();
+      const city = document.getElementById('cit-city').value.trim();
+      const year = document.getElementById('cit-year').value.trim();
+      const serial = document.getElementById('cit-serial').value.trim();
+      const month = document.getElementById('cit-month').value.trim();
+      const day = document.getElementById('cit-day').value.trim();
+
+      let citation = '';
+
+      if (author) {
+        citation += author + '. ';
+      }
+      if (year) {
+        citation += '(' + year;
+        if (month || day) {
+          citation += ', ';
+          if (month) citation += month;
+          if (day) citation += ' ' + day;
+        }
+        citation += '). ';
+      }
+      if (title) {
+        citation += title + '. ';
+      }
+      if (city || publisher) {
+        if (city) citation += city;
+        if (city && publisher) citation += ': ';
+        if (publisher) citation += publisher;
+        citation += '. ';
+      }
+      if (serial) {
+        citation += 'ISBN/Serial: ' + serial + '.';
+      }
+
+      if (!citation.trim()) {
+        citation = 'Add at least a title or author to build a citation.';
+      }
+
+      citOutput.textContent = citation;
+    });
+
+    // -----------------------------
+    // Election countdown
+    // Nevada general election: November 3, 2026
+    // -----------------------------
+    const electionDate = new Date('2026-11-03T00:00:00-08:00'); // PST approximation
+
+    const cdDays = document.getElementById('cd-days');
+    const cdHours = document.getElementById('cd-hours');
+    const cdMinutes = document.getElementById('cd-minutes');
+    const cdSeconds = document.getElementById('cd-seconds');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = electionDate.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        cdDays.textContent = '0';
+        cdHours.textContent = '0';
+        cdMinutes.textContent = '0';
+        cdSeconds.textContent = '0';
+        return;
+      }
+
+      const seconds = Math.floor(diff / 1000);
+      const days = Math.floor(seconds / (60 * 60 * 24));
+      const hours = Math.floor((seconds % (60 * 60 * 24)) / (60 * 60));
+      const minutes = Math.floor((seconds % (60 * 60)) / 60);
+      const secs = seconds % 60;
+
+      cdDays.textContent = String(days);
+      cdHours.textContent = String(hours).padStart(2, '0');
+      cdMinutes.textContent = String(minutes).padStart(2, '0');
+      cdSeconds.textContent = String(secs).padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
