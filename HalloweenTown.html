@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halloween Town & Christmas Sheet</title>
+  <style>
+    :root {
+      --ink: #111827;
+      --bg: #f3f4f6;
+      --panel-border: #9ca3af;
+      --accent-halloween: #f97316;
+      --accent-haunted: #4b5563;
+      --accent-christmas: #16a34a;
+      --accent-night: #0f172a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 900px;
+      background: #ffffff;
+      border-radius: 12px;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      padding: 18px 22px 20px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      row-gap: 10px;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 6px;
+    }
+
+    header h1 {
+      font-size: 1.2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    header span {
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+
+    .controls {
+      margin-top: 4px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .controls button {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #9ca3af;
+      background: #f9fafb;
+      color: #111827;
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .controls button:hover {
+      background: #111827;
+      color: #f9fafb;
+      border-color: #111827;
+    }
+
+    .grid {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .panel {
+      border-radius: 10px;
+      border: 1px solid var(--panel-border);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .panel-header span {
+      font-size: 0.65rem;
+      color: #6b7280;
+    }
+
+    .panel-svg {
+      width: 100%;
+      height: 150px;
+      border-radius: 6px;
+      border: 1px solid #d1d5db;
+      overflow: hidden;
+    }
+
+    .panel-notes {
+      font-size: 0.7rem;
+      color: #4b5563;
+      margin-top: 2px;
+    }
+
+    footer {
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Print styles: one clean sheet */
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .sheet {
+        max-width: none;
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+      }
+      .controls {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header>
+      <h1>HALLOWEEN TOWN & CHRISTMAS SHEET</h1>
+      <span>Printable · SVG · Single Page</span>
+    </header>
+
+    <div class="controls">
+      <button type="button" id="print-btn">Print / Export PDF</button>
+    </div>
+
+    <section class="grid">
+      <!-- NIGHTMARE-STYLE HILL & MOON (GENERIC) -->
+      <article class="panel">
+        <div class="panel-header">
+          <strong>MOONLIT HILL</strong>
+          <span>spooky spiral landscape</span>
+        </div>
+        <svg
+          class="panel-svg"
+          viewBox="0 0 160 100"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Stylized moonlit spiral hill"
+        >
+          <!-- Night sky -->
+          <defs>
+            <linearGradient id="night-sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#020617" />
+              <stop offset="100%" stop-color="#111827" />
+            </linearGradient>
+          </defs>
+          <rect width="160" height="100" fill="url(#night-sky)" />
+
+          <!-- Moon -->
+          <circle cx="110" cy="35" r="22" fill="#facc15" opacity="0.95" />
+          <circle cx="116" cy="32" r="6" fill="#fbbf24" opacity="0.7" />
+
+          <!-- Spiral hill silhouette -->
+          <path
+            d="M0 80
+               Q40 60 70 70
+               Q90 75 100 70
+               Q110 65 118 60
+               Q126 55 132 50
+               Q138 45 142 40
+               Q146 35 148 30
+               Q150 25 148 22
+               Q146 19 142 20
+               Q138 21 136 25
+               Q134 29 135 33
+               Q136 37 140 39
+               Q144 41 148 40"
+            fill="#020617"
+          />
+
+          <!-- Tiny crooked fence -->
+          <g stroke="#f9fafb" stroke-width="1" stroke-linecap="round">
+            <line x1="10" y1="70" x2="10" y2="82" />
+            <line x1="18" y1="68" x2="18" y2="80" />
+            <line x1="26" y1="66" x2="26" y2="78" />
+            <line x1="8" y1="76" x2="28" y2="72" />
+          </g>
+        </svg>
+        <p class="panel-notes">
+          Generic moonlit spiral hill—evokes a spooky holiday crossover without using specific characters.
+        </p>
+      </article>
+
+      <!-- HALLOWEEN TOWN PLAZA (GENERIC) -->
+      <article class="panel">
+        <div class="panel-header">
+          <strong>HALLOWEEN PLAZA</strong>
+          <span>lanterns & crooked rooftops</span>
+        </div>
+        <svg
+          class="panel-svg"
+          viewBox="0 0 160 100"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Stylized Halloween town plaza"
+        >
+          <!-- Twilight sky -->
+          <defs>
+            <linearGradient id="twilight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#4b5563" />
+              <stop offset="100%" stop-color="#020617" />
+            </linearGradient>
+          </defs>
+          <rect width="160" height="100" fill="url(#twilight)" />
+
+          <!-- Distant crooked houses -->
+          <g fill="#020617">
+            <polygon points="10,70 30,50 50,70" />
+            <polygon points="40,72 60,48 80,72" />
+            <polygon points="75,70 95,52 115,70" />
+            <polygon points="105,72 130,50 150,72" />
+          </g>
+
+          <!-- Windows -->
+          <g fill="#facc15">
+            <rect x="22" y="58" width="4" height="6" />
+            <rect x="46" y="58" width="4" height="6" />
+            <rect x="68" y="56" width="4" height="7" />
+            <rect x="90" y="58" width="4" height="6" />
+            <rect x="120" y="56" width="4" height="7" />
+          </g>
+
+          <!-- Lantern posts -->
+          <g stroke="#f97316" stroke-width="1.2" stroke-linecap="round">
+            <line x1="30" y1="60" x2="30" y2="80" />
+            <line x1="80" y1="60" x2="80" y2="80" />
+            <line x1="130" y1="60" x2="130" y2="80" />
+          </g>
+          <g fill="#f97316">
+            <circle cx="30" cy="60" r="3" />
+            <circle cx="80" cy="60" r="3" />
+            <circle cx="130" cy="60" r="3" />
+          </g>
+
+          <!-- Plaza ground -->
+          <rect y="78" width="160" height="22" fill="#111827" />
+          <path d="M0 78 Q80 70 160 78" fill="#1f2937" />
+        </svg>
+        <p class="panel-notes">
+          A generic Halloween town square with lanterns and crooked roofs—safe for printable decor.
+        </p>
+      </article>
+
+      <!-- HAUNTED MANSION (GENERIC) -->
+      <article class="panel">
+        <div class="panel-header">
+          <strong>HAUNTED MANOR</strong>
+          <span>gothic porch & trees</span>
+        </div>
+        <svg
+          class="panel-svg"
+          viewBox="0 0 160 100"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Stylized haunted mansion"
+        >
+          <!-- Foggy night -->
+          <defs>
+            <linearGradient id="foggy" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#111827" />
+              <stop offset="100%" stop-color="#020617" />
+            </linearGradient>
+          </defs>
+          <rect width="160" height="100" fill="url(#foggy)" />
+
+          <!-- Moon -->
+          <circle cx="30" cy="25" r="14" fill="#e5e7eb" opacity="0.9" />
+
+          <!-- Mansion body -->
+          <g fill="#020617">
+            <rect x="55" y="35" width="50" height="35" />
+            <rect x="65" y="25" width="30" height="20" />
+            <rect x="72" y="18" width="16" height="10" />
+          </g>
+
+          <!-- Roof lines -->
+          <g stroke="#4b5563" stroke-width="1">
+            <line x1="55" y1="35" x2="80" y2="25" />
+            <line x1="105" y1="35" x2="80" y2="25" />
+            <line x1="65" y1="25" x2="80" y2="18" />
+            <line x1="95" y1="25" x2="80" y2="18" />
+          </g>
+
+          <!-- Windows & door -->
+          <g fill="#facc15">
+            <rect x="62" y="40" width="6" height="8" />
+            <rect x="92" y="40" width="6" height="8" />
+            <rect x="76" y="44" width="8" height="12" />
+          </g>
+
+          <!-- Porch columns -->
+          <g stroke="#9ca3af" stroke-width="1.2">
+            <line x1="70" y1="50" x2="70" y2="70" />
+            <line x1="90" y1="50" x2="90" y2="70" />
+          </g>
+
+          <!-- Trees -->
+          <g stroke="#4b5563" stroke-width="1.5" stroke-linecap="round">
+            <line x1="30" y1="55" x2="30" y2="80" />
+            <line x1="28" y1="60" x2="34" y2="52" />
+            <line x1="32" y1="64" x2="26" y2="56" />
+
+            <line x1="130" y1="55" x2="130" y2="80" />
+            <line x1="128" y1="60" x2="136" y2="52" />
+            <line x1="132" y1="64" x2="124" y2="56" />
+          </g>
+
+          <!-- Ground -->
+          <rect y="75" width="160" height="25" fill="#020617" />
+        </svg>
+        <p class="panel-notes">
+          A gothic haunted manor silhouette—great for Haunted Mansion–style worksheets or party printables.
+        </p>
+      </article>
+
+      <!-- CHRISTMAS VILLAGE (GENERIC) -->
+      <article class="panel">
+        <div class="panel-header">
+          <strong>CHRISTMAS VILLAGE</strong>
+          <span>snow, trees & lights</span>
+        </div>
+        <svg
+          class="panel-svg"
+          viewBox="0 0 160 100"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="Stylized Christmas village"
+        >
+          <!-- Winter sky -->
+          <defs>
+            <linearGradient id="winter-sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0ea5e9" />
+              <stop offset="100%" stop-color="#1d4ed8" />
+            </linearGradient>
+          </defs>
+          <rect width="160" height="100" fill="url(#winter-sky)" />
+
+          <!-- Snowflakes -->
+          <g fill="#f9fafb" opacity="0.9">
+            <circle cx="20" cy="18" r="1.2" />
+            <circle cx="45" cy="10" r="1.2" />
+            <circle cx="70" cy="20" r="1.2" />
+            <circle cx="95" cy="12" r="1.2" />
+            <circle cx="120" cy="18" r="1.2" />
+            <circle cx="140" cy="8" r="1.2" />
+          </g>
+
+          <!-- Snow ground -->
+          <path
+            d="M0 70
+               Q40 60 80 68
+               Q120 76 160 70
+               L160 100
+               L0 100 Z"
+            fill="#f9fafb"
+          />
+
+          <!-- Houses -->
+          <g>
+            <rect x="20" y="52" width="24" height="16" fill="#fecaca" />
+            <polygon points="18,52 32,42 46,52" fill="#f97316" />
+
+            <rect x="70" y="50" width="26" height="18" fill="#fee2e2" />
+            <polygon points="68,50 83,40 98,50" fill="#ea580c" />
+
+            <rect x="115" y="54" width="22" height="14" fill="#fed7aa" />
+            <polygon points="113,54 126,46 139,54" fill="#f97316" />
+          </g>
+
+          <!-- Windows & doors -->
+          <g fill="#facc15">
+            <rect x="26" y="56" width="6" height="6" />
+            <rect x="36" y="56" width="6" height="6" />
+            <rect x="78" y="54" width="6" height="6" />
+            <rect x="88" y="54" width="6" height="6" />
+            <rect x="120" y="58" width="5" height="5" />
+            <rect x="128" y="58" width="5" height="5" />
+          </g>
+          <g fill="#7c2d12">
+            <rect x="30" y="60" width="6" height="8" />
+            <rect x="80" y="60" width="6" height="8" />
+            <rect x="123" y="62" width="6" height="8" />
+          </g>
+
+          <!-- Trees -->
+          <g fill="#16a34a">
+            <polygon points="10,70 18,56 26,70" />
+            <polygon points="52,72 60,58 68,72" />
+            <polygon points="100,72 108,58 116,72" />
+          </g>
+        </svg>
+        <p class="panel-notes">
+          A cozy Christmas village panel—pairs nicely with the Halloween scenes for a holiday crossover sheet.
+        </p>
+      </article>
+    </section>
+
+    <footer>
+      <span>Single-sheet layout · ready to print or export as PDF via browser.</span>
+      <span>Generic art inspired by spooky & festive themes.</span>
+    </footer>
+  </main>
+
+  <script>
+    const printBtn = document.getElementById("print-btn");
+    printBtn.addEventListener("click", () => {
+      window.print();
+    });
+  </script>
+</body>
+</html>
