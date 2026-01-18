@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Comic Book Heroes & Flag SVG</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --panel: #111827;
+      --accent: #facc15;
+      --border: #e5e7eb;
+      --text: #f9fafb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wrapper {
+      width: 95vw;
+      max-width: 1100px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+      padding: 20px 24px 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr);
+      gap: 18px;
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header span {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .flag-panel {
+      background: radial-gradient(circle at top left, #1d4ed8 0, #020617 55%);
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .flag-title {
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: #e5e7eb;
+    }
+
+    .flag-sub {
+      font-size: 0.75rem;
+      opacity: 0.85;
+      margin-bottom: 10px;
+    }
+
+    .flag-svg {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: #020617;
+    }
+
+    .flag-note {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+
+    .grid-panel {
+      background: linear-gradient(135deg, #020617, #0b1120);
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .grid-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .grid-header span {
+      opacity: 0.8;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at top, #111827 0, #020617 70%);
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+      border-color: var(--accent);
+    }
+
+    .hero-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-label span {
+      font-size: 0.65rem;
+      opacity: 0.75;
+    }
+
+    .hero-svg {
+      width: 100%;
+      height: 110px;
+      border-radius: 7px;
+      overflow: hidden;
+      background: #020617;
+    }
+
+    .hero-meta {
+      margin-top: 4px;
+      font-size: 0.7rem;
+      opacity: 0.8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hero-meta button {
+      font-size: 0.65rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .hero-meta button:hover {
+      background: var(--accent);
+      color: #111827;
+      border-color: #fbbf24;
+    }
+
+    .status-bar {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      font-size: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      opacity: 0.85;
+    }
+
+    .status-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    @media (max-width: 800px) {
+      .wrapper {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>COMIC PANEL SVG LAB</h1>
+      <span>HTML · CSS · JavaScript · SVG</span>
+    </header>
+
+    <!-- LEFT: AMERICAN FLAG SVG -->
+    <section class="flag-panel">
+      <div class="flag-title">United States Flag · SVG</div>
+      <div class="flag-sub">Simple vector flag with stripes, canton, and star field.</div>
+
+      <svg
+        class="flag-svg"
+        viewBox="0 0 190 100"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="Stylized United States flag"
+      >
+        <!-- Background -->
+        <rect width="190" height="100" fill="#b91c1c" />
+
+        <!-- White stripes -->
+        <!-- 7 red, 6 white; we draw the white ones -->
+        <g fill="#f9fafb">
+          <rect y="7.69" width="190" height="7.69" />
+          <rect y="23.07" width="190" height="7.69" />
+          <rect y="38.45" width="190" height="7.69" />
+          <rect y="53.83" width="190" height="7.69" />
+          <rect y="69.21" width="190" height="7.69" />
+          <rect y="84.59" width="190" height="7.69" />
+        </g>
+
+        <!-- Blue canton -->
+        <rect width="76" height="53.83" fill="#1d4ed8" />
+
+        <!-- Star field (stylized dots instead of precise stars) -->
+        <g fill="#e5e7eb">
+          <!-- 6x5 grid of small circles -->
+          <!-- rows -->
+          <g>
+            <circle cx="6" cy="5" r="1.2" />
+            <circle cx="18" cy="5" r="1.2" />
+            <circle cx="30" cy="5" r="1.2" />
+            <circle cx="42" cy="5" r="1.2" />
+            <circle cx="54" cy="5" r="1.2" />
+            <circle cx="66" cy="5" r="1.2" />
+          </g>
+          <g>
+            <circle cx="12" cy="11" r="1.2" />
+            <circle cx="24" cy="11" r="1.2" />
+            <circle cx="36" cy="11" r="1.2" />
+            <circle cx="48" cy="11" r="1.2" />
+            <circle cx="60" cy="11" r="1.2" />
+          </g>
+          <g>
+            <circle cx="6" cy="17" r="1.2" />
+            <circle cx="18" cy="17" r="1.2" />
+            <circle cx="30" cy="17" r="1.2" />
+            <circle cx="42" cy="17" r="1.2" />
+            <circle cx="54" cy="17" r="1.2" />
+            <circle cx="66" cy="17" r="1.2" />
+          </g>
+          <g>
+            <circle cx="12" cy="23" r="1.2" />
+            <circle cx="24" cy="23" r="1.2" />
+            <circle cx="36" cy="23" r="1.2" />
+            <circle cx="48" cy="23" r="1.2" />
+            <circle cx="60" cy="23" r="1.2" />
+          </g>
+          <g>
+            <circle cx="6" cy="29" r="1.2" />
+            <circle cx="18" cy="29" r="1.2" />
+            <circle cx="30" cy="29" r="1.2" />
+            <circle cx="42" cy="29" r="1.2" />
+            <circle cx="54" cy="29" r="1.2" />
+            <circle cx="66" cy="29" r="1.2" />
+          </g>
+          <g>
+            <circle cx="12" cy="35" r="1.2" />
+            <circle cx="24" cy="35" r="1.2" />
+            <circle cx="36" cy="35" r="1.2" />
+            <circle cx="48" cy="35" r="1.2" />
+            <circle cx="60" cy="35" r="1.2" />
+          </g>
+        </g>
+      </svg>
+
+      <div class="flag-note">
+        This is a stylized educational SVG—good for layouts, not an official specification drawing.
+      </div>
+    </section>
+
+    <!-- RIGHT: COMIC CHARACTER PANELS (GENERIC, LABELED) -->
+    <section class="grid-panel">
+      <div class="grid-header">
+        <div>Comic character panels</div>
+        <span>Click a panel to highlight</span>
+      </div>
+
+      <div class="hero-grid">
+        <!-- SPIDER-MAN STYLE PANEL (GENERIC) -->
+        <article class="hero-card" data-hero="Spider-Man">
+          <div class="hero-label">
+            <strong>SPIDER-MAN PANEL</strong>
+            <span>web-swing energy</span>
+          </div>
+          <svg class="hero-svg" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background -->
+            <rect width="120" height="70" fill="#7f1d1d" />
+            <!-- Web lines -->
+            <g stroke="#f9fafb" stroke-width="0.6" opacity="0.8">
+              <path d="M0 10 L120 10" />
+              <path d="M0 25 L120 25" />
+              <path d="M0 40 L120 40" />
+              <path d="M0 55 L120 55" />
+              <path d="M20 0 L20 70" />
+              <path d="M45 0 L45 70" />
+              <path d="M70 0 L70 70" />
+              <path d="M95 0 L95 70" />
+            </g>
+            <!-- Mask silhouette (generic) -->
+            <ellipse cx="60" cy="35" rx="20" ry="24" fill="#111827" stroke="#f97316" stroke-width="1.5" />
+            <!-- Eyes (generic shapes) -->
+            <path d="M48 30 Q54 24 60 28 Q54 32 48 30 Z" fill="#f9fafb" />
+            <path d="M72 30 Q66 24 60 28 Q66 32 72 30 Z" fill="#f9fafb" />
+          </svg>
+          <div class="hero-meta">
+            <span>Generic “web hero” mask, not official art.</span>
+            <button type="button">Ping Panel</button>
+          </div>
+        </article>
+
+        <!-- SUPERMAN STYLE PANEL (GENERIC) -->
+        <article class="hero-card" data-hero="Superman">
+          <div class="hero-label">
+            <strong>SUPERMAN PANEL</strong>
+            <span>skyline crest</span>
+          </div>
+          <svg class="hero-svg" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sky -->
+            <defs>
+              <linearGradient id="supersky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1d4ed8" />
+                <stop offset="100%" stop-color="#0f172a" />
+              </linearGradient>
+            </defs>
+            <rect width="120" height="70" fill="url(#supersky)" />
+            <!-- City silhouette -->
+            <g fill="#020617">
+              <rect x="5" y="40" width="15" height="30" />
+              <rect x="25" y="35" width="18" height="35" />
+              <rect x="48" y="30" width="20" height="40" />
+              <rect x="72" y="38" width="16" height="32" />
+              <rect x="92" y="33" width="18" height="37" />
+            </g>
+            <!-- Crest diamond (generic) -->
+            <polygon points="60,15 80,30 60,45 40,30" fill="#facc15" stroke="#b91c1c" stroke-width="1.5" />
+            <text
+              x="60"
+              y="33"
+              text-anchor="middle"
+              font-size="10"
+              font-family="system-ui, sans-serif"
+              fill="#b91c1c"
+              font-weight="700"
+            >
+              S
+            </text>
+          </svg>
+          <div class="hero-meta">
+            <span>Generic “S crest” vibe, not official logo.</span>
+            <button type="button">Ping Panel</button>
+          </div>
+        </article>
+
+        <!-- BATMAN STYLE PANEL (GENERIC) -->
+        <article class="hero-card" data-hero="Batman">
+          <div class="hero-label">
+            <strong>BATMAN PANEL</strong>
+            <span>night signal</span>
+          </div>
+          <svg class="hero-svg" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+            <!-- Night sky -->
+            <rect width="120" height="70" fill="#020617" />
+            <!-- Moon spotlight -->
+            <circle cx="85" cy="20" r="18" fill="#facc15" opacity="0.9" />
+            <!-- Signal bat shape (generic) -->
+            <path
+              d="M75 20
+                 Q80 14 85 18
+                 Q90 14 95 20
+                 Q92 19 90 22
+                 Q92 24 93 28
+                 Q88 26 85 30
+                 Q82 26 77 28
+                 Q78 24 80 22
+                 Q78 19 75 20 Z"
+              fill="#020617"
+            />
+            <!-- Rooftop -->
+            <rect x="0" y="45" width="120" height="25" fill="#111827" />
+            <rect x="15" y="35" width="20" height="10" fill="#111827" />
+            <rect x="45" y="32" width="18" height="13" fill="#111827" />
+          </svg>
+          <div class="hero-meta">
+            <span>Generic night-signal silhouette.</span>
+            <button type="button">Ping Panel</button>
+          </div>
+        </article>
+
+        <!-- SIMPSON STYLE PANEL (GENERIC) -->
+        <article class="hero-card" data-hero="Simpson">
+          <div class="hero-label">
+            <strong>SIMPSON PANEL</strong>
+            <span>cartoon suburb</span>
+          </div>
+          <svg class="hero-svg" viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sky -->
+            <defs>
+              <linearGradient id="simpsky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#0ea5e9" />
+              </linearGradient>
+            </defs>
+            <rect width="120" height="70" fill="url(#simpsky)" />
+            <!-- Clouds -->
+            <g fill="#f9fafb" opacity="0.95">
+              <ellipse cx="25" cy="18" rx="12" ry="6" />
+              <ellipse cx="35" cy="18" rx="10" ry="5" />
+              <ellipse cx="80" cy="14" rx="11" ry="6" />
+              <ellipse cx="90" cy="14" rx="9" ry="5" />
+            </g>
+            <!-- Ground -->
+            <rect y="40" width="120" height="30" fill="#22c55e" />
+            <!-- House (generic cartoon) -->
+            <rect x="30" y="32" width="40" height="22" fill="#fbbf24" stroke="#92400e" stroke-width="1" />
+            <polygon points="28,32 50,20 72,32" fill="#b45309" />
+            <rect x="38" y="38" width="10" height="8" fill="#fed7aa" />
+            <rect x="52" y="38" width="10" height="8" fill="#fed7aa" />
+            <rect x="47" y="44" width="8" height="10" fill="#78350f" />
+          </svg>
+          <div class="hero-meta">
+            <span>Generic cartoon suburb, not specific characters.</span>
+            <button type="button">Ping Panel</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="status-bar">
+      <div class="status-pill" id="status-pill">Status: idle · click a panel</div>
+      <span>SVG playground · editable in code</span>
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll(".hero-card");
+    const status = document.getElementById("status-pill");
+
+    cards.forEach((card) => {
+      const hero = card.dataset.hero;
+      const button = card.querySelector("button");
+
+      function ping() {
+        // brief highlight
+        card.style.boxShadow = "0 0 0 2px #facc15, 0 18px 40px rgba(0,0,0,0.8)";
+        status.textContent = "Status: " + hero + " panel pinged";
+        setTimeout(() => {
+          card.style.boxShadow = "";
+        }, 260);
+      }
+
+      card.addEventListener("click", ping);
+      button.addEventListener("click", (e) => {
+        e.stopPropagation();
+        ping();
+      });
+    });
+  </script>
+</body>
+</html>
+
