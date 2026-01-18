@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halloween Town Poem</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --ink: #f9fafb;
+      --accent: #f97316;
+      --muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      padding: 16px;
+    }
+
+    .sheet {
+      max-width: 720px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.7);
+      padding: 20px 22px 18px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    header h1 {
+      font-size: 1.3rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .poem {
+      font-size: 0.98rem;
+      line-height: 1.7;
+      white-space: pre-line;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .lazy-wrapper {
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.6);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .lazy-phrase {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      color: var(--accent);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .lazy-phrase.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    button {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--ink);
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      background: var(--accent);
+      border-color: #fbbf24;
+      color: #111827;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .sheet {
+        box-shadow: none;
+        border-radius: 0;
+        border: 1px solid #e5e7eb;
+        background: #ffffff;
+        color: #111827;
+      }
+      header p,
+      .lazy-wrapper {
+        color: #4b5563;
+      }
+      button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header>
+      <h1>HALLOWEEN TOWN POEM</h1>
+      <p>Trick or Treat · single sheet · lazy-loaded whisper</p>
+    </header>
+
+    <section class="poem">
+      In <span class="highlight">Halloween Town</span>, where the lampposts lean,  
+      The moon hangs low with a crooked sheen,  
+      Jack-o’-lantern doorways softly gleam,  
+      And shadows stitch the edges of a dream.  
+
+      Children gather on the cobblestone street,  
+      Shoes scuff–hearts drum to a candy beat,  
+      Masks pulled tight, courage small but sweet,  
+      They chant the spell: “<span class="highlight">Trick or Treat!</span> Trick or Treat!”  
+
+      Windows flicker with a pumpkin glow,  
+      Secrets rustle in the leaves below,  
+      Every knock is a dare to the autumn night,  
+      Every laugh is a spark in the lantern light.  
+
+      In this town where the strange feels right,  
+      Fear wears glitter and joy wears fright,  
+      The veil grows thin, yet the rule is clear:  
+      Share your sweets, and guard your cheer.
+    </section>
+
+    <section class="lazy-wrapper">
+      <span>Lazy-load additional phrase (reveals on demand):</span>
+      <span class="lazy-phrase" id="lazyPhrase">
+        When the last bell tolls, the magic lingers.
+      </span>
+      <button type="button" id="revealBtn">Tap to gently reveal</button>
+    </section>
+  </main>
+
+  <script>
+    // Simple "lazy load" reveal: only show phrase when user taps the button
+    const btn = document.getElementById("revealBtn");
+    const phrase = document.getElementById("lazyPhrase");
+
+    btn.addEventListener("click", () => {
+      phrase.classList.add("visible");
+      btn.textContent = "Phrase revealed";
+      btn.disabled = true;
+      btn.style.opacity = "0.7";
+      btn.style.cursor = "default";
+    });
+  </script>
+</body>
+</html>
+
