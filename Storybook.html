@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ceremonial Storybook Overlay</title>
+<style>
+  body {
+    font-family: serif;
+    background: linear-gradient(to bottom, aquamarine, white);
+    margin: 0;
+    padding: 20px;
+  }
+
+  header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 3px dashed silver;
+  }
+
+  .section {
+    margin: 30px 0;
+    padding: 20px;
+    border: 2px solid grey;
+    background: #fff;
+  }
+
+  .cross-stitch {
+    border: 4px dashed black;
+    padding: 10px;
+  }
+
+  .color-sample {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Rainbow Connections & Ceremonial Stories</h1>
+  <p id="clock"></p>
+</header>
+
+<section class="section">
+  <h2>Important Dates</h2>
+  <ul id="dates-list"></ul>
+</section>
+
+<section class="section cross-stitch">
+  <h2>Haunted Mansion & Royal Themes</h2>
+  <p>Gothic, royal, aquamarine, silver, and purple overlays.</p>
+</section>
+
+<section class="section">
+  <h2>Color Palette</h2>
+  <div class="color-sample" style="background: blue;"></div>
+  <div class="color-sample" style="background: orange;"></div>
+  <div class="color-sample" style="background: green;"></div>
+  <div class="color-sample" style="background: red;"></div>
+  <div class="color-sample" style="background: purple;"></div>
+</section>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").textContent =
+      now.toLocaleString();
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  const importantDates = [
+    "Wedding Anniversary",
+    "Birthdays",
+    "Historical Royal Dates",
+    "Disneyland Trips",
+    "Personal Milestones"
+  ];
+
+  const list = document.getElementById("dates-list");
+  importantDates.forEach(d => {
+    const li = document.createElement("li");
+    li.textContent = d;
+    list.appendChild(li);
+  });
+</script>
+
+</body>
+</html>
