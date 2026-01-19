@@ -2,31 +2,39 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Ceremonial Storybook Overlay</title>
+<title>Ceremonial Storybook Overlay — Full Edition</title>
+
 <style>
   body {
-    font-family: serif;
+    font-family: "Georgia", serif;
     background: linear-gradient(to bottom, aquamarine, white);
     margin: 0;
     padding: 20px;
+    color: #222;
   }
 
   header {
     text-align: center;
     padding: 20px;
-    border-bottom: 3px dashed silver;
+    border-bottom: 4px dashed silver;
+  }
+
+  h1, h2 {
+    margin-top: 0;
   }
 
   .section {
-    margin: 30px 0;
-    padding: 20px;
+    margin: 35px 0;
+    padding: 25px;
     border: 2px solid grey;
     background: #fff;
+    border-radius: 6px;
   }
 
   .cross-stitch {
-    border: 4px dashed black;
-    padding: 10px;
+    border: 5px dashed black;
+    padding: 20px;
+    background: #fdfdfd;
   }
 
   .color-sample {
@@ -34,6 +42,12 @@
     height: 40px;
     display: inline-block;
     margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #333;
+  }
+
+  ul {
+    padding-left: 20px;
   }
 </style>
 </head>
@@ -45,23 +59,104 @@
   <p id="clock"></p>
 </header>
 
+<!-- STORY & SYMBOL PANELS -->
 <section class="section">
-  <h2>Important Dates</h2>
-  <ul id="dates-list"></ul>
+  <h2>Haunted Mansion</h2>
+  <p>
+    This theme carries the quiet elegance of old corridors, velvet drapes, and the soft echo of footsteps 
+    that never quite reveal their source. It blends mystery with nostalgia, creating a space where fears 
+    are softened into curiosity. Aquamarine mist, deep purples, and black cross‑stitch borders give the 
+    page a gothic‑but‑gentle feel. It becomes a place where shadows tell stories, not threats — perfect 
+    for emotional processing, memory work, or ceremonial reflection.
+  </p>
 </section>
 
-<section class="section cross-stitch">
-  <h2>Haunted Mansion & Royal Themes</h2>
-  <p>Gothic, royal, aquamarine, silver, and purple overlays.</p>
+<section class="section">
+  <h2>Queen Elizabeth & Queen Mary</h2>
+  <p>
+    These royal themes bring structure, dignity, and lineage into your overlay. Think silver filigree, 
+    creme parchment textures, and purple accents that feel both historical and ceremonial. Their timelines — 
+    coronations, weddings, voyages, and turning points — can become elegant date panels. These sections 
+    honor strength, leadership, and the weight of legacy, while also giving you a place to anchor your own 
+    important dates and family history.
+  </p>
 </section>
 
 <section class="section">
-  <h2>Color Palette</h2>
+  <h2>Disney Castle</h2>
+  <p>
+    This motif brings in wonder, childhood magic, and the feeling of stepping into a world where dreams 
+    are allowed to breathe. Blue and white gradients mimic early‑morning castle light, while silver sparkles 
+    and rainbow accents echo “Rainbow Connections” — the idea that people, memories, and moments are tied 
+    together across time. This section works beautifully as a header, a welcome panel, or a ceremonial 
+    “opening chapter” to your page.
+  </p>
+</section>
+
+<section class="section">
+  <h2>Clowns & Fears</h2>
+  <p>
+    This panel transforms fear into something approachable. Instead of harsh circus imagery, softened 
+    oranges, blues, and reds create a playful, healing environment. This becomes a space where fears are 
+    acknowledged gently — not mocked, not minimized — but reframed through color, cross‑stitch borders, 
+    and whimsical shapes. It can serve as a “Face Your Fears” module or a personal emotional checkpoint.
+  </p>
+</section>
+
+<!-- COLOR & ART PANELS -->
+<section class="section">
+  <h2>Color Palette & Symbolism</h2>
+  <p>
+    Your palette is ceremonial, emotional, and symbolic. Each color carries a purpose, and together they 
+    create a visual language that feels like a sanctuary. Blue brings calm and trust. Orange adds warmth 
+    and courage. Green and aquamarine evoke healing and renewal. White symbolizes clarity and new beginnings. 
+    Red marks passion and important dates. Black grounds everything with elegance. Grey softens transitions. 
+    Purple and silver bring royalty and moonlit magic. Creme adds warmth and historical richness.
+  </p>
+
   <div class="color-sample" style="background: blue;"></div>
   <div class="color-sample" style="background: orange;"></div>
   <div class="color-sample" style="background: green;"></div>
   <div class="color-sample" style="background: red;"></div>
   <div class="color-sample" style="background: purple;"></div>
+  <div class="color-sample" style="background: silver;"></div>
+  <div class="color-sample" style="background: #f5f0e6;"></div>
+</section>
+
+<section class="section">
+  <h2>Art Techniques</h2>
+  <p>
+    Dashes of light mimic candle flickers, fairy dust, or moonbeams. Lines and crosses create structure, 
+    like stitching memories into place. Cross‑stitch patterns add a handmade, archival feel — perfect for 
+    your sanctuary aesthetic. Drawings and paintings can be represented through soft CSS shadows, textured 
+    backgrounds, or SVG illustrations, giving your sheet a ceremonial scrapbook quality.
+  </p>
+</section>
+
+<!-- TIME & DATE PANELS -->
+<section class="section">
+  <h2>Time & Date Panels</h2>
+  <p>
+    Your time modules become emotional anchors throughout the page. A live clock gives the sheet a sense 
+    of presence — a reminder that you are here, now, grounded. A date panel marks today’s meaning, whether 
+    ceremonial or ordinary. An Important Dates tracker can hold birthdays, weddings, royal anniversaries, 
+    Disneyland trips, and family milestones. A wedding countdown can be framed with silver borders and soft 
+    blue gradients. A Rainbow Connections timeline can show how events, people, and memories link across years.
+  </p>
+
+  <h3>Important Dates</h3>
+  <ul id="dates-list"></ul>
+</section>
+
+<!-- CROSS-STITCH PANEL -->
+<section class="section cross-stitch">
+  <h2>Haunted Mansion & Royal Themes — Combined</h2>
+  <p>
+    When these two worlds meet, you get a blend of gothic elegance and royal ceremony. The Haunted Mansion’s 
+    shadows soften into velvet textures, while the royal palette adds dignity and structure. Aquamarine fog, 
+    silver accents, purple gradients, and black cross‑stitch borders create a hybrid aesthetic that feels 
+    both mysterious and regal — a perfect space for reflection, storytelling, and emotional grounding.
+  </p>
 </section>
 
 <script>
