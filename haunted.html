@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Haunted Mansion History</title>
+  <style>
+    :root {
+      --bg: #05060a;
+      --card: #111320;
+      --accent: #8a5cff;
+      --text: #f5f5f5;
+      --muted: #b0b0c7;
+      --dash: #444a70;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1f3b 0, #05060a 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      border: 2px dashed var(--dash);
+      border-radius: 18px;
+      padding: 1.75rem;
+      background: linear-gradient(135deg, rgba(10, 12, 30, 0.96), rgba(5, 6, 15, 0.98));
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page::before,
+    .page::after {
+      content: "";
+      position: absolute;
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      inset: 10px;
+      pointer-events: none;
+    }
+
+    .page::after {
+      inset: 22px;
+      border-style: dashed;
+      border-color: rgba(138, 92, 255, 0.25);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .title-block {
+      max-width: 420px;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .clock {
+      padding: 0.9rem 1.1rem;
+      border-radius: 14px;
+      border: 1px dashed var(--dash);
+      background: radial-gradient(circle at top left, rgba(138, 92, 255, 0.25), transparent 55%);
+      min-width: 240px;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .clock-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .clock-main {
+      font-weight: 600;
+    }
+
+    .clock-sub {
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      border-radius: 16px;
+      border: 1px dashed var(--dash);
+      background: rgba(8, 10, 25, 0.9);
+      padding: 1.1rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .panel h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .panel p {
+      font-size: 0.9rem;
+      color: #d9d9f0;
+      line-height: 1.6;
+      margin-bottom: 0.4rem;
+    }
+
+    .panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .panel + .panel {
+      margin-top: 0.9rem;
+    }
+
+    .floating-text {
+      position: absolute;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: rgba(255, 255, 255, 0.18);
+      white-space: nowrap;
+      animation: drift 22s linear infinite;
+      pointer-events: none;
+    }
+
+    .floating-text:nth-child(1) {
+      top: 12%;
+      left: -40%;
+      animation-duration: 26s;
+    }
+
+    .floating-text:nth-child(2) {
+      top: 52%;
+      left: -60%;
+      animation-duration: 30s;
+    }
+
+    .floating-text:nth-child(3) {
+      top: 82%;
+      left: -50%;
+      animation-duration: 24s;
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(160%);
+      }
+    }
+
+    .flags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.6rem;
+    }
+
+    .flag-card {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 999px;
+      border: 1px dashed var(--dash);
+      background: rgba(10, 12, 30, 0.9);
+      font-size: 0.8rem;
+    }
+
+    .flag-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      font-size: 0.7rem;
+    }
+
+    .flag-name {
+      font-weight: 600;
+    }
+
+    .flag-svg {
+      width: 32px;
+      height: 20px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .mansion-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.4rem;
+    }
+
+    .mansion-svg {
+      width: 180px;
+      height: auto;
+      filter: drop-shadow(0 0 18px rgba(138, 92, 255, 0.7));
+    }
+
+    .mansion-caption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .timeline {
+      margin-top: 0.6rem;
+      border-top: 1px dashed var(--dash);
+      padding-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .timeline span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- drifting informational text -->
+    <div class="floating-text">
+      HAUNTED MANSION • GHOSTLY HISTORY • DISNEY LEGEND • ARCHITECTURE • STORYTELLING • ATMOSPHERE •
+    </div>
+    <div class="floating-text">
+      NEW ORLEANS SQUARE • LIBERTY SQUARE • PHANTOM MANOR • GLOBAL PARKS • FOLKLORE •
+    </div>
+    <div class="floating-text">
+      SPIRITS • ILLUSIONS • PRACTICAL EFFECTS • PEPPERS GHOST • MUSIC • NARRATION •
+    </div>
+
+    <header>
+      <div class="title-block">
+        <h1>Haunted Mansion</h1>
+        <div class="subtitle">History • People • Ways of Life</div>
+      </div>
+
+      <div class="clock" id="clock">
+        <div class="clock-label">Current park-side moment</div>
+        <div class="clock-main" id="clock-main">Loading time…</div>
+        <div class="clock-sub" id="clock-sub"></div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <!-- LEFT COLUMN: HISTORY & PEOPLE -->
+      <div>
+        <section class="panel">
+          <div class="panel-title">Landmark history</div>
+          <h2>Origins of the Haunted Mansion</h2>
+          <p>
+            The Haunted Mansion began as an idea in the early years of Disneyland, when designers
+            imagined a stately, mysterious house on the edge of the park. Over time, it evolved into
+            a full attraction that blended theatrical storytelling, illusions, and dark humor.
+          </p>
+          <p>
+            The mansion’s exterior was inspired by real-world architecture—particularly grand
+            Southern and East Coast homes—while the interior became a showcase of special effects,
+            ghostly illusions, and carefully choreographed scenes. It stands as a landmark of
+            immersive design and atmospheric storytelling.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">People & creative minds</div>
+          <h2>Imagineers, artists, and storytellers</h2>
+          <p>
+            Behind the Haunted Mansion are teams of artists, engineers, writers, and composers who
+            shaped its personality. Concept artists sketched eerie hallways and portraits, engineers
+            built ride systems and illusions, and writers crafted the playful-yet-spooky tone.
+          </p>
+          <p>
+            Composers and sound designers added organ music, whispers, and ghostly choruses that
+            define the mansion’s mood. The attraction reflects a collaboration of many disciplines:
+            architecture, theater, animation, lighting, and sound.
+          </p>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">Way of life around the mansion</div>
+          <h2>Culture, setting, and daily rhythms</h2>
+          <p>
+            Each version of the Haunted Mansion is rooted in a specific place and way of life. Some
+            are set near a bustling riverfront town, others in a quiet colonial square or a remote
+            countryside estate. The mansion feels like it belongs to a living world just outside its
+            gates.
+          </p>
+          <p>
+            Guests passing by hear distant bells, riverboats, or town sounds, hinting at everyday
+            life beyond the haunted grounds. Inside, the ghosts parody human routines—dining,
+            dancing, and celebrating—turning ordinary life into a playful afterlife.
+          </p>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN: FLAGS, SVG, TIMELINE -->
+      <div>
+        <section class="panel">
+          <div class="panel-title">Red, white & blue flags</div>
+          <h2>Countries connected to the mansion</h2>
+          <p>
+            The Haunted Mansion and its sister attractions appear in multiple Disney parks around
+            the world. Here are simple red, white, and blue flag motifs for countries closely tied
+            to the mansion’s legacy.
+          </p>
+
+          <div class="flags">
+            <!-- USA FLAG -->
+            <div class="flag-card">
+              <svg class="flag-svg" viewBox="0 0 19 10" aria-label="Flag of the United States">
+                <rect width="19" height="10" fill="#b22234" />
+                <g fill="#fff">
+                  <rect y="1" width="19" height="1" />
+                  <rect y="3" width="19" height="1" />
+                  <rect y="5" width="19" height="1" />
+                  <rect y="7" width="19" height="1" />
+                  <rect y="9" width="19" height="1" />
+                </g>
+                <rect width="7.6" height="5.4" fill="#3c3b6e" />
+              </svg>
+              <div>
+                <div class="flag-label">Park country</div>
+                <div class="flag-name">United States</div>
+              </div>
+            </div>
+
+            <!-- FRANCE FLAG -->
+            <div class="flag-card">
+              <svg class="flag-svg" viewBox="0 0 3 2" aria-label="Flag of France">
+                <rect width="1" height="2" x="0" fill="#0055a4" />
+                <rect width="1" height="2" x="1" fill="#ffffff" />
+                <rect width="1" height="2" x="2" fill="#ef4135" />
+              </svg>
+              <div>
+                <div class="flag-label">Park country</div>
+                <div class="flag-name">France</div>
+              </div>
+            </div>
+
+            <!-- GENERIC SLOT FOR MORE FLAGS -->
+            <div class="flag-card">
+              <div class="flag-svg" style="display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,#002868,#ffffff,#bf0a30);color:#05060a;font-size:0.6rem;font-weight:700;">
+                +
+              </div>
+              <div>
+                <div class="flag-label">Add more</div>
+                <div class="flag-name">Other park nations</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-title">Haunted mansion emblem</div>
+          <div class="mansion-wrap">
+            <!-- SIMPLE HAUNTED MANSION SVG -->
+            <svg class="mansion-svg" viewBox="0 0 160 160" aria-label="Haunted Mansion SVG">
+              <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1b2145" />
+                  <stop offset="100%" stop-color="#05060a" />
+                </linearGradient>
+                <linearGradient id="house" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#3b3f63" />
+                  <stop offset="100%" stop-color="#15172a" />
+                </linearGradient>
+              </defs>
+
+              <!-- sky -->
+              <rect x="0" y="0" width="160" height="160" fill="url(#sky)" />
+
+              <!-- moon -->
+              <circle cx="120" cy="40" r="18" fill="#f5f5f5" opacity="0.9" />
+              <circle cx="126" cy="36" r="6" fill="#d0d0e5" opacity="0.7" />
+
+              <!-- ground -->
+              <ellipse cx="80" cy="132" rx="70" ry="18" fill="#05060a" />
+
+              <!-- house base -->
+              <rect x="40" y="60" width="80" height="60" fill="url(#house)" />
+              <rect x="60" y="40" width="40" height="40" fill="url(#house)" />
+
+              <!-- roof -->
+              <polygon points="56,40 104,40 80,22" fill="#0b0d1a" />
+              <polygon points="40,60 120,60 80,42" fill="#0b0d1a" />
+
+              <!-- tower -->
+              <rect x="72" y="18" width="16" height="20" fill="#15172a" />
+              <polygon points="70,18 90,18 80,8" fill="#05060a" />
+
+              <!-- windows -->
+              <rect x="66" y="48" width="8" height="12" fill="#f6e27f" opacity="0.9" />
+              <rect x="86" y="48" width="8" height="12" fill="#f6e27f" opacity="0.9" />
+              <rect x="52" y="72" width="8" height="12" fill="#f6e27f" opacity="0.8" />
+              <rect x="100" y="72" width="8" height="12" fill="#f6e27f" opacity="0.8" />
+              <rect x="76" y="80" width="8" height="16" fill="#f6e27f" opacity="0.95" />
+
+              <!-- door arch -->
+              <path d="M76 96 Q80 88 84 96 V116 H76 Z" fill="#0b0d1a" />
+
+              <!-- fence -->
+              <g stroke="#8a5cff" stroke-width="1.2">
+                <line x1="20" y1="118" x2="140" y2="118" />
+                <line x1="28" y1="110" x2="28" y2="126" />
+                <line x1="40" y1="110" x2="40" y2="126" />
+                <line x1="52" y1="110" x2="52" y2="126" />
+                <line x1="64" y1="110" x2="64" y2="126" />
+                <line x1="96" y1="110" x2="96" y2="126" />
+                <line x1="108" y1="110" x2="108" y2="126" />
+                <line x1="120" y1="110" x2="120" y2="126" />
+                <line x1="132" y1="110" x2="132" y2="126" />
+              </g>
+
+              <!-- tiny ghosts -->
+              <g fill="#f5f5f5" opacity="0.9">
+                <path d="M32 96 q4 -10 8 0 v8 q-2 2 -4 0 q-2 2 -4 0 z" />
+                <circle cx="34" cy="94" r="1" fill="#05060a" />
+                <circle cx="38" cy="94" r="1" fill="#05060a" />
+
+                <path d="M128 92 q4 -10 8 0 v8 q-2 2 -4 0 q-2 2 -4 0 z" />
+                <circle cx="130" cy="90" r="1" fill="#05060a" />
+                <circle cx="134" cy="90" r="1" fill="#05060a" />
+              </g>
+            </svg>
+
+            <div class="mansion-caption">
+              A simple Haunted Mansion SVG emblem you can reuse in other overlays or pages.
+            </div>
+
+            <div class="timeline">
+              <span>Timeline idea:</span> Add key dates, years, and park openings here to build a
+              scrolling Haunted Mansion history.
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+
+      const year = now.getFullYear();
+      const monthIndex = now.getMonth();
+      const date = now.getDate();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const seconds = now.getSeconds();
+
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+
+      const monthName = monthNames[monthIndex];
+
+      const hour12 = ((hours + 11) % 12) + 1;
+      const ampm = hours >= 12 ? "PM" : "AM";
+
+      const pad = (n) => String(n).padStart(2, "0");
+
+      const main = `${monthName} ${date}, ${year}`;
+      const sub = `Time: ${hour12}:${pad(minutes)}:${pad(seconds)} ${ampm} • 24h: ${pad(hours)}:${pad(minutes)}`;
+
+      document.getElementById("clock-main").textContent = main;
+      document.getElementById("clock-sub").textContent = sub;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
