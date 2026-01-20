@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Full-Length Mental Health Awareness Questionnaire</title>
+<style>
+    :root {
+        --baby-blue: #b7d9f7;
+        --sky: #dff1ff;
+        --feather: #e9eef2;
+        --ink: #003b5c;
+        --paper: #fafafa;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to bottom, var(--sky), #ffffff);
+        color: var(--ink);
+    }
+
+    .sheet {
+        max-width: 1000px;
+        margin: 0 auto;
+        background: var(--paper);
+        border-radius: 16px;
+        border: 2px dashed var(--baby-blue);
+        padding: 24px 24px 40px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .bird {
+        font-size: 44px;
+        margin-bottom: 4px;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        margin-top: 4px;
+        color: #335f7a;
+    }
+
+    .time-box {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #335f7a;
+    }
+
+    .section {
+        margin-top: 22px;
+        padding: 16px;
+        border-radius: 12px;
+        background: var(--feather);
+    }
+
+    .section-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 15px;
+    }
+
+    .section-note {
+        font-size: 11px;
+        color: #4a6a7f;
+        margin-bottom: 8px;
+    }
+
+    .question {
+        margin-top: 10px;
+        font-size: 13px;
+        font-weight: bold;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 55px;
+        margin-top: 4px;
+        border-radius: 8px;
+        border: 1px solid var(--baby-blue);
+        padding: 6px 8px;
+        font-size: 13px;
+        resize: vertical;
+        background: #ffffff;
+    }
+
+    .footer-note {
+        margin-top: 24px;
+        font-size: 11px;
+        text-align: center;
+        color: #4a6a7f;
+    }
+
+    .print-hint {
+        font-size: 11px;
+        text-align: right;
+        color: #4a6a7f;
+        margin-top: 4px;
+    }
+
+    @media print {
+        body {
+            background: #ffffff;
+            padding: 0;
+        }
+        .sheet {
+            box-shadow: none;
+            border: 1px solid #cccccc;
+            border-radius: 0;
+        }
+        .print-hint {
+            display: none;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+    <div class="header">
+        <div class="bird">🐦</div>
+        <h1>Mental Health Awareness Questionnaire</h1>
+        <div class="subtitle">
+            Single-Sheet • Reflective • Non-Diagnostic • For Personal Awareness Only
+        </div>
+        <div class="time-box" id="timeBox">
+            <!-- JS clock will appear here -->
+        </div>
+        <div class="print-hint">
+            Tip: Use your browser’s Print option to save as PDF.
+        </div>
+    </div>
+
+    <!-- SECTION 1 -->
+    <div class="section">
+        <div class="section-title">SECTION 1 — Emotional Awareness</div>
+        <div class="section-note">Reflect on the emotions that have been present in your life recently.</div>
+
+        <div class="question">1. What emotions have been most present for you recently</div>
+        <textarea></textarea>
+
+        <div class="question">2. What emotions have been the hardest to express</div>
+        <textarea></textarea>
+
+        <div class="question">3. What emotions feel safest for you to show</div>
+        <textarea></textarea>
+
+        <div class="question">4. What emotions do you tend to hide</div>
+        <textarea></textarea>
+
+        <div class="question">5. What usually triggers strong emotional reactions for you</div>
+        <textarea></textarea>
+
+        <div class="question">6. How do you typically respond when you feel overwhelmed</div>
+        <textarea></textarea>
+
+        <div class="question">7. What helps you calm down when emotions rise</div>
+        <textarea></textarea>
+
+        <div class="question">8. What drains your emotional energy</div>
+        <textarea></textarea>
+
+        <div class="question">9. What restores your emotional energy</div>
+        <textarea></textarea>
+
+        <div class="question">10. What emotion do you wish you felt more often</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+        <div class="section-title">SECTION 2 — Stress & Coping Patterns</div>
+        <div class="section-note">Notice how stress shows up for you and how you respond.</div>
+
+        <div class="question">11. What situations cause you the most stress</div>
+        <textarea></textarea>
+
+        <div class="question">12. How does your body react to stress</div>
+        <textarea></textarea>
+
+        <div class="question">13. What thoughts appear when you feel stressed</div>
+        <textarea></textarea>
+
+        <div class="question">14. What coping strategies do you use most</div>
+        <textarea></textarea>
+
+        <div class="question">15. Which coping strategies feel effective</div>
+        <textarea></textarea>
+
+        <div class="question">16. Which coping strategies feel unhelpful</div>
+        <textarea></textarea>
+
+        <div class="question">17. What new coping skills would you like to learn</div>
+        <textarea></textarea>
+
+        <div class="question">18. How do you decompress after a long day</div>
+        <textarea></textarea>
+
+        <div class="question">19. What boundaries help protect your peace</div>
+        <textarea></textarea>
+
+        <div class="question">20. What boundaries are hardest for you to maintain</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+        <div class="section-title">SECTION 3 — Daily Functioning</div>
+        <div class="section-note">Explore how your emotional world connects to your daily rhythms.</div>
+
+        <div class="question">21. How has your sleep been lately</div>
+        <textarea></textarea>
+
+        <div class="question">22. How often do you wake up feeling rested</div>
+        <textarea></textarea>
+
+        <div class="question">23. How is your appetite</div>
+        <textarea></textarea>
+
+        <div class="question">24. How is your energy level throughout the day</div>
+        <textarea></textarea>
+
+        <div class="question">25. How well are you able to focus</div>
+        <textarea></textarea>
+
+        <div class="question">26. How often do you feel physically tense</div>
+        <textarea></textarea>
+
+        <div class="question">27. How often do you feel mentally foggy</div>
+        <textarea></textarea>
+
+        <div class="question">28. What routines help you feel grounded</div>
+        <textarea></textarea>
+
+        <div class="question">29. What routines have been difficult to maintain</div>
+        <textarea></textarea>
+
+        <div class="question">30. What small habits help you feel stable</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+        <div class="section-title">SECTION 4 — Thoughts & Inner Dialogue</div>
+        <div class="section-note">Gently observe the tone and patterns of your inner voice.</div>
+
+        <div class="question">31. What thoughts repeat most often in your mind</div>
+        <textarea></textarea>
+
+        <div class="question">32. What thoughts feel heavy or discouraging</div>
+        <textarea></textarea>
+
+        <div class="question">33. What thoughts feel hopeful or motivating</div>
+        <textarea></textarea>
+
+        <div class="question">34. What beliefs about yourself feel strong</div>
+        <textarea></textarea>
+
+        <div class="question">35. What beliefs about yourself feel shaky</div>
+        <textarea></textarea>
+
+        <div class="question">36. What inner messages do you wish were louder</div>
+        <textarea></textarea>
+
+        <div class="question">37. What inner messages do you wish were quieter</div>
+        <textarea></textarea>
+
+        <div class="question">38. What thoughts appear when you feel alone</div>
+        <textarea></textarea>
+
+        <div class="question">39. What thoughts appear when you feel supported</div>
+        <textarea></textarea>
+
+        <div class="question">40. What thoughts appear when you feel stressed</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+        <div class="section-title">SECTION 5 — Relationships & Support</div>
+        <div class="section-note">Consider how connection, support, and boundaries show up in your life.</div>
+
+        <div class="question">41. Who do you feel safe opening up to</div>
+        <textarea></textarea>
+
+        <div class="question">42. Who helps you feel grounded</div>
+        <textarea></textarea>
+
+        <div class="question">43. Who drains your energy</div>
+        <textarea></textarea>
+
+        <div class="question">44. Who encourages your growth</div>
+        <textarea></textarea>
+
+        <div class="question">45. Who do you wish you could communicate better with</div>
+        <textarea></textarea>
+
+        <div class="question">46. What makes you feel supported</div>
+        <textarea></textarea>
+
+        <div class="question">47. What makes you feel misunderstood</div>
+        <textarea></textarea>
+
+        <div class="question">48. What qualities do you value in relationships</div>
+        <textarea></textarea>
+
+        <div class="question">49. What qualities make you feel unsafe</div>
+        <textarea></textarea>
+
+        <div class="question">50. What kind of support do you need more of</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section">
+        <div class="section-title">SECTION 6 — Self-Esteem & Identity</div>
+        <div class="section-note">Reflect on how you see yourself and your sense of identity.</div>
+
+        <div class="question">51. What do you appreciate about yourself</div>
+        <textarea></textarea>
+
+        <div class="question">52. What strengths do others see in you</div>
+        <textarea></textarea>
+
+        <div class="question">53. What strengths do you overlook in yourself</div>
+        <textarea></textarea>
+
+        <div class="question">54. What insecurities affect your daily life</div>
+        <textarea></textarea>
+
+        <div class="question">55. What compliments are hardest for you to accept</div>
+        <textarea></textarea>
+
+        <div class="question">56. What compliments feel true</div>
+        <textarea></textarea>
+
+        <div class="question">57. What makes you feel confident</div>
+        <textarea></textarea>
+
+        <div class="question">58. What makes you doubt yourself</div>
+        <textarea></textarea>
+
+        <div class="question">59. What parts of your identity feel strong</div>
+        <textarea></textarea>
+
+        <div class="question">60. What parts of your identity feel fragile</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section">
+        <div class="section-title">SECTION 7 — Life Satisfaction & Meaning</div>
+        <div class="section-note">Explore what feels fulfilling, unbalanced, and meaningful in your life.</div>
+
+        <div class="question">61. What areas of your life feel fulfilling</div>
+        <textarea></textarea>
+
+        <div class="question">62. What areas feel unbalanced</div>
+        <textarea></textarea>
+
+        <div class="question">63. What brings you joy</div>
+        <textarea></textarea>
+
+        <div class="question">64. What brings you peace</div>
+        <textarea></textarea>
+
+        <div class="question">65. What brings you purpose</div>
+        <textarea></textarea>
+
+        <div class="question">66. What drains your motivation</div>
+        <textarea></textarea>
+
+        <div class="question">67. What goals feel exciting</div>
+        <textarea></textarea>
+
+        <div class="question">68. What goals feel overwhelming</div>
+        <textarea></textarea>
+
+        <div class="question">69. What dreams have you put on hold</div>
+        <textarea></textarea>
+
+        <div class="question">70. What dreams feel possible right now</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="section">
+        <div class="section-title">SECTION 8 — Behavior & Habits</div>
+        <div class="section-note">Notice the habits and behaviors that shape your days.</div>
+
+        <div class="question">71. What habits help you feel healthy</div>
+        <textarea></textarea>
+
+        <div class="question">72. What habits make life harder</div>
+        <textarea></textarea>
+
+        <div class="question">73. What habits do you want to build</div>
+        <textarea></textarea>
+
+        <div class="question">74. What habits do you want to release</div>
+        <textarea></textarea>
+
+        <div class="question">75. What routines help you stay organized</div>
+        <textarea></textarea>
+
+        <div class="question">76. What routines fall apart easily</div>
+        <textarea></textarea>
+
+        <div class="question">77. What behaviors show up when you’re stressed</div>
+        <textarea></textarea>
+
+        <div class="question">78. What behaviors show up when you’re calm</div>
+        <textarea></textarea>
+
+        <div class="question">79. What behaviors show up when you’re lonely</div>
+        <textarea></textarea>
+
+        <div class="question">80. What behaviors show up when you’re hopeful</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 9 -->
+    <div class="section">
+        <div class="section-title">SECTION 9 — Safety & Emotional Regulation</div>
+        <div class="section-note">Reflect on what helps you feel safe and regulated emotionally.</div>
+
+        <div class="question">81. What helps you feel emotionally safe</div>
+        <textarea></textarea>
+
+        <div class="question">82. What situations make you feel unsafe emotionally</div>
+        <textarea></textarea>
+
+        <div class="question">83. What helps you regulate your emotions</div>
+        <textarea></textarea>
+
+        <div class="question">84. What makes regulation difficult</div>
+        <textarea></textarea>
+
+        <div class="question">85. What grounding techniques work for you</div>
+        <textarea></textarea>
+
+        <div class="question">86. What grounding techniques do you want to try</div>
+        <textarea></textarea>
+
+        <div class="question">87. What helps you feel connected to your body</div>
+        <textarea></textarea>
+
+        <div class="question">88. What helps you feel connected to your mind</div>
+        <textarea></textarea>
+
+        <div class="question">89. What helps you feel connected to others</div>
+        <textarea></textarea>
+
+        <div class="question">90. What helps you feel connected to your purpose</div>
+        <textarea></textarea>
+    </div>
+
+    <!-- SECTION 10 -->
+    <div class="section">
+        <div class="section-title">SECTION 10 — Future Vision & Healing</div>
+        <div class="section-note">Imagine your healing, growth, and future self with gentleness.</div>
+
+        <div class="question">91. What kind of person do you want to grow into</div>
+        <textarea></textarea>
+
+        <div class="question">92. What emotional patterns do you want to change</div>
+        <textarea></textarea>
+
+        <div class="question">93. What emotional patterns do you want to strengthen</div>
+        <textarea></textarea>
+
+        <div class="question">94. What relationships do you want to nurture</div>
+        <textarea></textarea>
+
+        <div class="question">95. What relationships do you want to redefine</div>
+        <textarea></textarea>
+
+        <div class="question">96. What healing do you want to focus on</div>
+        <textarea></textarea>
+
+        <div class="question">97. What support would help your healing</div>
+        <textarea></textarea>
+
+        <div class="question">98. What boundaries would protect your healing</div>
+        <textarea></textarea>
+
+        <div class="question">99. What habits would support your future self</div>
+        <textarea></textarea>
+
+        <div class="question">100. What does a peaceful future look like for you</div>
+        <textarea></textarea>
+    </div>
+
+    <div class="footer-note">
+        This questionnaire is for personal reflection and awareness only and is not a diagnostic or clinical tool.
+        <br>
+        If you have concerns about your mental health, consider speaking with a qualified professional or someone you trust.
+    </div>
+</div>
+
+<script>
+function updateClock() {
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const year = now.getFullYear();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+
+    const display = `Reflection started on: ${month}/${day}/${year} — ${hours}:${minutes}:${seconds}`;
+    document.getElementById("timeBox").textContent = display;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
