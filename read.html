@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sanctuary Storybook Universe</title>
+<style>
+    body {
+        font-family: Georgia, serif;
+        margin: 0;
+        padding: 20px;
+        color: #222;
+        background: radial-gradient(circle at top, #fdf6e3, #f0f0f0);
+    }
+
+    header {
+        text-align: center;
+        padding: 10px;
+        border-bottom: 4px dashed #b30000;
+    }
+
+    .flag-accent {
+        background: linear-gradient(90deg, #b30000, #ffffff, #0033a0);
+        height: 6px;
+        margin-bottom: 15px;
+    }
+
+    #clock {
+        text-align: center;
+        font-size: 1.05rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+
+    /* Library shelf */
+    .shelf {
+        max-width: 1100px;
+        margin: 0 auto 15px auto;
+        padding: 10px;
+        border-radius: 15px;
+        border: 2px dashed #0033a0;
+        background: linear-gradient(90deg, #fce5cd, #f9cb9c);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+    .shelf span {
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 2px dashed #b30000;
+        background: #fff;
+        font-size: 0.9rem;
+    }
+
+    /* Main book container */
+    .storybook-container {
+        max-width: 900px;
+        margin: 0 auto;
+        border: 3px dashed #0033a0;
+        border-radius: 25px;
+        padding: 25px;
+        background: #ffffffee;
+        transform: rotate(0deg);
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Disneyland‑style hint */
+    .castle-glow {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 80px;
+        background: radial-gradient(circle, #ffe680, transparent 70%);
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* Ribbon bookmark */
+    .ribbon {
+        position: absolute;
+        right: 25px;
+        top: 0;
+        width: 18px;
+        height: 80px;
+        background: linear-gradient(#b30000, #800000);
+        border-radius: 0 0 8px 8px;
+    }
+
+    .controls {
+        max-width: 900px;
+        margin: 10px auto 15px auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    select, button {
+        padding: 8px 12px;
+        border-radius: 12px;
+        border: 2px dashed #b30000;
+        background: #fff;
+        cursor: pointer;
+        font-size: 0.95rem;
+    }
+
+    #storyText {
+        min-height: 230px;
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px dashed #0033a0;
+        line-height: 1.6;
+        font-size: 1.05rem;
+        background: #fafafa;
+        transition: transform 0.4s ease;
+    }
+
+    /* Page flip animation */
+    .flip {
+        transform: rotateY(10deg);
+    }
+
+    .turn-buttons {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .turn-buttons button {
+        margin: 0 8px;
+    }
+
+    audio {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* Narrator panel */
+    .narrator {
+        margin-top: 15px;
+        padding: 10px;
+        border-radius: 12px;
+        border: 2px dashed #b30000;
+        background: #fff7e6;
+        font-size: 0.95rem;
+    }
+
+    /* Presidential timeline strip */
+    .timeline {
+        max-width: 900px;
+        margin: 20px auto 0 auto;
+        padding: 10px;
+        border-radius: 15px;
+        border: 2px dashed #0033a0;
+        background: #e6f0ff;
+        font-size: 0.9rem;
+    }
+
+    /* Life‑story scrapbook */
+    .scrapbook {
+        max-width: 900px;
+        margin: 10px auto 0 auto;
+        padding: 10px;
+        border-radius: 15px;
+        border: 2px dashed #b30000;
+        background: #ffe6f2;
+        font-size: 0.9rem;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Sanctuary Storybook Universe</h1>
+</header>
+
+<div class="flag-accent"></div>
+
+<div id="clock"></div>
+
+<div class="shelf">
+    <span>Cinderella</span>
+    <span>Snow White</span>
+    <span>Tangled</span>
+    <span>Sleeping Beauty</span>
+    <span>Legally Blonde</span>
+    <span>Presidential Stories</span>
+    <span>Books of Knowledge</span>
+    <span>Life Stories</span>
+</div>
+
+<div class="controls">
+    <select id="storySelect">
+        <option value="">Choose a Story</option>
+        <option value="cinderella">Cinderella (Summary)</option>
+        <option value="snowwhite">Snow White (Summary)</option>
+        <option value="tangled">Tangled (Summary)</option>
+        <option value="sleepingbeauty">Sleeping Beauty (Summary)</option>
+        <option value="legallyblonde">Legally Blonde (Summary)</option>
+        <option value="presidential">Presidential Stories</option>
+        <option value="knowledge">Books of Knowledge</option>
+        <option value="life">Life Stories</option>
+    </select>
+
+    <button onclick="rotateBook()">Rotate Book</button>
+    <button onclick="resetRotation()">Reset Rotation</button>
+    <button onclick="startTimedReading()">Timed Reading</button>
+</div>
+
+<div class="storybook-container" id="book">
+    <div class="castle-glow"></div>
+    <div class="ribbon"></div>
+
+    <div id="storyText">Select a story to begin reading.</div>
+
+    <audio id="audioPlayer" controls>
+        <!-- Add your own audio source, e.g.:
+        <source src="cinderella.mp3" type="audio/mpeg">
+        -->
+    </audio>
+
+    <div class="narrator" id="narratorPanel">
+        Narrator: Choose a story to hear a gentle guide through its themes.
+    </div>
+
+    <div class="turn-buttons">
+        <button onclick="prevPage()">◀ Previous</button>
+        <button onclick="nextPage()">Next ▶</button>
+    </div>
+</div>
+
+<div class="timeline" id="timelinePanel">
+    Presidential Timeline: Select “Presidential Stories” to imagine key moments of leadership, decisions, and turning points.
+</div>
+
+<div class="scrapbook" id="scrapbookPanel">
+    Life‑Story Scrapbook: Use “Life Stories” to imagine chapters of growth, resilience, and everyday miracles.
+</div>
+
+<script>
+    // CLOCK
+    function updateClock() {
+        const now = new Date();
+        const display =
+            "DATE: " + now.toLocaleDateString() +
+            " — TIME: " + now.toLocaleTimeString();
+        document.getElementById("clock").textContent = display;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // STORY DATA
+    const stories = {
+        cinderella: [
+            "Cinderella is a story of kindness, patience, and transformation.",
+            "A mistreated young woman receives unexpected help to attend a royal ball.",
+            "Her grace inspires a search for the one who left behind a glass slipper."
+        ],
+        snowwhite: [
+            "Snow White is a tale of innocence and jealousy.",
+            "A princess finds refuge with seven dwarfs and a new kind of family.",
+            "Goodness rises again as she awakens to a safer, kinder world."
+        ],
+        tangled: [
+            "Tangled follows Rapunzel, a girl with magical hair hidden away in a tower.",
+            "Her journey with a stranger leads her to truth, courage, and her real home.",
+            "It is a story of freedom, identity, and choosing a new path."
+        ],
+        sleepingbeauty: [
+            "Sleeping Beauty centers on a princess placed under a powerful curse.",
+            "Protected by guardians, she rests until the spell can be broken.",
+            "The tale reflects destiny, protection, and the power of loyal love."
+        ],
+        legallyblonde: [
+            "Legally Blonde follows Elle Woods, who refuses to be defined by others’ expectations.",
+            "Her journey through law school reveals intelligence, resilience, and compassion.",
+            "It is a modern story of self‑respect, voice, and perseverance."
+        ],
+        presidential: [
+            "Presidential stories explore the weight of leading a nation.",
+            "They highlight decisions made in crisis, moments of courage, and human imperfections.",
+            "These stories invite reflection on service, responsibility, and legacy."
+        ],
+        knowledge: [
+            "Books of Knowledge gather lessons from history, science, art, and lived experience.",
+            "They encourage curiosity, questions, and the joy of understanding more each day.",
+            "Each page invites the reader to see the world with wider eyes."
+        ],
+        life: [
+            "Life stories capture the turning points that quietly shape a person’s journey.",
+            "They hold memories of struggle, healing, celebration, and everyday grace.",
+            "Each chapter becomes a lesson, a blessing, or a gift to pass on."
+        ]
+    };
+
+    let currentPage = 0;
+    let currentStory = [];
+    const storyTextEl = document.getElementById("storyText");
+    const narratorPanel = document.getElementById("narratorPanel");
+    const timelinePanel = document.getElementById("timelinePanel");
+    const scrapbookPanel = document.getElementById("scrapbookPanel");
+
+    document.getElementById("storySelect").addEventListener("change", function() {
+        const key = this.value;
+        currentStory = stories[key] || [];
+        currentPage = 0;
+        displayPage();
+        updateNarrator(key);
+        updatePanels(key);
+    });
+
+    function displayPage() {
+        storyTextEl.classList.add("flip");
+        setTimeout(() => {
+            storyTextEl.textContent = currentStory[currentPage] || "End of story.";
+            storyTextEl.classList.remove("flip");
+        }, 200);
+    }
+
+    function nextPage() {
+        if (currentPage < currentStory.length - 1) {
+            currentPage++;
+            displayPage();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            displayPage();
+        }
+    }
+
+    // ROTATION
+    function rotateBook() {
+        const book = document.getElementById("book");
+        const current = book.style.transform || "rotate(0deg)";
+        const angle = parseInt(current.replace("rotate(", "").replace("deg)", "")) || 0;
+        book.style.transform = `rotate(${angle + 5}deg)`;
+        book.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+    }
+
+    function resetRotation() {
+        const book = document.getElementById("book");
+        book.style.transform = "rotate(0deg)";
+        book.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
+    }
+
+    // TIMED READING (simple stub)
+    function startTimedReading() {
+        alert("Timed reading started. You can replace this with custom timers, pauses, or audio cues.");
+    }
+
+    // Narrator + panels
+    function updateNarrator(key) {
+        let text = "Narrator: Choose a story to hear a gentle guide through its themes.";
+        if (key === "cinderella") text = "Narrator: Notice how kindness and patience quietly change Cinderella’s world.";
+        if (key === "snowwhite") text = "Narrator: Watch how friendship and care become Snow White’s protection.";
+        if (key === "tangled") text = "Narrator: Feel the courage it takes for Rapunzel to step outside the tower.";
+        if (key === "sleepingbeauty") text = "Narrator: Think about the people who stand guard over us in our vulnerable seasons.";
+        if (key === "legallyblonde") text = "Narrator: Listen for the moment Elle decides her voice truly matters.";
+        if (key === "presidential") text = "Narrator: Imagine the weight of choices that affect millions of lives.";
+        if (key === "knowledge") text = "Narrator: Let curiosity be your compass as you turn each page.";
+        if (key === "life") text = "Narrator: Consider your own chapters—what would you title this season?";
+        narratorPanel.textContent = text;
+    }
+
+    function updatePanels(key) {
+        if (key === "presidential") {
+            timelinePanel.textContent =
+                "Presidential Timeline: Picture milestones—elections, speeches, crises, and quiet decisions that shaped history.";
+        } else {
+            timelinePanel.textContent =
+                "Presidential Timeline: Select “Presidential Stories” to imagine key moments of leadership, decisions, and turning points.";
+        }
+
+        if (key === "life") {
+            scrapbookPanel.textContent =
+                "Life‑Story Scrapbook: If this were your book, what memory or lesson would you place on this page?";
+        } else {
+            scrapbookPanel.textContent =
+                "Life‑Story Scrapbook: Use “Life Stories” to imagine chapters of growth, resilience, and everyday miracles.";
+        }
+    }
+</script>
+
+</body>
+</html>
