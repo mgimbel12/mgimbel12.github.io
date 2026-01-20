@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Workforce & Digital Age Helper Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --blue: #1565c0;
+  --teal: #00897b;
+  --purple: #6a1b9a;
+  --gold: #ffb300;
+  --soft: #f5f7fb;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --shadow: 0 2px 6px rgba(0,0,0,0.08);
+  --ink: #222222;
+}
+
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top left, #bbdefb, var(--soft));
+  color: var(--ink);
+}
+
+.page {
+  max-width: 1100px;
+  margin: 20px auto;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* HEADER */
+.header {
+  padding: 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--blue), var(--teal));
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,0.18),
+    rgba(255,255,255,0.18) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.4;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
+/* TABS */
+.tabs {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab-button {
+  border: none;
+  background: #e3f2fd;
+  padding: 6px 12px;
+  border-radius: 10px 10px 0 0;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-bottom-color: #ffffff;
+}
+
+.tab-content {
+  display: none;
+  padding: 16px 4px 4px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  box-shadow: var(--shadow);
+  margin-bottom: 14px;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.05rem;
+  color: var(--blue);
+}
+
+/* LAYOUT */
+.grid-2 {
+  display: grid;
+  grid-template-columns: minmax(0,1.1fr) minmax(0,1fr);
+  gap: 12px;
+}
+
+/* LISTS */
+.card p {
+  font-size: 0.9rem;
+  margin: 4px 0;
+}
+
+.card ul {
+  font-size: 0.85rem;
+  padding-left: 18px;
+}
+
+/* SMALL LABELS */
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #757575;
+  margin-bottom: 4px;
+}
+
+/* INPUTS */
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+/* MONEY COUNTER */
+.money-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.money-row label {
+  font-size: 0.8rem;
+}
+
+/* CANVAS AREA */
+.canvas-box {
+  border-radius: 10px;
+  border: 1px dashed var(--purple);
+  padding: 10px;
+  background: #f3e5f5;
+  font-size: 0.85rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>Workforce & Digital Age Helper Sheet</h1>
+    <p>Employment access • Guidelines • Vocabulary • Math • Money • Robotics • Art • Love</p>
+  </header>
+
+  <!-- TABS -->
+  <nav class="tabs">
+    <button class="tab-button active" data-tab="work">Workforce & Access</button>
+    <button class="tab-button" data-tab="vocab">Guidelines & Vocabulary</button>
+    <button class="tab-button" data-tab="math">Math & Place Value</button>
+    <button class="tab-button" data-tab="money">Money Counter</button>
+    <button class="tab-button" data-tab="digital">Digital Age & Robotics Art</button>
+  </nav>
+
+  <!-- TAB: WORKFORCE -->
+  <section id="work" class="tab-content active">
+    <div class="grid-2">
+      <article class="card">
+        <div class="label">Workforce • Employment</div>
+        <h2>Access & Opportunity</h2>
+        <p>
+          Workforce access means that every person has a fair chance to find work,
+          learn new skills, and grow in a safe and respectful environment.
+        </p>
+        <ul>
+          <li>Everyone deserves clear information about job openings.</li>
+          <li>Applications should be simple, respectful, and accessible.</li>
+          <li>Training and support help people succeed, not just “get hired.”</li>
+          <li>Workplaces should welcome different abilities, backgrounds, and strengths.</li>
+        </ul>
+      </article>
+
+      <aside class="card">
+        <div class="label">Helpers</div>
+        <h2>Workforce Helpers & Questions</h2>
+        <p>Use these full‑sentence prompts to guide your thinking:</p>
+        <ul>
+          <li>I can ask, “What support do I need to do this job well?”</li>
+          <li>I can say, “Please explain the steps in simple language.”</li>
+          <li>I can write, “Here are the skills I already have and want to grow.”</li>
+          <li>I can remember, “My value is not measured only by my job title.”</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TAB: VOCAB -->
+  <section id="vocab" class="tab-content">
+    <div class="card">
+      <div class="label">Guidelines</div>
+      <h2>Full‑Sentence Guidelines for Learning</h2>
+      <ul>
+        <li>I will use clear, kind language when I talk about myself and others.</li>
+        <li>I will ask questions when I do not understand a word or idea.</li>
+        <li>I will give myself time to practice new skills without shame.</li>
+        <li>I will remember that learning is a lifelong process, not a race.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="label">Vocabulary Helpers</div>
+      <h2>Workforce & Digital Age Vocabulary</h2>
+      <ul>
+        <li><strong>Access:</strong> The ability to reach, use, or benefit from something.</li>
+        <li><strong>Employment:</strong> A working relationship where a person is paid for their time and skills.</li>
+        <li><strong>Digital Age:</strong> A time when computers, phones, and the internet shape how we live and work.</li>
+        <li><strong>Robotics:</strong> The design and use of machines that can move and act with some level of control.</li>
+        <li><strong>Concept Art:</strong> Drawings or images that explore ideas before they are built or filmed.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TAB: MATH -->
+  <section id="math" class="tab-content">
+    <div class="grid-2">
+      <article class="card">
+        <div class="label">Math Working</div>
+        <h2>Place Value Helper</h2>
+        <p>Type a whole number and see how it breaks into place values.</p>
+        <input type="number" id="place-input" placeholder="Enter a whole number, e.g. 3456">
+        <div id="place-output" style="font-size:0.85rem; margin-top:6px;"></div>
+      </article>
+
+      <aside class="card">
+        <div class="label">Easy Scientific Notation</div>
+        <h2>Scientific Notation Helper</h2>
+        <p>Type a number and see a simple scientific‑notation style explanation.</p>
+        <input type="number" id="sci-input" placeholder="Enter a number, e.g. 12000">
+        <div id="sci-output" style="font-size:0.85rem; margin-top:6px;"></div>
+        <p style="font-size:0.8rem; margin-top:8px;">
+          Scientific notation is a way to write very big or very small numbers using a
+          number between 1 and 10 multiplied by a power of 10.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- TAB: MONEY -->
+  <section id="money" class="tab-content">
+    <div class="card">
+      <div class="label">Money Counter</div>
+      <h2>Simple Money Counter</h2>
+      <p>Enter how many of each bill or coin you have. The total will update automatically.</p>
+
+      <div class="money-row">
+        <label>$100 bills: <input type="number" id="m100" min="0" value="0"></label>
+        <label>$50 bills: <input type="number" id="m50" min="0" value="0"></label>
+      </div>
+      <div class="money-row">
+        <label>$20 bills: <input type="number" id="m20" min="0" value="0"></label>
+        <label>$10 bills: <input type="number" id="m10" min="0" value="0"></label>
+      </div>
+      <div class="money-row">
+        <label>$5 bills: <input type="number" id="m5" min="0" value="0"></label>
+        <label>$1 bills: <input type="number" id="m1" min="0" value="0"></label>
+      </div>
+      <div class="money-row">
+        <label>Quarters (0.25): <input type="number" id="mq" min="0" value="0"></label>
+        <label>Dimes (0.10): <input type="number" id="md" min="0" value="0"></label>
+      </div>
+      <div class="money-row">
+        <label>Nickels (0.05): <input type="number" id="mn" min="0" value="0"></label>
+        <label>Pennies (0.01): <input type="number" id="mp" min="0" value="0"></label>
+      </div>
+
+      <p style="margin-top:8px; font-size:0.9rem;">
+        Total Money: <strong id="money-total">$0.00</strong>
+      </p>
+      <p style="font-size:0.8rem;">
+        This counter is a helper, not a bank. It is here to support learning and planning.
+      </p>
+    </div>
+  </section>
+
+  <!-- TAB: DIGITAL AGE & ROBOTICS ART -->
+  <section id="digital" class="tab-content">
+    <div class="grid-2">
+      <article class="card">
+        <div class="label">Digital Age</div>
+        <h2>Robotics Ideas & Art Concepts</h2>
+        <p>
+          Robotics in the digital age can be gentle, helpful, and creative. Robots can assist
+          with lifting heavy objects, exploring dangerous places, or helping people communicate.
+        </p>
+        <ul>
+          <li>A small robot that delivers books or supplies in a library.</li>
+          <li>A drawing robot that paints patterns based on music.</li>
+          <li>A classroom robot that helps students practice vocabulary and math.</li>
+          <li>A gentle robot arm that helps with art projects or science experiments.</li>
+        </ul>
+        <p>
+          Art concepts can show robots and humans working together with respect, kindness,
+          and curiosity.
+        </p>
+      </article>
+
+      <aside class="card">
+        <div class="label">Art & Love</div>
+        <h2>Canvas & Images of Love</h2>
+        <div class="canvas-box">
+          <p>
+            Imagine a digital canvas filled with images of love: families, friends, helpers,
+            and communities supporting each other.
+          </p>
+          <p>
+            You can paste or draw your own images here in a real project, or write sentences
+            that describe what love looks like in your life.
+          </p>
+          <ul>
+            <li>Love looks like someone listening carefully to my words.</li>
+            <li>Love looks like a safe place to rest and learn.</li>
+            <li>Love looks like patient teachers and kind coworkers.</li>
+            <li>Love looks like art that celebrates every person’s story.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// TAB LOGIC
+const tabButtons = document.querySelectorAll(".tab-button");
+const tabContents = document.querySelectorAll(".tab-content");
+
+tabButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.dataset.tab;
+    tabButtons.forEach(b => b.classList.remove("active"));
+    tabContents.forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(target).classList.add("active");
+  });
+});
+
+// PLACE VALUE
+function updatePlaceValue() {
+  const input = document.getElementById("place-input");
+  const out = document.getElementById("place-output");
+  const value = input.value.trim();
+  if (!value) {
+    out.textContent = "";
+    return;
+  }
+  if (!/^\d+$/.test(value)) {
+    out.textContent = "Please enter a whole number with digits only.";
+    return;
+  }
+  const digits = value.split("").reverse();
+  const names = ["ones", "tens", "hundreds", "thousands", "ten-thousands", "hundred-thousands", "millions"];
+  const parts = digits.map((d, i) => `${d} in the ${names[i] || "larger"} place`);
+  out.textContent = "This number has: " + parts.reverse().join(", ") + ".";
+}
+document.getElementById("place-input").addEventListener("input", updatePlaceValue);
+
+// SCIENTIFIC NOTATION (simple)
+function updateSci() {
+  const input = document.getElementById("sci-input");
+  const out = document.getElementById("sci-output");
+  const num = Number(input.value);
+  if (!input.value) {
+    out.textContent = "";
+    return;
+  }
+  if (!isFinite(num) || num === 0) {
+    out.textContent = "Please enter a non-zero number.";
+    return;
+  }
+  const exponent = Math.floor(Math.log10(Math.abs(num)));
+  const base = num / Math.pow(10, exponent);
+  out.textContent = `This number can be written approximately as ${base.toFixed(2)} × 10^${exponent}.`;
+}
+document.getElementById("sci-input").addEventListener("input", updateSci);
+
+// MONEY COUNTER
+const moneyIds = ["m100","m50","m20","m10","m5","m1","mq","md","mn","mp"];
+const moneyValues = {
+  m100: 100,
+  m50: 50,
+  m20: 20,
+  m10: 10,
+  m5: 5,
+  m1: 1,
+  mq: 0.25,
+  md: 0.10,
+  mn: 0.05,
+  mp: 0.01
+};
+
+function updateMoney() {
+  let total = 0;
+  moneyIds.forEach(id => {
+    const count = Number(document.getElementById(id).value) || 0;
+    total += count * moneyValues[id];
+  });
+  document.getElementById("money-total").textContent = "$" + total.toFixed(2);
+}
+moneyIds.forEach(id => {
+  document.getElementById(id).addEventListener("input", updateMoney);
+});
+updateMoney();
+</script>
+</body>
+</html>
