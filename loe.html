@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chloe Sullivan • Watchtower Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --yellow: #ffd54f;
+  --deep-yellow: #f9a825;
+  --ink: #212121;
+  --soft-bg: #fffde7;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, var(--yellow), var(--soft-bg));
+  color: var(--ink);
+}
+
+.page {
+  max-width: 900px;
+  margin: 20px auto;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--deep-yellow), var(--yellow));
+  color: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.25) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.header-title {
+  position: relative;
+  z-index: 1;
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.header-title p {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+}
+
+.watchtower-tag {
+  position: relative;
+  z-index: 1;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-size: 0.8rem;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.8);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.watchtower-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--deep-yellow);
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
+}
+
+/* LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* TYPOGRAPHY PLAY */
+.title-slab {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #616161;
+}
+
+.title-script {
+  font-family: "Georgia", "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  margin: 4px 0 6px;
+}
+
+.dash-row {
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 0.75rem;
+  color: #9e9e9e;
+  margin: 4px 0 8px;
+}
+
+/* VIDEO PLACEHOLDER */
+.video-placeholder {
+  border-radius: 10px;
+  border: 2px dashed var(--deep-yellow);
+  padding: 10px;
+  background: var(--soft-bg);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.video-placeholder:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+
+.video-play {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--deep-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.video-play::before {
+  content: "";
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent #000;
+  margin-left: 2px;
+}
+
+.video-text {
+  font-size: 0.85rem;
+}
+
+/* TAGS */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px dashed var(--border);
+  background: #fffde7;
+}
+
+/* MOVING DETAILS */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--deep-yellow);
+  box-shadow: 0 0 0 0 rgba(249,168,37,0.7);
+  animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(249,168,37,0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(249,168,37,0); }
+  100% { box-shadow: 0 0 0 0 rgba(249,168,37,0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-title">
+      <h1>CHLOE SULLIVAN • WATCHTOWER</h1>
+      <p>Music • Talent • Art • Research • Video Footage • Yellow Beacon</p>
+    </div>
+    <div class="watchtower-tag">
+      <span class="watchtower-dot"></span>
+      <span>Watchtower Online • Live Signals</span>
+    </div>
+  </header>
+
+  <!-- MAIN GRID -->
+  <section class="grid">
+    <!-- LEFT: VIDEO + TALENT -->
+    <article class="card">
+      <div class="title-slab">YOUTUBE • VIDEO FOOTAGE</div>
+      <div class="title-script">Chloe in Motion — Clips & Edits</div>
+      <div class="dash-row">——— · · · ——— · · · ———</div>
+
+      <div class="video-placeholder" onclick="openVideo()">
+        <div class="video-play"></div>
+        <div class="video-text">
+          Placeholder for a <strong>YouTube video</strong> of Chloe‑style edits:
+          interviews, fan‑made tributes, or montage footage.  
+          Paste your actual video link or embed code here when you’re ready.
+        </div>
+      </div>
+
+      <p style="margin-top:10px; font-size:0.85rem;">
+        Use this panel to track <strong>music choices</strong>, <strong>editing styles</strong>, and
+        <strong>visual motifs</strong> you love in Chloe‑inspired videos:
+      </p>
+      <ul style="font-size:0.8rem; margin-top:4px;">
+        <li>Soft piano or ambient electronic tracks for “Watchtower” mood.</li>
+        <li>Yellow lens flares, city skylines, glowing monitors.</li>
+        <li>Quick cuts between research boards, keyboards, and rooftop shots.</li>
+      </ul>
+
+      <div class="tag-row">
+        <span class="tag">Music Cues</span>
+        <span class="tag">Voiceover Ideas</span>
+        <span class="tag">Lighting Notes</span>
+        <span class="tag">Camera Angles</span>
+      </div>
+    </article>
+
+    <!-- RIGHT: LEARNING & ART -->
+    <aside class="card">
+      <div class="title-slab">LEARNING • TALENT • ART</div>
+      <div class="title-script">Different Aspects of Chloe’s Watchtower</div>
+      <div class="dash-row">— — — — — — — — —</div>
+
+      <p style="font-size:0.85rem;">
+        Chloe’s “Watchtower” energy is all about <strong>learning</strong>, <strong>connecting dots</strong>,
+        and <strong>supporting others from behind the scenes</strong>. Use this side to map
+        different aspects you want to study or practice:
+      </p>
+
+      <ul style="font-size:0.8rem; margin-top:4px;">
+        <li><strong>Research skills:</strong> gathering clues, organizing information, building timelines.</li>
+        <li><strong>Writing & journalism:</strong> headlines, articles, investigative notes.</li>
+        <li><strong>Tech & hacking aesthetics:</strong> glowing screens, code, data streams.</li>
+        <li><strong>Emotional arc:</strong> loyalty, bravery, quiet strength.</li>
+      </ul>
+
+      <div class="tag-row">
+        <span class="tag">Research Boards</span>
+        <span class="tag">Case Files</span>
+        <span class="tag">Yellow Sticky Notes</span>
+        <span class="tag">Watchtower Logs</span>
+      </div>
+
+      <div style="margin-top:10px; display:flex; align-items:center; gap:8px;">
+        <div class="pulse-dot"></div>
+        <span style="font-size:0.8rem;">Live Watchtower Status: <strong>Online</strong></span>
+      </div>
+    </aside>
+  </section>
+
+  <!-- FONT & DASH PLAYGROUND -->
+  <section class="card" style="margin-top:16px;">
+    <div class="title-slab">FONT & DASH PLAYGROUND</div>
+    <div class="dash-row">——— ✦ ——— ✦ ——— ✦ ———</div>
+
+    <p style="font-size:0.85rem;">
+      Try different <strong>font styles</strong> and <strong>dashes</strong> that feel like Chloe’s notes:
+      quick, sharp, but still warm and human.
+    </p>
+
+    <div style="margin-top:8px;">
+      <p style="font-family:'Segoe UI',sans-serif; font-size:0.9rem;">
+        <strong>Sans Serif:</strong> WATCHTOWER — CASE FILE #01 — SIGNAL LOG
+      </p>
+      <p style="font-family:'Georgia',serif; font-size:0.9rem; font-style:italic;">
+        <strong>Serif:</strong> “Somebody has to keep an eye on the city.”
+      </p>
+      <p style="font-family:'Consolas','Courier New',monospace; font-size:0.85rem;">
+        <strong>Monospace:</strong> — — — incoming-signal — — — trace-route — — —
+      </p>
+    </div>
+  </section>
+</div>
+
+<script>
+function openVideo() {
+  const url = prompt("Paste a YouTube URL for your Chloe/Watchtower video:");
+  if (url) {
+    window.open(url, "_blank");
+  }
+}
+</script>
+</body>
+</html>
