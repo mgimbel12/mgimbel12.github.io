@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Storybook Reader</title>
+<style>
+    body {
+        font-family: Georgia, serif;
+        background: linear-gradient(180deg, #ffffff, #f2f2f2);
+        margin: 0;
+        padding: 20px;
+        color: #222;
+    }
+
+    header {
+        text-align: center;
+        padding: 10px;
+        border-bottom: 4px dashed #b30000;
+    }
+
+    .flag-accent {
+        background: linear-gradient(90deg, #b30000, #ffffff, #0033a0);
+        height: 6px;
+        margin-bottom: 20px;
+    }
+
+    #clock {
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .storybook-container {
+        max-width: 900px;
+        margin: auto;
+        border: 3px dashed #0033a0;
+        border-radius: 20px;
+        padding: 20px;
+        background: #fff;
+        transform: rotate(0deg);
+        transition: transform 0.5s ease;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    select, button {
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px dashed #b30000;
+        background: #fff;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    #storyText {
+        min-height: 250px;
+        padding: 20px;
+        border-radius: 15px;
+        border: 2px dashed #0033a0;
+        line-height: 1.6;
+        font-size: 1.1rem;
+        background: #fafafa;
+    }
+
+    .turn-buttons {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .turn-buttons button {
+        margin: 0 10px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Storybook Reader</h1>
+</header>
+
+<div class="flag-accent"></div>
+
+<div id="clock"></div>
+
+<div class="controls">
+    <select id="storySelect">
+        <option value="">Choose a Story</option>
+        <option value="cinderella">Cinderella (Summary)</option>
+        <option value="snowwhite">Snow White (Summary)</option>
+        <option value="tangled">Tangled (Summary)</option>
+        <option value="sleepingbeauty">Sleeping Beauty (Summary)</option>
+        <option value="legallyblonde">Legally Blonde (Summary)</option>
+        <option value="presidential">Presidential Stories</option>
+        <option value="knowledge">Books of Knowledge</option>
+    </select>
+
+    <button onclick="rotateBook()">Rotate Book</button>
+    <button onclick="startTimedReading()">Timed Reading</button>
+</div>
+
+<div class="storybook-container" id="book">
+    <div id="storyText">Select a story to begin reading.</div>
+
+    <div class="turn-buttons">
+        <button onclick="prevPage()">◀ Previous</button>
+        <button onclick="nextPage()">Next ▶</button>
+    </div>
+</div>
+
+<script>
+    // CLOCK
+    function updateClock() {
+        const now = new Date();
+        const display =
+            "DATE: " + now.toLocaleDateString() +
+            " — TIME: " + now.toLocaleTimeString();
+        document.getElementById("clock").textContent = display;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // STORY DATA (Summaries only)
+    const stories = {
+        cinderella: [
+            "Cinderella is a classic tale of kindness, resilience, and transformation.",
+            "A young woman mistreated by her stepfamily receives magical help to attend a royal ball.",
+            "Her grace captures the prince’s heart, leading to a search for the mysterious girl who left behind a glass slipper."
+        ],
+        snowwhite: [
+            "Snow White tells the story of a princess whose beauty inspires jealousy in her stepmother.",
+            "She finds refuge with seven dwarfs, forming a new family of friendship and care.",
+            "The tale explores themes of innocence, envy, and the triumph of goodness."
+        ],
+        tangled: [
+            "Tangled follows Rapunzel, a girl with magical hair kept in a tower.",
+            "Her journey with a charming thief leads her to discover her identity and reclaim her life.",
+            "It is a story of courage, freedom, and self-discovery."
+        ],
+        sleepingbeauty: [
+            "Sleeping Beauty centers on a princess cursed into a deep sleep.",
+            "Protected by fairies, she awaits the moment the curse can be broken.",
+            "The story highlights destiny, protection, and the power of love and loyalty."
+        ],
+        legallyblonde: [
+            "Legally Blonde follows Elle Woods, who defies expectations by pursuing law school.",
+            "Her determination reveals her intelligence, strength, and compassion.",
+            "It is a modern empowerment story about identity and perseverance."
+        ],
+        presidential: [
+            "Presidential stories explore leadership, decision-making, and the challenges of guiding a nation.",
+            "They highlight pivotal moments, personal journeys, and the responsibilities of public service.",
+            "These stories often reveal the human side of historical figures."
+        ],
+        knowledge: [
+            "Books of Knowledge gather lessons from history, science, culture, and human experience.",
+            "They encourage curiosity, learning, and the pursuit of understanding.",
+            "Each chapter invites readers to explore new ideas and expand their worldview."
+        ]
+    };
+
+    let currentPage = 0;
+    let currentStory = [];
+
+    document.getElementById("storySelect").addEventListener("change", function() {
+        const key = this.value;
+        currentStory = stories[key] || [];
+        currentPage = 0;
+        displayPage();
+    });
+
+    function displayPage() {
+        document.getElementById("storyText").textContent =
+            currentStory[currentPage] || "End of story.";
+    }
+
+    function nextPage() {
+        if (currentPage < currentStory.length - 1) {
+            currentPage++;
+            displayPage();
+        }
+    }
+
+    function prevPage() {
+        if (currentPage > 0) {
+            currentPage--;
+            displayPage();
+        }
+    }
+
+    // ROTATION
+    function rotateBook() {
+        const book = document.getElementById("book");
+        const current = book.style.transform || "rotate(0deg)";
+        const angle = parseInt(current.replace("rotate(", "").replace("deg)", ""));
+        book.style.transform = `rotate(${angle + 5}deg)`;
+    }
+
+    // TIMED READING
+    function startTimedReading() {
+        alert("Timed reading started. You can add timers, pauses, or audio triggers here.");
+    }
+</script>
+
+</body>
+</html>
