@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Homework & Resume Lab</title>
+  <style>
+    :root {
+      --purple-main: #7b3fe4;
+      --purple-soft: #c3a6ff;
+      --bg: #f7f3ff;
+      --ink: #2b2140;
+      --card: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fdfbff, #efe6ff);
+      color: var(--ink);
+      padding: 2rem;
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 0.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+    }
+
+    .date-bar {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+      color: #4b3a7a;
+    }
+
+    .date-bar span {
+      font-weight: 600;
+    }
+
+    /* Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 2fr 3fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1rem 1.25rem 1.25rem;
+      box-shadow: 0 10px 25px rgba(40, 0, 90, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Purple dashed/dotted borders and accents */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0.75rem;
+      border-radius: 10px;
+      border: 2px dashed var(--purple-soft);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px dotted var(--purple-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .card-header small {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7a6aa8;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px dashed var(--purple-main);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--purple-main);
+      background: #f7f0ff;
+    }
+
+    label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #4b3a7a;
+    }
+
+    textarea, input, select {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #d7c8ff;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.85rem;
+      font-family: inherit;
+      resize: vertical;
+      background: #fbf9ff;
+      color: var(--ink);
+      outline: none;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: var(--purple-main);
+      box-shadow: 0 0 0 2px rgba(123, 63, 228, 0.18);
+    }
+
+    .field-group {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 0.75rem;
+    }
+
+    .small-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .small-row .field-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid var(--purple-main);
+      background: linear-gradient(135deg, #7b3fe4, #c36bff);
+      color: white;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(80, 0, 160, 0.25);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.08s ease;
+    }
+
+    button:hover {
+      filter: brightness(1.05);
+      box-shadow: 0 8px 18px rgba(80, 0, 160, 0.3);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(80, 0, 160, 0.2);
+    }
+
+    .pill-note {
+      font-size: 0.75rem;
+      color: #6a5a9a;
+      margin-top: 0.25rem;
+    }
+
+    /* Resume styling */
+    .resume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .resume-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .resume-role {
+      font-size: 0.85rem;
+      color: #6a5a9a;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .resume-contact {
+      font-size: 0.75rem;
+      text-align: right;
+      color: #5a4a8a;
+    }
+
+    .resume-section {
+      margin-bottom: 0.75rem;
+      padding-top: 0.5rem;
+      border-top: 1px dashed var(--purple-soft);
+    }
+
+    .resume-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #4b3a7a;
+      margin-bottom: 0.25rem;
+    }
+
+    .resume-item-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .resume-item-meta {
+      font-size: 0.75rem;
+      color: #7a6aa8;
+      margin-bottom: 0.15rem;
+    }
+
+    .resume-bullets {
+      font-size: 0.8rem;
+      margin-left: 1rem;
+      padding-left: 0.25rem;
+    }
+
+    .resume-bullets li {
+      margin-bottom: 0.15rem;
+    }
+
+    .date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px dotted var(--purple-main);
+      font-size: 0.7rem;
+      color: #4b3a7a;
+      background: #f8f2ff;
+    }
+
+    .date-chip span {
+      font-weight: 600;
+    }
+
+    .countdown {
+      font-size: 0.8rem;
+      color: #5a4a8a;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Homework & Shiny Resume Studio</h1>
+
+  <div class="date-bar">
+    <span id="todayLabel"></span> ·
+    Next due date: <span id="dueLabel"></span> ·
+    <span id="dueCountdown"></span>
+  </div>
+
+  <div class="grid">
+    <!-- Homework Editor -->
+    <section class="card" aria-label="Homework editor">
+      <div class="card-header">
+        <div>
+          <h2>Homework Editor</h2>
+          <small>Quick capture for assignments and ideas</small>
+        </div>
+        <span class="tag">Homework</span>
+      </div>
+
+      <div class="field-group">
+        <label for="hw-course">Course / Subject</label>
+        <input id="hw-course" type="text" placeholder="e.g., Web Design 101" />
+      </div>
+
+      <div class="small-row">
+        <div class="field-group">
+          <label for="hw-title">Assignment title</label>
+          <input id="hw-title" type="text" placeholder="e.g., CSS Layout Reflection" />
+        </div>
+        <div class="field-group">
+          <label for="hw-due">Due date</label>
+          <input id="hw-due" type="date" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="hw-notes">Notes / Steps</label>
+        <textarea id="hw-notes" rows="6" placeholder="Break the assignment into small, kind steps to future-you..."></textarea>
+        <p class="pill-note">Use this space like a gentle checklist or brain-dump—no perfection required.</p>
+      </div>
+
+      <button id="hw-save">Save snapshot</button>
+      <p class="pill-note" id="hw-status"></p>
+    </section>
+
+    <!-- Course Work / Study Block -->
+    <section class="card" aria-label="Course work and study block">
+      <div class="card-header">
+        <div>
+          <h2>Course Work Block</h2>
+          <small>Study themes, vocab, and tiny wins</small>
+        </div>
+        <span class="tag">Course Work</span>
+      </div>
+
+      <div class="field-group">
+        <label for="cw-topic">Today’s topic</label>
+        <input id="cw-topic" type="text" placeholder="e.g., JavaScript Dates & Time" />
+      </div>
+
+      <div class="field-group">
+        <label for="cw-vocab">Key vocabulary</label>
+        <textarea id="cw-vocab" rows="4" placeholder="e.g., new Date(), toLocaleDateString(), getFullYear(), etc."></textarea>
+      </div>
+
+      <div class="field-group">
+        <label for="cw-tiny-win">Tiny win for today</label>
+        <input id="cw-tiny-win" type="text" placeholder="e.g., I understood how to format a date string." />
+      </div>
+
+      <button id="cw-save">Save course note</button>
+      <p class="pill-note" id="cw-status"></p>
+    </section>
+
+    <!-- Shiny Resume Panel -->
+    <section class="card" aria-label="Shiny resume preview">
+      <div class="card-header">
+        <div>
+          <h2>Shiny Resume</h2>
+          <small>Live preview with gentle purple lines</small>
+        </div>
+        <span class="tag">Resume</span>
+      </div>
+
+      <div class="resume-header">
+        <div>
+          <div class="resume-name" id="res-name">Your Name</div>
+          <div class="resume-role" id="res-role">Creative Technologist · Student</div>
+        </div>
+        <div class="resume-contact" id="res-contact">
+          city · email@example.com<br />
+          portfolio-link.com
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Summary</div>
+        <p id="res-summary" style="font-size:0.8rem; margin:0;">
+          Curious builder blending HTML, CSS, and JavaScript with real-world coursework, community, and gentle structure.
+        </p>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Experience / Projects</div>
+        <div class="resume-item">
+          <div class="resume-item-title">
+            Homework & Course Work Lab
+            <span class="date-chip">
+              <span>Active</span> · <span id="res-year"></span>
+            </span>
+          </div>
+          <div class="resume-item-meta">Self-directed · Front-end practice</div>
+          <ul class="resume-bullets">
+            <li>Designed a structured homework editor with purple dashed lines for visual clarity and calm.</li>
+            <li>Practiced JavaScript date handling to track today’s date and assignment due dates.</li>
+            <li>Styled a resume preview with dotted separators and soft gradients for a “shiny” but readable feel.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="resume-section">
+        <div class="resume-section-title">Quick Edit</div>
+        <div class="field-group">
+          <label for="edit-name">Name</label>
+          <input id="edit-name" type="text" placeholder="Type your name..." />
+        </div>
+        <div class="field-group">
+          <label for="edit-role">Role / Title</label>
+          <input id="edit-role" type="text" placeholder="e.g., Front-End Student · Recreation Assistant" />
+        </div>
+        <div class="field-group">
+          <label for="edit-contact">Contact line</label>
+          <input id="edit-contact" type="text" placeholder="e.g., Henderson, NV · you@email.com" />
+        </div>
+        <div class="field-group">
+          <label for="edit-summary">Summary</label>
+          <textarea id="edit-summary" rows="3" placeholder="Short, kind summary of what you’re learning and offering."></textarea>
+        </div>
+        <button id="res-apply">Apply to resume</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // --- JavaScript Dates: today + due date countdown ---
+    function formatDate(date) {
+      return date.toLocaleDateString(undefined, {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    }
+
+    function updateToday() {
+      const today = new Date();
+      const todayLabel = document.getElementById("todayLabel");
+      const resYear = document.getElementById("res-year");
+      if (todayLabel) todayLabel.textContent = "Today: " + formatDate(today);
+      if (resYear) resYear.textContent = today.getFullYear();
+    }
+
+    function updateDueInfo() {
+      const dueInput = document.getElementById("hw-due");
+      const dueLabel = document.getElementById("dueLabel");
+      const dueCountdown = document.getElementById("dueCountdown");
+
+      if (!dueInput || !dueLabel || !dueCountdown) return;
+
+      const value = dueInput.value;
+      if (!value) {
+        dueLabel.textContent = "not set";
+        dueCountdown.textContent = "Choose a due date in the Homework card.";
+        return;
+      }
+
+      const dueDate = new Date(value + "T00:00:00");
+      dueLabel.textContent = formatDate(dueDate);
+
+      const today = new Date();
+      const msPerDay = 1000 * 60 * 60 * 24;
+      const diffDays = Math.round((dueDate - today) / msPerDay);
+
+      if (diffDays > 1) {
+        dueCountdown.textContent = diffDays + " days left";
+      } else if (diffDays === 1) {
+        dueCountdown.textContent = "Due tomorrow";
+      } else if (diffDays === 0) {
+        dueCountdown.textContent = "Due today";
+      } else {
+        dueCountdown.textContent = "This due date is in the past—treat yourself gently and reset if needed.";
+      }
+    }
+
+    // --- Save snapshots (local, just for this session) ---
+    document.getElementById("hw-save").addEventListener("click", () => {
+      const course = document.getElementById("hw-course").value.trim();
+      const title = document.getElementById("hw-title").value.trim();
+      const notes = document.getElementById("hw-notes").value.trim();
+      const status = document.getElementById("hw-status");
+
+      if (!course && !title && !notes) {
+        status.textContent = "Nothing to save yet—add at least one detail.";
+        return;
+      }
+
+      status.textContent = "Snapshot saved in your mind and this page. You can also copy/paste into your real system.";
+    });
+
+    document.getElementById("cw-save").addEventListener("click", () => {
+      const topic = document.getElementById("cw-topic").value.trim();
+      const tinyWin = document.getElementById("cw-tiny-win").value.trim();
+      const status = document.getElementById("cw-status");
+
+      if (!topic && !tinyWin) {
+        status.textContent = "Add a topic or tiny win first.";
+        return;
+      }
+
+      status.textContent = "Course note captured—tiny wins count as real progress.";
+    });
+
+    // --- Resume quick edit ---
+    document.getElementById("res-apply").addEventListener("click", () => {
+      const name = document.getElementById("edit-name").value.trim();
+      const role = document.getElementById("edit-role").value.trim();
+      const contact = document.getElementById("edit-contact").value.trim();
+      const summary = document.getElementById("edit-summary").value.trim();
+
+      if (name) document.getElementById("res-name").textContent = name;
+      if (role) document.getElementById("res-role").textContent = role;
+      if (contact) document.getElementById("res-contact").textContent = contact;
+      if (summary) document.getElementById("res-summary").textContent = summary;
+    });
+
+    // Wire up date changes
+    document.getElementById("hw-due").addEventListener("change", updateDueInfo);
+
+    // Initial load
+    updateToday();
+    updateDueInfo();
+  </script>
+</body>
+</html>
