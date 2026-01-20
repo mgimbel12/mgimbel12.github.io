@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ice Castle – Moving Lines & Words</title>
+<style>
+    :root {
+        --ice-blue: #b3e6ff;
+        --deep-blue: #002b55;
+        --snow: #f8fdff;
+        --accent: #7fd4ff;
+    }
+
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        font-family: "Georgia", serif;
+        color: #ffffff;
+        background:
+            radial-gradient(circle at top, #ffffff, #dff3ff 40%, #a0c8ff 80%),
+            linear-gradient(to bottom, #00152b, #003366);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Castle background (simple shapes) */
+    .castle-layer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 55%;
+        background:
+            linear-gradient(to top, rgba(0,0,0,0.3), transparent 40%),
+            linear-gradient(to top, #003366 0%, #005b99 40%, #7fd4ff 100%);
+        clip-path: polygon(
+            0% 100%, 0% 40%,
+            10% 35%, 15% 20%, 20% 35%,
+            30% 30%, 35% 10%, 40% 30%,
+            50% 25%, 55% 5%, 60% 25%,
+            70% 30%, 75% 15%, 80% 30%,
+            90% 35%, 100% 40%, 100% 100%
+        );
+        opacity: 0.9;
+    }
+
+    .castle-glow {
+        position: absolute;
+        bottom: 40%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40%;
+        height: 30%;
+        background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%);
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    /* Main card */
+    .card {
+        position: relative;
+        z-index: 2;
+        width: 70%;
+        max-width: 900px;
+        padding: 25px 30px;
+        border-radius: 20px;
+        background: rgba(0, 21, 43, 0.8);
+        box-shadow: 0 0 25px rgba(0,0,0,0.6);
+        overflow: hidden;
+    }
+
+    .card h1 {
+        margin: 0 0 10px 0;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .card p {
+        margin: 6px 0;
+        font-size: 1rem;
+    }
+
+    /* Moving dashed lines */
+    .line {
+        position: absolute;
+        border-top: 2px dashed var(--ice-blue);
+        width: 140%;
+        opacity: 0.7;
+        animation: slide-line 12s linear infinite;
+    }
+
+    .line:nth-child(1) { top: 10%; transform: rotate(5deg); }
+    .line:nth-child(2) { top: 30%; transform: rotate(-4deg); animation-duration: 16s; }
+    .line:nth-child(3) { top: 55%; transform: rotate(3deg); animation-duration: 20s; }
+    .line:nth-child(4) { top: 80%; transform: rotate(-6deg); animation-duration: 24s; }
+
+    @keyframes slide-line {
+        0%   { transform: translateX(-20%) rotate(var(--angle, 0deg)); }
+        100% { transform: translateX(20%) rotate(var(--angle, 0deg)); }
+    }
+
+    /* Floating words */
+    .floating-word {
+        position: absolute;
+        font-size: 0.9rem;
+        color: var(--snow);
+        opacity: 0.8;
+        animation: float-word 10s ease-in-out infinite;
+        white-space: nowrap;
+    }
+
+    .floating-word:nth-child(1) { top: 15%; left: 10%; animation-duration: 13s; }
+    .floating-word:nth-child(2) { top: 25%; right: 8%; animation-duration: 11s; }
+    .floating-word:nth-child(3) { top: 45%; left: 20%; animation-duration: 15s; }
+    .floating-word:nth-child(4) { top: 65%; right: 15%; animation-duration: 17s; }
+
+    @keyframes float-word {
+        0%   { transform: translateY(0px); opacity: 0.3; }
+        50%  { transform: translateY(-12px); opacity: 1; }
+        100% { transform: translateY(0px); opacity: 0.3; }
+    }
+
+    /* Moving dashed border around card */
+    .card::before {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        border-radius: 16px;
+        border: 2px dashed var(--accent);
+        box-sizing: border-box;
+        pointer-events: none;
+        animation: dash-rotate 18s linear infinite;
+    }
+
+    @keyframes dash-rotate {
+        0%   { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* JS‑controlled text line */
+    .ticker {
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px dashed var(--ice-blue);
+        font-size: 0.9rem;
+        color: #dff3ff;
+        min-height: 1.4em;
+    }
+</style>
+</head>
+<body>
+
+<div class="castle-layer"></div>
+<div class="castle-glow"></div>
+
+<div class="card">
+    <!-- moving dashed lines inside card -->
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+
+    <!-- floating words -->
+    <div class="floating-word">Ice Castle</div>
+    <div class="floating-word">Story Time</div>
+    <div class="floating-word">Sanctuary</div>
+    <div class="floating-word">Dream Lines</div>
+
+    <h1>Ice Castle Story Lines</h1>
+    <p>Dashed lines, moving words, and a frozen‑light castle in the distance.</p>
+    <p>Use this as a backdrop for your storybook reader, overlays, or ceremony pages.</p>
+
+    <div class="ticker" id="ticker"></div>
+</div>
+
+<script>
+    // Simple JS ticker for moving words/messages
+    const messages = [
+        "Lines can guide the eye like paths through a castle.",
+        "Every dashed stroke can feel like a heartbeat in the snow.",
+        "Words float, pause, and land where someone needs them.",
+        "This ice castle is a backdrop for any story you want to tell."
+    ];
+
+    let index = 0;
+    const ticker = document.getElementById("ticker");
+
+    function updateTicker() {
+        ticker.textContent = messages[index];
+        index = (index + 1) % messages.length;
+    }
+
+    updateTicker();
+    setInterval(updateTicker, 4000);
+</script>
+
+</body>
+</html>
