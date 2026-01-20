@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Safety Plan · One Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #fdf7f2;              /* creme */
+      --flag-cream: #fff7ef;
+      --flag-pink: #ffd6e8;
+      --flag-blue: #cfe7ff;       /* baby blue */
+      --flag-red: #d8342a;        /* red apple */
+      --flag-green: #4f8b3a;      /* green beans */
+      --ink: #2b2520;
+      --border-dash: 2px dashed rgba(0, 0, 0, 0.18);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 16px 40px rgba(0, 0, 0, 0.12);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "Fira Code", "Consolas", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #ffffff 0, var(--bg) 45%, #f3e4d8 100%);
+      color: var(--ink);
+      display: flex;
+      justify-content: center;
+      padding: 24px 10px;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 960px;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      border: 2px dashed rgba(216, 52, 42, 0.35);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 16px 18px 10px;
+      background: linear-gradient(
+        to right,
+        var(--flag-blue) 0 40%,
+        var(--flag-cream) 40% 100%
+      );
+      border-bottom: var(--border-dash);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .flag-block {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .flag-icon {
+      width: 40px;
+      height: 28px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      display: grid;
+      grid-template-columns: 45% 55%;
+    }
+
+    .flag-stars {
+      background: #234b8b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 0.7rem;
+    }
+
+    .flag-stripes {
+      background: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0 4px,
+        var(--flag-red) 4px 8px
+      );
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .title-block p {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      max-width: 360px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: #ffffffaa;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: #fff2f7;
+    }
+
+    main {
+      padding: 14px 16px 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: var(--border-dash);
+      padding: 10px 12px 12px;
+      background: var(--flag-cream);
+      position: relative;
+    }
+
+    .card:nth-of-type(2n) {
+      background: #ffffff;
+    }
+
+    .card h2 {
+      margin: 0 0 4px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .card small {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      margin: 6px 0 2px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px dashed rgba(0, 0, 0, 0.25);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      font-family: var(--font-main);
+      background: #ffffffd0;
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: 1px solid var(--flag-blue);
+      background: #ffffff;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      border: 1px dashed rgba(0, 0, 0, 0.25);
+      padding: 3px 8px;
+      font-size: 0.7rem;
+      background: var(--flag-pink);
+    }
+
+    .pill.green {
+      background: #e1f3e0;
+      border-color: rgba(79, 139, 58, 0.5);
+      color: #2f5f24;
+    }
+
+    .pill.blue {
+      background: var(--flag-blue);
+    }
+
+    .note {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .footer-strip {
+      border-top: var(--border-dash);
+      padding: 8px 12px 10px;
+      background: linear-gradient(
+        to right,
+        #ffffff 0 40%,
+        #ffe9f2 40% 70%,
+        #e4f4e4 70% 100%
+      );
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: space-between;
+      font-size: 0.7rem;
+    }
+
+    .json-helper {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 6px 8px;
+      border: 1px dashed rgba(0, 0, 0, 0.18);
+      margin-top: 4px;
+      max-height: 90px;
+      overflow: auto;
+    }
+
+    input[type="file"] {
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet" id="sheet">
+    <header>
+      <div class="flag-block">
+        <div class="flag-icon" aria-hidden="true">
+          <div class="flag-stars">★</div>
+          <div class="flag-stripes"></div>
+        </div>
+        <div class="title-block">
+          <h1>Safety Plan</h1>
+          <p>
+            A personal plan for staying safe, using coping skills, and knowing who to reach out to in an emergency.
+          </p>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="print-btn">🖨️ Print</button>
+        <button class="btn" id="export-btn">💾 Export</button>
+        <label class="btn" for="import-file">
+          📂 Import
+          <input id="import-file" type="file" accept="application/json" style="display:none" />
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <section class="card">
+        <h2>1 · My Safety Snapshot</h2>
+        <small>Basic grounding details</small>
+
+        <div class="label">Name (or initials)</div>
+        <input type="text" id="name" placeholder="Optional — your name or initials" />
+
+        <div class="label">Today’s date</div>
+        <input type="text" id="date" placeholder="Example: January 19, 2026" />
+
+        <div class="label">What I’m trying to protect</div>
+        <textarea id="protect" placeholder="People, dreams, responsibilities, faith, pets, community, future moments you want to stay for..."></textarea>
+
+        <p class="note">
+          This page is not a substitute for professional care. It’s a gentle tool to organize your supports and steps.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>2 · Warning Signs & Triggers</h2>
+        <small>What tells me I’m not okay</small>
+
+        <div class="label">Thoughts, feelings, or situations that are warning signs</div>
+        <textarea id="warning-signs" placeholder="Examples: feeling hopeless, withdrawing, not sleeping, certain places, dates, or conflicts..."></textarea>
+
+        <div class="label">Body signals I notice</div>
+        <textarea id="body-signals" placeholder="Tension, racing heart, numbness, heavy chest, headaches, etc."></textarea>
+
+        <div class="pill-row">
+          <span class="pill blue">Notice early</span>
+          <span class="pill">Name it kindly</span>
+          <span class="pill green">Use coping skills</span>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="card">
+        <h2>3 · Coping Skills & Grounding</h2>
+        <small>Things I can do on my own or with others</small>
+
+        <div class="two-col">
+          <div>
+            <div class="label">Gentle coping skills</div>
+            <textarea id="coping-skills" placeholder="Breathing, music, prayer, journaling, walking, art, games, showers, stretching, safe places..."></textarea>
+          </div>
+          <div>
+            <div class="label">Places or environments that feel safer</div>
+            <textarea id="safe-places" placeholder="Rooms, parks, temples, libraries, friend’s house, online spaces that feel calm and kind..."></textarea>
+          </div>
+        </div>
+
+        <p class="note">
+          You can include spiritual practices, creative rituals, or small routines that help you feel more anchored.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>4 · People & Supports</h2>
+        <small>Who I can reach out to</small>
+
+        <div class="label">Trusted people I can contact</div>
+        <textarea id="people" placeholder="Names, relationship, and phone/email (friends, family, mentors, faith leaders, coworkers)..."></textarea>
+
+        <div class="label">Professional or community supports</div>
+        <textarea id="professionals" placeholder="Therapist, doctor, counselor, support group, community center, crisis services in my area..."></textarea>
+
+        <p class="note">
+          In a crisis or emergency, contact local emergency services or crisis resources available in your region.
+        </p>
+      </section>
+    </main>
+
+    <section class="card" style="margin: 0 16px 10px;">
+      <h2>5 · Emergency Steps</h2>
+      <small>What I will do if I feel in immediate danger</small>
+
+      <div class="label">My step-by-step plan</div>
+      <textarea id="steps" placeholder="Example: 1) Move to a safer space  2) Call ____  3) Remove anything unsafe  4) Contact emergency services or crisis support  5) Stay with someone I trust..."></textarea>
+
+      <div class="label">Important addresses or locations</div>
+      <textarea id="locations" placeholder="Hospitals, clinics, crisis centers, trusted homes, places of worship, community centers..."></textarea>
+
+      <p class="note">
+        If you are in immediate danger or feel unable to stay safe, contact emergency services or crisis support in your area right away.
+      </p>
+    </section>
+
+    <section class="card" style="margin: 0 16px 12px;">
+      <h2>6 · Notes & Adjustments</h2>
+      <small>Updates, reminders, or things to discuss with a professional</small>
+      <textarea id="notes" placeholder="Questions for a therapist or doctor, things that helped, things that didn’t, changes you want to make to this plan..."></textarea>
+
+      <div class="json-helper" id="json-preview">
+        {/* Export/Import helper: your plan will be saved as JSON here when you click “Export”. */}
+      </div>
+    </section>
+
+    <div class="footer-strip">
+      <span>Safety Plan · Personal · Printable · One Sheet</span>
+      <span>Keep this somewhere you can find it easily. Update it as your supports and needs change.</span>
+    </div>
+  </div>
+
+  <script>
+    // Collect all fields into an object
+    function collectPlan() {
+      return {
+        name: document.getElementById("name").value,
+        date: document.getElementById("date").value,
+        protect: document.getElementById("protect").value,
+        warningSigns: document.getElementById("warning-signs").value,
+        bodySignals: document.getElementById("body-signals").value,
+        copingSkills: document.getElementById("coping-skills").value,
+        safePlaces: document.getElementById("safe-places").value,
+        people: document.getElementById("people").value,
+        professionals: document.getElementById("professionals").value,
+        steps: document.getElementById("steps").value,
+        locations: document.getElementById("locations").value,
+        notes: document.getElementById("notes").value
+      };
+    }
+
+    // Fill fields from an object
+    function fillPlan(data) {
+      if (!data) return;
+      document.getElementById("name").value = data.name || "";
+      document.getElementById("date").value = data.date || "";
+      document.getElementById("protect").value = data.protect || "";
+      document.getElementById("warning-signs").value = data.warningSigns || "";
+      document.getElementById("body-signals").value = data.bodySignals || "";
+      document.getElementById("coping-skills").value = data.copingSkills || "";
+      document.getElementById("safe-places").value = data.safePlaces || "";
+      document.getElementById("people").value = data.people || "";
+      document.getElementById("professionals").value = data.professionals || "";
+      document.getElementById("steps").value = data.steps || "";
+      document.getElementById("locations").value = data.locations || "";
+      document.getElementById("notes").value = data.notes || "";
+    }
+
+    // Print
+    document.getElementById("print-btn").addEventListener("click", () => {
+      window.print();
+    });
+
+    // Export as JSON file
+    document.getElementById("export-btn").addEventListener("click", () => {
+      const plan = collectPlan();
+      const json = JSON.stringify(plan, null, 2);
+      const blob = new Blob([json], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const name = plan.name ? plan.name.replace(/\\s+/g, "_") : "safety-plan";
+      a.download = name + ".json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      const preview = document.getElementById("json-preview");
+      preview.textContent = json;
+    });
+
+    // Import from JSON file
+    document.getElementById("import-file").addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          fillPlan(data);
+          document.getElementById("json-preview").textContent = JSON.stringify(data, null, 2);
+        } catch (err) {
+          alert("Could not read this file as a safety plan JSON.");
+        }
+      };
+      reader.readAsText(file);
+    });
+  </script>
+</body>
+</html>
+
