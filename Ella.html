@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cinderella Life Lessons Reader</title>
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Georgia", serif;
+        background: radial-gradient(circle at top, #fdf6e3, #e9f2ff);
+        color: #222;
+    }
+
+    header {
+        text-align: center;
+        padding: 10px;
+        border-bottom: 4px dashed #b30000;
+    }
+
+    .flag-accent {
+        height: 8px;
+        background: linear-gradient(90deg, #b30000, #ffffff, #0033a0);
+        margin-bottom: 10px;
+    }
+
+    .rainbow-accent {
+        height: 6px;
+        background: linear-gradient(90deg,
+            #e40303, #ff8c00, #ffed00, #008026, #004dff, #750787);
+        margin-bottom: 20px;
+    }
+
+    #clock {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .layout {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+        .layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Story panel */
+    .story-panel {
+        position: relative;
+        border-radius: 20px;
+        padding: 20px;
+        background: #ffffffee;
+        border: 3px dashed #0033a0;
+        overflow: hidden;
+    }
+
+    .story-panel h2 {
+        margin-top: 0;
+    }
+
+    /* SVG guideline background */
+    .svg-bg {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.25;
+    }
+
+    #storyText {
+        position: relative;
+        z-index: 1;
+        line-height: 1.6;
+        font-size: 1.05rem;
+        max-height: 480px;
+        overflow-y: auto;
+    }
+
+    .lesson-highlight {
+        background: #fff7cc;
+        border-radius: 6px;
+        padding: 2px 4px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        border-radius: 20px;
+        padding: 15px;
+        background: #f7fbff;
+        border: 3px dashed #b30000;
+    }
+
+    .sidebar h3 {
+        margin-top: 0;
+    }
+
+    .outline, .topics {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 12px;
+        background: #ffffff;
+        border: 2px dashed #0033a0;
+        font-size: 0.95rem;
+    }
+
+    .topics ul {
+        padding-left: 18px;
+        margin: 6px 0;
+    }
+
+    /* Controls */
+    .controls {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .controls label {
+        margin-right: 4px;
+    }
+
+    input[type="range"] {
+        width: 120px;
+    }
+
+    button {
+        padding: 6px 10px;
+        border-radius: 10px;
+        border: 2px dashed #b30000;
+        background: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    button:hover {
+        background: #ffe6e6;
+    }
+
+    /* Tattoo / army color chips */
+    .color-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .chip {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 2px solid #222;
+    }
+
+    .chip.red { background:#b30000; }
+    .chip.white { background:#ffffff; }
+    .chip.blue { background:#0033a0; }
+    .chip.cream { background:#fdf6e3; }
+    .chip.green { background:#008026; }
+    .chip.aqua { background:#00b7c7; }
+    .chip.navy { background:#001f3f; }
+    .chip.army { background:#4b5320; }
+
+    /* Focus mode */
+    .focus-on {
+        background: #fffdf0 !important;
+        box-shadow: 0 0 0 4px #ffed00;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Cinderella in America – A Story of Voice, Pride, and Love</h1>
+</header>
+
+<div class="flag-accent"></div>
+<div class="rainbow-accent"></div>
+
+<div id="clock"></div>
+
+<div class="layout">
+    <!-- STORY PANEL -->
+    <section class="story-panel" id="storyPanel">
+        <!-- SVG decorative guidelines -->
+        <svg class="svg-bg" viewBox="0 0 800 600" preserveAspectRatio="none">
+            <!-- Diagonal dashed navy line -->
+            <line x1="0" y1="50" x2="800" y2="0"
+                  stroke="#0033a0" stroke-width="3"
+                  stroke-dasharray="8 6" />
+            <!-- Rainbow arc -->
+            <path d="M0,500 C200,420 600,420 800,500"
+                  fill="none" stroke-width="6"
+                  stroke-dasharray="10 6"
+                  stroke="url(#rainbowStroke)" />
+            <!-- Vertical army dashed line -->
+            <line x1="120" y1="0" x2="120" y2="600"
+                  stroke="#4b5320" stroke-width="2"
+                  stroke-dasharray="4 4" />
+            <!-- Horizontal aqua line -->
+            <line x1="0" y1="300" x2="800" y2="300"
+                  stroke="#00b7c7" stroke-width="2"
+                  stroke-dasharray="2 6" />
+            <defs>
+                <linearGradient id="rainbowStroke" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#e40303"/>
+                    <stop offset="20%" stop-color="#ff8c00"/>
+                    <stop offset="40%" stop-color="#ffed00"/>
+                    <stop offset="60%" stop-color="#008026"/>
+                    <stop offset="80%" stop-color="#004dff"/>
+                    <stop offset="100%" stop-color="#750787"/>
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <h2>Cinderella’s Journey</h2>
+        <div id="storyText">
+            <!-- Story text injected by JS -->
+        </div>
+
+        <div class="controls">
+            <div>
+                <label for="fontSize">Font size</label>
+                <input type="range" id="fontSize" min="14" max="24" value="17">
+            </div>
+            <div>
+                <label for="lineHeight">Line height</label>
+                <input type="range" id="lineHeight" min="14" max="30" value="19">
+            </div>
+            <button onclick="toggleFocus()">Focus mode</button>
+            <button onclick="highlightLesson()">Highlight lesson</button>
+            <button onclick="startTimedNudge()">Timed nudge</button>
+        </div>
+    </section>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <h3>Story Outline</h3>
+        <div class="outline">
+            <ol>
+                <li>Childhood in a house that did not see her.</li>
+                <li>Work, ashes, and a secret dream of more.</li>
+                <li>A rainbow‑hearted friend who names her worth.</li>
+                <li>A community ball in a new American city.</li>
+                <li>Choosing her own path, not just a prince.</li>
+                <li>Building a life of service, love, and pride.</li>
+            </ol>
+        </div>
+
+        <h3>Teaching Topics</h3>
+        <div class="topics">
+            <ul>
+                <li><strong>Acceptance:</strong> Seeing yourself as worthy even when others don’t.</li>
+                <li><strong>Chosen family:</strong> People who show up with love and safety.</li>
+                <li><strong>Voice:</strong> Speaking your needs, dreams, and boundaries.</li>
+                <li><strong>Resilience:</strong> Surviving unfairness without letting it define you.</li>
+                <li><strong>Pride & Identity:</strong> Rainbow‑heart courage to be fully yourself.</li>
+                <li><strong>Dreams & Service:</strong> Wanting more not just for you, but for your community.</li>
+            </ul>
+        </div>
+
+        <h3>Palette & Tattoos</h3>
+        <p>Colors that might live on Cinderella’s jacket, boots, or tattoos:</p>
+        <div class="color-chips">
+            <div class="chip red" title="Red"></div>
+            <div class="chip white" title="White"></div>
+            <div class="chip blue" title="Blue"></div>
+            <div class="chip cream" title="Cream"></div>
+            <div class="chip green" title="Green"></div>
+            <div class="chip aqua" title="Aqua"></div>
+            <div class="chip navy" title="Navy"></div>
+            <div class="chip army" title="Army"></div>
+        </div>
+    </aside>
+</div>
+
+<script>
+    // CLOCK
+    function updateClock() {
+        const now = new Date();
+        document.getElementById("clock").textContent =
+            "DATE: " + now.toLocaleDateString() +
+            " — TIME: " + now.toLocaleTimeString();
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // CINDERELLA STORY – ORIGINAL RETELLING (PUBLIC DOMAIN INSPIRED, NOT DISNEY)
+    const cinderellaParagraphs = [
+        "Cinderella was not born into ashes. She was born into a small house on the edge of an American town, where the trains hummed at night and the flag on the schoolyard snapped in the wind. When her mother died and her father remarried, the house stayed the same size, but somehow there was less room for her.",
+        "Her stepfamily liked things polished and perfect. Cinderella was given the work: sweeping, cooking, fixing, smiling. They called her names that made her feel small, and when she looked in the mirror, she sometimes believed them. At night, she would sit by the back door, watching the sky over the neighborhood glow red, white, and blue on holidays, and whisper, “There has to be more than this.”",
+        "At school and in town, she noticed people who did not fit the picture her stepfamily praised. A boy with tattoos and gentle eyes who volunteered at the shelter. A girl with a rainbow patch on her jacket who walked with her head high. Neighbors who spoke different languages, wore different uniforms, loved in different ways. Something in Cinderella’s chest lit up when she saw them—like a quiet pride that she didn’t have words for yet.",
+        "One afternoon, while taking out the trash behind the diner where she worked, Cinderella met Maren, the girl with the rainbow patch. Maren laughed easily, listened carefully, and never once asked Cinderella to be smaller. “You know you deserve more than the way they talk to you, right?” Maren said, leaning against the brick wall, the pride colors on her jacket catching the sun. Cinderella felt seen, and it scared her and healed her at the same time.",
+        "The town announced a community ball at the civic center—an open celebration of service, music, and stories from all over the United States. Veterans, nurses, teachers, artists, and families of every kind were invited. Cinderella’s stepfamily planned their outfits for weeks, talking about who they might impress. When Cinderella asked if she could go, they laughed. “You? In those old shoes?”",
+        "That night, when the house finally went quiet, Cinderella sat on the back steps and cried—not just because she wanted a dress or a dance, but because she wanted to stand in a room where people were proud of who they were, where love looked like many colors, not just one. “I want more,” she whispered. “I want a life where I am allowed to be fully myself.”",
+        "From the shadows of the yard, a familiar voice answered. It was Maren, carrying a small duffel bag. “I thought they might say no,” she said softly. “So I brought options.” Inside the bag were boots with navy laces, a cream dress with a subtle pattern of stars, and a denim jacket with a tiny rainbow stitched on the cuff. “You don’t need magic,” Maren said. “You just need someone to stand next to you while you walk through the door.”",
+        "Cinderella’s hands shook as she got ready. She had never seen herself like this—strong, soft, a little bit rebellious, a little bit sacred. She traced the rainbow stitching with her finger and thought of all the people who had fought to be themselves in this country, who had marched and spoken and loved out loud. She felt like she was stepping into their story, too.",
+        "At the civic center, the room was full of flags and fairy lights. A veteran with army‑green tattoos told stories about service. A couple in matching aqua shirts talked about starting a community garden. A teacher with a rainbow tie shared how he made his classroom safe for every kid. Cinderella listened, eyes wide, heart open. For the first time, she felt like she belonged in the story of the United States—not as someone in the background, but as someone whose voice mattered.",
+        "When the music started, Maren held out a hand. “Dance with me?” she asked. Cinderella hesitated, thinking of what her stepfamily would say if they saw her dancing with another girl, laughing under the flag and the rainbow lights. Then she remembered the way they had never once asked what she wanted. She took Maren’s hand.",
+        "They danced until Cinderella’s cheeks hurt from smiling. No one told them to move apart. No one told them they were wrong. Around them, people clapped, sang, and shared stories of the loves that had carried them through hard years. Cinderella realized that true love was not about being chosen by a prince; it was about choosing a life where she could love and be loved honestly.",
+        "Later that night, her stepfamily spotted her across the room. Their faces twisted with shock and anger. “What are you doing here?” they demanded. Cinderella’s heart pounded, but she stood up straight. “I’m here because this is my town too,” she said. “Because I work hard. Because I care about this community. Because I deserve to be here.” Maren squeezed her hand.",
+        "The room went quiet for a moment, then someone started clapping. Then another. The sound grew until it filled the hall. Cinderella’s stepfamily, unused to being challenged, left in a storm of whispers. Cinderella stayed. She felt the fear in her chest, but she also felt something stronger: a fierce, steady pride.",
+        "In the months that followed, Cinderella moved out. It was not easy. She worked extra shifts, shared a small apartment with friends, and sometimes cried from exhaustion. But she also joined a local group that helped queer youth find safe housing, volunteered at the shelter, and spoke at the civic center about what it meant to grow up unseen and then finally be seen.",
+        "She still swept floors and washed dishes, but now she did it in a life she had chosen, surrounded by people who loved her tattoos, her boots, her quiet humor, and her loud laugh. She fell in love—not with a prince, but with a person who listened, who showed up, who believed in her dreams for herself and for her country.",
+        "Cinderella’s story did not end with a castle. It unfolded in city council meetings, late‑night diner booths, pride parades, and quiet mornings where she drank coffee on her own front steps, watching the flag across the street wave in the wind. She knew the United States was imperfect, complicated, still learning. So was she. But she also knew this: she was no longer waiting for someone else to rescue her. She had rescued herself, with the help of people who loved her exactly as she was.",
+        "And whenever she met someone who felt small, invisible, or wrong for wanting more, she would smile and say, “There is room for you here. Your story belongs in this country too.” In that way, Cinderella became not just a girl from the ashes, but a woman who helped light the way for others."
+    ];
+
+    const storyTextEl = document.getElementById("storyText");
+
+    function renderStory() {
+        storyTextEl.innerHTML = "";
+        cinderellaParagraphs.forEach((p, i) => {
+            const para = document.createElement("p");
+            para.textContent = p;
+            if (i === 3 || i === 10 || i === 15) {
+                // key emotional beats
+                para.classList.add("lesson-highlight");
+            }
+            storyTextEl.appendChild(para);
+        });
+    }
+    renderStory();
+
+    // Reading tools
+    const fontSizeInput = document.getElementById("fontSize");
+    const lineHeightInput = document.getElementById("lineHeight");
+
+    fontSizeInput.addEventListener("input", () => {
+        const size = fontSizeInput.value + "px";
+        storyTextEl.style.fontSize = size;
+    });
+
+    lineHeightInput.addEventListener("input", () => {
+        const lh = lineHeightInput.value + "px";
+        storyTextEl.style.lineHeight = lh;
+    });
+
+    function toggleFocus() {
+        document.getElementById("storyPanel").classList.toggle("focus-on");
+    }
+
+    function highlightLesson() {
+        // Scroll to first highlighted paragraph
+        const first = storyTextEl.querySelector(".lesson-highlight");
+        if (first) {
+            first.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+    }
+
+    function startTimedNudge() {
+        alert("Timed reading started. In 60 seconds you’ll get a reminder to pause and reflect.");
+        setTimeout(() => {
+            alert("Nudge: What part of Cinderella’s story feels closest to your own right now?");
+        }, 60000);
+    }
+</script>
+
+</body>
+</html>
