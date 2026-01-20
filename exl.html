@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lex Luthor • Fun Universe Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --yellow: #ffd54f;
+  --orange: #fb8c00;
+  --red: #c62828;
+  --ink: #212121;
+  --bg-soft: #fff8e1;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: radial-gradient(circle at top, var(--yellow), var(--bg-soft));
+  color: var(--ink);
+}
+
+.page {
+  max-width: 1000px;
+  margin: 20px auto;
+  background: var(--card);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--red), var(--orange), var(--yellow));
+  padding: 16px;
+  border-radius: 12px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,0.25),
+    rgba(255,255,255,0.25) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.4;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(0,1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* VIDEO */
+.video-placeholder {
+  border-radius: 10px;
+  border: 2px dashed var(--orange);
+  padding: 10px;
+  background: #fff3e0;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.video-placeholder:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+}
+
+.video-play {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.video-play::before {
+  content: "";
+  border-style: solid;
+  border-width: 7px 0 7px 12px;
+  border-color: transparent transparent transparent #fff;
+  margin-left: 2px;
+}
+
+.video-text {
+  font-size: 0.85rem;
+}
+
+/* TAGS */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.tag {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px dashed var(--border);
+  background: #fff8e1;
+}
+
+/* DRINK LIST */
+.drink-list li {
+  margin-bottom: 2px;
+}
+
+/* CALENDAR */
+.calendar {
+  margin-top: 8px;
+  font-size: 0.8rem;
+}
+
+.calendar table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+}
+
+.calendar th,
+.calendar td {
+  border: 1px solid var(--border);
+  padding: 4px;
+  text-align: center;
+}
+
+.calendar th {
+  background: var(--yellow);
+}
+
+/* GAME */
+.game-box {
+  margin-top: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  font-size: 0.85rem;
+}
+
+.game-meter {
+  margin-top: 6px;
+  height: 10px;
+  border-radius: 999px;
+  background: #ffcdd2;
+  overflow: hidden;
+}
+
+.game-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--red);
+  transition: width 0.2s ease;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: minmax(0,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>LEX LUTHOR • FUN UNIVERSE</h1>
+    <p>YouTube Clips • Cute Moments • Mocktails • Success Recipes • Calendar • Mini Game</p>
+  </header>
+
+  <!-- GRID -->
+  <section class="grid">
+
+    <!-- LEFT -->
+    <article class="card">
+      <h2>YouTube • Funny & Cute Lex Moments</h2>
+
+      <div class="video-placeholder" onclick="openLexVideo()">
+        <div class="video-play"></div>
+        <div class="video-text">
+          Click to add a YouTube link for your favorite funny/cute Lex edit.
+        </div>
+      </div>
+
+      <h3 style="margin-top:12px; color:var(--red);">Recipes for Success</h3>
+      <ul style="font-size:0.85rem;">
+        <li>Think three steps ahead.</li>
+        <li>Stay curious.</li>
+        <li>Lead with confidence, not fear.</li>
+        <li>Use intelligence for good.</li>
+        <li>Keep humor in your toolkit.</li>
+      </ul>
+
+      <div class="tag-row">
+        <span class="tag">Leadership</span>
+        <span class="tag">Charm</span>
+        <span class="tag">Strategy</span>
+        <span class="tag">Confidence</span>
+      </div>
+    </article>
+
+    <!-- RIGHT -->
+    <aside class="card">
+      <h2>Lex’s Favorite Drinks (No Alcohol)</h2>
+      <ul class="drink-list" style="font-size:0.85rem;">
+        <li><strong>Orange Spark:</strong> orange juice + soda water.</li>
+        <li><strong>Yellow Focus Cooler:</strong> lemonade + pineapple.</li>
+        <li><strong>Red Energy Splash:</strong> cranberry + lime.</li>
+        <li><strong>Lex’s Tea Blend:</strong> iced herbal tea + honey.</li>
+      </ul>
+
+      <div class="tag-row">
+        <span class="tag">Mocktails</span>
+        <span class="tag">Study Drinks</span>
+        <span class="tag">Refreshing</span>
+      </div>
+
+      <div class="game-box">
+        <strong>Mini Game: Lex’s Strategy Meter</strong>
+        <p>Click when you make a smart or kind choice today.</p>
+        <button id="game-btn" style="padding:4px 10px; border-radius:999px; border:none; background:var(--red); color:#fff; cursor:pointer;">
+          I made a good move
+        </button>
+        <span id="game-count" style="margin-left:6px;">0 moves</span>
+        <div class="game-meter">
+          <div class="game-fill" id="game-fill"></div>
+        </div>
+      </div>
+    </aside>
+
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="card" style="margin-top:16px;">
+    <h2>Important Lex Dates</h2>
+    <p style="font-size:0.85rem;">Use this to track fictional Lex milestones or your own goals.</p>
+
+    <div class="calendar">
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Event</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan 5</td><td>“Big Idea” Day</td></tr>
+          <tr><td>Mar 10</td><td>Confidence Reset</td></tr>
+          <tr><td>Jun 1</td><td>Summer Strategy Kickoff</td></tr>
+          <tr><td>Sep 12</td><td>Creative Breakthrough Day</td></tr>
+          <tr><td>Dec 31</td><td>Year-End Reflection</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<script>
+// VIDEO PROMPT
+function openLexVideo() {
+  const url = prompt("Paste a YouTube URL for your favorite Lex video:");
+  if (url) window.open(url, "_blank");
+}
+
+// GAME
+let moves = 0;
+const btn = document.getElementById("game-btn");
+const countEl = document.getElementById("game-count");
+const fillEl = document.getElementById("game-fill");
+
+btn.addEventListener("click", () => {
+  moves++;
+  countEl.textContent = moves + (moves === 1 ? " move" : " moves");
+  fillEl.style.width = Math.min(100, moves * 5) + "%";
+});
+</script>
+
+</body>
+</html>
+
