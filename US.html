@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>United States • Disney • Flowers • 2026 • Mega Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ROOT COLORS */
+:root {
+  --red: #c62828;
+  --blue: #1565c0;
+  --white: #ffffff;
+  --baby-blue: #bbdefb;
+  --pink-baby: #f8bbd0;
+  --orange: #fb8c00;
+  --rose: #e91e63;
+  --tulip: #8e24aa;
+  --navy: #0d1b2a;
+  --soft: #f5f7fb;
+  --card: #ffffff;
+  --border: #e0e0e0;
+  --shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: radial-gradient(circle at top left, var(--baby-blue), var(--soft));
+  color: #222;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 20px auto;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--navy), var(--blue), var(--red));
+  color: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.12) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  opacity: 0.4;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+}
+
+.header p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+}
+
+.clock {
+  margin-top: 10px;
+  font-family: monospace;
+  background: rgba(0,0,0,0.25);
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.date-line {
+  margin-top: 4px;
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* TABS */
+.tabs {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tab-button {
+  background: var(--baby-blue);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.tab-button.active {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-bottom-color: var(--white);
+}
+
+.tab-content {
+  display: none;
+  padding: 20px 0;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+
+/* SCRAPBOOK GRID */
+.scrap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+  gap: 12px;
+}
+
+.scrap {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+/* FLOWER TAGS */
+.flower-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--pink-baby), var(--baby-blue));
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+.flower-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.rose { background: var(--rose); }
+.tulip { background: var(--tulip); }
+.orange { background: var(--orange); }
+
+/* CALENDAR */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+}
+
+.month {
+  background: var(--baby-blue);
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid var(--white);
+}
+
+.month-name {
+  font-weight: bold;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.month-weeks {
+  font-family: monospace;
+  font-size: 0.75rem;
+  white-space: pre;
+}
+
+/* STORYBOOK */
+.story {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 10px;
+  border-left: 4px solid var(--pink-baby);
+  background: #fff7fb;
+  border-radius: 8px;
+}
+
+/* ACADEMIC */
+.section {
+  border-left: 4px solid var(--blue);
+  padding-left: 12px;
+  margin-bottom: 14px;
+}
+
+.section h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  color: var(--navy);
+}
+
+.section p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<header class="header">
+  <h1>United States • Disney • Flowers • 2026 Mega Sheet</h1>
+  <p>WWI • WWII • Korea • Betsy Ross • Castle of Glass • Frozen Books • Tulips • Roses • Orange Juice • Red • Blue • Baby Blue • Pink Baby • 2026 Calendar</p>
+  <div class="clock" id="clock">--:--:--</div>
+  <div class="date-line" id="date-line">Loading date…</div>
+</header>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-button active" data-tab="a">Patriotic Timeline</button>
+  <button class="tab-button" data-tab="b">Disney Hybrid</button>
+  <button class="tab-button" data-tab="c">Scrapbook</button>
+  <button class="tab-button" data-tab="d">Academic</button>
+  <button class="tab-button" data-tab="e">Storybook</button>
+  <button class="tab-button" data-tab="f">2026 Calendar</button>
+</div>
+
+<!-- TAB A -->
+<section id="a" class="tab-content active">
+  <div class="card">
+    <h2>United States Patriotic Timeline</h2>
+    <p><strong>1776</strong> — Birth of the United States of America.</p>
+    <p><strong>1917</strong> — U.S. enters World War I.</p>
+    <p><strong>1941</strong> — U.S. enters World War II after Pearl Harbor.</p>
+    <p><strong>1950</strong> — Korean War begins; U.S. defends South Korea.</p>
+    <p><strong>Betsy Ross</strong> — Associated with early American flag creation.</p>
+  </div>
+
+  <div class="card">
+    <h2>Flowers & Colors</h2>
+    <div class="flower-tag"><span class="flower-dot rose"></span>Rose — Honor</div>
+    <div class="flower-tag"><span class="flower-dot tulip"></span>Tulip — Renewal</div>
+    <div class="flower-tag"><span class="flower-dot orange"></span>Orange — Joy</div>
+  </div>
+
+  <div class="card">
+    <h2>Orange Juice Sunrise Recipe</h2>
+    <ul>
+      <li>Fresh oranges</li>
+      <li>Honey</li>
+      <li>Sparkling water</li>
+      <li>Ice</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TAB B -->
+<section id="b" class="tab-content">
+  <div class="card">
+    <h2>Disney–Patriotic Hybrid</h2>
+    <p>Castle of Glass meets American colors — red, blue, baby blue, pink baby, and orange.</p>
+    <p>Frozen books symbolize courage, sisterhood, and freedom.</p>
+  </div>
+</section>
+
+<!-- TAB C -->
+<section id="c" class="tab-content">
+  <div class="scrap-grid">
+    <div class="scrap"><h3>WWI</h3><p>Notes and memories.</p></div>
+    <div class="scrap"><h3>WWII</h3><p>Stories of courage.</p></div>
+    <div class="scrap"><h3>Korea</h3><p>Freedom defended.</p></div>
+    <div class="scrap"><h3>Betsy Ross</h3><p>Flag history.</p></div>
+    <div class="scrap"><h3>Frozen</h3><p>Disney storybooks.</p></div>
+    <div class="scrap"><h3>Flowers</h3><p>Tulips & roses.</p></div>
+    <div class="scrap"><h3>Recipes</h3><p>Orange juice ideas.</p></div>
+  </div>
+</section>
+
+<!-- TAB D -->
+<section id="d" class="tab-content">
+  <div class="section">
+    <h3>World War I & II</h3>
+    <p>Compare causes, alliances, and outcomes.</p>
+  </div>
+  <div class="section">
+    <h3>Korean War</h3>
+    <p>Cold War context and armistice.</p>
+  </div>
+  <div class="section">
+    <h3>Flag Studies</h3>
+    <p>Betsy Ross and evolving symbolism.</p>
+  </div>
+</section>
+
+<!-- TAB E -->
+<section id="e" class="tab-content">
+  <div class="story">
+    <p>Once upon a time in a land of red, white, and blue, the American story unfolded alongside tales of castles, sisters, and shimmering glass towers…</p>
+    <p>History and fairytales walked side by side, each teaching courage in their own way.</p>
+  </div>
+</section>
+
+<!-- TAB F -->
+<section id="f" class="tab-content">
+  <h2>2026 Calendar</h2>
+  <div class="calendar">
+    <div class="month"><div class="month-name">January</div><div class="month-weeks">Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5
+ 6  7  8  9 10 11
+12 13 14 15 16 17
+18 19 20 21 22 23
+24 25 26 27 28 29
+30 31</div></div>
+
+    <div class="month"><div class="month-name">February</div><div class="month-weeks">Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5
+ 6  7  8  9 10 11
+12 13 14 15 16 17
+18 19 20 21 22 23
+24 25 26 27 28</div></div>
+
+    <div class="month"><div class="month-name">March</div><div class="month-weeks">Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5
+ 6  7  8  9 10 11
+12 13 14 15 16 17
+18 19 20 21 22 23
+24 25 26 27 28 29
+30 31</div></div>
+
+    <div class="month"><div class="month-name">April</div><div class="month-weeks">Su Mo Tu We Th Fr Sa
+ 1  2  3  4  5
+ 6  7  8  9 10 11
+12 13 14 15 16 17
+18 19 20 21 22 23
+24 25 26 27 28 29
+30</div></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+// CLOCK
+function updateClock() {
+  const now = new Date();
+  document.getElementById("clock").textContent =
+    now.toLocaleTimeString();
+  document.getElementById("date-line").textContent =
+    now.toLocaleDateString(undefined, { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// TABS
+document.querySelectorAll(".tab-button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+</script>
+
+</body>
+</html>
