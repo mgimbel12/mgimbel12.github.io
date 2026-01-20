@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Moon & Snow Temple Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --fg: #fdfdfd;
+      --accent: #ffb6f9;
+      --accent-2: #7fd4ff;
+      --card: rgba(10, 10, 30, 0.85);
+      --border: rgba(255, 255, 255, 0.18);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-fairy: "Didot", "Bodoni MT", "Times New Roman", serif;
+      --font-tech: "Fira Code", "Consolas", monospace;
+    }
+
+    /* THEME MODES */
+    body.theme-moon {
+      --bg: radial-gradient(circle at top, #2b2b66 0, #050816 55%, #02010a 100%);
+      --accent: #ffd6ff;
+      --accent-2: #9ad7ff;
+    }
+    body.theme-sun {
+      --bg: radial-gradient(circle at top, #ffe08a 0, #ff9f6b 40%, #ff5f6d 100%);
+      --accent: #fff7d6;
+      --accent-2: #ffe3ff;
+    }
+    body.theme-snow {
+      --bg: radial-gradient(circle at top, #e9f5ff 0, #c8e4ff 40%, #7fa9ff 100%);
+      --accent: #ffffff;
+      --accent-2: #ffe6ff;
+    }
+    body.theme-rainbow {
+      --bg: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 25%, #fbc2eb 50%, #a1c4fd 75%, #c2ffd8 100%);
+      --accent: #ffffff;
+      --accent-2: #222222;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      color: var(--fg);
+      background: var(--bg);
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(145deg, rgba(5, 5, 20, 0.92), rgba(10, 10, 40, 0.96));
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      padding: 24px 20px 32px;
+      backdrop-filter: blur(18px);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-family: var(--font-fairy);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .title-block p {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    .theme-toggle-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.04);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, transform 0.1s, border-color 0.2s;
+    }
+
+    .chip span.icon {
+      font-size: 0.9rem;
+    }
+
+    .chip.active {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 14px 14px 16px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: var(--font-tech);
+      opacity: 0.9;
+    }
+
+    .card small {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.04);
+      opacity: 0.9;
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--fg);
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      font-family: var(--font-main);
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    textarea:focus,
+    input[type="text"]:focus {
+      outline: 1px solid var(--accent-2);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pill-label {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 4px;
+    }
+
+    .font-sampler {
+      display: grid;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .font-line {
+      padding: 4px 6px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      font-size: 0.8rem;
+    }
+
+    .font-fairy {
+      font-family: var(--font-fairy);
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+    }
+
+    .font-tech {
+      font-family: var(--font-tech);
+      font-size: 0.85rem;
+    }
+
+    .font-big {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .castle-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .castle-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.75rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    }
+
+    .js-art-console {
+      font-family: var(--font-tech);
+      font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      padding: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      min-height: 60px;
+      white-space: pre-wrap;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--fg);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 0.75rem;
+      opacity: 0.75;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body class="theme-moon">
+  <div class="sheet">
+    <header>
+      <div class="title-block">
+        <h1>Moon · Snow · Temple Sheet</h1>
+        <p>Sailor Moon · Frozen · Castles · Perfumes · Recipes · Typography · JavaScript Art</p>
+      </div>
+      <div class="theme-toggle-group" aria-label="Theme settings">
+        <button class="chip active" data-theme="moon">
+          <span class="icon">🌙</span> Moon Cycle
+        </button>
+        <button class="chip" data-theme="sun">
+          <span class="icon">☀️</span> Sun Shine
+        </button>
+        <button class="chip" data-theme="snow">
+          <span class="icon">❄️</span> Snow & Ice
+        </button>
+        <button class="chip" data-theme="rainbow">
+          <span class="icon">🌈</span> Rainbow
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <section class="card">
+        <h2>Character & Castle Settings</h2>
+        <small>Sailor Moon · Snow White · Ana &amp; Elsa · Kristoff · Disneyland &amp; Ice Castles</small>
+
+        <div class="tag-row">
+          <span class="tag">Sailor Moon</span>
+          <span class="tag">Snow White</span>
+          <span class="tag">Ana &amp; Elsa</span>
+          <span class="tag">Kristoff &amp; Pet</span>
+          <span class="tag">Disneyland Castle</span>
+          <span class="tag">Ice Castle</span>
+        </div>
+
+        <label class="pill-label" for="character-mix">
+          Ideal character mix & roles
+        </label>
+        <textarea id="character-mix" placeholder="Example: Sailor Moon as moon guardian, Elsa as ice architect, Snow White as forest healer, Kristoff as mountain guide..."></textarea>
+
+        <div class="castle-strip">
+          <span class="castle-pill">Main Castle: Disneyland</span>
+          <span class="castle-pill">Side Castle: Ice Palace</span>
+          <span class="castle-pill">Secret Temple: Moon Shrine</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Perfumes & Ice Creme Recipes</h2>
+        <small>Scents, flavors, and little rituals</small>
+
+        <div class="two-col">
+          <div>
+            <label class="pill-label" for="perfumes">
+              Perfume ideas (Moon · Snow · Castle)
+            </label>
+            <textarea id="perfumes" placeholder="Moonlight Jasmine, Snow Apple, Castle Vanilla Rose, Rainbow Citrus Mist..."></textarea>
+          </div>
+          <div>
+            <label class="pill-label" for="icecreme">
+              Ice creme bowl recipes
+            </label>
+            <textarea id="icecreme" placeholder="Snow White Apple Crumble Sundae, Elsa’s Blue Ice Creme, Sailor Moon Strawberry Galaxy Swirl..."></textarea>
+          </div>
+        </div>
+
+        <button class="btn" id="suggest-recipe">
+          ✨ Suggest a whimsical combo
+        </button>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="card">
+        <h2>Typography & CSS Design Notes</h2>
+        <small>Fonts, sizes, and layout feelings</small>
+
+        <label class="pill-label" for="css-notes">
+          CSS design styles & layout notes
+        </label>
+        <textarea id="css-notes" placeholder="Example: soft gradients, glassmorphism, rounded temples, starry borders, big title serif, tiny tech captions..."></textarea>
+
+        <div class="font-sampler">
+          <div class="font-line font-fairy">
+            Moon Temple Title — Fairy Serif · 32px
+          </div>
+          <div class="font-line font-tech">
+            .caption { font-family: 'Fira Code'; font-size: 12px; letter-spacing: 0.12em; }
+          </div>
+          <div class="font-line font-big">
+            SNOW · ICE · CASTLES · RAINBOW
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Art JavaScript Console</h2>
+        <small>Where people are from · tiny generative ideas</small>
+
+        <label class="pill-label" for="js-prompt">
+          Prompt for a tiny “art JS” phrase
+        </label>
+        <input id="js-prompt" type="text" placeholder="Example: moon, snow, castle, rainbow, perfume" />
+
+        <button class="btn" id="generate-js-art">
+          🧪 Generate phrase
+        </button>
+
+        <div class="js-art-console" id="js-art-output" aria-live="polite">
+          // Your tiny JavaScript art phrases will appear here.
+        </div>
+      </section>
+    </main>
+
+    <section class="card" style="margin-top: 16px;">
+      <h2>Temple Notes · One Sheet</h2>
+      <small>Anything that doesn’t fit anywhere else but still belongs in the temple.</small>
+      <textarea placeholder="Rituals, timings, moon cycles, sun windows, star settings, childhood memories, Disneyland days, temple layouts..."></textarea>
+    </section>
+
+    <footer>
+      <span>Single Sheet · Moon & Snow Temple Layout</span>
+      <span>Feel free to print, export, or duplicate this as your creative archive grows.</span>
+    </footer>
+  </div>
+
+  <script>
+    // THEME TOGGLES
+    const chips = document.querySelectorAll(".chip");
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const theme = chip.getAttribute("data-theme");
+        document.body.className = "theme-" + theme;
+        chips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+      });
+    });
+
+    // SIMPLE RECIPE SUGGESTION
+    const recipeBtn = document.getElementById("suggest-recipe");
+    const iceTextarea = document.getElementById("icecreme");
+    const recipeIdeas = [
+      "Moonlight Vanilla Bean with starlight sugar crystals.",
+      "Snow White Apple Pie Ice Creme with cinnamon crumble.",
+      "Elsa’s Frosted Blueberry Swirl with snowflake sprinkles.",
+      "Rainbow Sherbet Castle Bowl with pastel marshmallows.",
+      "Kristoff’s Mountain Berry Crunch with chocolate peaks."
+    ];
+    recipeBtn.addEventListener("click", () => {
+      const idea = recipeIdeas[Math.floor(Math.random() * recipeIdeas.length)];
+      iceTextarea.value += (iceTextarea.value ? "\\n" : "") + "• " + idea;
+    });
+
+    // TINY “ART JS” PHRASE GENERATOR
+    const jsPrompt = document.getElementById("js-prompt");
+    const jsOutput = document.getElementById("js-art-output");
+    const jsBtn = document.getElementById("generate-js-art");
+
+    jsBtn.addEventListener("click", () => {
+      const words = (jsPrompt.value || "moon snow castle rainbow perfume").split(/[,\\s]+/).filter(Boolean);
+      const pick = () => words[Math.floor(Math.random() * words.length)];
+      const phrase =
+        "const scene = `" +
+        pick() +
+        " · " +
+        pick() +
+        " · " +
+        pick() +
+        " temple`;\\n" +
+        "render(scene, { stars: true, ice: true, rainbow: Math.random() > 0.5 });";
+      jsOutput.textContent = phrase;
+    });
+  </script>
+</body>
+</html>
