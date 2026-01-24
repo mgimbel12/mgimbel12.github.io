@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Learning & Justice • Single Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --bg: #f5f5f9;
+      --card: #ffffff;
+      --accent: #3b5ba9;
+      --accent-soft: #e0e6f7;
+      --text-main: #222222;
+      --text-muted: #555555;
+      --border-soft: #d4d7e5;
+      --shadow-soft: 0 4px 14px rgba(0,0,0,0.06);
+      --radius: 10px;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 24px auto 40px;
+      padding: 0 16px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #3b5ba9, #7c9cff);
+      color: #fff;
+      padding: 20px 20px 18px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+    }
+
+    header h1 {
+      margin: 0 0 4px;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .meta-pill {
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(0,0,0,0.08);
+    }
+
+    main {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1.2fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px 18px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 4px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid #c5cfee;
+    }
+
+    .subheading {
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    p {
+      margin: 4px 0 6px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    ul {
+      margin: 4px 0 6px 18px;
+      padding: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 3px;
+    }
+
+    .toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .toggle-btn {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #f3f4fb;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .toggle-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .panel {
+      display: none;
+      margin-top: 4px;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      border-top: 1px dashed var(--border-soft);
+      padding-top: 6px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Law Injustice for Little People</h1>
+      <p>Developmental, educational, and ceremonial overview inside a single academic‑style sheet.</p>
+      <div class="meta-row">
+        <span class="meta-pill">Learning & Growth</span>
+        <span class="meta-pill">Justice System Helper</span>
+        <span class="meta-pill">Single‑Document HTML • CSS • JS</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT: MAIN CONTENT -->
+      <section class="card">
+        <div class="section-label">Primary focus</div>
+        <h2>Core Concepts</h2>
+
+        <div class="subheading">Who are “Little People” here?</div>
+        <ul>
+          <li>Children and teens navigating adult‑built systems.</li>
+          <li>Anyone with limited power, language, or advocacy.</li>
+          <li>Individuals whose voices are minimized or dismissed.</li>
+        </ul>
+
+        <div class="subheading">How injustice shows up</div>
+        <ul>
+          <li>Laws written for adults, applied to children without translation.</li>
+          <li>Procedures too complex for developmental understanding.</li>
+          <li>Decisions made about them, not with them.</li>
+          <li>Emotional fallout: fear, confusion, shame, mistrust.</li>
+        </ul>
+
+        <div class="subheading">What justice should look like</div>
+        <ul>
+          <li>Developmentally appropriate explanations and visuals.</li>
+          <li>Advocates, mentors, and trauma‑informed communication.</li>
+          <li>Restorative, educational responses instead of pure punishment.</li>
+        </ul>
+
+        <p class="note">
+          This block can be swapped for any topic—Academic Standards, Restorative Justice, Secure Relationship Builder—while keeping the same single‑file structure.
+        </p>
+      </section>
+
+      <!-- RIGHT: TOGGLES / MODES -->
+      <aside class="card">
+        <div class="section-label">View modes</div>
+        <h2>Panel Modes & Academic Lens</h2>
+
+        <div class="toggle-row">
+          <button class="toggle-btn active" data-target="panel-justice">Justice System</button>
+          <button class="toggle-btn" data-target="panel-academic">Academic Standards</button>
+          <button class="toggle-btn" data-target="panel-child">Child‑Friendly</button>
+        </div>
+
+        <div id="panel-justice" class="panel active">
+          <div class="subheading">Justice System Overlay</div>
+          <p>
+            Use this mode when mapping how courts, schools, and agencies interact with little people.
+            Emphasize due process, advocacy, and restorative options.
+          </p>
+          <ul>
+            <li>Identify points where voice is lost or ignored.</li>
+            <li>Mark where an advocate or mentor should appear.</li>
+            <li>Note which steps need plain‑language translation.</li>
+          </ul>
+        </div>
+
+        <div id="panel-academic" class="panel">
+          <div class="subheading">Academic Standards Overlay</div>
+          <p>
+            Here, you treat the same topic as an academic map: clear expectations, grade bands, and learning goals.
+          </p>
+          <ul>
+            <li>Define what students should understand about justice at each level.</li>
+            <li>Separate <strong>standards</strong> (goals) from <strong>curriculum</strong> (materials) and <strong>assessment</strong> (evidence).</li>
+            <li>Align with college, career, and civic readiness.</li>
+          </ul>
+        </div>
+
+        <div id="panel-child" class="panel">
+          <div class="subheading">Child‑Friendly Overlay</div>
+          <p>
+            Use story language, pictures, and simple metaphors: “fair rules,” “helpers,” “fixing hurt,” “telling your side.”
+          </p>
+          <ul>
+            <li>Translate each justice step into one sentence a child can repeat.</li>
+            <li>Mark “who helps me here?” at every stage.</li>
+            <li>Include feelings check‑ins and safety words.</li>
+          </ul>
+        </div>
+
+        <div class="footer-note">
+          Single document • Edit text only • Structure stays steady.
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Simple toggle logic for right‑side panels
+    const buttons = document.querySelectorAll('.toggle-btn');
+    const panels = document.querySelectorAll('.panel');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        panels.forEach(p => {
+          p.classList.toggle('active', p.id === targetId);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
