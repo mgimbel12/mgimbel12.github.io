@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Assistance & Aid • When Someone Needs Police Support</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --accent: #1f5fbf;
+      --accent-soft: #dbe7ff;
+      --text-main: #111827;
+      --text-soft: #4b5563;
+      --border-soft: #d1d5db;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #e0ebff 0, #f4f6fb 40%, #fdfbff 100%);
+      color: var(--text-main);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #ffffff 0, #f9fbff 40%, #ffffff 100%);
+      border-radius: 22px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 24px 24px 26px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 14px;
+    }
+
+    .title-block {
+      max-width: 70%;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: var(--radius-pill);
+      background: #e5edff;
+      border: 1px solid rgba(37, 99, 235, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      color: var(--text-soft);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .view-toggle button.active {
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.35);
+    }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: #ecfdf3;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      font-size: 0.75rem;
+      color: #166534;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 12px 12px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-pill {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: #eff4ff;
+      color: var(--accent);
+      border: 1px solid rgba(37, 99, 235, 0.35);
+    }
+
+    .card-body {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      display: grid;
+      gap: 4px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 2px;
+    }
+
+    li {
+      margin-bottom: 2px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 5px;
+      background: #cbd5f5;
+      flex-shrink: 0;
+    }
+
+    .card-accent {
+      position: absolute;
+      inset-inline-end: -40px;
+      inset-block-start: -40px;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.18), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-accent.green {
+      background: radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.18), transparent 60%);
+    }
+
+    .card-accent.gold {
+      background: radial-gradient(circle at 20% 20%, rgba(234, 179, 8, 0.18), transparent 60%);
+    }
+
+    .card-accent.red {
+      background: radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.18), transparent 60%);
+    }
+
+    .card-accent.purple {
+      background: radial-gradient(circle at 20% 20%, rgba(147, 51, 234, 0.18), transparent 60%);
+    }
+
+    .checklist {
+      margin-top: 4px;
+      display: grid;
+      gap: 3px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #475569;
+    }
+
+    .check-item input {
+      width: 13px;
+      height: 13px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(248, 250, 252, 0.9);
+      color: #475569;
+    }
+
+    .chip.info {
+      border-color: rgba(37, 99, 235, 0.7);
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .chip.safe {
+      border-color: rgba(34, 197, 94, 0.7);
+      background: #ecfdf3;
+      color: #166534;
+    }
+
+    .chip.calm {
+      border-color: rgba(56, 189, 248, 0.7);
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .loop-card {
+      margin-top: 4px;
+      background: linear-gradient(135deg, #e0ebff, #fdfbff);
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(37, 99, 235, 0.6);
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loop-step {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .loop-arrow {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-soft);
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .affirmation {
+      font-style: italic;
+      color: #334155;
+    }
+
+    .print-note {
+      opacity: 0.8;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 900px) {
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .title-block {
+        max-width: 100%;
+      }
+      header {
+        gap: 10px;
+      }
+      .controls {
+        align-items: flex-start;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .sheet {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        max-width: 100%;
+        padding: 12px 16px;
+      }
+      .controls {
+        display: none !important;
+      }
+      .card-accent {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header>
+      <div class="title-block">
+        <h1>Assistance &amp; Aid • When Someone Needs Police Support</h1>
+        <p class="subtitle">
+          A single-sheet guide to understanding how support, safety, and communication work when a person needs police assistance.
+        </p>
+        <div class="tag-row">
+          <span class="tag"><span class="tag-dot"></span>Safety &amp; Support</span>
+          <span class="tag"><span class="tag-dot"></span>Calm Communication</span>
+          <span class="tag"><span class="tag-dot"></span>Human-Centered Aid</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="view-toggle" aria-label="Toggle view mode">
+          <button type="button" class="active" data-view="full">Full View</button>
+          <button type="button" data-view="minimal">Minimal</button>
+        </div>
+        <div class="status-chip">
+          <span class="status-dot"></span>
+          <span>Focus: Safety • Clarity • Care</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid-3" aria-label="Early stages of aid">
+      <!-- Immediate Safety -->
+      <article class="card" data-section="safety">
+        <div class="card-accent.green"></div>
+        <div class="card-header">
+          <div class="card-title">1. Immediate Safety</div>
+          <span class="card-pill">First priority</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Center the person’s safety and sense of stability before anything else.</p>
+
+          <div class="label">Key Ideas</div>
+          <ul>
+            <li><span class="bullet"></span><span>Notice if the person is in immediate danger.</span></li>
+            <li><span class="bullet"></span><span>Encourage moving toward safer spaces when possible.</span></li>
+            <li><span class="bullet"></span><span>Use calm, steady tone and simple language.</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip safe">Safety first</span>
+            <span class="chip calm">Lower the panic</span>
+          </div>
+
+          <div class="checklist" data-checklist="safety">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We have noticed what feels unsafe right now.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We are looking for or imagining safer spaces or people.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Reaching Out for Help -->
+      <article class="card" data-section="reach">
+        <div class="card-accent"></div>
+        <div class="card-header">
+          <div class="card-title">2. Reaching Out for Help</div>
+          <span class="card-pill">Connecting to responders</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Connect the person with appropriate emergency or crisis responders in their area.</p>
+
+          <div class="label">Helpful Information to Share</div>
+          <ul>
+            <li><span class="bullet"></span><span>What is happening right now.</span></li>
+            <li><span class="bullet"></span><span>Where the situation is taking place (location or landmark).</span></li>
+            <li><span class="bullet"></span><span>Whether anyone is hurt or in danger.</span></li>
+            <li><span class="bullet"></span><span>Whether the person is alone or with others.</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip info">Clear, simple facts</span>
+            <span class="chip calm">Short sentences</span>
+          </div>
+
+          <div class="checklist" data-checklist="reach">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We can describe what is happening in one or two sentences.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We know roughly where the situation is happening.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Support While Waiting -->
+      <article class="card" data-section="waiting">
+        <div class="card-accent.purple"></div>
+        <div class="card-header">
+          <div class="card-title">3. Support While Waiting</div>
+          <span class="card-pill">Emotional steadiness</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Help the person feel less alone and more grounded while waiting for responders.</p>
+
+          <div class="label">Supportive Actions</div>
+          <ul>
+            <li><span class="bullet"></span><span>Offer calm reassurance: “You’re not alone right now.”</span></li>
+            <li><span class="bullet"></span><span>Encourage slow, steady breathing.</span></li>
+            <li><span class="bullet"></span><span>Keep gentle conversation going to reduce panic.</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip calm">Steady voice</span>
+            <span class="chip safe">No judgment</span>
+          </div>
+
+          <div class="checklist" data-checklist="waiting">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>The person has heard at least one reassuring sentence.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We are focusing on one moment at a time.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-2" aria-label="When officers arrive and aftercare">
+      <!-- When Officers Arrive -->
+      <article class="card" data-section="arrival">
+        <div class="card-accent.red"></div>
+        <div class="card-header">
+          <div class="card-title">4. When Officers Arrive</div>
+          <span class="card-pill">On-scene support</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Understand what police typically focus on when they reach the scene.</p>
+
+          <div class="label">Common Steps</div>
+          <ul>
+            <li><span class="bullet"></span><span>Checking for immediate danger or injuries.</span></li>
+            <li><span class="bullet"></span><span>Securing the area so no one else is harmed.</span></li>
+            <li><span class="bullet"></span><span>Asking basic questions about what happened.</span></li>
+            <li><span class="bullet"></span><span>Calling medical or other services if needed.</span></li>
+          </ul>
+
+          <div class="label">Helpful Mindset</div>
+          <ul>
+            <li><span class="bullet"></span><span>Offer honest, simple answers.</span></li>
+            <li><span class="bullet"></span><span>Remember: the goal is safety and clarity.</span></li>
+          </ul>
+
+          <div class="checklist" data-checklist="arrival">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We understand that officers are checking for safety first.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We are prepared to share simple, truthful information.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- After the Immediate Crisis -->
+      <article class="card" data-section="after">
+        <div class="card-accent.gold"></div>
+        <div class="card-header">
+          <div class="card-title">5. After the Immediate Crisis</div>
+          <span class="card-pill">Ongoing care</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Recognize that support often continues after officers leave the scene.</p>
+
+          <div class="label">Possible Next Supports</div>
+          <ul>
+            <li><span class="bullet"></span><span>Victim or survivor advocates.</span></li>
+            <li><span class="bullet"></span><span>Counselors, social workers, or crisis teams.</span></li>
+            <li><span class="bullet"></span><span>Trusted friends, family, or community members.</span></li>
+          </ul>
+
+          <div class="label">Helpful Needs to Name</div>
+          <ul>
+            <li><span class="bullet"></span><span>“I need someone to explain what happens next.”</span></li>
+            <li><span class="bullet"></span><span>“I need help contacting someone I trust.”</span></li>
+            <li><span class="bullet"></span><span>“I need time and space to calm down.”</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip safe">Longer-term support</span>
+            <span class="chip info">Questions are okay</span>
+          </div>
+
+          <div class="checklist" data-checklist="after">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We have identified at least one person or service for follow-up support.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We have named at least one need (information, comfort, or connection).</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section aria-label="Role of supporters and overall flow">
+      <article class="card" data-section="supporters">
+        <div class="card-accent"></div>
+        <div class="card-header">
+          <div class="card-title">6. Role of Supporters</div>
+          <span class="card-pill">Friends, family, community</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Highlight how non-officers—friends, family, neighbors, staff—can be a steady presence.</p>
+
+          <div class="label">Supporter Roles</div>
+          <ul>
+            <li><span class="bullet"></span><span>Offer calm presence and listening.</span></li>
+            <li><span class="bullet"></span><span>Help the person remember they are not alone.</span></li>
+            <li><span class="bullet"></span><span>Help recall important details if the person is overwhelmed.</span></li>
+            <li><span class="bullet"></span><span>Encourage connection to ongoing resources.</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip calm">Compassion</span>
+            <span class="chip safe">Non-judgment</span>
+          </div>
+
+          <div class="checklist" data-checklist="supporters">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We can name at least one supportive person or role.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>We understand that emotional support is part of safety.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="loop-card" aria-label="Overall flow of aid">
+        <span class="loop-step">Immediate Safety</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Reaching Out</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Support While Waiting</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Officers On Scene</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Aftercare &amp; Resources</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Ongoing Support</span>
+      </div>
+
+      <div class="footer-row">
+        <p class="affirmation">
+          Aid is more than law enforcement—it is safety, calm, clear information, and human connection before, during, and after.
+        </p>
+        <p class="print-note">Designed to fit on a single page in portrait mode for educational or reference use.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const viewButtons = document.querySelectorAll(".view-toggle button");
+      const cards = document.querySelectorAll(".card");
+
+      viewButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const view = btn.getAttribute("data-view");
+          viewButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          if (view === "minimal") {
+            cards.forEach((card) => {
+              const section = card.getAttribute("data-section");
+              const keep =
+                section === "safety" ||
+                section === "reach" ||
+                section === "arrival";
+              card.classList.toggle("hidden", !keep);
+            });
+          } else {
+            cards.forEach((card) => card.classList.remove("hidden"));
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
