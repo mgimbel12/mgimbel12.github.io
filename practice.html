@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Secure Relationship Builder Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --accent: #4b6cb7;
+      --accent-soft: #e3ebff;
+      --text-main: #1f2933;
+      --text-soft: #6b7280;
+      --border-soft: #d1d5db;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius-lg: 14px;
+      --radius-sm: 8px;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top left, #e0ecff, #f5f7fb 45%, #fdfdfd);
+      color: var(--text-main);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      max-width: 980px;
+      width: 100%;
+      background: linear-gradient(135deg, #ffffff, #f7f9ff);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      padding: 24px 24px 28px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 16px;
+    }
+
+    .title-block {
+      max-width: 70%;
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .tagline {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: #4b5563;
+      font-style: italic;
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .meta span {
+      display: block;
+    }
+
+    .mode-toggle {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1f2933;
+      font-size: 0.75rem;
+    }
+
+    .mode-toggle select {
+      border: none;
+      background: transparent;
+      font-size: 0.75rem;
+      outline: none;
+      color: #111827;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .title-block {
+        max-width: 100%;
+      }
+      .meta {
+        text-align: left;
+      }
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 18px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .panel + .panel {
+      margin-top: 10px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #111827;
+    }
+
+    .panel-tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4338ca;
+      border: 1px solid #c7d2fe;
+    }
+
+    .panel-body {
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    .micro-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-soft);
+      margin-bottom: 4px;
+    }
+
+    .prompt-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .prompt-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #374151;
+      min-width: 80px;
+    }
+
+    .prompt-input {
+      flex: 1;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-soft);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      background: #f9fafb;
+    }
+
+    .prompt-input:focus {
+      outline: 2px solid #c7d2fe;
+      background: #ffffff;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 4px 0;
+      font-size: 0.84rem;
+    }
+
+    .checklist input[type="checkbox"] {
+      margin-top: 2px;
+      accent-color: var(--accent);
+    }
+
+    .note-area {
+      width: 100%;
+      min-height: 60px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-soft);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      resize: vertical;
+      background: #f9fafb;
+    }
+
+    .note-area:focus {
+      outline: 2px solid #c7d2fe;
+      background: #ffffff;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      color: #374151;
+    }
+
+    .pill.strong {
+      border-color: #bfdbfe;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .affirmation {
+      margin-top: 6px;
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+      font-size: 0.8rem;
+      color: #166534;
+    }
+
+    .affirmation span {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+      margin-right: 4px;
+    }
+
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .badge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .badge {
+      border-radius: var(--radius-sm);
+      border: 1px solid #e5e7eb;
+      background: #f9fafb;
+      padding: 6px 8px;
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .badge-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6b7280;
+    }
+
+    .badge-main {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .badge-sub {
+      font-size: 0.72rem;
+      color: #6b7280;
+    }
+
+    .footer-row {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: #6b7280;
+      border-top: 1px dashed #d1d5db;
+      padding-top: 8px;
+    }
+
+    .footer-row button {
+      border-radius: 999px;
+      border: 1px solid #c7d2fe;
+      background: #eef2ff;
+      color: #3730a3;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .footer-row button:hover {
+      background: #e0e7ff;
+      transform: translateY(-1px);
+    }
+
+    .footer-row button:active {
+      transform: translateY(0);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+      }
+      .footer-row button,
+      .mode-toggle {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-block">
+        <h1>Secure Relationship Builder Panel</h1>
+        <p class="subtitle">
+          A single-sheet reference for trust, safety, and emotionally secure connection.
+        </p>
+        <p class="tagline">
+          Use as a daily check-in, repair map, or ceremonial overlay for any relationship context.
+        </p>
+      </div>
+      <div class="meta">
+        <span><strong>Context Mode:</strong></span>
+        <div class="mode-toggle">
+          <span>View as</span>
+          <select id="modeSelect">
+            <option value="general">General</option>
+            <option value="family">Family</option>
+            <option value="friendship">Friendship</option>
+            <option value="romantic">Romantic</option>
+            <option value="lgbtq">LGBTQ-affirming</option>
+          </select>
+        </div>
+        <span>Sheet Type: Single-page helper</span>
+        <span>Use: Reflection · Planning · Repair</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <section aria-label="Core practice panels">
+        <!-- Daily Connection Rituals -->
+        <article class="panel" data-panel="connection">
+          <div class="panel-header">
+            <div class="panel-title">Daily Connection Rituals</div>
+            <div class="panel-tag">Rhythm &amp; Presence</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label">Micro-rituals</div>
+            <div class="prompt-row">
+              <div class="prompt-label">Check-in</div>
+              <input
+                class="prompt-input"
+                id="checkInPrompt"
+                type="text"
+                placeholder="e.g., 'How are you really doing today?'"
+              />
+            </div>
+            <div class="prompt-row">
+              <div class="prompt-label">Gratitude</div>
+              <input
+                class="prompt-input"
+                id="gratitudePrompt"
+                type="text"
+                placeholder="e.g., 'One thing I appreciate about you is…'"
+              />
+            </div>
+            <div class="prompt-row">
+              <div class="prompt-label">Support</div>
+              <input
+                class="prompt-input"
+                id="supportPrompt"
+                type="text"
+                placeholder="e.g., 'How can I support you today?'"
+              />
+            </div>
+            <div class="affirmation">
+              <span>Anchor</span>
+              We build security through small, consistent moments of attention.
+            </div>
+          </div>
+        </article>
+
+        <!-- Communication Anchors -->
+        <article class="panel" data-panel="communication">
+          <div class="panel-header">
+            <div class="panel-title">Communication Anchors</div>
+            <div class="panel-tag">Clarity &amp; Honesty</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label">Sentence stems</div>
+            <ul class="checklist">
+              <li>
+                <input type="checkbox" />
+                <label for="">
+                  <strong>I feel…</strong>
+                  when…
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label for="">
+                  <strong>I need…</strong>
+                  in order to feel safe / supported.
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label for="">
+                  <strong>What I’m hearing is…</strong>
+                  Did I get that right?
+                </label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label for="">
+                  <strong>Can we slow down?</strong>
+                  I want to stay connected while we talk about this.
+                </label>
+              </li>
+            </ul>
+            <div class="pill-row">
+              <div class="pill strong">No guessing games</div>
+              <div class="pill">No silent punishment</div>
+              <div class="pill">Name needs directly</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Repair Steps -->
+        <article class="panel" data-panel="repair">
+          <div class="panel-header">
+            <div class="panel-title">Repair Map</div>
+            <div class="panel-tag">Conflict &amp; Return</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label">When there is a rupture</div>
+            <ul class="checklist">
+              <li>
+                <input type="checkbox" />
+                <label><strong>Pause:</strong> Take space to regulate, not to punish.</label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label><strong>Name:</strong> “Something felt off between us when…”</label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label><strong>Own:</strong> “My part in this was…”</label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label><strong>Repair:</strong> “Here is what I’d like to do differently…”</label>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <label><strong>Agree:</strong> Decide together on one small next step.</label>
+              </li>
+            </ul>
+            <textarea
+              class="note-area"
+              id="repairNotes"
+              placeholder="Notes on how we repair well, or what helps each of us feel safe returning after conflict."
+            ></textarea>
+          </div>
+        </article>
+
+        <!-- Boundary Check -->
+        <article class="panel" data-panel="boundaries">
+          <div class="panel-header">
+            <div class="panel-title">Boundary Check</div>
+            <div class="panel-tag">Respect &amp; Limits</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label">Today’s boundaries</div>
+            <div class="prompt-row">
+              <div class="prompt-label">Comfort</div>
+              <input
+                class="prompt-input"
+                id="comfortBoundary"
+                type="text"
+                placeholder="I am comfortable with…"
+              />
+            </div>
+            <div class="prompt-row">
+              <div class="prompt-label">Space</div>
+              <input
+                class="prompt-input"
+                id="spaceBoundary"
+                type="text"
+                placeholder="I need space around…"
+              />
+            </div>
+            <div class="prompt-row">
+              <div class="prompt-label">Non‑negotiable</div>
+              <input
+                class="prompt-input"
+                id="nonnegotiableBoundary"
+                type="text"
+                placeholder="For my wellbeing, I cannot…"
+              />
+            </div>
+            <div class="pill-row">
+              <div class="pill strong">Honest yes / honest no</div>
+              <div class="pill">Limits are not rejection</div>
+              <div class="pill">Respect is a love language</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <aside class="side-column" aria-label="Trust, celebration, and quick reference">
+        <!-- Trust Builders -->
+        <article class="panel" data-panel="trust">
+          <div class="panel-header">
+            <div class="panel-title">Trust Builders</div>
+            <div class="panel-tag">Stability &amp; Safety</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label">Core practices</div>
+            <div class="badge-grid">
+              <div class="badge">
+                <div class="badge-label">Consistency</div>
+                <div class="badge-main">Show up when you say you will</div>
+                <div class="badge-sub">Follow-through builds nervous system safety.</div>
+              </div>
+              <div class="badge">
+                <div class="badge-label">Emotional Availability</div>
+                <div class="badge-main">Listen without punishment</div>
+                <div class="badge-sub">Feelings are allowed, even when messy.</div>
+              </div>
+              <div class="badge">
+                <div class="badge-label">Transparency</div>
+                <div class="badge-main">Say what you mean</div>
+                <div class="badge-sub">No hidden rules or secret tests.</div>
+              </div>
+              <div class="badge">
+                <div class="badge-label">Accountability</div>
+                <div class="badge-main">Own and repair</div>
+                <div class="badge-sub">Apologies are paired with change.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Celebration Corner -->
+        <article class="panel" data-panel="celebration">
+          <div class="panel-header">
+            <div class="panel-title">Celebration Corner</div>
+            <div class="panel-tag">Joy &amp; Growth</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label">Today’s wins</div>
+            <textarea
+              class="note-area"
+              id="winsNotes"
+              placeholder="Moments of kindness, courage, honesty, or repair we want to honor."
+            ></textarea>
+            <div class="affirmation">
+              <span>Remember</span>
+              Secure relationships are built from many small, ordinary moments of care.
+            </div>
+          </div>
+        </article>
+
+        <!-- Mode-specific Notes -->
+        <article class="panel" id="modeNotesPanel">
+          <div class="panel-header">
+            <div class="panel-title" id="modeNotesTitle">Context Notes</div>
+            <div class="panel-tag" id="modeNotesTag">Adaptation</div>
+          </div>
+          <div class="panel-body">
+            <div class="micro-label" id="modeNotesLabel">How this applies here</div>
+            <textarea
+              class="note-area"
+              id="modeNotes"
+              placeholder="Reflect on how these builders look in this specific relationship context."
+            ></textarea>
+          </div>
+        </article>
+      </aside>
+    </main>
+
+    <div class="footer-row">
+      <div>
+        <strong>Usage suggestion:</strong>
+        Choose a mode, fill prompts lightly, and revisit after conversations or conflicts.
+      </div>
+      <div>
+        <button type="button" id="clearAllBtn">Clear sheet</button>
+        <button type="button" onclick="window.print()">Print / Save as PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const modeSelect = document.getElementById("modeSelect");
+      const modeNotesTitle = document.getElementById("modeNotesTitle");
+      const modeNotesTag = document.getElementById("modeNotesTag");
+      const modeNotesLabel = document.getElementById("modeNotesLabel");
+      const modeNotes = document.getElementById("modeNotes");
+      const clearAllBtn = document.getElementById("clearAllBtn");
+
+      const modePresets = {
+        general: {
+          title: "Context Notes",
+          tag: "Adaptation",
+          label: "How this applies here",
+          placeholder:
+            "How do trust, boundaries, and repair show up in the relationships I’m focusing on today?"
+        },
+        family: {
+          title: "Family Context Notes",
+          tag: "Home & Belonging",
+          label: "Family application",
+          placeholder:
+            "How can we make our home feel emotionally safe, predictable, and kind for each person?"
+        },
+        friendship: {
+          title: "Friendship Context Notes",
+          tag: "Mutual Support",
+          label: "Friendship application",
+          placeholder:
+            "What does secure, low-drama friendship look like for me? How do we show up for each other?"
+        },
+        romantic: {
+          title: "Romantic Context Notes",
+          tag: "Intimacy & Care",
+          label: "Romantic application",
+          placeholder:
+            "How do we practice honesty, repair, and tenderness in this relationship, especially when we disagree?"
+        },
+        lgbtq: {
+          title: "LGBTQ‑Affirming Context Notes",
+          tag: "Affirmation & Safety",
+          label: "Affirming application",
+          placeholder:
+            "How do we protect each other’s dignity, pronouns, identities, and stories while building secure connection?"
+        }
+      };
+
+      function applyMode(modeKey) {
+        const preset = modePresets[modeKey] || modePresets.general;
+        modeNotesTitle.textContent = preset.title;
+        modeNotesTag.textContent = preset.tag;
+        modeNotesLabel.textContent = preset.label;
+        modeNotes.placeholder = preset.placeholder;
+      }
+
+      modeSelect.addEventListener("change", function () {
+        applyMode(this.value);
+      });
+
+      applyMode(modeSelect.value);
+
+      clearAllBtn.addEventListener("click", function () {
+        if (!confirm("Clear all text fields and checkboxes on this sheet?")) return;
+
+        document
+          .querySelectorAll("input[type='text'], textarea")
+          .forEach((el) => (el.value = ""));
+
+        document
+          .querySelectorAll("input[type='checkbox']")
+          .forEach((el) => (el.checked = false));
+      });
+    })();
+  </script>
+</body>
+</html>
+
