@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Life Help for Situations That Cause Bodily Harm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f4f8fc;
+      --card-bg: #ffffff;
+      --accent: #2f6fad;
+      --accent-soft: #d7e4f5;
+      --text-main: #1f2933;
+      --text-muted: #5f6c80;
+      --border-soft: #d0d7e2;
+      --danger-soft: #fbe4e6;
+      --danger: #b3261e;
+      --radius: 10px;
+      --shadow-soft: 0 8px 18px rgba(15, 23, 42, 0.08);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #e3efff, #f7f9fc 45%, #eef3fb);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 32px auto;
+      padding: 16px;
+    }
+
+    .sheet {
+      background: var(--card-bg);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      padding: 28px 26px 30px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+    }
+
+    header.sheet-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .title-block {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .title-block h1 {
+      font-size: 22px;
+      margin: 4px 0 4px;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .title-block p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .meta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-align: right;
+      min-width: 160px;
+    }
+
+    .meta-label {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .meta-value {
+      font-weight: 500;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #f9fbff;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #9ca3af;
+    }
+
+    .intro {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .meta-block {
+        text-align: left;
+      }
+    }
+
+    .section-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      background: #fdfefe;
+      padding: 14px 14px 12px;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card.highlight {
+      background: #f7fbff;
+      border-color: var(--accent-soft);
+    }
+
+    .section-card.danger {
+      background: var(--danger-soft);
+      border-color: #f3b5b9;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-main);
+    }
+
+    .section-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+      font-weight: 600;
+    }
+
+    .section-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      background: #e5edff;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .section-icon.danger {
+      background: #fcd5d8;
+      color: var(--danger);
+    }
+
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+
+    .toggle-arrow {
+      transition: transform 0.2s ease;
+      font-size: 10px;
+    }
+
+    .toggle-arrow.open {
+      transform: rotate(90deg);
+    }
+
+    .section-body {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+
+    .section-body ul {
+      margin: 6px 0 4px 18px;
+      padding: 0;
+    }
+
+    .section-body li {
+      margin-bottom: 4px;
+    }
+
+    .label {
+      font-weight: 600;
+    }
+
+    .note {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .side-column .section-card {
+      margin-bottom: 12px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #4b5563;
+      border: 1px solid #e0e7ff;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-soft);
+      font-size: 11px;
+      color: var(--text-muted);
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-note {
+      max-width: 520px;
+      line-height: 1.4;
+    }
+
+    .footer-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .footer-tag {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      font-size: 10px;
+      color: #6b7280;
+      background: #f9fafb;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 11px;
+    }
+
+    .toolbar button {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #f9fbff;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #4b5563;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .toolbar button span.icon {
+      font-size: 12px;
+    }
+
+    .toolbar button:hover {
+      background: #eef2ff;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .sheet {
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .toolbar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="sheet" id="sheet">
+      <header class="sheet-header">
+        <div class="title-block">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Life Help • Safety & Support
+          </div>
+          <h1>Life Help for Situations That Cause Bodily Harm</h1>
+          <p>
+            A single‑sheet, gentle framework for safety, stabilization, and human support
+            when harm has occurred or is at risk.
+          </p>
+        </div>
+        <div class="meta-block">
+          <div>
+            <div class="meta-label">Scope</div>
+            <div class="meta-value">Non‑clinical • Non‑diagnostic • Educational</div>
+          </div>
+          <div>
+            <div class="meta-label">Focus</div>
+            <div class="meta-value">Safety • Grounding • Human Connection</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="pill-row">
+        <div class="pill"><span></span> Abuse & Neglect</div>
+        <div class="pill"><span></span> Violence & Unsafe Environments</div>
+        <div class="pill"><span></span> Bodily Harm & Injury</div>
+        <div class="pill"><span></span> Supporter Guidance</div>
+      </div>
+
+      <p class="intro">
+        This sheet offers a calm, structured way to think about life situations that cause
+        bodily harm—whether from abuse, neglect, violence, unsafe environments, or dangerous
+        relationships. It does not give medical, legal, or diagnostic advice. Instead, it
+        centers safety, dignity, and connection to trusted human support.
+      </p>
+
+      <div class="toolbar">
+        <button type="button" id="expandAllBtn">
+          <span class="icon">▸</span>
+          Expand all
+        </button>
+        <button type="button" id="collapseAllBtn">
+          <span class="icon">▾</span>
+          Collapse all
+        </button>
+        <button type="button" onclick="window.print()">
+          <span class="icon">🖨</span>
+          Print sheet
+        </button>
+      </div>
+
+      <div class="grid">
+        <!-- MAIN COLUMN -->
+        <div>
+          <!-- 1. Immediate Safety Support -->
+          <section class="section-card highlight" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon danger">!</div>
+                <div>
+                  Immediate Safety Support
+                  <div class="section-tag">First priority: safer space</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                When someone is in danger or has been hurt, the first priority is helping
+                them move toward safety. Safety can be physical, emotional, or both.
+              </p>
+              <ul>
+                <li><span class="label">Trusted presence:</span> stay with a trusted friend, family member, or neighbor.</li>
+                <li><span class="label">Safer location:</span> move to a public, supervised, or otherwise safer environment if possible.</li>
+                <li><span class="label">Reach out:</span> call or message someone they trust to come be with them.</li>
+                <li><span class="label">Create distance:</span> when it is safe to do so, step away from the harmful situation or person.</li>
+              </ul>
+              <p class="note">
+                Safety is the foundation for all other care. No decisions need to be made
+                immediately; the first step is simply: “Where can you feel safer right now?”
+              </p>
+            </div>
+          </section>
+
+          <!-- 2. Emotional Stabilization -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">🌿</div>
+                <div>
+                  Emotional Stabilization
+                  <div class="section-tag">Grounding after shock or fear</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                Bodily harm often comes with shock, fear, confusion, or numbness. Gentle
+                grounding can help someone feel more present and less overwhelmed.
+              </p>
+              <ul>
+                <li><span class="label">Breathing:</span> slow inhale, brief pause, slow exhale—repeat until the body softens a little.</li>
+                <li><span class="label">Sensory check:</span> name things you can see, hear, and touch in the room.</li>
+                <li><span class="label">Comfort object:</span> hold a blanket, pillow, or familiar item that feels safe.</li>
+                <li><span class="label">Calm companion:</span> sit with someone who can stay steady and kind.</li>
+              </ul>
+              <p class="note">
+                These are not treatments or therapy. They are simple, human tools to help
+                the nervous system settle enough to think about next steps.
+              </p>
+            </div>
+          </section>
+
+          <!-- 3. Medical Attention (General Concepts) -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">⚕</div>
+                <div>
+                  Medical Attention (General Concepts)
+                  <div class="section-tag">Checking the body with care</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                When someone has been physically harmed, medical care can help ensure that
+                injuries are seen, pain is addressed, and hidden problems are not missed.
+              </p>
+              <ul>
+                <li><span class="label">Visible injuries:</span> bruises, cuts, or pain can be checked and treated.</li>
+                <li><span class="label">Hidden harm:</span> professionals can look for internal or less obvious injuries.</li>
+                <li><span class="label">Comfort focus:</span> care can be trauma‑informed, gentle, and paced with the person’s consent.</li>
+                <li><span class="label">Documentation:</span> records may be created that could matter later, if the person chooses to use them.</li>
+              </ul>
+              <p class="note">
+                The person has the right to ask questions, to pause, and to decline parts of
+                care they are not comfortable with.
+              </p>
+            </div>
+          </section>
+
+          <!-- 4. Understanding the Harm -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">🔍</div>
+                <div>
+                  Understanding the Harm
+                  <div class="section-tag">Naming what is happening</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                Bodily harm can come from many life situations. Naming the source can help
+                identify what kind of support and protection might be needed.
+              </p>
+              <ul>
+                <li>Domestic or family violence</li>
+                <li>Child abuse or neglect</li>
+                <li>Date rape or sexual assault</li>
+                <li>Bullying or targeted violence</li>
+                <li>Unsafe living or working conditions</li>
+                <li>Caregiver violence or rough handling</li>
+                <li>Community violence or repeated exposure to harm</li>
+                <li>Accidents caused by neglect or unsafe environments</li>
+              </ul>
+              <p class="note">
+                Understanding the pattern does not mean blaming the victim. It is about
+                recognizing that what is happening is not okay and that support is deserved.
+              </p>
+            </div>
+          </section>
+
+          <!-- 5. Long‑Term Healing Support -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">🌱</div>
+                <div>
+                  Long‑Term Healing Support
+                  <div class="section-tag">Recovery as a journey</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                Healing from bodily harm is rarely a single event. It is a gradual process
+                that can include physical, emotional, and social rebuilding.
+              </p>
+              <ul>
+                <li><span class="label">Support conversations:</span> talking with a counselor, advocate, or trusted person.</li>
+                <li><span class="label">Routines:</span> slowly re‑establishing sleep, meals, school, work, or hobbies.</li>
+                <li><span class="label">Relationships:</span> strengthening safe connections and setting boundaries where needed.</li>
+                <li><span class="label">Skills:</span> learning grounding, coping, and self‑soothing practices.</li>
+                <li><span class="label">Community:</span> connecting with groups, programs, or communities that feel supportive.</li>
+              </ul>
+              <p class="note">
+                Healing is not linear. There is no “right” timeline. Steps forward and
+                backward are both part of the process.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <!-- SIDE COLUMN -->
+        <aside class="side-column">
+          <!-- Supportive Human Connections -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">🤝</div>
+                <div>
+                  Supportive Human Connections
+                  <div class="section-tag">No one should face harm alone</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                People heal better when they are not isolated. Safe, caring humans can make
+                a powerful difference.
+              </p>
+              <ul>
+                <li>Family members who are kind and trustworthy</li>
+                <li>Friends who listen without judgment</li>
+                <li>Teachers, mentors, or coaches</li>
+                <li>Faith leaders or community elders (if desired)</li>
+                <li>Advocates, crisis center staff, or support workers</li>
+              </ul>
+              <p class="note">
+                A supporter does not need to “fix” everything. Being present, calm, and
+                respectful is already meaningful help.
+              </p>
+            </div>
+          </section>
+
+          <!-- Safety Planning -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">🛡</div>
+                <div>
+                  Safety Planning
+                  <div class="section-tag">Thinking ahead, step by step</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                A safety plan is a simple, practical way to think about what to do if harm
+                happens again or feels likely.
+              </p>
+              <ul>
+                <li><span class="label">Who:</span> list people you can call or message quickly.</li>
+                <li><span class="label">Where:</span> identify safer places you can go on short notice.</li>
+                <li><span class="label">What:</span> note important items (medications, documents, keys) you may need.</li>
+                <li><span class="label">Signals:</span> recognize early warning signs that a situation is becoming unsafe.</li>
+              </ul>
+              <p class="note">
+                Safety plans restore a sense of control. They are personal and can be
+                adjusted over time.
+              </p>
+            </div>
+          </section>
+
+          <!-- What You Can Do as a Supporter -->
+          <section class="section-card" data-section>
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">💬</div>
+                <div>
+                  What You Can Do as a Supporter
+                  <div class="section-tag">Simple, human actions</div>
+                </div>
+              </div>
+              <button class="toggle-btn" type="button">
+                <span class="toggle-arrow open">▶</span>
+                <span class="toggle-label">Hide</span>
+              </button>
+            </div>
+            <div class="section-body">
+              <p>
+                You do not need to be a professional to be part of someone’s safety and
+                healing.
+              </p>
+              <ul>
+                <li>Listen without interrupting or judging.</li>
+                <li>Say things like “I believe you” and “What happened is not your fault.”</li>
+                <li>Stay calm, even if you feel upset inside.</li>
+                <li>Offer to help them find trusted human support or local resources.</li>
+                <li>Sit with them during difficult moments, if they want company.</li>
+                <li>Respect their choices and pace; do not pressure them.</li>
+              </ul>
+              <p class="note">
+                Your presence can be part of their safety. You are not replacing
+                professionals—you are walking alongside them.
+              </p>
+            </div>
+          </section>
+
+          <!-- Quick Reference Chips -->
+          <section class="section-card">
+            <div class="section-header">
+              <div class="section-title">
+                <div class="section-icon">📌</div>
+                <div>
+                  Quick Reference
+                  <div class="section-tag">Key ideas at a glance</div>
+                </div>
+              </div>
+            </div>
+            <div class="section-body">
+              <div class="chips">
+                <div class="chip">Safety first</div>
+                <div class="chip">You are not to blame</div>
+                <div class="chip">You deserve support</div>
+                <div class="chip">One step at a time</div>
+                <div class="chip">You can say “no”</div>
+                <div class="chip">You can change your mind</div>
+                <div class="chip">You are not alone</div>
+              </div>
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <div class="footer-row">
+        <div class="footer-note">
+          This sheet is for education and reflection. It does not replace medical, legal,
+          or mental‑health care. Whenever possible, connect with trusted humans and
+          qualified professionals who can offer in‑person support.
+        </div>
+        <div class="footer-tags">
+          <div class="footer-tag">Single‑sheet overlay</div>
+          <div class="footer-tag">Trauma‑aware language</div>
+          <div class="footer-tag">Print‑friendly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const sections = document.querySelectorAll("[data-section]");
+      const expandAllBtn = document.getElementById("expandAllBtn");
+      const collapseAllBtn = document.getElementById("collapseAllBtn");
+
+      function setSectionOpen(section, open) {
+        const body = section.querySelector(".section-body");
+        const arrow = section.querySelector(".toggle-arrow");
+        const label = section.querySelector(".toggle-label");
+        if (!body || !arrow || !label) return;
+
+        if (open) {
+          body.style.display = "block";
+          arrow.classList.add("open");
+          label.textContent = "Hide";
+        } else {
+          body.style.display = "none";
+          arrow.classList.remove("open");
+          label.textContent = "Show";
+        }
+      }
+
+      sections.forEach((section) => {
+        const toggleBtn = section.querySelector(".toggle-btn");
+        if (!toggleBtn) return;
+
+        toggleBtn.addEventListener("click", () => {
+          const body = section.querySelector(".section-body");
+          if (!body) return;
+          const isVisible = body.style.display !== "none";
+          setSectionOpen(section, !isVisible);
+        });
+      });
+
+      if (expandAllBtn) {
+        expandAllBtn.addEventListener("click", () => {
+          sections.forEach((section) => setSectionOpen(section, true));
+        });
+      }
+
+      if (collapseAllBtn) {
+        collapseAllBtn.addEventListener("click", () => {
+          sections.forEach((section) => setSectionOpen(section, false));
+        });
+      }
+
+      // Initialize: all sections open by default
+      sections.forEach((section) => setSectionOpen(section, true));
+    })();
+  </script>
+</body>
+</html>
+
