@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Learning & Growth • Help-Provided Justice System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --accent: #3b6dd8;
+      --accent-soft: #dbe5ff;
+      --text-main: #1f2430;
+      --text-soft: #4f5668;
+      --border-soft: #d3d7e3;
+      --success: #2f9e5b;
+      --warning: #e0a100;
+      --danger: #d64545;
+      --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.08);
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #e4ecff 0, #f5f7fb 40%, #fdfbff 100%);
+      color: var(--text-main);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #ffffff 0, #f9fbff 40%, #ffffff 100%);
+      border-radius: 20px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 24px 24px 28px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 14px;
+    }
+
+    .title-block {
+      max-width: 70%;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: var(--radius-pill);
+      background: #e5edff;
+      border: 1px solid rgba(59, 109, 216, 0.4);
+    }
+
+    .view-toggle button {
+      border: none;
+      background: transparent;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      color: var(--text-soft);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .view-toggle button.active {
+      background: #ffffff;
+      color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(59, 109, 216, 0.35);
+    }
+
+    .progress-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: #ecfdf3;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      font-size: 0.75rem;
+      color: #166534;
+    }
+
+    .progress-bar {
+      width: 80px;
+      height: 6px;
+      border-radius: 999px;
+      background: #d1fae5;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e, #4ade80);
+      transition: width var(--transition-fast);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 12px 12px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-pill {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: #eff4ff;
+      color: var(--accent);
+      border: 1px solid rgba(59, 109, 216, 0.35);
+    }
+
+    .card-body {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      display: grid;
+      gap: 4px;
+    }
+
+    .label {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 4px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 2px;
+    }
+
+    li {
+      margin-bottom: 2px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .bullet {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      margin-top: 5px;
+      background: #cbd5f5;
+      flex-shrink: 0;
+    }
+
+    .loop-card {
+      margin-top: 4px;
+      background: linear-gradient(135deg, #e0ebff, #fdfbff);
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(59, 109, 216, 0.6);
+      padding: 10px 12px;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loop-step {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .loop-arrow {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border-soft);
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .affirmation {
+      font-style: italic;
+      color: #334155;
+    }
+
+    .print-note {
+      opacity: 0.8;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(248, 250, 252, 0.9);
+      color: #475569;
+    }
+
+    .chip.success {
+      border-color: rgba(34, 197, 94, 0.6);
+      background: #ecfdf3;
+      color: #166534;
+    }
+
+    .chip.warning {
+      border-color: rgba(234, 179, 8, 0.7);
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .chip.info {
+      border-color: rgba(59, 130, 246, 0.7);
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .card-accent-strip {
+      position: absolute;
+      inset-inline-end: -40px;
+      inset-block-start: -40px;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.18), transparent 60%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-accent-strip.green {
+      background: radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.18), transparent 60%);
+    }
+
+    .card-accent-strip.gold {
+      background: radial-gradient(circle at 20% 20%, rgba(234, 179, 8, 0.18), transparent 60%);
+    }
+
+    .card-accent-strip.red {
+      background: radial-gradient(circle at 20% 20%, rgba(220, 38, 38, 0.18), transparent 60%);
+    }
+
+    .card-accent-strip.purple {
+      background: radial-gradient(circle at 20% 20%, rgba(147, 51, 234, 0.18), transparent 60%);
+    }
+
+    .checklist {
+      margin-top: 4px;
+      display: grid;
+      gap: 3px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #475569;
+    }
+
+    .check-item input {
+      width: 13px;
+      height: 13px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .title-block {
+        max-width: 100%;
+      }
+      header {
+        gap: 10px;
+      }
+      .controls {
+        align-items: flex-start;
+      }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .sheet {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        max-width: 100%;
+        padding: 12px 16px;
+      }
+      .controls {
+        display: none !important;
+      }
+      .card-accent-strip {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="sheet">
+    <header>
+      <div class="title-block">
+        <h1>Learning &amp; Growth • Help-Provided Justice System</h1>
+        <p class="subtitle">A restorative, educational, humane model for responding to mistakes with understanding, support, and repair.</p>
+        <div class="tag-row">
+          <span class="tag"><span class="tag-dot"></span>Restorative Justice</span>
+          <span class="tag"><span class="tag-dot"></span>Learning &amp; Growth</span>
+          <span class="tag"><span class="tag-dot"></span>Support, Not Isolation</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="view-toggle" aria-label="Toggle view mode">
+          <button type="button" class="active" data-view="full">Full View</button>
+          <button type="button" data-view="minimal">Minimal</button>
+        </div>
+        <div class="progress-chip">
+          <span>Growth Progress</span>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Core stages of the justice system">
+      <!-- Learning -->
+      <article class="card" data-section="learning">
+        <div class="card-accent-strip purple"></div>
+        <div class="card-header">
+          <div class="card-title">1. Learning</div>
+          <span class="card-pill">Understand, don’t shame</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Understand what happened, why it happened, and who was affected—without labeling the person as “bad.”</p>
+
+          <div class="label">Components</div>
+          <ul>
+            <li><span class="bullet"></span><span>What happened (the action or choice)</span></li>
+            <li><span class="bullet"></span><span>Why it happened (feelings, pressures, misunderstandings)</span></li>
+            <li><span class="bullet"></span><span>Who was affected and how</span></li>
+            <li><span class="bullet"></span><span>Which expectation, rule, or value was involved</span></li>
+          </ul>
+
+          <div class="label">Tools</div>
+          <ul>
+            <li><span class="bullet"></span><span>Reflection prompts (“What was I thinking at the time?”)</span></li>
+            <li><span class="bullet"></span><span>Cause–effect mapping (“When I did X, Y happened.”)</span></li>
+            <li><span class="bullet"></span><span>“What I understand now” statements</span></li>
+          </ul>
+
+          <div class="checklist" data-checklist="learning">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I can clearly describe what happened.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I understand who was affected and how.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I can name the value or rule involved.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Growth -->
+      <article class="card" data-section="growth">
+        <div class="card-accent-strip green"></div>
+        <div class="card-header">
+          <div class="card-title">2. Growth</div>
+          <span class="card-pill">Build new skills</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Turn insight into action by practicing better choices, communication, and problem-solving.</p>
+
+          <div class="label">Growth Activities</div>
+          <ul>
+            <li><span class="bullet"></span><span>Practice tasks that rehearse a better response</span></li>
+            <li><span class="bullet"></span><span>Communication or empathy exercises</span></li>
+            <li><span class="bullet"></span><span>Step-by-step improvement plans</span></li>
+            <li><span class="bullet"></span><span>Timed goals or countdowns to track progress</span></li>
+          </ul>
+
+          <div class="label">Principles</div>
+          <ul>
+            <li><span class="bullet"></span><span>Small, realistic steps</span></li>
+            <li><span class="bullet"></span><span>Encouragement and feedback</span></li>
+            <li><span class="bullet"></span><span>Visible progress (checklists, levels, or stars)</span></li>
+          </ul>
+
+          <div class="checklist" data-checklist="growth">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I have a clear plan for doing better next time.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I have practiced or rehearsed a better response.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I can name at least one new skill I’m using.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Help Provided -->
+      <article class="card" data-section="help">
+        <div class="card-accent-strip"></div>
+        <div class="card-header">
+          <div class="card-title">3. Help Provided</div>
+          <span class="card-pill">Support, not isolation</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Make sure the person is supported, guided, and not left alone with the problem.</p>
+
+          <div class="label">Support Types</div>
+          <ul>
+            <li><span class="bullet"></span><span>Mentorship or coaching</span></li>
+            <li><span class="bullet"></span><span>Guided reflection with a trusted adult or peer</span></li>
+            <li><span class="bullet"></span><span>Peer support or buddy systems</span></li>
+            <li><span class="bullet"></span><span>Access to tools (vocabulary, math, planning, emotional regulation)</span></li>
+          </ul>
+
+          <div class="label">Support Philosophy</div>
+          <ul>
+            <li><span class="bullet"></span><span>“We fix this together.”</span></li>
+            <li><span class="bullet"></span><span>“You are capable of better.”</span></li>
+            <li><span class="bullet"></span><span>“You are more than this mistake.”</span></li>
+          </ul>
+
+          <div class="checklist" data-checklist="help">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I know who is supporting me through this.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I have at least one tool or resource I can use.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I do not feel alone with this problem.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid-2" aria-label="Accountability and Reward">
+      <!-- Accountability -->
+      <article class="card" data-section="accountability">
+        <div class="card-accent-strip.red"></div>
+        <div class="card-header">
+          <div class="card-title">4. Accountability</div>
+          <span class="card-pill">Repair, not humiliation</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Repair the impact of the action in a way that is fair, safe, and respectful.</p>
+
+          <div class="label">Restorative Actions</div>
+          <ul>
+            <li><span class="bullet"></span><span>Apologies (spoken or written, when appropriate)</span></li>
+            <li><span class="bullet"></span><span>Fixing or replacing what was damaged</span></li>
+            <li><span class="bullet"></span><span>Helping the affected person or community</span></li>
+            <li><span class="bullet"></span><span>Completing a responsibility task that restores trust</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip warning">Proportional</span>
+            <span class="chip">Time-limited</span>
+            <span class="chip">Never humiliating</span>
+          </div>
+
+          <div class="checklist" data-checklist="accountability">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I have taken a concrete step to repair the harm.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>The consequence fits what happened (not too big, not too small).</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I understand why this accountability step matters.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Reward & Reintegration -->
+      <article class="card" data-section="reward">
+        <div class="card-accent-strip.gold"></div>
+        <div class="card-header">
+          <div class="card-title">5. Reward &amp; Reintegration</div>
+          <span class="card-pill">Recognize growth</span>
+        </div>
+        <div class="card-body">
+          <div class="label">Purpose</div>
+          <p>Recognize learning and growth, restore trust, and welcome the person fully back into the community.</p>
+
+          <div class="label">Reward Types</div>
+          <ul>
+            <li><span class="bullet"></span><span>Trust restored and privileges returned</span></li>
+            <li><span class="bullet"></span><span>Certificates, badges, or positive notes</span></li>
+            <li><span class="bullet"></span><span>XP points, levels, or progress stars</span></li>
+            <li><span class="bullet"></span><span>New opportunities or responsibilities</span></li>
+          </ul>
+
+          <div class="label">Reintegration Elements</div>
+          <ul>
+            <li><span class="bullet"></span><span>Clean slate going forward</span></li>
+            <li><span class="bullet"></span><span>Updated goals and next steps</span></li>
+            <li><span class="bullet"></span><span>Affirmation of progress and identity</span></li>
+          </ul>
+
+          <div class="chip-row">
+            <span class="chip success">“You grew.”</span>
+            <span class="chip success">“You learned.”</span>
+            <span class="chip success">“You belong here.”</span>
+          </div>
+
+          <div class="checklist" data-checklist="reward">
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I have been recognized for my effort and growth.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I know what my next positive steps are.</span>
+            </div>
+            <div class="check-item">
+              <input type="checkbox" />
+              <span>I feel welcomed back into the group or community.</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section aria-label="Justice loop and notes">
+      <div class="loop-card">
+        <span class="loop-step">Mistake</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Learning</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Growth</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Help Provided</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Accountability</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Reward</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">Reintegration</span>
+      </div>
+
+      <div class="footer-row">
+        <p class="affirmation">This system treats every mistake as a chance to learn, grow, repair, and return with dignity.</p>
+        <p class="print-note">Tip: For print, this sheet is designed to fit on a single page in portrait mode.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const viewButtons = document.querySelectorAll(".view-toggle button");
+      const cards = document.querySelectorAll(".card");
+      const progressFill = document.getElementById("progressFill");
+      const checklists = document.querySelectorAll(".checklist");
+
+      function updateProgress() {
+        const allCheckboxes = document.querySelectorAll(".checklist input[type='checkbox']");
+        const checked = Array.from(allCheckboxes).filter((c) => c.checked).length;
+        const total = allCheckboxes.length || 1;
+        const percent = Math.round((checked / total) * 100);
+        progressFill.style.width = percent + "%";
+      }
+
+      checklists.forEach((list) => {
+        list.addEventListener("change", updateProgress);
+      });
+
+      updateProgress();
+
+      viewButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const view = btn.getAttribute("data-view");
+          viewButtons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          if (view === "minimal") {
+            cards.forEach((card) => {
+              const section = card.getAttribute("data-section");
+              const isCore = section === "learning" || section === "growth" || section === "help";
+              card.classList.toggle("hidden", !isCore);
+            });
+          } else {
+            cards.forEach((card) => card.classList.remove("hidden"));
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
