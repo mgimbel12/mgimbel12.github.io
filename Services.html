@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Services for Little People</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f7fb;
+      --card: #ffffff;
+      --accent: #4b6fd6;
+      --accent-soft: #e1e7ff;
+      --text-main: #222222;
+      --text-soft: #555555;
+      --border-soft: #d7d7e5;
+      --tag-bg: #f0f3ff;
+      --tag-text: #2f3f8f;
+      --shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.06);
+      --radius-lg: 14px;
+      --radius-sm: 8px;
+      --transition-fast: 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #fdfbff 0, #f3f4ff 40%, #f7f7fb 100%);
+      color: var(--text-main);
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      padding: 24px 24px 28px;
+      border: 1px solid #ececff;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-soft);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .title-block {
+      max-width: 70%;
+      min-width: 260px;
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 1.7rem;
+      letter-spacing: 0.02em;
+      color: #1f2750;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid #d8ddff;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end;
+      min-width: 180px;
+    }
+
+    .view-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      background: #f5f6ff;
+    }
+
+    .view-toggle button {
+      border: none;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-soft);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .view-toggle button.active {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .print-btn {
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: #ffffff;
+      color: var(--accent);
+      padding: 6px 12px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .print-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .print-icon {
+      font-size: 0.9rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .title-block {
+        max-width: 100%;
+      }
+      .controls {
+        align-items: flex-start;
+      }
+    }
+
+    .legend {
+      background: #f7f8ff;
+      border-radius: var(--radius-lg);
+      padding: 10px 12px;
+      border: 1px dashed #c7c9f0;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .legend strong {
+      color: #2b3470;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #d3d6ff;
+      background: #ffffff;
+      color: #3a437a;
+    }
+
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 10px 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .section-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .section-label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #7a7fa8;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #252b5a;
+    }
+
+    .section-chip {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #2f3f8f;
+      border: 1px solid #c4cffc;
+      white-space: nowrap;
+    }
+
+    .chevron {
+      font-size: 0.8rem;
+      color: #7a7fa8;
+      transition: transform var(--transition-fast);
+    }
+
+    .section-card.collapsed .chevron {
+      transform: rotate(-90deg);
+    }
+
+    .section-body {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      line-height: 1.4;
+    }
+
+    .section-body ul {
+      margin: 6px 0 0 16px;
+      padding: 0;
+    }
+
+    .section-body li {
+      margin-bottom: 2px;
+    }
+
+    .purpose {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #2f3f8f;
+      padding: 5px 8px;
+      border-radius: var(--radius-sm);
+      background: #f3f4ff;
+      border: 1px solid #d5d8ff;
+    }
+
+    .purpose strong {
+      font-weight: 600;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 10px 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .panel h2 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      color: #252b5a;
+    }
+
+    .panel small {
+      display: block;
+      margin-bottom: 6px;
+      color: #7a7fa8;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.65rem;
+    }
+
+    .panel ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+
+    .panel li {
+      margin-bottom: 2px;
+    }
+
+    .dev-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .dev-tag {
+      font-size: 0.7rem;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: #f5f7ff;
+      border: 1px solid #d5d8ff;
+      color: #3a437a;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 0.7rem;
+      color: #8a8fb0;
+      text-align: right;
+    }
+
+    /* child-friendly mode */
+    body.child-mode {
+      font-size: 105%;
+    }
+
+    body.child-mode .section-body ul li {
+      list-style-type: "⭐ ";
+      margin-left: 0;
+    }
+
+    body.child-mode .legend {
+      background: #fff7e6;
+      border-color: #ffd9a3;
+    }
+
+    body.child-mode .panel {
+      background: #fdfcff;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+        max-width: 100%;
+      }
+      header {
+        border-bottom: 1px solid #cccccc;
+      }
+      .controls {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-block">
+        <h1>Services for Little People</h1>
+        <p class="subtitle">A child‑centered map of care, protection, and development.</p>
+        <div class="tag-row">
+          <span class="tag">Child Development</span>
+          <span class="tag">Human Rights</span>
+          <span class="tag">Safety & Care</span>
+          <span class="tag">Single‑Sheet Overview</span>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="view-toggle" aria-label="Toggle view mode">
+          <button type="button" id="view-adult" class="active">Adult / Academic</button>
+          <button type="button" id="view-child">Child‑Friendly</button>
+        </div>
+        <button type="button" class="print-btn" id="print-btn">
+          <span class="print-icon">🖨️</span>
+          <span>Print / Save PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="legend">
+          <strong>How to read this sheet:</strong> Each card shows a type of service for children, with examples and a simple purpose line.
+          <div class="pill-row">
+            <span class="pill">Use for training</span>
+            <span class="pill">Use in justice panels</span>
+            <span class="pill">Use with families</span>
+          </div>
+        </div>
+
+        <div class="sections">
+          <!-- 1. Safety & Protection -->
+          <article class="section-card" data-section="safety">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">01 · Safety & Protection</span>
+                <span class="section-title">Keeping little people safe</span>
+              </div>
+              <div class="section-chip">Secure base</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Safe homes and supervised environments</li>
+                <li>Abuse and neglect prevention programs</li>
+                <li>Trauma‑informed crisis response</li>
+                <li>School safety and child‑advocacy centers</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Build a secure base so children can grow without fear.
+              </div>
+            </div>
+          </article>
+
+          <!-- 2. Health & Wellness -->
+          <article class="section-card" data-section="health">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">02 · Health & Wellness</span>
+                <span class="section-title">Bodies, brains, and feelings</span>
+              </div>
+              <div class="section-chip">Growth & care</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Pediatric healthcare and vaccinations</li>
+                <li>Developmental screenings and early intervention</li>
+                <li>Mental‑health support for kids</li>
+                <li>Nutrition and wellness programs</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Protect the body and brain during rapid growth years.
+              </div>
+            </div>
+          </article>
+
+          <!-- 3. Education & Learning -->
+          <article class="section-card" data-section="education">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">03 · Education & Learning</span>
+                <span class="section-title">Spaces to learn and explore</span>
+              </div>
+              <div class="section-chip">Thinking & skills</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Preschool and early‑learning programs</li>
+                <li>Special education and learning supports</li>
+                <li>Tutoring, literacy, and homework help</li>
+                <li>After‑school, STEM, arts, and creative spaces</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Strengthen thinking, language, and social skills.
+              </div>
+            </div>
+          </article>
+
+          <!-- 4. Family & Community Support -->
+          <article class="section-card" data-section="family">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">04 · Family & Community</span>
+                <span class="section-title">Supporting the grown‑ups too</span>
+              </div>
+              <div class="section-chip">Whole‑family care</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Parenting classes and family counseling</li>
+                <li>Housing and financial assistance</li>
+                <li>Community centers and recreation programs</li>
+                <li>Cultural and identity‑affirming spaces</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Support caregivers so children can thrive.
+              </div>
+            </div>
+          </article>
+
+          <!-- 5. Rights, Advocacy & Justice -->
+          <article class="section-card" data-section="rights">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">05 · Rights & Justice</span>
+                <span class="section-title">Fairness and voice for children</span>
+              </div>
+              <div class="section-chip">Dignity & voice</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Child rights education</li>
+                <li>Legal advocacy and court representatives</li>
+                <li>Fair school discipline and anti‑bullying work</li>
+                <li>Anti‑discrimination protections</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Ensure children are treated with dignity, fairness, and voice.
+              </div>
+            </div>
+          </article>
+
+          <!-- 6. Inclusion & Accessibility -->
+          <article class="section-card" data-section="inclusion">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">06 · Inclusion & Accessibility</span>
+                <span class="section-title">Every child belongs</span>
+              </div>
+              <div class="section-chip">Access for all</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Occupational, speech, and physical therapy</li>
+                <li>Adaptive and inclusive recreation</li>
+                <li>Assistive technology and supports</li>
+                <li>Sensory‑friendly and accessible environments</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Guarantee equal access to learning, play, and community life.
+              </div>
+            </div>
+          </article>
+
+          <!-- 7. Enrichment & Identity -->
+          <article class="section-card" data-section="enrichment">
+            <div class="section-header">
+              <div class="section-title-block">
+                <span class="section-label">07 · Enrichment & Identity</span>
+                <span class="section-title">Joy, pride, and imagination</span>
+              </div>
+              <div class="section-chip">Belonging & joy</div>
+              <div class="chevron">▼</div>
+            </div>
+            <div class="section-body">
+              <p><strong>Examples:</strong></p>
+              <ul>
+                <li>Arts, music, and storytelling programs</li>
+                <li>Cultural heritage and celebration activities</li>
+                <li>LGBTQ‑affirming youth spaces</li>
+                <li>Leadership and confidence‑building workshops</li>
+              </ul>
+              <div class="purpose">
+                <strong>Purpose:</strong> Help children build identity, pride, and emotional resilience.
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <aside class="right-column">
+        <div class="panel">
+          <small>Developmental lens</small>
+          <h2>How services shape child development</h2>
+          <p>Each service area supports key parts of development:</p>
+          <ul>
+            <li><strong>Safety & Protection:</strong> secure attachment, emotional regulation</li>
+            <li><strong>Health & Wellness:</strong> physical growth, brain development</li>
+            <li><strong>Education & Learning:</strong> cognition, language, problem‑solving</li>
+            <li><strong>Family & Community:</strong> relationships, belonging, resilience</li>
+            <li><strong>Rights & Justice:</strong> identity, agency, sense of fairness</li>
+            <li><strong>Inclusion & Accessibility:</strong> participation, confidence, autonomy</li>
+            <li><strong>Enrichment & Identity:</strong> creativity, pride, meaning‑making</li>
+          </ul>
+          <div class="dev-tags">
+            <span class="dev-tag">Use in training</span>
+            <span class="dev-tag">Map to policies</span>
+            <span class="dev-tag">Adapt for local services</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <small>Quick prompts</small>
+          <h2>Questions for teams & families</h2>
+          <ul>
+            <li>Which services are strong for this child right now?</li>
+            <li>Where are the gaps in safety, health, or learning?</li>
+            <li>Does this child feel heard, included, and respected?</li>
+            <li>What one new service would make the biggest difference?</li>
+          </ul>
+        </div>
+
+        <div class="footer-note">
+          Single‑sheet overview · Adaptable for justice, education, and family conversations.
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Toggle collapse/expand for section cards
+    document.querySelectorAll(".section-card").forEach(function (card) {
+      const header = card.querySelector(".section-header");
+      header.addEventListener("click", function () {
+        card.classList.toggle("collapsed");
+        const body = card.querySelector(".section-body");
+        if (card.classList.contains("collapsed")) {
+          body.style.display = "none";
+        } else {
+          body.style.display = "block";
+        }
+      });
+    });
+
+    // Initialize all bodies visible
+    document.querySelectorAll(".section-body").forEach(function (body) {
+      body.style.display = "block";
+    });
+
+    // View mode toggle: adult vs child-friendly
+    const viewAdultBtn = document.getElementById("view-adult");
+    const viewChildBtn = document.getElementById("view-child");
+
+    function setView(mode) {
+      if (mode === "adult") {
+        document.body.classList.remove("child-mode");
+        viewAdultBtn.classList.add("active");
+        viewChildBtn.classList.remove("active");
+      } else {
+        document.body.classList.add("child-mode");
+        viewAdultBtn.classList.remove("active");
+        viewChildBtn.classList.add("active");
+      }
+    }
+
+    viewAdultBtn.addEventListener("click", function () {
+      setView("adult");
+    });
+
+    viewChildBtn.addEventListener("click", function () {
+      setView("child");
+    });
+
+    // Print / Save PDF
+    document.getElementById("print-btn").addEventListener("click", function () {
+      window.print();
+    });
+  </script>
+</body>
+</html>
