@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Innocent & Justice Helper – Media Lens</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0b1020;
+      --accent-hero: #22c55e;
+      --accent-villain: #ef4444;
+      --accent-neutral: #3b82f6;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --radius: 10px;
+      --shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text);
+    }
+
+    header {
+      padding: 16px 20px;
+      background: linear-gradient(120deg, #22c55e, #3b82f6, #a855f7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: #f9fafb;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header .sub {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    header .meta {
+      text-align: right;
+      font-size: 0.8rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 18px auto 40px;
+      padding: 0 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 55%);
+      pointer-events: none;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    small {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .section-body {
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .row > * {
+      flex: 1 1 120px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.85rem;
+      resize: vertical;
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: var(--accent-neutral);
+      color: #f9fafb;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 1px 4px rgba(15,23,42,0.6);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(15,23,42,0.8);
+    }
+
+    button.hero {
+      background: var(--accent-hero);
+    }
+
+    button.villain {
+      background: var(--accent-villain);
+    }
+
+    button.secondary {
+      background: #111827;
+      color: var(--muted);
+      box-shadow: none;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .pill.active {
+      background: #111827;
+      border-color: var(--accent-neutral);
+      color: var(--accent-neutral);
+      font-weight: 600;
+    }
+
+    .output-box {
+      background: #020617;
+      border-radius: 6px;
+      border: 1px dashed var(--border);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      min-height: 40px;
+      white-space: pre-wrap;
+      color: #e5e7eb;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(59,130,246,0.15);
+      color: #93c5fd;
+    }
+
+    .status-hero {
+      color: var(--accent-hero);
+      font-size: 0.8rem;
+    }
+
+    .status-villain {
+      color: var(--accent-villain);
+      font-size: 0.8rem;
+    }
+
+    .status-neutral {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .scale-row {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .scale-pill {
+      flex: 1 1 40px;
+      text-align: center;
+      padding: 4px 0;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: #020617;
+      color: var(--muted);
+    }
+
+    .scale-pill.active {
+      background: #111827;
+      color: #f9fafb;
+      border-color: var(--accent-neutral);
+    }
+
+    .small-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+      header {
+        box-shadow: none;
+      }
+      .card {
+        box-shadow: none;
+      }
+      button {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Innocent & Justice Helper</h1>
+      <div class="sub">Media lens • Critical thinking • Protect the innocent</div>
+    </div>
+    <div class="meta">
+      <div id="today-date"></div>
+      <div id="today-time"></div>
+      <div class="small-note">Single-sheet • Lex Luthor channel as case study</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- Justice Compass -->
+      <section class="card">
+        <h2>
+          Justice Compass
+          <span class="label">Values • Harm check • Power lens</span>
+        </h2>
+        <small>Anchor yourself before judging any story, clip, or channel.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label>Core justice values (tap a few)</label>
+              <div class="pill-row" id="values-row">
+                <button type="button" class="pill" data-val="Protecting the innocent">Protecting the innocent</button>
+                <button type="button" class="pill" data-val="Truth-telling">Truth-telling</button>
+                <button type="button" class="pill" data-val="Accountability">Accountability</button>
+                <button type="button" class="pill" data-val="Fairness">Fairness</button>
+                <button type="button" class="pill" data-val="Non-violence">Non-violence</button>
+                <button type="button" class="pill" data-val="Dignity">Dignity</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="justice-context">What situation or story are you looking at?</label>
+              <textarea id="justice-context" placeholder="Ex: A Lex Luthor YouTube rant about 'saving the world' by controlling it."></textarea>
+            </div>
+          </div>
+
+          <button type="button" class="hero" id="justice-generate">Generate justice lens</button>
+          <div class="output-box" id="justice-output"></div>
+        </div>
+      </section>
+
+      <!-- Case Notes: Help of the Innocent -->
+      <section class="card">
+        <h2>
+          Help of the Innocent
+          <span class="label">Case notes • Who’s at risk</span>
+        </h2>
+        <small>Map who might be harmed, who needs protection, and what “help” actually looks like.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="case-title">Case / situation name</label>
+              <input id="case-title" type="text" placeholder="Ex: Lex Luthor channel influence on teens" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="case-innocent">Who are the innocent or vulnerable here?</label>
+              <textarea id="case-innocent" placeholder="Ex: Viewers who don’t see the manipulation, people targeted as 'the problem'."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="case-harm">What kind of harm is possible?</label>
+              <textarea id="case-harm" placeholder="Ex: Dehumanizing language, encouraging control, normalizing cruelty or 'ends justify the means'."></textarea>
+            </div>
+          </div>
+
+          <button type="button" class="hero" id="case-summary-btn">Summarize protection priorities</button>
+          <div class="output-box" id="case-summary"></div>
+        </div>
+      </section>
+
+      <!-- Lex Luthor YouTube Channel Analyzer -->
+      <section class="card">
+        <h2>
+          Lex Luthor Channel Analyzer
+          <span class="label">Power • Manipulation • Red flags</span>
+        </h2>
+        <small>Use a fictional villain’s channel as a training ground for spotting manipulation and injustice.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="lex-topic">Video title or topic</label>
+              <input id="lex-topic" type="text" placeholder="Ex: 'Only I Can Save Metropolis'" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="lex-claims">Main claims or slogans</label>
+              <textarea id="lex-claims" placeholder="Ex: 'Heroes are the real threat', 'People need strong control to be safe'."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Manipulation red-flag scale</label>
+              <div class="scale-row" id="lex-scale-row">
+                <button type="button" class="scale-pill" data-score="1">1</button>
+                <button type="button" class="scale-pill" data-score="2">2</button>
+                <button type="button" class="scale-pill" data-score="3">3</button>
+                <button type="button" class="scale-pill" data-score="4">4</button>
+                <button type="button" class="scale-pill" data-score="5">5</button>
+              </div>
+              <div class="small-note">1 = mostly harmless; 5 = heavy manipulation, dehumanization, or “ends justify the means”.</div>
+            </div>
+          </div>
+
+          <button type="button" class="villain" id="lex-analyze-btn">Analyze like a justice ally</button>
+          <div class="output-box" id="lex-output"></div>
+        </div>
+      </section>
+
+      <!-- Argument & Evidence Checker -->
+      <section class="card">
+        <h2>
+          Argument & Evidence Checker
+          <span class="label">Claims • Proof • Missing voices</span>
+        </h2>
+        <small>Turn big dramatic claims into simple questions: What’s the evidence? Who’s missing?</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="arg-claim">Claim you’re examining</label>
+              <textarea id="arg-claim" placeholder="Ex: 'If I control everything, everyone will finally be safe.'"></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="arg-evidence">What evidence is actually shown?</label>
+              <textarea id="arg-evidence" placeholder="Ex: Scary images, cherry-picked examples, no real data."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="arg-missing">Whose voices are missing?</label>
+              <textarea id="arg-missing" placeholder="Ex: People being controlled, people harmed, independent experts."></textarea>
+            </div>
+          </div>
+
+          <button type="button" class="hero" id="arg-analyze-btn">Generate justice-focused critique</button>
+          <div class="output-box" id="arg-output"></div>
+        </div>
+      </section>
+
+      <!-- Hero vs Villain Story Flip -->
+      <section class="card">
+        <h2>
+          Hero vs Villain Story Flip
+          <span class="label">Narrative • Power swap</span>
+        </h2>
+        <small>Flip the script: what happens if the “hero” and “villain” labels are swapped?</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="story-summary">Short summary of the story or video</label>
+              <textarea id="story-summary" placeholder="Ex: Lex says heroes are dangerous and only he can keep order."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Lens</label>
+              <div class="pill-row" id="story-lens-row">
+                <button type="button" class="pill active" data-lens="innocent">Protect the innocent</button>
+                <button type="button" class="pill" data-lens="power">Who holds power</button>
+                <button type="button" class="pill" data-lens="language">Language & dehumanization</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="hero" id="story-flip-btn">Flip the story labels</button>
+          <div class="output-box" id="story-output"></div>
+        </div>
+      </section>
+    </div>
+
+    <div style="margin-top: 20px; text-align: right;">
+      <button type="button" class="secondary" onclick="window.print()">Print this sheet</button>
+    </div>
+  </main>
+
+  <script>
+    // Date/time
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("today-date").textContent =
+        now.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+      document.getElementById("today-time").textContent =
+        now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // Multi-select pills (values)
+    (function setupValues() {
+      const container = document.getElementById("values-row");
+      container.addEventListener("click", (e) => {
+        const btn = e.target.closest(".pill");
+        if (!btn) return;
+        btn.classList.toggle("active");
+      });
+    })();
+
+    function getActiveValues() {
+      return [...document.querySelectorAll("#values-row .pill.active")].map(b => b.getAttribute("data-val"));
+    }
+
+    // Single-select pill groups
+    function setupSingleSelectPills(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.addEventListener("click", (e) => {
+        const btn = e.target.closest(".pill");
+        if (!btn) return;
+        [...container.querySelectorAll(".pill")].forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    }
+    setupSingleSelectPills("story-lens-row");
+
+    function getActivePillValue(containerId, attr) {
+      const container = document.getElementById(containerId);
+      if (!container) return null;
+      const active = container.querySelector(".pill.active");
+      return active ? active.getAttribute(attr) : null;
+    }
+
+    // Justice Compass
+    document.getElementById("justice-generate").addEventListener("click", () => {
+      const context = document.getElementById("justice-context").value.trim() || "this situation";
+      const values = getActiveValues();
+      const out = document.getElementById("justice-output");
+
+      const valText = values.length
+        ? "You said your justice values here are: " + values.join(", ") + ".\n\n"
+        : "You didn’t select specific values, so start by naming what matters to you (safety, dignity, fairness).\n\n";
+
+      const body =
+        "Ask yourself:\n" +
+        "- Who is most vulnerable in " + context + "?\n" +
+        "- Who holds the most power, money, or voice?\n" +
+        "- Does the story protect the innocent, or excuse harm as 'necessary'?\n" +
+        "- Is anyone being dehumanized, mocked, or treated as disposable?\n\n" +
+        "If a message demands control, fear, or cruelty to 'save' people, it clashes with real justice.";
+
+      out.textContent = valText + body;
+    });
+
+    // Help of the Innocent – case summary
+    document.getElementById("case-summary-btn").addEventListener("click", () => {
+      const title = document.getElementById("case-title").value.trim() || "this case";
+      const innocent = document.getElementById("case-innocent").value.trim() || "people who could be harmed or misled";
+      const harm = document.getElementById("case-harm").value.trim() || "emotional, social, or reputational harm";
+      const out = document.getElementById("case-summary");
+
+      const text =
+        "Case: " + title + "\n\n" +
+        "Innocent / vulnerable:\n" + innocent + "\n\n" +
+        "Possible harm:\n" + harm + "\n\n" +
+        "Protection priorities:\n" +
+        "- Center the safety and dignity of those at risk.\n" +
+        "- Challenge narratives that blame victims or glorify control.\n" +
+        "- Look for ways to inform, support, or shield people from manipulation.";
+
+      out.textContent = text;
+    });
+
+    // Lex Luthor Channel Analyzer
+    (function setupLexScale() {
+      const row = document.getElementById("lex-scale-row");
+      row.addEventListener("click", (e) => {
+        const pill = e.target.closest(".scale-pill");
+        if (!pill) return;
+        [...row.querySelectorAll(".scale-pill")].forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+      });
+    })();
+
+    function getLexScore() {
+      const active = document.querySelector("#lex-scale-row .scale-pill.active");
+      return active ? parseInt(active.getAttribute("data-score"), 10) : null;
+    }
+
+    document.getElementById("lex-analyze-btn").addEventListener("click", () => {
+      const topic = document.getElementById("lex-topic").value.trim() || "this video";
+      const claims = document.getElementById("lex-claims").value.trim() || "dramatic claims about power and control";
+      const score = getLexScore() || 3;
+      const out = document.getElementById("lex-output");
+
+      let riskLine = "";
+      if (score <= 2) {
+        riskLine = "Risk level: lower, but still worth watching for subtle fear or blame.";
+      } else if (score === 3) {
+        riskLine = "Risk level: moderate. Some manipulation or one-sided framing may be present.";
+      } else if (score === 4) {
+        riskLine = "Risk level: high. Strong manipulation, fear, or 'only I can fix it' vibes.";
+      } else {
+        riskLine = "Risk level: very high. Heavy manipulation, dehumanization, or 'ends justify the means' messaging.";
+      }
+
+      const text =
+        "Analyzing: " + topic + "\n\n" +
+        "Main claims / slogans:\n" + claims + "\n\n" +
+        riskLine + "\n\n" +
+        "Justice lens questions:\n" +
+        "- Does the speaker act like people are problems to be controlled, or humans to be respected?\n" +
+        "- Are 'enemies' described as less than human, stupid, or worthless?\n" +
+        "- Is fear used to push people toward giving up freedom or power?\n" +
+        "- Who benefits if viewers believe this message—and who gets hurt?";
+
+      out.textContent = text;
+    });
+
+    // Argument & Evidence Checker
+    document.getElementById("arg-analyze-btn").addEventListener("click", () => {
+      const claim = document.getElementById("arg-claim").value.trim() || "this claim";
+      const evidence = document.getElementById("arg-evidence").value.trim() || "unclear or emotional evidence";
+      const missing = document.getElementById("arg-missing").value.trim() || "people most affected by the decision";
+      const out = document.getElementById("arg-output");
+
+      const text =
+        "Claim:\n" + claim + "\n\n" +
+        "Evidence shown:\n" + evidence + "\n\n" +
+        "Missing voices:\n" + missing + "\n\n" +
+        "Justice-focused critique:\n" +
+        "- Does the evidence actually support the claim, or just create a mood?\n" +
+        "- Are the people most affected allowed to speak for themselves?\n" +
+        "- Would this argument still sound 'right' if you were the one with the least power in the story?";
+
+      out.textContent = text;
+    });
+
+    // Hero vs Villain Story Flip
+    document.getElementById("story-flip-btn").addEventListener("click", () => {
+      const summary = document.getElementById("story-summary").value.trim() || "this story";
+      const lens = getActivePillValue("story-lens-row", "data-lens") || "innocent";
+      const out = document.getElementById("story-output");
+
+      let focus = "";
+      if (lens === "innocent") {
+        focus =
+          "If we flip the labels, ask: when the 'hero' uses control or harm, how does that feel to the innocent people in the story?";
+      } else if (lens === "power") {
+        focus =
+          "Flipping labels shows how often the one with money, tech, or armies gets to call themselves 'hero'—even when they act like a villain.";
+      } else if (lens === "language") {
+        focus =
+          "Listen for words that turn people into objects or threats. When we flip the labels, that language often reveals who is actually being dehumanized.";
+      }
+
+      const text =
+        "Story summary:\n" + summary + "\n\n" +
+        "Story flip exercise:\n" +
+        "- Imagine the supposed 'hero' and 'villain' swap names.\n" +
+        "- Keep all actions the same.\n" +
+        "- Now ask: who is actually protecting the vulnerable, and who is demanding control?\n\n" +
+        focus;
+
+      out.textContent = text;
+    });
+  </script>
+</body>
+</html>
