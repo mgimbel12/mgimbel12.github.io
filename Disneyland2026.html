@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disneyland Castle Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f7ff;
+      --card: #ffffff;
+      --accent: #5b7cff;
+      --accent-soft: #d9e0ff;
+      --text-main: #1f2430;
+      --text-soft: #4f5670;
+      --danger: #d9534f;
+      --safe: #4caf50;
+      --border-soft: #e0e4ff;
+      --shadow-soft: 0 10px 25px rgba(40, 60, 120, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fdf5ff 0, #f5f7ff 40%, #edf1ff 100%);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(145deg, #ffffff 0, #f8f5ff 40%, #f3f7ff 100%);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 24px 24px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #2b2f55;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      background: rgba(91, 124, 255, 0.08);
+      color: #3b4aa8;
+      border: 1px solid rgba(91, 124, 255, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tag span.icon {
+      font-size: 0.9rem;
+    }
+
+    .castle-badge {
+      min-width: 210px;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top, #ffe9ff 0, #fdfbff 40%, #edf2ff 100%);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 18px rgba(120, 90, 200, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .castle-badge-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #3b2f7a;
+    }
+
+    .castle-badge-sub {
+      font-size: 0.8rem;
+      color: #5b567a;
+    }
+
+    .castle-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .castle-chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(200, 190, 255, 0.7);
+      color: #5b4a9a;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px 16px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 6px 16px rgba(40, 60, 120, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #2b3158;
+    }
+
+    .card-title-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      background: var(--accent-soft);
+      color: #3b4aa8;
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .pill-label {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(91, 124, 255, 0.08);
+      color: #3b4aa8;
+      border: 1px solid rgba(91, 124, 255, 0.18);
+      white-space: nowrap;
+    }
+
+    .list {
+      margin: 6px 0 0;
+      padding-left: 16px;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .list li {
+      margin-bottom: 4px;
+    }
+
+    .list strong {
+      color: #2b3158;
+      font-weight: 600;
+    }
+
+    .quote {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: #f7f8ff;
+      border: 1px dashed #c9cff9;
+      font-size: 0.8rem;
+      color: #3b3f70;
+    }
+
+    .quote-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7a80b0;
+      margin-bottom: 2px;
+    }
+
+    .quote-text {
+      font-style: italic;
+    }
+
+    .toggle-section {
+      margin-top: 6px;
+      border-radius: var(--radius-md);
+      background: #f8f9ff;
+      border: 1px solid #dde2ff;
+      padding: 6px 8px;
+      font-size: 0.8rem;
+    }
+
+    .toggle-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-header span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #3b4aa8;
+      font-weight: 500;
+    }
+
+    .toggle-icon {
+      font-size: 0.9rem;
+      color: #3b4aa8;
+    }
+
+    .toggle-body {
+      margin-top: 4px;
+      display: none;
+    }
+
+    .toggle-body.open {
+      display: block;
+    }
+
+    .toggle-body ul {
+      margin: 4px 0 0;
+      padding-left: 16px;
+    }
+
+    .toggle-body li {
+      margin-bottom: 3px;
+    }
+
+    .emergency-card {
+      border-left: 4px solid var(--danger);
+    }
+
+    .emergency-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .emergency-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #7a1f2a;
+    }
+
+    .emergency-chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(217, 83, 79, 0.08);
+      color: #7a1f2a;
+      border: 1px solid rgba(217, 83, 79, 0.4);
+    }
+
+    .emergency-text {
+      font-size: 0.85rem;
+      color: #5a2830;
+      margin-bottom: 6px;
+    }
+
+    .emergency-script {
+      padding: 7px 9px;
+      border-radius: var(--radius-md);
+      background: #fff5f5;
+      border: 1px dashed rgba(217, 83, 79, 0.6);
+      font-size: 0.8rem;
+      color: #6a1f26;
+      margin-bottom: 4px;
+    }
+
+    .emergency-script-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a13a45;
+      margin-bottom: 2px;
+    }
+
+    .emergency-script-text {
+      font-style: italic;
+    }
+
+    .panic-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panic-button {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff6b6b, #d9534f);
+      color: #ffffff;
+      box-shadow: 0 6px 14px rgba(217, 83, 79, 0.45);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panic-button span.icon {
+      font-size: 1rem;
+    }
+
+    .panic-note {
+      font-size: 0.75rem;
+      color: #7a3a40;
+      max-width: 260px;
+    }
+
+    .panic-message {
+      margin-top: 6px;
+      padding: 7px 9px;
+      border-radius: var(--radius-md);
+      background: #fff0f0;
+      border: 1px solid rgba(217, 83, 79, 0.5);
+      font-size: 0.8rem;
+      color: #6a1f26;
+      display: none;
+    }
+
+    .panic-message.show {
+      display: block;
+    }
+
+    .steps-list {
+      margin: 4px 0 0;
+      padding-left: 16px;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .steps-list li {
+      margin-bottom: 4px;
+    }
+
+    .steps-list strong {
+      color: #2b3158;
+    }
+
+    .footer {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px dashed #d3d7ff;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: #6a6f9a;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .footer-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(76, 175, 80, 0.08);
+      border: 1px solid rgba(76, 175, 80, 0.4);
+      color: #2f6a34;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-pill span.icon {
+      font-size: 0.9rem;
+    }
+
+    .footer-note {
+      max-width: 320px;
+    }
+
+    .print-button {
+      border-radius: 999px;
+      border: 1px solid #c7ccff;
+      background: #f7f8ff;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      color: #3b4aa8;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .print-button span.icon {
+      font-size: 0.9rem;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+      }
+      .print-button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="Disneyland Castle Safety Plan">
+    <header>
+      <div class="title-block">
+        <h1>Disneyland Castle Safety Plan</h1>
+        <div class="subtitle">
+          A single-sheet grounding map for moments that feel too big.
+        </div>
+        <div class="tag-row">
+          <div class="tag"><span class="icon">🏰</span><span>Castle Safe Place</span></div>
+          <div class="tag"><span class="icon">🏀</span><span>Utah Jazz Team Energy</span></div>
+          <div class="tag"><span class="icon">💜</span><span>Helping Me Save My Life</span></div>
+        </div>
+      </div>
+
+      <div class="castle-badge">
+        <div class="castle-badge-title">
+          <span>✨ Castle Mode</span>
+        </div>
+        <div class="castle-badge-sub">
+          When things feel overwhelming, imagine:
+        </div>
+        <div class="castle-badge-row">
+          <span class="castle-chip">Nighttime lights</span>
+          <span class="castle-chip">Soft blue & pink</span>
+          <span class="castle-chip">Calm courtyard</span>
+          <span class="castle-chip">You can breathe here</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="grid" aria-label="Safety plan sections">
+      <!-- Castle: Safe Place -->
+      <article class="card" aria-label="Castle safe place">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="card-title-icon">🏰</span>
+              <span>The Castle: Your Safe Place</span>
+            </div>
+            <div class="card-subtitle">
+              A mental courtyard where nothing can touch you.
+            </div>
+          </div>
+          <div class="pill-label">Pause Zone</div>
+        </div>
+        <ul class="list">
+          <li>Picture the <strong>Disneyland Castle</strong> lit up at night.</li>
+          <li>Soft colors: <strong>baby blue, pink, white, silver</strong>.</li>
+          <li>You are standing in the <strong>courtyard</strong>, surrounded by calm light.</li>
+          <li>Here, you are allowed to <strong>pause, breathe, and not decide anything yet</strong>.</li>
+        </ul>
+        <div class="quote">
+          <div class="quote-label">Use this when</div>
+          <div class="quote-text">
+            Your thoughts feel too fast, too heavy, or too sharp. Say quietly: “I’m in the castle. I can slow down.”
+          </div>
+        </div>
+        <div class="toggle-section">
+          <div class="toggle-header" data-toggle="castle-prompts">
+            <span><span class="toggle-icon">➕</span> Gentle grounding prompts</span>
+          </div>
+          <div class="toggle-body" id="castle-prompts">
+            <ul>
+              <li>Notice <strong>3 colors</strong> around the castle.</li>
+              <li>Notice <strong>2 sounds</strong> (music, soft crowd, fireworks far away).</li>
+              <li>Notice <strong>1 thing</strong> that feels safe to you right now.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Utah Jazz: Strength Anchor -->
+      <article class="card" aria-label="Utah Jazz strength anchor">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="card-title-icon">🏀</span>
+              <span>Utah Jazz: Your Strength Anchor</span>
+            </div>
+            <div class="card-subtitle">
+              You are not playing this game alone.
+            </div>
+          </div>
+          <div class="pill-label">Team Energy</div>
+        </div>
+        <ul class="list">
+          <li>Imagine the <strong>arena</strong>—the rhythm of the crowd, the shared focus.</li>
+          <li>Remember: even the best players have <strong>off nights</strong> and still belong on the team.</li>
+          <li>You are allowed to <strong>lean on others</strong> when the game feels heavy.</li>
+          <li>Your worth is not measured by perfection; it’s measured by your <strong>presence</strong>.</li>
+        </ul>
+        <div class="quote">
+          <div class="quote-label">Use this when</div>
+          <div class="quote-text">
+            You need to remember you deserve support and connection. Tell yourself: “I’m on a team. I don’t have to carry this alone.”
+          </div>
+        </div>
+        <div class="toggle-section">
+          <div class="toggle-header" data-toggle="jazz-prompts">
+            <span><span class="toggle-icon">➕</span> Team check-in ideas</span>
+          </div>
+          <div class="toggle-body" id="jazz-prompts">
+            <ul>
+              <li>Text someone: <em>“Can you just say hi? Today is heavy.”</em></li>
+              <li>Imagine a favorite player <strong>subbing in</strong> so you can rest.</li>
+              <li>Remind yourself: <strong>timeouts are part of the game</strong>, not a failure.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid" aria-label="Emergency words and steps">
+      <!-- Helping Me Save My Life: Emergency Words -->
+      <article class="card emergency-card" aria-label="Helping me save my life emergency words">
+        <div class="emergency-header">
+          <div class="emergency-title">
+            <span>❤️ Helping Me Save My Life</span>
+          </div>
+          <div class="emergency-chip">Emergency Words</div>
+        </div>
+        <div class="emergency-text">
+          These are words you can use when you need help from a real person. You do not have to explain everything or justify anything.
+        </div>
+        <div class="emergency-script">
+          <div class="emergency-script-label">Script A</div>
+          <div class="emergency-script-text">
+            “I’m having a hard time right now and I need someone with me.”
+          </div>
+        </div>
+        <div class="emergency-script">
+          <div class="emergency-script-label">Script B</div>
+          <div class="emergency-script-text">
+            “I’m not feeling safe and I need support.”
+          </div>
+        </div>
+        <div class="panic-row">
+          <button class="panic-button" id="panic-button">
+            <span class="icon">⚠️</span>
+            <span>I need help right now</span>
+          </button>
+          <div class="panic-note">
+            This button is a reminder: when things feel too big, <strong>reach out to a person or crisis support</strong>.
+          </div>
+        </div>
+        <div class="panic-message" id="panic-message">
+          You are important. If you feel like you might hurt yourself or are in danger, please reach out to someone you trust or a crisis line in your area. You deserve real-time, human support.
+        </div>
+      </article>
+
+      <!-- Safety Plan: Real-World Steps -->
+      <article class="card" aria-label="Safety plan real-world steps">
+        <div class="card-header">
+          <div>
+            <div class="card-title">
+              <span class="card-title-icon">🛟</span>
+              <span>Safety Plan: Real-World Steps</span>
+            </div>
+            <div class="card-subtitle">
+              Small actions that keep you connected and grounded.
+            </div>
+          </div>
+          <div class="pill-label">Step-by-step</div>
+        </div>
+        <ul class="steps-list">
+          <li><strong>Change spaces:</strong> step outside, into another room, or near a window.</li>
+          <li><strong>Drink water:</strong> take slow sips of cold water.</li>
+          <li><strong>Hold something grounding:</strong> a soft object, a blanket, a pillow, or anything comforting.</li>
+          <li><strong>Play gentle sound:</strong> music, white noise, or a calming playlist.</li>
+          <li><strong>Reach out:</strong> text or call someone who usually makes you feel calmer, not worse.</li>
+          <li><strong>Remind yourself:</strong> “This moment will pass. I can get through this one moment at a time.”</li>
+        </ul>
+        <div class="toggle-section">
+          <div class="toggle-header" data-toggle="people-list">
+            <span><span class="toggle-icon">➕</span> People I can reach out to</span>
+          </div>
+          <div class="toggle-body" id="people-list">
+            <ul>
+              <li>Family member: <em>(write or imagine their name here)</em></li>
+              <li>Friend: <em>(someone who listens and doesn’t judge)</em></li>
+              <li>Faith or community person: <em>(church, community, or support leader)</em></li>
+              <li>Coworker or mentor: <em>(someone steady and kind)</em></li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Disneyland Magic: Hope Anchor -->
+    <section class="card" aria-label="Disneyland magic hope anchor" style="margin-top: 16px;">
+      <div class="card-header">
+        <div>
+          <div class="card-title">
+            <span class="card-title-icon">🎆</span>
+            <span>Disneyland Magic: Your Hope Anchor</span>
+          </div>
+          <div class="card-subtitle">
+            A reminder that your story can keep changing.
+          </div>
+        </div>
+        <div class="pill-label">Future Chapters</div>
+      </div>
+      <ul class="list">
+        <li>Think of the <strong>castle lights</strong> and fireworks in the sky.</li>
+        <li>Imagine walking down <strong>Main Street</strong>, knowing another day is beginning.</li>
+        <li>Remember: stories have <strong>plot twists, pauses, and new chapters</strong>.</li>
+        <li>You deserve a future that feels <strong>magical, peaceful, and safe</strong>.</li>
+      </ul>
+      <div class="quote">
+        <div class="quote-label">Quiet reminder</div>
+        <div class="quote-text">
+          “I am allowed to stay. I am allowed to hope. My story is not finished.”
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-left">
+        <div class="footer-pill">
+          <span class="icon">💚</span>
+          <span>One moment at a time is enough.</span>
+        </div>
+        <div class="footer-note">
+          This sheet is a companion, not a replacement for real human support. You deserve both.
+        </div>
+      </div>
+      <button class="print-button" id="print-button">
+        <span class="icon">🖨️</span>
+        <span>Print this safety sheet</span>
+      </button>
+    </footer>
+  </main>
+
+  <script>
+    // Toggle sections
+    document.querySelectorAll(".toggle-header").forEach(function (header) {
+      header.addEventListener("click", function () {
+        const id = header.getAttribute("data-toggle");
+        const body = document.getElementById(id);
+        if (!body) return;
+        const icon = header.querySelector(".toggle-icon");
+        const isOpen = body.classList.contains("open");
+        body.classList.toggle("open", !isOpen);
+        if (icon) icon.textContent = isOpen ? "➕" : "➖";
+      });
+    });
+
+    // Panic button message
+    const panicButton = document.getElementById("panic-button");
+    const panicMessage = document.getElementById("panic-message");
+    if (panicButton && panicMessage) {
+      panicButton.addEventListener("click", function () {
+        panicMessage.classList.add("show");
+        panicMessage.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    }
+
+    // Print button
+    const printButton = document.getElementById("print-button");
+    if (printButton) {
+      printButton.addEventListener("click", function () {
+        window.print();
+      });
+    }
+  </script>
+</body>
+</html>
+
