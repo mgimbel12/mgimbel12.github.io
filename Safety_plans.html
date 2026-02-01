@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --accent: #4b7bec;
+      --accent-soft: #dbe6ff;
+      --text: #222;
+      --muted: #666;
+      --danger: #c0392b;
+      --safe: #27ae60;
+      --border-radius: 10px;
+      --shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #e6eeff, #f5f7fb 45%, #f5f7fb);
+      color: var(--text);
+    }
+
+    header {
+      padding: 1.5rem 1.5rem 0.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.03em;
+    }
+
+    header p {
+      margin: 0.5rem 0 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto 2rem;
+      padding: 0 1.5rem 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(75, 126, 236, 0.08), transparent 55%);
+      pointer-events: none;
+    }
+
+    .card h2 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .card h2 span.icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .card p.helper {
+      margin: 0 0 0.75rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      margin: 0.4rem 0 0.2rem;
+      color: var(--muted);
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #d0d6e0;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.9rem;
+      resize: vertical;
+      min-height: 2.4rem;
+      background: #fdfdff;
+    }
+
+    textarea:focus,
+    input[type="text"]:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    .small-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .small-row > div {
+      flex: 1;
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-left: 0.25rem;
+    }
+
+    .status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      background: #fef4e6;
+      color: #b36b00;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f39c12;
+    }
+
+    .status-indicator.safe {
+      background: #e8f8f0;
+      color: var(--safe);
+    }
+
+    .status-indicator.safe .status-dot {
+      background: var(--safe);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: transform 0.05s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(75, 126, 236, 0.35);
+    }
+
+    button.secondary {
+      background: #ecf0f7;
+      color: #333;
+    }
+
+    button.danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .emergency-box {
+      border-radius: var(--border-radius);
+      border: 1px dashed rgba(192, 57, 43, 0.5);
+      padding: 0.75rem 0.9rem;
+      background: #fff5f4;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .emergency-box strong {
+      color: var(--danger);
+    }
+
+    .list-input {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .list-input input {
+      flex: 1;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.4rem;
+    }
+
+    .chip {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: #eef2ff;
+      color: #3b4cca;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .highlight {
+      animation: pulse 0.9s ease-out 1;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(75, 126, 236, 0.4); }
+      100% { box-shadow: 0 0 0 12px rgba(75, 126, 236, 0); }
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .card {
+        box-shadow: none;
+      }
+      header, .btn-row, .status-bar {
+        display: none !important;
+      }
+      .container {
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Safety Plan</h1>
+    <p>
+      A private place to write what helps you stay safe when things feel heavy.
+    </p>
+  </header>
+
+  <div class="container">
+    <div class="status-bar">
+      <div id="statusIndicator" class="status-indicator">
+        <span class="status-dot"></span>
+        <span id="statusText">Check in with yourself</span>
+      </div>
+      <div class="btn-row">
+        <button class="secondary" id="btnCalm">
+          🌤 I feel okay
+        </button>
+        <button class="secondary" id="btnStressed">
+          🌧 I feel stressed
+        </button>
+        <button class="danger" id="btnCrisis">
+          🚨 I feel unsafe
+        </button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Left column -->
+      <div class="column">
+        <div class="card" id="cardWarning">
+          <h2><span class="icon">⚠️</span> Warning signs I notice</h2>
+          <p class="helper">
+            Thoughts, feelings, body sensations, or behaviors that tell me I’m starting to struggle.
+          </p>
+          <textarea id="warningSigns" placeholder="Example: I isolate, I stop answering messages, I feel numb or hopeless..."></textarea>
+        </div>
+
+        <div class="card" id="cardCoping">
+          <h2><span class="icon">🧰</span> Things I can do to cope</h2>
+          <p class="helper">
+            Gentle actions that help me ride the wave without hurting myself.
+          </p>
+          <textarea id="copingSkills" placeholder="Example: take a shower, listen to music, draw, go for a walk, grounding exercises..."></textarea>
+          <div class="chips">
+            <span class="chip">Deep breaths</span>
+            <span class="chip">Cold water on hands</span>
+            <span class="chip">Step outside briefly</span>
+            <span class="chip">Write feelings down</span>
+          </div>
+        </div>
+
+        <div class="card" id="cardReasons">
+          <h2><span class="icon">💗</span> Reasons to stay</h2>
+          <p class="helper">
+            People, dreams, responsibilities, or tiny moments that make life worth holding onto.
+          </p>
+          <textarea id="reasonsLive" placeholder="Example: my pets, future trips, people who would miss me, things I haven’t tried yet..."></textarea>
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div class="column">
+        <div class="card" id="cardSupport">
+          <h2><span class="icon">🤝</span> People I can reach out to</h2>
+          <p class="helper">
+            You don’t have to explain everything—just “Can we talk?” or “Can you stay with me?” is enough.
+          </p>
+
+          <label for="trustedPerson1">Trusted person</label>
+          <div class="small-row">
+            <div>
+              <input id="trustedPerson1" type="text" placeholder="Name" />
+            </div>
+            <div>
+              <input id="trustedContact1" type="text" placeholder="Phone / message app" />
+            </div>
+          </div>
+
+          <label for="trustedPerson2">Another person</label>
+          <div class="small-row">
+            <div>
+              <input id="trustedPerson2" type="text" placeholder="Name" />
+            </div>
+            <div>
+              <input id="trustedContact2" type="text" placeholder="Phone / message app" />
+            </div>
+          </div>
+
+          <p class="tagline">
+            It’s okay to save more names in your phone contacts or a separate note.
+          </p>
+        </div>
+
+        <div class="card" id="cardSafePlaces">
+          <h2><span class="icon">🏠</span> Places that feel safer</h2>
+          <p class="helper">
+            Where I can go or be (physically or virtually) that feels calmer or more protected.
+          </p>
+          <textarea id="safePlaces" placeholder="Example: a specific room, a friend’s house, a public place, an online space that feels kind..."></textarea>
+        </div>
+
+        <div class="card" id="cardEmergency">
+          <h2><span class="icon">🚨</span> In an emergency</h2>
+          <p class="helper">
+            If I feel like I might act on thoughts of hurting myself, I will:
+          </p>
+          <textarea id="emergencySteps" placeholder="Example: tell someone near me, go to a safe public place, contact local emergency services..."></textarea>
+
+          <div class="emergency-box">
+            <strong>Important:</strong> If you are in immediate danger or feel unable to stay safe,
+            contact local emergency services or go to the nearest emergency room. You deserve to be taken seriously.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 1.5rem;">
+      <h2><span class="icon">📝</span> Save or print my plan <span class="pill">Private to me</span></h2>
+      <p class="helper">
+        This plan is stored only in this browser using local storage. You can clear it anytime.
+      </p>
+      <div class="btn-row">
+        <button class="primary" id="btnSave">💾 Save plan</button>
+        <button class="secondary" id="btnLoad">📂 Load saved</button>
+        <button class="secondary" id="btnPrint">🖨 Print</button>
+        <button class="secondary" id="btnClear">🧹 Clear all</button>
+      </div>
+      <p class="footer-note">
+        This page is not a substitute for professional care. A therapist, doctor, or trusted person can help you
+        review and strengthen this plan.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const fields = {
+      warningSigns: document.getElementById("warningSigns"),
+      copingSkills: document.getElementById("copingSkills"),
+      reasonsLive: document.getElementById("reasonsLive"),
+      trustedPerson1: document.getElementById("trustedPerson1"),
+      trustedContact1: document.getElementById("trustedContact1"),
+      trustedPerson2: document.getElementById("trustedPerson2"),
+      trustedContact2: document.getElementById("trustedContact2"),
+      safePlaces: document.getElementById("safePlaces"),
+      emergencySteps: document.getElementById("emergencySteps"),
+    };
+
+    const statusIndicator = document.getElementById("statusIndicator");
+    const statusText = document.getElementById("statusText");
+
+    function setStatus(level) {
+      statusIndicator.classList.remove("safe");
+      if (level === "calm") {
+        statusIndicator.classList.add("safe");
+        statusText.textContent = "You’re checking in. Keep caring for yourself.";
+      } else if (level === "stressed") {
+        statusText.textContent = "You’re under strain. Use your coping tools and reach out if you can.";
+      } else if (level === "crisis") {
+        statusText.textContent = "This is serious. Please use your plan and seek immediate help if needed.";
+        flashEmergency();
+      } else {
+        statusText.textContent = "Check in with yourself";
+      }
+    }
+
+    function flashEmergency() {
+      const card = document.getElementById("cardEmergency");
+      card.classList.add("highlight");
+      setTimeout(() => card.classList.remove("highlight"), 900);
+    }
+
+    document.getElementById("btnCalm").addEventListener("click", () => setStatus("calm"));
+    document.getElementById("btnStressed").addEventListener("click", () => setStatus("stressed"));
+    document.getElementById("btnCrisis").addEventListener("click", () => setStatus("crisis"));
+
+    function savePlan() {
+      const data = {};
+      for (const key in fields) {
+        data[key] = fields[key].value || "";
+      }
+      localStorage.setItem("mySafetyPlan", JSON.stringify(data));
+      alert("Your safety plan has been saved in this browser.");
+    }
+
+    function loadPlan() {
+      const raw = localStorage.getItem("mySafetyPlan");
+      if (!raw) {
+        alert("No saved plan found in this browser.");
+        return;
+      }
+      try {
+        const data = JSON.parse(raw);
+        for (const key in fields) {
+          if (Object.prototype.hasOwnProperty.call(data, key)) {
+            fields[key].value = data[key];
+          }
+        }
+        alert("Your saved safety plan has been loaded.");
+      } catch (e) {
+        alert("Could not load saved plan. You can start fresh.");
+      }
+    }
+
+    function clearPlan() {
+      if (!confirm("Clear everything on this page and in local storage?")) return;
+      for (const key in fields) {
+        fields[key].value = "";
+      }
+      localStorage.removeItem("mySafetyPlan");
+    }
+
+    document.getElementById("btnSave").addEventListener("click", savePlan);
+    document.getElementById("btnLoad").addEventListener("click", loadPlan);
+    document.getElementById("btnClear").addEventListener("click", clearPlan);
+    document.getElementById("btnPrint").addEventListener("click", () => window.print());
+  </script>
+</body>
+</html>
