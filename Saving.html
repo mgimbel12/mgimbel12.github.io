@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville 2026 – Bingo, Flowers & Music Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #fdf7ff;
+      --card: #ffffff;
+      --accent: #ec4899;
+      --accent-soft: #fce7f3;
+      --accent-green: #22c55e;
+      --accent-blue: #3b82f6;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow: 0 2px 8px rgba(148, 163, 184, 0.35);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #fce7f3 0, #fdf2ff 40%, #f9fafb 100%);
+      color: var(--text);
+    }
+
+    header {
+      padding: 16px 20px;
+      background: linear-gradient(120deg, #ec4899, #f97316, #22c55e, #3b82f6);
+      color: #fdf2ff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header .sub {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    header .meta {
+      text-align: right;
+      font-size: 0.8rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 18px auto 40px;
+      padding: 0 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top left, rgba(236,72,153,0.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,0.12), transparent 55%);
+      pointer-events: none;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    small {
+      font-size: 0.8rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-body {
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .row > * {
+      flex: 1 1 120px;
+    }
+
+    label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      font-size: 0.85rem;
+      resize: vertical;
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fdf2ff;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 1px 4px rgba(148,163,184,0.7);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(148,163,184,0.9);
+    }
+
+    button.secondary {
+      background: #e5e7eb;
+      color: #111827;
+      box-shadow: none;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+      background: #f9fafb;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .pill.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .output-box {
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      padding: 6px 8px;
+      font-size: 0.8rem;
+      min-height: 40px;
+      white-space: pre-wrap;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .small-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .bingo-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .bingo-cell {
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 6px 4px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bingo-cell.free {
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .flower-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #fefce8;
+      border: 1px solid #facc15;
+      font-size: 0.75rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e, #3b82f6);
+      transition: width 0.25s ease-out;
+    }
+
+    @media print {
+      header {
+        box-shadow: none;
+      }
+      button {
+        display: none !important;
+      }
+      body {
+        background: #fff;
+      }
+      .card {
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Smallville 2026 Helper Sheet</h1>
+      <div class="sub">Lingo of Bingo • Flowers • Music • Memories</div>
+    </div>
+    <div class="meta">
+      <div id="today-date"></div>
+      <div id="today-time"></div>
+      <div class="small-note">Single-sheet • For fun & reflection only</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- Lingo of Bingo -->
+      <section class="card">
+        <h2>
+          Lingo of Bingo
+          <span class="label">Phrases • Fun calls • No money</span>
+        </h2>
+        <small>Collect your favorite bingo phrases and generate a playful 5×5 “lingo card”. Entertainment only.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="bingo-lingo">Bingo lingo list (one per line)</label>
+              <textarea id="bingo-lingo" placeholder="Ex:
+Two little ducks
+Legs eleven
+Top of the shop
+Clickety click"></textarea>
+            </div>
+          </div>
+
+          <button type="button" id="bingo-generate">Generate lingo card</button>
+          <div class="bingo-grid" id="bingo-grid"></div>
+          <div class="small-note">You can use this as a fun language card while watching or hosting a game—no betting needed.</div>
+        </div>
+      </section>
+
+      <!-- Gambling Reflection (Awareness, not strategy) -->
+      <section class="card">
+        <h2>
+          Gambling Reflection
+          <span class="label">Awareness • Limits • Feelings</span>
+        </h2>
+        <small>Use this space to reflect on games of chance in a safe, non-strategy way.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="gamble-context">Game or situation</label>
+              <input id="gamble-context" type="text" placeholder="Ex: Bingo night, raffle, casino visit" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="gamble-feelings">How does it make you feel?</label>
+              <textarea id="gamble-feelings" placeholder="Ex: Excited, nervous, pressured, just for fun, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="gamble-limits">What healthy limit or boundary do you want?</label>
+              <textarea id="gamble-limits" placeholder="Ex: Time limit, budget, or choosing to just watch."></textarea>
+            </div>
+          </div>
+
+          <button type="button" id="gamble-summary-btn">Summarize reflection</button>
+          <div class="output-box" id="gamble-summary"></div>
+          <div class="small-note">This is for self-awareness only, not advice or strategy.</div>
+        </div>
+      </section>
+
+      <!-- Flower Mood Picker -->
+      <section class="card">
+        <h2>
+          Flower Mood Picker
+          <span class="label">Blossoms • Feelings • Color</span>
+        </h2>
+        <small>Match your mood to a flower and a color palette for the day.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label>Pick a mood</label>
+              <div class="pill-row" id="flower-mood-row">
+                <button type="button" class="pill" data-mood="Calm">Calm</button>
+                <button type="button" class="pill" data-mood="Hopeful">Hopeful</button>
+                <button type="button" class="pill" data-mood="Tender">Tender</button>
+                <button type="button" class="pill" data-mood="Bold">Bold</button>
+                <button type="button" class="pill" data-mood="Reflective">Reflective</button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="flower-generate">Suggest flower & colors</button>
+          <div class="output-box" id="flower-output"></div>
+        </div>
+      </section>
+
+      <!-- YouTube Channel Music Planner -->
+      <section class="card">
+        <h2>
+          YouTube Channel Music
+          <span class="label">Playlist • Vibes • Notes</span>
+        </h2>
+        <small>Plan music ideas for a YouTube channel—no links needed, just titles, moods, and notes.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="yt-theme">Channel or playlist theme</label>
+              <input id="yt-theme" type="text" placeholder="Ex: Smallville nostalgia, cozy 2026 vibes" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="yt-songs">Song ideas (one per line)</label>
+              <textarea id="yt-songs" placeholder="Ex:
+Theme-style track for sunrise over the farm
+Soft piano for reflection scenes
+Upbeat guitar for town moments"></textarea>
+            </div>
+          </div>
+
+          <button type="button" id="yt-plan-btn">Create simple playlist notes</button>
+          <div class="output-box" id="yt-output"></div>
+        </div>
+      </section>
+
+      <!-- Smallville Memory Log -->
+      <section class="card">
+        <h2>
+          Smallville Memory Log
+          <span class="label">Episodes • Moments • Songs</span>
+        </h2>
+        <small>Pair Smallville-style moments with songs or feelings for 2026.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="sv-episode">Episode / scene name (or your own life scene)</label>
+              <input id="sv-episode" type="text" placeholder="Ex: Standing in the field at sunset" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="sv-feeling">What does this moment feel like?</label>
+              <textarea id="sv-feeling" placeholder="Ex: Bittersweet, hopeful, like a new chapter starting."></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="sv-song">Song or sound you’d pair with it</label>
+              <input id="sv-song" type="text" placeholder="Ex: A slow guitar track, gentle piano, etc." />
+            </div>
+          </div>
+
+          <button type="button" id="sv-save-btn">Add to 2026 memory list</button>
+          <div class="output-box" id="sv-list"></div>
+        </div>
+      </section>
+
+      <!-- 2026 Progress / Season Bar -->
+      <section class="card">
+        <h2>
+          2026 Season Bar
+          <span class="label">Year • Chapters • Gentle progress</span>
+        </h2>
+        <small>Track how far through 2026 you are with a soft, non-pressure progress bar.</small>
+        <div class="section-body">
+          <div class="row">
+            <div>
+              <label for="year-day">Day of year (1–366)</label>
+              <input id="year-day" type="number" min="1" max="366" placeholder="Ex: 32 for early Feb" />
+            </div>
+          </div>
+
+          <button type="button" id="year-update-btn">Update 2026 bar</button>
+          <div class="progress-bar">
+            <div class="progress-fill" id="year-progress"></div>
+          </div>
+          <div class="small-note" id="year-note">Enter a day number to see how far through the year you are.</div>
+        </div>
+      </section>
+    </div>
+
+    <div style="margin-top: 20px; text-align: right;">
+      <button type="button" class="secondary" onclick="window.print()">Print this sheet</button>
+    </div>
+  </main>
+
+  <script>
+    // Date/time
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("today-date").textContent =
+        now.toLocaleDateString(undefined, { weekday: "short", year: "numeric", month: "short", day: "numeric" });
+      document.getElementById("today-time").textContent =
+        now.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // Utility: single-select pills
+    function setupSingleSelectPills(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.addEventListener("click", (e) => {
+        const btn = e.target.closest(".pill");
+        if (!btn) return;
+        [...container.querySelectorAll(".pill")].forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    }
+    setupSingleSelectPills("flower-mood-row");
+
+    function getActivePillValue(containerId, attr) {
+      const container = document.getElementById(containerId);
+      if (!container) return null;
+      const active = container.querySelector(".pill.active");
+      return active ? active.getAttribute(attr) : null;
+    }
+
+    // Lingo of Bingo card
+    document.getElementById("bingo-generate").addEventListener("click", () => {
+      const raw = document.getElementById("bingo-lingo").value.trim();
+      const grid = document.getElementById("bingo-grid");
+      grid.innerHTML = "";
+
+      if (!raw) {
+        grid.innerHTML = "<div class='small-note'>Add some lingo lines first.</div>";
+        return;
+      }
+
+      let phrases = raw
+        .split("\n")
+        .map(l => l.trim())
+        .filter(Boolean);
+
+      // Shuffle
+      for (let i = phrases.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [phrases[i], phrases[j]] = [phrases[j], phrases[i]];
+      }
+
+      // Need 24 phrases (center is free)
+      if (phrases.length < 24) {
+        while (phrases.length < 24) {
+          phrases = phrases.concat(phrases);
+        }
+      }
+      phrases = phrases.slice(0, 24);
+
+      let idx = 0;
+      for (let i = 0; i < 25; i++) {
+        const cell = document.createElement("div");
+        cell.className = "bingo-cell";
+        if (i === 12) {
+          cell.classList.add("free");
+          cell.textContent = "FREE SPACE";
+        } else {
+          cell.textContent = phrases[idx++];
+        }
+        grid.appendChild(cell);
+      }
+    });
+
+    // Gambling reflection summary
+    document.getElementById("gamble-summary-btn").addEventListener("click", () => {
+      const context = document.getElementById("gamble-context").value.trim() || "this game or situation";
+      const feelings = document.getElementById("gamble-feelings").value.trim() || "mixed or unspoken feelings";
+      const limits = document.getElementById("gamble-limits").value.trim() || "a gentle boundary you want to explore";
+      const out = document.getElementById("gamble-summary");
+
+      const text =
+        "Reflection on: " + context + "\n\n" +
+        "How it feels:\n" + feelings + "\n\n" +
+        "Healthy limit / boundary:\n" + limits + "\n\n" +
+        "Reminder:\n" +
+        "- Games of chance are optional, not required.\n" +
+        "- You’re allowed to step back, set limits, or choose other kinds of fun.";
+
+      out.textContent = text;
+    });
+
+    // Flower mood picker
+    document.getElementById("flower-generate").addEventListener("click", () => {
+      const mood = getActivePillValue("flower-mood-row", "data-mood") || "Calm";
+      const out = document.getElementById("flower-output");
+
+      let suggestion = "";
+      if (mood === "Calm") {
+        suggestion = "Lavender or baby’s breath • soft lilac and pale blue tones.";
+      } else if (mood === "Hopeful") {
+        suggestion = "Sunflowers or daisies • yellow, white, and sky blue.";
+      } else if (mood === "Tender") {
+        suggestion = "Peonies or roses • blush pink, cream, and soft green.";
+      } else if (mood === "Bold") {
+        suggestion = "Gerbera daisies or tulips • hot pink, orange, and bright red.";
+      } else if (mood === "Reflective") {
+        suggestion = "Wildflowers or hydrangeas • muted blues, purples, and soft neutrals.";
+      }
+
+      out.innerHTML =
+        "<span class='flower-chip'>🌸 " + mood + "</span> " +
+        "\n\nSuggested flowers & colors:\n" + suggestion;
+    });
+
+    // YouTube channel music planner
+    document.getElementById("yt-plan-btn").addEventListener("click", () => {
+      const theme = document.getElementById("yt-theme").value.trim() || "this channel or playlist";
+      const songs = document.getElementById("yt-songs").value.trim();
+      const out = document.getElementById("yt-output");
+
+      const lines = songs
+        ? songs.split("\n").map(l => l.trim()).filter(Boolean)
+        : [];
+
+      let text = "Theme: " + theme + "\n\n";
+      if (!lines.length) {
+        text += "Add a few song ideas to build your 2026 playlist notes.";
+      } else {
+        text += "Playlist notes:\n";
+        lines.forEach((line, i) => {
+          text += "- Track " + (i + 1) + ": " + line + "\n";
+        });
+        text += "\nYou can later search for songs that match these moods and scenes.";
+      }
+
+      out.textContent = text;
+    });
+
+    // Smallville memory log
+    const svMemories = [];
+    document.getElementById("sv-save-btn").addEventListener("click", () => {
+      const ep = document.getElementById("sv-episode").value.trim() || "Unnamed scene";
+      const feeling = document.getElementById("sv-feeling").value.trim() || "Unspoken feeling";
+      const song = document.getElementById("sv-song").value.trim() || "No song chosen yet";
+      const out = document.getElementById("sv-list");
+
+      svMemories.push({ ep, feeling, song });
+
+      let text = "2026 Smallville-style memory list:\n\n";
+      svMemories.forEach((m, i) => {
+        text += (i + 1) + ". Scene: " + m.ep + "\n";
+        text += "   Feeling: " + m.feeling + "\n";
+        text += "   Song / sound: " + m.song + "\n\n";
+      });
+
+      out.textContent = text;
+    });
+
+    // 2026 season bar
+    document.getElementById("year-update-btn").addEventListener("click", () => {
+      const day = parseInt(document.getElementById("year-day").value, 10);
+      const bar = document.getElementById("year-progress");
+      const note = document.getElementById("year-note");
+
+      if (!day || day < 1 || day > 366) {
+        bar.style.width = "0%";
+        note.textContent = "Enter a valid day number between 1 and 366.";
+        return;
+      }
+
+      const pct = Math.min(100, (day / 366) * 100);
+      bar.style.width = pct.toFixed(1) + "%";
+      note.textContent =
+        "You’re about " + pct.toFixed(1) + "% of the way through 2026. You don’t have to rush this year.";
+    });
+  </script>
+</body>
+</html>
