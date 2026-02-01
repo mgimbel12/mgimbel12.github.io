@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Safety Plan – Helping Myself & Getting Help</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root {
+    --bg: #f6f9fc;
+    --card: #ffffff;
+    --accent: #6a8cff;
+    --accent-soft: #e4e9ff;
+    --text: #222;
+    --muted: #666;
+    --safe: #2ecc71;
+    --warn: #f1c40f;
+    --crisis: #e74c3c;
+    --radius: 12px;
+    --shadow: 0 6px 16px rgba(0,0,0,0.08);
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: system-ui, sans-serif;
+    color: var(--text);
+  }
+
+  header {
+    text-align: center;
+    padding: 1.5rem 1rem 0.5rem;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  header p {
+    margin: 0.5rem 0 1rem;
+    color: var(--muted);
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 2rem;
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .status-indicator {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .btn-row button {
+    border: none;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    background: #e8ecf7;
+  }
+
+  .btn-row button:active {
+    transform: translateY(1px);
+  }
+
+  .btn-safe { background: var(--safe); color: #fff; }
+  .btn-warn { background: var(--warn); color: #000; }
+  .btn-crisis { background: var(--crisis); color: #fff; }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .card h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  textarea, input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #d0d6e0;
+    font-size: 0.9rem;
+    background: #fdfdff;
+    margin-top: 0.3rem;
+  }
+
+  textarea { min-height: 70px; }
+
+  .two-col {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 700px) {
+    .two-col { flex-direction: column; }
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+
+  @media print {
+    .btn-row, .status-bar { display: none !important; }
+    body { background: #fff; }
+    .card { box-shadow: none; }
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>My Safety Plan</h1>
+  <p>A calm place to support myself and reach out when I need help.</p>
+</header>
+
+<div class="container">
+
+  <!-- Status -->
+  <div class="status-bar">
+    <div id="statusIndicator" class="status-indicator">
+      <span class="status-dot"></span>
+      <span id="statusText">How am I feeling right now</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-safe" id="btnSafe">I feel okay</button>
+      <button class="btn-warn" id="btnWarn">I feel overwhelmed</button>
+      <button class="btn-crisis" id="btnCrisis">I need help now</button>
+    </div>
+  </div>
+
+  <!-- Helping Myself -->
+  <div class="card">
+    <h2>Ways I Help Myself</h2>
+    <textarea id="selfHelp" placeholder="Examples: grounding exercises, stepping outside, music, breathing, journaling..."></textarea>
+  </div>
+
+  <!-- Getting Help -->
+  <div class="card">
+    <h2>People Who Can Support Me</h2>
+
+    <div class="two-col">
+      <div>
+        <input id="person1" type="text" placeholder="Name">
+      </div>
+      <div>
+        <input id="contact1" type="text" placeholder="Phone / message app">
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:0.5rem;">
+      <div>
+        <input id="person2" type="text" placeholder="Another person">
+      </div>
+      <div>
+        <input id="contact2" type="text" placeholder="Phone / message app">
+      </div>
+    </div>
+  </div>
+
+  <!-- Safe Places -->
+  <div class="card">
+    <h2>Places That Feel Safe</h2>
+    <textarea id="safePlaces" placeholder="Rooms, public spaces, online spaces, people’s homes..."></textarea>
+  </div>
+
+  <!-- Emergency Steps -->
+  <div class="card">
+    <h2>What I Do When I Need Immediate Help</h2>
+    <textarea id="emergencySteps" placeholder="Examples: tell someone near me, go somewhere safe, contact local emergency services..."></textarea>
+  </div>
+
+  <!-- Save / Load -->
+  <div class="card">
+    <h2>Save or Print My Plan</h2>
+    <div class="btn-row">
+      <button id="btnSave">Save</button>
+      <button id="btnLoad">Load</button>
+      <button id="btnClear">Clear</button>
+      <button id="btnPrint">Print</button>
+    </div>
+    <p class="footer-note">
+      This plan is private to your browser. For real‑time support, reach out to someone you trust or a professional.
+    </p>
+  </div>
+
+</div>
+
+<script>
+  const fields = {
+    selfHelp: document.getElementById("selfHelp"),
+    person1: document.getElementById("person1"),
+    contact1: document.getElementById("contact1"),
+    person2: document.getElementById("person2"),
+    contact2: document.getElementById("contact2"),
+    safePlaces: document.getElementById("safePlaces"),
+    emergencySteps: document.getElementById("emergencySteps"),
+  };
+
+  const statusIndicator = document.getElementById("statusIndicator");
+  const statusText = document.getElementById("statusText");
+
+  function setStatus(type) {
+    const dot = statusIndicator.querySelector(".status-dot");
+
+    if (type === "safe") {
+      dot.style.background = "var(--safe)";
+      statusText.textContent = "You're checking in with yourself. Keep caring gently.";
+    } else if (type === "warn") {
+      dot.style.background = "var(--warn)";
+      statusText.textContent = "You're feeling overwhelmed. Use your tools and reach out if you can.";
+    } else if (type === "crisis") {
+      dot.style.background = "var(--crisis)";
+      statusText.textContent = "You deserve immediate support. Please reach out to someone you trust.";
+    }
+  }
+
+  document.getElementById("btnSafe").onclick = () => setStatus("safe");
+  document.getElementById("btnWarn").onclick = () => setStatus("warn");
+  document.getElementById("btnCrisis").onclick = () => setStatus("crisis");
+
+  function savePlan() {
+    const data = {};
+    for (const key in fields) data[key] = fields[key].value;
+    localStorage.setItem("helpSafetyPlan", JSON.stringify(data));
+    alert("Your plan has been saved in this browser.");
+  }
+
+  function loadPlan() {
+    const raw = localStorage.getItem("helpSafetyPlan");
+    if (!raw) return alert("No saved plan found.");
+    const data = JSON.parse(raw);
+    for (const key in fields) fields[key].value = data[key] || "";
+    alert("Your saved plan has been loaded.");
+  }
+
+  function clearPlan() {
+    if (!confirm("Clear everything?")) return;
+    for (const key in fields) fields[key].value = "";
+    localStorage.removeItem("helpSafetyPlan");
+  }
+
+  document.getElementById("btnSave").onclick = savePlan;
+  document.getElementById("btnLoad").onclick = loadPlan;
+  document.getElementById("btnClear").onclick = clearPlan;
+  document.getElementById("btnPrint").onclick = () => window.print();
+</script>
+
+</body>
+</html>
