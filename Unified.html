@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Unified Helper Sheet — Rainbow Affirming</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* -----------------------------------------------------------
+   GLOBAL STYLES — RAINBOW AFFIRMING
+----------------------------------------------------------- */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    color: #222;
+}
+
+header {
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+    padding: 15px;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#datetime {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    border-bottom: 3px solid #ddd;
+}
+
+nav button {
+    padding: 12px 18px;
+    margin: 6px;
+    border: none;
+    cursor: pointer;
+    background: #eee;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav button:hover {
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+    color: white;
+}
+
+.section {
+    display: none;
+    padding: 20px;
+}
+
+.active {
+    display: block;
+}
+
+/* -----------------------------------------------------------
+   MODULE STYLES
+----------------------------------------------------------- */
+.box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border-left: 6px solid purple;
+}
+
+h2 {
+    border-bottom: 3px solid purple;
+    padding-bottom: 5px;
+}
+
+/* Money Counter */
+#totalDisplay {
+    font-size: 22px;
+    font-weight: bold;
+    color: green;
+}
+
+/* Progress Bar */
+.progress {
+    width: 100%;
+    background: #ddd;
+    border-radius: 10px;
+    height: 20px;
+    margin-top: 10px;
+}
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, purple);
+    border-radius: 10px;
+}
+
+/* Confetti */
+.confetti {
+    font-size: 30px;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    Unified Helper Sheet — Rainbow Affirming
+    <div id="datetime"></div>
+</header>
+
+<nav>
+    <button onclick="showSection('school')">School Systems</button>
+    <button onclick="showSection('assist')">Assistance Aid</button>
+    <button onclick="showSection('money')">Money Counter</button>
+    <button onclick="showSection('spell')">Spell Checker</button>
+    <button onclick="showSection('life')">Life Coach</button>
+</nav>
+
+<!-- -----------------------------------------------------------
+     SCHOOL SYSTEMS HELPER
+----------------------------------------------------------- -->
+<section id="school" class="section active">
+    <h2>School Systems Helper</h2>
+
+    <div class="box">
+        <h3>Assignment Breakdown</h3>
+        <textarea id="assignment" rows="4" style="width:100%;"></textarea>
+        <button onclick="breakdown()">Break It Down</button>
+        <div id="breakdownResult"></div>
+    </div>
+
+    <div class="box">
+        <h3>Study Timer</h3>
+        <button onclick="startTimer()">Start 10-Min Timer</button>
+        <div id="timerDisplay"></div>
+    </div>
+
+    <div class="box">
+        <h3>Explain Mode</h3>
+        <input id="explainText" style="width:100%;" placeholder="Type something to explain...">
+        <button onclick="explain('kid')">Kid</button>
+        <button onclick="explain('teen')">Teen</button>
+        <button onclick="explain('adult')">Adult</button>
+        <div id="explainResult"></div>
+    </div>
+</section>
+
+<!-- -----------------------------------------------------------
+     ASSISTANCE AID
+----------------------------------------------------------- -->
+<section id="assist" class="section">
+    <h2>Assistance Aid</h2>
+
+    <div class="box">
+        <h3>Next Right Step</h3>
+        <button onclick="nextStep()">Generate Step</button>
+        <div id="stepResult"></div>
+    </div>
+
+    <div class="box">
+        <h3>Encouragement</h3>
+        <button onclick="encourage()">Give Encouragement</button>
+        <div id="encourageResult"></div>
+    </div>
+</section>
+
+<!-- -----------------------------------------------------------
+     MONEY COUNTER
+----------------------------------------------------------- -->
+<section id="money" class="section">
+    <h2>Money Counter</h2>
+
+    <div class="box">
+        <input id="amount" type="number" placeholder="Enter amount">
+        <button onclick="addMoney()">Add</button>
+        <button onclick="subtractMoney()">Subtract</button>
+        <div id="totalDisplay">$0.00</div>
+
+        <h4>Savings Goal</h4>
+        <input id="goal" type="number" placeholder="Enter goal">
+        <button onclick="updateProgress()">Update Progress</button>
+
+        <div class="progress">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+</section>
+
+<!-- -----------------------------------------------------------
+     SPELL CHECKER
+----------------------------------------------------------- -->
+<section id="spell" class="section">
+    <h2>Spell Checker</h2>
+
+    <div class="box">
+        <textarea id="spellInput" rows="4" style="width:100%;"></textarea>
+        <button onclick="checkSpelling()">Check Spelling</button>
+        <div id="spellResult"></div>
+    </div>
+</section>
+
+<!-- -----------------------------------------------------------
+     LIFE COACH PANEL
+----------------------------------------------------------- -->
+<section id="life" class="section">
+    <h2>Life Coach Panel</h2>
+
+    <div class="box">
+        <h3>Daily Intention</h3>
+        <button onclick="intention()">Generate Intention</button>
+        <div id="intentionResult"></div>
+    </div>
+
+    <div class="box">
+        <h3>Gratitude Prompt</h3>
+        <button onclick="gratitude()">Give Prompt</button>
+        <div id="gratitudeResult"></div>
+    </div>
+
+    <div class="box">
+        <h3>Celebration</h3>
+        <button onclick="celebrate()">Celebrate</button>
+        <div class="confetti" id="confetti">🎉🎉🎉</div>
+    </div>
+</section>
+
+<script>
+/* -----------------------------------------------------------
+   NAVIGATION
+----------------------------------------------------------- */
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+/* -----------------------------------------------------------
+   DATE + TIME
+----------------------------------------------------------- */
+setInterval(() => {
+    document.getElementById("datetime").textContent = new Date().toLocaleString();
+}, 1000);
+
+/* -----------------------------------------------------------
+   SCHOOL SYSTEMS
+----------------------------------------------------------- */
+function breakdown() {
+    let text = document.getElementById("assignment").value;
+    document.getElementById("breakdownResult").innerHTML =
+        "<ul><li>Step 1: Understand the task</li><li>Step 2: Gather materials</li><li>Step 3: Break into smaller parts</li><li>Step 4: Complete one part at a time</li><li>Step 5: Review and submit</li></ul>";
+}
+
+function startTimer() {
+    let time = 600;
+    let display = document.getElementById("timerDisplay");
+    let interval = setInterval(() => {
+        let m = Math.floor(time / 60);
+        let s = time % 60;
+        display.textContent = `${m}:${s.toString().padStart(2,'0')}`;
+        time--;
+        if (time < 0) clearInterval(interval);
+    }, 1000);
+}
+
+function explain(mode) {
+    let text = document.getElementById("explainText").value;
+    let result = "";
+
+    if (mode === "kid") result = "This means: " + text + " but in a simple way.";
+    if (mode === "teen") result = "Basically, " + text + " but more relatable.";
+    if (mode === "adult") result = "In formal terms: " + text;
+
+    document.getElementById("explainResult").textContent = result;
+}
+
+/* -----------------------------------------------------------
+   ASSISTANCE AID
+----------------------------------------------------------- */
+function nextStep() {
+    let steps = [
+        "Take a deep breath and choose one small action.",
+        "Start with the easiest part.",
+        "Organize your space for 2 minutes.",
+        "Write down the next tiny step."
+    ];
+    document.getElementById("stepResult").textContent =
+        steps[Math.floor(Math.random() * steps.length)];
+}
+
+function encourage() {
+    let lines = [
+        "You’re doing better than you think.",
+        "Small steps still count.",
+        "You are capable and steady.",
+        "You’re allowed to take your time."
+    ];
+    document.getElementById("encourageResult").textContent =
+        lines[Math.floor(Math.random() * lines.length)];
+}
+
+/* -----------------------------------------------------------
+   MONEY COUNTER
+----------------------------------------------------------- */
+let total = 0;
+
+function addMoney() {
+    total += Number(document.getElementById("amount").value);
+    updateTotal();
+}
+
+function subtractMoney() {
+    total -= Number(document.getElementById("amount").value);
+    updateTotal();
+}
+
+function updateTotal() {
+    document.getElementById("totalDisplay").textContent = "$" + total.toFixed(2);
+}
+
+function updateProgress() {
+    let goal = Number(document.getElementById("goal").value);
+    let percent = Math.min((total / goal) * 100, 100);
+    document.getElementById("progressFill").style.width = percent + "%";
+}
+
+/* -----------------------------------------------------------
+   SPELL CHECKER (simple)
+----------------------------------------------------------- */
+function checkSpelling() {
+    let text = document.getElementById("spellInput").value;
+    document.getElementById("spellResult").textContent =
+        "This is a simple checker — consider revising: " + text;
+}
+
+/* -----------------------------------------------------------
+   LIFE COACH
+----------------------------------------------------------- */
+function intention() {
+    let list = [
+        "Move with kindness today.",
+        "Stay grounded in your values.",
+        "Choose one thing to complete.",
+        "Honor your energy level."
+    ];
+    document.getElementById("intentionResult").textContent =
+        list[Math.floor(Math.random() * list.length)];
+}
+
+function gratitude() {
+    let prompts = [
+        "Name one thing that made you smile today.",
+        "What is something you appreciate about yourself",
+        "Think of someone who helped you recently.",
+        "What is one comfort you’re grateful for"
+    ];
+    document.getElementById("gratitudeResult").textContent =
+        prompts[Math.floor(Math.random() * prompts.length)];
+}
+
+function celebrate() {
+    document.getElementById("confetti").style.display = "block";
+    setTimeout(() => {
+        document.getElementById("confetti").style.display = "none";
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
