@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Safety Sanctuary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --baby-blue: #cfe9ff;
+      --creme: #fff7e6;
+      --soft-pink: #ffd6e8;
+      --apple-red: #ff6b6b;
+      --bean-green: #b7e1a1;
+      --ink: #243447;
+      --bg: #f5f7fb;
+      --rainbow: linear-gradient(90deg, #ff6b6b, #ffd93b, #6ee7b7, #60a5fa, #a855f7);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 1.5rem auto;
+      padding: 1.5rem;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      border: 2px dashed rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0.5rem;
+      border-radius: 12px;
+      border: 1px dashed rgba(0, 0, 0, 0.06);
+      pointer-events: none;
+    }
+
+    header {
+      text-align: center;
+      padding: 1rem 1rem 1.25rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--baby-blue), var(--soft-pink));
+      color: #123;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before,
+    header::after {
+      content: "✦";
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.15;
+    }
+
+    header::before {
+      top: -0.5rem;
+      left: 0.5rem;
+    }
+
+    header::after {
+      bottom: -0.5rem;
+      right: 0.75rem;
+    }
+
+    .flag-pill {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: var(--creme);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .flag-icon {
+      width: 12px;
+      height: 8px;
+      border-radius: 2px;
+      background: linear-gradient(
+        to bottom,
+        #b22234 0 33%,
+        #ffffff 33% 66%,
+        #3c3b6e 66% 100%
+      );
+    }
+
+    h1 {
+      margin: 0.25rem 0 0.35rem;
+      font-size: 1.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .chips-row {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+    }
+
+    .chip {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.25rem 0 1rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(207, 233, 255, 0.4);
+      border: 1px dashed rgba(0, 0, 0, 0.08);
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+    }
+
+    .toggle-group {
+      display: inline-flex;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+    }
+
+    .toggle-btn {
+      padding: 0.25rem 0.7rem;
+      font-size: 0.8rem;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: var(--baby-blue);
+      color: #123;
+      font-weight: 600;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background: #ffffff;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn:hover {
+      background: #f0f4ff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .btn-primary {
+      background: var(--apple-red);
+      color: #ffffff;
+      border-color: transparent;
+    }
+
+    .btn-primary:hover {
+      background: #ff4b4b;
+    }
+
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .sections-grid {
+        grid-template-columns: 1fr;
+      }
+      .toolbar {
+        border-radius: 12px;
+      }
+    }
+
+    .section-card {
+      position: relative;
+      padding: 0.9rem 0.9rem 0.8rem;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .section-body {
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+    }
+
+    .field-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 0.4rem 0.5rem;
+      font-size: 0.8rem;
+      resize: vertical;
+      min-height: 2.1rem;
+      font-family: inherit;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    textarea:focus,
+    input[type="text"]:focus {
+      outline: 2px solid var(--baby-blue);
+      border-color: transparent;
+      background: #ffffff;
+    }
+
+    .micro-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.35rem;
+    }
+
+    .micro-note {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .badge-rainbow {
+      height: 4px;
+      border-radius: 999px;
+      background: var(--rainbow);
+      margin-top: 0.3rem;
+    }
+
+    .badge-moon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #f0f4ff);
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+      opacity: 0.7;
+    }
+
+    .badge-snow {
+      position: absolute;
+      bottom: -8px;
+      left: -8px;
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 70% 30%, #ffffff, #e6f4ff);
+      opacity: 0.7;
+    }
+
+    .badge-castle {
+      position: absolute;
+      bottom: 0.2rem;
+      right: 0.4rem;
+      font-size: 1.1rem;
+      opacity: 0.4;
+    }
+
+    .badge-sunrise {
+      position: absolute;
+      top: 0.2rem;
+      right: 0.4rem;
+      font-size: 1.1rem;
+      opacity: 0.4;
+    }
+
+    .section-1 {
+      background: linear-gradient(135deg, var(--soft-pink) 0, #ffffff 40%);
+    }
+
+    .section-2 {
+      background: linear-gradient(135deg, var(--baby-blue) 0, #ffffff 40%);
+    }
+
+    .section-3 {
+      background: linear-gradient(135deg, var(--creme) 0, #ffffff 40%);
+    }
+
+    .section-4 {
+      background: linear-gradient(135deg, var(--bean-green) 0, #ffffff 40%);
+    }
+
+    .section-5 {
+      background: linear-gradient(135deg, #ffe0e0 0, #ffffff 40%);
+      border-color: rgba(255, 0, 0, 0.15);
+    }
+
+    .section-6 {
+      background: linear-gradient(135deg, #fdf2ff 0, #ffffff 40%);
+    }
+
+    .emphasis {
+      font-weight: 600;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.7rem;
+      text-align: center;
+      opacity: 0.7;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .page {
+        box-shadow: none;
+        margin: 0;
+        border: none;
+      }
+      .page::before {
+        display: none;
+      }
+      .toolbar {
+        display: none !important;
+      }
+      header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .section-card {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" id="page">
+    <header>
+      <div class="flag-pill">
+        <span class="flag-icon" aria-hidden="true"></span>
+        <span>Grounded &amp; Home</span>
+      </div>
+      <h1>My Safety Sanctuary</h1>
+      <p class="subtitle">A single page for calm, connection, and next steps.</p>
+      <div class="chips-row">
+        <span class="chip">Calm</span>
+        <span class="chip">Ceremony</span>
+        <span class="chip">Identity-Safe</span>
+        <span class="chip">Academic</span>
+      </div>
+    </header>
+
+    <section class="toolbar" aria-label="View and actions">
+      <div class="toolbar-left">
+        <span class="toolbar-label">View</span>
+        <div class="toggle-group" id="viewToggle">
+          <button class="toggle-btn active" data-mode="day" type="button">Day</button>
+          <button class="toggle-btn" data-mode="night" type="button">Night</button>
+        </div>
+      </div>
+      <div class="toolbar-right">
+        <button class="btn" id="breathBtn" type="button">
+          <span>●</span>
+          <span>Breathing cue</span>
+        </button>
+        <button class="btn" id="exportBtn" type="button">
+          <span>⇩</span>
+          <span>Export</span>
+        </button>
+        <button class="btn" id="importBtn" type="button">
+          <span>⇧</span>
+          <span>Import</span>
+        </button>
+        <button class="btn btn-primary" id="printBtn" type="button">
+          <span>🖨</span>
+          <span>Print</span>
+        </button>
+        <input id="importFile" type="file" accept="application/json" class="hidden" />
+      </div>
+    </section>
+
+    <section class="sections-grid" aria-label="Safety plan sections">
+      <!-- Section 1 -->
+      <article class="section-card section-1">
+        <div class="badge-moon" aria-hidden="true"></div>
+        <div class="badge-snow" aria-hidden="true"></div>
+        <div class="section-header">
+          <div class="section-title">
+            <span>When I Start Feeling Unsafe</span>
+            <span class="section-tag">Noticing</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div>
+            <div class="field-label">What I notice in my body</div>
+            <textarea id="bodySignals" placeholder="Example: tight chest, shaky hands, heavy feeling in my stomach..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">What thoughts show up</div>
+            <textarea id="thoughtSignals" placeholder="Example: 'I’m not safe', 'Something bad will happen'..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">What emotions rise</div>
+            <textarea id="emotionSignals" placeholder="Example: fear, panic, shame, sadness..."></textarea>
+          </div>
+          <p class="micro-note">
+            You can add as many or as few details as you want—this is just for you.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 2 -->
+      <article class="section-card section-2">
+        <div class="badge-sunrise" aria-hidden="true">☀️</div>
+        <div class="section-header">
+          <div class="section-title">
+            <span>What Helps Me Feel Safe</span>
+            <span class="section-tag">Grounding</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="micro-row">
+            <div>
+              <div class="field-label">Breathing or grounding</div>
+              <textarea id="grounding" placeholder="Example: 4–7–8 breathing, naming 5 things I can see..."></textarea>
+            </div>
+            <div>
+              <div class="field-label">Sensory comforts</div>
+              <textarea id="sensory" placeholder="Example: blanket, warm drink, favorite scent, cool water..."></textarea>
+            </div>
+          </div>
+          <div class="micro-row">
+            <div>
+              <div class="field-label">Music or movement</div>
+              <textarea id="musicMovement" placeholder="Example: one song that calms me, gentle stretching, walking..."></textarea>
+            </div>
+            <div>
+              <div class="field-label">Words that help</div>
+              <textarea id="helpfulWords" placeholder="Example: 'I am allowed to feel safe', 'This moment will pass'..."></textarea>
+            </div>
+          </div>
+          <p class="micro-note">
+            You can tap the “Breathing cue” button above when you want a simple timed breath.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 3 -->
+      <article class="section-card section-3">
+        <div class="badge-castle" aria-hidden="true">🏰</div>
+        <div class="section-header">
+          <div class="section-title">
+            <span>People Who Help Me Feel Connected</span>
+            <span class="section-tag">Support</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="micro-row">
+            <div>
+              <div class="field-label">Name</div>
+              <input id="person1Name" type="text" placeholder="Person 1" />
+            </div>
+            <div>
+              <div class="field-label">How to reach them</div>
+              <input id="person1Contact" type="text" placeholder="Phone, text, etc." />
+            </div>
+          </div>
+          <div class="micro-row">
+            <div>
+              <div class="field-label">Why they help</div>
+              <textarea id="person1Why" placeholder="Example: listens without judgment, helps me feel grounded..."></textarea>
+            </div>
+          </div>
+
+          <div class="micro-row">
+            <div>
+              <div class="field-label">Name</div>
+              <input id="person2Name" type="text" placeholder="Person 2" />
+            </div>
+            <div>
+              <div class="field-label">How to reach them</div>
+              <input id="person2Contact" type="text" placeholder="Phone, text, etc." />
+            </div>
+          </div>
+          <div class="micro-row">
+            <div>
+              <div class="field-label">Why they help</div>
+              <textarea id="person2Why" placeholder="Example: makes me laugh, reminds me of my strengths..."></textarea>
+            </div>
+          </div>
+
+          <p class="micro-note">
+            You can include friends, family, mentors, community members, or anyone who feels safe.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 4 -->
+      <article class="section-card section-4">
+        <div class="badge-castle" aria-hidden="true">🌙</div>
+        <div class="section-header">
+          <div class="section-title">
+            <span>Places I Can Go to Feel Safe</span>
+            <span class="section-tag">Spaces</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div>
+            <div class="field-label">At home</div>
+            <textarea id="homePlaces" placeholder="Example: my room, a specific chair, a quiet corner..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Outside</div>
+            <textarea id="outsidePlaces" placeholder="Example: park bench, library, community center..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Community spaces</div>
+            <textarea id="communityPlaces" placeholder="Example: faith space, campus, recreation center..."></textarea>
+          </div>
+          <p class="micro-note">
+            You can include real places or symbolic ones (like “moon castle” or “snow-white forest”) that remind you of safety.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 5 -->
+      <article class="section-card section-5">
+        <div class="section-header">
+          <div class="section-title">
+            <span>Emergency Steps</span>
+            <span class="section-tag">Action</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div>
+            <div class="field-label">If I need immediate help, I will...</div>
+            <textarea id="emergencySteps" placeholder="Example: go to a safe room, reach out to someone I trust, go to a public place..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">I can go to...</div>
+            <textarea id="emergencyPlaces" placeholder="Example: trusted neighbor, front desk, campus security, community center..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">I can call...</div>
+            <textarea id="emergencyContacts" placeholder="Example: trusted people, local services, community hotlines..."></textarea>
+          </div>
+          <p class="micro-note">
+            This section is for your own planning and clarity. For any urgent danger, always seek real-world help immediately.
+          </p>
+        </div>
+      </article>
+
+      <!-- Section 6 -->
+      <article class="section-card section-6">
+        <div class="section-header">
+          <div class="section-title">
+            <span>My Strengths &amp; Reasons to Stay</span>
+            <span class="section-tag">Hope</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="badge-rainbow" aria-hidden="true"></div>
+          <div>
+            <div class="field-label">Affirmations</div>
+            <textarea id="affirmations" placeholder="Example: I am worthy of safety. My feelings matter. I am not alone."></textarea>
+          </div>
+          <div>
+            <div class="field-label">People, communities, or identities I care about</div>
+            <textarea id="reasonsPeople" placeholder="Example: family, friends, future self, LGBTQ+ community, creative projects..."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Future hopes</div>
+            <textarea id="futureHopes" placeholder="Example: places I want to visit, skills I want to learn, stories I want to live..."></textarea>
+          </div>
+          <p class="micro-note">
+            This space can hold your brightest reasons, even if they feel small or far away right now.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer-note">
+      This page is a personal grounding tool and does not replace professional, medical, or emergency support.
+    </p>
+  </main>
+
+  <script>
+    // Simple local storage key
+    const STORAGE_KEY = "mySafetySanctuary_v1";
+
+    const fields = [
+      "bodySignals",
+      "thoughtSignals",
+      "emotionSignals",
+      "grounding",
+      "sensory",
+      "musicMovement",
+      "helpfulWords",
+      "person1Name",
+      "person1Contact",
+      "person1Why",
+      "person2Name",
+      "person2Contact",
+      "person2Why",
+      "homePlaces",
+      "outsidePlaces",
+      "communityPlaces",
+      "emergencySteps",
+      "emergencyPlaces",
+      "emergencyContacts",
+      "affirmations",
+      "reasonsPeople",
+      "futureHopes"
+    ];
+
+    function saveToLocalStorage() {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value;
+      });
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (e) {
+        // ignore storage errors
+      }
+    }
+
+    function loadFromLocalStorage() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        fields.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && data[id] !== undefined) {
+            el.value = data[id];
+          }
+        });
+      } catch (e) {
+        // ignore parse errors
+      }
+    }
+
+    function exportData() {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value;
+      });
+      const blob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json"
+      });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "my-safety-sanctuary.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function importData(file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          fields.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el && data[id] !== undefined) {
+              el.value = data[id];
+            }
+          });
+          saveToLocalStorage();
+        } catch (err) {
+          alert("Could not read this file as a safety sanctuary export.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function setMode(mode) {
+      const page = document.getElementById("page");
+      const dayBtn = document.querySelector('.toggle-btn[data-mode="day"]');
+      const nightBtn = document.querySelector('.toggle-btn[data-mode="night"]');
+
+      if (mode === "night") {
+        document.body.style.background = "#0b1020";
+        page.style.background = "#111827";
+        page.style.color = "#e5e7eb";
+        page.style.boxShadow = "0 10px 40px rgba(0,0,0,0.7)";
+        dayBtn.classList.remove("active");
+        nightBtn.classList.add("active");
+      } else {
+        document.body.style.background = "var(--bg)";
+        page.style.background = "#ffffff";
+        page.style.color = "var(--ink)";
+        page.style.boxShadow = "0 10px 30px rgba(0,0,0,0.06)";
+        nightBtn.classList.remove("active");
+        dayBtn.classList.add("active");
+      }
+    }
+
+    function startBreathingCue() {
+      const duration = 4000; // 4 seconds in, 4 out
+      let inhale = true;
+      let count = 0;
+      const maxCycles = 6;
+
+      const btn = document.getElementById("breathBtn");
+      btn.disabled = true;
+      btn.textContent = "Inhale…";
+
+      const interval = setInterval(() => {
+        inhale = !inhale;
+        count++;
+        btn.textContent = inhale ? "Inhale…" : "Exhale…";
+
+        if (count >= maxCycles * 2) {
+          clearInterval(interval);
+          btn.disabled = false;
+          btn.textContent = "● Breathing cue";
+        }
+      }, duration);
+    }
+
+    // Event wiring
+    window.addEventListener("DOMContentLoaded", () => {
+      loadFromLocalStorage();
+
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener("input", () => {
+            saveToLocalStorage();
+          });
+        }
+      });
+
+      document
+        .getElementById("exportBtn")
+        .addEventListener("click", exportData);
+
+      document.getElementById("importBtn").addEventListener("click", () => {
+        document.getElementById("importFile").click();
+      });
+
+      document
+        .getElementById("importFile")
+        .addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) importData(file);
+          e.target.value = "";
+        });
+
+      document.getElementById("printBtn").addEventListener("click", () => {
+        window.print();
+      });
+
+      document.getElementById("breathBtn").addEventListener("click", () => {
+        startBreathingCue();
+      });
+
+      document
+        .querySelector('.toggle-btn[data-mode="day"]')
+        .addEventListener("click", () => setMode("day"));
+
+      document
+        .querySelector('.toggle-btn[data-mode="night"]')
+        .addEventListener("click", () => setMode("night"));
+    });
+  </script>
+</body>
+</html>
