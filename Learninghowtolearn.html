@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chloe Sullivan Safety Plan</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --bg-paper: #17191f;
+      --accent: #ffd15c;
+      --accent-soft: #ffefc2;
+      --ink: #f5f5f5;
+      --muted: #b9c0d4;
+      --danger: #ff6b81;
+      --safe: #7dffb3;
+      --border: #3b4258;
+      --highlight: #7fd4ff;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "Fira Code", "Consolas", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top left, #28324f 0, transparent 55%),
+        radial-gradient(circle at top right, #3b2f4f 0, transparent 55%),
+        #050608;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    /* LEFT: Chloe / Wall of Weird */
+    .left-wrap {
+      background: linear-gradient(145deg, #10121a, #050608);
+      border-radius: 18px;
+      border: 2px solid #ffd15c55;
+      padding: 18px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .headline {
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      color: var(--accent-soft);
+      margin-bottom: 4px;
+    }
+
+    .title-block h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    .title-block p {
+      margin-top: 4px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .byline {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    .wall-grid {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .clipping {
+      background: var(--bg-paper);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      padding: 6px 8px;
+      position: relative;
+      overflow: hidden;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .clipping::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 10px;
+      border-radius: 0 0 999px 999px;
+      background: #2b2f3f;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+    }
+
+    .clipping strong {
+      color: var(--accent-soft);
+      display: block;
+      margin-bottom: 2px;
+      font-size: 0.7rem;
+    }
+
+    .tagline-left {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .highlighter {
+      background: linear-gradient(120deg, #ffd15c55, transparent);
+      padding: 0 4px;
+      border-radius: 4px;
+    }
+
+    /* RIGHT: Safety Plan Panels */
+    .panel {
+      background: rgba(10, 12, 20, 0.96);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 18px 18px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .panel-header h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .panel-header span {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      color: #f6efff;
+    }
+
+    textarea, input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 209, 92, 0.5);
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      font-family: var(--font-main);
+      background: rgba(5, 8, 20, 0.95);
+      color: var(--ink);
+      resize: vertical;
+      min-height: 60px;
+      outline: none;
+    }
+
+    textarea:focus, input:focus {
+      border-color: var(--highlight);
+      box-shadow: 0 0 0 1px rgba(127, 212, 255, 0.5);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 209, 92, 0.7);
+      cursor: pointer;
+      user-select: none;
+      background: rgba(10, 15, 40, 0.9);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .chip:hover {
+      background: rgba(127, 212, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .chip.safe {
+      border-color: var(--safe);
+      color: var(--safe);
+    }
+
+    .chip.danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .footer-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid var(--highlight);
+      background: rgba(10, 40, 70, 0.9);
+      color: var(--ink);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      background: rgba(127, 212, 255, 0.2);
+      box-shadow: 0 0 10px rgba(127, 212, 255, 0.4);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      border-color: rgba(255, 209, 92, 0.7);
+      background: rgba(5, 8, 20, 0.95);
+    }
+
+    .status-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 209, 92, 0.7);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status-pill.safe {
+      border-color: var(--safe);
+      color: var(--safe);
+    }
+
+    .status-pill.danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .tiny {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .highlight-text {
+      color: var(--highlight);
+      font-weight: 600;
+    }
+
+    .saved-toast {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(5, 8, 20, 0.98);
+      border-radius: 999px;
+      border: 1px solid var(--highlight);
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      color: var(--ink);
+      display: none;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+      z-index: 20;
+    }
+
+    .saved-toast.show {
+      display: inline-flex;
+      animation: fadeToast 2.4s ease-out forwards;
+    }
+
+    @keyframes fadeToast {
+      0% { opacity: 0; transform: translateY(10px); }
+      10% { opacity: 1; transform: translateY(0); }
+      80% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- LEFT: Chloe / Torch vibe -->
+    <section class="left-wrap">
+      <div class="headline">the torch · smallville high</div>
+      <div class="title-block">
+        <h1>Chloe Sullivan Safety Plan</h1>
+        <p>“Facts first. Feelings matter. You are not a headline—you’re the hero of this story.”</p>
+      </div>
+      <div class="byline">
+        Compiled like a Wall of Weird board—only this time, the mystery is how you stay safe and supported.
+      </div>
+
+      <div class="wall-grid">
+        <div class="clipping">
+          <strong>Exhibit A: Patterns</strong>
+          Notes about what depression looks like for me.
+        </div>
+        <div class="clipping">
+          <strong>Exhibit B: Evidence of Strength</strong>
+          Times I made it through hard nights.
+        </div>
+        <div class="clipping">
+          <strong>Exhibit C: Allies</strong>
+          People who actually show up when I reach out.
+        </div>
+        <div class="clipping">
+          <strong>Exhibit D: Safe Places</strong>
+          Rooms, scenes, and rituals that soften the weight.
+        </div>
+        <div class="clipping">
+          <strong>Exhibit E: Clues</strong>
+          Early signs my mood is crashing.
+        </div>
+        <div class="clipping">
+          <strong>Exhibit F: Next Steps</strong>
+          Gentle actions I can take before it feels unbearable.
+        </div>
+      </div>
+
+      <p class="tagline-left">
+        You’re allowed to treat your mental health like Chloe treats a lead:
+        <span class="highlighter">serious, worthy of time, and never something you have to solve alone.</span>
+      </p>
+    </section>
+
+    <!-- RIGHT: Safety Plan -->
+    <section>
+      <!-- Identity & Today -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Reporter’s Note</h2>
+          <span>who I am today</span>
+        </div>
+        <div class="row-2">
+          <div>
+            <label for="name">Name / Alias</label>
+            <input id="name" type="text" placeholder="e.g., Chloe, or your own hero name" />
+          </div>
+          <div>
+            <label for="date">Date</label>
+            <input id="date" type="date" />
+          </div>
+        </div>
+        <label for="reason" style="margin-top:8px;">Why I’m filling this out right now</label>
+        <textarea id="reason" placeholder="You can be brief: a mood shift, a hard day, a promise to yourself..."></textarea>
+        <div class="footer-controls">
+          <span class="tiny">This is a snapshot, not a verdict. You’re allowed to change and update it.</span>
+        </div>
+      </div>
+
+      <!-- Warning signs -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Early Headlines</h2>
+          <span>warning signs of depression</span>
+        </div>
+        <p class="tagline">When these show up, it’s a signal to slow down and take extra care.</p>
+        <div class="chips">
+          <div class="chip danger" data-target="warning-signs">Heavy exhaustion</div>
+          <div class="chip danger" data-target="warning-signs">Wanting to disappear</div>
+          <div class="chip danger" data-target="warning-signs">Hopeless thoughts</div>
+          <div class="chip danger" data-target="warning-signs">Skipping meals</div>
+          <div class="chip danger" data-target="warning-signs">Ignoring messages</div>
+        </div>
+        <label for="warning-signs">My personal warning signs</label>
+        <textarea id="warning-signs" placeholder="What does it look like when depression is getting louder for you?"></textarea>
+        <div class="footer-controls">
+          <span class="status-pill danger">Signal: Notice & Name</span>
+          <div class="btn-row">
+            <button class="secondary" data-clear="warning-signs">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coping & grounding -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Grounding & Coping Tools</h2>
+          <span>things that help even a little</span>
+        </div>
+        <p class="tagline">These don’t have to fix everything. They just need to make this moment a bit more bearable.</p>
+        <div class="chips">
+          <div class="chip safe" data-target="coping">Warm shower</div>
+          <div class="chip safe" data-target="coping">Text a friend</div>
+          <div class="chip safe" data-target="coping">Watch a comfort show</div>
+          <div class="chip safe" data-target="coping">Step outside briefly</div>
+          <div class="chip safe" data-target="coping">Pet/animal time</div>
+        </div>
+        <label for="coping">Coping strategies that feel realistic for me</label>
+        <textarea id="coping" placeholder="Small, doable actions: stretching, music, journaling, changing rooms, gentle movement, etc."></textarea>
+
+        <div class="row-2" style="margin-top:8px;">
+          <div>
+            <label for="grounding">Grounding ideas (breathing, senses, etc.)</label>
+            <textarea id="grounding" placeholder="e.g., slow breathing, naming 5 things I see, holding something textured, noticing sounds..."></textarea>
+          </div>
+          <div>
+            <label for="kind-words">Words I need to hear when I feel hopeless</label>
+            <textarea id="kind-words" placeholder="Write the Chloe-style pep talk you deserve."></textarea>
+          </div>
+        </div>
+
+        <div class="footer-controls">
+          <span class="status-pill safe">Signal: Soothe & Support</span>
+          <div class="btn-row">
+            <button class="secondary" data-clear="coping">Clear Coping</button>
+            <button class="secondary" data-clear="grounding">Clear Grounding</button>
+            <button class="secondary" data-clear="kind-words">Clear Words</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allies -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Allies & Support Network</h2>
+          <span>who I can reach for</span>
+        </div>
+        <p class="tagline">You don’t have to be your own entire support system. Even Chloe had a team.</p>
+        <div class="row-2">
+          <div>
+            <label for="allies">Trusted people (names + how to reach them)</label>
+            <textarea id="allies" placeholder="Friends, family, coworkers, neighbors—anyone it feels okay to contact."></textarea>
+          </div>
+          <div>
+            <label for="professionals">Professional supports</label>
+            <textarea id="professionals" placeholder="Therapist, doctor, counselor, support groups, or other mental health resources."></textarea>
+          </div>
+        </div>
+        <div class="footer-controls">
+          <span class="tiny">
+            If you ever feel at risk of harming yourself, it’s important to reach out to trusted people or professional support right away.
+          </span>
+        </div>
+      </div>
+
+      <!-- Safety & crisis steps (general) -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>When Things Feel Overwhelming</h2>
+          <span>staying as safe as possible</span>
+        </div>
+        <p class="tagline">
+          This section is for gentle, realistic steps you can take when thoughts of self-harm or suicide feel strong.
+        </p>
+        <label for="safety-steps">Steps that help me stay safer</label>
+        <textarea id="safety-steps" placeholder="Examples: move to a safer space, reach out to someone I trust, use a coping tool above, seek professional or crisis support."></textarea>
+        <p class="tiny" style="margin-top:6px;">
+          This plan is not a substitute for professional help. If you’re in immediate danger or feel unable to stay safe,
+          contact local emergency services or crisis support in your area, and reach out to someone you trust.
+        </p>
+      </div>
+
+      <!-- Save / Load -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Case File Memory</h2>
+          <span>save this plan</span>
+        </div>
+        <p class="tagline">
+          Your browser can remember this plan on this device. You can update it like an ongoing case file.
+        </p>
+        <div class="btn-row">
+          <button id="save-btn">Save Plan to This Device</button>
+          <button class="secondary" id="load-btn">Load Saved Plan</button>
+          <button class="secondary" id="clear-all-btn">Clear All Fields</button>
+        </div>
+        <p class="tiny" style="margin-top:6px;">
+          Saved locally only. If you change devices or clear browser data, consider printing or exporting your words.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <div class="saved-toast" id="toast">
+    <span>📰 Safety plan updated.</span>
+  </div>
+
+  <script>
+    const FIELD_IDS = [
+      "name",
+      "date",
+      "reason",
+      "warning-signs",
+      "coping",
+      "grounding",
+      "kind-words",
+      "allies",
+      "professionals",
+      "safety-steps"
+    ];
+
+    const STORAGE_KEY = "chloeSafetyPlan_v1";
+
+    function getFieldValue(id) {
+      const el = document.getElementById(id);
+      return el ? el.value : "";
+    }
+
+    function setFieldValue(id, value) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.value = value || "";
+    }
+
+    function savePlan(showToast = true) {
+      const data = {};
+      FIELD_IDS.forEach(id => {
+        data[id] = getFieldValue(id);
+      });
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        if (showToast) showToastMessage("📰 Safety plan updated.");
+      } catch (e) {
+        console.warn("Could not save plan:", e);
+        if (showToast) showToastMessage("Storage not available, but your words still matter.");
+      }
+    }
+
+    function loadPlan(showToast = true) {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          if (showToast) showToastMessage("No saved plan found yet.");
+          return;
+        }
+        const data = JSON.parse(raw);
+        FIELD_IDS.forEach(id => {
+          setFieldValue(id, data[id] || "");
+        });
+        if (showToast) showToastMessage("Case file loaded.");
+      } catch (e) {
+        console.warn("Could not load plan:", e);
+        if (showToast) showToastMessage("Could not load plan.");
+      }
+    }
+
+    function clearField(id) {
+      setFieldValue(id, "");
+      savePlan(false);
+    }
+
+    function clearAllFields() {
+      FIELD_IDS.forEach(id => setFieldValue(id, ""));
+      savePlan(false);
+      showToastMessage("All fields cleared on this page.");
+    }
+
+    function showToastMessage(message) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.remove("show");
+      void toast.offsetWidth;
+      toast.classList.add("show");
+    }
+
+    document.getElementById("save-btn").addEventListener("click", () => savePlan(true));
+    document.getElementById("load-btn").addEventListener("click", () => loadPlan(true));
+    document.getElementById("clear-all-btn").addEventListener("click", clearAllFields);
+
+    document.querySelectorAll("button[data-clear]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-clear");
+        clearField(id);
+      });
+    });
+
+    document.querySelectorAll(".chip[data-target]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const targetId = chip.getAttribute("data-target");
+        const field = document.getElementById(targetId);
+        if (!field) return;
+        const text = chip.textContent.trim();
+        if (!text) return;
+        const current = field.value.trim();
+        const prefix = current ? current + (current.endsWith(",") ? " " : ", ") : "";
+        field.value = prefix + text;
+        savePlan(false);
+      });
+    });
+
+    FIELD_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("change", () => savePlan(false));
+      el.addEventListener("blur", () => savePlan(false));
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadPlan(false);
+    });
+  </script>
+</body>
+</html>
