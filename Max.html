@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ultra‑Max Helper Sheet</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(#dff3ff, #ffffff);
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #2a4d7a;
+    }
+
+    .section {
+        background: #ffffffcc;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 900px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .toggle-btn {
+        background: #4da3ff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .balloon {
+        width: 40px;
+        height: 55px;
+        background: #ff7eb8;
+        border-radius: 50% 50% 45% 45%;
+        position: relative;
+        margin: 10px auto;
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .balloon:after {
+        content: "";
+        width: 2px;
+        height: 25px;
+        background: #555;
+        position: absolute;
+        top: 55px;
+        left: 50%;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0px); }
+    }
+
+    input, select, button, textarea {
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin: 5px 0;
+        width: 100%;
+    }
+
+    .row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .row > div {
+        flex: 1;
+    }
+</style>
+</head>
+<body>
+
+<h1>🌈 Ultra‑Max Helper Sheet</h1>
+<div class="balloon"></div>
+
+<!-- CLOCK + COUNTDOWN -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggle('clockPanel')">Clock & Future Countdown</button>
+    <div id="clockPanel" class="hidden">
+        <h2>⏰ Live Clock</h2>
+        <div id="clockDisplay" style="font-size: 28px; text-align:center;"></div>
+
+        <h2>🎯 Countdown</h2>
+        <input id="futureDate" type="date">
+        <button onclick="startCountdown()">Start Countdown</button>
+        <div id="countdownResult" style="font-size:20px; margin-top:10px;"></div>
+    </div>
+</div>
+
+<!-- BUDGET SYSTEM -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggle('budgetPanel')">Budget Helper</button>
+    <div id="budgetPanel" class="hidden">
+        <h2>💰 Budget System</h2>
+        <input id="income" type="number" placeholder="Enter income">
+        <input id="expenses" type="number" placeholder="Enter expenses">
+        <button onclick="calcBudget()">Calculate</button>
+        <div id="budgetResult" style="font-size:20px; margin-top:10px;"></div>
+    </div>
+</div>
+
+<!-- EMOTION TRACKER -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggle('emotionPanel')">Emotion Tracker</button>
+    <div id="emotionPanel" class="hidden">
+        <h2>💗 How Are You Feeling?</h2>
+        <select id="emotionSelect">
+            <option>Happy</option>
+            <option>Calm</option>
+            <option>Stressed</option>
+            <option>Sad</option>
+            <option>Excited</option>
+        </select>
+        <textarea id="emotionNotes" placeholder="Write a reflection..."></textarea>
+        <button onclick="saveEmotion()">Save</button>
+        <div id="emotionLog" style="margin-top:10px;"></div>
+    </div>
+</div>
+
+<!-- LEARNING HELPERS -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggle('learningPanel')">Learning Helpers</button>
+    <div id="learningPanel" class="hidden">
+        <h2>📘 Math Helper</h2>
+        <div class="row">
+            <div>
+                <input id="numA" type="number" placeholder="Number A">
+            </div>
+            <div>
+                <input id="numB" type="number" placeholder="Number B">
+            </div>
+        </div>
+        <button onclick="add()">Add</button>
+        <button onclick="subtract()">Subtract</button>
+        <div id="mathResult" style="margin-top:10px;"></div>
+
+        <h2>📚 English Helper</h2>
+        <input id="vocabWord" placeholder="Enter a word">
+        <textarea id="sentenceBox" placeholder="Use it in a sentence..."></textarea>
+        <button onclick="saveSentence()">Save Sentence</button>
+        <div id="sentenceLog" style="margin-top:10px;"></div>
+    </div>
+</div>
+
+<!-- GUIDANCE PANEL -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggle('guidancePanel')">Guidance & Support</button>
+    <div id="guidancePanel" class="hidden">
+        <h2>🌤 Gentle Guidance</h2>
+        <button onclick="randomGuidance()">Give Me Guidance</button>
+        <div id="guidanceResult" style="margin-top:10px; font-size:20px;"></div>
+    </div>
+</div>
+
+<script>
+function toggle(id) {
+    document.getElementById(id).classList.toggle("hidden");
+}
+
+function updateClock() {
+    document.getElementById("clockDisplay").innerText = new Date().toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+
+function startCountdown() {
+    const date = new Date(document.getElementById("futureDate").value);
+    const now = new Date();
+    const diff = date - now;
+    const days = Math.floor(diff / (1000*60*60*24));
+    document.getElementById("countdownResult").innerText = days + " days remaining";
+}
+
+function calcBudget() {
+    const income = Number(document.getElementById("income").value);
+    const expenses = Number(document.getElementById("expenses").value);
+    const balance = income - expenses;
+    let msg = "Balance: $" + balance;
+    if (balance > 0) msg += " (Great job!)";
+    if (balance < 0) msg += " (Caution)";
+    document.getElementById("budgetResult").innerText = msg;
+}
+
+function saveEmotion() {
+    const emotion = document.getElementById("emotionSelect").value;
+    const notes = document.getElementById("emotionNotes").value;
+    document.getElementById("emotionLog").innerHTML += "<p><strong>" + emotion + ":</strong> " + notes + "</p>";
+}
+
+function add() {
+    const a = Number(document.getElementById("numA").value);
+    const b = Number(document.getElementById("numB").value);
+    document.getElementById("mathResult").innerText = "Result: " + (a + b);
+}
+
+function subtract() {
+    const a = Number(document.getElementById("numA").value);
+    const b = Number(document.getElementById("numB").value);
+    document.getElementById("mathResult").innerText = "Result: " + (a - b);
+}
+
+function saveSentence() {
+    const word = document.getElementById("vocabWord").value;
+    const sentence = document.getElement
+function saveSentence() {
+    const word = document.getElementById("vocabWord").value;
+    const sentence = document.getElementById("sentenceBox").value;
+    if (!word || !sentence) {
+        alert("Please enter a word and a sentence.");
+        return;
+    }
+    const log = document.getElementById("sentenceLog");
+    const entry = document.createElement("p");
+    entry.innerHTML = "<strong>" + word + ":</strong> " + sentence;
+    log.appendChild(entry);
+    document.getElementById("vocabWord").value = "";
+    document.getElementById("sentenceBox").value = "";
+}
+
+function randomGuidance() {
+    const messages = [
+        "One small step is still a step.",
+        "You are allowed to go gently today.",
+        "Pause. Breathe. You don’t have to rush.",
+        "You’ve done hard things before. You can again.",
+        "Your pace is valid. Your effort matters.",
+        "Celebrate one tiny win from today."
+    ];
+    const pick = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById("guidanceResult").innerText = pick;
+}
+</script>
+
+</body>
+</html>
+
+
