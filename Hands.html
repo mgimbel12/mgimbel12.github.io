@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Scriptures & Helping Aids</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  body {
+    margin: 0;
+    font-family: system-ui, sans-serif;
+    background: #f3f6fb;
+    padding: 20px;
+    color: #1f2937;
+  }
+
+  h1 {
+    text-align: center;
+    color: #3b5bdb;
+    margin-bottom: 10px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  @media (max-width: 800px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid #dbe1f0;
+  }
+
+  .scripture {
+    padding: 10px;
+    border-left: 4px solid #3b5bdb;
+    background: #f8f9ff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .scripture:hover {
+    background: #eef1ff;
+  }
+
+  .scripture-ref {
+    font-weight: 600;
+    color: #3b5bdb;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #c7d0e5;
+    resize: vertical;
+    font-size: 0.9rem;
+  }
+
+  button {
+    margin-top: 8px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #3b5bdb;
+    color: white;
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+
+  button:hover {
+    background: #2f49b5;
+  }
+
+  .aid-btn {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    background: #e5e9ff;
+    color: #1f2a44;
+  }
+
+  .aid-btn:hover {
+    background: #d7ddff;
+  }
+
+  .status {
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: #3b5bdb;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Scriptures & Helping Aids</h1>
+
+<div class="grid">
+
+  <!-- SCRIPTURES -->
+  <div class="card">
+    <h2>📖 Scriptures</h2>
+    <p>Tap a verse to copy it into your notes.</p>
+
+    <div class="scripture">
+      <div class="scripture-ref">Psalm 46:1</div>
+      <div>“God is our refuge and strength, a very present help in trouble.”</div>
+    </div>
+
+    <div class="scripture">
+      <div class="scripture-ref">Isaiah 41:10</div>
+      <div>“Fear not, for I am with you… I will strengthen you and help you.”</div>
+    </div>
+
+    <div class="scripture">
+      <div class="scripture-ref">John 14:27</div>
+      <div>“Peace I leave with you; my peace I give you.”</div>
+    </div>
+
+    <div class="scripture">
+      <div class="scripture-ref">Romans 8:38–39</div>
+      <div>“Nothing can separate us from the love of God.”</div>
+    </div>
+  </div>
+
+  <!-- HELPING AIDS -->
+  <div class="card">
+    <h2>🌿 Helping Aids</h2>
+
+    <button class="aid-btn" onclick="breathingAid()">Breathing Exercise</button>
+    <button class="aid-btn" onclick="groundingAid()">5‑4‑3‑2‑1 Grounding</button>
+    <button class="aid-btn" onclick="gratitudeAid()">Gratitude Prompt</button>
+
+    <h3 style="margin-top: 16px;">📝 Notes</h3>
+    <textarea id="notes" placeholder="Your thoughts, prayers, truths, or verses…"></textarea>
+    <button onclick="saveNotes()">Save Notes</button>
+    <button style="background:#d1d5db; color:#111;" onclick="clearNotes()">Clear</button>
+    <div id="status" class="status"></div>
+  </div>
+
+</div>
+
+<script>
+  // Scripture click → copy to notes
+  document.querySelectorAll('.scripture').forEach(s => {
+    s.addEventListener('click', () => {
+      const ref = s.querySelector('.scripture-ref').textContent;
+      const text = s.textContent.trim();
+      const notes = document.getElementById('notes');
+      notes.value += (notes.value ? "\n" : "") + ref + " — " + text;
+      notes.focus();
+      document.getElementById('status').textContent = "Verse added to notes.";
+    });
+  });
+
+  // Helping Aids
+  function breathingAid() {
+    alert("Breathe in for 4… hold for 4… breathe out for 6… repeat 5 times.");
+  }
+
+  function groundingAid() {
+    alert("5 things you can see\n4 things you can touch\n3 things you can hear\n2 things you can smell\n1 thing you can taste");
+  }
+
+  function gratitudeAid() {
+    alert("Name 3 things you’re grateful for in this moment.");
+  }
+
+  // Notes saving
+  const KEY = "scriptureAidNotes";
+
+  function saveNotes() {
+    localStorage.setItem(KEY, document.getElementById('notes').value);
+    document.getElementById('status').textContent = "Notes saved.";
+  }
+
+  function clearNotes() {
+    document.getElementById('notes').value = "";
+    localStorage.removeItem(KEY);
+    document.getElementById('status').textContent = "Notes cleared.";
+  }
+
+  // Load saved notes
+  window.onload = () => {
+    const saved = localStorage.getItem(KEY);
+    if (saved) document.getElementById('notes').value = saved;
+  };
+</script>
+</body>
+</html>
