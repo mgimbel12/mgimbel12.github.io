@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Clocks Center Help Plan</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(#e3f4ff, #ffffff);
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #234a7a;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        color: #234a7a;
+        margin-top: 0;
+    }
+
+    .center-clock {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    #clockDisplay {
+        font-size: 32px;
+        font-weight: 600;
+        color: #234a7a;
+    }
+
+    .balloon {
+        width: 40px;
+        height: 55px;
+        background: #ff7eb8;
+        border-radius: 50% 50% 45% 45%;
+        position: relative;
+        margin: 10px auto 20px auto;
+        animation: float 4s ease-in-out infinite;
+    }
+
+    .balloon:after {
+        content: "";
+        width: 2px;
+        height: 25px;
+        background: #555;
+        position: absolute;
+        top: 55px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0); }
+        50% { transform: translateY(-15px); }
+        100% { transform: translateY(0); }
+    }
+
+    .section {
+        background: #ffffffcc;
+        border-radius: 12px;
+        padding: 20px;
+        margin: 15px auto;
+        max-width: 900px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .toggle-btn {
+        background: #4da3ff;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    textarea, input, button {
+        font-family: inherit;
+    }
+
+    textarea, input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        margin: 5px 0 10px 0;
+        box-sizing: border-box;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    .idea-note {
+        background: #f5f7ff;
+        border-left: 4px solid #4da3ff;
+        padding: 10px 12px;
+        border-radius: 8px;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #334;
+    }
+</style>
+</head>
+<body>
+
+<h1>🌈 Clocks Center Helping Plan</h1>
+<div class="center-clock">
+    <div id="clockDisplay"></div>
+</div>
+<div class="balloon"></div>
+
+<!-- EMOTIONAL HELP PLAN -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('helpEmotion')">Emotional Help Plan</button>
+    <div id="helpEmotion" class="hidden">
+        <h2>💗 Emotional Check‑In</h2>
+        <p>Write what you’re feeling and what might help you right now.</p>
+        <textarea id="emotionNotes" rows="4" placeholder="I feel..., I might need..., It would help if..."></textarea>
+        <button onclick="saveHelpNote()">Save Note</button>
+        <div id="helpLog"></div>
+    </div>
+</div>
+
+<!-- TASK / ACTION HELP -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('helpTasks')">Task & Action Help</button>
+    <div id="helpTasks" class="hidden">
+        <h2>📝 What Do I Need Help With?</h2>
+        <input id="taskInput" placeholder="Example: Call someone, finish a form, clean a small area...">
+        <button onclick="addTask()">Add Task</button>
+        <ul id="taskList"></ul>
+    </div>
+</div>
+
+<!-- GUIDANCE -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('helpGuidance')">Guidance & Reassurance</button>
+    <div id="helpGuidance" class="hidden">
+        <h2>🌤 Gentle Guidance</h2>
+        <button onclick="giveGuidance()">Give Me Guidance</button>
+        <div id="guidanceBox" class="idea-note"></div>
+    </div>
+</div>
+
+<!-- IDEA & ART CONCEPT -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('ideaArt')">Idea & Art Concept</button>
+    <div id="ideaArt" class="hidden">
+        <h2>🎨 Idea & Art Concept</h2>
+        <p>This page is a small sanctuary: a clock in the center, balloons lifting the mood, and panels that open only when you need them.</p>
+        <div class="idea-note">
+            • Clock in the center = “right now” is enough.  
+            • Balloons = gentle lift, not pressure.  
+            • Panels = you choose what help you open.  
+            • Colors = soft blues and pinks for calm, clarity, and care.
+        </div>
+        <textarea id="ideaNotes" rows="4" placeholder="Add your own art ideas, symbols, colors, or themes..."></textarea>
+        <button onclick="saveIdea()">Save Idea</button>
+        <div id="ideaLog"></div>
+    </div>
+</div>
+
+<script>
+function toggleSection(id) {
+    document.getElementById(id).classList.toggle("hidden");
+}
+
+// CLOCK CENTER
+function updateClock() {
+    const now = new Date();
+    document.getElementById("clockDisplay").innerText = now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// EMOTIONAL HELP NOTES
+function saveHelpNote() {
+    const note = document.getElementById("emotionNotes").value.trim();
+    if (!note) return;
+    const log = document.getElementById("helpLog");
+    const entry = document.createElement("p");
+    entry.textContent = note;
+    log.appendChild(entry);
+    document.getElementById("emotionNotes").value = "";
+}
+
+// TASK HELP
+function addTask() {
+    const task = document.getElementById("taskInput").value.trim();
+    if (!task) return;
+    const list = document.getElementById("taskList");
+    const item = document.createElement("li");
+    item.textContent = task;
+    list.appendChild(item);
+    document.getElementById("taskInput").value = "";
+}
+
+// GUIDANCE
+function giveGuidance() {
+    const messages = [
+        "You can move at your own pace.",
+        "One tiny action is still progress.",
+        "You are allowed to rest and still be worthy.",
+        "You don’t have to do this perfectly.",
+        "You’ve made it through hard days before.",
+        "Right now, just breathe and notice one kind thing around you."
+    ];
+    const pick = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById("guidanceBox").innerText = pick;
+}
+
+// IDEA & ART NOTES
+function saveIdea() {
+    const note = document.getElementById("ideaNotes").value.trim();
+    if (!note) return;
+    const log = document.getElementById("ideaLog");
+    const entry = document.createElement("p");
+    entry.textContent = note;
+    log.appendChild(entry);
+    document.getElementById("ideaNotes").value = "";
+}
+</script>
+
+</body>
+</html>
+
