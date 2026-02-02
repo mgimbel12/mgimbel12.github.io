@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Homework Jets Pack</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.2);
+      --accent-strong: #f97316;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --success: #4ade80;
+      --border-radius: 14px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 1200px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9));
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      padding: 20px 22px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .app-shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(248, 250, 252, 0.06), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(249, 115, 22, 0.12), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .jet-badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .jet-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+    }
+
+    .app-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .app-title span.accent {
+      color: var(--accent);
+      text-shadow: 0 0 18px rgba(56, 189, 248, 0.9);
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 420px;
+    }
+
+    .mode-toggle {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .mode-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .mode-buttons {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      gap: 3px;
+    }
+
+    .mode-button {
+      border: none;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.18s ease-out;
+    }
+
+    .mode-button.active {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.4), rgba(15, 23, 42, 0.9));
+      color: #e5f4ff;
+      box-shadow: 0 0 14px rgba(56, 189, 248, 0.7);
+    }
+
+    .top-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .clock-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .clock-chip span.time {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    .due-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .due-chip span.countdown {
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .jet-boost-button {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 14px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      background: radial-gradient(circle at 0 0, rgba(248, 250, 252, 0.2), rgba(56, 189, 248, 0.1));
+      color: #e5f4ff;
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .jet-boost-button span.icon {
+      font-size: 14px;
+    }
+
+    .jet-boost-button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(248, 250, 252, 0.4), transparent);
+      transform: translateX(-120%);
+      opacity: 0.0;
+      pointer-events: none;
+    }
+
+    .jet-boost-button.boosting::after {
+      animation: sweep 0.9s ease-out;
+    }
+
+    @keyframes sweep {
+      0% {
+        transform: translateX(-120%);
+        opacity: 0;
+      }
+      40% {
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 2fr) minmax(0, 2fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 16px;
+      }
+      .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .mode-toggle {
+        align-items: flex-start;
+      }
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: var(--border-radius);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 10px 12px 12px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .card-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .card-controls {
+      display: inline-flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .pill {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .pill.accent {
+      border-color: rgba(56, 189, 248, 0.7);
+      color: var(--accent);
+    }
+
+    .pill.soft {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    textarea,
+    input,
+    select {
+      font-family: var(--font-main);
+      font-size: 13px;
+      color: var(--text);
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 7px 9px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.16s ease-out, box-shadow 0.16s ease-out, background 0.16s ease-out;
+    }
+
+    textarea:focus,
+    input:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      max-height: 260px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 5px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.16s ease-out;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+    }
+
+    .btn.primary {
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.4), rgba(15, 23, 42, 0.9));
+      color: #e5f4ff;
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    .btn.danger {
+      border-color: rgba(248, 113, 113, 0.8);
+      color: var(--danger);
+    }
+
+    .btn.small {
+      padding: 3px 8px;
+      font-size: 10px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .row > * {
+      flex: 1;
+    }
+
+    .label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .output-box {
+      font-size: 12px;
+      padding: 7px 9px;
+      border-radius: 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      min-height: 40px;
+      white-space: pre-wrap;
+    }
+
+    .output-box strong {
+      color: var(--accent);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .tag {
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .mode-kid .card {
+      border-radius: 18px;
+    }
+
+    .mode-kid .card-title {
+      letter-spacing: 0.2em;
+    }
+
+    .mode-kid .app-title span.accent {
+      color: #f97316;
+      text-shadow: 0 0 18px rgba(249, 115, 22, 0.9);
+    }
+
+    .mode-teen .app-title span.accent {
+      color: #38bdf8;
+    }
+
+    .mode-adult .app-title span.accent {
+      color: #a855f7;
+      text-shadow: 0 0 18px rgba(168, 85, 247, 0.9);
+    }
+
+    .mode-adult .card {
+      border-style: solid;
+    }
+
+    .mode-kid .jet-badge {
+      border-color: rgba(249, 115, 22, 0.7);
+    }
+
+    .mode-adult .jet-badge {
+      border-color: rgba(168, 85, 247, 0.7);
+    }
+
+    .mode-kid .jet-dot {
+      background: #f97316;
+      box-shadow: 0 0 12px rgba(249, 115, 22, 0.9);
+    }
+
+    .mode-adult .jet-dot {
+      background: #a855f7;
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.9);
+    }
+
+    .mode-kid .pill.accent {
+      border-color: rgba(249, 115, 22, 0.8);
+      color: #fed7aa;
+    }
+
+    .mode-adult .pill.accent {
+      border-color: rgba(168, 85, 247, 0.8);
+      color: #e9d5ff;
+    }
+
+    .mode-kid .btn.primary {
+      background: radial-gradient(circle at 0 0, rgba(249, 115, 22, 0.5), rgba(15, 23, 42, 0.9));
+      border-color: rgba(249, 115, 22, 0.9);
+    }
+
+    .mode-adult .btn.primary {
+      background: radial-gradient(circle at 0 0, rgba(168, 85, 247, 0.5), rgba(15, 23, 42, 0.9));
+      border-color: rgba(168, 85, 247, 0.9);
+    }
+
+    .mode-kid .card:nth-child(odd) {
+      border-color: rgba(249, 115, 22, 0.4);
+    }
+
+    .mode-teen .card:nth-child(2n) {
+      border-color: rgba(56, 189, 248, 0.5);
+    }
+
+    .mode-adult .card:nth-child(3n) {
+      border-color: rgba(168, 85, 247, 0.5);
+    }
+  </style>
+</head>
+<body class="mode-teen">
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="title-block">
+        <div class="jet-badge">
+          <span class="jet-dot"></span>
+          HOMEWORK JETS PACK • SINGLE SHEET
+        </div>
+        <div class="title-row">
+          <h1 class="app-title">
+            <span>STUDY</span>
+            <span class="accent">JETSTREAM</span>
+          </h1>
+        </div>
+        <p class="subtitle">
+          One-page homework cockpit: notes, math, focus, words, writing, countdowns, and citations—ready for takeoff.
+        </p>
+      </div>
+      <div class="mode-toggle">
+        <div class="mode-label">Homework mode</div>
+        <div class="mode-buttons">
+          <button class="mode-button" data-mode="kid">Kid</button>
+          <button class="mode-button active" data-mode="teen">Teen</button>
+          <button class="mode-button" data-mode="adult">Adult</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="top-status-row">
+      <div class="clock-chip">
+        <span>Local Time</span>
+        <span class="time" id="liveClock">--:--:--</span>
+      </div>
+      <div class="due-chip">
+        <span>Next Due In</span>
+        <span class="countdown" id="dueCountdown">Set a due date ↓</span>
+      </div>
+      <button class="jet-boost-button" id="boostToggle">
+        <span class="icon">🚀</span>
+        <span>Jet Boost Tools</span>
+      </button>
+    </div>
+
+    <main class="grid">
+      <section class="card" id="notesCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            NOTES PAD
+          </div>
+          <div class="card-controls">
+            <span class="pill soft">Auto-save</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Quick homework notes, reminders, or ideas. Saved in this browser only.</p>
+        <div class="stack">
+          <textarea id="notesArea" placeholder="Type your notes here..."></textarea>
+          <div class="btn-group">
+            <button class="btn small" id="notesClear">Clear</button>
+            <button class="btn small" id="notesExport">Copy All</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="mathCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            MATH MINI-SOLVER
+          </div>
+          <div class="card-controls">
+            <span class="pill accent">+ − × ÷ %</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Basic operations and percent helper for quick checks.</p>
+        <div class="stack">
+          <div class="row">
+            <div class="stack">
+              <span class="label">Number A</span>
+              <input type="number" id="mathA" placeholder="e.g. 45" />
+            </div>
+            <div class="stack">
+              <span class="label">Operation</span>
+              <select id="mathOp">
+                <option value="add">A + B</option>
+                <option value="sub">A − B</option>
+                <option value="mul">A × B</option>
+                <option value="div">A ÷ B</option>
+                <option value="percentOf">A% of B</option>
+                <option value="percentChange">Percent change A → B</option>
+              </select>
+            </div>
+            <div class="stack">
+              <span class="label">Number B</span>
+              <input type="number" id="mathB" placeholder="e.g. 12" />
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn primary small" id="mathSolve">Solve</button>
+            <button class="btn small" id="mathClear">Clear</button>
+          </div>
+          <div class="output-box" id="mathOutput">Result will appear here.</div>
+        </div>
+      </section>
+
+      <section class="card" id="timerCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            STUDY TIMER
+          </div>
+          <div class="card-controls">
+            <span class="pill soft">Pomodoro-ish</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Set a focus block and take short breaks between homework bursts.</p>
+        <div class="stack">
+          <div class="row">
+            <div class="stack">
+              <span class="label">Minutes</span>
+              <input type="number" id="timerMinutes" min="1" value="25" />
+            </div>
+            <div class="stack">
+              <span class="label">Status</span>
+              <div class="output-box" id="timerDisplay">00:00</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn primary small" id="timerStart">Start</button>
+            <button class="btn small" id="timerPause">Pause</button>
+            <button class="btn small" id="timerReset">Reset</button>
+            <button class="btn small" id="timerBreak">5-min Break</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card jet-hidden" id="vocabCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            VOCAB BOOSTER
+          </div>
+          <div class="card-controls">
+            <span class="pill soft">Practice</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Create your own mini dictionary and quiz yourself.</p>
+        <div class="stack">
+          <div class="row">
+            <div class="stack">
+              <span class="label">Word</span>
+              <input type="text" id="vocabWord" placeholder="e.g. analyze" />
+            </div>
+            <div class="stack">
+              <span class="label">Definition</span>
+              <input type="text" id="vocabDefinition" placeholder="Your own definition..." />
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn primary small" id="vocabAdd">Add</button>
+            <button class="btn small" id="vocabRandom">Random Word</button>
+            <button class="btn small" id="vocabClear">Clear List</button>
+          </div>
+          <div class="output-box" id="vocabOutput">No words yet. Add a word to start your list.</div>
+        </div>
+      </section>
+
+      <section class="card jet-hidden" id="writingCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            WRITING HELPER
+          </div>
+          <div class="card-controls">
+            <span class="pill soft">Starters</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Sentence starters, paragraph structure, and transitions for essays.</p>
+        <div class="stack">
+          <div class="btn-group">
+            <button class="btn small" data-writing="intro">Intro starter</button>
+            <button class="btn small" data-writing="body">Body detail</button>
+            <button class="btn small" data-writing="conclusion">Conclusion wrap</button>
+            <button class="btn small" data-writing="transition">Transition phrase</button>
+          </div>
+          <div class="output-box" id="writingOutput">
+            Click a button to get a sentence starter or transition.
+          </div>
+          <div class="tag-row">
+            <span class="tag">Hook</span>
+            <span class="tag">Claim</span>
+            <span class="tag">Evidence</span>
+            <span class="tag">Reasoning</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card jet-hidden" id="dueCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            DUE DATE & COUNTDOWN
+          </div>
+          <div class="card-controls">
+            <span class="pill soft">Deadline</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Track one main assignment and see how long you have left.</p>
+        <div class="stack">
+          <div class="stack">
+            <span class="label">Assignment name</span>
+            <input type="text" id="dueName" placeholder="e.g. History essay" />
+          </div>
+          <div class="row">
+            <div class="stack">
+              <span class="label">Due date & time</span>
+              <input type="datetime-local" id="dueDateTime" />
+            </div>
+            <div class="stack">
+              <span class="label">Time left</span>
+              <div class="output-box" id="dueDetail">Not set yet.</div>
+            </div>
+          </div>
+          <div class="btn-group">
+            <button class="btn primary small" id="dueSet">Set Countdown</button>
+            <button class="btn small" id="dueClear">Clear</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card jet-hidden" id="citationCard">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="dot"></span>
+            QUICK CITATION HELPER
+          </div>
+          <div class="card-controls">
+            <span class="pill soft">MLA / APA</span>
+          </div>
+        </div>
+        <p class="card-subtitle">Basic book citation templates. Always double-check with your teacher’s guide.</p>
+        <div class="stack">
+          <div class="row">
+            <div class="stack">
+              <span class="label">Style</span>
+              <select id="citeStyle">
+                <option value="mla">MLA (book)</option>
+                <option value="apa">APA (book)</option>
+              </select>
+            </div>
+            <div class="stack">
+              <span class="label">Year</span>
+              <input type="text" id="citeYear" placeholder="2024" />
+            </div>
+          </div>
+          <div class="row">
+            <div class="stack">
+              <span class="label">Author last name</span>
+              <input type="text" id="citeLast" placeholder="Last name" />
+            </div>
+            <div class="stack">
+              <span class="label">Author first name</span>
+              <input type="text" id="citeFirst" placeholder="First name or initial" />
+            </div>
+          </div>
+          <div class="stack">
+            <span class="label">Book title</span>
+            <input type="text" id="citeTitle" placeholder="Full title of the book" />
+          </div>
+          <div class="stack">
+            <span class="label">Publisher</span>
+            <input type="text" id="citePublisher" placeholder="Publisher name" />
+          </div>
+          <div class="btn-group">
+            <button class="btn primary small" id="citeBuild">Build Citation</button>
+            <button class="btn small" id="citeCopy">Copy</button>
+          </div>
+          <div class="output-box" id="citeOutput">
+            Your formatted citation will appear here.
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const liveClockEl = document.getElementById("liveClock");
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, "0");
+      const m = String(now.getMinutes()).padStart(2, "0");
+      const s = String(now.getSeconds()).padStart(2, "0");
+      liveClockEl.textContent = h + ":" + m + ":" + s;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    const NOTES_KEY = "jetsPack_notes_v1";
+    const notesArea = document.getElementById("notesArea");
+    const notesClear = document.getElementById("notesClear");
+    const notesExport = document.getElementById("notesExport");
+
+    function loadNotes() {
+      try {
+        const saved = localStorage.getItem(NOTES_KEY);
+        if (saved !== null) {
+          notesArea.value = saved;
+        }
+      } catch (e) {}
+    }
+
+    function saveNotes() {
+      try {
+        localStorage.setItem(NOTES_KEY, notesArea.value || "");
+      } catch (e) {}
+    }
+
+    notesArea.addEventListener("input", saveNotes);
+    notesClear.addEventListener("click", () => {
+      if (confirm("Clear all notes?")) {
+        notesArea.value = "";
+        saveNotes();
+      }
+    });
+    notesExport.addEventListener("click", async () => {
+      const text = notesArea.value || "";
+      if (!text.trim()) {
+        alert("No notes to copy yet.");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Notes copied to clipboard.");
+      } catch (e) {
+        alert("Could not copy automatically. You can select and copy manually.");
+      }
+    });
+    loadNotes();
+
+    const mathA = document.getElementById("mathA");
+    const mathB = document.getElementById("mathB");
+    const mathOp = document.getElementById("mathOp");
+    const mathSolve = document.getElementById("mathSolve");
+    const mathClear = document.getElementById("mathClear");
+    const mathOutput = document.getElementById("mathOutput");
+
+    mathSolve.addEventListener("click", () => {
+      const a = parseFloat(mathA.value);
+      const b = parseFloat(mathB.value);
+      const op = mathOp.value;
+
+      if (isNaN(a) || (isNaN(b) && op !== "percentChange")) {
+        mathOutput.textContent = "Please enter valid numbers for A and B.";
+        return;
+      }
+
+      let resultText = "";
+      let result;
+
+      switch (op) {
+        case "add":
+          result = a + b;
+          resultText = `${a} + ${b} = ${result}`;
+          break;
+        case "sub":
+          result = a - b;
+          resultText = `${a} − ${b} = ${result}`;
+          break;
+        case "mul":
+          result = a * b;
+          resultText = `${a} × ${b} = ${result}`;
+          break;
+        case "div":
+          if (b === 0) {
+            resultText = "Cannot divide by zero.";
+          } else {
+            result = a / b;
+            resultText = `${a} ÷ ${b} = ${result}`;
+          }
+          break;
+        case "percentOf":
+          result = (a / 100) * b;
+          resultText = `${a}% of ${b} = ${result}`;
+          break;
+        case "percentChange":
+          if (isNaN(b)) {
+            mathOutput.textContent = "Please enter a valid number for B.";
+            return;
+          }
+          if (a === 0) {
+            resultText = "Cannot compute percent change from 0.";
+          } else {
+            result = ((b - a) / Math.abs(a)) * 100;
+            const sign = result > 0 ? "increase" : result < 0 ? "decrease" : "no change";
+            resultText = `From ${a} to ${b}: ${result.toFixed(2)}% (${sign}).`;
+          }
+          break;
+        default:
+          resultText = "Unknown operation.";
+      }
+
+      mathOutput.textContent = resultText;
+    });
+
+    mathClear.addEventListener("click", () => {
+      mathA.value = "";
+      mathB.value = "";
+      mathOutput.textContent = "Result will appear here.";
+    });
+
+    const timerMinutes = document.getElementById("timerMinutes");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const timerStart = document.getElementById("timerStart");
+    const timerPause = document.getElementById("timerPause");
+    const timerReset = document.getElementById("timerReset");
+    const timerBreak = document.getElementById("timerBreak");
+
+    let timerInterval = null;
+    let remainingSeconds = 0;
+    let timerRunning = false;
+
+    function renderTimer() {
+      const m = String(Math.floor(remainingSeconds / 60)).padStart(2, "0");
+      const s = String(remainingSeconds % 60).padStart(2, "0");
+      timerDisplay.textContent = `${m}:${s}`;
+    }
+
+    function startTimer(seconds) {
+      remainingSeconds = seconds;
+      renderTimer();
+      if (timerInterval) clearInterval(timerInterval);
+      timerRunning = true;
+      timerInterval = setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+          renderTimer();
+        } else {
+          clearInterval(timerInterval);
+          timerRunning = false;
+          timerDisplay.textContent = "Time's up!";
+          timerDisplay.style.borderColor = "rgba(248, 113, 113, 0.9)";
+          setTimeout(() => {
+            timerDisplay.style.borderColor = "rgba(148, 163, 184, 0.7)";
+          }, 2000);
+        }
+      }, 1000);
+    }
+
+    timerStart.addEventListener("click", () => {
+      const mins = parseInt(timerMinutes.value, 10);
+      if (isNaN(mins) || mins <= 0) {
+        alert("Enter a positive number of minutes.");
+        return;
+      }
+      startTimer(mins * 60);
+    });
+
+    timerPause.addEventListener("click", () => {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        timerRunning = false;
+      }
+    });
+
+    timerReset.addEventListener("click", () => {
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = null;
+      timerRunning = false;
+      remainingSeconds = 0;
+      timerDisplay.textContent = "00:00";
+      timerDisplay.style.borderColor = "rgba(148, 163, 184, 0.7)";
+    });
+
+    timerBreak.addEventListener("click", () => {
+      startTimer(5 * 60);
+    });
+
+    const VOCAB_KEY = "jetsPack_vocab_v1";
+    const vocabWord = document.getElementById("vocabWord");
+    const vocabDefinition = document.getElementById("vocabDefinition");
+    const vocabAdd = document.getElementById("vocabAdd");
+    const vocabRandom = document.getElementById("vocabRandom");
+    const vocabClear = document.getElementById("vocabClear");
+    const vocabOutput = document.getElementById("vocabOutput");
+
+    let vocabList = [];
+
+    function loadVocab() {
+      try {
+        const saved = localStorage.getItem(VOCAB_KEY);
+        if (saved) {
+          vocabList = JSON.parse(saved);
+        }
+      } catch (e) {
+        vocabList = [];
+      }
+      renderVocabSummary();
+    }
+
+    function saveVocab() {
+      try {
+        localStorage.setItem(VOCAB_KEY, JSON.stringify(vocabList));
+      } catch (e) {}
+    }
+
+    function renderVocabSummary() {
+      if (!vocabList.length) {
+        vocabOutput.textContent = "No words yet. Add a word to start your list.";
+        return;
+      }
+      const count = vocabList.length;
+      vocabOutput.textContent = `You have ${count} word${count === 1 ? "" : "s"} saved. Click “Random Word” to practice.`;
+    }
+
+    vocabAdd.addEventListener("click", () => {
+      const w = vocabWord.value.trim();
+      const d = vocabDefinition.value.trim();
+      if (!w || !d) {
+        alert("Please enter both a word and a definition.");
+        return;
+      }
+      vocabList.push({ word: w, definition: d });
+      saveVocab();
+      vocabWord.value = "";
+      vocabDefinition.value = "";
+      renderVocabSummary();
+    });
+
+    vocabRandom.addEventListener("click", () => {
+      if (!vocabList.length) {
+        vocabOutput.textContent = "No words yet. Add a word to start your list.";
+        return;
+      }
+      const idx = Math.floor(Math.random() * vocabList.length);
+      const item = vocabList[idx];
+      vocabOutput.innerHTML = `<strong>${item.word}</strong>: ${item.definition}`;
+    });
+
+    vocabClear.addEventListener("click", () => {
+      if (!vocabList.length) return;
+      if (confirm("Clear all saved vocabulary words?")) {
+        vocabList = [];
+        saveVocab();
+        renderVocabSummary();
+      }
+    });
+
+    loadVocab();
+
+    const writingOutput = document.getElementById("writingOutput");
+    const writingButtons = document.querySelectorAll("[data-writing]");
+
+    const writingStarters = {
+      intro: [
+        "One important idea to consider is...",
+        "In this essay, I will explain...",
+        "Many people believe that..., but...",
+        "To understand this topic, we first need to look at..."
+      ],
+      body: [
+        "For example, one piece of evidence is...",
+        "This matters because it shows that...",
+        "Another important detail is...",
+        "This connects to the main idea because..."
+      ],
+      conclusion: [
+        "In conclusion, the evidence shows that...",
+        "Overall, it is clear that...",
+        "By looking at these points, we can see that...",
+        "This topic is important because..."
+      ],
+      transition: [
+        "Furthermore,",
+        "On the other hand,",
+        "In addition,",
+        "As a result,",
+        "For instance,"
+      ]
+    };
+
+    function randomFrom(arr) {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    writingButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const type = btn.getAttribute("data-writing");
+        const options = writingStarters[type] || [];
+        if (!options.length) return;
+        const starter = randomFrom(options);
+        writingOutput.textContent = starter;
+      });
+    });
+
+    const DUE_KEY = "jetsPack_due_v1";
+    const dueName = document.getElementById("dueName");
+    const dueDateTime = document.getElementById("dueDateTime");
+    const dueSet = document.getElementById("dueSet");
+    const dueClear = document.getElementById("dueClear");
+    const dueDetail = document.getElementById("dueDetail");
+    const dueCountdownTop = document.getElementById("dueCountdown");
+
+    let dueData = null;
+    let dueInterval = null;
+
+    function loadDue() {
+      try {
+        const saved = localStorage.getItem(DUE_KEY);
+        if (saved) {
+          dueData = JSON.parse(saved);
+          if (dueData && dueData.name) {
+            dueName.value = dueData.name;
+          }
+          if (dueData && dueData.iso) {
+            dueDateTime.value = dueData.iso;
+          }
+        }
+      } catch (e) {
+        dueData = null;
+      }
+      updateDueDisplay();
+      if (dueData && dueData.iso) {
+        startDueInterval();
+      }
+    }
+
+    function saveDue() {
+      try {
+        localStorage.setItem(DUE_KEY, JSON.stringify(dueData));
+      } catch (e) {}
+    }
+
+    function formatTimeDiff(ms) {
+      if (ms <= 0) return "Due time passed.";
+      const totalSeconds = Math.floor(ms / 1000);
+      const days = Math.floor(totalSeconds / (3600 * 24));
+      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const parts = [];
+      if (days) parts.push(days + "d");
+      if (hours) parts.push(hours + "h");
+      if (minutes || (!days && !hours)) parts.push(minutes + "m");
+      return parts.join(" ");
+    }
+
+    function updateDueDisplay() {
+      if (!dueData || !dueData.iso) {
+        dueDetail.textContent = "Not set yet.";
+        dueCountdownTop.textContent = "Set a due date ↓";
+        return;
+      }
+      const now = new Date();
+      const due = new Date(dueData.iso);
+      const diff = due - now;
+      if (diff <= 0) {
+        dueDetail.textContent = `“${dueData.name || "Assignment"}” is past due.`;
+        dueCountdownTop.textContent = "Past due.";
+      } else {
+        const text = formatTimeDiff(diff);
+        dueDetail.textContent = `“${dueData.name || "Assignment"}” is due in ${text}.`;
+        dueCountdownTop.textContent = text;
+      }
+    }
+
+    function startDueInterval() {
+      if (dueInterval) clearInterval(dueInterval);
+      dueInterval = setInterval(updateDueDisplay, 60000);
+      updateDueDisplay();
+    }
+
+    dueSet.addEventListener("click", () => {
+      const name = (dueName.value || "Assignment").trim();
+      const iso = dueDateTime.value;
+      if (!iso) {
+        alert("Please choose a due date and time.");
+        return;
+      }
+      dueData = { name, iso };
+      saveDue();
+      startDueInterval();
+      updateDueDisplay();
+    });
+
+    dueClear.addEventListener("click", () => {
+      if (!dueData) return;
+      if (confirm("Clear current due date?")) {
+        dueData = null;
+        saveDue();
+        if (dueInterval) clearInterval(dueInterval);
+        dueDetail.textContent = "Not set yet.";
+        dueCountdownTop.textContent = "Set a due date ↓";
+        dueName.value = "";
+        dueDateTime.value = "";
+      }
+    });
+
+    loadDue();
+
+    const citeStyle = document.getElementById("citeStyle");
+    const citeYear = document.getElementById("citeYear");
+    const citeLast = document.getElementById("citeLast");
+    const citeFirst = document.getElementById("citeFirst");
+    const citeTitle = document.getElementById("citeTitle");
+    const citePublisher = document.getElementById("citePublisher");
+    const citeBuild = document.getElementById("citeBuild");
+    const citeCopy = document.getElementById("citeCopy");
+    const citeOutput = document.getElementById("citeOutput");
+
+    function buildCitation() {
+      const style = citeStyle.value;
+      const year = citeYear.value.trim();
+      const last = citeLast.value.trim();
+      const first = citeFirst.value.trim();
+      const title = citeTitle.value.trim();
+      const publisher = citePublisher.value.trim();
+
+      if (!last || !title || !publisher || !year) {
+        alert("Please fill in author, title, publisher, and year.");
+        return "";
+      }
+
+      let citation = "";
+      if (style === "mla") {
+        citation = `${last}, ${first}. *${title}*. ${publisher}, ${year}.`;
+      } else {
+        citation = `${last}, ${first[0] ? first[0] + "." : ""} (${year}). ${title}. ${publisher}.`;
+      }
+      citeOutput.textContent = citation;
+      return citation;
+    }
+
+    citeBuild.addEventListener("click", buildCitation);
+
+    citeCopy.addEventListener("click", async () => {
+      const text = citeOutput.textContent.trim();
+      if (!text) {
+        alert("No citation to copy yet.");
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Citation copied to clipboard.");
+      } catch (e) {
+        alert("Could not copy automatically. You can select and copy manually.");
+      }
+    });
+
+    const modeButtons = document.querySelectorAll(".mode-button");
+    const bodyEl = document.body;
+
+    modeButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const mode = btn.getAttribute("data-mode");
+        modeButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        bodyEl.classList.remove("mode-kid", "mode-teen", "mode-adult");
+        bodyEl.classList.add("mode-" + mode);
+      });
+    });
+
+    const boostToggle = document.getElementById("boostToggle");
+    const jetHiddenCards = document.querySelectorAll(".jet-hidden");
+
+    let boostOn = false;
+    boostToggle.addEventListener("click", () => {
+      boostOn = !boostOn;
+      boostToggle.classList.add("boosting");
+      setTimeout(() => boostToggle.classList.remove("boosting"), 900);
+
+      jetHiddenCards.forEach(card => {
+        if (boostOn) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+
+      boostToggle.querySelector("span:nth-child(2)").textContent = boostOn
+        ? "Hide Jet Tools"
+        : "Jet Boost Tools";
+    });
+
+    jetHiddenCards.forEach(card => card.classList.add("hidden"));
+  </script>
+</body>
+</html>
