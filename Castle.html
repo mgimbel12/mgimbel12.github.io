@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Castle Safety Plan</title>
+  <style>
+    :root {
+      --bg: #050b2a;
+      --castle: #f7e6ff;
+      --accent: #ffcc66;
+      --panel: rgba(10, 15, 50, 0.9);
+      --border: #ffd6ff;
+      --text: #fdf7ff;
+      --highlight: #7fd4ff;
+      --danger: #ff6b81;
+      --safe: #7dffb3;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {Ca
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2a6b 0, #050b2a 55%, #020314 100%);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .castle-wrap {
+      background: linear-gradient(to top, #050b2a, #101a4a);
+      border-radius: 18px;
+      border: 2px solid var(--border);
+      padding: 18px;
+      box-shadow: 0 0 25px rgba(255, 214, 255, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .castle-title {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .castle-title h1 {
+      font-size: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    .castle-title p {
+      margin-top: 4px;
+      font-size: 0.9rem;
+      color: #d6d0ff;
+    }
+
+    .star {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0.7;
+      box-shadow: 0 0 8px #ffffff;
+      animation: twinkle 3s infinite ease-in-out alternate;
+    }
+
+    .star:nth-child(1) { top: 10%; left: 10%; animation-delay: 0.2s; }
+    .star:nth-child(2) { top: 18%; right: 12%; animation-delay: 0.8s; }
+    .star:nth-child(3) { top: 30%; left: 25%; animation-delay: 1.4s; }
+    .star:nth-child(4) { top: 40%; right: 30%; animation-delay: 2s; }
+
+    @keyframes twinkle {
+      from { opacity: 0.3; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1.2); }
+    }
+
+    .castle-svg {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .castle-footer-text {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #e6ddff;
+    }
+
+    .sparkle-path {
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: sparkle 4s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0% { stroke-dashoffset: 260; opacity: 0; }
+      20% { opacity: 1; }
+      60% { stroke-dashoffset: 0; opacity: 1; }
+      100% { opacity: 0; stroke-dashoffset: 0; }
+    }
+
+    .panel {
+      background: var(--panel);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 214, 255, 0.4);
+      padding: 18px 18px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.45);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .panel-header h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      color: var(--highlight);
+    }
+
+    .panel-header span {
+      font-size: 0.75rem;
+      color: #c7c0ff;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      color: #f6efff;
+    }
+
+    textarea, input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 214, 255, 0.5);
+      padding: 8px 10px;
+      font-size: 0.85rem;
+      font-family: var(--font-main);
+      background: rgba(5, 8, 30, 0.9);
+      color: var(--text);
+      resize: vertical;
+      min-height: 60px;
+      outline: none;
+    }
+
+    textarea:focus, input:focus {
+      border-color: var(--highlight);
+      box-shadow: 0 0 0 1px rgba(127, 212, 255, 0.5);
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: #d0c8ff;
+      margin-bottom: 6px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 214, 255, 0.6);
+      cursor: pointer;
+      user-select: none;
+      background: rgba(10, 15, 50, 0.8);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .chip:hover {
+      background: rgba(127, 212, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .chip.safe {
+      border-color: var(--safe);
+      color: var(--safe);
+    }
+
+    .chip.danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .footer-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #c7c0ff;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid var(--highlight);
+      background: rgba(10, 40, 70, 0.9);
+      color: var(--text);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      background: rgba(127, 212, 255, 0.2);
+      box-shadow: 0 0 10px rgba(127, 212, 255, 0.4);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      border-color: rgba(255, 214, 255, 0.6);
+      background: rgba(5, 8, 30, 0.9);
+    }
+
+    .status-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 214, 255, 0.6);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .status-pill.safe {
+      border-color: var(--safe);
+      color: var(--safe);
+    }
+
+    .status-pill.danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .tiny {
+      font-size: 0.7rem;
+      color: #b8b0ff;
+    }
+
+    .highlight-text {
+      color: var(--highlight);
+      font-weight: 600;
+    }
+
+    .saved-toast {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      background: rgba(5, 8, 30, 0.95);
+      border-radius: 999px;
+      border: 1px solid var(--highlight);
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      color: var(--text);
+      display: none;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.6);
+      z-index: 20;
+    }
+
+    .saved-toast.show {
+      display: inline-flex;
+      animation: fadeToast 2.4s ease-out forwards;
+    }
+
+    @keyframes fadeToast {
+      0% { opacity: 0; transform: translateY(10px); }
+      10% { opacity: 1; transform: translateY(0); }
+      80% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- LEFT: CASTLE + TITLE -->
+    <section class="castle-wrap">
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+      <div class="star"></div>
+
+      <div class="castle-title">
+        <h1>Castle Safety Plan</h1>
+        <p>“When the lights dim, the castle glows for you.”</p>
+      </div>
+
+      <!-- Simple SVG Castle -->
+      <svg class="castle-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+        <!-- Night sky circle -->
+        <defs>
+          <radialGradient id="skyGrad" cx="50%" cy="0%" r="80%">
+            <stop offset="0%" stop-color="#4f6dff"/>
+            <stop offset="40%" stop-color="#1b2a6b"/>
+            <stop offset="100%" stop-color="#050b2a"/>
+          </radialGradient>
+          <linearGradient id="castleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="40%" stop-color="#f7e6ff"/>
+            <stop offset="100%" stop-color="#d2b8ff"/>
+          </linearGradient>
+          <linearGradient id="turretGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffe6a3"/>
+            <stop offset="100%" stop-color="#ffcc66"/>
+          </linearGradient>
+        </defs>
+
+        <circle cx="110" cy="110" r="100" fill="url(#skyGrad)" />
+
+        <!-- Sparkle arc -->
+        <path
+          class="sparkle-path"
+          d="M 30 150 C 70 80, 150 60, 190 80"
+          fill="none"
+          stroke="#ffffff"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-dasharray="4 6"
+          opacity="0.9"
+        />
+
+        <!-- Castle base -->
+        <rect x="55" y="120" width="110" height="55" rx="4" fill="url(#castleGrad)" />
+        <!-- Door -->
+        <rect x="100" y="135" width="20" height="40" rx="6" fill="#b89adf" />
+        <circle cx="115" cy="155" r="2" fill="#fdf7ff" />
+
+        <!-- Side towers -->
+        <rect x="45" y="105" width="20" height="70" rx="3" fill="url(#castleGrad)" />
+        <rect x="155" y="105" width="20" height="70" rx="3" fill="url(#castleGrad)" />
+
+        <!-- Center tower -->
+        <rect x="90" y="90" width="40" height="60" rx="3" fill="url(#castleGrad)" />
+
+        <!-- Turrets -->
+        <polygon points="55,105 65,80 75,105" fill="url(#turretGrad)" />
+        <polygon points="145,105 155,80 165,105" fill="url(#turretGrad)" />
+        <polygon points="100,90 110,60 120,90" fill="url(#turretGrad)" />
+
+        <!-- Flags -->
+        <path d="M110 60 L110 45" stroke="#ffe6a3" stroke-width="2" />
+        <polygon points="110,45 125,50 110,55" fill="#ff6b81" />
+
+        <!-- Windows -->
+        <circle cx="70" cy="125" r="4" fill="#fdf7ff" opacity="0.9" />
+        <circle cx="150" cy="125" r="4" fill="#fdf7ff" opacity="0.9" />
+        <circle cx="110" cy="105" r="4" fill="#fdf7ff" opacity="0.9" />
+
+        <!-- Ground -->
+        <ellipse cx="110" cy="182" rx="70" ry="10" fill="#020314" opacity="0.7" />
+      </svg>
+
+      <p class="castle-footer-text">
+        This castle is your anchor. Every box you fill is another light turning on in your windows.
+      </p>
+    </section>
+
+    <!-- RIGHT: SAFETY PLAN PANELS -->
+    <section>
+      <!-- Identity & Today -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Keeper of the Castle</h2>
+          <span>who I am today</span>
+        </div>
+        <div class="row-2">
+          <div>
+            <label for="name">Name / Castle Title</label>
+            <input id="name" type="text" placeholder="e.g., Marissa, Guardian of the North Tower" />
+          </div>
+          <div>
+            <label for="date">Date</label>
+            <input id="date" type="date" />
+          </div>
+        </div>
+        <label for="reason" style="margin-top:8px;">Why I’m filling this out tonight</label>
+        <textarea id="reason" placeholder="A few words about what brought me here in this moment..."></textarea>
+        <div class="footer-controls">
+          <span class="tiny">You don’t have to write perfectly—just honestly enough for future you.</span>
+        </div>
+      </div>
+
+      <!-- Early warning lights -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Castle Warning Lights</h2>
+          <span>early signs I’m not okay</span>
+        </div>
+        <p class="tagline">When these lights flicker, it’s time to slow down and check in.</p>
+        <div class="chips">
+          <div class="chip danger" data-target="warning-signs">Can’t focus</div>
+          <div class="chip danger" data-target="warning-signs">Withdrawing</div>
+          <div class="chip danger" data-target="warning-signs">Racing thoughts</div>
+          <div class="chip danger" data-target="warning-signs">Tearful</div>
+          <div class="chip danger" data-target="warning-signs">Numb</div>
+        </div>
+        <label for="warning-signs">My personal warning signs</label>
+        <textarea id="warning-signs" placeholder="What does it look like when your inner lights start to dim?"></textarea>
+        <div class="footer-controls">
+          <span class="status-pill danger">Signal: Notice & Name</span>
+          <div class="btn-row">
+            <button class="secondary" data-clear="warning-signs">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Safe rooms & grounding -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Safe Rooms in the Castle</h2>
+          <span>grounding & comfort</span>
+        </div>
+        <p class="tagline">These are the rooms you can always retreat to—real or imagined.</p>
+        <div class="chips">
+          <div class="chip safe" data-target="safe-places">Warm shower</div>
+          <div class="chip safe" data-target="safe-places">Favorite blanket</div>
+          <div class="chip safe" data-target="safe-places">Music & headphones</div>
+          <div class="chip safe" data-target="safe-places">Walk outside</div>
+          <div class="chip safe" data-target="safe-places">Journaling nook</div>
+        </div>
+        <label for="safe-places">Places, scenes, or rituals that feel safe</label>
+        <textarea id="safe-places" placeholder="Describe rooms, corners, or rituals that help you breathe easier..."></textarea>
+
+        <div class="row-2" style="margin-top:8px;">
+          <div>
+            <label for="grounding">Quick grounding spells (5 senses, breathing, etc.)</label>
+            <textarea id="grounding" placeholder="e.g., 5–4–3–2–1 senses, box breathing, naming colors in the room..."></textarea>
+          </div>
+          <div>
+            <label for="kind-words">Words I want to hear when I’m struggling</label>
+            <textarea id="kind-words" placeholder="Write the script you wish someone would read to you."></textarea>
+          </div>
+        </div>
+
+        <div class="footer-controls">
+          <span class="status-pill safe">Signal: Retreat & Regulate</span>
+          <div class="btn-row">
+            <button class="secondary" data-clear="safe-places">Clear Safe Rooms</button>
+            <button class="secondary" data-clear="grounding">Clear Grounding</button>
+            <button class="secondary" data-clear="kind-words">Clear Words</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allies & emergency -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Castle Allies & Bridges</h2>
+          <span>who I can reach for</span>
+        </div>
+        <p class="tagline">You don’t have to cross the drawbridge alone.</p>
+        <div class="row-2">
+          <div>
+            <label for="allies">Trusted people (names + how to reach them)</label>
+            <textarea id="allies" placeholder="Friends, family, mentors, coworkers, neighbors..."></textarea>
+          </div>
+          <div>
+            <label for="professionals">Professional supports</label>
+            <textarea id="professionals" placeholder="Therapist, doctor, support groups, crisis lines (no need for exact numbers here)."></textarea>
+          </div>
+        </div>
+        <label for="safety-steps" style="margin-top:8px;">If I feel unsafe, steps I will take</label>
+        <textarea id="safety-steps" placeholder="Example: 1) Move to a safer room. 2) Text _____. 3) Use grounding spell. 4) Reach out to professional support."></textarea>
+        <div class="footer-controls">
+          <span class="tiny">
+            If you’re in immediate danger, contact local emergency services or crisis support in your area.
+          </span>
+        </div>
+      </div>
+
+      <!-- Save / Load -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Castle Memory</h2>
+          <span>save this plan</span>
+        </div>
+        <p class="tagline">
+          Your browser can remember this plan on this device. You can update it anytime.
+        </p>
+        <div class="btn-row">
+          <button id="save-btn">Save Plan to This Device</button>
+          <button class="secondary" id="load-btn">Load Saved Plan</button>
+          <button class="secondary" id="clear-all-btn">Clear All Fields</button>
+        </div>
+        <p class="tiny" style="margin-top:6px;">
+          Saved locally only. If you switch devices or clear browser data, you may want to export or print.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <div class="saved-toast" id="toast">
+    <span>✨ Castle plan updated.</span>
+  </div>
+
+  <script>
+    const FIELD_IDS = [
+      "name",
+      "date",
+      "reason",
+      "warning-signs",
+      "safe-places",
+      "grounding",
+      "kind-words",
+      "allies",
+      "professionals",
+      "safety-steps"
+    ];
+
+    const STORAGE_KEY = "castleSafetyPlan_v1";
+
+    function getFieldValue(id) {
+      const el = document.getElementById(id);
+      return el ? el.value : "";
+    }
+
+    function setFieldValue(id, value) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.value = value || "";
+    }
+
+    function savePlan(showToast = true) {
+      const data = {};
+      FIELD_IDS.forEach(id => {
+        data[id] = getFieldValue(id);
+      });
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        if (showToast) showToastMessage("✨ Castle plan updated.");
+      } catch (e) {
+        console.warn("Could not save plan:", e);
+        if (showToast) showToastMessage("Storage not available, but your words still matter.");
+      }
+    }
+
+    function loadPlan(showToast = true) {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          if (showToast) showToastMessage("No saved plan found yet.");
+          return;
+        }
+        const data = JSON.parse(raw);
+        FIELD_IDS.forEach(id => {
+          setFieldValue(id, data[id] || "");
+        });
+        if (showToast) showToastMessage("Castle plan loaded.");
+      } catch (e) {
+        console.warn("Could not load plan:", e);
+        if (showToast) showToastMessage("Could not load plan.");
+      }
+    }
+
+    function clearField(id) {
+      setFieldValue(id, "");
+      savePlan(false);
+    }
+
+    function clearAllFields() {
+      FIELD_IDS.forEach(id => setFieldValue(id, ""));
+      savePlan(false);
+      showToastMessage("All fields cleared on this page.");
+    }
+
+    function showToastMessage(message) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.remove("show");
+      void toast.offsetWidth;
+      toast.classList.add("show");
+    }
+
+    document.getElementById("save-btn").addEventListener("click", () => savePlan(true));
+    document.getElementById("load-btn").addEventListener("click", () => loadPlan(true));
+    document.getElementById("clear-all-btn").addEventListener("click", clearAllFields);
+
+    document.querySelectorAll("button[data-clear]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-clear");
+        clearField(id);
+      });
+    });
+
+    document.querySelectorAll(".chip[data-target]").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const targetId = chip.getAttribute("data-target");
+        const field = document.getElementById(targetId);
+        if (!field) return;
+        const text = chip.textContent.trim();
+        if (!text) return;
+        const current = field.value.trim();
+        const prefix = current ? current + (current.endsWith(",") ? " " : ", ") : "";
+        field.value = prefix + text;
+        savePlan(false);
+      });
+    });
+
+    FIELD_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("change", () => savePlan(false));
+      el.addEventListener("blur", () => savePlan(false));
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadPlan(false);
+    });
+  </script>
+</body>
+</html>
