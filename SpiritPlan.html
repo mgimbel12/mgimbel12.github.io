@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Safety & Spirit Plan</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --accent: #2f5f9f;
+      --accent-soft: #dbe6ff;
+      --text-main: #1f2933;
+      --text-soft: #6b7280;
+      --border-soft: #d1d5db;
+      --danger: #b91c1c;
+      --safe: #047857;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top, #e0ebff 0, #f5f7fb 40%, #fdfdfd 100%);
+      color: var(--text-main);
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: 32px auto;
+      padding: 16px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.9rem;
+      color: var(--accent);
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border-soft);
+      background: #f9fafb;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text-soft);
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      box-shadow: 0 4px 10px rgba(47, 95, 159, 0.25);
+    }
+
+    .tab-btn:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .content {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      border: 1px solid #e5e7eb;
+      min-height: 260px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      padding: 12px 14px;
+      background: #f9fafb;
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: var(--text-main);
+    }
+
+    .card p,
+    .card li,
+    .card textarea,
+    .card input {
+      font-size: 0.9rem;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border-radius: 6px;
+      border: 1px solid var(--border-soft);
+      padding: 6px 8px;
+      margin-top: 4px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .list-soft {
+      padding-left: 18px;
+      margin: 4px 0 0;
+      color: var(--text-soft);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-left: 4px;
+    }
+
+    .safety-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .status-safe {
+      color: var(--safe);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .status-danger {
+      color: var(--danger);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>LDS Safety & Spirit Plan</h1>
+      <p>Hymns, scriptures, church connections, and a personal safety plan—kept together in one gentle place.</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-target="hymns">Hymns</button>
+      <button class="tab-btn" data-target="scriptures">Scriptures</button>
+      <button class="tab-btn" data-target="relations">Church Relations</button>
+      <button class="tab-btn" data-target="safety">Safety Plan</button>
+    </div>
+
+    <div class="content">
+      <!-- HYMNS -->
+      <section id="hymns" class="section active">
+        <h2>LDS Hymns anchor</h2>
+        <p class="tagline">Pick a few hymns that feel like “home” when things are heavy.</p>
+        <div class="two-col">
+          <div class="card">
+            <h3>Go-to hymns <span class="badge">Grounding</span></h3>
+            <ul class="list-soft">
+              <li>“Be Still, My Soul” – Hymn 124</li>
+              <li>“I Need Thee Every Hour” – Hymn 98</li>
+              <li>“Abide with Me; ’Tis Eventide” – Hymn 165</li>
+            </ul>
+            <label>
+              Add your own hymn list:
+              <textarea rows="4" placeholder="Write hymn titles, numbers, or verses that calm you..."></textarea>
+            </label>
+          </div>
+          <div class="card">
+            <h3>How to use hymns</h3>
+            <ul class="list-soft">
+              <li>Read the lyrics slowly, line by line.</li>
+              <li>Hum the melody quietly to yourself.</li>
+              <li>Pair a hymn with a scripture from the next tab.</li>
+              <li>Use a hymn as a “reset” between stressful tasks.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCRIPTURES -->
+      <section id="scriptures" class="section">
+        <h2>Scripture anchors</h2>
+        <p class="tagline">Verses you can return to when you need reassurance, comfort, or direction.</p>
+        <div class="two-col">
+          <div class="card">
+            <h3>Comfort & peace</h3>
+            <ul class="list-soft">
+              <li>John 14:27 – “Peace I leave with you...”</li>
+              <li>Doctrine and Covenants 121:7–8 – “Thine adversity and thine afflictions...”</li>
+              <li>Mosiah 24:14 – “I will also ease the burdens...”</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Your personal verses</h3>
+            <label>
+              Favorite scripture references:
+              <textarea rows="3" placeholder="e.g., Alma 7:11–12, Isaiah 41:10..."></textarea>
+            </label>
+            <label>
+              What they remind you of:
+              <textarea rows="3" placeholder="Write the message you want to remember from these verses..."></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- CHURCH RELATIONS -->
+      <section id="relations" class="section">
+        <h2>Church relations & support</h2>
+        <p class="tagline">Name the people and places in your church life that feel safe, respectful, and steady.</p>
+        <div class="two-col">
+          <div class="card">
+            <h3>Support contacts</h3>
+            <label>
+              Bishop / Branch President:
+              <input type="text" placeholder="Name & phone (if you want to store it here)" />
+            </label>
+            <label>
+              Relief Society / Elders Quorum:
+              <input type="text" placeholder="Name & contact" />
+            </label>
+            <label>
+              Trusted friend or ministering companion:
+              <input type="text" placeholder="Name & contact" />
+            </label>
+          </div>
+          <div class="card">
+            <h3>Boundaries & preferences</h3>
+            <ul class="list-soft">
+              <li>It’s okay to say “I’m not ready to talk about that.”</li>
+              <li>You can choose who you meet with and when.</li>
+              <li>Spiritual support should feel safe, not pressured.</li>
+            </ul>
+            <label>
+              My boundaries with church conversations:
+              <textarea rows="4" placeholder="Topics, times, or settings that feel safe or unsafe for you..."></textarea>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- SAFETY PLAN -->
+      <section id="safety" class="section">
+        <h2>Personal safety plan</h2>
+        <p class="tagline">A quick, honest snapshot of what to do when you’re not okay.</p>
+
+        <div class="safety-row">
+          <div class="card">
+            <h3>Warning signs</h3>
+            <label>
+              Thoughts, feelings, or situations that tell me I’m not okay:
+              <textarea rows="4" placeholder="e.g., can’t stop crying, can’t get out of bed, racing thoughts..."></textarea>
+            </label>
+          </div>
+          <div class="card">
+            <h3>Safe actions</h3>
+            <label>
+              Things I can do in the next 10–30 minutes:
+              <textarea rows="4" placeholder="Walk, listen to a hymn, read a verse, text a friend, drink water..."></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="safety-row">
+          <div class="card">
+            <h3>People I can reach out to</h3>
+            <label>
+              Names & numbers:
+              <textarea rows="3" placeholder="List trusted friends, family, leaders, or hotlines you keep elsewhere."></textarea>
+            </label>
+            <p class="status-danger">If you are in immediate danger, contact emergency services in your area.</p>
+          </div>
+          <div class="card">
+            <h3>Reasons to stay</h3>
+            <label>
+              Things, people, and callings that matter to me:
+              <textarea rows="4" placeholder="Future moments, people you love, covenants, goals, small joys..."></textarea>
+            </label>
+            <p class="status-safe">You are allowed to take up space, rest, and ask for help.</p>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          This page is not a substitute for professional help—use it alongside real-world support.
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const sections = document.querySelectorAll(".section");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        sections.forEach((sec) => sec.classList.remove("active"));
+
+        btn.classList.add("active");
+        document.getElementById(target).classList.add("active");
+      });
+    });
+  </script>
+</body>
+</html>
