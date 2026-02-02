@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Safety Plan with Scriptures</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --accent: #4b6cb7;
+      --accent-soft: #dbe4ff;
+      --text-main: #1f2933;
+      --text-soft: #6b7280;
+      --danger: #b91c1c;
+      --success: #047857;
+      --border-radius: 12px;
+      --shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #e0ecff 0, #f5f7fb 45%, #f5f7fb 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .header h1 {
+      font-size: 1.9rem;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .header p {
+      margin-top: 6px;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 16px 18px 18px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .card h2 {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card h2 span.icon {
+      font-size: 1.1rem;
+    }
+
+    .card small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-soft);
+      font-size: 0.8rem;
+    }
+
+    textarea, input {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      padding: 8px 9px;
+      font-size: 0.9rem;
+      resize: vertical;
+      min-height: 60px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    textarea:focus, input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #4b5563;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1e293b;
+      cursor: pointer;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      user-select: none;
+    }
+
+    .pill:hover {
+      background: #c7d2fe;
+    }
+
+    .scripture {
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 8px 9px;
+      margin-bottom: 8px;
+      border-left: 3px solid var(--accent);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .scripture-ref {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .scripture-text {
+      color: #374151;
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: var(--success);
+      margin-top: 4px;
+    }
+
+    .emergency {
+      border-left: 4px solid var(--danger);
+    }
+
+    .emergency strong {
+      color: var(--danger);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #f9fafb;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.35);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+
+    button.secondary {
+      background: #e5e7eb;
+      color: #111827;
+      box-shadow: none;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    button.secondary:hover {
+      box-shadow: 0 4px 10px rgba(148, 163, 184, 0.5);
+    }
+
+    .status {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .status.saved {
+      color: var(--success);
+    }
+
+    .status.cleared {
+      color: var(--danger);
+    }
+
+    .tiny {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      margin-top: 4px;
+    }
+
+    .verse-highlight {
+      background: #fef3c7;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.78rem;
+      display: inline-block;
+      margin-top: 4px;
+      color: #92400e;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <h1>Safety Plan with God’s Word</h1>
+      <p>“The light shines in the darkness, and the darkness has not overcome it.”</p>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT COLUMN: My plan -->
+      <div class="card">
+        <h2><span class="icon">🕊️</span> When I feel overwhelmed</h2>
+        <small>Write what you notice in your body, thoughts, and feelings.</small>
+
+        <div class="field">
+          <label for="warningSigns">Warning signs</label>
+          <textarea id="warningSigns" placeholder="Example: I isolate, my chest feels tight, I feel hopeless..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="copingSteps">Coping steps with God</label>
+          <textarea id="copingSteps" placeholder="Example: Breathe slowly, read Psalm 23 out loud, step outside, drink water, text someone safe..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="safePlaces">Safe places & activities</label>
+          <textarea id="safePlaces" placeholder="Example: My room with worship music, a walk outside, church, journaling with God..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="truths">Truths to remember</label>
+          <textarea id="truths" placeholder="Example: I am loved. This feeling will pass. God is with me in this moment."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button id="savePlanBtn">💾 Save my plan</button>
+          <button class="secondary" id="clearPlanBtn">🧹 Clear all</button>
+        </div>
+        <div id="planStatus" class="status"></div>
+        <p class="tiny">Saved locally in this browser only.</p>
+      </div>
+
+      <!-- RIGHT COLUMN: Scriptures & support -->
+      <div class="card">
+        <h2><span class="icon">📖</span> Scriptures for safety</h2>
+        <small>Tap a verse to copy it into your “Truths to remember” box.</small>
+
+        <div id="scriptureList">
+          <div class="scripture">
+            <div class="scripture-ref">Psalm 23:4</div>
+            <div class="scripture-text">
+              “Even though I walk through the valley of the shadow of death, I will fear no evil, for you are with me.”
+            </div>
+            <div class="tagline">God walks with me in dark places.</div>
+          </div>
+
+          <div class="scripture">
+            <div class="scripture-ref">Isaiah 41:10</div>
+            <div class="scripture-text">
+              “Fear not, for I am with you; be not dismayed, for I am your God; I will strengthen you, I will help you.”
+            </div>
+            <div class="tagline">I am not alone; God strengthens me.</div>
+          </div>
+
+          <div class="scripture">
+            <div class="scripture-ref">Matthew 11:28</div>
+            <div class="scripture-text">
+              “Come to me, all who labor and are heavy laden, and I will give you rest.”
+            </div>
+            <div class="tagline">I can bring my heaviness to Jesus.</div>
+          </div>
+
+          <div class="scripture">
+            <div class="scripture-ref">Romans 8:38–39</div>
+            <div class="scripture-text">
+              “Nothing in all creation will be able to separate us from the love of God in Christ Jesus our Lord.”
+            </div>
+            <div class="tagline">Nothing can separate me from God’s love.</div>
+          </div>
+        </div>
+
+        <div class="verse-highlight">
+          Tip: Click any verse to add it to your “Truths to remember” box.
+        </div>
+
+        <hr style="margin: 12px 0; border: none; border-top: 1px dashed #e5e7eb;" />
+
+        <h2><span class="icon">🤝</span> People & support</h2>
+        <small>List safe people and professional supports you can reach out to.</small>
+
+        <div class="field">
+          <label for="supportPeople">Safe people (friends, family, church)</label>
+          <textarea id="supportPeople" placeholder="Example: Sarah (sister) – call or text, Pastor John, trusted friend..."></textarea>
+        </div>
+
+        <div class="field">
+          <label for="professionalSupport">Professional / crisis support</label>
+          <textarea id="professionalSupport" placeholder="Example: Therapist name, clinic, local crisis line, 911 in an emergency..."></textarea>
+        </div>
+
+        <div class="card emergency" style="margin-top: 6px;">
+          <small>
+            <strong>If you are in immediate danger:</strong> please contact emergency services or a crisis line in your area right away.
+          </small>
+        </div>
+
+        <div class="btn-row">
+          <button id="saveSupportBtn">💾 Save support list</button>
+          <button class="secondary" id="clearSupportBtn">🧹 Clear support</button>
+        </div>
+        <div id="supportStatus" class="status"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Local storage keys
+    const PLAN_KEY = "safetyPlanWithGod_plan";
+    const SUPPORT_KEY = "safetyPlanWithGod_support";
+
+    const warningSignsEl = document.getElementById("warningSigns");
+    const copingStepsEl = document.getElementById("copingSteps");
+    const safePlacesEl = document.getElementById("safePlaces");
+    const truthsEl = document.getElementById("truths");
+
+    const supportPeopleEl = document.getElementById("supportPeople");
+    const professionalSupportEl = document.getElementById("professionalSupport");
+
+    const planStatusEl = document.getElementById("planStatus");
+    const supportStatusEl = document.getElementById("supportStatus");
+
+    // Load saved data on start
+    function loadPlan() {
+      const saved = localStorage.getItem(PLAN_KEY);
+      if (!saved) return;
+      try {
+        const data = JSON.parse(saved);
+        warningSignsEl.value = data.warningSigns || "";
+        copingStepsEl.value = data.copingSteps || "";
+        safePlacesEl.value = data.safePlaces || "";
+        truthsEl.value = data.truths || "";
+        planStatusEl.textContent = "Plan loaded.";
+        planStatusEl.className = "status saved";
+      } catch (e) {
+        console.error("Error loading plan", e);
+      }
+    }
+
+    function loadSupport() {
+      const saved = localStorage.getItem(SUPPORT_KEY);
+      if (!saved) return;
+      try {
+        const data = JSON.parse(saved);
+        supportPeopleEl.value = data.supportPeople || "";
+        professionalSupportEl.value = data.professionalSupport || "";
+        supportStatusEl.textContent = "Support list loaded.";
+        supportStatusEl.className = "status saved";
+      } catch (e) {
+        console.error("Error loading support", e);
+      }
+    }
+
+    // Save functions
+    function savePlan() {
+      const data = {
+        warningSigns: warningSignsEl.value.trim(),
+        copingSteps: copingStepsEl.value.trim(),
+        safePlaces: safePlacesEl.value.trim(),
+        truths: truthsEl.value.trim()
+      };
+      localStorage.setItem(PLAN_KEY, JSON.stringify(data));
+      planStatusEl.textContent = "Plan saved.";
+      planStatusEl.className = "status saved";
+    }
+
+    function clearPlan() {
+      warningSignsEl.value = "";
+      copingStepsEl.value = "";
+      safePlacesEl.value = "";
+      truthsEl.value = "";
+      localStorage.removeItem(PLAN_KEY);
+      planStatusEl.textContent = "Plan cleared.";
+      planStatusEl.className = "status cleared";
+    }
+
+    function saveSupport() {
+      const data = {
+        supportPeople: supportPeopleEl.value.trim(),
+        professionalSupport: professionalSupportEl.value.trim()
+      };
+      localStorage.setItem(SUPPORT_KEY, JSON.stringify(data));
+      supportStatusEl.textContent = "Support list saved.";
+      supportStatusEl.className = "status saved";
+    }
+
+    function clearSupport() {
+      supportPeopleEl.value = "";
+      professionalSupportEl.value = "";
+      localStorage.removeItem(SUPPORT_KEY);
+      supportStatusEl.textContent = "Support list cleared.";
+      supportStatusEl.className = "status cleared";
+    }
+
+    // Scripture click → append to truths
+    function enableScriptureClicks() {
+      const scriptures = document.querySelectorAll("#scriptureList .scripture");
+      scriptures.forEach((block) => {
+        block.style.cursor = "pointer";
+        block.addEventListener("click", () => {
+          const ref = block.querySelector(".scripture-ref")?.textContent || "";
+          const text = block.querySelector(".scripture-text")?.textContent || "";
+          const line = ref + " — " + text.trim();
+          const current = truthsEl.value.trim();
+          truthsEl.value = current ? current + "\n" + line : line;
+          truthsEl.focus();
+          planStatusEl.textContent = "Verse added to truths.";
+          planStatusEl.className = "status saved";
+        });
+      });
+    }
+
+    // Button events
+    document.getElementById("savePlanBtn").addEventListener("click", savePlan);
+    document.getElementById("clearPlanBtn").addEventListener("click", clearPlan);
+    document.getElementById("saveSupportBtn").addEventListener("click", saveSupport);
+    document.getElementById("clearSupportBtn").addEventListener("click", clearSupport);
+
+    // Init
+    loadPlan();
+    loadSupport();
+    enableScriptureClicks();
+  </script>
+</body>
+</html>
