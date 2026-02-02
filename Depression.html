@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Depression Tribe – Hope & Safety</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: radial-gradient(circle at top, #c9e7ff, #f7f7ff);
+        margin: 0;
+        padding: 20px;
+        color: #233047;
+    }
+
+    h1, h2 {
+        text-align: center;
+        color: #1f3558;
+    }
+
+    .tagline {
+        text-align: center;
+        font-size: 14px;
+        color: #445;
+        margin-bottom: 15px;
+    }
+
+    .section {
+        background: #ffffffdd;
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin: 15px auto;
+        max-width: 900px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .toggle-btn {
+        background: #4b8cff;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    textarea, input, button {
+        font-family: inherit;
+    }
+
+    textarea, input {
+        width: 100%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #c5c9d6;
+        margin: 5px 0 10px 0;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #e4edff;
+        color: #2b3f66;
+        font-size: 12px;
+        margin: 2px 4px;
+    }
+
+    .list-soft {
+        padding-left: 18px;
+        font-size: 14px;
+    }
+
+    .note-box {
+        background: #f4f6ff;
+        border-left: 4px solid #4b8cff;
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 13px;
+        color: #333a55;
+        margin-top: 8px;
+    }
+
+    .heart {
+        text-align: center;
+        font-size: 26px;
+        margin: 10px 0;
+    }
+
+    .small-label {
+        font-size: 12px;
+        color: #555;
+        margin-top: 4px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Depression Tribe – Hope & Safety</h1>
+<p class="tagline">A gentle page for grounding, remembering reasons to stay, and planning support.</p>
+<div class="heart">💙</div>
+
+<!-- 1. GROUNDING & CHECK-IN -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('checkin')">Grounding Check‑In</button>
+    <div id="checkin" class="hidden">
+        <h2>How am I right now?</h2>
+        <p>There is no wrong answer. This is just a snapshot, not a verdict on who you are.</p>
+        <label>Mood word (or phrase):</label>
+        <input id="moodWord" placeholder="tired, numb, heavy, okay, unsure...">
+        <label>What is weighing on me?</label>
+        <textarea id="weightText" rows="3" placeholder="Write a few lines if it feels safe."></textarea>
+        <label>One small thing that might help a little:</label>
+        <input id="smallHelp" placeholder="drink water, open window, text someone, stretch...">
+        <button onclick="saveCheckin()">Save Check‑In</button>
+        <div id="checkinLog" class="small-label"></div>
+    </div>
+</div>
+
+<!-- 2. REASONS TO STAY / ANCHORS -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('reasons')">Reasons to Stay & Tiny Anchors</button>
+    <div id="reasons" class="hidden">
+        <h2>Reasons to Stay (Even If They Feel Far Away)</h2>
+        <p>You don’t have to feel them strongly for them to still be real.</p>
+        <textarea id="reasonsText" rows="3" placeholder="People, pets, future moments, unfinished stories, small joys, curiosity about what could change..."></textarea>
+        <button onclick="addReason()">Add to My Reasons</button>
+        <div id="reasonsList" class="list-soft"></div>
+        <div class="note-box">
+            It’s okay if this list feels short or hard to write.  
+            Even one tiny reason counts. You are allowed to borrow hope from others until yours returns.
+        </div>
+    </div>
+</div>
+
+<!-- 3. COPING IDEAS (SAFE, GENTLE) -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('coping')">Gentle Coping Ideas</button>
+    <div id="coping" class="hidden">
+        <h2>Gentle Coping Ideas</h2>
+        <p>These are not obligations—just options you can choose from or ignore.</p>
+        <div id="copingPills">
+            <span class="pill">Drink a glass of water</span>
+            <span class="pill">Open a window or step outside briefly</span>
+            <span class="pill">Listen to one comforting song</span>
+            <span class="pill">Hold a soft object (pillow, blanket)</span>
+            <span class="pill">Text or message someone safe</span>
+            <span class="pill">Write 3 sentences about how you feel</span>
+        </div>
+        <label>Add your own gentle idea:</label>
+        <input id="copingCustom" placeholder="Something small and safe that might help...">
+        <button onclick="addCoping()">Add Coping Idea</button>
+    </div>
+</div>
+
+<!-- 4. CONNECTION & SUPPORT PLAN -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('support')">Connection & Support Plan</button>
+    <div id="support" class="hidden">
+        <h2>Who Can I Reach Out To?</h2>
+        <p>These are people or places you might contact when things feel too heavy.</p>
+        <label>Trusted person (friend, family, mentor):</label>
+        <input id="personName" placeholder="Name or description (no contact info needed here if you don’t want).">
+        <label>What I might say to them:</label>
+        <textarea id="personScript" rows="3" placeholder="Example: “I’m having a hard time and just need someone to listen.”"></textarea>
+        <button onclick="addSupport()">Save Support Idea</button>
+        <div id="supportList" class="list-soft"></div>
+
+        <div class="note-box">
+            This page cannot replace real help.  
+            If you ever feel in danger or overwhelmed by thoughts of ending your life,  
+            please reach out to a trusted person, a mental health professional, or local crisis/helpline services.
+        </div>
+    </div>
+</div>
+
+<!-- 5. AFFIRMATIONS & TRIBE MESSAGE -->
+<div class="section">
+    <button class="toggle-btn" onclick="toggleSection('tribe')">Depression Tribe Message</button>
+    <div id="tribe" class="hidden">
+        <h2>From the Depression Tribe</h2>
+        <div id="tribeMessage" class="note-box">
+            You are not the only one who feels this way.  
+            Your brain’s pain is not your fault.  
+            You are not a burden for needing support.  
+            Staying is an act of quiet courage.
+        </div>
+        <button onclick="randomAffirmation()">New Gentle Message</button>
+        <div id="affirmationBox" class="small-label"></div>
+    </div>
+</div>
+
+<script>
+function toggleSection(id) {
+    document.getElementById(id).classList.toggle("hidden");
+}
+
+// CHECK-IN
+function saveCheckin() {
+    const mood = document.getElementById("moodWord").value.trim();
+    const weight = document.getElementById("weightText").value.trim();
+    const small = document.getElementById("smallHelp").value.trim();
+    const log = document.getElementById("checkinLog");
+
+    if (!mood && !weight && !small) return;
+
+    const entry = document.createElement("p");
+    entry.textContent = "Mood: " + (mood || "unsure") +
+        " | Weight: " + (weight || "not written") +
+        " | Small help: " + (small || "not sure yet");
+    log.appendChild(entry);
+
+    document.getElementById("moodWord").value = "";
+    document.getElementById("weightText").value = "";
+    document.getElementById("smallHelp").value = "";
+}
+
+// REASONS TO STAY
+function addReason() {
+    const text = document.getElementById("reasonsText").value.trim();
+    if (!text) return;
+    const list = document.getElementById("reasonsList");
+    const item = document.createElement("li");
+    item.textContent = text;
+    list.appendChild(item);
+    document.getElementById("reasonsText").value = "";
+}
+
+// COPING IDEAS
+function addCoping() {
+    const idea = document.getElementById("copingCustom").value.trim();
+    if (!idea) return;
+    const pills = document.getElementById("copingPills");
+    const span = document.createElement("span");
+    span.className = "pill";
+    span.textContent = idea;
+    pills.appendChild(span);
+    document.getElementById("copingCustom").value = "";
+}
+
+// SUPPORT PLAN
+function addSupport() {
+    const name = document.getElementById("personName").value.trim();
+    const script = document.getElementById("personScript").value.trim();
+    if (!name && !script) return;
+    const list = document.getElementById("supportList");
+    const item = document.createElement("li");
+    item.textContent = (name || "Someone safe") + " – what I might say: " + (script || "I need support.");
+    list.appendChild(item);
+    document.getElementById("personName").value = "";
+    document.getElementById("personScript").value = "";
+}
+
+// AFFIRMATIONS
+function randomAffirmation() {
+    const messages = [
+        "You are allowed to take up space, even on your hardest days.",
+        "Needing help does not make you weak; it makes you human.",
+        "Your story is not finished yet.",
+        "You don’t have to earn rest or kindness.",
+        "The way you feel right now is not the only way you will ever feel.",
+        "Even if you can’t see it, your existence matters."
+    ];
+    const pick = messages[Math.floor(Math.random() * messages.length)];
+    document.getElementById("affirmationBox").textContent = pick;
+}
+</script>
+</body>
+</html>
