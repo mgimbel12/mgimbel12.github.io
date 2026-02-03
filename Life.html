@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Homework • Life • Safety Plan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      background: #020617;
+      border-radius: 16px;
+      padding: 20px 20px 28px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+      border: 1px solid #1f2937;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #1f2937;
+      padding-bottom: 10px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #f9fafb;
+    }
+
+    .title-block p {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      color: #e5e7eb;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: radial-gradient(circle at top left, #22c55e33, transparent 60%);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #22c55e, #0ea5e9);
+      border-color: transparent;
+      color: #020617;
+      font-weight: 600;
+    }
+
+    .tab-btn:hover {
+      border-color: #6b7280;
+      transform: translateY(-1px);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 12px 12px 14px;
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      margin: 0 0 6px;
+      font-size: 1rem;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel h2 span {
+      font-size: 0.9rem;
+      color: #22c55e;
+    }
+
+    .panel small {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      resize: vertical;
+    }
+
+    textarea {
+      min-height: 60px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .row > div {
+      flex: 1 1 0;
+      min-width: 120px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #111827;
+      color: #e5e7eb;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #22c55e, #0ea5e9);
+      border-color: transparent;
+      color: #020617;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: #9ca3af;
+    }
+
+    .list {
+      margin-top: 8px;
+      border-top: 1px dashed #1f2937;
+      padding-top: 6px;
+      max-height: 180px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+    }
+
+    .item {
+      padding: 4px 6px;
+      border-radius: 8px;
+      border: 1px solid #111827;
+      background: #020617;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .item-main {
+      flex: 1;
+    }
+
+    .item-title {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .item-meta {
+      font-size: 0.7rem;
+      color: #9ca3af;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      border: 1px solid #374151;
+      color: #e5e7eb;
+      gap: 4px;
+    }
+
+    .pill.homework {
+      border-color: #22c55e;
+      color: #bbf7d0;
+    }
+
+    .pill.life {
+      border-color: #0ea5e9;
+      color: #bae6fd;
+    }
+
+    .pill.safety {
+      border-color: #f97316;
+      color: #fed7aa;
+    }
+
+    .affirm {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: #a5b4fc;
+      border-radius: 8px;
+      border: 1px dashed #4b5563;
+      padding: 6px 8px;
+      background: radial-gradient(circle at top left, #22c55e11, transparent 60%);
+    }
+
+    .footer {
+      margin-top: 14px;
+      font-size: 0.7rem;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .footer span.key {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="title-block">
+        <h1>Single Sheet • Homework • Life • Safety</h1>
+        <p>One page to track tasks, feelings, and grounding moves—no tabs, no chaos.</p>
+      </div>
+      <div class="badge">Today is a draft, not a verdict</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="homework">
+        <span class="icon">📚</span> Homework
+      </button>
+      <button class="tab-btn" data-tab="life">
+        <span class="icon">🌱</span> Life Situations
+      </button>
+      <button class="tab-btn" data-tab="safety">
+        <span class="icon">🛟</span> Safety Plan
+      </button>
+      <button class="tab-btn" data-tab="overview">
+        <span class="icon">✨</span> Overview
+      </button>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT SIDE: ACTIVE PANEL -->
+      <div>
+        <!-- HOMEWORK PANEL -->
+        <div class="panel active" id="panel-homework">
+          <h2><span>📚</span> Homework tracker</h2>
+          <small>Capture assignments, due dates, and how “big” they feel in your body.</small>
+
+          <div class="row">
+            <div>
+              <label>Assignment / Class</label>
+              <input type="text" id="hw-title" placeholder="HTML project, math worksheet, essay..." />
+            </div>
+            <div>
+              <label>Due date</label>
+              <input type="text" id="hw-due" placeholder="e.g., Friday, 2/6" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label>Energy required (low / medium / high)</label>
+              <select id="hw-energy">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <div>
+              <label>First tiny step</label>
+              <input type="text" id="hw-step" placeholder="Open file, read instructions, name the doc..." />
+            </div>
+          </div>
+
+          <button class="btn primary" id="hw-add">
+            ➕ Add homework
+          </button>
+
+          <div class="affirm" id="hw-affirm">
+            Today’s homework truth: you’re allowed to take one tiny step and call that progress.
+          </div>
+
+          <div class="list" id="hw-list"></div>
+        </div>
+
+        <!-- LIFE PANEL -->
+        <div class="panel" id="panel-life">
+          <h2><span>🌱</span> Life situations log</h2>
+          <small>Note what’s happening, how it feels, and what support might help.</small>
+
+          <div class="row">
+            <div>
+              <label>Situation title</label>
+              <input type="text" id="life-title" placeholder="Family thing, work stress, money worry..." />
+            </div>
+            <div>
+              <label>Intensity (1–10)</label>
+              <input type="text" id="life-intensity" placeholder="e.g., 3, 7, 9" />
+            </div>
+          </div>
+
+          <label>What’s going on?</label>
+          <textarea id="life-notes" placeholder="Short description in your own words."></textarea>
+
+          <label>What might help right now?</label>
+          <input type="text" id="life-support" placeholder="Text a friend, take a walk, music, pause..." />
+
+          <button class="btn primary" id="life-add">
+            ➕ Add situation
+          </button>
+
+          <div class="affirm" id="life-affirm">
+            You’re allowed to name hard things without solving them all at once.
+          </div>
+
+          <div class="list" id="life-list"></div>
+        </div>
+
+        <!-- SAFETY PANEL -->
+        <div class="panel" id="panel-safety">
+          <h2><span>🛟</span> Safety plan</h2>
+          <small>Pre-decide your anchors for when things feel too loud.</small>
+
+          <label>Warning signs (thoughts, feelings, body signals)</label>
+          <textarea id="safe-signs" placeholder="Example: racing thoughts, can’t focus, stomach knots, wanting to disappear..."></textarea>
+
+          <label>Soothing actions (5–10 minute moves)</label>
+          <textarea id="safe-actions" placeholder="Example: cold water on hands, step outside, grounding playlist, stretch, slow breathing..."></textarea>
+
+          <label>People / places that feel safer</label>
+          <textarea id="safe-people" placeholder="Names, hotlines, community spaces, online spaces that feel less harsh."></textarea>
+
+          <label>Words to remember when it’s bad</label>
+          <input type="text" id="safe-words" placeholder="One sentence you want future-you to hear." />
+
+          <button class="btn primary" id="safe-save">
+            💾 Save safety snapshot (local only)
+          </button>
+
+          <div class="affirm" id="safe-affirm">
+            Future-you is not a stranger—you’re already leaving them a light on.
+          </div>
+        </div>
+
+        <!-- OVERVIEW PANEL -->
+        <div class="panel" id="panel-overview">
+          <h2><span>✨</span> Overview</h2>
+          <small>Quick glance at homework, life, and safety anchors on one screen.</small>
+
+          <div class="row">
+            <div>
+              <label>Homework count</label>
+              <div class="pill homework" id="ov-hw-count">0 items</div>
+            </div>
+            <div>
+              <label>Life situations logged</label>
+              <div class="pill life" id="ov-life-count">0 items</div>
+            </div>
+            <div>
+              <label>Safety snapshot</label>
+              <div class="pill safety" id="ov-safe-status">Not saved yet</div>
+            </div>
+          </div>
+
+          <div class="affirm" id="ov-affirm">
+            You’re juggling a lot—and still building systems to care for yourself. That matters.
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT SIDE: QUICK NOTES / SCRATCHPAD -->
+      <div class="panel active" style="display:block;">
+        <h2><span>📝</span> Scratchpad</h2>
+        <small>Free space for brain-dumps, code notes, or reminders to your future self.</small>
+
+        <textarea id="scratch" placeholder="Write anything here. This doesn’t have to be pretty or organized."></textarea>
+
+        <button class="btn" id="scratch-clear">🧹 Clear scratchpad</button>
+
+        <div class="affirm" id="scratch-affirm">
+          Messy notes still count as thinking. You don’t have to earn neatness first.
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>
+        <span class="key">Keyboard hint:</span> 1 = Homework, 2 = Life, 3 = Safety, 4 = Overview
+      </div>
+      <div>
+        This sheet lives in your browser only. Refreshing may clear it—export anything important if you need to.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple state
+    const state = {
+      homework: [],
+      life: [],
+      safetySaved: false,
+    };
+
+    // Tab handling
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const panels = {
+      homework: document.getElementById("panel-homework"),
+      life: document.getElementById("panel-life"),
+      safety: document.getElementById("panel-safety"),
+      overview: document.getElementById("panel-overview"),
+    };
+
+    function setActiveTab(name) {
+      tabButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === name);
+      });
+      Object.entries(panels).forEach(([key, panel]) => {
+        panel.classList.toggle("active", key === name);
+      });
+      updateOverview();
+    }
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+    });
+
+    // Keyboard shortcuts: 1–4
+    document.addEventListener("keydown", (e) => {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+      if (e.key === "1") setActiveTab("homework");
+      if (e.key === "2") setActiveTab("life");
+      if (e.key === "3") setActiveTab("safety");
+      if (e.key === "4") setActiveTab("overview");
+    });
+
+    // Homework logic
+    const hwTitle = document.getElementById("hw-title");
+    const hwDue = document.getElementById("hw-due");
+    const hwEnergy = document.getElementById("hw-energy");
+    const hwStep = document.getElementById("hw-step");
+    const hwList = document.getElementById("hw-list");
+    const hwAdd = document.getElementById("hw-add");
+    const hwAffirm = document.getElementById("hw-affirm");
+
+    hwAdd.addEventListener("click", () => {
+      const title = hwTitle.value.trim();
+      if (!title) return;
+      const item = {
+        title,
+        due: hwDue.value.trim() || "No date",
+        energy: hwEnergy.value,
+        step: hwStep.value.trim() || "Just open the assignment.",
+      };
+      state.homework.push(item);
+      renderHomework();
+      hwTitle.value = "";
+      hwDue.value = "";
+      hwStep.value = "";
+      hwAffirm.textContent =
+        "Nice. One assignment is now on paper instead of in your head.";
+      updateOverview();
+    });
+
+    function renderHomework() {
+      hwList.innerHTML = "";
+      state.homework.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="item-main">
+            <div class="item-title">${item.title}</div>
+            <div class="item-meta">Due: ${item.due} • Energy: ${item.energy}</div>
+            <div class="item-meta">First tiny step: ${item.step}</div>
+          </div>
+          <button class="btn" data-index="${index}">✔</button>
+        `;
+        div.querySelector("button").addEventListener("click", () => {
+          state.homework.splice(index, 1);
+          renderHomework();
+          hwAffirm.textContent = "Completed or cleared—your list is allowed to change.";
+          updateOverview();
+        });
+        hwList.appendChild(div);
+      });
+    }
+
+    // Life situations logic
+    const lifeTitle = document.getElementById("life-title");
+    const lifeIntensity = document.getElementById("life-intensity");
+    const lifeNotes = document.getElementById("life-notes");
+    const lifeSupport = document.getElementById("life-support");
+    const lifeList = document.getElementById("life-list");
+    const lifeAdd = document.getElementById("life-add");
+    const lifeAffirm = document.getElementById("life-affirm");
+
+    lifeAdd.addEventListener("click", () => {
+      const title = lifeTitle.value.trim();
+      if (!title) return;
+      const item = {
+        title,
+        intensity: lifeIntensity.value.trim() || "?",
+        notes: lifeNotes.value.trim(),
+        support: lifeSupport.value.trim(),
+      };
+      state.life.push(item);
+      renderLife();
+      lifeTitle.value = "";
+      lifeIntensity.value = "";
+      lifeNotes.value = "";
+      lifeSupport.value = "";
+      lifeAffirm.textContent =
+        "You named a situation. That’s emotional labor, and it counts.";
+      updateOverview();
+    });
+
+    function renderLife() {
+      lifeList.innerHTML = "";
+      state.life.forEach((item, index) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="item-main">
+            <div class="item-title">${item.title} (Intensity: ${item.intensity})</div>
+            <div class="item-meta">${item.notes || "No extra details added."}</div>
+            <div class="item-meta">Support idea: ${item.support || "Not sure yet."}</div>
+          </div>
+          <button class="btn" data-index="${index}">🗑</button>
+        `;
+        div.querySelector("button").addEventListener("click", () => {
+          state.life.splice(index, 1);
+          renderLife();
+          lifeAffirm.textContent = "You’re allowed to remove things from the page.";
+          updateOverview();
+        });
+        lifeList.appendChild(div);
+      });
+    }
+
+    // Safety plan logic
+    const safeSigns = document.getElementById("safe-signs");
+    const safeActions = document.getElementById("safe-actions");
+    const safePeople = document.getElementById("safe-people");
+    const safeWords = document.getElementById("safe-words");
+    const safeSave = document.getElementById("safe-save");
+    const safeAffirm = document.getElementById("safe-affirm");
+    const ovSafeStatus = document.getElementById("ov-safe-status");
+
+    safeSave.addEventListener("click", () => {
+      // This just marks that you filled it in; no real storage beyond the page.
+      if (
+        safeSigns.value.trim() ||
+        safeActions.value.trim() ||
+        safePeople.value.trim() ||
+        safeWords.value.trim()
+      ) {
+        state.safetySaved = true;
+        safeAffirm.textContent =
+          "Snapshot saved on this page. You can always revise it—plans are allowed to evolve.";
+        updateOverview();
+      } else {
+        safeAffirm.textContent =
+          "You can fill as little or as much as you want. Even one line is a start.";
+      }
+    });
+
+    // Overview
+    const ovHwCount = document.getElementById("ov-hw-count");
+    const ovLifeCount = document.getElementById("ov-life-count");
+
+    function updateOverview() {
+      ovHwCount.textContent = `${state.homework.length} item${
+        state.homework.length === 1 ? "" : "s"
+      }`;
+      ovLifeCount.textContent = `${state.life.length} item${
+        state.life.length === 1 ? "" : "s"
+      }`;
+      ovSafeStatus.textContent = state.safetySaved
+        ? "Filled on this page"
+        : "Not saved yet";
+    }
+
+    // Scratchpad
+    const scratch = document.getElementById("scratch");
+    const scratchClear = document.getElementById("scratch-clear");
+    const scratchAffirm = document.getElementById("scratch-affirm");
+
+    scratchClear.addEventListener("click", () => {
+      scratch.value = "";
+      scratchAffirm.textContent =
+        "Blank space is not failure—it’s room you’re allowed to grow into later.";
+    });
+  </script>
+</body>
+</html>
