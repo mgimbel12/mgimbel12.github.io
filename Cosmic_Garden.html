@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>2026 Cosmic Garden Calendar</title>
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Times New Roman", serif;
+        color: #fdfdfd;
+        background: radial-gradient(circle at top, #222244, #050510 60%, #000000);
+        background-attachment: fixed;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 0 0 10px;
+        letter-spacing: 2px;
+    }
+
+    .subtitle {
+        text-align: center;
+        font-size: 0.95rem;
+        opacity: 0.8;
+        margin-bottom: 20px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+    }
+
+    .card {
+        background: rgba(10, 10, 30, 0.9);
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .card h2 {
+        margin-top: 0;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+
+    /* SVG 2026 */
+    .svg-2026 {
+        display: block;
+        margin: 0 auto;
+        width: 180px;
+    }
+
+    /* Utah Jazz stripe */
+    .jazz-stripe {
+        height: 10px;
+        border-radius: 999px;
+        background: linear-gradient(to right, #002b5c, #00471b, #f9a01b);
+        margin: 8px 0 4px;
+    }
+
+    /* Calendar */
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+    }
+
+    .calendar-header button {
+        background: #f9a01b;
+        border: none;
+        color: #000;
+        padding: 4px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    .calendar-header button:disabled {
+        opacity: 0.4;
+        cursor: default;
+    }
+
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        font-size: 0.8rem;
+    }
+
+    .day-name {
+        text-align: center;
+        font-weight: bold;
+        padding: 4px 0;
+        background: rgba(255,255,255,0.06);
+        border-radius: 6px;
+    }
+
+    .day {
+        text-align: center;
+        padding: 6px 0;
+        border-radius: 6px;
+        background: rgba(255,255,255,0.04);
+    }
+
+    .today {
+        background: #f9a01b;
+        color: #000;
+        font-weight: bold;
+    }
+
+    /* Cosmic flowers & seeds */
+    .flower-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .flower {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 20%, #fff, #ff69b4);
+        position: relative;
+        box-shadow: 0 0 8px rgba(255,105,180,0.7);
+    }
+
+    .flower::before,
+    .flower::after {
+        content: "";
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #ffd700;
+        box-shadow:
+            -12px -8px 0 #ffd700,
+            12px -8px 0 #ffd700,
+            -12px 8px 0 #ffd700,
+            12px 8px 0 #ffd700;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .tulip {
+        width: 40px;
+        height: 40px;
+        border-radius: 40px 40px 10px 10px;
+        background: linear-gradient(to top, #ff1493, #ff69b4);
+        position: relative;
+        box-shadow: 0 0 8px rgba(255,20,147,0.7);
+    }
+
+    .tulip::after {
+        content: "";
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 16px;
+        background: #228b22;
+        border-radius: 3px;
+    }
+
+    .seed-row {
+        margin-top: 10px;
+        font-size: 0.85rem;
+        opacity: 0.9;
+    }
+
+    .seed {
+        display: inline-block;
+        margin-right: 6px;
+    }
+
+    /* Pumpkins & orange slices */
+    .pumpkin-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .pumpkin {
+        width: 40px;
+        height: 32px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 20%, #fff, #ff8c00);
+        position: relative;
+        box-shadow: 0 0 8px rgba(255,140,0,0.7);
+    }
+
+    .pumpkin::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 6px;
+        height: 10px;
+        background: #228b22;
+        border-radius: 3px;
+    }
+
+    .orange-slice {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: radial-gradient(circle, #fff 0, #ffe4b5 25%, #ffa500 60%, #ff8c00 100%);
+        position: relative;
+        box-shadow: 0 0 8px rgba(255,165,0,0.7);
+    }
+
+    .orange-slice::before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border-radius: 50%;
+        border: 2px solid rgba(255,255,255,0.8);
+        box-shadow:
+            0 -6px 0 rgba(255,255,255,0.8),
+            0 6px 0 rgba(255,255,255,0.8),
+            6px 0 0 rgba(255,255,255,0.8),
+            -6px 0 0 rgba(255,255,255,0.8);
+    }
+
+    /* Date display */
+    .date-display {
+        font-size: 0.95rem;
+        margin-top: 6px;
+        opacity: 0.9;
+    }
+</style>
+</head>
+<body>
+
+<h1>2026 Cosmic Garden Calendar</h1>
+<div class="subtitle">Outer space sky • Utah Jazz stripe • Flowers, tulips, seeds, pumpkins & orange slices</div>
+
+<div class="grid">
+
+    <!-- SVG 2026 + Utah Jazz stripe -->
+    <div class="card">
+        <h2>SVG 2026 • Jazz Orbit</h2>
+        <div class="jazz-stripe"></div>
+        <svg class="svg-2026" viewBox="0 0 260 80">
+            <defs>
+                <linearGradient id="spaceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#002b5c"/>
+                    <stop offset="50%" stop-color="#00471b"/>
+                    <stop offset="100%" stop-color="#f9a01b"/>
+                </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="252" height="72" rx="14" fill="none" stroke="url(#spaceGrad)" stroke-width="3"/>
+            <text x="50%" y="50%" text-anchor="middle" dominant-baseline="middle"
+                  fill="url(#spaceGrad)" font-size="40" font-family="Times New Roman" font-weight="bold">
+                2026
+            </text>
+        </svg>
+        <div class="date-display" id="currentDate"></div>
+    </div>
+
+    <!-- Calendar 2026 -->
+    <div class="card">
+        <h2>2026 Calendar</h2>
+        <div class="calendar-header">
+            <button id="prevMonth">&lt;</button>
+            <div id="monthLabel"></div>
+            <button id="nextMonth">&gt;</button>
+        </div>
+        <div class="calendar" id="calendar"></div>
+    </div>
+
+    <!-- Cosmic flowers, tulips, petals, seeds -->
+    <div class="card">
+        <h2>Cosmic Flowers & Seeds</h2>
+        <div class="flower-row">
+            <div class="flower" title="Petal Burst"></div>
+            <div class="flower" title="Petal Burst"></div>
+            <div class="tulip" title="Tulip"></div>
+            <div class="tulip" title="Tulip"></div>
+        </div>
+        <div class="seed-row">
+            <span>Seeds planted for 2026:</span><br>
+            <span class="seed">• Courage</span>
+            <span class="seed">• Creativity</span>
+            <span class="seed">• Community</span>
+            <span class="seed">• Celebration</span>
+        </div>
+    </div>
+
+    <!-- Pumpkins & orange slices -->
+    <div class="card">
+        <h2>Pumpkins & Orange Slices</h2>
+        <div class="pumpkin-row">
+            <div class="pumpkin" title="Pumpkin"></div>
+            <div class="pumpkin" title="Pumpkin"></div>
+            <div class="orange-slice" title="Orange Slice"></div>
+            <div class="orange-slice" title="Orange Slice"></div>
+        </div>
+        <div class="date-display">
+            Harvest notes: pumpkins for grounding, orange slices for bright energy in every month of 2026.
+        </div>
+    </div>
+
+</div>
+
+<script>
+const monthNames = [
+    "January 2026","February 2026","March 2026","April 2026","May 2026","June 2026",
+    "July 2026","August 2026","September 2026","October 2026","November 2026","December 2026"
+];
+
+let currentMonthIndex = new Date().getFullYear() === 2026
+    ? new Date().getMonth()
+    : 0; // default to January 2026 if not in 2026
+
+const calendarEl = document.getElementById("calendar");
+const monthLabel = document.getElementById("monthLabel");
+const prevBtn = document.getElementById("prevMonth");
+const nextBtn = document.getElementById("nextMonth");
+
+function buildCalendar2026() {
+    calendarEl.innerHTML = "";
+    monthLabel.textContent = monthNames[currentMonthIndex];
+
+    const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    dayNames.forEach(name => {
+        const dn = document.createElement("div");
+        dn.className = "day-name";
+        dn.textContent = name;
+        calendarEl.appendChild(dn);
+    });
+
+    const year = 2026;
+    const firstDay = new Date(year, currentMonthIndex, 1).getDay();
+    const daysInMonth = new Date(year, currentMonthIndex + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        calendarEl.appendChild(empty);
+    }
+
+    const today = new Date();
+    const isCurrentYear = today.getFullYear() === 2026;
+    const todayDate = isCurrentYear ? today.getDate() : null;
+    const todayMonth = isCurrentYear ? today.getMonth() : null;
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const day = document.createElement("div");
+        day.className = "day";
+        if (isCurrentYear && todayMonth === currentMonthIndex && d === todayDate) {
+            day.classList.add("today");
+        }
+        day.textContent = d;
+        calendarEl.appendChild(day);
+    }
+
+    prevBtn.disabled = currentMonthIndex === 0;
+    nextBtn.disabled = currentMonthIndex === 11;
+}
+
+prevBtn.addEventListener("click", () => {
+    if (currentMonthIndex > 0) {
+        currentMonthIndex--;
+        buildCalendar2026();
+    }
+});
+
+nextBtn.addEventListener("click", () => {
+    if (currentMonthIndex < 11) {
+        currentMonthIndex++;
+        buildCalendar2026();
+    }
+});
+
+buildCalendar2026();
+
+// Current date display
+const currentDateEl = document.getElementById("currentDate");
+const now = new Date();
+currentDateEl.textContent = "Today: " + now.toLocaleDateString(undefined, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+});
+</script>
+
+</body>
+</html>
