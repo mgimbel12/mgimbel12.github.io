@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Disney Time & Color Harmony</title>
+<style>
+    body {
+        font-family: "Times New Roman", serif;
+        background: linear-gradient(to bottom, #f7ffe6, #fff);
+        color: #2b2b2b;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: green;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .section {
+        border: 2px dashed yellow;
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 12px;
+        background: rgba(255,255,200,0.3);
+    }
+
+    .castle {
+        width: 120px;
+        display: block;
+        margin: 0 auto 10px;
+    }
+
+    .clock {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-top: 10px;
+        color: #006400;
+    }
+
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 8px;
+        margin-top: 10px;
+    }
+
+    .day {
+        padding: 10px;
+        background: #e8ffe8;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .tulip {
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Disney Time & Color Harmony</h1>
+
+<!-- Disney Castle SVG -->
+<div class="section">
+    <h2>Disney Castle</h2>
+    <svg class="castle" viewBox="0 0 64 64">
+        <path fill="purple" d="M12 52h40v8H12zM20 28h8v24h-8zM36 28h8v24h-8zM28 12l4-8 4 8v16h-8z"/>
+    </svg>
+</div>
+
+<!-- Live Clock -->
+<div class="section">
+    <h2>Live Time</h2>
+    <div class="clock" id="clock"></div>
+</div>
+
+<!-- Calendar -->
+<div class="section">
+    <h2>Monthly Calendar</h2>
+    <div id="calendar" class="calendar"></div>
+</div>
+
+<!-- Dishes -->
+<div class="section">
+    <h2>Dishes of the Day</h2>
+    <ul>
+        <li>Watermelon Summer Salad</li>
+        <li>Utah Jazz Game Night Nachos</li>
+        <li>Little Mermaid Sea Salt Pasta</li>
+        <li>Lion King Savannah Fruit Bowl</li>
+    </ul>
+</div>
+
+<!-- Color & Flower -->
+<div class="section">
+    <h2>Colors & Tulips</h2>
+    <p>Green & Yellow Harmony</p>
+    <div class="tulip">🌷🌷🌷</div>
+</div>
+
+<script>
+// Live Clock
+function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").textContent =
+        now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Calendar Generator
+function generateCalendar() {
+    const calendar = document.getElementById("calendar");
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        calendar.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const day = document.createElement("div");
+        day.className = "day";
+        day.textContent = d;
+        calendar.appendChild(day);
+    }
+}
+generateCalendar();
+</script>
+
+</body>
+</html>
