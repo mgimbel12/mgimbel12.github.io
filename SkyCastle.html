@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Disney Castle Sky & Time Overlay</title>
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: "Times New Roman", serif;
+        background: linear-gradient(to top, #fef6ff, #cce9ff);
+        color: #222;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #4b0082;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card h2 {
+        margin-top: 0;
+        font-size: 1.2rem;
+    }
+
+    /* Flashing border */
+    .flash-border {
+        animation: flash 1.2s infinite alternate;
+        border: 3px solid #ffcc00;
+    }
+
+    @keyframes flash {
+        from { box-shadow: 0 0 4px #ffcc00; }
+        to   { box-shadow: 0 0 18px #ff6600; }
+    }
+
+    /* Disney Castle SVG */
+    .castle {
+        width: 140px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    /* Calendar */
+    .calendar {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        margin-top: 10px;
+        font-size: 0.85rem;
+    }
+
+    .day-name {
+        font-weight: bold;
+        text-align: center;
+        background: #f0f0ff;
+        border-radius: 6px;
+        padding: 4px 0;
+    }
+
+    .day {
+        text-align: center;
+        padding: 6px 0;
+        border-radius: 6px;
+        background: #e6f7ff;
+    }
+
+    .today {
+        background: #ffd966;
+        font-weight: bold;
+    }
+
+    /* Hot air balloons */
+    .balloon-sky {
+        position: relative;
+        height: 200px;
+        background: linear-gradient(to top, #87ceeb, #fdfdfd);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .balloon {
+        position: absolute;
+        width: 40px;
+        height: 60px;
+        border-radius: 50% 50% 45% 45%;
+        background: radial-gradient(circle at 30% 20%, #fff, #ff6f61);
+        animation: float 10s linear infinite;
+    }
+
+    .balloon::after {
+        content: "";
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 14px;
+        background: #8b4513;
+        border-radius: 3px;
+    }
+
+    @keyframes float {
+        0%   { transform: translateY(40px); }
+        50%  { transform: translateY(-40px); }
+        100% { transform: translateY(40px); }
+    }
+
+    /* YouTube embed */
+    .youtube-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 12px;
+    }
+
+    .youtube-wrapper iframe {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    /* Small flash text */
+    .flash-text {
+        animation: textFlash 0.9s infinite alternate;
+        color: #ff4500;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 8px;
+    }
+
+    @keyframes textFlash {
+        from { opacity: 0.4; }
+        to   { opacity: 1; }
+    }
+</style>
+</head>
+<body>
+
+<h1>Disney Castle Sky & Time Overlay</h1>
+
+<div class="grid">
+
+    <!-- Disney Castle -->
+    <div class="card flash-border">
+        <h2>Disney Castle</h2>
+        <svg class="castle" viewBox="0 0 64 64">
+            <rect x="10" y="30" width="44" height="24" fill="#7b68ee"/>
+            <rect x="18" y="22" width="8" height="32" fill="#6a5acd"/>
+            <rect x="38" y="22" width="8" height="32" fill="#6a5acd"/>
+            <polygon points="32,6 24,22 40,22" fill="#dda0dd"/>
+            <rect x="28" y="30" width="8" height="14" fill="#fdfdfd"/>
+            <circle cx="32" cy="18" r="2" fill="#fff"/>
+        </svg>
+        <div class="flash-text">Castle lights flashing in celebration</div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="card">
+        <h2>Current Month Calendar</h2>
+        <div id="calendar" class="calendar"></div>
+    </div>
+
+    <!-- Hot Air Balloons -->
+    <div class="card">
+        <h2>Hot Air Balloon Sky</h2>
+        <div class="balloon-sky" id="balloonSky"></div>
+    </div>
+
+    <!-- YouTube -->
+    <div class="card flash-border">
+        <h2>YouTube Window</h2>
+        <p style="font-size:0.9rem; margin-top:0;">
+            Replace the video URL with any <strong>YouTube.com</strong> link you want to float in your sky.
+        </p>
+        <div class="youtube-wrapper">
+            <!-- Example: Disney castle fireworks search -->
+            <iframe 
+                src="https://www.youtube.com/embed/2fngvQS_PmQ" 
+                title="YouTube video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Calendar generator
+function buildCalendar() {
+    const calendarEl = document.getElementById("calendar");
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+    const todayDate = now.getDate();
+
+    const dayNames = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    dayNames.forEach(name => {
+        const dn = document.createElement("div");
+        dn.className = "day-name";
+        dn.textContent = name;
+        calendarEl.appendChild(dn);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for (let i = 0; i < firstDay; i++) {
+        const empty = document.createElement("div");
+        calendarEl.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+        const day = document.createElement("div");
+        day.className = "day";
+        if (d === todayDate) day.classList.add("today");
+        day.textContent = d;
+        calendarEl.appendChild(day);
+    }
+}
+buildCalendar();
+
+// Hot air balloons
+function createBalloons() {
+    const sky = document.getElementById("balloonSky");
+    const balloonCount = 6;
+
+    for (let i = 0; i < balloonCount; i++) {
+        const b = document.createElement("div");
+        b.className = "balloon";
+        const left = Math.random() * 90;
+        const delay = Math.random() * 5;
+        const duration = 8 + Math.random() * 6;
+        b.style.left = left + "%";
+        b.style.animationDuration = duration + "s";
+        b.style.animationDelay = delay + "s";
+
+        // color variation
+        const colors = ["#ff6f61","#ffb347","#ff69b4","#87cefa","#98fb98","#dda0dd"];
+        const c = colors[Math.floor(Math.random() * colors.length)];
+        b.style.background = `radial-gradient(circle at 30% 20%, #fff, ${c})`;
+
+        sky.appendChild(b);
+    }
+}
+createBalloons();
+</script>
+
+</body>
+</html>
