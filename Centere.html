@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Learning Center · History Block</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  body {
+    background: #020617;
+    color: #e5e7eb;
+    padding: 20px;
+  }
+
+  .shell {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #020617;
+    border-radius: 18px;
+    border: 1px solid #1f2937;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+    padding: 18px;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .title span {
+    color: #38bdf8;
+  }
+
+  .time-block {
+    text-align: right;
+    font-size: 0.85rem;
+  }
+
+  .time-main {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .time-sub {
+    color: #9ca3af;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 800px) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .top-bar {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .time-block {
+      text-align: left;
+    }
+  }
+
+  .panel {
+    border-radius: 14px;
+    padding: 12px;
+    background: #020617;
+    border: 1px solid #1f2937;
+  }
+
+  .panel-header {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #9ca3af;
+    margin-bottom: 8px;
+  }
+
+  .panel.blue { border-color: #38bdf8; }
+  .panel.green { border-color: #22c55e; }
+  .panel.amber { border-color: #f59e0b; }
+  .panel.purple { border-color: #a855f7; }
+
+  .mini-calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    font-size: 0.7rem;
+    margin-top: 8px;
+  }
+
+  .mini-calendar div {
+    text-align: center;
+    padding: 3px 0;
+    border-radius: 6px;
+  }
+
+  .dow {
+    color: #9ca3af;
+    font-weight: 600;
+  }
+
+  .day {
+    border: 1px solid #1f2937;
+  }
+
+  .today {
+    background: #38bdf8;
+    color: #020617;
+    border-color: transparent;
+  }
+
+  .calendar-info {
+    font-size: 0.8rem;
+    margin-top: 6px;
+    color: #e5e7eb;
+  }
+
+  .calendar-info span {
+    color: #93c5fd;
+  }
+
+  .shape-card {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+
+  .shape-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .shape-box, .shape-tri {
+    flex: 1;
+    border-radius: 8px;
+    border: 1px solid #4b5563;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .shape-box svg, .shape-tri svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .shape-label {
+    margin-top: 4px;
+    color: #9ca3af;
+  }
+
+  .learning-card {
+    border-radius: 10px;
+    border: 1px solid #1f2937;
+    padding: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+
+  .learning-card h3 {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: #fbbf24;
+  }
+
+  .history-card h3 {
+    color: #a855f7;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 0.75rem;
+  }
+
+  .tag {
+    border-radius: 999px;
+    border: 1px solid #4b5563;
+    padding: 2px 8px;
+    color: #9ca3af;
+  }
+
+  .channel-list {
+    margin-top: 6px;
+    font-size: 0.8rem;
+  }
+
+  .channel-list li {
+    margin-left: 16px;
+    margin-bottom: 2px;
+  }
+
+  .video-wrap {
+    margin-top: 8px;
+  }
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    border: none;
+  }
+
+  .note {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="top-bar">
+    <div class="title">
+      Learning Center · <span>History Block</span><br>
+      Lines & Boxes · Square & Triangle · Time & Stories
+    </div>
+    <div class="time-block">
+      <div class="time-main" id="time-main">--:-- --</div>
+      <div class="time-sub" id="time-sub">Loading date…</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- LEFT: TIME + CALENDAR + SHAPES -->
+    <div>
+      <div class="panel blue">
+        <div class="panel-header">Calendar · Dates · Years</div>
+        <div class="calendar-info">
+          Today: <span id="today-label">--</span><br>
+          Year: <span id="year-label">----</span>
+        </div>
+        <div class="mini-calendar" id="mini-calendar">
+          <!-- JS fills in -->
+        </div>
+      </div>
+
+      <div class="panel green" style="margin-top: 12px;">
+        <div class="panel-header">Lines & Boxes · Square & Triangle</div>
+        <div class="shape-card">
+          In this mini geometry corner, we notice how shapes are built from lines and edges.
+          <div class="shape-row">
+            <div class="shape-box">
+              <svg viewBox="0 0 80 80">
+                <rect x="15" y="15" width="50" height="50" fill="#22c55e" opacity="0.8" />
+              </svg>
+              <div class="shape-label">Square · 4 equal sides</div>
+            </div>
+            <div class="shape-tri">
+              <svg viewBox="0 0 80 80">
+                <polygon points="40,10 10,65 70,65" fill="#f97316" opacity="0.85" />
+              </svg>
+              <div class="shape-label">Triangle · 3 sides</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: LEARNING CENTER + HISTORY BLOCK -->
+    <div>
+      <div class="panel amber">
+        <div class="panel-header">Learning Center</div>
+        <div class="learning-card">
+          <h3>Today’s Focus: Time & Stories</h3>
+          <p>
+            A calendar is more than numbers—it’s a map of days, months, and years where our stories live.
+            You can use this space as a learning hub: pick a date, remember an event, or plan a new goal.
+          </p>
+          <div class="tag-row">
+            <div class="tag">Calendar</div>
+            <div class="tag">Planning</div>
+            <div class="tag">Reflection</div>
+          </div>
+        </div>
+
+        <div class="learning-card history-card">
+          <h3>History Block: Alexander the Great</h3>
+          <p>
+            Alexander the Great was a king of the ancient Greek kingdom of Macedon. He created one of the
+            largest empires of the ancient world and is often studied for leadership, strategy, and the way
+            ideas traveled across regions.
+          </p>
+          <div class="tag-row">
+            <div class="tag">Ancient History</div>
+            <div class="tag">Leadership</div>
+            <div class="tag">Empires</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel purple" style="margin-top: 12px;">
+        <div class="panel-header">YouTube Channel History · Alexander the Great</div>
+        <div class="learning-card">
+          <h3>Channel History Notes</h3>
+          <p>
+            Use this block to track what you’ve watched and learned on YouTube:
+          </p>
+          <ul class="channel-list">
+            <li>Channel: History / Education</li>
+            <li>Topic: Alexander the Great</li>
+            <li>What I learned: (add your own notes here)</li>
+          </ul>
+          <div class="note">
+            You can change the video link below to any YouTube history channel you like.
+          </div>
+        </div>
+
+        <div class="learning-card">
+          <h3>Alexander the Great — Video</h3>
+          <div class="video-wrap">
+            <!-- Example educational video embed; replace src with your chosen link -->
+            <iframe
+              src="https://www.youtube.com/embed/0LsrkWDCvxg"
+              title="Alexander the Great - History Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="note">
+            Swap the <code>src</code> URL in the iframe with any Alexander the Great video you prefer.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// TIME
+function updateTime() {
+  const now = new Date();
+  let h = now.getHours();
+  const m = now.getMinutes().toString().padStart(2, "0");
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  document.getElementById("time-main").textContent = `${h}:${m} ${ampm}`;
+  document.getElementById("time-sub").textContent = now.toDateString();
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// CALENDAR
+function buildCalendar() {
+  const container = document.getElementById("mini-calendar");
+  container.innerHTML = "";
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const today = now.getDate();
+
+  document.getElementById("year-label").textContent = year;
+  document.getElementById("today-label").textContent = now.toDateString();
+
+  const dows = ["S","M","T","W","T","F","S"];
+  dows.forEach(d => {
+    const el = document.createElement("div");
+    el.textContent = d;
+    el.className = "dow";
+    container.appendChild(el);
+  });
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  for (let i = 0; i < firstDay; i++) {
+    const blank = document.createElement("div");
+    container.appendChild(blank);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const el = document.createElement("div");
+    el.textContent = d;
+    el.className = "day";
+    if (d === today) el.classList.add("today");
+    container.appendChild(el);
+  }
+}
+buildCalendar();
+</script>
+
+</body>
+</html>
