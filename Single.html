@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Single Sheet Overlay</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b0f1a;
+    color: #fff;
+    padding: 20px;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .section {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .blue { background: #1e3a8a; }
+  .red { background: #7f1d1d; }
+  .yellow { background: #b45309; }
+  .purple { background: #5b21b6; }
+
+  .card {
+    background: rgba(0,0,0,0.25);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-top: 6px;
+  }
+
+  iframe {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- BLUE: TIME + DATE -->
+<div class="section blue">
+  <h2>Blue Tower — Time & Date</h2>
+  <div class="card">
+    <div id="clock" style="font-size: 1.6rem; font-weight: bold;">--:-- --</div>
+    <div id="date"></div>
+  </div>
+</div>
+
+<!-- RED: BIOLOGY + LANGUAGE -->
+<div class="section red">
+  <h2>Red Lab — Biology & Language</h2>
+
+  <div class="card">
+    <strong>Biology Fact:</strong>
+    <div id="bio-topic"></div>
+    <div id="bio-fact"></div>
+    <button id="bio-next">Next Fact</button>
+  </div>
+
+  <div class="card">
+    <strong>Phrase of the Day:</strong><br>
+    <select id="lang">
+      <option value="en">English</option>
+      <option value="es">Spanish</option>
+      <option value="fr">French</option>
+      <option value="de">German</option>
+      <option value="it">Italian</option>
+    </select>
+    <div id="phrase" style="margin-top: 6px;"></div>
+  </div>
+</div>
+
+<!-- YELLOW: RECIPES -->
+<div class="section yellow">
+  <h2>Yellow Sunroom — Recipes</h2>
+
+  <div class="card">
+    <strong>Sunrise Oat Bowl</strong>
+    <ul>
+      <li>Oats + milk/water</li>
+      <li>Heat until soft</li>
+      <li>Add fruit + honey</li>
+    </ul>
+    <div id="timer">00:00</div>
+    <button id="timer-btn">Start 5‑min Timer</button>
+  </div>
+
+  <div class="card">
+    <strong>Color Snack Plate</strong>
+    <button id="shuffle">Shuffle Idea</button>
+  </div>
+</div>
+
+<!-- PURPLE: FROZEN + YOUTUBE -->
+<div class="section purple">
+  <h2>Purple Gallery — Frozen + Hidden Video</h2>
+
+  <div class="card">
+    <strong>Frozen Castle (SVG)</strong><br><br>
+    <svg width="180" viewBox="0 0 120 80">
+      <rect x="10" y="40" width="100" height="30" fill="#a5b4fc"/>
+      <rect x="25" y="30" width="20" height="20" fill="#93c5fd"/>
+      <rect x="75" y="30" width="20" height="20" fill="#93c5fd"/>
+      <polygon points="35,15 25,30 45,30" fill="#e0f2fe"/>
+      <polygon points="85,10 75,30 95,30" fill="#e0f2fe"/>
+      <rect x="55" y="25" width="10" height="45" fill="#bfdbfe"/>
+      <polygon points="60,5 52,25 68,25" fill="#e0f2fe"/>
+    </svg>
+  </div>
+
+  <div class="card">
+    <strong>Hidden Orange Video</strong><br>
+    <button id="orange">Reveal Video</button>
+    <iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+  </div>
+</div>
+
+<script>
+// TIME
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours();
+  const m = now.getMinutes().toString().padStart(2, "0");
+  const ampm = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  document.getElementById("clock").textContent = `${h}:${m} ${ampm}`;
+  document.getElementById("date").textContent = now.toDateString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// BIOLOGY FACTS
+const facts = [
+  {topic:"Cells", fact:"Cells are the basic units of life."},
+  {topic:"DNA", fact:"DNA stores genetic information."},
+  {topic:"Heart", fact:"Your heart beats ~100,000 times a day."},
+  {topic:"Brain", fact:"Your brain uses 20% of your oxygen."}
+];
+let i = 0;
+function showFact() {
+  document.getElementById("bio-topic").textContent = facts[i].topic;
+  document.getElementById("bio-fact").textContent = facts[i].fact;
+}
+document.getElementById("bio-next").onclick = () => {
+  i = (i + 1) % facts.length;
+  showFact();
+};
+showFact();
+
+// LANGUAGE
+const phrases = {
+  en: "Thank you.",
+  es: "Gracias.",
+  fr: "Merci.",
+  de: "Danke.",
+  it: "Grazie."
+};
+document.getElementById("lang").onchange = e => {
+  document.getElementById("phrase").textContent = phrases[e.target.value];
+};
+document.getElementById("phrase").textContent = phrases.en;
+
+// TIMER
+let timer = null;
+let seconds = 0;
+document.getElementById("timer-btn").onclick = () => {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+    document.getElementById("timer").textContent = "00:00";
+    document.getElementById("timer-btn").textContent = "Start 5‑min Timer";
+    return;
+  }
+  seconds = 300;
+  timer = setInterval(() => {
+    seconds--;
+    const m = String(Math.floor(seconds/60)).padStart(2,"0");
+    const s = String(seconds%60).padStart(2,"0");
+    document.getElementById("timer").textContent = `${m}:${s}`;
+    if (seconds <= 0) {
+      clearInterval(timer);
+      timer = null;
+      alert("Timer done!");
+    }
+  }, 1000);
+  document.getElementById("timer-btn").textContent = "Stop Timer";
+};
+
+// SNACK SHUFFLE
+const ideas = [
+  "Add hummus + crackers.",
+  "Add nuts or seeds.",
+  "Add yogurt for protein.",
+  "Add dark chocolate square.",
+  "Add whole‑grain crackers."
+];
+document.getElementById("shuffle").onclick = () => {
+  alert(ideas[Math.floor(Math.random()*ideas.length)]);
+};
+
+// VIDEO
+document.getElementById("orange").onclick = () => {
+  const v = document.getElementById("video");
+  v.style.display = v.style.display === "block" ? "none" : "block";
+};
+</script>
+
+</body>
+</html>
