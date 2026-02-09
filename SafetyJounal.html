@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>2026 Sanctuary Journal & Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --flag-red: #c62828;
+      --flag-blue: #1e3a8a;
+      --flag-white: #f9fafb;
+      --earth-blue: #2563eb;
+      --earth-green: #22a36b;
+      --tulip-pink: #f472b6;
+      --tulip-purple: #a855f7;
+      --petal-cream: #fff7ed;
+      --ink: #111827;
+      --soft-ink: #4b5563;
+      --bg: #0b1020;
+      --card: #111827;
+      --accent: #facc15;
+      --danger-soft: #fee2e2;
+      --danger-ink: #b91c1c;
+      --radius: 14px;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--flag-white);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(145deg, #020617 0, #020617 40%, #111827 100%);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148,163,184,0.35);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Banner */
+
+    .banner {
+      grid-column: 1 / -1;
+      background: linear-gradient(
+        90deg,
+        var(--flag-blue) 0,
+        var(--flag-blue) 30%,
+        var(--flag-white) 30%,
+        var(--flag-white) 60%,
+        var(--flag-red) 60%,
+        var(--flag-red) 100%
+      );
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid rgba(15,23,42,0.7);
+    }
+
+    .banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #e5e7eb;
+    }
+
+    .flag-mini {
+      width: 40px;
+      height: 26px;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.6);
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+    }
+
+    .flag-stars {
+      background: var(--flag-blue);
+      position: relative;
+    }
+
+    .flag-stars::before {
+      content: "✦";
+      position: absolute;
+      top: 4px;
+      left: 6px;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .flag-stripes {
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--flag-white),
+        var(--flag-white) 3px,
+        var(--flag-red) 3px,
+        var(--flag-red) 6px
+      );
+    }
+
+    .banner-title {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .banner-sub {
+      font-size: 11px;
+      opacity: 0.9;
+    }
+
+    .banner-earth {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .earth-orbit {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 2px solid rgba(15,23,42,0.7);
+      background: radial-gradient(circle at 30% 20%, #e0f2fe 0, #1d4ed8 40%, #020617 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .earth-orbit::after {
+      content: "";
+      position: absolute;
+      width: 140%;
+      height: 140%;
+      border-radius: 999px;
+      border: 1px solid rgba(34,197,94,0.7);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-18deg);
+    }
+
+    /* Countries ribbon */
+
+    .countries-ribbon {
+      grid-column: 1 / -1;
+      background: rgba(15,23,42,0.9);
+      border-bottom: 1px solid rgba(31,41,55,0.9);
+      padding: 6px 14px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .countries-ribbon span.label {
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+
+    .countries-scroll {
+      display: inline-block;
+      animation: scrollCountries 30s linear infinite;
+      padding-left: 24px;
+    }
+
+    @keyframes scrollCountries {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Left column */
+
+    .left {
+      padding: 18px 20px 20px;
+      border-right: 1px solid rgba(30,64,175,0.45);
+      background:
+        radial-gradient(circle at top left, rgba(248,250,252,0.06) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(248,250,252,0.04) 0, transparent 55%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .petal-strip {
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 220px;
+      height: 220px;
+      opacity: 0.18;
+      background:
+        radial-gradient(circle at 20% 20%, var(--tulip-pink) 0, transparent 55%),
+        radial-gradient(circle at 70% 40%, var(--tulip-purple) 0, transparent 55%),
+        radial-gradient(circle at 40% 80%, var(--earth-green) 0, transparent 55%);
+      filter: blur(1px);
+      pointer-events: none;
+    }
+
+    .panel-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+
+    .panel-heading {
+      font-size: 18px;
+      font-weight: 700;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    .year-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 11px;
+      color: #e5e7eb;
+      margin-bottom: 14px;
+    }
+
+    .year-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--tulip-pink), var(--tulip-purple));
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    .month-card {
+      background: rgba(15,23,42,0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 6px 7px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .month-name {
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .month-pill {
+      padding: 1px 6px;
+      border-radius: 999px;
+      background: rgba(37,99,235,0.18);
+      border: 1px solid rgba(37,99,235,0.6);
+      font-size: 9px;
+      text-transform: uppercase;
+    }
+
+    .weekdays,
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 1px;
+      text-align: center;
+    }
+
+    .weekdays span {
+      color: #9ca3af;
+      font-size: 9px;
+    }
+
+    .days button {
+      border: none;
+      background: transparent;
+      color: #e5e7eb;
+      font-size: 9px;
+      padding: 2px 0;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, transform 0.1s;
+    }
+
+    .days button:hover {
+      background: rgba(37,99,235,0.35);
+      transform: translateY(-1px);
+    }
+
+    .days button.today {
+      background: linear-gradient(135deg, var(--tulip-pink), var(--tulip-purple));
+      color: #020617;
+      font-weight: 700;
+    }
+
+    .days button.selected {
+      outline: 1px solid var(--accent);
+      box-shadow: 0 0 0 1px rgba(250,204,21,0.4);
+    }
+
+    .date-display {
+      margin-top: 14px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(55,65,81,0.9);
+      font-size: 11px;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .date-display-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .date-display-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 9px;
+      color: #9ca3af;
+    }
+
+    .date-display-value {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .date-display-tag {
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.12);
+      border: 1px solid rgba(34,197,94,0.7);
+      color: #bbf7d0;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Right column */
+
+    .right {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #e5e7eb;
+    }
+
+    .section-sub {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .flower-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.7);
+      font-size: 10px;
+      color: #e5e7eb;
+    }
+
+    .flower-tag span {
+      font-size: 11px;
+    }
+
+    .journal-card,
+    .safety-card {
+      background: rgba(15,23,42,0.96);
+      border-radius: var(--radius);
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      resize: vertical;
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      padding: 8px 9px;
+      font-size: 12px;
+      line-height: 1.4;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    textarea:focus {
+      border-color: rgba(129,140,248,0.9);
+      box-shadow: 0 0 0 1px rgba(129,140,248,0.6);
+      background: #020617;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 700px) {
+      .row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .safety-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .safety-pill {
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, border 0.15s;
+    }
+
+    .safety-pill:hover {
+      background: rgba(37,99,235,0.35);
+      transform: translateY(-1px);
+    }
+
+    .safety-pill.active {
+      background: rgba(34,197,94,0.16);
+      border-color: rgba(34,197,94,0.9);
+      color: #bbf7d0;
+    }
+
+    .danger-note {
+      margin-top: 4px;
+      padding: 6px 8px;
+      border-radius: 9px;
+      background: var(--danger-soft);
+      color: var(--danger-ink);
+      font-size: 11px;
+      border: 1px solid rgba(248,113,113,0.7);
+    }
+
+    .danger-note strong {
+      font-weight: 700;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    .save-status {
+      font-style: italic;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--earth-blue), var(--tulip-purple));
+      color: #f9fafb;
+      box-shadow: 0 10px 25px rgba(37,99,235,0.45);
+      border: 1px solid rgba(191,219,254,0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(37,99,235,0.6);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid rgba(148,163,184,0.7);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15,23,42,0.9);
+    }
+
+    /* Petal mood */
+
+    .petal-mood {
+      margin-top: 6px;
+    }
+
+    .petal-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .petal {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 4px 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s, border 0.15s;
+      font-size: 16px;
+    }
+
+    .petal:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    .petal.active {
+      background: linear-gradient(135deg, var(--tulip-pink), var(--tulip-purple));
+      border-color: rgba(251,207,232,0.9);
+      box-shadow: 0 0 0 1px rgba(251,207,232,0.7);
+    }
+
+    /* Year overview */
+
+    .year-overview {
+      grid-column: 1 / -1;
+      padding: 14px 18px 18px;
+      background: rgba(15,23,42,0.96);
+      border-top: 1px solid rgba(31,41,55,0.9);
+    }
+
+    .year-overview h2 {
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #e5e7eb;
+      margin-bottom: 10px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .overview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .overview-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .overview-card {
+      background: rgba(15,23,42,0.9);
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 8px 9px;
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+
+    .overview-card h3 {
+      font-size: 12px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+    }
+
+    .overview-card p {
+      font-size: 11px;
+      color: #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <!-- Banner -->
+    <header class="banner">
+      <div class="banner-left">
+        <div class="flag-mini">
+          <div class="flag-stars"></div>
+          <div class="flag-stripes"></div>
+        </div>
+        <div>
+          <div class="banner-title">Sanctuary Journal & Safety Plan</div>
+          <div class="banner-sub">United States • All Countries • One Earth • 2026</div>
+        </div>
+      </div>
+      <div class="banner-earth">
+        <div class="earth-orbit"></div>
+        <span>Grounded on Earth</span>
+      </div>
+    </header>
+
+    <!-- Countries ribbon -->
+    <div class="countries-ribbon">
+      <span class="label">Connected countries:</span>
+      <div class="countries-scroll">
+        United States • Canada • Mexico • Brazil • Argentina • UK • Ireland • France •
+        Germany • Spain • Italy • Sweden • Norway • Kenya • Nigeria • South Africa •
+        India • Pakistan • Nepal • Thailand • Japan • South Korea • Australia •
+        New Zealand • Philippines • Singapore • Chile • Peru • Colombia •
+        (and every place your heart remembers)
+      </div>
+    </div>
+
+    <!-- Left column: calendar -->
+    <section class="left">
+      <div class="petal-strip"></div>
+
+      <div class="panel-label">Calendar • 2026</div>
+      <div class="panel-heading">Tulip Petal Days</div>
+
+      <div class="year-tag">
+        <div class="year-dot"></div>
+        <span>Year 2026 • One day at a time</span>
+      </div>
+
+      <div class="calendar-grid" id="calendarGrid"></div>
+
+      <div class="date-display" id="dateDisplay">
+        <div class="date-display-main">
+          <div class="date-display-label">Selected date</div>
+          <div class="date-display-value" id="dateDisplayValue">None yet — tap a day.</div>
+        </div>
+        <div class="date-display-tag" id="dateDisplayTag">Today</div>
+      </div>
+    </section>
+
+    <!-- Right column: journal + safety -->
+    <section class="right">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Daily Journal Petals</div>
+          <div class="section-sub">Short notes, feelings, gratitude, or intentions for this date.</div>
+        </div>
+        <div class="flower-tag">
+          <span>🌷</span>
+          <span>Tulips, petals, and soft landings</span>
+        </div>
+      </div>
+
+      <div class="journal-card">
+        <div class="field-label">Journal for this date</div>
+        <textarea id="journalText" placeholder="Write a few lines about today. What did you notice, feel, survive, or celebrate?"></textarea>
+
+        <!-- Petal mood -->
+        <div class="petal-mood">
+          <div class="field-label">Petal mood</div>
+          <div class="petal-row" id="petalRow">
+            <button type="button" class="petal" data-mood="soft">🌸</button>
+            <button type="button" class="petal" data-mood="hopeful">🌷</button>
+            <button type="button" class="petal" data-mood="growing">💮</button>
+            <button type="button" class="petal" data-mood="healing">🪷</button>
+            <button type="button" class="petal" data-mood="overwhelmed">🌺</button>
+            <button type="button" class="petal" data-mood="grateful">🌼</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <div>
+          <div class="section-title">Safety Plan Anchors</div>
+          <div class="section-sub">Quick, gentle reminders you can see at a glance.</div>
+        </div>
+      </div>
+
+      <div class="safety-card">
+        <div class="row">
+          <div>
+            <div class="field-label">People I can reach out to</div>
+            <textarea id="safetyPeople" placeholder="Friends, family, mentors, coworkers, neighbors, community spaces."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Places that feel safer</div>
+            <textarea id="safetyPlaces" placeholder="Rooms, parks, libraries, community centers, online spaces that feel calmer."></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <div class="field-label">Coping petals</div>
+            <textarea id="safetyCoping" placeholder="Breathing, music, movement, art, grounding, rituals, prayers, playlists."></textarea>
+          </div>
+          <div>
+            <div class="field-label">Reasons to stay</div>
+            <textarea id="safetyReasons" placeholder="People, dreams, responsibilities, tiny joys, future moments you want to see."></textarea>
+          </div>
+        </div>
+
+        <div class="field-label" style="margin-top:6px;">Quick safety toggles</div>
+        <div class="safety-pill-row" id="safetyPills">
+          <button type="button" class="safety-pill">Text a trusted person</button>
+          <button type="button" class="safety-pill">Step outside for fresh air</button>
+          <button type="button" class="safety-pill">Drink water slowly</button>
+          <button type="button" class="safety-pill">Name 5 things I can see</button>
+          <button type="button" class="safety-pill">Play a grounding song</button>
+          <button type="button" class="safety-pill">Hold a comfort object</button>
+        </div>
+
+        <div class="danger-note">
+          <strong>If you ever feel in immediate danger or like you might hurt yourself or someone else, this page is not enough.</strong>
+          Reach out to emergency services or crisis support in your area, or contact someone you trust right away.
+        </div>
+
+        <div class="footer-row">
+          <div class="save-status" id="saveStatus">Not saved yet.</div>
+          <div style="display:flex; gap:6px;">
+            <button type="button" class="btn btn-ghost" id="clearDayBtn">Clear day</button>
+            <button type="button" class="btn btn-primary" id="saveDayBtn">
+              <span>Save this date</span>
+              <span>💾</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Year overview -->
+    <section class="year-overview">
+      <h2>2026 Year Overview</h2>
+      <div class="overview-grid">
+        <div class="overview-card">
+          <h3>Seasonal petals</h3>
+          <p>Winter Tulips • Spring Blossoms • Summer Sun Petals • Autumn Leaves.</p>
+        </div>
+        <div class="overview-card">
+          <h3>Important dates</h3>
+          <p>Birthdays, holidays, anniversaries, community events, and days you want to honor.</p>
+        </div>
+        <div class="overview-card">
+          <h3>Gratitude highlights</h3>
+          <p>Moments worth remembering, no matter how small.</p>
+        </div>
+        <div class="overview-card">
+          <h3>Safety anchors</h3>
+          <p>People, places, rituals, and tools that help you stay grounded.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const year = 2026;
+    const calendarGrid = document.getElementById("calendarGrid");
+    const dateDisplayValue = document.getElementById("dateDisplayValue");
+    const dateDisplayTag = document.getElementById("dateDisplayTag");
+    const journalText = document.getElementById("journalText");
+    const safetyPeople = document.getElementById("safetyPeople");
+    const safetyPlaces = document.getElementById("safetyPlaces");
+    const safetyCoping = document.getElementById("safetyCoping");
+    const safetyReasons = document.getElementById("safetyReasons");
+    const saveStatus = document.getElementById("saveStatus");
+    const saveDayBtn = document.getElementById("saveDayBtn");
+    const clearDayBtn = document.getElementById("clearDayBtn");
+    const safetyPills = document.getElementById("safetyPills");
+    const petalRow = document.getElementById("petalRow");
+
+    const monthNames = [
+      "January","February","March","April","May","June",
+      "July","August","September","October","November","December"
+    ];
+    const weekdayShort = ["S","M","T","W","T","F","S"];
+
+    let selectedDate = null;
+    let dayButtons = [];
+    let selectedMood = null;
+
+    function buildCalendar() {
+      for (let m = 0; m < 12; m++) {
+        const monthCard = document.createElement("div");
+        monthCard.className = "month-card";
+
+        const header = document.createElement("div");
+        header.className = "month-name";
+        header.innerHTML = `
+          <span>${monthNames[m]}</span>
+          <span class="month-pill">${year}</span>
+        `;
+        monthCard.appendChild(header);
+
+        const weekdaysRow = document.createElement("div");
+        weekdaysRow.className = "weekdays";
+        weekdayShort.forEach(d => {
+          const span = document.createElement("span");
+          span.textContent = d;
+          weekdaysRow.appendChild(span);
+        });
+        monthCard.appendChild(weekdaysRow);
+
+        const daysRow = document.createElement("div");
+        daysRow.className = "days";
+
+        const firstDay = new Date(year, m, 1).getDay();
+        const daysInMonth = new Date(year, m + 1, 0).getDate();
+
+        for (let i = 0; i < firstDay; i++) {
+          const placeholder = document.createElement("span");
+          daysRow.appendChild(placeholder);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const btn = document.createElement("button");
+          btn.textContent = d;
+          const dateKey = `${year}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+          btn.dataset.date = dateKey;
+
+          const today = new Date();
+          if (
+            today.getFullYear() === year &&
+            today.getMonth() === m &&
+            today.getDate() === d
+          ) {
+            btn.classList.add("today");
+          }
+
+          btn.addEventListener("click", () => {
+            selectDate(dateKey, btn);
+          });
+
+          dayButtons.push(btn);
+          daysRow.appendChild(btn);
+        }
+
+        monthCard.appendChild(daysRow);
+        calendarGrid.appendChild(monthCard);
+      }
+    }
+
+    function selectDate(dateKey, btn) {
+      selectedDate = dateKey;
+
+      dayButtons.forEach(b => b.classList.remove("selected"));
+      if (btn) btn.classList.add("selected");
+
+      const [y, m, d] = dateKey.split("-");
+      const dateObj = new Date(Number(y), Number(m) - 1, Number(d));
+      const pretty = dateObj.toLocaleDateString(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+
+      dateDisplayValue.textContent = pretty;
+
+      const today = new Date();
+      const isToday =
+        today.getFullYear() === dateObj.getFullYear() &&
+        today.getMonth() === dateObj.getMonth() &&
+        today.getDate() === dateObj.getDate();
+
+      dateDisplayTag.textContent = isToday ? "Today" : "Selected";
+
+      loadDayData();
+    }
+
+    function storageKey(dateKey) {
+      return `sanctuary-2026-${dateKey}`;
+    }
+
+    function clearPetalSelection() {
+      selectedMood = null;
+      document.querySelectorAll(".petal").forEach(b => b.classList.remove("active"));
+    }
+
+    function setPetalFromMood(mood) {
+      clearPetalSelection();
+      if (!mood) return;
+      const btn = document.querySelector(`.petal[data-mood="${mood}"]`);
+      if (btn) {
+        btn.classList.add("active");
+        selectedMood = mood;
+      }
+    }
+
+    function loadDayData() {
+      if (!selectedDate) return;
+      const raw = localStorage.getItem(storageKey(selectedDate));
+      if (!raw) {
+        journalText.value = "";
+        safetyPeople.value = "";
+        safetyPlaces.value = "";
+        safetyCoping.value = "";
+        safetyReasons.value = "";
+        clearPetalSelection();
+        saveStatus.textContent = "No saved entry yet.";
+        return;
+      }
+      try {
+        const data = JSON.parse(raw);
+        journalText.value = data.journal || "";
+        safetyPeople.value = data.people || "";
+        safetyPlaces.value = data.places || "";
+        safetyCoping.value = data.coping || "";
+        safetyReasons.value = data.reasons || "";
+        setPetalFromMood(data.mood || null);
+        saveStatus.textContent = "Loaded from saved entry.";
+      } catch {
+        saveStatus.textContent = "Could not read saved entry.";
+      }
+    }
+
+    function saveDayData() {
+      if (!selectedDate) {
+        saveStatus.textContent = "Choose a date on the calendar first.";
+        return;
+      }
+      const data = {
+        journal: journalText.value,
+        people: safetyPeople.value,
+        places: safetyPlaces.value,
+        coping: safetyCoping.value,
+        reasons: safetyReasons.value,
+        mood: selectedMood
+      };
+      localStorage.setItem(storageKey(selectedDate), JSON.stringify(data));
+      saveStatus.textContent = "Saved for this date (on this device).";
+    }
+
+    function clearDayData() {
+      if (!selectedDate) {
+        saveStatus.textContent = "Choose a date to clear.";
+        return;
+      }
+      localStorage.removeItem(storageKey(selectedDate));
+      journalText.value = "";
+      safetyPeople.value = "";
+      safetyPlaces.value = "";
+      safetyCoping.value = "";
+      safetyReasons.value = "";
+      clearPetalSelection();
+      saveStatus.textContent = "Cleared for this date.";
+    }
+
+    saveDayBtn.addEventListener("click", saveDayData);
+    clearDayBtn.addEventListener("click", clearDayData);
+
+    safetyPills.addEventListener("click", (e) => {
+      if (e.target.classList.contains("safety-pill")) {
+        e.target.classList.toggle("active");
+      }
+    });
+
+    petalRow.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("petal")) return;
+      const mood = e.target.dataset.mood;
+      if (selectedMood === mood) {
+        clearPetalSelection();
+      } else {
+        setPetalFromMood(mood);
+      }
+    });
+
+    buildCalendar();
+
+    (function autoSelect() {
+      const today = new Date();
+      if (today.getFullYear() === year) {
+        const key = `${year}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+        const btn = dayButtons.find(b => b.dataset.date === key);
+        selectDate(key, btn);
+      } else {
+        const key = `${year}-01-01`;
+        const btn = dayButtons.find(b => b.dataset.date === key);
+        selectDate(key, btn);
+      }
+    })();
+  </script>
+</body>
+</html>
