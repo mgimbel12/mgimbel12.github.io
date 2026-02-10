@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disney Castle Sanctuary</title>
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at top, #fdfbff 0%, #d9e7ff 40%, #fbe9ff 100%);
+      --castle-main: #6c7bff;
+      --castle-dark: #3f4aa8;
+      --castle-light: #aeb7ff;
+      --rose: #e63973;
+      --petal: #ffc4dd;
+      --coin: #ffd76b;
+      --text-main: #2b244d;
+      --accent: #ff8ac2;
+      --panel-bg: rgba(255, 255, 255, 0.85);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-main);
+    }
+
+    .sanctuary {
+      width: min(1000px, 95vw);
+      background: var(--panel-bg);
+      border-radius: 24px;
+      box-shadow: var(--shadow-soft);
+      padding: 24px 28px 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Floating petals */
+    .petal {
+      position: absolute;
+      width: 18px;
+      height: 28px;
+      background: var(--petal);
+      border-radius: 50% 50% 50% 50%;
+      opacity: 0.7;
+      filter: blur(0.3px);
+      animation: fall 14s linear infinite;
+    }
+
+    .petal:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 20%; animation-delay: 3s; }
+    .petal:nth-child(3) { left: 40%; animation-delay: 6s; }
+    .petal:nth-child(4) { left: 60%; animation-delay: 1s; }
+    .petal:nth-child(5) { left: 80%; animation-delay: 4s; }
+    .petal:nth-child(6) { left: 90%; animation-delay: 8s; }
+
+    @keyframes fall {
+      0% { transform: translateY(-80px) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      100% { transform: translateY(520px) rotate(220deg); opacity: 0; }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 4px;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    header h1 span.castle-emoji {
+      font-size: 1.4rem;
+    }
+
+    header .tagline {
+      font-size: 0.9rem;
+      color: #6b5a9b;
+      font-style: italic;
+    }
+
+    .left-panel {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .castle-card {
+      background: linear-gradient(145deg, #f4f3ff, #ffeefe);
+      border-radius: 18px;
+      padding: 16px 16px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .castle-card h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #6b5a9b;
+      margin-bottom: 8px;
+    }
+
+    .castle-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .castle-svg {
+      width: 180px;
+      max-width: 45%;
+      filter: drop-shadow(0 10px 18px rgba(63, 74, 168, 0.35));
+      transition: transform 0.4s ease, filter 0.4s ease;
+      cursor: pointer;
+    }
+
+    .castle-svg:hover {
+      transform: translateY(-4px) scale(1.03);
+      filter: drop-shadow(0 16px 26px rgba(63, 74, 168, 0.55));
+    }
+
+    .castle-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .castle-text strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .castle-note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #7b6bb0;
+    }
+
+    .rotator-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 14px 16px 12px;
+      border: 1px solid rgba(108, 123, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rotator-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #7b6bb0;
+    }
+
+    .rotator-body {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      min-height: 70px;
+    }
+
+    .rotator-type {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(255, 138, 194, 0.12);
+      color: #c54a8a;
+    }
+
+    .rotator-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f3f0ff;
+      color: #4a3c86;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn:hover {
+      background: #e4ddff;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: #6c7bff;
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #5a67e8;
+    }
+
+    .btn-icon {
+      font-size: 1rem;
+    }
+
+    .right-panel {
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .toggle-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 14px 16px 12px;
+      border: 1px solid rgba(255, 215, 107, 0.4);
+    }
+
+    .toggle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #b3832a;
+      margin-bottom: 6px;
+    }
+
+    .toggle-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .coin-rose {
+      width: 70px;
+      height: 70px;
+      position: relative;
+    }
+
+    .coin,
+    .rose {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .coin {
+      background: radial-gradient(circle at 30% 20%, #fff6c7 0%, #ffd76b 40%, #e0a93a 100%);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+      color: #8b5a00;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .rose {
+      background: radial-gradient(circle at 30% 20%, #ffd1e4 0%, #e63973 40%, #8b143c 100%);
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.18);
+      color: #ffe9f3;
+      font-size: 1.4rem;
+      opacity: 0;
+      transform: scale(0.7);
+    }
+
+    .coin-rose.roses-on .coin {
+      opacity: 0;
+      transform: scale(0.7) rotate(-10deg);
+    }
+
+    .coin-rose.roses-on .rose {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .toggle-text {
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .toggle-text strong {
+      color: #b5475f;
+    }
+
+    .sing-card {
+      background: linear-gradient(135deg, #ffe9f7, #f4f3ff);
+      border-radius: 18px;
+      padding: 14px 16px 12px;
+      border: 1px solid rgba(255, 138, 194, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sing-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #c54a8a;
+    }
+
+    .sing-body {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      min-height: 60px;
+    }
+
+    .sing-lyric {
+      font-style: italic;
+    }
+
+    .footer-note {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: #7b6bb0;
+      text-align: right;
+    }
+
+    @media (max-width: 780px) {
+      .sanctuary {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .castle-wrapper {
+        flex-direction: column;
+      }
+      .castle-svg {
+        max-width: 60%;
+      }
+      .toggle-body {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sanctuary">
+    <!-- Floating petals -->
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+
+    <header>
+      <h1>
+        <span class="castle-emoji">🏰</span>
+        Disney Castle Sanctuary Sheet
+      </h1>
+      <div class="tagline">Scriptures, petals, laughter, money, roses, and song in one gentle page.</div>
+    </header>
+
+    <div class="left-panel">
+      <!-- Castle + poem -->
+      <section class="castle-card">
+        <h2>Castle of petals & light</h2>
+        <div class="castle-wrapper">
+          <!-- Simple SVG castle -->
+          <svg class="castle-svg" viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="castleBody" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#aeb7ff" />
+                <stop offset="100%" stop-color="#6c7bff" />
+              </linearGradient>
+              <linearGradient id="castleRoof" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffb3e0" />
+                <stop offset="100%" stop-color="#e63973" />
+              </linearGradient>
+            </defs>
+
+            <!-- Ground -->
+            <rect x="10" y="150" width="180" height="10" fill="#d9e7ff" />
+
+            <!-- Left tower -->
+            <rect x="30" y="90" width="40" height="60" fill="url(#castleBody)" />
+            <polygon points="30,90 50,60 70,90" fill="url(#castleRoof)" />
+            <rect x="42" y="110" width="16" height="18" fill="#f4f3ff" rx="3" />
+
+            <!-- Right tower -->
+            <rect x="130" y="90" width="40" height="60" fill="url(#castleBody)" />
+            <polygon points="130,90 150,60 170,90" fill="url(#castleRoof)" />
+            <rect x="142" y="110" width="16" height="18" fill="#f4f3ff" rx="3" />
+
+            <!-- Center keep -->
+            <rect x="75" y="80" width="50" height="70" fill="url(#castleBody)" />
+            <polygon points="75,80 100,45 125,80" fill="url(#castleRoof)" />
+            <rect x="92" y="105" width="16" height="22" fill="#f4f3ff" rx="3" />
+
+            <!-- Door -->
+            <rect x="92" y="130" width="16" height="20" fill="#3f4aa8" rx="4" />
+            <circle cx="100" cy="140" r="2" fill="#f4f3ff" />
+
+            <!-- Flags -->
+            <polygon points="100,45 100,30 115,37" fill="#ffdf7b" />
+            <polygon points="50,60 50,48 63,54" fill="#ffdf7b" />
+            <polygon points="150,60 150,48 163,54" fill="#ffdf7b" />
+
+            <!-- Stars -->
+            <circle cx="30" cy="30" r="2" fill="#ffffff" />
+            <circle cx="170" cy="25" r="2.5" fill="#ffffff" />
+            <circle cx="140" cy="40" r="1.8" fill="#ffffff" />
+          </svg>
+
+          <div class="castle-text">
+            <p>
+              In a <strong>castle lit by laughter’s glow</strong>, petals drift like coins in slow halo.
+              Roses hum in soft SVG lines, and scriptures rest beside poems like lanterns.
+            </p>
+            <p class="castle-note">
+              Tap the buttons below to rotate verses, poems, and tiny laughs when you need a reset.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scripture / poem / laugh rotator -->
+      <section class="rotator-card">
+        <div class="rotator-header">
+          <span>Scripture • Poem • Laugh</span>
+          <span class="rotator-type" id="rotatorType">Scripture</span>
+        </div>
+        <div class="rotator-body" id="rotatorText">
+          “Let your heart be light; you are carried more than you know.”
+        </div>
+        <div class="rotator-controls">
+          <button class="btn" id="prevBtn">
+            <span class="btn-icon">⟵</span>
+            Previous
+          </button>
+          <button class="btn btn-primary" id="nextBtn">
+            Next
+            <span class="btn-icon">⟶</span>
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="right-panel">
+      <!-- Money → Roses toggle -->
+      <section class="toggle-card">
+        <div class="toggle-header">
+          <span>Money → Roses</span>
+          <span>Choose what really matters</span>
+        </div>
+        <div class="toggle-body">
+          <div class="coin-rose" id="coinRose">
+            <div class="coin">
+              <span>💰</span>
+            </div>
+            <div class="rose">
+              <span>🌹</span>
+            </div>
+          </div>
+          <div class="toggle-text">
+            When life feels like only numbers and bills, press the button and let
+            <strong>roses</strong> take the stage.  
+            Remember: your worth is not a price tag; it’s a garden.
+          </div>
+        </div>
+        <div class="rotator-controls" style="margin-top:8px;">
+          <button class="btn btn-primary" id="toggleValueBtn">
+            <span class="btn-icon">✨</span>
+            Turn money into roses
+          </button>
+        </div>
+      </section>
+
+      <!-- Singing / affirmation card -->
+      <section class="sing-card">
+        <div class="sing-header">
+          <span>Sing it out</span>
+          <span>Soft chorus mode</span>
+        </div>
+        <div class="sing-body">
+          <div class="sing-lyric" id="singLyric">
+            “I am more than what I earn,  
+            a living rose that still can learn.”
+          </div>
+        </div>
+        <div class="rotator-controls">
+          <button class="btn" id="singBtn">
+            <span class="btn-icon">🎵</span>
+            New lyric
+          </button>
+          <button class="btn" id="laughBtn">
+            <span class="btn-icon">😂</span>
+            Tiny laugh
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <div class="footer-note">
+      Single-sheet HTML • CSS • JavaScript • SVG • petals • laughter • roses • song.
+    </div>
+  </div>
+
+  <script>
+    // Scripture / poem / laugh rotator
+    const entries = [
+      {
+        type: "Scripture",
+        text: "“Let not your heart be troubled: you are held, even when you feel alone.”"
+      },
+      {
+        type: "Scripture",
+        text: "“You are fearfully and wonderfully made; nothing can erase that design.”"
+      },
+      {
+        type: "Poem",
+        text: "In a castle lit by laughter’s glow, petals drift where soft winds blow."
+      },
+      {
+        type: "Poem",
+        text: "Money turns to roses in your hands, when you choose love over demands."
+      },
+      {
+        type: "Laugh",
+        text: "Why did the castle start singing? It couldn’t keep its drawbridge up about its feelings."
+      },
+      {
+        type: "Laugh",
+        text: "If life feels like a glitchy script, remember: even code gets to refactor and rest."
+      }
+    ];
+
+    let currentIndex = 0;
+    const rotatorText = document.getElementById("rotatorText");
+    const rotatorType = document.getElementById("rotatorType");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function updateRotator(index) {
+      const entry = entries[index];
+      rotatorText.textContent = entry.text;
+      rotatorType.textContent = entry.type;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + entries.length) % entries.length;
+      updateRotator(currentIndex);
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % entries.length;
+      updateRotator(currentIndex);
+    });
+
+    // Auto-rotate every 15 seconds
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % entries.length;
+      updateRotator(currentIndex);
+    }, 15000);
+
+    // Money → Roses toggle
+    const coinRose = document.getElementById("coinRose");
+    const toggleValueBtn = document.getElementById("toggleValueBtn");
+    let rosesOn = false;
+
+    toggleValueBtn.addEventListener("click", () => {
+      rosesOn = !rosesOn;
+      coinRose.classList.toggle("roses-on", rosesOn);
+      toggleValueBtn.textContent = rosesOn
+        ? "Bring back the coins (with care)"
+        : "Turn money into roses";
+    });
+
+    // Singing / lyric generator
+    const singLyric = document.getElementById("singLyric");
+    const singBtn = document.getElementById("singBtn");
+    const laughBtn = document.getElementById("laughBtn");
+
+    const lyrics = [
+      "“I am more than what I earn,\n a living rose that still can learn.”",
+      "“In castle halls my heart can rest,\n I’m doing now, I’m doing my best.”",
+      "“Petals fall but roots stay strong,\n I still belong, I still belong.”",
+      "“Even when my script feels wrong,\n I can rewrite, I still belong.”"
+    ];
+
+    const tinyLaughs = [
+      "Soft reminder: even Disney castles have off days and squeaky doors.",
+      "Some days you’re the rose, some days you’re the petal stuck to a shoe—both still part of the garden.",
+      "If your song cracks, it just means your heart is singing louder than your voice."
+    ];
+
+    singBtn.addEventListener("click", () => {
+      const random = lyrics[Math.floor(Math.random() * lyrics.length)];
+      singLyric.textContent = random;
+    });
+
+    laughBtn.addEventListener("click", () => {
+      const random = tinyLaughs[Math.floor(Math.random() * tinyLaughs.length)];
+      singLyric.textContent = random;
+    });
+
+    // Initialize
+    updateRotator(currentIndex);
+  </script>
+</body>
+</html>
+
