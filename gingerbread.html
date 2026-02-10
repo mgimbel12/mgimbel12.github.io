@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Christmas Store</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0b1b2a, #143d2a);
+      color: #fdfdfd;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(8px);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    header h1 span {
+      font-size: 1.2rem;
+    }
+
+    .cart-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .cart-indicator:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .cart-indicator span {
+      font-size: 0.9rem;
+    }
+
+    .cart-count {
+      background: #e63946;
+      border-radius: 999px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(260px, 1.2fr);
+      gap: 1.5rem;
+      padding: 1.5rem 2rem 2rem;
+      flex: 1;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero {
+      margin-bottom: 1.5rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 1rem;
+      background: radial-gradient(circle at top left, #f4a26133, transparent 55%),
+                  radial-gradient(circle at bottom right, #2a9d8f33, transparent 55%),
+                  rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .hero-text h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-text p {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .hero-badge {
+      background: #e63946;
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      box-shadow: 0 0 12px rgba(230, 57, 70, 0.6);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .product-card {
+      background: rgba(0, 0, 0, 0.35);
+      border-radius: 0.9rem;
+      padding: 0.9rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .product-card:hover::before {
+      opacity: 1;
+    }
+
+    .product-image {
+      height: 120px;
+      border-radius: 0.7rem;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 0.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image::after {
+      content: "★";
+      position: absolute;
+      top: 6px;
+      right: 8px;
+      font-size: 1rem;
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.8);
+    }
+
+    .product-title {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.4rem;
+    }
+
+    .product-price {
+      font-weight: 700;
+      color: #f4a261;
+    }
+
+    .product-tag {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      opacity: 0.9;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #2a9d8f;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(42, 157, 143, 0.6);
+    }
+
+    .btn-primary:hover {
+      background: #21867a;
+      transform: translateY(-1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      max-height: calc(100vh - 120px);
+      position: sticky;
+      top: 90px;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        position: static;
+        max-height: none;
+      }
+    }
+
+    .sidebar h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 0.3rem;
+    }
+
+    .cart-empty {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 0.4rem;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.3rem 0.5rem;
+      padding: 0.4rem 0.2rem;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+      font-size: 0.85rem;
+      align-items: center;
+    }
+
+    .cart-item-title {
+      font-weight: 500;
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      justify-content: flex-end;
+    }
+
+    .cart-item-qty {
+      min-width: 1.4rem;
+      text-align: center;
+    }
+
+    .cart-summary {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 0.6rem;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .cart-summary-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .cart-total {
+      font-weight: 700;
+      color: #f4a261;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0.7rem 1rem 1.1rem;
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    /* Simple “twinkle” animation for header icon */
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .twinkle {
+      display: inline-block;
+      animation: twinkle 1.8s infinite ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      <span class="twinkle">🎄</span>
+      Christmas Store
+    </h1>
+    <div class="cart-indicator" id="cartIndicator">
+      <span>Cart</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="hero">
+        <div class="hero-text">
+          <h2>Holiday Magic, Wrapped and Ready</h2>
+          <p>Cozy gifts, twinkling decor, and sweet treats for your winter wonderland.</p>
+        </div>
+        <div class="hero-badge">
+          ❄️ Limited-time Holiday Specials
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Products injected by JS -->
+      </div>
+    </section>
+
+    <aside class="sidebar">
+      <div>
+        <h3>Your Cart</h3>
+        <p style="font-size:0.8rem; opacity:0.8;">Click items to add, adjust quantities here.</p>
+      </div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-row">
+          <span>Items</span>
+          <span id="cartItemsCount">0</span>
+        </div>
+        <div class="cart-summary-row">
+          <span>Subtotal</span>
+          <span id="cartSubtotal">$0.00</span>
+        </div>
+        <div class="cart-summary-row">
+          <span>Holiday Discount</span>
+          <span id="cartDiscount">-$0.00</span>
+        </div>
+        <div class="cart-summary-row">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total" id="cartTotal">$0.00</span>
+        </div>
+        <button class="btn btn-primary" id="checkoutBtn">
+          🛷 Checkout
+        </button>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    Made with cocoa, carols, and a sprinkle of code.
+  </footer>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: "Cinnamon Cocoa Candle",
+        description: "Warm cinnamon, cocoa, and vanilla in a glass jar.",
+        price: 14.99,
+        tag: "Cozy Home",
+        image: "linear-gradient(135deg,#f4a261,#e76f51)"
+      },
+      {
+        id: 2,
+        name: "Snowflake String Lights",
+        description: "Soft white LED snowflakes for windows and mantels.",
+        price: 19.99,
+        tag: "Decor",
+        image: "linear-gradient(135deg,#e9c46a,#f4a261)"
+      },
+      {
+        id: 3,
+        name: "Peppermint Bark Tin",
+        description: "Layered chocolate and peppermint in a festive tin.",
+        price: 11.5,
+        tag: "Treats",
+        image: "linear-gradient(135deg,#e63946,#f1faee)"
+      },
+      {
+        id: 4,
+        name: "Knitted Reindeer Sweater",
+        description: "Classic red sweater with a playful reindeer pattern.",
+        price: 39.0,
+        tag: "Apparel",
+        image: "linear-gradient(135deg,#8d99ae,#ef233c)"
+      },
+      {
+        id: 5,
+        name: "Gingerbread House Kit",
+        description: "Everything you need to build a sweet holiday cottage.",
+        price: 24.0,
+        tag: "Family Fun",
+        image: "linear-gradient(135deg,#f6bd60,#f28482)"
+      },
+      {
+        id: 6,
+        name: "Evergreen Wreath",
+        description: "Artificial wreath with berries and a red bow.",
+        price: 29.99,
+        tag: "Door Decor",
+        image: "linear-gradient(135deg,#2a9d8f,#264653)"
+      }
+    ];
+
+    const cart = {};
+
+    const productGrid = document.getElementById("productGrid");
+    const cartItemsContainer = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const cartItemsCount = document.getElementById("cartItemsCount");
+    const cartSubtotal = document.getElementById("cartSubtotal");
+    const cartDiscount = document.getElementById("cartDiscount");
+    const cartTotal = document.getElementById("cartTotal");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+
+    function renderProducts() {
+      productGrid.innerHTML = "";
+      products.forEach((product) => {
+        const card = document.createElement("article");
+        card.className = "product-card";
+
+        const image = document.createElement("div");
+        image.className = "product-image";
+        image.style.backgroundImage = product.image;
+
+        const title = document.createElement("h3");
+        title.className = "product-title";
+        title.textContent = product.name;
+
+        const desc = document.createElement("p");
+        desc.className = "product-desc";
+        desc.textContent = product.description;
+
+        const footer = document.createElement("div");
+        footer.className = "product-footer";
+
+        const left = document.createElement("div");
+        const price = document.createElement("div");
+        price.className = "product-price";
+        price.textContent = `$${product.price.toFixed(2)}`;
+
+        const tag = document.createElement("div");
+        tag.className = "product-tag";
+        tag.textContent = product.tag;
+
+        left.appendChild(price);
+        left.appendChild(tag);
+
+        const addBtn = document.createElement("button");
+        addBtn.className = "btn btn-primary";
+        addBtn.innerHTML = "Add to cart";
+
+        addBtn.addEventListener("click", () => {
+          addToCart(product.id);
+        });
+
+        footer.appendChild(left);
+        footer.appendChild(addBtn);
+
+        card.appendChild(image);
+        card.appendChild(title);
+        card.appendChild(desc);
+        card.appendChild(footer);
+
+        productGrid.appendChild(card);
+      });
+    }
+
+    function addToCart(productId) {
+      if (!cart[productId]) {
+        cart[productId] = 0;
+      }
+      cart[productId] += 1;
+      updateCartUI();
+    }
+
+    function removeFromCart(productId) {
+      if (!cart[productId]) return;
+      cart[productId] -= 1;
+      if (cart[productId] <= 0) {
+        delete cart[productId];
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      cartItemsContainer.innerHTML = "";
+      const ids = Object.keys(cart);
+      if (ids.length === 0) {
+        cartItemsContainer.innerHTML = '<p class="cart-empty">Your sleigh is empty. Add some holiday magic!</p>';
+      } else {
+        ids.forEach((id) => {
+          const product = products.find((p) => p.id === Number(id));
+          const qty = cart[id];
+
+          const item = document.createElement("div");
+          item.className = "cart-item";
+
+          const title = document.createElement("div");
+          title.className = "cart-item-title";
+          title.textContent = product.name;
+
+          const priceLine = document.createElement("div");
+          priceLine.style.fontSize = "0.8rem";
+          priceLine.style.opacity = "0.85";
+          priceLine.textContent = `$${product.price.toFixed(2)} each`;
+
+          const left = document.createElement("div");
+          left.appendChild(title);
+          left.appendChild(priceLine);
+
+          const controls = document.createElement("div");
+          controls.className = "cart-item-controls";
+
+          const minusBtn = document.createElement("button");
+          minusBtn.className = "btn btn-ghost";
+          minusBtn.style.padding = "0.1rem 0.5rem";
+          minusBtn.textContent = "−";
+          minusBtn.addEventListener("click", () => removeFromCart(product.id));
+
+          const qtySpan = document.createElement("span");
+          qtySpan.className = "cart-item-qty";
+          qtySpan.textContent = qty;
+
+          const plusBtn = document.createElement("button");
+          plusBtn.className = "btn btn-ghost";
+          plusBtn.style.padding = "0.1rem 0.5rem";
+          plusBtn.textContent = "+";
+          plusBtn.addEventListener("click", () => addToCart(product.id));
+
+          controls.appendChild(minusBtn);
+          controls.appendChild(qtySpan);
+          controls.appendChild(plusBtn);
+
+          item.appendChild(left);
+          item.appendChild(controls);
+
+          cartItemsContainer.appendChild(item);
+        });
+      }
+
+      let totalItems = 0;
+      let subtotal = 0;
+      Object.entries(cart).forEach(([id, qty]) => {
+        const product = products.find((p) => p.id === Number(id));
+        totalItems += qty;
+        subtotal += product.price * qty;
+      });
+
+      const discount = subtotal >= 50 ? subtotal * 0.1 : 0;
+      const total = subtotal - discount;
+
+      cartCount.textContent = totalItems;
+      cartItemsCount.textContent = totalItems;
+      cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+      cartDiscount.textContent = `-$${discount.toFixed(2)}`;
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    checkoutBtn.addEventListener("click", () => {
+      const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+      if (totalItems === 0) {
+        alert("Your cart is empty—add a little sparkle first!");
+        return;
+      }
+      alert("Thank you for shopping at the Christmas Store! 🎁");
+    });
+
+    // Optional: clicking the cart indicator scrolls to the sidebar on small screens
+    document.getElementById("cartIndicator").addEventListener("click", () => {
+      document.querySelector(".sidebar").scrollIntoView({ behavior: "smooth" });
+    });
+
+    renderProducts();
+    updateCartUI();
+  </script>
+</body>
+</html>
