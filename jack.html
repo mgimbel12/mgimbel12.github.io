@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Jack & Sally Sanctuary Sheet</title>
+<style>
+  :root {
+    --bg-main: #0b0b16;
+    --bg-panel: #151528;
+    --accent-jack: #f5f5f5;
+    --accent-sally: #ff8fb7;
+    --accent-moon: #ffeaa7;
+    --accent-green: #7bed9f;
+    --border-soft: rgba(255,255,255,0.25);
+    --text-main: #fdfdfd;
+    --text-muted: #b3b3d1;
+    --shadow-soft: 0 0 18px rgba(0,0,0,0.7);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #2b2b4a 0, #050510 55%, #000 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px dashed var(--border-soft);
+    background: linear-gradient(90deg, #151528, #241533, #151528);
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .title-block h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .title-block span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .moon-badge {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px dashed rgba(255,255,255,0.4);
+    background: radial-gradient(circle at 30% 20%, var(--accent-moon), #3b2b4a);
+    color: #1b1020;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .moon-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fffbe6;
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .tab-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .tab-btn {
+    border-radius: 999px;
+    border: 1px dashed var(--border-soft);
+    background: rgba(10,10,25,0.9);
+    color: var(--text-muted);
+    padding: 8px 14px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.18s ease-out;
+  }
+
+  .tab-btn span.icon {
+    font-size: 1rem;
+  }
+
+  .tab-btn.active {
+    color: var(--accent-jack);
+    border-color: var(--accent-sally);
+    background: radial-gradient(circle at top, #3b2344, #0b0b16);
+    box-shadow: 0 0 12px rgba(255,143,183,0.4);
+  }
+
+  .panels {
+    flex: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  @media (max-width: 900px) {
+    .panels {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .panel {
+    background: rgba(10,10,25,0.92);
+    border-radius: 16px;
+    border: 1px dashed var(--border-soft);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-soft);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  .panel.active {
+    display: flex;
+  }
+
+  .panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .panel-header h2 {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .panel-header span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .tag-jack { border-color: var(--accent-jack); }
+  .tag-sally { border-color: var(--accent-sally); }
+  .tag-moon { border-color: var(--accent-moon); }
+
+  .grid-two {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  @media (max-width: 700px) {
+    .grid-two {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .field-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(5,5,18,0.9);
+    color: var(--text-main);
+    font-size: 0.8rem;
+  }
+
+  textarea {
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  button.action {
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: linear-gradient(135deg, #3b2344, #151528);
+    color: var(--accent-jack);
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.18s ease-out;
+  }
+
+  button.action:hover {
+    box-shadow: 0 0 10px rgba(255,143,183,0.5);
+    transform: translateY(-1px);
+  }
+
+  .pill {
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px dashed rgba(255,255,255,0.25);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .list {
+    max-height: 160px;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 1px dashed rgba(255,255,255,0.2);
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+
+  .list-item {
+    padding: 4px 0;
+    border-bottom: 1px dotted rgba(255,255,255,0.15);
+  }
+
+  .list-item:last-child {
+    border-bottom: none;
+  }
+
+  .clock-display {
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    font-size: 0.7rem;
+  }
+
+  .calendar-cell {
+    padding: 4px 0;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px dashed rgba(255,255,255,0.15);
+  }
+
+  .calendar-cell.header {
+    font-weight: 600;
+    color: var(--accent-sally);
+    border-style: solid;
+  }
+
+  .calendar-cell.today {
+    border-color: var(--accent-moon);
+    background: rgba(255,234,167,0.08);
+  }
+
+  iframe.map-frame {
+    width: 100%;
+    min-height: 200px;
+    border-radius: 12px;
+    border: 1px dashed rgba(255,255,255,0.25);
+    background: radial-gradient(circle at top, #222244, #050510);
+  }
+
+  .recorder-status {
+    font-size: 0.75rem;
+    color: var(--accent-green);
+  }
+
+  .signature-pad {
+    border-radius: 12px;
+    border: 1px dashed rgba(255,255,255,0.4);
+    background: #050510;
+    position: relative;
+    overflow: hidden;
+  }
+
+  canvas#signatureCanvas {
+    width: 100%;
+    height: 180px;
+    display: block;
+    cursor: crosshair;
+  }
+
+  .music-staff {
+    border-radius: 12px;
+    border: 1px dashed rgba(255,255,255,0.4);
+    padding: 8px;
+    background: linear-gradient(#151528, #050510);
+    position: relative;
+  }
+
+  .staff-lines {
+    position: relative;
+    height: 80px;
+    margin-bottom: 8px;
+  }
+
+  .staff-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.35);
+  }
+
+  .staff-line:nth-child(1) { top: 10%; }
+  .staff-line:nth-child(2) { top: 30%; }
+  .staff-line:nth-child(3) { top: 50%; }
+  .staff-line:nth-child(4) { top: 70%; }
+  .staff-line:nth-child(5) { top: 90%; }
+
+  .note-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .note-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(10,10,25,0.9);
+    color: var(--accent-sally);
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+
+  .machine-output {
+    min-height: 80px;
+    border-radius: 10px;
+    border: 1px dashed rgba(255,255,255,0.3);
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  footer {
+    padding: 8px 16px 14px;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    text-align: center;
+    border-top: 1px dashed var(--border-soft);
+    background: rgba(5,5,15,0.95);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="title-block">
+    <h1>Jack &amp; Sally Sanctuary Sheet</h1>
+    <span>Calendar • Maps • Recorder • Signing • Music • Creative Machine</span>
+  </div>
+  <div class="moon-badge">
+    <div class="moon-dot"></div>
+    <span>“We’re simply meant to be.”</span>
+  </div>
+</header>
+
+<main>
+  <div class="tab-row">
+    <button class="tab-btn active" data-target="calendarPanel">
+      <span class="icon">🕰️</span><span>Calendar</span>
+    </button>
+    <button class="tab-btn" data-target="mapsPanel">
+      <span class="icon">🗺️</span><span>Maps</span>
+    </button>
+    <button class="tab-btn" data-target="recorderPanel">
+      <span class="icon">🎙️</span><span>Recorder</span>
+    </button>
+    <button class="tab-btn" data-target="signingPanel">
+      <span class="icon">✒️</span><span>Signing Sheet</span>
+    </button>
+    <button class="tab-btn" data-target="musicPanel">
+      <span class="icon">🎵</span><span>Music Notes</span>
+    </button>
+    <button class="tab-btn" data-target="machinePanel">
+      <span class="icon">🌀</span><span>Creative Machine</span>
+    </button>
+  </div>
+
+  <div class="panels">
+    <!-- LEFT COLUMN PANELS -->
+    <section id="calendarPanel" class="panel active">
+      <div class="panel-header">
+        <div>
+          <h2>Moonlit Calendar</h2>
+          <span>Track nights, days, and tiny miracles.</span>
+        </div>
+        <span class="tag tag-moon">Time &amp; Dates</span>
+      </div>
+      <div class="grid-two">
+        <div>
+          <div class="field-label">Live Clock</div>
+          <div id="clockDisplay" class="clock-display">--:--:--</div>
+          <div class="field-label" style="margin-top:8px;">Month &amp; Year</div>
+          <div style="display:flex; gap:6px; align-items:center;">
+            <select id="monthSelect"></select>
+            <select id="yearSelect"></select>
+          </div>
+          <div class="field-label" style="margin-top:8px;">Quick Note</div>
+          <textarea id="calendarNote" placeholder="Tonight we..."></textarea>
+        </div>
+        <div>
+          <div class="field-label">Month View</div>
+          <div id="calendarGrid" class="calendar-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mapsPanel" class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Curious Maps</h2>
+          <span>Find your way between worlds.</span>
+        </div>
+        <span class="tag tag-jack">Maps</span>
+      </div>
+      <div class="field-label">Search Location</div>
+      <div style="display:flex; gap:6px; margin-bottom:8px;">
+        <input type="text" id="mapSearch" placeholder="Pumpkin Patch, Town Hall, Henderson NV..." />
+        <button class="action" id="mapSearchBtn">Go</button>
+      </div>
+      <iframe
+        id="mapFrame"
+        class="map-frame"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-115.1%2C36.0%2C-115.0%2C36.1&layer=mapnik"
+      ></iframe>
+      <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
+        <button class="action quick-map" data-q="Henderson NV City Hall">City Hall</button>
+        <button class="action quick-map" data-q="Henderson NV Library">Library</button>
+        <button class="action quick-map" data-q="Henderson NV Recreation Center">Rec Center</button>
+        <button class="action quick-map" data-q="Disneyland">Disneyland</button>
+      </div>
+      <div class="pill" style="margin-top:8px;">
+        Map uses a simple search URL—feel free to swap in your favorite map provider.
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN PANELS -->
+    <section id="recorderPanel" class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Whisper Recorder</h2>
+          <span>Capture ideas before they drift away.</span>
+        </div>
+        <span class="tag tag-sally">Audio</span>
+      </div>
+      <div class="field-label">Controls</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+        <button class="action" id="startRecBtn">Start Recording</button>
+        <button class="action" id="stopRecBtn" disabled>Stop</button>
+        <span id="recStatus" class="recorder-status">Idle</span>
+      </div>
+      <div class="field-label" style="margin-top:8px;">Saved Clips</div>
+      <div id="recordingsList" class="list"></div>
+      <div class="pill" style="margin-top:6px;">
+        Audio stays in this browser tab only; it’s not uploaded anywhere.
+      </div>
+    </section>
+
+    <section id="signingPanel" class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Signing Sheet</h2>
+          <span>Who crossed the spiral hill tonight?</span>
+        </div>
+        <span class="tag tag-jack">Signatures</span>
+      </div>
+      <div class="grid-two">
+        <div>
+          <div class="field-label">Name</div>
+          <input type="text" id="signName" placeholder="Jack Skellington..." />
+          <div class="field-label" style="margin-top:6px;">Signature Pad</div>
+          <div class="signature-pad">
+            <canvas id="signatureCanvas"></canvas>
+          </div>
+          <div style="margin-top:6px; display:flex; gap:6px; flex-wrap:wrap;">
+            <button class="action" id="clearSignatureBtn">Clear</button>
+            <button class="action" id="saveSignatureBtn">Save Entry</button>
+          </div>
+        </div>
+        <div>
+          <div class="field-label">Attendance List</div>
+          <div id="signList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="musicPanel" class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Music Notes</h2>
+          <span>“What’s this?” but make it a melody.</span>
+        </div>
+        <span class="tag tag-sally">Music</span>
+      </div>
+      <div class="field-label">Title &amp; Composer</div>
+      <div class="grid-two">
+        <input type="text" id="songTitle" placeholder="This Is Halloween..." />
+        <input type="text" id="songComposer" placeholder="Danny Elfman..." />
+      </div>
+      <div class="music-staff">
+        <div class="staff-lines">
+          <div class="staff-line"></div>
+          <div class="staff-line"></div>
+          <div class="staff-line"></div>
+          <div class="staff-line"></div>
+          <div class="staff-line"></div>
+        </div>
+        <div class="note-buttons">
+          <button class="note-btn" data-note="♩">Quarter</button>
+          <button class="note-btn" data-note="♪">Eighth</button>
+          <button class="note-btn" data-note="𝅝">Whole</button>
+          <button class="note-btn" data-note="𝅗𝅥">Half</button>
+          <button class="note-btn" data-note="𝄽">Rest</button>
+        </div>
+        <textarea id="musicNotes" placeholder="Click note buttons to add symbols here..."></textarea>
+      </div>
+    </section>
+
+    <section id="machinePanel" class="panel">
+      <div class="panel-header">
+        <div>
+          <h2>Creative Machine</h2>
+          <span>Prompts from Halloween Town &amp; beyond.</span>
+        </div>
+        <span class="tag tag-moon">Ideas</span>
+      </div>
+      <div class="field-label">Mode</div>
+      <select id="machineMode">
+        <option value="jack">Jack’s Curiosity Prompts</option>
+        <option value="sally">Sally’s Gentle Grounding</option>
+        <option value="mixed">Mixed Moonlight</option>
+      </select>
+      <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+        <button class="action" id="spinMachineBtn">Spin Prompt</button>
+        <button class="action" id="clearMachineBtn">Clear</button>
+      </div>
+      <div class="field-label" style="margin-top:8px;">Prompt Output</div>
+      <div id="machineOutput" class="machine-output"></div>
+      <div class="field-label" style="margin-top:8px;">Your Response</div>
+      <textarea id="machineResponse" placeholder="Write, sketch, or plan your next move here..."></textarea>
+    </section>
+  </div>
+</main>
+
+<footer>
+  Jack &amp; Sally Sanctuary Sheet · Single-page HTML/CSS/JS · Treat this as a living archive and customize freely.
+</footer>
+
+<script>
+  // ---------- TAB SWITCHING ----------
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const panels = document.querySelectorAll('.panel');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      tabButtons.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+    });
+  });
+
+  // ---------- CLOCK & CALENDAR ----------
+  const clockDisplay = document.getElementById('clockDisplay');
+  const monthSelect = document.getElementById('monthSelect');
+  const yearSelect = document.getElementById('yearSelect');
+  const calendarGrid = document.getElementById('calendarGrid');
+
+  function updateClock() {
+    const now = new Date();
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+    clockDisplay.textContent = `${h}:${m}:${s}`;
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  function populateMonthYear() {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    for (let m = 0; m < 12; m++) {
+      const opt = document.createElement('option');
+      opt.value = m;
+      opt.textContent = new Date(2000, m, 1).toLocaleString(undefined, { month: 'long' });
+      monthSelect.appendChild(opt);
+    }
+    for (let y = currentYear - 5; y <= currentYear + 5; y++) {
+      const opt = document.createElement('option');
+      opt.value = y;
+      opt.textContent = y;
+      yearSelect.appendChild(opt);
+    }
+    monthSelect.value = now.getMonth();
+    yearSelect.value = currentYear;
+  }
+
+  function buildCalendar() {
+    const month = parseInt(monthSelect.value, 10);
+    const year = parseInt(yearSelect.value, 10);
+    calendarGrid.innerHTML = '';
+
+    const headers = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    headers.forEach(h => {
+      const cell = document.createElement('div');
+      cell.className = 'calendar-cell header';
+      cell.textContent = h;
+      calendarGrid.appendChild(cell);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const today = new Date();
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'calendar-cell';
+      calendarGrid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'calendar-cell';
+      cell.textContent = d;
+      if (
+        d === today.getDate() &&
+        month === today.getMonth() &&
+        year === today.getFullYear()
+      ) {
+        cell.classList.add('today');
+      }
+      calendarGrid.appendChild(cell);
+    }
+  }
+
+  populateMonthYear();
+  buildCalendar();
+  monthSelect.addEventListener('change', buildCalendar);
+  yearSelect.addEventListener('change', buildCalendar);
+
+  // ---------- MAPS ----------
+  const mapFrame = document.getElementById('mapFrame');
+  const mapSearch = document.getElementById('mapSearch');
+  const mapSearchBtn = document.getElementById('mapSearchBtn');
+  const quickMapBtns = document.querySelectorAll('.quick-map');
+
+  function updateMap(query) {
+    if (!query) return;
+    const url = 'https://www.google.com/maps?q=' + encodeURIComponent(query) + '&output=embed';
+    mapFrame.src = url;
+  }
+
+  mapSearchBtn.addEventListener('click', () => {
+    updateMap(mapSearch.value.trim());
+  });
+
+  mapSearch.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      updateMap(mapSearch.value.trim());
+    }
+  });
+
+  quickMapBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const q = btn.getAttribute('data-q');
+      mapSearch.value = q;
+      updateMap(q);
+    });
+  });
+
+  // ---------- RECORDER ----------
+  let mediaRecorder = null;
+  let recordedChunks = [];
+  const startRecBtn = document.getElementById('startRecBtn');
+  const stopRecBtn = document.getElementById('stopRecBtn');
+  const recStatus = document.getElementById('recStatus');
+  const recordingsList = document.getElementById('recordingsList');
+
+  async function startRecording() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      recordedChunks = [];
+      mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.ondataavailable = e => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+      };
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+        const url = URL.createObjectURL(blob);
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        const audio = document.createElement('audio');
+        audio.controls = true;
+        audio.src = url;
+        const label = document.createElement('span');
+        label.style.marginLeft = '6px';
+        label.textContent = 'Clip ' + new Date().toLocaleTimeString();
+        item.appendChild(audio);
+        item.appendChild(label);
+        recordingsList.prepend(item);
+      };
+      mediaRecorder.start();
+      recStatus.textContent = 'Recording...';
+      startRecBtn.disabled = true;
+      stopRecBtn.disabled = false;
+    } catch (err) {
+      recStatus.textContent = 'Mic blocked or unavailable.';
+    }
+  }
+
+  function stopRecording() {
+    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+      mediaRecorder.stop();
+      recStatus.textContent = 'Stopped.';
+      startRecBtn.disabled = false;
+      stopRecBtn.disabled = true;
+    }
+  }
+
+  startRecBtn.addEventListener('click', startRecording);
+  stopRecBtn.addEventListener('click', stopRecording);
+
+  // ---------- SIGNATURE PAD ----------
+  const canvas = document.getElementById('signatureCanvas');
+  const signName = document.getElementById('signName');
+  const clearSignatureBtn = document.getElementById('clearSignatureBtn');
+  const saveSignatureBtn = document.getElementById('saveSignatureBtn');
+  const signList = document.getElementById('signList');
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = rect.width * ratio;
+    canvas.height = rect.height * ratio;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(ratio, ratio);
+    ctx.fillStyle = '#050510';
+    ctx.fillRect(0, 0, rect.width, rect.height);
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+  }
+
+  let drawing = false;
+  let lastX = 0;
+  let lastY = 0;
+
+  function startDraw(x, y) {
+    drawing = true;
+    lastX = x;
+    lastY = y;
+  }
+
+  function drawLine(x, y) {
+    if (!drawing) return;
+    const ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.moveTo(lastX, lastY);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    lastX = x;
+    lastY = y;
+  }
+
+  function stopDraw() {
+    drawing = false;
+  }
+
+  canvas.addEventListener('mousedown', e => {
+    const rect = canvas.getBoundingClientRect();
+    startDraw(e.clientX - rect.left, e.clientY - rect.top);
+  });
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    drawLine(e.clientX - rect.left, e.clientY - rect.top);
+  });
+  canvas.addEventListener('mouseup', stopDraw);
+  canvas.addEventListener('mouseleave', stopDraw);
+
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches[0];
+    startDraw(t.clientX - rect.left, t.clientY - rect.top);
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const t = e.touches[0];
+    drawLine(t.clientX - rect.left, t.clientY - rect.top);
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', e => {
+    e.preventDefault();
+    stopDraw();
+  }, { passive: false });
+
+  clearSignatureBtn.addEventListener('click', () => {
+    resizeCanvas();
+  });
+
+  saveSignatureBtn.addEventListener('click', () => {
+    const name = signName.value.trim() || 'Unnamed Soul';
+    const dataUrl = canvas.toDataURL('image/png');
+    const item = document.createElement('div');
+    item.className = 'list-item';
+    const strong = document.createElement('strong');
+    strong.textContent = name + ' ';
+    const time = document.createElement('span');
+    time.style.fontSize = '0.7rem';
+    time.style.color = '#b3b3d1';
+    time.textContent = '(' + new Date().toLocaleString() + ')';
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = name.replace(/\s+/g, '_') + '_signature.png';
+    link.textContent = ' [Download]';
+    link.style.fontSize = '0.75rem';
+    item.appendChild(strong);
+    item.appendChild(time);
+    item.appendChild(link);
+    signList.prepend(item);
+  });
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // ---------- MUSIC NOTES ----------
+  const noteButtons = document.querySelectorAll('.note-btn');
+  const musicNotes = document.getElementById('musicNotes');
+
+  noteButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const symbol = btn.getAttribute('data-note');
+      musicNotes.value += symbol + ' ';
+      musicNotes.focus();
+    });
+  });
+
+  // ---------- CREATIVE MACHINE ----------
+  const machineMode = document.getElementById('machineMode');
+  const machineOutput = document.getElementById('machineOutput');
+  const machineResponse = document.getElementById('machineResponse');
+  const spinMachineBtn = document.getElementById('spinMachineBtn');
+  const clearMachineBtn = document.getElementById('clearMachineBtn');
+
+  const prompts = {
+    jack: [
+      'Design a new holiday Jack would accidentally invent. What does it celebrate?',
+      'Imagine Jack visiting your city. Where does he go first and why?',
+      'Create a speech Jack gives about trying something completely new.',
+      'Write a scene where Jack discovers a room full of your favorite objects.',
+      'Describe a “perfectly imperfect” day Jack would be proud of.'
+    ],
+    sally: [
+      'List three tiny things that feel safe to you right now.',
+      'Describe a place that feels like a soft quilt for your heart.',
+      'Write a gentle note from Sally to your future self.',
+      'Name one boundary you’re allowed to keep, no questions asked.',
+      'Describe a moment when you surprised yourself with your own strength.'
+    ],
+    mixed: [
+      'Jack wants adventure; Sally wants safety. Design a plan that honors both.',
+      'Describe a doorway between Halloween Town and your real life. What’s on each side?',
+      'Write a ritual for ending a hard day and beginning a softer one.',
+      'Invent a festival where everyone brings one fear and one hope.',
+      'Create a “moonlit promise” you’re willing to keep to yourself this week.'
+    ]
+  };
+
+  function spinPrompt() {
+    const mode = machineMode.value;
+    const list = prompts[mode] || prompts.mixed;
+    const pick = list[Math.floor(Math.random() * list.length)];
+    machineOutput.textContent = pick;
+  }
+
+  spinMachineBtn.addEventListener('click', spinPrompt);
+  clearMachineBtn.addEventListener('click', () => {
+    machineOutput.textContent = '';
+    machineResponse.value = '';
+  });
+</script>
+</body>
+</html>
+
