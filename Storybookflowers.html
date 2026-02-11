@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Storybook Flower Sheet</title>
+
+<style>
+  :root {
+    --rose: #ffb3c6;
+    --tulip: #ffda8f;
+    --sunflower: #ffd447;
+    --petal: #ffeef4;
+    --ink: #4a4a4a;
+    --page: #ffffff;
+    --accent: #8ab6ff;
+  }
+
+  body {
+    margin: 0;
+    padding: 1.5rem;
+    background: #fafafa;
+    font-family: "Georgia", serif;
+    color: var(--ink);
+  }
+
+  .storybook {
+    max-width: 900px;
+    margin: auto;
+    background: var(--page);
+    padding: 2rem;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    border: 2px solid #f3f3f3;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--accent);
+  }
+
+  header p {
+    opacity: 0.7;
+    font-size: 0.95rem;
+  }
+
+  /* Storybook chapter style */
+  .chapter {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    position: relative;
+  }
+
+  .chapter h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+  }
+
+  .chapter p {
+    line-height: 1.6;
+    font-size: 1rem;
+  }
+
+  /* Flower chips */
+  .flower-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+  }
+
+  .chip {
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.15s ease;
+  }
+
+  .chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  }
+
+  .rose { background: var(--rose); }
+  .tulip { background: var(--tulip); }
+  .sunflower { background: var(--sunflower); }
+  .petal { background: var(--petal); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%) translateY(120%);
+    background: #333;
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    opacity: 0;
+    transition: 0.2s ease-out;
+    font-size: 0.85rem;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0%);
+    opacity: 1;
+  }
+
+  /* Decorative storybook corners */
+  .chapter::before,
+  .chapter::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: var(--petal);
+    border: 1px solid #eee;
+    border-radius: 6px;
+  }
+
+  .chapter::before {
+    top: -10px;
+    left: -10px;
+  }
+
+  .chapter::after {
+    bottom: -10px;
+    right: -10px;
+  }
+</style>
+</head>
+
+<body>
+<div class="storybook">
+
+  <header>
+    <h1>Storybook of Blossoms</h1>
+    <p>Roses • Petals • Tulips • Yellow Sunflowers</p>
+  </header>
+
+  <!-- Chapter 1 -->
+  <section class="chapter">
+    <h2>Chapter One — The Garden Opens</h2>
+    <p>
+      Every story begins with a bloom.  
+      In this garden, roses whisper courage, petals soften the world, tulips rise with hope,  
+      and yellow sunflowers turn their faces toward tomorrow.
+    </p>
+
+    <div class="flower-row">
+      <div class="chip rose" data-msg="Roses remind you: beauty can be bold.">Rose</div>
+      <div class="chip petal" data-msg="Petals say: gentleness is strength.">Petal</div>
+      <div class="chip tulip" data-msg="Tulips rise again every spring. So do you.">Tulip</div>
+      <div class="chip sunflower" data-msg="Sunflowers follow the light. You can too.">Sunflower</div>
+    </div>
+  </section>
+
+  <!-- Chapter 2 -->
+  <section class="chapter">
+    <h2>Chapter Two — Petals in the Wind</h2>
+    <p>
+      When the wind carries petals across the page,  
+      it is a reminder that movement is part of the story.  
+      Nothing stays still in a living garden.
+    </p>
+  </section>
+
+  <!-- Chapter 3 -->
+  <section class="chapter">
+    <h2>Chapter Three — The Sunflower Promise</h2>
+    <p>
+      Yellow sunflowers stand tall even on cloudy days.  
+      Their promise is simple:  
+      “There is always a direction where the light lives.”
+    </p>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const toast = document.getElementById("toast");
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  document.querySelectorAll("[data-msg]").forEach(el => {
+    el.onclick = () => showToast(el.dataset.msg);
+  });
+</script>
+
+</body>
+</html>
