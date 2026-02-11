@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Freedom & Fantasy Color Castle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary: #1a237e;   /* deep navy */
+      --secondary: #b71c1c; /* deep red */
+      --accent: #ffca28;    /* gold */
+      --bg: #0b1020;
+      --text: #fdfdfd;
+      --soft: rgba(255, 255, 255, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #283593 0, #0b1020 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(145deg, rgba(10, 15, 40, 0.96), rgba(5, 5, 10, 0.98));
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.08),
+        rgba(0, 0, 0, 0.2)
+      );
+      position: relative;
+    }
+
+    .castle-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .castle-title h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-shadow: 0 0 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .castle-title span {
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+
+    .castle-icon {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .castle-tower {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px 16px 8px 8px;
+      background: linear-gradient(to top, var(--primary), var(--accent));
+      position: relative;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+    }
+
+    .castle-tower::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 100%;
+      width: 26px;
+      height: 26px;
+      border-radius: 50% 50% 0 0;
+      background: radial-gradient(circle at 30% 20%, #fff, var(--secondary));
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .castle-tower::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fff, var(--bg));
+    }
+
+    .flag-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .flag {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(0, 0, 0, 0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .flag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .flag-usa {
+      background: linear-gradient(90deg, #b71c1c, #ffffff, #0d47a1);
+    }
+
+    .flag-jazz {
+      border-color: #00c853;
+    }
+
+    .flag-lakers {
+      border-color: #fdd835;
+    }
+
+    /* Color wheel / scheme controls */
+
+    .controls {
+      padding: 1rem 1.75rem 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .controls-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .controls-left h2 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+    }
+
+    .controls-left p {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .scheme-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .scheme-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .scheme-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .scheme-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+    }
+
+    .color-wheel {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #f44336,
+        #ff9800,
+        #ffeb3b,
+        #4caf50,
+        #00bcd4,
+        #3f51b5,
+        #9c27b0,
+        #f44336
+      );
+      border: 3px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+      position: relative;
+      cursor: pointer;
+    }
+
+    .color-wheel::after {
+      content: "Spin";
+      position: absolute;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    main {
+      padding: 1.25rem 1.75rem 1.75rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--soft);
+      border-radius: 14px;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .panel h3 span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .panel-sub {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    /* Mickey & Ducks */
+
+    .character-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .chip {
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .chip.mickey {
+      border-color: #ffca28;
+    }
+
+    .chip.ducks {
+      border-color: #00e5ff;
+    }
+
+    /* Arena banners */
+
+    .arena-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .banner {
+      border-radius: 12px;
+      padding: 0.6rem 0.7rem;
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .banner::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -40%;
+      height: 40%;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.18), transparent);
+      opacity: 0.7;
+    }
+
+    .banner-label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+
+    .banner-score {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .banner.jazz {
+      border-color: #00c853;
+    }
+
+    .banner.lakers {
+      border-color: #fdd835;
+    }
+
+    /* Sweets */
+
+    .sweets-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .sweet-card {
+      flex: 1 1 120px;
+      min-width: 120px;
+      border-radius: 12px;
+      padding: 0.6rem 0.7rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sweet-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -40%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.12), transparent);
+      opacity: 0.7;
+    }
+
+    .sweet-name {
+      font-weight: 600;
+    }
+
+    .sweet-note {
+      font-size: 0.75rem;
+      opacity: 0.8;
+    }
+
+    /* Petal & Service Garden */
+
+    .garden-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+    }
+
+    .rose-strip,
+    .service-strip {
+      border-radius: 12px;
+      padding: 0.7rem 0.8rem;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rose-strip::before {
+      content: "";
+      position: absolute;
+      inset: -40% -40% auto auto;
+      background: radial-gradient(circle at center, rgba(244, 67, 54, 0.3), transparent);
+    }
+
+    .service-strip::before {
+      content: "";
+      position: absolute;
+      inset: -40% auto auto -40%;
+      background: radial-gradient(circle at center, rgba(33, 150, 243, 0.3), transparent);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .tag {
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 0.7rem;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Affirmation toast */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 1.5rem;
+      transform: translateX(-50%) translateY(120%);
+      background: rgba(0, 0, 0, 0.9);
+      color: #fff;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      opacity: 0;
+      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      max-width: 90%;
+      text-align: center;
+      z-index: 50;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0%);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="castle-title">
+        <h1>Freedom &amp; Fantasy Castle</h1>
+        <span>Color, teams, sweets, petals, and service on one living sheet.</span>
+      </div>
+      <div class="castle-icon">
+        <div class="castle-tower"></div>
+        <div class="flag-group">
+          <div class="flag flag-usa">
+            <div class="flag-dot"></div>
+            <span>American Flag</span>
+          </div>
+          <div class="flag flag-jazz">
+            <div class="flag-dot"></div>
+            <span>Utah Jazz</span>
+          </div>
+          <div class="flag flag-lakers">
+            <div class="flag-dot"></div>
+            <span>Lakers</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="controls">
+      <div class="controls-left">
+        <h2>Color wheel &amp; schemes</h2>
+        <p>Tap a scheme or spin the wheel to shift the castle’s mood.</p>
+        <div class="scheme-buttons">
+          <button class="scheme-btn" data-scheme="patriotic">
+            <span class="scheme-swatch" style="background: linear-gradient(135deg,#b71c1c,#ffffff,#0d47a1);"></span>
+            Patriotic
+          </button>
+          <button class="scheme-btn" data-scheme="disney">
+            <span class="scheme-swatch" style="background: linear-gradient(135deg,#1a237e,#ffca28);"></span>
+            Disney Castle
+          </button>
+          <button class="scheme-btn" data-scheme="jazz">
+            <span class="scheme-swatch" style="background: linear-gradient(135deg,#00c853,#1a237e);"></span>
+            Utah Jazz
+          </button>
+          <button class="scheme-btn" data-scheme="lakers">
+            <span class="scheme-swatch" style="background: linear-gradient(135deg,#4a148c,#fdd835);"></span>
+            Lakers
+          </button>
+          <button class="scheme-btn" data-scheme="sweets">
+            <span class="scheme-swatch" style="background: linear-gradient(135deg,#ff8a80,#ffcc80);"></span>
+            Sweets &amp; Roses
+          </button>
+        </div>
+      </div>
+      <div class="color-wheel" id="colorWheel" title="Click to randomize colors"></div>
+    </section>
+
+    <main>
+      <!-- Left column -->
+      <section class="panel">
+        <h3><span></span>Mickey &amp; Ducks Corner</h3>
+        <p class="panel-sub">Playful anchors for joy and motion inside the castle.</p>
+        <div class="character-row">
+          <button class="chip mickey" data-msg="Mickey says: keep your courage and curiosity lit.">
+            Mickey Mouse
+          </button>
+          <button class="chip ducks" data-msg="Ducks remind you: stay in formation, but keep your own rhythm.">
+            Ducks
+          </button>
+          <button class="chip" data-msg="Color wheels spin, but you choose the next shade.">
+            Color Wheel
+          </button>
+          <button class="chip" data-msg="Your color scheme is a freedom all its own.">
+            Color Scheme
+          </button>
+        </div>
+
+        <div class="panel">
+          <h3><span></span>Arena Banners</h3>
+          <p class="panel-sub">Teams, scoreboards, and the right to cheer loud.</p>
+          <div class="arena-row">
+            <button class="banner jazz" data-msg="Utah Jazz: improvising, adapting, and finding harmony in motion.">
+              <div class="banner-label">Utah Jazz</div>
+              <div class="banner-score">Home energy: 10 / 10</div>
+            </button>
+            <button class="banner lakers" data-msg="Lakers: bright lights, big stages, and showing up when it counts.">
+              <div class="banner-label">Los Angeles Lakers</div>
+              <div class="banner-score">Spotlight focus: 10 / 10</div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right column -->
+      <section class="panel">
+        <h3><span></span>Sweets Table</h3>
+        <p class="panel-sub">Pie, cake, ice cream, and turtle candy—small freedoms on a plate.</p>
+        <div class="sweets-row">
+          <button class="sweet-card" data-msg="Pie: you still deserve a slice of something good.">
+            <div class="sweet-name">Pie</div>
+            <div class="sweet-note">Warm, steady, classic comfort.</div>
+          </button>
+          <button class="sweet-card" data-msg="Cake: you are worth celebrating, not just surviving.">
+            <div class="sweet-name">Cake</div>
+            <div class="sweet-note">Layers of milestones and frosting.</div>
+          </button>
+          <button class="sweet-card" data-msg="Ice cream: even in heavy seasons, you’re allowed to cool down.">
+            <div class="sweet-name">Ice Cream</div>
+            <div class="sweet-note">Scoops of pause and play.</div>
+          </button>
+          <button class="sweet-card" data-msg="Turtle candy: slow, steady, and still sweet in the middle.">
+            <div class="sweet-name">Turtle Candy</div>
+            <div class="sweet-note">Caramel courage, chocolate shell.</div>
+          </button>
+        </div>
+
+        <div class="panel">
+          <h3><span></span>Petal &amp; Service Garden</h3>
+          <p class="panel-sub">Roses for tenderness, uniforms for courage, all under the same sky.</p>
+          <div class="garden-row">
+            <button class="rose-strip" data-msg="Petal roses: every soft part of you belongs here too.">
+              <strong>Petal Roses</strong>
+              <span>Soft edges, strong roots.</span>
+              <div class="tag-row">
+                <span class="tag">Petals</span>
+                <span class="tag">Thorns</span>
+                <span class="tag">Growth</span>
+              </div>
+            </button>
+            <button class="service-strip" data-msg="To every Navy, sailor, Air Force member, and soldier: your service is seen.">
+              <strong>Service &amp; Freedom</strong>
+              <span>Navy, sailor, Air Forces, soldiers.</span>
+              <div class="tag-row">
+                <span class="tag">Navy</span>
+                <span class="tag">Sailor</span>
+                <span class="tag">Air Forces</span>
+                <span class="tag">Soldiers</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const root = document.documentElement;
+    const toast = document.getElementById("toast");
+    let toastTimeout;
+
+    function showToast(message) {
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function setScheme(name) {
+      switch (name) {
+        case "patriotic":
+          root.style.setProperty("--primary", "#0d47a1");
+          root.style.setProperty("--secondary", "#b71c1c");
+          root.style.setProperty("--accent", "#ffeb3b");
+          root.style.setProperty("--bg", "#0b1020");
+          break;
+        case "disney":
+          root.style.setProperty("--primary", "#1a237e");
+          root.style.setProperty("--secondary", "#e91e63");
+          root.style.setProperty("--accent", "#ffca28");
+          root.style.setProperty("--bg", "#12051f");
+          break;
+        case "jazz":
+          root.style.setProperty("--primary", "#1a237e");
+          root.style.setProperty("--secondary", "#00c853");
+          root.style.setProperty("--accent", "#ffeb3b");
+          root.style.setProperty("--bg", "#020813");
+          break;
+        case "lakers":
+          root.style.setProperty("--primary", "#4a148c");
+          root.style.setProperty("--secondary", "#fdd835");
+          root.style.setProperty("--accent", "#ff6f00");
+          root.style.setProperty("--bg", "#12020f");
+          break;
+        case "sweets":
+          root.style.setProperty("--primary", "#ff8a80");
+          root.style.setProperty("--secondary", "#ffcc80");
+          root.style.setProperty("--accent", "#ffeb3b");
+          root.style.setProperty("--bg", "#3e2723");
+          break;
+        default:
+          break;
+      }
+    }
+
+    // Scheme buttons
+    document.querySelectorAll(".scheme-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const scheme = btn.getAttribute("data-scheme");
+        setScheme(scheme);
+        showToast(`Color scheme shifted: ${btn.textContent.trim()}.`);
+      });
+    });
+
+    // Color wheel randomizer
+    const wheel = document.getElementById("colorWheel");
+    if (wheel) {
+      wheel.addEventListener("click", () => {
+        const randomHue = Math.floor(Math.random() * 360);
+        const primary = `hsl(${randomHue}, 70%, 40%)`;
+        const secondary = `hsl(${(randomHue + 40) % 360}, 70%, 45%)`;
+        const accent = `hsl(${(randomHue + 80) % 360}, 80%, 55%)`;
+        root.style.setProperty("--primary", primary);
+        root.style.setProperty("--secondary", secondary);
+        root.style.setProperty("--accent", accent);
+        showToast("Color wheel spun: new custom spectrum unlocked.");
+      });
+    }
+
+    // Clickable affirmations
+    const clickableSelectors = [
+      ".chip",
+      ".banner",
+      ".sweet-card",
+      ".rose-strip",
+      ".service-strip"
+    ];
+
+    clickableSelectors.forEach((selector) => {
+      document.querySelectorAll(selector).forEach((el) => {
+        el.addEventListener("click", () => {
+          const msg = el.getAttribute("data-msg");
+          if (msg) showToast(msg);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
