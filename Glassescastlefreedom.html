@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Light Castle Sheet</title>
+
+<style>
+  :root {
+    --primary: #6aa6ff;
+    --secondary: #ffb3c6;
+    --accent: #ffd86b;
+    --bg: #ffffff;
+    --text: #333;
+    --soft: rgba(0,0,0,0.05);
+  }
+
+  body {
+    background: var(--bg);
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 1.5rem;
+    color: var(--text);
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--soft);
+  }
+
+  .title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--primary);
+  }
+
+  .title span {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  .castle {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(to top, var(--primary), var(--accent));
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .castle::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 28px;
+    height: 20px;
+    background: var(--secondary);
+    border-radius: 4px 4px 0 0;
+  }
+
+  .flags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .flag {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    background: var(--soft);
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  /* Controls */
+  .controls {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid var(--soft);
+  }
+
+  .scheme-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .scheme-btn {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: white;
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+
+  .color-wheel {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(
+      #ff6b6b,
+      #ffd86b,
+      #a3ff8f,
+      #6aa6ff,
+      #c28bff,
+      #ff6b6b
+    );
+    margin-left: auto;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  /* Panels */
+  main {
+    margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 800px) {
+    main { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: #fafafa;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid var(--soft);
+  }
+
+  .panel h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary);
+    font-size: 1rem;
+  }
+
+  .chip,
+  .sweet-card,
+  .banner,
+  .rose,
+  .service {
+    padding: 0.5rem 0.8rem;
+    border-radius: 10px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    cursor: pointer;
+    font-size: 0.85rem;
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    transform: translateX(-50%) translateY(120%);
+    background: #333;
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    opacity: 0;
+    transition: 0.2s ease-out;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0%);
+    opacity: 1;
+  }
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <header>
+    <div class="title">
+      <h1>Light Castle Sheet</h1>
+      <span>Freedom • Color • Teams • Sweets • Roses • Service</span>
+    </div>
+    <div class="castle"></div>
+    <div class="flags">
+      <div class="flag">American Flag</div>
+      <div class="flag">Utah Jazz</div>
+      <div class="flag">Lakers</div>
+      <div class="flag">Disney Castle</div>
+    </div>
+  </header>
+
+  <section class="controls">
+    <strong>Color Mood Controls</strong>
+    <div class="scheme-buttons">
+      <button class="scheme-btn" data-scheme="patriotic">Patriotic</button>
+      <button class="scheme-btn" data-scheme="castle">Castle</button>
+      <button class="scheme-btn" data-scheme="jazz">Jazz</button>
+      <button class="scheme-btn" data-scheme="lakers">Lakers</button>
+      <button class="scheme-btn" data-scheme="sweets">Sweets</button>
+    </div>
+    <div class="color-wheel" id="wheel"></div>
+  </section>
+
+  <main>
+    <section class="panel">
+      <h3>Mickey & Ducks</h3>
+      <div class="row">
+        <div class="chip" data-msg="Mickey brings joy and courage.">Mickey Mouse</div>
+        <div class="chip" data-msg="Ducks remind you to glide gently.">Ducks</div>
+        <div class="chip" data-msg="Color is your freedom.">Color Wheel</div>
+      </div>
+
+      <h3 style="margin-top:1rem;">Arena Banners</h3>
+      <div class="row">
+        <div class="banner" data-msg="Utah Jazz: harmony in motion.">Utah Jazz</div>
+        <div class="banner" data-msg="Lakers: bright stages, bold hearts.">Lakers</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h3>Sweets Table</h3>
+      <div class="row">
+        <div class="sweet-card" data-msg="Pie: comfort you deserve.">Pie</div>
+        <div class="sweet-card" data-msg="Cake: celebrate yourself.">Cake</div>
+        <div class="sweet-card" data-msg="Ice cream: soften the day.">Ice Cream</div>
+        <div class="sweet-card" data-msg="Turtle candy: sweet strength.">Turtle Candy</div>
+      </div>
+
+      <h3 style="margin-top:1rem;">Petal & Service Garden</h3>
+      <div class="row">
+        <div class="rose" data-msg="Petal roses: softness is strength.">Petal Roses</div>
+        <div class="service" data-msg="Service members: honored and seen.">Navy • Sailor • Air Force • Soldiers</div>
+      </div>
+    </section>
+  </main>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const root = document.documentElement;
+  const toast = document.getElementById("toast");
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2200);
+  }
+
+  // Color schemes
+  const schemes = {
+    patriotic: ["#6aa6ff", "#ff6b6b", "#ffd86b"],
+    castle: ["#6aa6ff", "#ffb3c6", "#ffd86b"],
+    jazz: ["#1a237e", "#00c853", "#ffd86b"],
+    lakers: ["#4a148c", "#fdd835", "#ffb74d"],
+    sweets: ["#ffb3c6", "#ffd86b", "#a3ff8f"]
+  };
+
+  document.querySelectorAll(".scheme-btn").forEach(btn => {
+    btn.onclick = () => {
+      const s = schemes[btn.dataset.scheme];
+      root.style.setProperty("--primary", s[0]);
+      root.style.setProperty("--secondary", s[1]);
+      root.style.setProperty("--accent", s[2]);
+      showToast("Color mood updated");
+    };
+  });
+
+  // Wheel randomizer
+  document.getElementById("wheel").onclick = () => {
+    const hue = Math.floor(Math.random() * 360);
+    root.style.setProperty("--primary", `hsl(${hue},70%,70%)`);
+    root.style.setProperty("--secondary", `hsl(${hue+40},70%,75%)`);
+    root.style.setProperty("--accent", `hsl(${hue+80},80%,70%)`);
+    showToast("New custom color mood");
+  };
+
+  // Clickable affirmations
+  document.querySelectorAll("[data-msg]").forEach(el => {
+    el.onclick = () => showToast(el.dataset.msg);
+  });
+</script>
+
+</body>
+</html>
