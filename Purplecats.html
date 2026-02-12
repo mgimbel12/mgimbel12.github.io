@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quest Hub – Smallville & Jack & Sally</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --fg: #f5f5f5;
+      --accent: #ffcc33;
+      --accent-soft: rgba(255, 204, 51, 0.15);
+      --card-bg: #151a2b;
+      --danger: #ff4b6a;
+      --safe: #4bffb0;
+      --border-soft: rgba(255, 255, 255, 0.12);
+      --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.4);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-fancy: "Georgia", "Times New Roman", serif;
+    }
+
+    /* THEME: Smallville */
+    body.theme-smallville {
+      --bg: #050814;
+      --fg: #fdfdfd;
+      --accent: #ffcc00; /* Superman yellow */
+      --accent-soft: rgba(255, 204, 0, 0.18);
+      --card-bg: #10152a;
+      --border-soft: rgba(255, 255, 255, 0.16);
+      --font-fancy: "Times New Roman", serif;
+      background-image: radial-gradient(circle at top, rgba(255, 0, 0, 0.25), transparent 55%);
+    }
+
+    body.theme-smallville .app-title span {
+      color: #ff3333; /* Superman red */
+    }
+
+    /* THEME: Jack & Sally (Nightmare) */
+    body.theme-jack-sally {
+      --bg: #050509;
+      --fg: #f4f0ff;
+      --accent: #b57bff; /* purple moon */
+      --accent-soft: rgba(181, 123, 255, 0.2);
+      --card-bg: #141322;
+      --border-soft: rgba(244, 240, 255, 0.2);
+      --font-fancy: "Cinzel", "Georgia", serif;
+      background-image: radial-gradient(circle at top, rgba(181, 123, 255, 0.25), transparent 55%);
+    }
+
+    body.theme-jack-sally .app-title span {
+      color: #ff6fa8; /* Sally pink */
+    }
+
+    /* Base layout */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+    }
+
+    .app-shell {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(5, 5, 10, 0.85);
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 20px 22px 24px;
+      backdrop-filter: blur(14px);
+    }
+
+    .app-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .app-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .app-title span {
+      font-family: var(--font-fancy);
+    }
+
+    .theme-toggle {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-soft);
+    }
+
+    .theme-toggle-label {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .theme-btn {
+      border: none;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--fg);
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    }
+
+    .theme-btn.active {
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .theme-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Nav */
+    .nav-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .nav-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(10, 10, 20, 0.9);
+      color: var(--fg);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, border-color 0.2s, transform 0.1s;
+    }
+
+    .nav-btn span.icon {
+      font-size: 0.9rem;
+    }
+
+    .nav-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    /* Layout: main content */
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel-main,
+    .panel-side {
+      background: rgba(5, 5, 12, 0.9);
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 16px;
+    }
+
+    .panel-main {
+      min-height: 260px;
+    }
+
+    .panel-side {
+      min-height: 220px;
+    }
+
+    .panel-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    /* Sections */
+    .section {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .card {
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      padding: 10px 11px;
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      opacity: 0.85;
+    }
+
+    .pill.safe {
+      border-color: var(--safe);
+      color: var(--safe);
+    }
+
+    .pill.danger {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    .card-body {
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
+
+    .btn-inline {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      color: var(--fg);
+      padding: 4px 9px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .btn-inline.primary {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Snack recipe list */
+    .recipe-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 8px;
+    }
+
+    .recipe-card {
+      border-radius: 10px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-soft);
+      padding: 8px 9px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.15s;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .recipe-title {
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .recipe-meta {
+      font-size: 0.7rem;
+      opacity: 0.75;
+    }
+
+    .recipe-details {
+      margin-top: 5px;
+      font-size: 0.72rem;
+      opacity: 0.9;
+      display: none;
+    }
+
+    .recipe-card.open .recipe-details {
+      display: block;
+    }
+
+    /* Game mini-area */
+    .game-area {
+      border-radius: 10px;
+      border: 1px dashed var(--border-soft);
+      padding: 8px;
+      font-size: 0.78rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 120px;
+    }
+
+    .duck {
+      position: absolute;
+      width: 32px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--accent);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #000;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 26px;
+      height: 36px;
+      border-radius: 999px;
+      background: var(--accent);
+      left: 10px;
+      bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #000;
+    }
+
+    .balloon-controls {
+      margin-top: 6px;
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    /* Secret vault */
+    .vault-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    .vault-input-row input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--fg);
+      padding: 5px 9px;
+      font-size: 0.78rem;
+    }
+
+    .vault-links {
+      font-size: 0.78rem;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .vault-links ul {
+      padding-left: 18px;
+      margin: 4px 0 0;
+    }
+
+    .vault-links li {
+      margin-bottom: 2px;
+    }
+
+    .vault-links a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.78rem;
+    }
+
+    .vault-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body class="theme-smallville">
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="app-title">
+        Quest Hub: <span>Smallville & Jack & Sally</span>
+      </div>
+      <div class="theme-toggle">
+        <div class="theme-toggle-label">Theme overlay</div>
+        <button class="theme-btn active" data-theme="smallville">Smallville</button>
+        <button class="theme-btn" data-theme="jack-sally">Jack &amp; Sally</button>
+      </div>
+    </header>
+
+    <nav class="nav-row">
+      <button class="nav-btn active" data-section="map">
+        <span class="icon">🗺️</span> Map Quest Hub
+      </button>
+      <button class="nav-btn" data-section="castle">
+        <span class="icon">🏰</span> Disney Castle
+      </button>
+      <button class="nav-btn" data-section="teams">
+        <span class="icon">🏀</span> Teams Arena
+      </button>
+      <button class="nav-btn" data-section="snacks">
+        <span class="icon">🥤</span> Snack Lab
+      </button>
+      <button class="nav-btn" data-section="games">
+        <span class="icon">🎯</span> Game Field
+      </button>
+      <button class="nav-btn" data-section="vault">
+        <span class="icon">🧪</span> Secret Vault
+      </button>
+    </nav>
+
+    <div class="content-grid">
+      <!-- MAIN PANEL -->
+      <section class="panel-main">
+        <div class="panel-title">Main zone</div>
+        <div class="hint">
+          Switch sections above. Theme overlay follows you: <strong>Smallville</strong> = hero farm town, <strong>Jack &amp; Sally</strong> = moonlit spiral hill.
+        </div>
+
+        <!-- Map Quest -->
+        <div class="section active" id="section-map">
+          <div class="tag-row">
+            <div class="tag">Quest selector</div>
+            <div class="tag">Travel moods</div>
+            <div class="tag">Anchor: Maps & routes</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Choose your quest</div>
+              <div class="pill">Daily map</div>
+            </div>
+            <div class="card-body">
+              Pick where your energy goes today:
+              <ul>
+                <li><strong>Castle Run:</strong> Rest, gratitude, safe wins.</li>
+                <li><strong>Arena Night:</strong> Utah Jazz / Lakers scoreboard for tasks.</li>
+                <li><strong>Snack Mission:</strong> Frosty, hot chocolate, Arby Q’s experiments.</li>
+                <li><strong>Sky Ride:</strong> Air balloon calm game & breathing.</li>
+              </ul>
+              <button class="btn-inline primary">Mark today’s quest</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Disney Castle -->
+        <div class="section" id="section-castle">
+          <div class="tag-row">
+            <div class="tag">Disney Castle</div>
+            <div class="tag">Safe zone</div>
+            <div class="tag">Gratitude courtyard</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Castle courtyard check-in</div>
+              <div class="pill safe">Safe zone</div>
+            </div>
+            <div class="card-body">
+              Imagine walking through the gates—Smallville sun or Jack &amp; Sally moon overhead.
+              <ul>
+                <li>Write <strong>1 thing you survived</strong> this week.</li>
+                <li>Write <strong>1 thing you’re quietly proud of</strong>.</li>
+                <li>Pick a “castle light” color in your mind for tonight.</li>
+              </ul>
+              <button class="btn-inline">Log a castle win</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Teams Arena -->
+        <div class="section" id="section-teams">
+          <div class="tag-row">
+            <div class="tag">Utah Jazz</div>
+            <div class="tag">Lakers</div>
+            <div class="tag">Scoreboard overlay</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Arena scoreboard</div>
+              <div class="pill">Self-care stats</div>
+            </div>
+            <div class="card-body">
+              Treat your day like a game:
+              <ul>
+                <li><strong>Utah Jazz side:</strong> Focus, community, rhythm.</li>
+                <li><strong>Lakers side:</strong> Spotlight, bold moves, big plays.</li>
+              </ul>
+              Use this arena to track:
+              <ul>
+                <li>Completed tasks = points.</li>
+                <li>Breaks taken = timeouts.</li>
+                <li>Kindness to yourself = highlight plays.</li>
+              </ul>
+              <button class="btn-inline primary">Add a “highlight play”</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snack Lab -->
+        <div class="section" id="section-snacks">
+          <div class="tag-row">
+            <div class="tag">Frosty drinks</div>
+            <div class="tag">Hot chocolate</div>
+            <div class="tag">Arby Q’s</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Snack Lab – copycat corner</div>
+              <div class="pill">Comfort recipes</div>
+            </div>
+            <div class="card-body">
+              Tap a card to reveal a simple, home-style version. You can replace with your real recipes later.
+            </div>
+          </div>
+
+          <div class="recipe-list">
+            <div class="recipe-card" data-recipe>
+              <div class="recipe-title">Wendy’s-style Frosty</div>
+              <div class="recipe-meta">Cold · Chocolatey · Simple</div>
+              <div class="recipe-details">
+                Blend: chocolate ice cream, a splash of milk, a spoon of cocoa powder, pinch of salt. Adjust thickness.
+              </div>
+            </div>
+
+            <div class="recipe-card" data-recipe>
+              <div class="recipe-title">Peppermint Hot Chocolate</div>
+              <div class="recipe-meta">Warm · Cozy · Holiday</div>
+              <div class="recipe-details">
+                Heat milk with cocoa powder and sugar. Stir in crushed peppermint candy and top with whipped cream.
+              </div>
+            </div>
+
+            <div class="recipe-card" data-recipe>
+              <div class="recipe-title">Arby-style Roast Beef Stack</div>
+              <div class="recipe-meta">Savory · Sandwich</div>
+              <div class="recipe-details">
+                Layer thin-sliced roast beef on a soft bun, add cheese, and a tangy BBQ-style sauce. Toast lightly.
+              </div>
+            </div>
+
+            <div class="recipe-card" data-recipe>
+              <div class="recipe-title">Frosty Float Experiment</div>
+              <div class="recipe-meta">Playful · Custom</div>
+              <div class="recipe-details">
+                Scoop Frosty-style mix into a glass, pour over cola or root beer, and note your favorite combo.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Game Field -->
+        <div class="section" id="section-games">
+          <div class="tag-row">
+            <div class="tag">Ducks</div>
+            <div class="tag">Hunting-style</div>
+            <div class="tag">Air balloon calm</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Duck click mini-game</div>
+              <div class="pill">Tiny focus reset</div>
+            </div>
+            <div class="card-body">
+              Ducks will appear in the field. Click them to score. It’s a gentle, non-violent “hunting” game—just taps.
+              <div class="game-area" id="duck-area">
+                <div id="duck-score">Score: 0</div>
+              </div>
+              <button class="btn-inline primary" id="spawn-duck">Spawn duck</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Air balloon drift</div>
+              <div class="pill safe">Calm mode</div>
+            </div>
+            <div class="card-body">
+              Hold “Rise” to float up, tap “Reset” to bring the balloon back to the ground. Imagine drifting over Smallville
+              fields or Jack &amp; Sally’s spiral hill.
+              <div class="game-area" id="balloon-area">
+                <div class="balloon" id="balloon">🎈</div>
+              </div>
+              <div class="balloon-controls">
+                <button class="btn-inline primary" id="balloon-rise">Rise</button>
+                <button class="btn-inline" id="balloon-reset">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secret Vault -->
+        <div class="section" id="section-vault">
+          <div class="tag-row">
+            <div class="tag">Lex Luthor</div>
+            <div class="tag">Hidden YouTube</div>
+            <div class="tag">Password gate</div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>Secret Vault – Lex Luthor files</div>
+              <div class="pill danger">Locked</div>
+            </div>
+            <div class="card-body">
+              Create your own “vault code” (for example, a phrase that reminds you of your strength). For now, the demo
+              code is <strong>smallville</strong>.
+              <div class="vault-input-row">
+                <input type="password" id="vault-code" placeholder="Enter vault code…" />
+                <button class="btn-inline primary" id="vault-unlock">Unlock</button>
+              </div>
+              <div class="vault-links" id="vault-links">
+                <div>Paste your favorite Lex Luthor / Smallville / analysis videos here:</div>
+                <ul>
+                  <li><a href="#" target="_blank">Example: Lex Luthor character breakdown</a></li>
+                  <li><a href="#" target="_blank">Example: Smallville hidden symbolism</a></li>
+                  <li><a href="#" target="_blank">Example: Villain-to-antihero arc discussion</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SIDE PANEL -->
+      <aside class="panel-side">
+        <div class="panel-title">Overlay notes</div>
+        <div class="hint">
+          This side panel is your “director’s notes” for the overlay—how Smallville vs Jack &amp; Sally should feel.
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>Smallville overlay</div>
+            <div class="pill safe">Grounded hero</div>
+          </div>
+          <div class="card-body">
+            Think: farm town dusk, red &amp; yellow, hope, second chances. Use this mode when you want:
+            <ul>
+              <li>Simple, steady energy.</li>
+              <li>“I can rebuild” vibes.</li>
+              <li>To remember roots and community.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>Jack &amp; Sally overlay</div>
+            <div class="pill">Moonlit strange</div>
+          </div>
+          <div class="card-body">
+            Think: purple moon, stitched hearts, gentle weird. Use this mode when you want:
+            <ul>
+              <li>To honor the odd and tender.</li>
+              <li>To let grief and love sit together.</li>
+              <li>To feel like the spiral hill is a stage just for you.</li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    // SECTION SWITCHING
+    const navButtons = document.querySelectorAll(".nav-btn");
+    const sections = {
+      map: document.getElementById("section-map"),
+      castle: document.getElementById("section-castle"),
+      teams: document.getElementById("section-teams"),
+      snacks: document.getElementById("section-snacks"),
+      games: document.getElementById("section-games"),
+      vault: document.getElementById("section-vault"),
+    };
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-section");
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        Object.values(sections).forEach((sec) => sec.classList.remove("active"));
+        sections[target].classList.add("active");
+      });
+    });
+
+    // THEME TOGGLE
+    const themeButtons = document.querySelectorAll(".theme-btn");
+    const body = document.body;
+
+    themeButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const theme = btn.getAttribute("data-theme");
+        themeButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        if (theme === "smallville") {
+          body.classList.remove("theme-jack-sally");
+          body.classList.add("theme-smallville");
+        } else {
+          body.classList.remove("theme-smallville");
+          body.classList.add("theme-jack-sally");
+        }
+      });
+    });
+
+    // RECIPE TOGGLES
+    document.querySelectorAll("[data-recipe]").forEach((card) => {
+      card.addEventListener("click", () => {
+        card.classList.toggle("open");
+      });
+    });
+
+    // DUCK GAME
+    const duckArea = document.getElementById("duck-area");
+    const duckScoreEl = document.getElementById("duck-score");
+    const spawnDuckBtn = document.getElementById("spawn-duck");
+    let duckScore = 0;
+
+    function spawnDuck() {
+      const duck = document.createElement("div");
+      duck.className = "duck";
+      duck.textContent = "🦆";
+
+      const areaRect = duckArea.getBoundingClientRect();
+      const maxX = areaRect.width - 32;
+      const maxY = areaRect.height - 24;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      duck.style.left = x + "px";
+      duck.style.top = y + "px";
+
+      duck.addEventListener("click", () => {
+        duckScore++;
+        duckScoreEl.textContent = "Score: " + duckScore;
+        duck.remove();
+      });
+
+      duckArea.appendChild(duck);
+
+      // Auto-remove after a few seconds
+      setTimeout(() => {
+        if (duck.parentNode) duck.remove();
+      }, 4000);
+    }
+
+    spawnDuckBtn.addEventListener("click", spawnDuck);
+
+    // BALLOON GAME
+    const balloon = document.getElementById("balloon");
+    const balloonArea = document.getElementById("balloon-area");
+    const balloonRiseBtn = document.getElementById("balloon-rise");
+    const balloonResetBtn = document.getElementById("balloon-reset");
+    let balloonInterval = null;
+
+    balloonRiseBtn.addEventListener("mousedown", () => {
+      if (balloonInterval) return;
+      balloonInterval = setInterval(() => {
+        const currentBottom = parseInt(
+          window.getComputedStyle(balloon).bottom,
+          10
+        );
+        const areaHeight = balloonArea.getBoundingClientRect().height;
+        if (currentBottom < areaHeight - 40) {
+          balloon.style.bottom = currentBottom + 4 + "px";
+        }
+      }, 60);
+    });
+
+    document.addEventListener("mouseup", () => {
+      clearInterval(balloonInterval);
+      balloonInterval = null;
+    });
+
+    balloonResetBtn.addEventListener("click", () => {
+      balloon.style.bottom = "10px";
+    });
+
+    // SECRET VAULT
+    const vaultInput = document.getElementById("vault-code");
+    const vaultUnlockBtn = document.getElementById("vault-unlock");
+    const vaultLinks = document.getElementById("vault-links");
+
+    vaultUnlockBtn.addEventListener("click", () => {
+      const code = vaultInput.value.trim().toLowerCase();
+      if (code === "smallville") {
+        vaultLinks.style.display = "block";
+      } else {
+        vaultLinks.style.display = "none";
+        alert("Vault remains locked. (Demo code is: smallville)");
+      }
+    });
+  </script>
+</body>
+</html>
+
