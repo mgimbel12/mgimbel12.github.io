@@ -5,12 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Advance CSS 331 - Editorial Portfolio for Marissa A. Gimbel, BYU-I">
   <title>Advance CSS 331 | Editorial Showcase</title>
+
+  <!-- Favicon & Styles -->
   <link rel="shortcut icon" href="faviconm1.ico.PNG">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="indexmain.css">
   <link rel="stylesheet" href="fireworks.css">
+
   <style>
+    /* Login Box */
     #login-screen {
       text-align: center;
       margin: 50px auto;
@@ -21,15 +25,8 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
-    #diary-content {
-      display: none;
-      padding: 20px;
-    }
-
-    #error-message {
-      color: red;
-      margin-top: 10px;
-    }
+    #diary-content { display: none; padding: 20px; }
+    #error-message { color: red; margin-top: 10px; }
 
     input[type="password"] {
       padding: 10px;
@@ -49,406 +46,294 @@
       cursor: pointer;
     }
 
-    button:hover {
-      background-color: #357ab8;
+    button:hover { background-color: #357ab8; }
+
+    /* Navigation List */
+    .nav-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-family: Arial, sans-serif;
     }
+
+    .nav-list li {
+      margin: 6px 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .nav-list a {
+      margin-left: 6px;
+      color: #1e90ff;
+      text-decoration: none;
+      font-weight: 400;
+    }
+
+    .nav-list a:hover { text-decoration: underline; }
   </style>
 </head>
 
 <body>
   <header>
     <div class="logo">
-      <img src="341476004_904355090654327_7586794260127089287_n (1).jpg" alt="Portrait of Marissa Gimbel" width="90" height="130">
+      <img src="341476004_904355090654327_7586794260127089287_n (1).jpg"
+           alt="Portrait of Marissa Gimbel"
+           width="90" height="130">
     </div>
     <h1>Marissa A. Gimbel</h1>
     <h2>Advance CSS 331 | BYU-I Editorial Portfolio</h2>
   </header>
 
   <main>
+
     <!-- Login Screen -->
     <div id="login-screen">
       <h2>Welcome to My Sacred Diary</h2>
-      <input type="password" id="password" placeholder="Enter your password" />
-      <br>
+      <input type="password" id="password" placeholder="Enter your password">
       <button onclick="checkPassword()">Enter</button>
       <p id="error-message"></p>
     </div>
 
     <!-- Hidden Content -->
     <div id="diary-content">
+
       <section class="intro">
         <p><strong>Welcome to the official editorial portal</strong>, a curated showcase of design assignments, tribute pages, and creative experiments by Marissa Gimbel.</p>
       </section>
 
       <hr>
+
+      <section class="article-list">
+        <h3>Featured Pages & Assignments</h3>
+
+<ul class="nav-list">
+
+  <!-- PERSONAL & FAMILY -->
+  <li>Lindsey <a href="Lindsey.html">Lindsey</a></li>
+  <li>Marissa <a href="marissa.html">Marissa</a></li>
+  <li>Parker <a href="parker.html">Parker</a></li>
+  <li>Missionary Parker <a href="parkermission.html">Missionary</a></li>
+  <li>Missionary Bound <a href="missionbound.html">Parker</a></li>
+  <li>Missonary Parker Blog <a href="missionaryblogforparker.html">Blog</a></li>
+
+  <!-- MENTAL HEALTH & JOURNALS -->
+  <li>Mental Healing <a href="mentalhealing.html">Mental Healing</a></li>
+  <li>Mental Help <a href="mentalhealings_2025.html">Mental Help</a></li>
+  <li>Marissa & Corissa Mental Health <a href="mental_health_name_marissa_corissa.html">Mental Health</a></li>
+  <li>Mental Health Awareness <a href="mentalhealthawareness.html">Awareness</a></li>
+  <li>Journal <a href="journal.html">Journal</a></li>
+  <li>How to Find Happiness <a href="howtofindhappiness.html">Happy Thoughts</a></li>
+  <li>Speaking <a href="whatimeanaboutnotbeingabletoexpressmyself.html">How I Feel</a></li>
+
+  <!-- SMALLVILLE / SUPERMAN / LEX LUTHOR -->
+  <li>Lex Luthor <a href="Michael_Rosenbaum.html">Lex Luthor</a></li>
+  <li>Save Me <a href="saveme.html">Lex Luthor</a></li>
+  <li>Lex-01 <a href="Lex.html">Lex-01</a></li>
+  <li>LX0 <a href="LX.html">Lex</a></li>
+  <li>Lx00 <a href="LX0.html">Lx-00</a></li>
+  <li>lex <a href="lex.html">Luthor</a></li>
+  <li>l7 <a href="L7.html">Lex</a></li>
+  <li>Inside of You <a href="insideofyou.html">Michael Rosenbaum</a></li>
+  <li>Smallville Fans <a href="smallvillefans.html">Smallville</a></li>
+  <li>Clexana <a href="Clexana.html">Clark, Lex, Lana</a></li>
+  <li>Chloe <a href="chloe.html">Chloe</a></li>
+  <li>Chloe Sullivan <a href="schloe.html">2025</a></li>
+  <li>Jimmy Olsen <a href="MetropolisEdition.html">Editions</a></li>
+  <li>Superman 2025 <a href="Superman2025.html">Page</a></li>
+  <li>Superman Fan <a href="superman25.html">Fan</a></li>
+
+  <!-- DISNEY / MAGIC / FAIRYTALE -->
+  <li>Disney <a href="Disney.html">Disney</a></li>
+  <li>Disney Magic <a href="Disneyland Magic.html">2025</a></li>
+  <li>Walt Disney Castle <a href="WaltDisney.html">2025</a></li>
+  <li>Castle of Light <a href="Castleoflight.html">Update</a></li>
+  <li>Belle <a href="belle.html">Beauty</a></li>
+  <li>Sally Shine <a href="Sallyshines.html">Sally Shine</a></li>
+  <li>Royal Princess <a href="Royal.html">Page</a></li>
+  <li>Hello Kitty <a href="hello-kitty.html">2025</a></li>
+  <li>Snowman <a href="frozenIII.html">2025</a></li>
+
+  <!-- SCIENCE / EARTH / SPACE -->
+  <li>Earth Science <a href="earth.html">Earth</a></li>
+  <li>Water Cycle <a href="watercycle.html">Water Cycle</a></li>
+  <li>Space <a href="Space.html">Space</a></li>
+  <li>Sky <a href="sky.html">Sky</a></li>
+  <li>Mass <a href="Mass.html">DEC 25</a></li>
+
+  <!-- ART / CREATIVE / POEMS -->
+  <li>Sketching <a href="sketching.html">Sketching</a></li>
+  <li>Poem <a href="poem.html">Poem</a></li>
+  <li>Clues <a href="Clues.html">Clues</a></li>
+  <li>Flowers <a href="Flowers.html">Flowers</a></li>
+  <li>All About Roses <a href="all_about_roses.html">Roses</a></li>
+  <li>Golden Roses <a href="GoldenRosesDove.html">Golden Yellow Roses</a></li>
+
+  <!-- HOLIDAYS -->
+  <li>Christmas Shoes <a href="christmas_shoes.html">Christmas Shoes</a></li>
+  <li>Christmas Song <a href="Christmas.html">Christmas Song</a></li>
+  <li>Christmas 2025 <a href="Chris.HTML">2025</a></li>
+  <li>Happy Holidays <a href="DEC25.html">Dec 25</a></li>
+  <li>Happy Turkey <a href="thanksgiving.html">Thanksgiving</a></li>
+  <li>Season <a href="Seasons.html">2025</a></li>
+
+  <!-- FOOD / TREATS -->
+  <li>Ice Cream <a href="Icecream.html">Icecream Cone</a></li>
+  <li>Cold Stone <a href="coldstone.html">Coldstone</a></li>
+  <li>Doughnut 4 Mom <a href="doughnutformom.html">Doughnut</a></li>
+  <li>Candyland Game <a href="candyland.html">Candyland</a></li>
+
+  <!-- SHOPPING / CARTS -->
+  <li>Shopping <a href="Shopping.html">Shopping</a></li>
+  <li>Carts <a href="Cart.html">Shopping</a></li>
+  <li>Connection <a href="ConnectionShoppingCarts.html">Shopping Trip</a></li>
+  <li>Production <a href="Product.html">Items</a></li>
+  <li>Shoppingcart <a href="shopping_carts.html">Items</a></li>
+
+  <!-- GAMES -->
+  <li>Battleship <a href="Battleship.html">Battleship</a></li>
+  <li>Battleship Game <a href="battleshipgame.html">Battlegame</a></li>
+  <li>Pokémon Battleship <a href="PokémonBattleShip.html">2025</a></li>
+  <li>Candyland <a href="candyland.html">Candyland</a></li>
+
+  <!-- SPORTS -->
+  <li>Baseball <a href="baseball.html">Baseball</a></li>
+  <li>Basketball <a href="basketball.html">Basketball</a></li>
+  <li>Denver Broncos <a href="denverbroncos.html">Broncos</a></li>
+
+  <!-- SCHOOL / SCRIPTURES -->
+  <li>Scripture <a href="scripture.html">Scriptures</a></li>
+  <li>Scripture Mastery <a href="scripturemastery.html">Updated</a></li>
+  <li>Scriptures 2025 <a href="scriptures_2025.html">2025</a></li>
+  <li>Basic High School <a href="basichighschool.html">Updated</a></li>
+  <li>BYU-IDAHO Graduation <a href="BYU-IDAHO.html">Graduations</a></li>
+  <li>BYU-UTAH <a href="BYU-UTAH.html">2025</a></li>
+
+  <!-- MISC / OTHER -->
+  <li>Flashes <a href="flashes.html">Flashes</a></li>
+  <li>Prompt <a href="prompt.html">Prompt</a></li>
+  <li>Password <a href="password.html">Password</a></li>
+  <li>Essay <a href="essay.html">Essay</a></li>
+  <li>Transform <a href="transform3D.html">Transform</a></li>
+  <li>Pie <a href="pie.html">Pie</a></li>
+  <li>President <a href="President.html">President</a></li>
+  <li>Coloring <a href="coloring.html">Coloring</a></li>
+  <li>Save Our Ship <a href="saveourship.html">Save Our Ship</a></li>
+  <li>Baby <a href="baby.html">Baby</a></li>
+  <li>Waves <a href="waves.html">Waves</a></li>
+  <li>Wood <a href="wood.html">Wood</a></li>
+  <li>Alone <a href="alone.html">Alone</a></li>
+  <li>Missing You <a href="missingyou.html">Missing You</a></li>
+  <li>Zero <a href="zero.html">Zero</a></li>
+  <li>Holes <a href="Holes.html">Holes</a></li>
+  <li>Motion <a href="Intertiainmotion.html">In-Motion</a></li>
+  <li>Holiday Idea <a href="holiday.html">Idea</a></li>
+  <li>Tree <a href="Tree.html">Tree</a></li>
+  <li>Lights <a href="Lights.html">Light</a></li>
+  <li>Light-1 <a href="light-1.html">On</a></li>
+  <li>Star Wars <a href="Starwars.html">Wars</a></li>
+  <li>Voyage <a href="mona.html">2025</a></li>
+  <li>Ref. <a href="references.html">2025</a></li>
+  <li>Kim Possible <a href="Kim.html">Possible</a></li>
+
+</ul>
+		  <!-- SMALLVILLE / SUPERMAN / HERO THEMES -->
+<li>Smallville Vault <a href="smallvillevault.html">Vault</a></li>
+<li>Chloe Sullivan 2025 <a href="chloestar2025.html">Pages</a></li>
+<li>Farm 2025 <a href="Celebration.html">Page</a></li>
+<li>Superman Tribute 2025 <a href="Superman_2025_Tribute.html">Page</a></li>
+
+<!-- MISSIONARY / SPIRITUAL -->
+<li>Missionary Tag 2025 <a href="missionarytag.html">Tag</a></li>
+<li>Elder PKG <a href="ElderPKG.html">2025</a></li>
+<li>Elder Gimbel <a href="missionaries_elder_Gimbel.html">2025_01</a></li>
+<li>My Testimony <a href="mytestimony.html">2025</a></li>
+<li>Parker Note to Him <a href="Christlike-testimony.html">2025 Missionary Notes</a></li>
+
+<!-- FAMILY / PERSONAL / SPECIAL PEOPLE -->
+<li>Salt Lake City, Utah <a href="saltlakecity.html">Temple Kenadee is important.</a></li>
+
+<!-- DISNEY / MAGIC / FAIRYTALE -->
+<li>Frozen <a href="Frozen_Fantasia.html">2025</a></li>
+<li>Guardian of Grace <a href="GuardiansofGrace.html">2025</a></li>
+<li>Grace and Wonder <a href="Grace_Wonder.html">2025</a></li>
+<li>Royal Mouse Celebration <a href="Royal_Mouse_Celebration.html">2025</a></li>
+<li>Ice Castle <a href="icecastle.html">2025</a></li>
+<li>Disney Castle <a href="castleofmemories.html">2025</a></li>
+<li>Magic Tribute <a href="Magical_Tribute_Countdown.html">2025</a></li>
+
+<!-- HARRY POTTER / TV SERIES / ENTERTAINMENT -->
+<li>Harry Potter Series <a href="harrypotter.html">2025</a></li>
+<li>The Big Bang Theory <a href="bigbang.html">2025</a></li>
+
+<!-- CREATIVE / ART / DREAMS -->
+<li>Flower <a href="Flower.html">2025</a></li>
+<li>Dream <a href="Dream.html">2025</a></li>
+<li>Legend <a href="legends.html">2025</a></li>
+<li>Learning How to Shine <a href="Learning_shines.html">2025</a></li>
+
+<!-- CITY / COMMUNITY -->
+<li>City of Henderson <a href="cityofhenderson.html">2025</a></li>
+<li>J-Man <a href="Jman.html">2025</a></li>
+
+<!-- GAMES / FUN -->
+<li>Pokémon Games <a href="pokemongame.html">2025</a></li>
+
+<!-- SPIRITUAL / HOLIDAY -->
+<li>Birth of the Savior <a href="birthofJesus.html">2025</a></li>
+
+<!-- FAMILY TRIBUTE / SUPERHERO MAGIC -->
+<li>Preu – Turn My Nephew Into My Favorite Superhero Jimmy Olsen  
+    <a href="Preuturnmynephewintomyhero.html">2025</a>
+</li>
+
+<!-- DISNEY / MAGIC / CASTLES -->
+<li><a href="Disney_Time.html">Disney Time</a></li>
+<li><a href="SkyCastle.html">Sky Castle</a></li>
+<li><a href="Disneycastle.html">Disney Castle</a></li>
+<li><a href="castleofmemories.html">Disney Castle 2025</a></li>
+<li><a href="Gingerbread.html">Gingerbread</a></li>
+<li><a href="jack.html">Jack 2026</a></li>
+
+<!-- COSMIC / FANTASY / STORYBOOK -->
+<li><a href="Cosmic_Garden.html">Cosmic Garden</a></li>
+<li><a href="Storybookflowers.html">Storybook Flowers</a></li>
+<li><a href="Purplecats.html">Purple Cats</a></li>
+
+<!-- SAFETY / JOURNALS / CENTERING -->
+<li><a href="SafetyJounal.html">Safety Journal</a></li>
+<li><a href="single.html">Single</a></li>
+<li><a href="Centere.html">Center</a></li>
+
+<!-- FREEDOM / SYMBOLIC THEMES -->
+<li><a href="Freedomright.html">Freedom</a></li>
+<li><a href="Glassescastlefreedom.html">Glasses Castle Freedom</a></li>
+
+<!-- MONEY / TOOLS / LINGO -->
+<li><a href="Cashcountinglingo.html">Cash Counter</a></li>
+ </ul>
+
+
+
+
+        <iframe width="426" height="240"
+                src="https://www.youtube.com/embed/tADnCEpbPI8"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+        </iframe>
       </section>
-  <section class="article-list">
-      <h3>Featured Pages & Assignments</h3>
-      <ul>
-               <li>Lesson 01:<a href="index.html">Assignment Portal|</a></li>
-		<li>Lesson 01-1<a href="review-webpage.html">Review Page|</a></li>
-		<li>only a test<a href="helloworld.html">|Hello world Test|</a></li>
-		<li>happybirthday<a href="happybirthdaymom.html">|Happy Birthday Mom|</a></li>
-	        <li>neatpatter<a href="neatpatterns.html">|neat_patterns|</a></li>
-		<li> friends<a href="friends.html">|friends|</a></li> 
-	        <li>nicolelibary<a href="Nicolelibrary.html"> |nicole|</a></li>
-	        <li>christmasshoes<a href="ChristmasShoes.html">|Christmas Shoes| </a></li>
-	        <li>Marissa<a href="Marissa.html">|Marissa|</a></li>
-                <li>hauntedMansion<a href="Hauntedmansion.html">|Haunted Mansion|</a></li>
-                <li>Makeup<a href="beautymakeovers.html">|MakeOverIdea|</a></li>     	    
-                <li>Tweetybird<a href="Characters.html">|Tweetybird|</a></li>   	    
- 	        <li>examples<a href="example.html">|examples|</a></li>     
-		<li>Lindsey<a href="Lindsey.html">Lindsey</a></li>
-		<li>flashes<a href="flashes.html">|flashes|</a></li>   
-	        <li>prompt<a href="prompt.html">|prompt|</a></li>
-		<li>password<a href="password.html">|password|</a></li>     
-	        <li>essay<a href="essay.html">|essay|</a></li>
-                <li>Transform<a href="transform3D.html">|transform|</a></li>
-		<li>pie<a href="pie.html">|pie|</a></li>
-		<li>baseball <a href="baseball.html">|baseball|</a></li>
-		<li>basketball<a href="basketball.html">|basketball|</a></li> 
-		<li>President<a href="President.html">|President|</a></li>
-		<li>coloring<a href="coloring.html">|coloring|</a></li>
-		<li>mentalhealing<a href="mentalhealing.html">|Mentalhealing|</a></li>     
-		<li>Save out ship<a href="saveourship.html">|Saveourship|</a></li>
-		<li>smallville<a href="smallvillefans.html">|smallville|</a></li>    
-	        <li>Denver Broncos<a href="denverbroncos.html">|Denver Broncos|</a></li>
-		<li>Disney<a href="Disney.html">|Disney|</a></li>
-		<li>Parker<a href="parker.html">|Parker|</a></li>
-		<li>Marissa<a href="marissa.html">|Marissa|</a></li> 
-		<li>alone<a href="alone.html">Alone</a></li>   
-		<li>missing<a href="missingyou.html">Missingyou</a></li>
-		<li>InsideOfYou<a href="insideofyou.html">InisdeofYouwithMichealRosenbaum</a></li>
-		<li>Baby<a href="baby.html">baby</a></li>
-		<li>waves<a href="waves.html">waves</a></li>
-		<li>chloe<a href="chloe.html">Chloe</a></li>
-		<li>Lex Luthor<a href="Michael_Rosenbaum.html">Lex Luthor</a></li> 
-		<li>wood<a href="wood.html">Wood</a></li>
-		<li>Save Me<a href="saveme.html">Lex Luthor</a></li>
-		<li>Speaking<a href="whatimeanaboutnotbeingabletoexpressmyself.html">How I feel</a></li>  
-		<li>Speaking<a href="mentalhealings_2025.html">Mental Help Please talk to me</a></li>
-		<li>Marissa_Corissa_Mental_Health<a href="mental_health_name_marissa_corissa.html">Marissa_Corissa_Marissa_Mental_health</a></li>     
-                <li>Sam Jone III<a href="SamJonesIII.html">Sam Jones III</a></li>
-		<li>Sailor Moon <a href="Sailormoon.html">Sailor Moon</a></li>  
-		<li>Clexana <a href="Clexana.html"> Clark Kent, Lex Luthor, Lana Lang</a></li>
-		<li>Elle Salon<a href="Elle.html">Elle</a></li>
-	    <li>Earth<a href="earth.html">Earth Science</a></li>
-		<li>Watercycle<a href="watercycle.html">watercycle</a></li>
-		<li>Space<a href="Space.html">Space</a></li>   
-		<li>Gary<a href="Gary.html">Gary</a></li>   
-		<li>How to find happiness<a href="howtofindhappiness.html">Happy thoughts</a></li>  
-		<li>Flowers<a href="Flowers.html">Flowers</a></li>     
-	        <li>Journal<a href="journal.html">Journal</a></li>
-		<li>All_about_roses<a href="all_about_roses.html">Roses</a></li>
-		<li>Sky<a href="sky.html">Sky</a></li>
-	        <li>l7<a href="L7.html">Lex</a></li>
-	       <li>sketching <a href="sketching.html">Sketching</a></li>
-	      <li>Superman<a href="newsupermanmovies.html" >Superman 2025</a></li>
-	      <li>Battleship<a href="Battleship.html">Battleship</a></li>
-	      <li>Battleship Game <a href="battleshipgame.html">Battlegame</a></li>
-	      <li>Lex-01<a href="Lex.html">Lex-01</a></li>
-              <li>Bellereve<a href="Bellereve.html">Belle Reve</a></li>
-	      <li>Buliding<a href="buliding.html">Buliding</a></li>
-	      <li>poem<a href="poem.html">Poem</a></li>
-	      <li>Cules <a href="Clues.html">clues</a></li>
-	      <li>missionary Parker <a href="parkermission.html">parker</a></li>
-	      <li>sonic<a href="sonic.html">Sonic</a></li>
-	      <li>Sally Shine<a href="Sallyshines.html">SallyShine</a></li>
-	      <li>Golden roses<a href="GoldenRosesDove.html">Golden Yellow Roses</a></li>
-             <li>Ice Cream <a href="Icecream.html">Icecream Cone</a></li>
-	     <li>Doughnut4Mom<a href="doughnutformom.html">Doughnut4Mom's</a></li>
-	      <li>Candyland Game<a href="candyland.html">candyland</a></li>
-	      <li>Cold Cone<a href="coldstone.html">coldstone</a></li>
-	      <li>mentalhealth<a href="mentalhealthawareness.html">mentalhealthawareness</a></li>
-	      <li>Zero<a href="zero.html">zero</a></li>
-	      <li>holes<a href="Holes.html">Holes</a></li>
-	     <li>missonary Parker<a href="missionaryblogforparker.html">Missionary Parker</a></li>
-	     <li>scripture<a href="scripture.html">Scriptures</a></li>
-	     <li>Christmas_Shoes<a href="christmas_shoes.html">Christmas_Shoes</a></li> 
-	     <li>Shopping<a href="Shopping.html">Shopping</a></li>
-	     <li>Carts<a href="Cart.html">Shopping</a></li>
-	      <li>Connection<a href="ConnectionShoppingCarts.html">Shopping Trip</a></li>
-	      <li>Production<a href="Product.html">ITEMS</a></li>
-	      <li>Carts<a href="cart.html">Carts</a></li>
-	      <li>Shoppingcart<a href="shopping_carts.html">Items</a></li>
-	      <li>Christmas<a href="Christmas.html">Christmas Song</a></li>
-	      <li>Motion<a href=" Intertiainmotion.html">In-Motion</a></li>
-		  <li>Holiday<a href="holiday.html">Idea</a></li>
-		  <li>Tree<a href="Tree.html">Tree</a></li>
-		  <li>Lights<a href="Lights.html">Light</a></li>
-		  <li>light-1<a href="light-1.html">on</a></li>
-		  <li>star-01<a href="Starwars.html">Wars</a></li>
-          <li>Parker Mission<a href="WeeklyMissionUpdate.html">Update</a></li>
-		  <li>Scripture Mastery<a href="scripturemastery.html">Updated</a></li>
-		  <li>Basic High School<a href="basichighschool.html">Updated</a></li>
-		  <li>Happy Turkey<a href="thanksgiving.html">Thanksgiving</a></li>
-		  <li>C-01<a href="C-01.html">Lights</a></li>
-		  <li>Dec.25<a href="DEC25.html">Happy Holidays</a></li>
-		  <li>Christmas2025<a href=" Chris.HTML">2025</a></li>
-		  <li>BYU-IDAHO GRADUATION 2021<a href="BYU-IDAHO.html">BYU-IDAHO Graduations</a></li>
-		  <li>Disney Magic<a href="Disneyland Magic.html">2025</a></li>
-		  <li>Walt Disney Castle<a href="WaltDisney.html">2025</a></li>
-		  <li>2025-Walt-Disney<a href="Castleoflight.html">Update</a></li>
-		  <li>LX0<a href="LX.html">Lex</a></li>
-		  <li>Lx00<a href=" LX0.html">Lx-00</a></li>
-		  <li>lex<a href="lex.html">Luthor</a></li>
-		  <li>Belle<a href="belle.html">Beauty</a></li>
-	      <li>Mass<a href="Mass.html">DEC 25</a></li>
-		  <li>Haunted<a href="Mansion.html">Mansion</a></li>
-		  <li>L.L.<a href="Lex.html">2025</a></li>
-		  <li>Missionary Bound<a href="missionbound.html">Parker</a></li>
-		 <li>Scriptures<a href="scriptures_2025.html">2025</a></li>
-         <li>BYU-UTAH<a href="BYU-UTAH.html">2025</a></li>
-		 <li>Hello-Kitty<a href="hello-kitty.html">2025</a></li>
-		  <li>David archie 2025<a href="david.html">Page</a></li>
-		  <li>Superman 2025<a href="Superman2025.html">Page</a></li>
-		  <li>Royal Princess<a href="Royal.html">Page</a></li>
-		  <li>Jimmy Olsen<a href="MetropolisEdition.html">Editions</a></li>
-		  <li>Chloe Sullivan<a href="schloe.html">2025</a></li>
-		  <li>Superman 2025 <a href="superman25.html">Fan</a></li>
-		  <li>Movie 2025 <a href="List.html">Play</a></li>
-	      <li>Snowman<a href="frozenIII.html">2025</a></li>
-		  <li>Voyage <a href="mona.html">2025</a></li>
-	      <li>Season <a href="Seasons.html">2025</a></li>
-		  <li>Ref.<a href=" references.html">2025</a></li>
-		 <li>Pokémon <a href="PokémonBattleShip.html">2025-Page</a></li>
-		 <li>Kim <a href="Kim.html">Possible</a></li>
-         <li>PJ's <a href="banana.html">2025</a></li>
-		  <li>Spiderman<a href="spiderman.html">Web</a></li>
-		  <li>KingLuthor<a href="KingLuthor.html">2025</a></li>
-		<li>Smallville<a href="smallvillevault.html">Vault</a></li>  
-		  <li>Chloe Sullivan 2025<a href="chloestar2025.html">Pages</a></li>
-		  <li>Farm 2025<a href="Celebration.html">Page</a></li>  
-		  <li>Salt Lake City, Utah<a href="saltlakecity.html">Temple Kenadee is important.</a></li>
-		  <li>Missionary Tag, 2025 <a href="missionarytag.html">Tag</a></li>
-		  <li>Elder PKG <a href="ElderPKG.html">2025</a></li>
-		  <li>My Testimony <a href="mytestimony.html">2025</a></li>
-		  <li>Harry Potter Series<a href="harrypotter.html">2025</a></li>
-		  <li>The Big Bang Theory <a href="bigbang.html">2025</a></li>
-		  <li>Flower<a href="Flower.html">2025</a></li>
-		  <li>cityofhenderson<a href=" cityofhenderson.html">2025</a></li>
-		  <li>J-man<a href=" Jman.html">2025</a></li>
-		  <li>Dream<a href="Dream.html">2025</a></li>
-		  <li>Legend<a href="legends.html">2025</a></li>
-		  <li>Elder Gimbel<a href="missionaries_elder_Gimbel.html">2025_01</a></li>
-		  <li>Parker Note to him<a href="Christlike-testimony.html">2025 Missionary Notes</a></li>
-		 <li> Frozen<a href="Frozen_Fantasia.html">2025</a></li>
-	     <li>Guardian Of Grace<a href="GuardiansofGrace.html">2025</a></li>
-		  <li>Grace and Wonder<a href="Grace_Wonder.html">2025</a></li>
-		  <li> Royal_Mouse_Celebration<a href="Royal_Mouse_Celebration.html">2025</a></li>  
-	      <li>Ice Castle<a href="icecastle.html">2025</a></li>
-		  <li>Pokemon games<a href="pokemongame.html">2025</a></li>
-		  <li>Disney Castle <a href="castleofmemories.html">2025</a></li>
-		  <li>BirthoftheSavior<a href="birthofJesus.html">2025</a></li>
-		  <li>Magic Tribute<a href="Magical_Tribute_Countdown.html">2025</a></li>
-	      <li>Preu Turn my nephew into my favorite superhero Jimmy
-			  Olsen with love from his Aunt.<a href="Preuturnmynephewintomyhero.html">2025</a></li>
-		  <li>Learning How to Shine.<a href="Learning_shines.html">2025</a></li>
-		<li>Superman Tribute 2025<a href="Superman_2025_Tribute.html">Page</a></li>  
-		<li>Marissa christmas idea<a href=" Marissa_Christmas_Tribute.html">Pages</a></li>
-		<li>Marissa Cooking Skills <a href=" Steps_to_Pass_a_cooking_Test.html">Page</a></li>
-		<li>Marissa Quiz For Food <a href="Foodhandlersafetyquiz.html">Page</a></li> 
-		<li>Quiz <a href="Flourish_Faith_Portal.html">Page</a></li>
-		<li>9/11/01<a href="9_11_01.html">Sept 11,2001</a></li>
-        <li>Timeless<a href="Timeless_Disney_Dreams.html">2025</a></li>
-		<li>2025<a href="Guided_by_the_Spirit.html">Page</a></li> 
-		<li>Home Page(s)<a href="Sanctuary_of_Remembrance.html">2025</a></li>
-		<li>Superman 2025<a href=" SanctuaryofStrength_Superman_2025_Tribute.html">Page</a></li>
-		<li>Love at Home 2025<a href="Love_at_Home.html">Page</a></li>
-		<li>Parker Missionary<a href="Missionaryupdate_Protected.html">Pages 2025</a></li>
-		<li>Dear Diary <a href=" Dear_Diary_Sanctuary.html">2025 Page</a></li>
-		<li>Magic<a href="Magical_Sanctuary.html">2025 Page.</a></li>  
-        <li>Joy of Box<a href="TheJoyBox.html">2025 Page Home</a></li>
-		<li>Snow White <a href="snow_white_garden_of_reflection.html">Home Page 2025</a></li> 
-		<li>Nicholas Hoult 2025<a href=" NicholasHoultissmart.html">Page</a></li> 
-	     <li>peaceful<a href="peace.html">2025</a></li>
-		  <li>light<a href="Light.html">2025</a></li>
-        <li>Prophets<a href="prophets.html">2025</a></li>
-		 <li>Butterflies<a href="butterfly.html">2025</a></li> 
-		  <li>General Confrences<a href="GeneralConferenceTribute.html">2025</a></li>
-		  <li>Lesson 4 FHE<a href="Family_Home_Evening.html">2025</a></li>
-          <li>Faith Lesson <a href="Faith_in_Jesus_Christ.html">2025</a></li>
-		   <li>Lesson 5 FHE<a href="Planofsalvation.html">2025</a></li>
-		  <li>Lesson 06 FHE <a href=" PeaceFHE.html">2025</a></li>
-		  <li>Rides 05 <a href="Ride.html">2025</a></li> 
-		  <li>Rain_on_my_head<a href="rain.html">Butter-me_up</a></li>
-		  <li>Halloween<a href="Halloween.html">2025</a</li>
-		  <li>The Golden Friendship. <a href="Golden_friendships.html">2025</a></li>
-	      <li>Halloween Trick<a href="treat.html">2025</a></li>
-	      <li>Marissa Page <a href=" marissa01.html">2025</a></li>
-		  <li>Wall Fighting for USA<a href="Tribute_Wall.html">Walls</a></li>
-		  <li>Arcade Game Land <a href="arcadegameland.html">2025</li>
-		  <li>Scroll<a href="Sanctuary_Scroll.html">2025</a></li>
-		  <li>Anne <a href="Anne.html">2025</a></li>
-		  <li>Roses_2025<a href="bloom.html">Page</a></li>
-		  <li>America Flag <a href="americanflag.html">Page</a></li>
-		  <li>Puzzles and Riddles<a href="Puzzle.html">2025</a></li>
-		  <li>Anne<a href="anne.html">2025</a></li>
-		  <li>2025 <a href="Rissa.html">Page</a></li>
-		  <li>Star<a href="star.html">2025</a></li>
-		  <li>Trukey<a href="trukey.html">2025</a></li>
-		  <li>Thanks<a href="thank.html">2025</a></li>
-		  <li>Pies<a href="Pie.html">2025</a></li>
-		  <li>Mar<a href="Mar.html">2025</a></li>
-		  <li>Mental Health <a href="mental.html">2025</a></li>
-		  <li>United<a href="united.html">2025</a></li>
-		  <li>Police <a href="police.html">2025</a></li>
-		  <li>Healing <a href="health.html">2025</a></li>
-		  <li>Red <a href="red.html">2025</a></li>
-		  <li>Grinch <a href="grinch.html">2025</a></li>
-	      <li>Family TIdes <a href="family.html">2025</a></li>
-		  <li>Abuse & Neglect <a href="abuse.html">2025</a></li>
-		  <li>Air <a href="air.html">2025</a></li>
-          <li>United<a href="states.html">2025</a></li>
-		  <li>Freedom <a href="freedom.html">2025</a></li>
-		  <li>Giving <a href="giving.html">2025</a></li>
-		  <li>Basic <a href="basic.html">2025</a></li>
-		  <li>Echo <a href="Echo.html">2025</a></li>
-		  <li>C01 <a href="C01.html">2025</a></li>
-		  <li>Golden <a href="Golden.html">2025</a></li>
-		  <li>Faith<a href="faith.html">2025</li>
-		  <li>Usa <a href="Usa.html">2025</a></li>
-		  <li>Garden<a href="garden.html">2025</a></li>
-          <li>Santa <a href="santa.html">2025</a></li>
-		  <li>Jesus <a href="Jesus.html">2025</a></li>
-		  <li>Pizza <a href="pizza.html">2025</a></li>
-		  <li>Grinch<a href="Grinch8.html">2025</a></li>
-		  <li>Feast<a href="feast.html">2025</a></li>
-		  <li>Bread <a href="Bread.html">2025</a></li>
-		  <li>Dumbo <a href="Elephant.html">2025</a></li>
-          <li>Flowers <a href="Flow.html">2025</a></li>
-		  <li>Smallville Tribute <a href="Tribute.html">2025</a></li>
-		  <li>Duck <a href="duck.html">2025</a></li>
-		  <li>Hawaiian <a href="Hawaiian01.html">2025</a></li>
-          <li>Uncle Sam <a href="Uncle.html">2025</a></li>
-		  <li>A Fun Night <a href="night.html">2025</a></li>
-		  <li>Friends Forever <a href="friend.html">2025</a></li>
-		  <li>Welcome <a href="Welcome.html">2025</a></li>
-		 <li>Race Car <a href="race.html">2025</a></li>
-		  <li>Utah Jazz <a href="Utah.html">2025</a></li>
-          <li>Mickey Mouse <a href="Mickey.html">2025</a></li>
-		  <li>Vechile <a href="CeremonialVehicleTribute.html">2025</a></li>
-		  <li>Car Adaption <a href="AdaptiveCarPlayground.html">2025</a></li>
-          <li>Color<a href=" ColorCircleofFriendship.html">2025</a></li>
-		  <li>Christmas<a href="Nav.html">2025</a></li>
-		  <li>Tic Tac Toe <a href="Tac.html">2025</li>
-		  <li>Nim <a href="Nim.html">2025</a></li>
-		  <li>Trace <a href="trace.html">2025</a></li>
-		  <li>Chess <a href="chess.html">2025</a></li>
-		  <li>horse <a href="horse.html">2025</a></li>
-		  <li>horse back riding <a href="horseback.html">2025</a></li>
-		  <li>ball <a href="ball.html">2025</a></li>
-		  <li>Mickey <a href="mouse.html">2025</a></li>
-		  <li>Princess <a href="Princess.html">2025</a></li>
-		  <li>fashion <a href="fashion.html">2025</a></li>
-		  <li>Cars and Truck.<a href="Cars_trucks.html">2025</a></li>
-		  <li>Cinderella <a href="Cinderella.html">2025</a></li>
-		  <li>World<a href="World.html">2025</a></li>
-		  <li>Utah Jazz & Lakers <a href="utahj.html">2025</a></li>
-		  <li>American Christmas, <a href="Flag.html">2025</a></li>
-		  <li>Officers Down <a href="Officers.html">2025</a></li>
-		  <li>Waves <a href="Waves.html">2025</a></li>
-		  <li>Nice <a href="nice.html">2025</a></li>
-		  <li>Christmas<a href="Holidays.html">2025</a></li>
-		  <li>Dash <a href="dashboard.html">2025</a></li>
-		  <li>Cycle <a href="cycle.html">2025</a></li>
-		  <li>Mortcycle <a href="motorcycle.html">2025</a></li>
-		  <li>Priesthood <a href="preisthood.html">2025</a></li>
-		  <li>Sealing <a href="Sealing.html">2025</a></li>
-		  <li>healing <a href="healing.html">2025</a></li>
-		  <li>Baptism <a href="baptism.html">2025</a></li>
-	     <li>Purple <a href="purple.html">2025</a></li>
-         <li>Color Circle <a href="Primary.html">2025</a></li>
-		<li>Red Robin <a href="RedRobin.html">2025</a></li>
-		<li>Happy <a href="Happy.html">2025</a></li>
-		<li>Profile <a href="Profile.html">2025</a></li>
-		  <li>Mood <a href="Mood.html">2025</a></li>
-		  <li>Dime <a href="dime.html">2025</a></li>
-		  <li>Rainbow <a href="Rainbow.html">2025</a></li>
-		  <li>BattleShip <a href="battle.html">2025</a></li>
-		  <li>Cops <a href="Cop.html">2025</a></li>
-		  <li>United Stand <a href="Unitedstand.html">2025</a></li>
-		  <li>Rainbowbrite<a href="rainbowbrite.html">2025</a></li>
-		  <li>Marissa<a href="Fun.html">2026</a></li>
-		  <li>Helper <a href="helper.html">2026</a></li>
-	      <li>Circus <a href="circus.html">2026</a></li>	
-		  <li>Siren <a href="Siren.html">2026</a></li>
-		  <li> United<a href="Sos.html">2026</a></li>
-		  <li>Luthor<a href="Luthor.html">2026</a></li>
-		  <li>Unity <a href="More.html‎">2026</a></li>
-		  <li>Emotional <a href="emotion.html">2026</a></li>
-		  <li>Sisters <a href="Sister.html">2026</a></li>
-		  <li><a href="printing.html">2026</a></li>
-		  <li><a href="All.html">2026</a></li>
-		  <li><a href="elect.html">2026</a></li>
-		  <li><a href="Disney00.html">2026</a></li>
-		  <li><a href="Childhood.html">Child hood 2026</a></li>
-		  <li><a href=" cartoon.html">Cartoon 2026 </a></li>
-		  <li><a href="HalloweenTown.html">Halloween Town </a></li>
-		  <li><a href="HallloweenTownPoem.html">Halloween Town Poem</a></li>
-		  <li><a href="Storybook.html">Storybook 2026</a></li>
-		  <li><a href="haunted.html">Haunted Mansion 2026</a></li>
-		  <li><<a href="reading.html">Reading Book</a></li>
-		  <li><a href="read.html">Read 2026 </a></li>
-		  <li><a href="Ella.html">Cinderella 2026</a></li>
-		  <li><a href="castle.html">Castle 2026 </a></li>
-		  <li><a href="Temples.html">Temple 2026</a></li>
-		  <li><a href="helping_hands.html">Helping Hands</a></li>
-		  <li><a href="Questions.html">Questionare 2026</a></li>
-		  <li><a href="Mental_Health.html">2026 Mental Health</a></li>
-		  <li><a href="US.html">United States 2026</a></li>
-		  <li><a href="loe.html">Chloe Sullivan 2026</a></li>
-		  <li><a href="exl.html">Lex Luther 2026 </a></li>
-		  <li><a href="Digital.html">Digital 2026</a></li>
-		  <li><a href="homework.html">Homework 2026</a></li>
-		  <li><a href="people.html">People 2026 </a></li>
-		  <li><a href="practice.html">Practice 2026 </a></li>
-		  <li><a href="Forabuseandneglect.html"> For Cops Usage </a></li>
-		  <li><a href="e Growth.html">Growth 2026 </a></li>
-		  <li><a href="Aid.html">Aid 2026</a></li>
-		  <li><a href="Justice.html">Justice 2026</a></li>
-         <li><a href="Laws.html">Laws& Justice 2026</a></li>
-		  <li><a href="Humanrights.html">Humans 2026 </a></li>
-		  <li><a href="Services.html">Service 2026 </a></li>
-		  <li><a href="Safety.html">Safety 2026</a></li>
-		  <li><a href="Safety_plans.html">Safety Plan 2026</a></li>
-		  <li><a href="Helping.html">Helping 2026</a></li>
-		  <li><a href="Saveme.html">Saveme</a></li>
-		  <li><a href="World-of-treats-tales.html">World-of-treat-tales</a></li>
-		  <li><a href="Sally.html">Sally 2026</a></li>
-         <li><a href="Disneyland2026.html">Disneyland 2026</a></li>
-		<li><a href="Unified.html">Help me please</a></li>
-		  <li><a href="innocent.html">Innocent 2026</a> </li>
-		  <li><a href="Saving.html">2026 Saving</a></li>
-		  <li><a href="Safetyfornotolerancesitutions.html">No tolerance Safety Plan</a></li>
-		  <li><a href="Hands.html">Hands 2026</a></li>
-		  <li><a href="hmwjets.html">homework Jets</a></li>
-		  <li><a href="SpiritPlan.html">Plan 2026 Spirit</a></li>
-		  <li><a href="Castle2026.html">Castle 2026</a></li><
-		  <li><a href="Max.html">Learning</a></li>
-		  <li><a href="Clocks.html">Clocks Watch</a></li>
-			  <li><a href="Depression.html>Depression</a></li>
-			<li><a href=" Life.html">Life 2026</a></li>
-			  <li><a href="Disney_Time.html">Disney Time</a></li>
-			  <li><a href="SkyCastle.html">Sky Castle</a></li>
-			  <li><a href="‎Cosmic_Garden.html">Cosmic Garden</a></li>
-			  <li><a href="‎SafetyJounal.html‎">Safety Journal</a></li>
-			  <li><a href="single.html">Single</a></li>
-			  <li><a href="Centere.html‎">Center</a></</li>
-			  <li><a href="‎Disneycastle.html">Disney Castle</a></li>
-			  <li><a href="gingerbread.html‎">Gingerbread</a></li>
-			  <li><a href="jack.html">Jack 2026</a></li>
-			  <li><a href="‎Freedomright.html">Freedom</a></li>
-			  <li><a href="Glassescastlefreedom.html">Glasses Castle Freedom</a></li>
-			  <li><a href="Storybookflowers.html">Storybook Flowers</a></li>
-              <li><a href="‎Purplecats.html">Purple Cats</a></li>
-			  <li><a href="‎Cashcountinglingo.html‎">Cash Counter</a></li>
-			  <iframe width="426" height="240" src="https://www.youtube.com/embed/tADnCEpbPI8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </section>
+
       <section class="music">
         <h3>Spiritual Soundtrack</h3>
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/0p4nmQO2msCgU4IF37Wi3j?utm_source=generator" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe style="border-radius:12px"
+                src="https://open.spotify.com/embed/artist/0p4nmQO2msCgU4IF37Wi3j?utm_source=generator"
+                width="100%" height="352"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy">
+        </iframe>
       </section>
+
     </div>
   </main>
 
@@ -461,15 +346,17 @@
   <script>
     function checkPassword() {
       const passwordInput = document.getElementById("password").value;
-      const correctPassword = "yellowFever"; // Customize your password here
+      const correctPassword = "yellowFever";
 
       if (passwordInput === correctPassword) {
         document.getElementById("login-screen").style.display = "none";
         document.getElementById("diary-content").style.display = "block";
       } else {
-        document.getElementById("error-message").textContent = "Oops! That’s not the right password.";
+        document.getElementById("error-message").textContent =
+          "Oops! That’s not the right password.";
       }
     }
   </script>
+
 </body>
 </html>
