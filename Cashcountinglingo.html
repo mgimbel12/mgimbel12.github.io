@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cash Counter</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.12);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --danger: #f97373;
+      --radius: 10px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text);
+    }
+
+    .shell {
+      width: min(960px, 100%);
+      padding: 24px;
+    }
+
+    .panel {
+      background: linear-gradient(135deg, #020617 0, #020617 40%, #022c22 100%);
+      border-radius: 18px;
+      padding: 22px 22px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(34, 197, 94, 0.18), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.16), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-pill {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .badge {
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.35);
+    }
+
+    .summary-card {
+      min-width: 220px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(34, 197, 94, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .summary-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .summary-total {
+      font-size: 1.6rem;
+      font-weight: 650;
+      color: #bbf7d0;
+    }
+
+    .summary-sub {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .summary-sub span:last-child {
+      color: #a5f3fc;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2.2fr 1.2fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 780px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .summary-card {
+        width: 100%;
+      }
+    }
+
+    .denoms-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 14px 14px 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .denoms-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .denoms-header-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .denoms-header-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .btn-clear {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+      background: rgba(127, 29, 29, 0.35);
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .btn-clear:hover {
+      background: rgba(127, 29, 29, 0.55);
+      transform: translateY(-1px);
+    }
+
+    .denoms-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    .denoms-table thead {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+    }
+
+    .denoms-table th,
+    .denoms-table td {
+      padding: 6px 4px;
+      text-align: left;
+    }
+
+    .denoms-table th:nth-child(2),
+    .denoms-table td:nth-child(2) {
+      text-align: center;
+    }
+
+    .denoms-table th:nth-child(3),
+    .denoms-table td:nth-child(3) {
+      text-align: right;
+    }
+
+    .denom-row {
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .denom-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .denom-name {
+      font-weight: 500;
+    }
+
+    .denom-value {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .denom-input {
+      width: 70px;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      text-align: center;
+      font-size: 0.8rem;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    .denom-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6);
+      background: rgba(15, 23, 42, 1);
+    }
+
+    .denom-total {
+      font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+
+    .denom-total.zero {
+      color: rgba(148, 163, 184, 0.6);
+    }
+
+    .denom-total.nonzero {
+      color: #bbf7d0;
+    }
+
+    .side-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 12px 12px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .side-section-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .side-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      align-items: center;
+    }
+
+    .side-row span:last-child {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .side-row strong {
+      font-weight: 600;
+    }
+
+    .side-row.accent span:last-child {
+      color: #bbf7d0;
+      font-weight: 650;
+    }
+
+    .side-row.muted span:last-child {
+      color: var(--muted);
+    }
+
+    .hint {
+      font-size: 0.7rem;
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 6px 8px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px dashed rgba(148, 163, 184, 0.5);
+    }
+
+    .hint span {
+      color: #a5f3fc;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="panel">
+      <div class="panel-inner">
+        <div class="header">
+          <div class="title-block">
+            <h1>
+              Cash Count Overlay
+            </h1>
+            <div class="title-pill">
+              Pennies • Coins • Bills • Quick total
+            </div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Grand total</div>
+            <div id="grandTotal" class="summary-total">$0.00</div>
+            <div class="summary-sub">
+              <span>Coins</span>
+              <span id="coinsTotal">$0.00</span>
+            </div>
+            <div class="summary-sub">
+              <span>Bills</span>
+              <span id="billsTotal">$0.00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- Left: Denominations -->
+          <div class="denoms-card">
+            <div class="denoms-header">
+              <div class="denoms-header-title">Denominations</div>
+              <div class="denoms-header-actions">
+                <div class="badge">
+                  <span class="badge-dot"></span>
+                  Live money count
+                </div>
+                <button class="btn-clear" id="clearAll">Clear</button>
+              </div>
+            </div>
+
+            <table class="denoms-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody id="denomsBody">
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right: Summary / breakdown -->
+          <div class="side-card">
+            <div>
+              <div class="side-section-title">Breakdown</div>
+              <div class="side-row muted">
+                <span>Number of entries used</span>
+                <span id="activeLines">0</span>
+              </div>
+              <div class="side-row">
+                <span>Highest single line</span>
+                <span id="maxLine">$0.00</span>
+              </div>
+              <div class="side-row">
+                <span>Average per active line</span>
+                <span id="avgLine">$0.00</span>
+              </div>
+            </div>
+
+            <div>
+              <div class="side-section-title">Quick recap</div>
+              <div class="side-row">
+                <span>Coins total</span>
+                <span id="coinsTotalSide">$0.00</span>
+              </div>
+              <div class="side-row">
+                <span>Bills total</span>
+                <span id="billsTotalSide">$0.00</span>
+              </div>
+              <div class="side-row accent">
+                <span><strong>Grand total</strong></span>
+                <span id="grandTotalSide">$0.00</span>
+              </div>
+            </div>
+
+            <div class="hint">
+              Type quantities for each denomination.  
+              <br />
+              <span>Example:</span> 4 quarters = 4 in “Quarters” → $1.00.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const denominations = [
+      { id: "pennies", label: "Pennies", value: 0.01, type: "coin" },
+      { id: "nickels", label: "Nickels", value: 0.05, type: "coin" },
+      { id: "dimes", label: "Dimes", value: 0.10, type: "coin" },
+      { id: "quarters", label: "Quarters", value: 0.25, type: "coin" },
+      { id: "ones", label: "1 Dollar", value: 1.0, type: "bill" },
+      { id: "fives", label: "5 Dollars", value: 5.0, type: "bill" },
+      { id: "tens", label: "10 Dollars", value: 10.0, type: "bill" },
+      { id: "twenties", label: "20 Dollars", value: 20.0, type: "bill" },
+      { id: "fifties", label: "50 Dollars", value: 50.0, type: "bill" },
+      { id: "hundreds", label: "100 Dollars", value: 100.0, type: "bill" }
+    ];
+
+    const denomsBody = document.getElementById("denomsBody");
+
+    function formatMoney(amount) {
+      return "$" + amount.toFixed(2);
+    }
+
+    function buildRows() {
+      denominations.forEach(denom => {
+        const tr = document.createElement("tr");
+        tr.className = "denom-row";
+
+        const tdLabel = document.createElement("td");
+        const labelWrap = document.createElement("div");
+        labelWrap.className = "denom-label";
+
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "denom-name";
+        nameSpan.textContent = denom.label;
+
+        const valueSpan = document.createElement("span");
+        valueSpan.className = "denom-value";
+        valueSpan.textContent = formatMoney(denom.value);
+
+        labelWrap.appendChild(nameSpan);
+        labelWrap.appendChild(valueSpan);
+        tdLabel.appendChild(labelWrap);
+
+        const tdInput = document.createElement("td");
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.step = "1";
+        input.value = "";
+        input.className = "denom-input";
+        input.dataset.id = denom.id;
+        tdInput.appendChild(input);
+
+        const tdTotal = document.createElement("td");
+        const totalSpan = document.createElement("span");
+        totalSpan.id = denom.id + "Total";
+        totalSpan.className = "denom-total zero";
+        totalSpan.textContent = "$0.00";
+        tdTotal.appendChild(totalSpan);
+
+        tr.appendChild(tdLabel);
+        tr.appendChild(tdInput);
+        tr.appendChild(tdTotal);
+
+        denomsBody.appendChild(tr);
+      });
+    }
+
+    function recalc() {
+      let coinsTotal = 0;
+      let billsTotal = 0;
+      let activeLines = 0;
+      let maxLine = 0;
+
+      denominations.forEach(denom => {
+        const input = document.querySelector(`input[data-id="${denom.id}"]`);
+        const totalSpan = document.getElementById(denom.id + "Total");
+        const qty = parseInt(input.value, 10);
+
+        let lineTotal = 0;
+        if (!isNaN(qty) && qty > 0) {
+          lineTotal = qty * denom.value;
+          activeLines++;
+        }
+
+        if (denom.type === "coin") {
+          coinsTotal += lineTotal;
+        } else {
+          billsTotal += lineTotal;
+        }
+
+        if (lineTotal > maxLine) {
+          maxLine = lineTotal;
+        }
+
+        totalSpan.textContent = formatMoney(lineTotal);
+        totalSpan.className = "denom-total " + (lineTotal > 0 ? "nonzero" : "zero");
+      });
+
+      const grandTotal = coinsTotal + billsTotal;
+      const avgLine = activeLines > 0 ? grandTotal / activeLines : 0;
+
+      document.getElementById("coinsTotal").textContent = formatMoney(coinsTotal);
+      document.getElementById("billsTotal").textContent = formatMoney(billsTotal);
+      document.getElementById("grandTotal").textContent = formatMoney(grandTotal);
+
+      document.getElementById("coinsTotalSide").textContent = formatMoney(coinsTotal);
+      document.getElementById("billsTotalSide").textContent = formatMoney(billsTotal);
+      document.getElementById("grandTotalSide").textContent = formatMoney(grandTotal);
+
+      document.getElementById("activeLines").textContent = activeLines;
+      document.getElementById("maxLine").textContent = formatMoney(maxLine);
+      document.getElementById("avgLine").textContent = formatMoney(avgLine);
+    }
+
+    function attachEvents() {
+      const inputs = document.querySelectorAll(".denom-input");
+      inputs.forEach(input => {
+        input.addEventListener("input", () => {
+          if (input.value < 0) input.value = 0;
+          recalc();
+        });
+      });
+
+      document.getElementById("clearAll").addEventListener("click", () => {
+        inputs.forEach(input => (input.value = ""));
+        recalc();
+      });
+    }
+
+    buildRows();
+    attachEvents();
+    recalc();
+  </script>
+</body>
+</html>
+
