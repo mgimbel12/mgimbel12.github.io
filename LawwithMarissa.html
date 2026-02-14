@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Elle Woods Learning Lab • Marissa Gimbel</title>
+  <style>
+    :root {
+      --pink: #ff69b4;
+      --deep-pink: #c2185b;
+      --rose: #f8bbd0;
+      --ink: #1b1b2f;
+      --gold: #ffd54f;
+      --aqua: #00bcd4;
+      --page: #fafafa;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Times New Roman", serif;
+      font-size: 12px;
+      background: radial-gradient(circle at top, var(--rose), var(--ink));
+      color: var(--page);
+    }
+
+    header {
+      padding: 1rem;
+      text-align: center;
+      background: linear-gradient(90deg, var(--deep-pink), var(--ink));
+      border-bottom: 3px dotted var(--gold);
+    }
+
+    header h1 {
+      margin: 0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    header h2 {
+      margin: 0.25rem 0 0;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .top-bar {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .top-bar span {
+      padding: 0.15rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--rose);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .datetime {
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+      color: var(--aqua);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    section {
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      border: 2px dotted var(--rose);
+      padding: 0.75rem 1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 1rem;
+      color: var(--gold);
+      text-shadow: 0 0 4px rgba(0,0,0,0.6);
+    }
+
+    /* Law / Elle Woods corner */
+    .law-flex {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    .law-card {
+      border-radius: 8px;
+      border: 1px solid var(--rose);
+      padding: 0.5rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,0,0,0.4));
+      font-size: 0.85rem;
+    }
+
+    .law-card h4 {
+      margin: 0 0 0.25rem 0;
+      color: var(--page);
+      text-decoration: underline dotted var(--pink);
+    }
+
+    .rose-petals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 0.25rem;
+    }
+
+    .petal {
+      padding: 0.15rem 0.35rem;
+      border-radius: 999px;
+      background: var(--pink);
+      color: var(--ink);
+      font-size: 0.7rem;
+    }
+
+    /* Mickey SVG + moving text */
+    .disney-box {
+      border-radius: 8px;
+      border: 1px solid var(--aqua);
+      padding: 0.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.15), rgba(0,0,0,0.5));
+    }
+
+    .disney-box svg {
+      width: 80px;
+      height: auto;
+      fill: var(--page);
+      margin-bottom: 0.25rem;
+    }
+
+    .marquee {
+      margin-top: 0.4rem;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px dotted var(--rose);
+      border-bottom: 1px dotted var(--rose);
+      padding: 0.25rem 0;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scrollText 18s linear infinite;
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    @keyframes scrollText {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Learning how to learn feature */
+    .learning-feature {
+      margin-top: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      padding: 0.5rem 0.6rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(0,0,0,0.5));
+      font-size: 0.85rem;
+    }
+
+    .learning-feature h4 {
+      margin: 0 0 0.25rem 0;
+      color: var(--gold);
+    }
+
+    .learning-steps {
+      margin: 0.25rem 0 0 1rem;
+      padding: 0;
+    }
+
+    .learning-steps li {
+      margin-bottom: 0.15rem;
+    }
+
+    /* Maps strip */
+    .maps-strip {
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+    }
+
+    .map-tag {
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px dashed var(--aqua);
+      background: rgba(0,0,0,0.4);
+    }
+
+    /* Rotations / circles / moving pictures */
+    .motion-panel {
+      margin-top: 0.75rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .orbit-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 2px solid var(--aqua);
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .orbit-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: -20px -20px;
+      animation: orbit 6s linear infinite;
+    }
+
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translate(-20px, -20px); }
+      100% { transform: rotate(360deg) translate(-20px, -20px); }
+    }
+
+    .motion-caption {
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+
+    /* Hair basics + fashion statements */
+    .hair-section {
+      border-radius: 8px;
+      border: 1px solid var(--rose);
+      padding: 0.5rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,0,0,0.5));
+      font-size: 0.85rem;
+    }
+
+    .hair-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .hair-card {
+      border-radius: 6px;
+      border: 1px dashed var(--gold);
+      padding: 0.35rem;
+    }
+
+    .hair-card h5 {
+      margin: 0 0 0.2rem 0;
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    .hair-card ul {
+      margin: 0 0 0 1rem;
+      padding: 0;
+    }
+
+    .hair-card li {
+      margin-bottom: 0.1rem;
+    }
+
+    /* Cosmos + articles */
+    .cosmos-section {
+      margin-top: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--aqua);
+      padding: 0.5rem;
+      font-size: 0.85rem;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.12), rgba(0,0,0,0.6));
+    }
+
+    .cosmos-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .cosmos-thumb {
+      height: 60px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, #1a237e, #4a148c);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cosmos-thumb::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 100%;
+      background: rgba(255,255,255,0.4);
+      left: -10%;
+      top: 0;
+      transform: skewX(-20deg);
+      animation: sweep 4s linear infinite;
+    }
+
+    @keyframes sweep {
+      0% { left: -20%; }
+      100% { left: 120%; }
+    }
+
+    .cosmos-text {
+      font-size: 0.75rem;
+    }
+
+    /* Logic board: If / And / Or */
+    .logic-board {
+      margin-top: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      padding: 0.5rem;
+      font-size: 0.85rem;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .logic-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .logic-pill {
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      border: 1px dashed var(--rose);
+      cursor: pointer;
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.4);
+    }
+
+    .logic-pill.active {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    .logic-output {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      min-height: 1.2rem;
+      border-top: 1px dotted var(--rose);
+      padding-top: 0.25rem;
+    }
+
+    footer {
+      margin-top: 0.5rem;
+      padding: 0.4rem 1rem 0.7rem;
+      font-size: 0.75rem;
+      text-align: center;
+      border-top: 2px dotted var(--rose);
+      background: rgba(0,0,0,0.5);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+      .law-flex {
+        grid-template-columns: 1fr;
+      }
+      .cosmos-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Elle Woods Learning Lab</h1>
+    <h2>"Learning how to Learn how to learn" — Marissa Gimbel</h2>
+    <div class="top-bar">
+      <span>Law • Judges • Novels</span>
+      <span>Disneyland • Mickey Mouse</span>
+      <span>Hair • Fashion • Cosmos</span>
+      <span>Maps • Logic • Basics</span>
+    </div>
+    <div class="datetime" id="datetime"></div>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN -->
+    <section>
+      <h3>Law Library • Elle Woods Corner</h3>
+      <div class="law-flex">
+        <div class="law-card">
+          <h4>Case Brief Snapshot</h4>
+          <p><strong>Issue:</strong> How can I stay true to myself and still pass the bar (of life)?</p>
+          <p><strong>Rule:</strong> Pink is a power color. Preparation is kindness to your future self.</p>
+          <p><strong>Application:</strong> Read, highlight, summarize in your own words. Then add one Elle-level compliment to yourself.</p>
+          <p><strong>Conclusion:</strong> I am allowed to be brilliant, kind, and visibly myself in every courtroom I enter.</p>
+          <div class="rose-petals">
+            <div class="petal">Objection: Self-doubt</div>
+            <div class="petal">Sustained: Self-respect</div>
+            <div class="petal">Precedent: Resilience</div>
+          </div>
+        </div>
+
+        <div class="law-card">
+          <h4>Books & Novels Stack</h4>
+          <ul style="margin:0 0 0 1rem; padding:0;">
+            <li>Intro to Contracts (Promises & Boundaries)</li>
+            <li>Criminal Law (Justice & Repair)</li>
+            <li>Feminist Legal Theory (Voices in the Record)</li>
+            <li>Novel of the Month (Heart + Plot + Growth)</li>
+          </ul>
+          <p style="margin-top:0.3rem;">
+            Note one line from today’s reading that feels like it’s secretly about you.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:0.75rem;" class="disney-box">
+        <p style="margin:0 0 0.25rem 0;">Disneyland • Mickey Mouse SVG (placeholder)</p>
+        <!-- Simple Mickey-style silhouette -->
+        <svg viewBox="0 0 100 100" aria-label="Mickey Mouse">
+          <circle cx="50" cy="55" r="25" />
+          <circle cx="30" cy="30" r="15" />
+          <circle cx="70" cy="30" r="15" />
+        </svg>
+        <div class="marquee">
+          <span>Walking down Main Street, U.S.A., collecting tiny lessons about joy, timing, and imagination as study notes...</span>
+        </div>
+      </div>
+
+      <div class="learning-feature">
+        <h4>"Learning how to Learn how to learn" — by Marissa Gimbel</h4>
+        <p style="margin:0;">
+          A tiny framework for days when your brain says, “I don’t know where to start.”
+        </p>
+        <ul class="learning-steps">
+          <li><strong>Step 1:</strong> Name the thing: “Today I’m learning about ______.”</li>
+          <li><strong>Step 2:</strong> Break it into 3 baby steps you could do in 10 minutes or less.</li>
+          <li><strong>Step 3:</strong> Choose one baby step and do it imperfectly on purpose.</li>
+          <li><strong>Step 4:</strong> Write one sentence about what you just learned about learning.</li>
+        </ul>
+      </div>
+
+      <div class="maps-strip">
+        <div class="map-tag">Map: Campus to Courtroom</div>
+        <div class="map-tag">Map: Home to Disneyland</div>
+        <div class="map-tag">Map: Confusion → Clarity</div>
+        <div class="map-tag">Map: Idea → First Draft</div>
+      </div>
+
+      <div class="motion-panel">
+        <div>
+          <div class="orbit-circle">
+            <div class="orbit-dot"></div>
+          </div>
+          <div class="motion-caption">Circle of questions that keep returning until answered with kindness.</div>
+        </div>
+        <div>
+          <div class="orbit-circle" style="border-color: var(--pink);">
+            <div class="orbit-dot" style="background: var(--aqua); animation-duration: 8s;"></div>
+          </div>
+          <div class="motion-caption">Rotations of habits—tiny orbits that become new routines.</div>
+        </div>
+        <div>
+          <div class="orbit-circle" style="border-color: var(--gold);">
+            <div class="orbit-dot" style="background: var(--pink); animation-duration: 10s;"></div>
+          </div>
+          <div class="motion-caption">Moving pictures: snapshots of you trying again.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section>
+      <h3>Hair, Cosmos & Logic Basics</h3>
+
+      <div class="hair-section">
+        <p style="margin:0;">
+          Basic steps of hair treatments, plus style types and fashion statements—because briefs and blowouts can coexist.
+        </p>
+        <div class="hair-grid">
+          <div class="hair-card">
+            <h5>Basic Hair Treatment Steps</h5>
+            <ul>
+              <li>Cleanse: gentle shampoo, massage scalp.</li>
+              <li>Condition: mid-lengths to ends, detangle slowly.</li>
+              <li>Treat: mask, oil, or leave-in for your hair type.</li>
+              <li>Protect: heat protectant before styling.</li>
+              <li>Finish: light hold, shine, or texture as needed.</li>
+            </ul>
+          </div>
+          <div class="hair-card">
+            <h5>Hair Style Types & Statements</h5>
+            <ul>
+              <li>Ponytail: “I’m efficient and focused.”</li>
+              <li>Curls defined: “I’m bringing softness and power.”</li>
+              <li>Sleek bun: “I’m in courtroom mode.”</li>
+              <li>Braids: “I remember where I come from.”</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="cosmos-section">
+        <p style="margin:0;">
+          Photographs and articles about the cosmos, and art concepts on basic tricks and tips.
+        </p>
+        <div class="cosmos-row">
+          <div class="cosmos-thumb"></div>
+          <div class="cosmos-text">
+            <strong>Cosmic Trick:</strong> When you feel small, remember galaxies are made of tiny particles agreeing to shine together.
+            Sketch a star map of people, places, and ideas that help you glow.
+          </div>
+        </div>
+        <div class="cosmos-row" style="margin-top:0.4rem;">
+          <div class="cosmos-thumb"></div>
+          <div class="cosmos-text">
+            <strong>Art Tip:</strong> Circles, lines, and dots can build whole universes. Start with three shapes and see what story appears.
+          </div>
+        </div>
+      </div>
+
+      <div class="logic-board">
+        <p style="margin:0;">
+          If / And / Or statements — learning basics in human language and JavaScript spirit.
+        </p>
+        <div class="logic-row">
+          <div class="logic-pill" data-type="if">IF I am tired</div>
+          <div class="logic-pill" data-type="and">AND I still care about this goal</div>
+          <div class="logic-pill" data-type="or">OR I need a break</div>
+          <div class="logic-pill" data-type="if">IF I feel lost</div>
+          <div class="logic-pill" data-type="and">AND I ask one clear question</div>
+          <div class="logic-pill" data-type="or">OR I try a tiny experiment</div>
+        </div>
+        <div class="logic-output" id="logicOutput">
+          Click phrases to build a little life-logic sentence.
+        </div>
+        <p style="margin-top:0.4rem; font-size:0.75rem;">
+          JavaScript echo:
+          <code style="font-size:0.7rem; background:rgba(0,0,0,0.4); padding:0.1rem 0.2rem; border-radius:4px;">
+            if (tired && care || needBreak) { restWithCompassion(); }
+          </code>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Marissa Gimbel • Learning Lab • <span id="footerTime"></span>
+  </footer>
+
+  <script>
+    // Date / Time: Year-Month-Day Hour:Minute
+    function updateDateTime() {
+      const el = document.getElementById("datetime");
+      const footerEl = document.getElementById("footerTime");
+      const now = new Date();
+
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+
+      const display = `${year}-${month}-${day} • ${hours}:${minutes}`;
+      el.textContent = display;
+      footerEl.textContent = display;
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    // Logic board interactions
+    const logicPills = document.querySelectorAll(".logic-pill");
+    const logicOutput = document.getElementById("logicOutput");
+    let logicSentence = [];
+
+    logicPills.forEach(pill => {
+      pill.addEventListener("click", () => {
+        pill.classList.toggle("active");
+        const text = pill.textContent.trim();
+
+        if (pill.classList.contains("active")) {
+          logicSentence.push(text);
+        } else {
+          logicSentence = logicSentence.filter(t => t !== text);
+        }
+
+        if (logicSentence.length === 0) {
+          logicOutput.textContent = "Click phrases to build a little life-logic sentence.";
+        } else {
+          logicOutput.textContent = logicSentence.join(" ");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
