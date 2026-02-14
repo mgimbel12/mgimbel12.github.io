@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marissa’s All‑In‑One Game & Calendar World</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    transition: background 0.5s;
+  }
+
+  header {
+    padding: 20px;
+  }
+
+  #clock, #date {
+    font-size: 1.1rem;
+    margin: 4px 0;
+  }
+
+  #theme-selector {
+    margin: 10px 0 20px;
+  }
+
+  #theme-selector button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 20px;
+  }
+
+  #games {
+    padding: 10px 0 30px;
+  }
+
+  .game-card {
+    background: white;
+    margin: 10px auto;
+    padding: 15px;
+    width: 260px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  /* Themes */
+  body.purple { background: #b39ddb; }
+  body.blue   { background: #90caf9; }
+  body.red    { background: #ef9a9a; }
+  body.orange { background: #ffcc80; }
+  body.yellow { background: #fff59d; }
+</style>
+</head>
+
+<body class="purple">
+
+<header>
+  <h1>Marissa’s All‑In‑One Magical World</h1>
+  <div id="clock"></div>
+  <div id="date"></div>
+</header>
+
+<section id="theme-selector">
+  <button data-theme="purple">Purple</button>
+  <button data-theme="blue">Blue</button>
+  <button data-theme="red">Red</button>
+  <button data-theme="orange">Orange</button>
+  <button data-theme="yellow">Yellow</button>
+</section>
+
+<section id="games">
+  <h2>Game Worlds</h2>
+
+  <div class="game-card">My Little Pony Games</div>
+  <div class="game-card">Candy Rush Games</div>
+  <div class="game-card">Car Rush Game</div>
+  <div class="game-card">Triangle Game</div>
+  <div class="game-card">Wild Horse</div>
+  <div class="game-card">Dinosaur Games</div>
+  <div class="game-card">Marine Life</div>
+  <div class="game-card">Yellow Pushi Game</div>
+</section>
+
+<script>
+  // Live Clock + Date
+  function updateClock() {
+    const now = new Date();
+
+    document.getElementById("clock").textContent =
+      now.toLocaleTimeString();
+
+    document.getElementById("date").textContent =
+      now.toLocaleDateString(undefined, {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      });
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Theme Switching
+  document.querySelectorAll("#theme-selector button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.body.className = btn.dataset.theme;
+    });
+  });
+</script>
+
+</body>
+</html>
