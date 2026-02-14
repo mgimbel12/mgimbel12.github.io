@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marissa’s Storybook Mix</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Times New Roman", serif;
+    background: linear-gradient(to bottom, #a7eaff, #ffffff);
+    color: #222;
+  }
+
+  header {
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(90deg, #87cefa, #ffb6c1);
+    border-bottom: 4px dotted #000;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+  }
+
+  #timeBox {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    color: #003366;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  section {
+    background: rgba(255,255,255,0.7);
+    border-radius: 10px;
+    border: 2px solid #87cefa;
+    padding: 0.75rem;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #003366;
+  }
+
+  /* Disney Castle Placeholder */
+  .castle-box {
+    text-align: center;
+    padding: 0.5rem;
+  }
+
+  .castle-box svg {
+    width: 120px;
+    fill: #003366;
+  }
+
+  /* Color Wheel */
+  .color-wheel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 0.5rem;
+  }
+
+  .color {
+    height: 40px;
+    border-radius: 6px;
+  }
+
+  /* Halloween */
+  .halloween {
+    font-size: 0.9rem;
+    background: #ffefd5;
+    border: 2px dashed orange;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+  /* Pancakes */
+  .recipe {
+    font-size: 0.9rem;
+    background: #fff8dc;
+    border: 2px solid #deb887;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+  /* Sports */
+  .sports {
+    font-size: 0.9rem;
+    background: #e8e8ff;
+    border: 2px solid #6a5acd;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Marissa’s Magical Mix Page</h1>
+  <div id="timeBox"></div>
+</header>
+
+<main>
+
+  <!-- Disney Panel -->
+  <section>
+    <h2>Disney Friends & Castle</h2>
+    <div class="castle-box">
+      <p>Disney Castle (SVG Placeholder)</p>
+      <svg viewBox="0 0 100 100">
+        <rect x="20" y="40" width="60" height="40"/>
+        <rect x="30" y="25" width="10" height="15"/>
+        <rect x="60" y="20" width="10" height="20"/>
+        <polygon points="35,25 35,15 30,20"/>
+        <polygon points="65,20 65,10 60,15"/>
+      </svg>
+    </div>
+    <p>Mickey Mouse • Daisy Duck • Donald Duck • Baby Disney Magic</p>
+  </section>
+
+  <!-- Dinosaurs + Bambi -->
+  <section>
+    <h2>Dinosaurs & Woodland Friends</h2>
+    <p>🦕 Dinosaurs stomping through imagination.</p>
+    <p>🦌 Bambi deer bringing softness and calm.</p>
+    <p>🐶 Sammy the Dog says hello.</p>
+  </section>
+
+  <!-- Color Wheel -->
+  <section>
+    <h2>Color Wheel</h2>
+    <p>Blue • Red • Yellow • Orange • White • Green • Aquamarine • Purple Cats</p>
+    <div class="color-wheel">
+      <div class="color" style="background: blue;"></div>
+      <div class="color" style="background: red;"></div>
+      <div class="color" style="background: yellow;"></div>
+      <div class="color" style="background: orange;"></div>
+      <div class="color" style="background: white; border:1px solid #ccc;"></div>
+      <div class="color" style="background: green;"></div>
+      <div class="color" style="background: aquamarine;"></div>
+      <div class="color" style="background: purple;"></div>
+      <div class="color" style="background: pink;"></div>
+    </div>
+  </section>
+
+  <!-- Pancakes -->
+  <section class="recipe">
+    <h2>Pancake Recipe</h2>
+    <ul>
+      <li>1 cup flour</li>
+      <li>1 tbsp sugar</li>
+      <li>1 cup milk</li>
+      <li>1 egg</li>
+      <li>1 tbsp butter</li>
+    </ul>
+    <p>Mix, pour, flip, enjoy.</p>
+  </section>
+
+  <!-- Halloween -->
+  <section class="halloween">
+    <h2>Halloween Trick or Treat</h2>
+    <p>🎃 Candy, costumes, pumpkins, spooky fun.</p>
+  </section>
+
+  <!-- Sports -->
+  <section class="sports">
+    <h2>Sports Corner</h2>
+    <p>Utah Jazz • Lakers • Uncle Sam cheering from the sidelines.</p>
+  </section>
+
+</main>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+    const h = String(now.getHours()).padStart(2, "0");
+    const min = String(now.getMinutes()).padStart(2, "0");
+
+    document.getElementById("timeBox").textContent =
+      `${y}-${m}-${d} • ${h}:${min}`;
+  }
+
+  updateTime();
+  setInterval(updateTime, 60000);
+</script>
+
+</body>
+</html>
