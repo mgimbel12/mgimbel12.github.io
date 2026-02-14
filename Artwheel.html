@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Art Wheel • Castle • Safety Plan</title>
+  <style>
+    :root {
+      --navy: #001f3f;
+      --aqua: #00bcd4;
+      --red: #c62828;
+      --white: #ffffff;
+      --blue-flag: #0d47a1;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Times New Roman", serif;
+      font-size: 12px;
+      background: radial-gradient(circle at top, var(--aqua), var(--navy));
+      color: var(--white);
+    }
+
+    header {
+      text-align: center;
+      padding: 1rem;
+      background: linear-gradient(90deg, var(--navy), var(--blue-flag));
+      border-bottom: 3px dotted var(--white);
+    }
+
+    header h1 {
+      margin: 0;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    header .datetime {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    section {
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      border: 2px dotted var(--white);
+      padding: 0.75rem 1rem;
+      backdrop-filter: blur(4px);
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.1rem;
+      color: var(--aqua);
+      text-shadow: 0 0 4px rgba(0,0,0,0.6);
+    }
+
+    /* Art Wheel */
+    .art-wheel-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .art-wheel {
+      width: 260px;
+      height: 260px;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 4px solid var(--white);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    .art-slice {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      transform-origin: 100% 100%;
+      background: var(--aqua);
+      border-right: 1px solid rgba(255,255,255,0.4);
+      border-top: 1px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .art-slice:hover {
+      background: var(--red);
+      transform: scale(1.03) rotate(var(--angle));
+    }
+
+    .art-slice span {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      font-size: 0.7rem;
+      text-align: right;
+    }
+
+    .art-wheel-center {
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 2px solid var(--white);
+      top: 30%;
+      left: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0.25rem;
+      font-size: 0.75rem;
+    }
+
+    .art-output {
+      min-height: 3rem;
+      border-radius: 6px;
+      border: 1px dashed var(--aqua);
+      padding: 0.5rem;
+      font-size: 0.85rem;
+      background: rgba(0,0,0,0.3);
+    }
+
+    /* Castle SVG placeholder */
+    .castle-box {
+      margin-top: 0.5rem;
+      background: linear-gradient(to top, var(--navy), var(--blue-flag));
+      border-radius: 8px;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    .castle-box svg {
+      width: 120px;
+      height: auto;
+      fill: var(--white);
+    }
+
+    /* Safety Plan */
+    .safety-plan {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .safety-item {
+      border-radius: 6px;
+      border: 1px dotted var(--aqua);
+      padding: 0.4rem 0.5rem;
+      background: rgba(0,0,0,0.35);
+      font-size: 0.85rem;
+    }
+
+    .safety-item label {
+      font-weight: bold;
+      color: var(--aqua);
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+
+    .safety-item textarea {
+      width: 100%;
+      min-height: 40px;
+      resize: vertical;
+      font-family: "Times New Roman", serif;
+      font-size: 0.85rem;
+      border-radius: 4px;
+      border: 1px solid var(--white);
+      padding: 0.25rem;
+      background: rgba(0,0,0,0.4);
+      color: var(--white);
+    }
+
+    /* Squares dancing / dot-to-dot */
+    .grid-dots {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      margin-top: 0.5rem;
+    }
+
+    .dot-square {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      border: 1px dashed var(--white);
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .dot-square::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--white);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.7;
+    }
+
+    .dot-square.active {
+      background: var(--red);
+      transform: scale(1.05);
+    }
+
+    /* Recipe card */
+    .recipe-card {
+      border-radius: 8px;
+      border: 2px solid var(--white);
+      padding: 0.5rem 0.75rem;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(0,0,0,0.4));
+      font-size: 0.85rem;
+    }
+
+    .recipe-card h3 {
+      margin: 0 0 0.25rem 0;
+      color: var(--white);
+      text-decoration: underline dotted var(--aqua);
+    }
+
+    .recipe-card ul {
+      margin: 0.25rem 0 0.25rem 1.1rem;
+      padding: 0;
+    }
+
+    .recipe-card li {
+      margin-bottom: 0.1rem;
+    }
+
+    /* Flag stripe footer */
+    footer {
+      margin-top: 0.5rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      height: 14px;
+    }
+
+    footer div:nth-child(1) { background: var(--red); }
+    footer div:nth-child(2) { background: var(--white); }
+    footer div:nth-child(3) { background: var(--blue-flag); }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Art Wheel • Castle • Safety Plan</h1>
+    <div class="datetime" id="datetime"></div>
+  </header>
+
+  <main>
+    <!-- LEFT: Art Wheel + Castle + Squares -->
+    <section>
+      <h2>Art Wheel & Castle SVG</h2>
+      <div class="art-wheel-wrapper">
+        <div class="art-wheel" id="artWheel">
+          <!-- 8 slices, 45° apart -->
+          <div class="art-slice" data-label="Safety Plan" style="transform: rotate(0deg); --angle: 0deg;">
+            <span>Safety</span>
+          </div>
+          <div class="art-slice" data-label="Disney Castle" style="transform: rotate(45deg); --angle: 45deg;">
+            <span>Castle</span>
+          </div>
+          <div class="art-slice" data-label="Dot to Dot" style="transform: rotate(90deg); --angle: 90deg;">
+            <span>Dots</span>
+          </div>
+          <div class="art-slice" data-label="Squares Dancing" style="transform: rotate(135deg); --angle: 135deg;">
+            <span>Squares</span>
+          </div>
+          <div class="art-slice" data-label="Pie Recipes" style="transform: rotate(180deg); --angle: 180deg;">
+            <span>Pies</span>
+          </div>
+          <div class="art-slice" data-label="American Flag" style="transform: rotate(225deg); --angle: 225deg;">
+            <span>Flag</span>
+          </div>
+          <div class="art-slice" data-label="Fancy Fonts" style="transform: rotate(270deg); --angle: 270deg;">
+            <span>Fonts</span>
+          </div>
+          <div class="art-slice" data-label="Free Sketch" style="transform: rotate(315deg); --angle: 315deg;">
+            <span>Sketch</span>
+          </div>
+
+          <div class="art-wheel-center">
+            Click a slice to set<br>today’s focus.
+          </div>
+        </div>
+
+        <div class="art-output" id="artOutput">
+          Choose a slice on the wheel to see a prompt here.
+        </div>
+
+        <div class="castle-box">
+          <p style="margin:0 0 0.25rem 0;">Disney Castle SVG • Placeholder</p>
+          <!-- Simple castle-like SVG (you can replace with a detailed one later) -->
+          <svg viewBox="0 0 100 100" aria-label="Castle">
+            <rect x="20" y="40" width="60" height="40" />
+            <rect x="30" y="25" width="10" height="15" />
+            <rect x="60" y="20" width="10" height="20" />
+            <polygon points="35,25 35,15 30,20" />
+            <polygon points="65,20 65,10 60,15" />
+            <rect x="45" y="55" width="10" height="25" />
+            <rect x="25" y="50" width="10" height="10" />
+            <rect x="65" y="50" width="10" height="10" />
+          </svg>
+        </div>
+
+        <div>
+          <h3 style="margin:0.5rem 0 0.25rem 0;">Squares Dancing • Dot to Dot</h3>
+          <p style="margin:0 0 0.25rem 0; font-size:0.8rem;">
+            Click squares to light them up—trace shapes, letters, or secret paths.
+          </p>
+          <div class="grid-dots" id="gridDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Safety Plan + Recipe -->
+    <section>
+      <h2>Safety Plan & Pie Recipe</h2>
+
+      <div class="safety-plan">
+        <div class="safety-item">
+          <label for="warningSigns">Warning signs (thoughts, feelings, body):</label>
+          <textarea id="warningSigns" placeholder="Example: racing thoughts, tight chest, wanting to disappear..."></textarea>
+        </div>
+        <div class="safety-item">
+          <label for="copingSteps">Coping steps I can try:</label>
+          <textarea id="copingSteps" placeholder="Example: deep breaths, grounding game, call a friend, step outside..."></textarea>
+        </div>
+        <div class="safety-item">
+          <label for="safePeople">Safe people / contacts:</label>
+          <textarea id="safePeople" placeholder="Example: friend, family, mentor, coworker..."></textarea>
+        </div>
+        <div class="safety-item">
+          <label for="safePlaces">Safe places / environments:</label>
+          <textarea id="safePlaces" placeholder="Example: bedroom, park, library, recreation center..."></textarea>
+        </div>
+      </div>
+
+      <div style="margin-top:0.75rem;" class="recipe-card">
+        <h3>Recipe: Simple Comfort Pie</h3>
+        <p><strong>Crust:</strong></p>
+        <ul>
+          <li>1 1/4 cups flour</li>
+          <li>1/2 cup cold butter</li>
+          <li>3–4 tbsp cold water</li>
+        </ul>
+        <p><strong>Filling (choose your fruit):</strong></p>
+        <ul>
+          <li>4 cups sliced apples or berries</li>
+          <li>1/2–3/4 cup sugar</li>
+          <li>2 tbsp flour or cornstarch</li>
+          <li>1 tsp cinnamon (for apples)</li>
+        </ul>
+        <p style="margin-top:0.25rem;">
+          Mix crust, chill, roll. Stir filling, pour into crust, top as you like. Bake at 375°F until bubbly and golden.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div></div><div></div><div></div>
+  </footer>
+
+  <script>
+    // Date & Time: Month Day, Year - HH:MM:SS
+    function updateDateTime() {
+      const el = document.getElementById("datetime");
+      const now = new Date();
+
+      const monthNames = [
+        "January","February","March","April","May","June",
+        "July","August","September","October","November","December"
+      ];
+
+      const month = monthNames[now.getMonth()];
+      const day = String(now.getDate()).padStart(2, "0");
+      const year = now.getFullYear();
+
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+
+      el.textContent = `${month} ${day}, ${year} — ${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    // Art Wheel interactions
+    const artOutput = document.getElementById("artOutput");
+    const prompts = {
+      "Safety Plan": "Design a tiny symbol that means 'I am safe enough to breathe right now.'",
+      "Disney Castle": "Sketch a castle window where your future self is waving back at you.",
+      "Dot to Dot": "Create a dot path that spells a word you need today.",
+      "Squares Dancing": "Light up squares in a pattern that feels like music.",
+      "Pie Recipes": "Invent a pie flavor named after a feeling you want more of.",
+      "American Flag": "Use red, white, and blue to mark three things you’re proud of.",
+      "Fancy Fonts": "Write your name in the fanciest Times New Roman you can imagine.",
+      "Free Sketch": "No rules. Just lines, dots, and color until your shoulders drop a little."
+    };
+
+    document.querySelectorAll(".art-slice").forEach(slice => {
+      slice.addEventListener("click", () => {
+        const label = slice.getAttribute("data-label");
+        artOutput.textContent = prompts[label] || "Follow whatever your hand wants to draw.";
+      });
+    });
+
+    // Squares dancing / dot-to-dot grid
+    const grid = document.getElementById("gridDots");
+    for (let i = 0; i < 36; i++) {
+      const sq = document.createElement("div");
+      sq.className = "dot-square";
+      sq.addEventListener("click", () => {
+        sq.classList.toggle("active");
+      });
+      grid.appendChild(sq);
+    }
+  </script>
+</body>
+</html>
