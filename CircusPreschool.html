@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Circus Preschool Fun</title>
+  <style>
+    :root {
+      --red: #ff5252;
+      --yellow: #ffd740;
+      --blue: #40c4ff;
+      --green: #69f0ae;
+      --purple: #b388ff;
+      --bg: #fff8e1;
+      --card: #ffffff;
+      --border: #ffcc80;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #ffe082, #ffccbc);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 900px;
+      background: var(--card);
+      border-radius: 20px;
+      border: 3px solid var(--border);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      padding: 18px 20px 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "🎪";
+      position: absolute;
+      font-size: 4rem;
+      opacity: 0.12;
+      right: 10px;
+      top: 4px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      color: #bf360c;
+    }
+
+    .header p {
+      margin: 2px 0 0;
+      font-size: 0.9rem;
+      color: #5d4037;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff5252, #ffca28, #40c4ff);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 800px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      border-radius: 16px;
+      border: 2px dashed var(--border);
+      background: var(--bg);
+      padding: 12px 12px 14px;
+    }
+
+    .card h2 {
+      margin: 0 0 6px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #4e342e;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #ffe0b2;
+      color: #bf360c;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .card small {
+      display: block;
+      font-size: 0.8rem;
+      color: #6d4c41;
+      margin-bottom: 6px;
+    }
+
+    .toggle-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .toggle-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 1px solid #ffcc80;
+      font-size: 0.8rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .toggle-pill input {
+      accent-color: #ff6f00;
+    }
+
+    .preview {
+      margin-top: 8px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #ffe0b2;
+      padding: 8px 10px;
+      min-height: 70px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .preview-title {
+      font-size: 0.85rem;
+      color: #6d4c41;
+      font-weight: 600;
+    }
+
+    .preview-text {
+      font-size: 1rem;
+      color: #3e2723;
+    }
+
+    .abc-row,
+    .num-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .abc-btn,
+    .num-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #3e2723;
+      background: #fff9c4;
+      box-shadow: 0 2px 0 #fbc02d;
+    }
+
+    .abc-btn.active,
+    .num-btn.active {
+      background: #ffcc80;
+      box-shadow: 0 2px 0 #fb8c00;
+    }
+
+    .circle-fun {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid #ff7043;
+      background: radial-gradient(circle, #ffe082, #ffab91);
+    }
+
+    .circle-label {
+      font-size: 0.85rem;
+      color: #5d4037;
+    }
+
+    .trace-area {
+      margin-top: 8px;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 1px dashed #ffcc80;
+      padding: 8px 10px;
+      min-height: 70px;
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      color: #3e2723;
+    }
+
+    .trace-label {
+      font-size: 0.8rem;
+      color: #6d4c41;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <div class="header">
+      <div>
+        <h1>Circus Preschool Fun</h1>
+        <p>Clowns, circus tents, lions, circles, ABC, and 1‑2‑3 practice.</p>
+      </div>
+      <div class="tag">Circle Fun · ABC · 1‑2‑3</div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT: CIRCUS THEMES -->
+      <div class="card">
+        <h2>🎪 Circus Friends <span class="badge">Themes</span></h2>
+        <small>Turn on the circus friends you want in today’s story.</small>
+
+        <div class="toggle-row">
+          <label class="toggle-pill">
+            <input type="checkbox" class="theme-toggle" value="Clowns" />
+            🤡 Clowns
+          </label>
+          <label class="toggle-pill">
+            <input type="checkbox" class="theme-toggle" value="Circus Tent" />
+            🎪 Circus
+          </label>
+          <label class="toggle-pill">
+            <input type="checkbox" class="theme-toggle" value="Lion" />
+            🦁 Lion
+          </label>
+          <label class="toggle-pill">
+            <input type="checkbox" class="theme-toggle" value="Circle Fun" />
+            🔵 Circle Fun
+          </label>
+          <label class="toggle-pill">
+            <input type="checkbox" class="theme-toggle" value="Preschool Fun" />
+            🧸 Preschool Fun
+          </label>
+        </div>
+
+        <div class="preview" id="themePreview">
+          <div class="preview-title">Story sentence</div>
+          <div class="preview-text" id="previewText">
+            Today at the circus, I see clowns, a big tent, and a brave lion.
+          </div>
+        </div>
+
+        <div class="circle-fun">
+          <div class="circle"></div>
+          <span class="circle-label">Circle Fun: point to the circle, trace it in the air.</span>
+        </div>
+      </div>
+
+      <!-- RIGHT: ABC & 1-2-3 -->
+      <div class="card">
+        <h2>🔤 ABC & 1‑2‑3 <span class="badge">Practice</span></h2>
+        <small>Tap a letter or number and practice saying it out loud.</small>
+
+        <div class="abc-row" id="abcRow">
+          <!-- A–F for short demo -->
+          <button class="abc-btn" data-letter="A">A</button>
+          <button class="abc-btn" data-letter="B">B</button>
+          <button class="abc-btn" data-letter="C">C</button>
+          <button class="abc-btn" data-letter="D">D</button>
+          <button class="abc-btn" data-letter="E">E</button>
+          <button class="abc-btn" data-letter="F">F</button>
+        </div>
+
+        <div class="num-row" id="numRow">
+          <button class="num-btn" data-num="1">1</button>
+          <button class="num-btn" data-num="2">2</button>
+          <button class="num-btn" data-num="3">3</button>
+          <button class="num-btn" data-num="4">4</button>
+          <button class="num-btn" data-num="5">5</button>
+        </div>
+
+        <div class="trace-label">Trace & say:</div>
+        <div class="trace-area" id="traceArea">
+          A B C · 1 2 3
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Theme sentence
+    const themeToggles = document.querySelectorAll(".theme-toggle");
+    const previewText = document.getElementById("previewText");
+
+    function updateStory() {
+      const active = Array.from(themeToggles)
+        .filter((t) => t.checked)
+        .map((t) => t.value);
+
+      if (active.length === 0) {
+        previewText.textContent =
+          "Today at the circus, I see clowns, a big tent, and a brave lion.";
+      } else {
+        previewText.textContent =
+          "Today my circus story has: " +
+          active.join(", ") +
+          ". I clap, count, and say ABC!";
+      }
+    }
+
+    themeToggles.forEach((t) => t.addEventListener("change", updateStory));
+
+    // ABC & numbers
+    const abcButtons = document.querySelectorAll(".abc-btn");
+    const numButtons = document.querySelectorAll(".num-btn");
+    const traceArea = document.getElementById("traceArea");
+
+    function updateTrace() {
+      const letters = Array.from(abcButtons)
+        .filter((b) => b.classList.contains("active"))
+        .map((b) => b.dataset.letter);
+
+      const nums = Array.from(numButtons)
+        .filter((b) => b.classList.contains("active"))
+        .map((b) => b.dataset.num);
+
+      let text = "";
+      if (letters.length > 0) text += letters.join(" ");
+      if (letters.length > 0 && nums.length > 0) text += " · ";
+      if (nums.length > 0) text += nums.join(" ");
+
+      traceArea.textContent = text || "A B C · 1 2 3";
+    }
+
+    abcButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+        updateTrace();
+      });
+    });
+
+    numButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        btn.classList.toggle("active");
+        updateTrace();
+      });
+    });
+  </script>
+</body>
+</html>
