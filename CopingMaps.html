@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Smallville Lex Verse • Dragon Quest Coping Map</title>
+<style>
+  :root {
+    --bg: #05060a;
+    --panel: #101320;
+    --accent: #35c6ff;
+    --accent-soft: rgba(53,198,255,0.25);
+    --danger: #ff4b81;
+    --success: #7dff9b;
+    --text-main: #f5f7ff;
+    --text-soft: #a9b0d4;
+    --circle-soft: rgba(255,255,255,0.06);
+    --line-soft: rgba(255,255,255,0.18);
+    --lex-gold: #f5c96b;
+    --dragon: #ff7b3a;
+    --map-node: #222842;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #1a2340 0, #05060a 55%, #000 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 20px;
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 1200px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.7));
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 18px;
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Background circles + lines */
+  .shell::before,
+  .shell::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--circle-soft), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .shell::before {
+    width: 420px;
+    height: 420px;
+    top: -120px;
+    left: -80px;
+  }
+  .shell::after {
+    width: 520px;
+    height: 520px;
+    bottom: -200px;
+    right: -120px;
+  }
+
+  .diagonal-line {
+    position: absolute;
+    width: 2px;
+    height: 160%;
+    background: linear-gradient(to bottom, transparent, var(--line-soft), transparent);
+    top: -30%;
+    left: 50%;
+    transform: rotate(18deg);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .column {
+    position: relative;
+    z-index: 1;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 55%);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 16px 16px 18px;
+    overflow: hidden;
+  }
+
+  .column h2 {
+    margin: 0 0 8px;
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .tagline {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-bottom: 10px;
+  }
+
+  /* Floating text marks */
+  .floating-mark {
+    position: absolute;
+    font-size: 0.7rem;
+    color: var(--accent);
+    opacity: 0.7;
+    pointer-events: none;
+    animation: floatMark 9s linear infinite;
+    white-space: nowrap;
+  }
+
+  .floating-mark.lex {
+    color: var(--lex-gold);
+  }
+
+  .floating-mark.dragon {
+    color: var(--dragon);
+  }
+
+  @keyframes floatMark {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    60% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(-40px) translateX(40px);
+      opacity: 0;
+    }
+  }
+
+  /* Verse panel */
+  .verse-panel {
+    background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(20,20,40,0.9));
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .verse-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(245,201,107,0.18), transparent 60%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .verse-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--lex-gold);
+    margin-bottom: 4px;
+  }
+
+  .verse-text {
+    font-size: 0.86rem;
+    color: var(--text-main);
+    line-height: 1.4;
+  }
+
+  .verse-meta {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    flex-wrap: wrap;
+  }
+
+  .verse-pill {
+    padding: 2px 7px;
+    border-radius: 999px;
+    border: 1px solid rgba(245,201,107,0.5);
+  }
+
+  .verse-switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .verse-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(0,0,0,0.5);
+    color: var(--text-soft);
+    font-size: 0.75rem;
+    padding: 4px 9px;
+    cursor: pointer;
+    transition: 0.18s ease;
+  }
+
+  .verse-btn.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .verse-btn:hover {
+    border-color: var(--accent);
+  }
+
+  /* Coping skills list */
+  .skills-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .skill-chip {
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: rgba(0,0,0,0.6);
+    padding: 6px 7px;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .skill-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 8px rgba(53,198,255,0.7);
+  }
+
+  /* SVG Dragon mini-game */
+  .dragon-panel {
+    margin-top: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: radial-gradient(circle at top, rgba(255,123,58,0.12), rgba(0,0,0,0.9));
+    padding: 8px 10px 10px;
+  }
+
+  .dragon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    margin-bottom: 4px;
+  }
+
+  .dragon-score {
+    color: var(--dragon);
+    font-weight: 600;
+  }
+
+  .dragon-instruction {
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+  }
+
+  .dragon-arena {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+    background: radial-gradient(circle at center, #1b1020, #050308);
+    border: 1px solid rgba(255,255,255,0.18);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  /* MapQuest-style conquest */
+  .map-panel {
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: radial-gradient(circle at top, rgba(53,198,255,0.12), rgba(0,0,0,0.9));
+    padding: 10px 10px 12px;
+    margin-top: 8px;
+  }
+
+  .map-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .map-node {
+    position: relative;
+    border-radius: 10px;
+    background: var(--map-node);
+    border: 1px solid rgba(255,255,255,0.16);
+    padding: 6px 6px 8px;
+    font-size: 0.7rem;
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: 0.18s ease;
+    overflow: hidden;
+  }
+
+  .map-node::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top, rgba(53,198,255,0.18), transparent 60%);
+    opacity: 0;
+    transition: 0.18s ease;
+  }
+
+  .map-node:hover::before {
+    opacity: 1;
+  }
+
+  .map-node-title {
+    font-size: 0.72rem;
+    color: var(--text-main);
+    margin-bottom: 2px;
+  }
+
+  .map-node-tag {
+    font-size: 0.65rem;
+    opacity: 0.8;
+  }
+
+  .map-node.completed {
+    border-color: var(--success);
+    box-shadow: 0 0 10px rgba(125,255,155,0.6);
+  }
+
+  .map-node.completed .map-node-title {
+    color: var(--success);
+  }
+
+  .map-node.completed .map-node-tag {
+    color: var(--success);
+  }
+
+  .map-progress {
+    margin-top: 6px;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .map-bar {
+    flex: 1;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    margin-left: 8px;
+    overflow: hidden;
+  }
+
+  .map-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--success));
+    transition: width 0.25s ease;
+  }
+
+  .map-quote {
+    margin-top: 6px;
+    font-size: 0.72rem;
+    color: var(--text-soft);
+    font-style: italic;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .shell {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .diagonal-line {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="diagonal-line"></div>
+
+  <!-- LEFT: Lex Luthor + Verses + Coping Skills -->
+  <section class="column" id="lex-column">
+    <h2>Lex Luthor • Smallville Verse</h2>
+    <div class="tagline">
+      Power, vulnerability, and the long game of becoming—rewritten as coping skills and learning quests.
+    </div>
+
+    <div class="verse-switcher" id="verse-switcher">
+      <button class="verse-btn active" data-verse="smallville">Smallville Lex</button>
+      <button class="verse-btn" data-verse="multiverse">Multiverse Lex</button>
+      <button class="verse-btn" data-verse="reformed">Reformed Lex</button>
+      <button class="verse-btn" data-verse="you">You-as-Lex</button>
+    </div>
+
+    <div class="verse-panel" id="verse-panel">
+      <div class="verse-label" id="verse-label">Smallville • Origin Verse</div>
+      <div class="verse-text" id="verse-text">
+        “Every weakness they named became a blueprint. Every scar, a study. I learned to turn
+        ‘too much’ into strategy—silence into observation, obsession into preparation. I am not
+        the villain of this story; I am the one who refused to stay powerless.”
+      </div>
+      <div class="verse-meta">
+        <span class="verse-pill" id="verse-tone">Tone: Strategic coping</span>
+        <span class="verse-pill" id="verse-focus">Focus: Turning criticism into data</span>
+      </div>
+    </div>
+
+    <div class="tagline">Learning & coping skills unlocked from the Lex-verse:</div>
+    <div class="skills-list">
+      <div class="skill-chip">
+        <div class="skill-dot"></div>
+        <span>Reframe “weakness” as research data.</span>
+      </div>
+      <div class="skill-chip">
+        <div class="skill-dot"></div>
+        <span>Pause before reacting—collect evidence first.</span>
+      </div>
+      <div class="skill-chip">
+        <div class="skill-dot"></div>
+        <span>Build quiet, private strategy spaces.</span>
+      </div>
+      <div class="skill-chip">
+        <div class="skill-dot"></div>
+        <span>Track patterns instead of taking things personally.</span>
+      </div>
+      <div class="skill-chip">
+        <div class="skill-dot"></div>
+        <span>Ask: “What is this trying to teach me?”</span>
+      </div>
+      <div class="skill-chip">
+        <div class="skill-dot"></div>
+        <span>Let ambition include rest and repair.</span>
+      </div>
+    </div>
+
+    <div class="dragon-panel">
+      <div class="dragon-header">
+        <span>SVG Dragon • Micro Game</span>
+        <span class="dragon-score">Orbs: <span id="dragon-score">0</span>/6</span>
+      </div>
+      <div class="dragon-instruction">
+        Tap inside the arena to move the dragon. Collect glowing orbs = tiny coping wins.
+      </div>
+      <svg class="dragon-arena" id="dragon-arena" viewBox="0 0 200 150">
+        <!-- Background grid lines -->
+        <defs>
+          <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.3" />
+          </pattern>
+        </defs>
+        <rect x="0" y="0" width="200" height="150" fill="url(#grid)" />
+
+        <!-- Orbs (coping wins) -->
+        <circle class="orb" data-id="1" cx="30" cy="30" r="4" fill="#7dff9b" />
+        <circle class="orb" data-id="2" cx="170" cy="40" r="4" fill="#7dff9b" />
+        <circle class="orb" data-id="3" cx="60" cy="120" r="4" fill="#7dff9b" />
+        <circle class="orb" data-id="4" cx="140" cy="110" r="4" fill="#7dff9b" />
+        <circle class="orb" data-id="5" cx="100" cy="70" r="4" fill="#7dff9b" />
+        <circle class="orb" data-id="6" cx="180" cy="130" r="4" fill="#7dff9b" />
+
+        <!-- Dragon (simple shape) -->
+        <g id="dragon" transform="translate(100,75)">
+          <circle cx="0" cy="0" r="7" fill="#ff7b3a" />
+          <circle cx="6" cy="-4" r="3" fill="#ffd6b3" />
+          <path d="M -10 2 Q -18 8 -14 14" fill="none" stroke="#ff7b3a" stroke-width="2" />
+          <path d="M 2 6 Q 8 12 6 18" fill="none" stroke="#ff7b3a" stroke-width="2" />
+          <circle cx="7" cy="-5" r="0.8" fill="#000" />
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- RIGHT: MapQuest-style Conquest + Learning Map -->
+  <section class="column" id="map-column">
+    <h2>MapQuest • Coping Conquest</h2>
+    <div class="tagline">
+      Each node is a tiny quest: a learning or coping skill you can “capture” and revisit.
+    </div>
+
+    <div class="map-panel">
+      <div class="map-progress">
+        <span>Territories claimed: <span id="map-count">0</span>/8</span>
+        <div class="map-bar">
+          <div class="map-bar-fill" id="map-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="map-grid" id="map-grid">
+        <div class="map-node" data-quote="You paused instead of spiraling. That’s strategy, not weakness.">
+          <div class="map-node-title">Pause & Breathe</div>
+          <div class="map-node-tag">3 deep breaths before reacting.</div>
+        </div>
+        <div class="map-node" data-quote="You turned confusion into a question. That’s leadership.">
+          <div class="map-node-title">Ask One Clarifying Question</div>
+          <div class="map-node-tag">Curiosity over self-blame.</div>
+        </div>
+        <div class="map-node" data-quote="You wrote it down instead of holding it alone. That’s a shield.">
+          <div class="map-node-title">Journal the Scene</div>
+          <div class="map-node-tag">Facts, feelings, next steps.</div>
+        </div>
+        <div class="map-node" data-quote="You chose a boundary. That’s not selfish; that’s architecture.">
+          <div class="map-node-title">Set One Boundary</div>
+          <div class="map-node-tag">Say “not today” once.</div>
+        </div>
+        <div class="map-node" data-quote="You asked for help. That’s advanced strategy, not defeat.">
+          <div class="map-node-title">Ask for Support</div>
+          <div class="map-node-tag">Text, call, or message someone.</div>
+        </div>
+        <div class="map-node" data-quote="You let your body move. That’s data leaving the system.">
+          <div class="map-node-title">Move for 2 Minutes</div>
+          <div class="map-node-tag">Stretch, walk, shake it out.</div>
+        </div>
+        <div class="map-node" data-quote="You chose rest. That’s how empires stay standing.">
+          <div class="map-node-title">Micro-Rest Ritual</div>
+          <div class="map-node-tag">60 seconds of stillness.</div>
+        </div>
+        <div class="map-node" data-quote="You named one thing you did well. That’s rewriting the narrative.">
+          <div class="map-node-title">Name One Win</div>
+          <div class="map-node-tag">Today, you did something right.</div>
+        </div>
+      </div>
+
+      <div class="map-quote" id="map-quote">
+        Tap a territory to claim it and reveal a Lex-style reframe.
+      </div>
+    </div>
+
+    <div class="tagline" style="margin-top:10px;">
+      Map notes:
+      <br />
+      • Left side = narrative power (Lex verses).<br />
+      • Right side = practical power (quests & coping).
+    </div>
+  </section>
+
+  <!-- Floating text marks -->
+  <div class="floating-mark lex" style="top:12%; left:8%;">“Weakness is just unprocessed data.”</div>
+  <div class="floating-mark lex" style="top:70%; left:6%; animation-delay:2s;">“You are allowed to rewrite the script.”</div>
+  <div class="floating-mark dragon" style="top:20%; right:10%; animation-delay:1s;">Dragon Quest: tiny wins, big arcs.</div>
+  <div class="floating-mark dragon" style="bottom:8%; right:18%; animation-delay:3s;">Every orb is a coping checkpoint.</div>
+</div>
+
+<script>
+  // --- Verse switching ---
+  const verses = {
+    smallville: {
+      label: "Smallville • Origin Verse",
+      text:
+        "“Every weakness they named became a blueprint. Every scar, a study. I learned to turn ‘too much’ into strategy—silence into observation, obsession into preparation. I am not the villain of this story; I am the one who refused to stay powerless.”",
+      tone: "Tone: Strategic coping",
+      focus: "Focus: Turning criticism into data"
+    },
+    multiverse: {
+      label: "Multiverse • Power Variant",
+      text:
+        "“In one universe, I burn the world. In another, I build it better. The constant is not my darkness; it is my refusal to accept the first draft of my story.”",
+      tone: "Tone: Choice & possibility",
+      focus: "Focus: You are not stuck with one version of you"
+    },
+    reformed: {
+      label: "Reformed • Redemption Verse",
+      text:
+        "“Redemption is not a headline; it is a daily maintenance plan. I do not erase what I’ve done—I design systems so I cannot become that version again.”",
+      tone: "Tone: Accountability & repair",
+      focus: "Focus: Systems that protect your future self"
+    },
+    you: {
+      label: "You-as-Lex • Sanctuary Verse",
+      text:
+        "“They called you ‘too much,’ ‘too intense,’ ‘too sensitive.’ You turned those words into blueprints, built sanctuaries out of spreadsheets and stories. You are not asking for permission to exist anymore—you are drafting the terms.”",
+      tone: "Tone: Self-advocacy",
+      focus: "Focus: Owning your narrative architecture"
+    }
+  };
+
+  const verseButtons = document.querySelectorAll(".verse-btn");
+  const verseLabel = document.getElementById("verse-label");
+  const verseText = document.getElementById("verse-text");
+  const verseTone = document.getElementById("verse-tone");
+  const verseFocus = document.getElementById("verse-focus");
+
+  verseButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      verseButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const key = btn.dataset.verse;
+      const v = verses[key];
+      verseLabel.textContent = v.label;
+      verseText.textContent = v.text;
+      verseTone.textContent = v.tone;
+      verseFocus.textContent = v.focus;
+    });
+  });
+
+  // --- SVG Dragon mini-game ---
+  const arena = document.getElementById("dragon-arena");
+  const dragon = document.getElementById("dragon");
+  const dragonScoreEl = document.getElementById("dragon-score");
+  const orbs = Array.from(arena.querySelectorAll(".orb"));
+  let dragonScore = 0;
+
+  function moveDragonTo(evt) {
+    const rect = arena.getBoundingClientRect();
+    const x = ((evt.clientX - rect.left) / rect.width) * 200;
+    const y = ((evt.clientY - rect.top) / rect.height) * 150;
+    dragon.setAttribute("transform", `translate(${x},${y})`);
+    checkOrbCollisions(x, y);
+  }
+
+  function checkOrbCollisions(x, y) {
+    orbs.forEach(orb => {
+      if (orb.getAttribute("data-collected") === "true") return;
+      const ox = parseFloat(orb.getAttribute("cx"));
+      const oy = parseFloat(orb.getAttribute("cy"));
+      const dist = Math.hypot(ox - x, oy - y);
+      if (dist < 10) {
+        orb.setAttribute("data-collected", "true");
+        orb.setAttribute("fill", "#444");
+        orb.setAttribute("r", "2");
+        dragonScore++;
+        dragonScoreEl.textContent = dragonScore;
+      }
+    });
+  }
+
+  arena.addEventListener("click", moveDragonTo);
+
+  // --- MapQuest-style conquest ---
+  const mapNodes = Array.from(document.querySelectorAll(".map-node"));
+  const mapCountEl = document.getElementById("map-count");
+  const mapBarFill = document.getElementById("map-bar-fill");
+  const mapQuote = document.getElementById("map-quote");
+  let completedCount = 0;
+
+  mapNodes.forEach(node => {
+    node.addEventListener("click", () => {
+      if (!node.classList.contains("completed")) {
+        node.classList.add("completed");
+        completedCount++;
+        mapCountEl.textContent = completedCount;
+        const percent = (completedCount / mapNodes.length) * 100;
+        mapBarFill.style.width = percent + "%";
+      }
+      const quote = node.getAttribute("data-quote");
+      if (quote) {
+        mapQuote.textContent = quote;
+      }
+    });
+  });
+</script>
+</body>
+</html>
