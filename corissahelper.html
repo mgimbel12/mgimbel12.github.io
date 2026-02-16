@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Safety Plan – Single Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --border: #d5d9e6;
+    --accent: #4c7cff;
+    --accent-soft: #e1e7ff;
+    --text: #1f2430;
+    --muted: #6b7280;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 1.5rem;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+  }
+
+  header p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1rem;
+  }
+
+  .card h2 {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .card p,
+  .card label,
+  .card li {
+    font-size: 0.85rem;
+  }
+
+  .hint {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  textarea,
+  input[type="text"] {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.5rem;
+    font-size: 0.85rem;
+    resize: vertical;
+  }
+
+  textarea {
+    min-height: 80px;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #a0a4b5;
+  }
+
+  .row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .row input[type="text"] {
+    flex: 1;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 0.7rem;
+    margin-right: 0.25rem;
+    margin-top: 0.25rem;
+  }
+
+  .footer-note {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 0.4rem;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .status {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Safety Plan – Personal Sheet</h1>
+    <p>Basic, single‑page layout designed to live on one server and be easy to read and update.</p>
+  </header>
+
+  <main class="grid">
+    <!-- Section 1: Early warning signs -->
+    <section class="card">
+      <h2>Early warning signs</h2>
+      <p class="hint">What are the first clues that things are getting hard for you? (thoughts, feelings, body signals, situations)</p>
+      <textarea id="signs" placeholder="Example: I feel very tired, I stop answering messages, I feel like hiding..."></textarea>
+    </section>
+
+    <!-- Section 2: Coping strategies -->
+    <section class="card">
+      <h2>Coping strategies</h2>
+      <p class="hint">Safe things you can do on your own to feel a little more steady.</p>
+      <textarea id="coping" placeholder="Example: take a shower, listen to music, draw, walk, grounding exercises..."></textarea>
+    </section>
+
+    <!-- Section 3: People & places that help -->
+    <section class="card">
+      <h2>Supportive people & places</h2>
+      <p class="hint">Who and where feels safe or calming? (no need to list phone numbers if you don’t want them here)</p>
+
+      <label for="person1">Person or contact</label>
+      <input type="text" id="person1" placeholder="Friend, family, mentor, coworker...">
+
+      <label for="place1" style="margin-top:0.5rem; display:block;">Safe place</label>
+      <input type="text" id="place1" placeholder="Room, park, library, community center...">
+
+      <div class="status" id="supportStatus"></div>
+    </section>
+
+    <!-- Section 4: Environment & safety steps -->
+    <section class="card">
+      <h2>Environment & safety steps</h2>
+      <p class="hint">What can you change in your space or routine to feel safer?</p>
+      <textarea id="environment" placeholder="Example: move sharp objects, keep comforting items nearby, adjust lighting, plan a calm route home..."></textarea>
+    </section>
+
+    <!-- Section 5: Reasons to stay safe -->
+    <section class="card">
+      <h2>Reasons to stay safe</h2>
+      <p class="hint">Small or big reasons that matter to you.</p>
+      <textarea id="reasons" placeholder="Example: people I care about, future plans, pets, projects, things I still want to see or do..."></textarea>
+      <div id="reasonsBadges"></div>
+    </section>
+
+    <!-- Section 6: Server / file info -->
+    <section class="card">
+      <h2>Sheet info</h2>
+      <p class="hint">Basic info for this single‑server sheet (optional, for your own tracking).</p>
+
+      <div class="row">
+        <input type="text" id="serverName" placeholder="Server or location name">
+      </div>
+      <div class="row">
+        <input type="text" id="lastUpdated" placeholder="Last updated (you can type a date)">
+      </div>
+
+      <button class="btn" id="btnStamp">Stamp current date & time</button>
+      <div class="status" id="stampStatus"></div>
+    </section>
+  </main>
+
+  <p class="footer-note">
+    This sheet is for organizing your thoughts and plans. It does not replace professional support or emergency services.
+  </p>
+</div>
+
+<script>
+  // Simple helper: create badges from reasons
+  const reasonsField = document.getElementById("reasons");
+  const reasonsBadges = document.getElementById("reasonsBadges");
+
+  reasonsField.addEventListener("blur", () => {
+    const text = reasonsField.value.trim();
+    reasonsBadges.innerHTML = "";
+    if (!text) return;
+    const parts = text.split(/[,;]+/).map(p => p.trim()).filter(Boolean);
+    parts.forEach(p => {
+      const span = document.createElement("span");
+      span.className = "badge";
+      span.textContent = p;
+      reasonsBadges.appendChild(span);
+    });
+  });
+
+  // Support status: show a gentle reminder if both fields are empty
+  const person1 = document.getElementById("person1");
+  const place1 = document.getElementById("place1");
+  const supportStatus = document.getElementById("supportStatus");
+
+  function updateSupportStatus() {
+    if (!person1.value.trim() && !place1.value.trim()) {
+      supportStatus.textContent = "You can add people or places here whenever you’re ready—this section can grow over time.";
+    } else {
+      supportStatus.textContent = "You’ve named at least one support or safe place. You can always add more later.";
+    }
+  }
+
+  person1.addEventListener("input", updateSupportStatus);
+  place1.addEventListener("input", updateSupportStatus);
+  updateSupportStatus();
+
+  // Stamp current date/time into "lastUpdated"
+  const btnStamp = document.getElementById("btnStamp");
+  const lastUpdated = document.getElementById("lastUpdated");
+  const stampStatus = document.getElementById("stampStatus");
+
+  btnStamp.addEventListener("click", () => {
+    const now = new Date();
+    lastUpdated.value = now.toLocaleString();
+    stampStatus.textContent = "Stamped with current date and time.";
+  });
+</script>
+</body>
+</html>
