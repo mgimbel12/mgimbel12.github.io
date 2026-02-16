@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sanctuary Arcade Universe</title>
+
+<style>
+body {
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.screen {
+    display: none;
+    padding: 20px;
+}
+
+.screen.active {
+    display: block;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.tile {
+    background: #222;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tile:hover {
+    background: #444;
+}
+
+/* Catch Game */
+#catch-area {
+    width: 300px;
+    height: 300px;
+    background: #222;
+    margin: auto;
+    position: relative;
+    border-radius: 10px;
+}
+
+.star {
+    position: absolute;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Dodge Game */
+#dodge-area {
+    width: 300px;
+    height: 400px;
+    background: #222;
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+#player {
+    width: 40px;
+    height: 40px;
+    background: cyan;
+    position: absolute;
+    bottom: 10px;
+    left: 130px;
+    border-radius: 5px;
+}
+
+.falling {
+    width: 30px;
+    height: 30px;
+    background: red;
+    position: absolute;
+    top: 0;
+    border-radius: 5px;
+}
+
+/* Memory Game */
+#memory-grid {
+    width: 320px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.card {
+    background: #333;
+    padding: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.card.flipped {
+    background: #00aaff;
+    color: black;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ARCADE HUB -->
+<div id="arcade-hub" class="screen active">
+    <h1>Sanctuary Arcade Hub</h1>
+    <div class="grid">
+        <div class="tile" onclick="openScreen('catch-game')">⭐ Catch Game</div>
+        <div class="tile" onclick="openScreen('dodge-game')">🔻 Dodge Game</div>
+        <div class="tile" onclick="openScreen('memory-game')">🧠 Memory Game</div>
+        <div class="tile">✨ Add More</div>
+        <div class="tile">📚 School Helper</div>
+        <div class="tile">💰 Money Counter</div>
+        <div class="tile">🔤 Spell Checker</div>
+        <div class="tile">🌱 Life Coach Panel</div>
+    </div>
+</div>
+
+<!-- ⭐ CATCH GAME -->
+<div id="catch-game" class="screen">
+    <button class="back" onclick="openScreen('arcade-hub')">← Back</button>
+    <h2>Catch the Star</h2>
+    <div id="catch-area"></div>
+</div>
+
+<!-- 🔻 DODGE GAME -->
+<div id="dodge-game" class="screen">
+    <button class="back" onclick="openScreen('arcade-hub')">← Back</button>
+    <h2>Dodge the Falling Shapes</h2>
+    <div id="dodge-area">
+        <div id="player"></div>
+    </div>
+</div>
+
+<!-- 🧠 MEMORY GAME -->
+<div id="memory-game" class="screen">
+    <button class="back" onclick="openScreen('arcade-hub')">← Back</button>
+    <h2>Affirmation Memory Match</h2>
+    <div id="memory-grid"></div>
+</div>
+
+<script>
+function openScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+/* ⭐ CATCH GAME */
+const catchArea = document.getElementById("catch-area");
+
+function spawnStar() {
+    catchArea.innerHTML = "";
+    const star = document.createElement("div");
+    star.className = "star";
+    star.textContent = "⭐";
+
+    star.style.top = Math.random() * 260 + "px";
+    star.style.left = Math.random() * 260 + "px";
+
+    star.onclick = spawnStar;
+    catchArea.appendChild(star);
+}
+spawnStar();
+
+/* 🔻 DODGE GAME */
+const dodgeArea = document.getElementById("dodge-area");
+const player = document.getElementById("player");
+
+document.addEventListener("keydown", e => {
+    let left = parseInt(player.style.left);
+    if (e.key === "ArrowLeft" && left > 0) player.style.left = left - 20 + "px";
+    if (e.key === "ArrowRight" && left < 260) player.style.left = left + 20 + "px";
+});
+
+function spawnFalling() {
+    const block = document.createElement("div");
+    block.className = "falling";
+    block.style.left = Math.random() * 270 + "px";
+    dodgeArea.appendChild(block);
+
+    let fall = setInterval(() => {
+        let top = parseInt(block.style.top || 0);
+        block.style.top = top + 5 + "px";
+
+        if (top > 380) {
+            block.remove();
+            clearInterval(fall);
+        }
+    }, 50);
+}
+setInterval(spawnFalling, 800);
+
+/* 🧠 MEMORY GAME */
+const affirmations = ["Brave", "Loved", "Strong", "Enough"];
+let cards = [...affirmations, ...affirmations];
+cards.sort(() => Math.random() - 0.5);
+
+const grid = document.getElementById("memory-grid");
+let first = null;
+
+cards.forEach(text => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.dataset.word = text;
+    card.onclick = () => flip(card);
+    grid.appendChild(card);
+});
+
+function flip(card) {
+    if (card.classList.contains("flipped")) return;
+
+    card.classList.add("flipped");
+    card.textContent = card.dataset.word;
+
+    if (!first) {
+        first = card;
+    } else {
+        if (first.dataset.word !== card.dataset.word) {
+            setTimeout(() => {
+                first.classList.remove("flipped");
+                first.textContent = "";
+                card.classList.remove("flipped");
+                card.textContent = "";
+            }, 800);
+        }
+        first = null;
+    }
+}
+</script>
+
+</body>
+</html>
