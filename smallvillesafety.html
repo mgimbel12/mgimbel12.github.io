@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --smallville-red: #c62828;
+      --smallville-gold: #ffca28;
+      --smallville-blue: #0d47a1;
+      --page-bg: #050814;
+      --card-bg: #0f172a;
+      --text-main: #f9fafb;
+      --text-soft: #cbd5f5;
+      --border-soft: #1f2937;
+      --accent-soft: rgba(255, 202, 40, 0.2);
+      --danger-soft: rgba(198, 40, 40, 0.2);
+      --safe-soft: rgba(13, 71, 161, 0.2);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --transition-fast: 0.18s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      border-radius: 26px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      position: relative;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Hero / header */
+
+    .hero {
+      padding: 24px 26px 18px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      background: radial-gradient(circle at top left, rgba(198, 40, 40, 0.35), transparent 55%),
+                  radial-gradient(circle at top right, rgba(13, 71, 161, 0.4), transparent 60%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255, 202, 40, 0.18), transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .hero-left {
+      max-width: 520px;
+    }
+
+    .hero-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .shield {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: conic-gradient(from 210deg, var(--smallville-red), var(--smallville-gold), var(--smallville-red));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9), 0 0 24px rgba(255, 202, 40, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shield-inner {
+      width: 26px;
+      height: 26px;
+      border-radius: 9px;
+      background: radial-gradient(circle at 30% 0, #fff, #ffe082 20%, #f57f17 55%, #b71c1c 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      color: #1a237e;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      max-width: 460px;
+      line-height: 1.5;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+    }
+
+    .tag-identity {
+      border-color: rgba(255, 202, 40, 0.8);
+      background: rgba(255, 202, 40, 0.08);
+      color: #fef9c3;
+    }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 210px;
+    }
+
+    .identity-pill {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .identity-pill span {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #9ca3af;
+    }
+
+    .status-chip {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      color: #e0f2fe;
+      background: rgba(8, 47, 73, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    /* Layout body */
+
+    .main {
+      padding: 18px 22px 22px;
+      border-right: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .main {
+        border-right: none;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      }
+    }
+
+    .sidebar {
+      padding: 18px 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), #020617 70%);
+    }
+
+    /* Section cards */
+
+    .section {
+      background: radial-gradient(circle at top left, rgba(148, 163, 184, 0.12), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617 70%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 12px 14px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-badge {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .section-tagline {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .section-body {
+      display: grid;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .field-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9ca3af;
+      margin-bottom: 2px;
+    }
+
+    .field-input,
+    .field-textarea {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      padding: 7px 9px;
+      outline: none;
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+      resize: vertical;
+      min-height: 32px;
+    }
+
+    .field-textarea {
+      min-height: 60px;
+    }
+
+    .field-input:focus,
+    .field-textarea:focus {
+      border-color: var(--smallville-gold);
+      box-shadow: 0 0 0 1px rgba(255, 202, 40, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+      transform: translateY(-1px);
+    }
+
+    .hint {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      margin-top: 1px;
+    }
+
+    .row-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .row-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Themed sections */
+
+    .section-krypton {
+      background: radial-gradient(circle at top left, var(--danger-soft), #020617 70%);
+    }
+
+    .section-fortress {
+      background: radial-gradient(circle at top left, var(--safe-soft), #020617 70%);
+    }
+
+    .section-dailyplanet {
+      background: radial-gradient(circle at top left, var(--accent-soft), #020617 70%);
+    }
+
+    .section-identity {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), #020617 70%);
+    }
+
+    /* Sidebar cards */
+
+    .mini-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 10px 11px 9px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617 70%);
+      display: grid;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mini-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .mini-pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: #e5e7eb;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .mini-body {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .mini-list {
+      list-style: none;
+      margin-top: 4px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .mini-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: #e5e7eb;
+    }
+
+    .mini-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #facc15;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    /* Buttons / footer */
+
+    .footer {
+      padding: 10px 18px 14px;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: radial-gradient(circle at bottom, rgba(15, 23, 42, 0.9), #020617 70%);
+    }
+
+    @media (max-width: 600px) {
+      .footer {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    .footer-left {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .footer-left strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .btn span {
+      font-size: 0.9em;
+    }
+
+    .btn-primary {
+      border-color: rgba(255, 202, 40, 0.9);
+      background: linear-gradient(135deg, #facc15, #f97316);
+      color: #111827;
+      box-shadow: 0 10px 25px rgba(248, 181, 0, 0.55);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(248, 181, 0, 0.7);
+    }
+
+    .btn-outline {
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-outline:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.8);
+    }
+
+    .btn-danger {
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+    }
+
+    .btn-danger:hover {
+      background: rgba(127, 29, 29, 0.9);
+      box-shadow: 0 10px 22px rgba(127, 29, 29, 0.9);
+    }
+
+    /* Alert bar */
+
+    .alert-bar {
+      display: none;
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(52, 211, 153, 0.9);
+      color: #a7f3d0;
+      font-size: 0.8rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+
+    .alert-bar.show {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      animation: fadeUp 0.25s ease-out;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 8px);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+    }
+
+    .alert-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    /* Smallville skyline hint */
+
+    .skyline {
+      position: absolute;
+      inset: auto 0 0;
+      height: 70px;
+      pointer-events: none;
+      opacity: 0.16;
+      background: linear-gradient(to top, #020617 0, transparent 100%);
+      mask-image: linear-gradient(to top, black 0, transparent 100%);
+    }
+
+    .skyline::before,
+    .skyline::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-repeat: repeat-x;
+      background-size: 140px 70px;
+      opacity: 0.9;
+    }
+
+    .skyline::before {
+      background-image: linear-gradient(to top, #020617 0, #111827 40%, #1f2937 100%);
+      clip-path: polygon(
+        0 100%, 0 60%, 10% 40%, 18% 55%, 26% 30%, 32% 55%, 40% 35%, 48% 60%, 56% 25%, 64% 55%, 72% 35%, 80% 60%, 88% 40%, 96% 55%, 100% 35%, 100% 100%
+      );
+    }
+
+    .skyline::after {
+      background-image: linear-gradient(to top, #020617 0, #020617 40%, #020617 100%);
+      mix-blend-mode: multiply;
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="smallvillePlan">
+    <!-- LEFT: Main plan -->
+    <div class="main">
+      <!-- Identity & purpose -->
+      <div class="section section-identity">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-badge">01</div>
+            Smallville identity anchor
+          </div>
+          <div class="section-tagline">“Even in Smallville, I matter.”</div>
+        </div>
+        <div class="section-body">
+          <div class="row-2">
+            <div>
+              <div class="field-label">Hero name (how I want to be held)</div>
+              <input class="field-input" id="heroName" placeholder="Example: My Smallville Self, Farm-Strong Heart, etc." />
+              <div class="hint">A name or phrase that reminds you who you are beyond crisis.</div>
+            </div>
+            <div>
+              <div class="field-label">Everyday identity</div>
+              <input class="field-input" id="everydayIdentity" placeholder="Example: Neighbor, teammate, advocate, artist…" />
+              <div class="hint">Roles that still belong to you, even on hard days.</div>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">My Smallville promise to myself</div>
+            <textarea class="field-textarea" id="smallvillePromise" placeholder="Example: No matter how heavy the world feels, I deserve safety, time, and gentle support."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kryptonite triggers -->
+      <div class="section section-krypton">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-badge">02</div>
+            Kryptonite check
+          </div>
+          <div class="section-tagline">What weakens my powers or makes things feel unsafe.</div>
+        </div>
+        <div class="section-body">
+          <div class="row-2">
+            <div>
+              <div class="field-label">Kryptonite moments</div>
+              <textarea class="field-textarea" id="kryptoniteTriggers" placeholder="Examples: Certain conversations, loud conflict, feeling ignored, money stress, housing uncertainty…"></textarea>
+              <div class="hint">List situations, places, or topics that drain you or spike your stress.</div>
+            </div>
+            <div>
+              <div class="field-label">Warning signs in my body & mind</div>
+              <textarea class="field-textarea" id="warningSigns" placeholder="Examples: Tight chest, racing thoughts, wanting to disappear, not sleeping, snapping at people…"></textarea>
+              <div class="hint">How you can tell your “Kryptonite meter” is rising.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fortress of Solitude -->
+      <div class="section section-fortress">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-badge">03</div>
+            Fortress of Solitude
+          </div>
+          <div class="section-tagline">Where I go (or imagine) to reset and feel safe.</div>
+        </div>
+        <div class="section-body">
+          <div class="row-2">
+            <div>
+              <div class="field-label">Physical safe places</div>
+              <textarea class="field-textarea" id="safePlaces" placeholder="Examples: Bedroom, park bench, library corner, car, trusted friend’s home…"></textarea>
+              <div class="hint">Places you can actually go, even briefly, to breathe and regroup.</div>
+            </div>
+            <div>
+              <div class="field-label">Imaginary Smallville scenes</div>
+              <textarea class="field-textarea" id="imaginaryScenes" placeholder="Examples: Watching the sunset over the Kent farm, floating above the fields, quiet main street at night…"></textarea>
+              <div class="hint">Scenes you can picture when you can’t physically leave.</div>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">Grounding actions in my Fortress</div>
+            <textarea class="field-textarea" id="groundingActions" placeholder="Examples: 5–4–3–2–1 senses check, slow breathing, cold water on hands, stretching, journaling…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Planet allies -->
+      <div class="section section-dailyplanet">
+        <div class="section-header">
+          <div class="section-title">
+            <div class="section-badge">04</div>
+            Daily Planet allies
+          </div>
+          <div class="section-tagline">Who I can contact when I need backup.</div>
+        </div>
+        <div class="section-body">
+          <div class="row-2">
+            <div>
+              <div class="field-label">Trusted people</div>
+              <textarea class="field-textarea" id="trustedPeople" placeholder="Name – role – how they help (listen, drive, sit with me, help with forms, etc.)"></textarea>
+              <div class="hint">Friends, family, coworkers, neighbors, mentors.</div>
+            </div>
+            <div>
+              <div class="field-label">Professional & community supports</div>
+              <textarea class="field-textarea" id="supports" placeholder="Therapist, case manager, support group, community center, crisis lines, housing or legal supports…"></textarea>
+              <div class="hint">You don’t have to fill this all at once—add as you learn what’s available.</div>
+            </div>
+          </div>
+          <div>
+            <div class="field-label">How to ask for help in Smallville language</div>
+            <textarea class="field-textarea" id="helpScripts" placeholder="Example: “I’m having a Kryptonite day. Can you stay on the phone while I calm down?”"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Sidebar / quick tools -->
+    <div class="sidebar">
+      <!-- Header mini -->
+      <div class="hero" style="padding: 14px 14px 12px; border-radius: 18px; border: 1px solid rgba(148,163,184,0.4);">
+        <div class="hero-inner">
+          <div class="hero-left">
+            <div class="hero-title-row">
+              <div class="shield">
+                <div class="shield-inner">S</div>
+              </div>
+              <h1 style="font-size: 1.1rem;">Smallville Safety Panel</h1>
+            </div>
+            <p class="hero-subtitle" style="font-size: 0.78rem;">
+              A gentle dashboard for Kryptonite days, Smallville nights, and every quiet victory in between.
+            </p>
+          </div>
+          <div class="hero-right">
+            <div class="identity-pill">
+              <span>Mode</span> Safety & grounding
+            </div>
+            <div class="status-chip">
+              <div class="status-dot"></div>
+              Plan active
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color-coded check-in -->
+      <div class="mini-card" id="checkinCard">
+        <div class="mini-title">
+          Smallville check-in
+          <button class="btn btn-outline" id="cycleStateBtn" style="padding: 3px 9px; font-size: 0.72rem;">
+            <span>Cycle state</span>
+          </button>
+        </div>
+        <div class="mini-body" id="stateDescription">
+          Where am I on the Smallville safety meter right now?
+        </div>
+        <ul class="mini-list">
+          <li><div class="mini-dot"></div><span id="stateLabel">Tap “Cycle state” to choose: Calm • Stressed • Overwhelmed.</span></li>
+        </ul>
+      </div>
+
+      <!-- Micro actions -->
+      <div class="mini-card">
+        <div class="mini-title">
+          60-second micro actions
+          <span class="mini-pill">Fortress boost</span>
+        </div>
+        <div class="mini-body">
+          Choose one tiny action—no heroics required:
+        </div>
+        <ul class="mini-list" id="microActionList">
+          <!-- Filled by JS -->
+        </ul>
+        <button class="btn btn-outline" id="shuffleActionBtn" style="margin-top: 4px; width: 100%; justify-content: center;">
+          <span>Shuffle ideas</span>
+        </button>
+      </div>
+
+      <!-- Emergency clarity -->
+      <div class="mini-card">
+        <div class="mini-title">
+          If things feel dangerous
+          <span class="mini-pill" style="border-color: rgba(248,113,113,0.9); color:#fecaca;">Red alert</span>
+        </div>
+        <div class="mini-body">
+          If you feel at risk of harming yourself or others, or you feel completely unsafe:
+        </div>
+        <ul class="mini-list">
+          <li><div class="mini-dot"></div><span>Move to the safest nearby place you can reach (even a hallway, porch, or car).</span></li>
+          <li><div class="mini-dot"></div><span>Contact a trusted person or professional support and tell them you’re in “Kryptonite red.”</span></li>
+          <li><div class="mini-dot"></div><span>Remove or move away from anything you could use to hurt yourself.</span></li>
+        </ul>
+        <div class="mini-body" style="font-size: 0.72rem; color:#9ca3af; margin-top:4px;">
+          This plan is a support tool, not a replacement for real-world emergency or professional help.
+        </div>
+      </div>
+
+      <!-- Save / load -->
+      <div class="mini-card">
+        <div class="mini-title">
+          Plan memory
+          <span class="mini-pill">Local only</span>
+        </div>
+        <div class="mini-body">
+          Save this Smallville plan in your browser so you can come back to it later on this device.
+        </div>
+        <div style="display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="savePlanBtn" style="flex:1; justify-content:center;">
+            <span>Save plan</span>
+          </button>
+          <button class="btn btn-outline" id="loadPlanBtn" style="flex:1; justify-content:center;">
+            <span>Load plan</span>
+          </button>
+        </div>
+        <button class="btn btn-outline btn-danger" id="clearPlanBtn" style="margin-top:6px; width:100%; justify-content:center;">
+          <span>Clear saved copy</span>
+        </button>
+        <div class="mini-body" style="font-size:0.7rem; color:#9ca3af; margin-top:4px;">
+          Your entries stay in this browser’s local storage only. If you clear your browser data, they may be removed.
+        </div>
+      </div>
+    </div>
+
+    <div class="skyline"></div>
+  </div>
+
+  <!-- Alert bar -->
+  <div class="alert-bar" id="alertBar">
+    <div class="alert-dot"></div>
+    <span id="alertMessage">Saved.</span>
+  </div>
+
+  <script>
+    // --- Micro actions ---
+    const microActions = [
+      "Name five things you can see in your Smallville scene right now.",
+      "Place your hand on your heart and say: “I am still here. I am still mine.”",
+      "Take ten slow breaths, counting each exhale like a church bell in Smallville.",
+      "Drink a glass of water and imagine it as sunlight charging your cells.",
+      "Text or write a message you don’t have to send: “Here is what I wish someone knew…”",
+      "Step outside or to a window and find one thing that proves the world is still moving.",
+      "Hold something solid (keys, a book, a mug) and describe it in detail to yourself.",
+      "Write one sentence that starts with: “When this passes, I want to remember…”",
+      "Gently stretch your shoulders, neck, and hands like you’re shaking off Kryptonite dust.",
+      "Look around and name three things that are keeping you safe in this moment."
+    ];
+
+    const microActionList = document.getElementById("microActionList");
+    const shuffleActionBtn = document.getElementById("shuffleActionBtn");
+
+    function renderMicroActions() {
+      microActionList.innerHTML = "";
+      const shuffled = [...microActions].sort(() => Math.random() - 0.5).slice(0, 4);
+      shuffled.forEach(text => {
+        const li = document.createElement("li");
+        const dot = document.createElement("div");
+        dot.className = "mini-dot";
+        const span = document.createElement("span");
+        span.textContent = text;
+        li.appendChild(dot);
+        li.appendChild(span);
+        microActionList.appendChild(li);
+      });
+    }
+
+    shuffleActionBtn.addEventListener("click", () => {
+      renderMicroActions();
+    });
+
+    renderMicroActions();
+
+    // --- Check-in state ---
+    const states = [
+      {
+        key: "calm",
+        label: "Calm / Steady",
+        description: "I feel mostly okay. I can think, choose, and move slowly. Smallville is quiet tonight.",
+        color: "rgba(34,197,94,0.35)"
+      },
+      {
+        key: "stressed",
+        label: "Stressed / Activated",
+        description: "I’m feeling pulled in many directions. I need to slow down and use my Fortress tools.",
+        color: "rgba(234,179,8,0.35)"
+      },
+      {
+        key: "overwhelmed",
+        label: "Overwhelmed / Red alert",
+        description: "My thoughts or feelings feel too big. I need support and safety steps right now.",
+        color: "rgba(248,113,113,0.4)"
+      }
+    ];
+
+    let currentStateIndex = -1;
+    const cycleStateBtn = document.getElementById("cycleStateBtn");
+    const checkinCard = document.getElementById("checkinCard");
+    const stateDescription = document.getElementById("stateDescription");
+    const stateLabel = document.getElementById("stateLabel");
+
+    function applyState(index) {
+      const state = states[index];
+      checkinCard.style.boxShadow = `0 0 0 1px ${state.color}`;
+      checkinCard.style.borderColor = "rgba(148,163,184,0.8)";
+      checkinCard.style.background = `radial-gradient(circle at top, ${state.color}, #020617 70%)`;
+      stateDescription.textContent = state.description;
+      stateLabel.textContent = `Current state: ${state.label}.`;
+    }
+
+    cycleStateBtn.addEventListener("click", () => {
+      currentStateIndex = (currentStateIndex + 1) % states.length;
+      applyState(currentStateIndex);
+    });
+
+    // --- Save / load plan (localStorage) ---
+    const fields = [
+      "heroName",
+      "everydayIdentity",
+      "smallvillePromise",
+      "kryptoniteTriggers",
+      "warningSigns",
+      "safePlaces",
+      "imaginaryScenes",
+      "groundingActions",
+      "trustedPeople",
+      "supports",
+      "helpScripts"
+    ];
+
+    const savePlanBtn = document.getElementById("savePlanBtn");
+    const loadPlanBtn = document.getElementById("loadPlanBtn");
+    const clearPlanBtn = document.getElementById("clearPlanBtn");
+    const alertBar = document.getElementById("alertBar");
+    const alertMessage = document.getElementById("alertMessage");
+
+    const STORAGE_KEY = "smallvilleSafetyPlan_v1";
+
+    function showAlert(message) {
+      alertMessage.textContent = message;
+      alertBar.classList.add("show");
+      setTimeout(() => {
+        alertBar.classList.remove("show");
+      }, 2600);
+    }
+
+    function savePlan() {
+      const data = {};
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value;
+      });
+      data.stateIndex = currentStateIndex;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      showAlert("Smallville plan saved in this browser.");
+    }
+
+    function loadPlan() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        showAlert("No saved Smallville plan found.");
+        return;
+      }
+      try {
+        const data = JSON.parse(raw);
+        fields.forEach(id => {
+          const el = document.getElementById(id);
+          if (el && data[id] !== undefined) {
+            el.value = data[id];
+          }
+        });
+        if (typeof data.stateIndex === "number" && data.stateIndex >= 0 && data.stateIndex < states.length) {
+          currentStateIndex = data.stateIndex;
+          applyState(currentStateIndex);
+        }
+        showAlert("Smallville plan loaded.");
+      } catch (e) {
+        showAlert("Could not read saved plan.");
+      }
+    }
+
+    function clearPlan() {
+      localStorage.removeItem(STORAGE_KEY);
+      showAlert("Saved Smallville plan cleared from this browser.");
+    }
+
+    savePlanBtn.addEventListener("click", savePlan);
+    loadPlanBtn.addEventListener("click", loadPlan);
+    clearPlanBtn.addEventListener("click", clearPlan);
+  </script>
+</body>
+</html>
