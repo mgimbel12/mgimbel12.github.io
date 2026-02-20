@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Disney‑Inspired Safety Plan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ---------------------------------------------------
+   BASE LAYOUT
+--------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background .4s, color .4s;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: var(--card);
+  padding: 24px;
+  border-radius: 20px;
+  border: 2px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: background .4s, border .4s;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  letter-spacing: .03em;
+}
+
+.theme-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.theme-buttons button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: .9rem;
+  transition: transform .2s;
+}
+
+.theme-buttons button:hover {
+  transform: scale(1.07);
+}
+
+.section {
+  margin-bottom: 20px;
+  padding: 16px;
+  border-radius: 14px;
+  background: var(--section);
+  border: 1px solid var(--border);
+}
+
+.section h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+textarea, input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  margin-top: 6px;
+  font-size: .9rem;
+}
+
+.save-load {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button.action {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+/* ---------------------------------------------------
+   THEMES
+--------------------------------------------------- */
+
+/* 1. Disney Castle – royal blues + gold */
+.castle {
+  --bg: #e8efff;
+  --card: #ffffff;
+  --border: #8aa8ff;
+  --section: #f3f6ff;
+  --input: #ffffff;
+  --text: #0a1a66;
+}
+
+/* 2. Princess – pink, lavender, soft magic */
+.princess {
+  --bg: #ffe9f7;
+  --card: #ffffff;
+  --border: #ffb3e6;
+  --section: #fff2fa;
+  --input: #ffffff;
+  --text: #a6006f;
+}
+
+/* 3. Classic Mickey – red, yellow, black */
+.mickey {
+  --bg: #fff4f4;
+  --card: #ffffff;
+  --border: #ff9999;
+  --section: #ffecec;
+  --input: #ffffff;
+  --text: #990000;
+}
+
+/* 4. Fantasy Forest – greens, gold, soft woodland */
+.forest {
+  --bg: #e9f7ec;
+  --card: #ffffff;
+  --border: #9ad1a0;
+  --section: #f1fbf3;
+  --input: #ffffff;
+  --text: #0f4d26;
+}
+</style>
+</head>
+
+<body class="castle">
+<div class="container">
+
+<h1>Disney‑Inspired Safety Plan</h1>
+
+<div class="theme-buttons">
+  <button onclick="setTheme('castle')" style="background:#8aa8ff;">Castle</button>
+  <button onclick="setTheme('princess')" style="background:#ffb3e6;">Princess</button>
+  <button onclick="setTheme('mickey')" style="background:#ff9999;">Mickey</button>
+  <button onclick="setTheme('forest')" style="background:#9ad1a0;">Forest</button>
+</div>
+
+<!-- Identity -->
+<div class="section">
+  <h2>Identity Anchor</h2>
+  <input id="identity" placeholder="Who am I when I feel safe, loved, and grounded?">
+</div>
+
+<!-- Triggers -->
+<div class="section">
+  <h2>My Triggers</h2>
+  <textarea id="triggers" rows="3" placeholder="What moments make things harder for me?"></textarea>
+</div>
+
+<!-- Warning Signs -->
+<div class="section">
+  <h2>Warning Signs</h2>
+  <textarea id="warnings" rows="3" placeholder="What do I notice in my body or thoughts?"></textarea>
+</div>
+
+<!-- Comfort -->
+<div class="section">
+  <h2>Comfort & Coping</h2>
+  <textarea id="coping" rows="3" placeholder="What helps me calm down or feel safe?"></textarea>
+</div>
+
+<!-- Support -->
+<div class="section">
+  <h2>People Who Help</h2>
+  <textarea id="support" rows="3" placeholder="Friends, family, mentors, helpers…"></textarea>
+</div>
+
+<!-- Save / Load -->
+<div class="save-load">
+  <button class="action" onclick="savePlan()" style="background:#dce3ff;">Save</button>
+  <button class="action" onclick="loadPlan()" style="background:#d4ffe0;">Load</button>
+  <button class="action" onclick="clearPlan()" style="background:#ffe0cc;">Clear</button>
+</div>
+
+</div>
+
+<script>
+/* THEME SWITCHER */
+function setTheme(theme) {
+  document.body.className = theme;
+  localStorage.setItem("disneyTheme", theme);
+}
+
+/* SAVE / LOAD */
+function savePlan() {
+  const data = {
+    identity: identity.value,
+    triggers: triggers.value,
+    warnings: warnings.value,
+    coping: coping.value,
+    support: support.value
+  }
+  localStorage.setItem("disneySafetyPlan", JSON.stringify(data));
+  alert("Saved.");
+}
+
+function loadPlan() {
+  const raw = localStorage.getItem("disneySafetyPlan");
+  if (!raw) return alert("No saved plan.");
+  const data = JSON.parse(raw);
+  identity.value = data.identity || "";
+  triggers.value = data.triggers || "";
+  warnings.value = data.warnings || "";
+  coping.value = data.coping || "";
+  support.value = data.support || "";
+  alert("Loaded.");
+}
+
+function clearPlan() {
+  localStorage.removeItem("disneySafetyPlan");
+  alert("Cleared.");
+}
+
+/* LOAD THEME ON START */
+const savedTheme = localStorage.getItem("disneyTheme");
+if (savedTheme) document.body.className = savedTheme;
+</script>
+
+</body>
+</html>
