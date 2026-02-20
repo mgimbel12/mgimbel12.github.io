@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Multi‑Theme Safety Plan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ---------------------------------------------------
+   BASE STYLES (shared across all themes)
+--------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg, #f4f4f4);
+  color: var(--text, #222);
+  transition: background .4s, color .4s;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: var(--card, white);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border: 2px solid var(--border, #ddd);
+  transition: background .4s, border .4s;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+.theme-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.theme-buttons button {
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: .9rem;
+  transition: transform .2s;
+}
+
+.theme-buttons button:hover {
+  transform: scale(1.05);
+}
+
+.section {
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 12px;
+  background: var(--section, #fafafa);
+  border: 1px solid var(--border, #ddd);
+}
+
+.section h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+textarea, input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border, #ccc);
+  background: var(--input, white);
+  color: var(--text, #222);
+  margin-top: 6px;
+  font-size: .9rem;
+}
+
+.save-load {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button.action {
+  padding: 10px 18px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+/* ---------------------------------------------------
+   THEMES
+--------------------------------------------------- */
+
+/* Hello Kitty – pink, soft, cute */
+.hello-kitty {
+  --bg: #ffe6f2;
+  --card: #ffffff;
+  --border: #ffb3d9;
+  --section: #fff0f7;
+  --input: #ffffff;
+  --text: #cc0066;
+}
+
+/* Cinderella – blue, silver, soft magic */
+.cinderella {
+  --bg: #e6f0ff;
+  --card: #ffffff;
+  --border: #99b3ff;
+  --section: #f0f6ff;
+  --input: #ffffff;
+  --text: #003399;
+}
+
+/* Snow White – red, blue, gold */
+.snow-white {
+  --bg: #fff4f4;
+  --card: #ffffff;
+  --border: #ff9999;
+  --section: #ffecec;
+  --input: #ffffff;
+  --text: #990000;
+}
+
+/* Donald Duck – blue, yellow, white */
+.donald-duck {
+  --bg: #e8f3ff;
+  --card: #ffffff;
+  --border: #66a3ff;
+  --section: #f2f8ff;
+  --input: #ffffff;
+  --text: #003366;
+}
+</style>
+</head>
+
+<body class="hello-kitty">
+<div class="container">
+
+<h1>Multi‑Theme Safety Plan</h1>
+
+<div class="theme-buttons">
+  <button onclick="setTheme('hello-kitty')" style="background:#ffb3d9;">Hello Kitty</button>
+  <button onclick="setTheme('cinderella')" style="background:#99b3ff;">Cinderella</button>
+  <button onclick="setTheme('snow-white')" style="background:#ff9999;">Snow White</button>
+  <button onclick="setTheme('donald-duck')" style="background:#66a3ff;">Donald Duck</button>
+</div>
+
+<!-- Identity -->
+<div class="section">
+  <h2>Identity Anchor</h2>
+  <input id="identity" placeholder="Who am I when I feel safe and grounded?">
+</div>
+
+<!-- Triggers -->
+<div class="section">
+  <h2>My Triggers</h2>
+  <textarea id="triggers" rows="3" placeholder="What makes things harder for me?"></textarea>
+</div>
+
+<!-- Warning Signs -->
+<div class="section">
+  <h2>Warning Signs</h2>
+  <textarea id="warnings" rows="3" placeholder="What do I notice in my body or thoughts?"></textarea>
+</div>
+
+<!-- Coping -->
+<div class="section">
+  <h2>Comfort & Coping</h2>
+  <textarea id="coping" rows="3" placeholder="What helps me calm down?"></textarea>
+</div>
+
+<!-- Support -->
+<div class="section">
+  <h2>People Who Help</h2>
+  <textarea id="support" rows="3" placeholder="Friends, family, mentors, helpers…"></textarea>
+</div>
+
+<!-- Save / Load -->
+<div class="save-load">
+  <button class="action" onclick="savePlan()" style="background:#ffd1e8;">Save</button>
+  <button class="action" onclick="loadPlan()" style="background:#d1ffd6;">Load</button>
+  <button class="action" onclick="clearPlan()" style="background:#ffe0cc;">Clear</button>
+</div>
+
+</div>
+
+<script>
+/* THEME SWITCHER */
+function setTheme(theme) {
+  document.body.className = theme;
+  localStorage.setItem("safetyTheme", theme);
+}
+
+/* SAVE / LOAD */
+function savePlan() {
+  const data = {
+    identity: identity.value,
+    triggers: triggers.value,
+    warnings: warnings.value,
+    coping: coping.value,
+    support: support.value
+  };
+  localStorage.setItem("safetyPlan", JSON.stringify(data));
+  alert("Saved.");
+}
+
+function loadPlan() {
+  const raw = localStorage.getItem("safetyPlan");
+  if (!raw) return alert("No saved plan.");
+  const data = JSON.parse(raw);
+  identity.value = data.identity || "";
+  triggers.value = data.triggers || "";
+  warnings.value = data.warnings || "";
+  coping.value = data.coping || "";
+  support.value = data.support || "";
+  alert("Loaded.");
+}
+
+function clearPlan() {
+  localStorage.removeItem("safetyPlan");
+  alert("Cleared.");
+}
+
+/* LOAD THEME ON START */
+const savedTheme = localStorage.getItem("safetyTheme");
+if (savedTheme) document.body.className = savedTheme;
+</script>
+
+</body>
+</html>
+
