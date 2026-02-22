@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Safety Plan + Castle Countdown</title>
+  <style>
+    :root {
+      --pink: #ffb7d5;
+      --hot-pink: #ff4f9a;
+      --lavender: #c9b7ff;
+      --midnight: #1b1b3a;
+      --cream: #fff7fb;
+      --accent: #ffd166;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #ffe6f4, #f5f0ff);
+      color: #222;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .page {
+      max-width: 1100px;
+      width: 100%;
+      background: #ffffffcc;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+      padding: 20px 24px 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .castle-svg {
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.7rem;
+      color: var(--midnight);
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    .card {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 14px 14px 16px;
+      border: 1px solid #f0d7f0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #ffffff40, transparent 40%);
+      pointer-events: none;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      color: var(--midnight);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: #fff;
+      border: 1px solid #f3c0e0;
+      color: #c2185b;
+      margin-bottom: 6px;
+    }
+
+    .hello-kitty-face {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      position: relative;
+      background: #fff;
+    }
+
+    .hello-kitty-face::before,
+    .hello-kitty-face::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      top: -4px;
+      background: #fff;
+    }
+
+    .hello-kitty-face::before {
+      left: -2px;
+    }
+
+    .hello-kitty-face::after {
+      right: -2px;
+    }
+
+    .hello-bow {
+      position: absolute;
+      right: -4px;
+      top: -2px;
+      width: 10px;
+      height: 10px;
+      background: var(--hot-pink);
+      border-radius: 50%;
+      box-shadow: -6px 0 0 var(--hot-pink);
+    }
+
+    .hello-bow::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      margin-top: 6px;
+      margin-bottom: 2px;
+      color: #444;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #e0c7f5;
+      padding: 7px 9px;
+      font-size: 0.85rem;
+      resize: vertical;
+      min-height: 40px;
+      background: #fff;
+    }
+
+    textarea:focus,
+    input:focus {
+      outline: 2px solid var(--lavender);
+      outline-offset: 1px;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .row > div {
+      flex: 1;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #ffe3f1;
+      border: 1px solid #f7b6dd;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .chip.hot {
+      background: #ffe0e0;
+      border-color: #ff9b9b;
+      color: #b71c1c;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #ffe6f4, #e3d6ff);
+      border: 1px solid #f3c0e0;
+    }
+
+    .countdown-display {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 1.1rem;
+      color: var(--midnight);
+    }
+
+    .countdown-controls {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border-radius: 999px;
+      border: none;
+      padding: 5px 10px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: var(--hot-pink);
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+    }
+
+    button.secondary {
+      background: #fff;
+      color: #444;
+      border: 1px solid #e0c7f5;
+      box-shadow: none;
+    }
+
+    .math-note {
+      font-size: 0.75rem;
+      color: #333;
+      margin-top: 4px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 0.75rem;
+      color: #666;
+      text-align: right;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      header {
+        flex-direction: row;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <!-- Simple Disney-style castle SVG -->
+      <svg class="castle-svg" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="castleGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#c9b7ff" />
+            <stop offset="100%" stop-color="#ffb7d5" />
+          </linearGradient>
+        </defs>
+        <rect x="20" y="50" width="80" height="50" rx="4" fill="url(#castleGrad)" />
+        <rect x="32" y="35" width="16" height="30" fill="#fdf5ff" />
+        <rect x="72" y="35" width="16" height="30" fill="#fdf5ff" />
+        <polygon points="40,20 32,35 48,35" fill="#ffb7d5" />
+        <polygon points="80,18 72,35 88,35" fill="#ffb7d5" />
+        <rect x="52" y="60" width="16" height="40" fill="#fdf5ff" />
+        <circle cx="60" cy="60" r="4" fill="#ff4f9a" />
+        <path d="M15 100 Q60 80 105 100" fill="none" stroke="#ffb7d5" stroke-width="3" />
+        <circle cx="20" cy="25" r="3" fill="#ffd166" />
+        <circle cx="100" cy="18" r="3" fill="#ffd166" />
+      </svg>
+
+      <div>
+        <h1>Castle Safety Plan & Math Countdown</h1>
+        <div class="subtitle">
+          Hello Kitty–soft, Disney Castle–brave, with a tiny math brain keeping time in the background.
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <!-- Left: Safety Plan + Hot Topic -->
+      <section class="card">
+        <div class="tag">
+          <div class="hello-kitty-face">
+            <div class="hello-bow"></div>
+          </div>
+          <span>Safety Plan • Hello Kitty Edition</span>
+        </div>
+        <h2>When things feel like a hot topic in my heart...</h2>
+
+        <label for="warning-signs">Early warning signs (thoughts, body signals, situations)</label>
+        <textarea id="warning-signs" placeholder="Example: racing thoughts, tight chest, scrolling comments, certain topics, certain rooms..."></textarea>
+
+        <label for="safe-actions">Safe actions I can take in the next 10–30 minutes</label>
+        <textarea id="safe-actions" placeholder="Example: step outside, text a safe person, drink water, open my castle playlist, write 3 truths I know."></textarea>
+
+        <div class="row">
+          <div>
+            <label for="safe-places">Safe places (physical or imagined)</label>
+            <input id="safe-places" placeholder="Disney Castle balcony, library corner, park bench..." />
+          </div>
+          <div>
+            <label for="safe-people">Safe people</label>
+            <input id="safe-people" placeholder="Names, roles, or ‘future me at the castle gate’" />
+          </div>
+        </div>
+
+        <label for="hot-topic">Hot topic I’m holding right now</label>
+        <textarea id="hot-topic" placeholder="Name it gently. You don’t have to solve it here—just give it a safe container."></textarea>
+
+        <div class="chips">
+          <div class="chip hot" data-paste="This is important to me, but I can come back to it later.">
+            This matters, but can wait
+          </div>
+          <div class="chip" data-paste="I am allowed to step away from this topic to protect my peace.">
+            I can step away
+          </div>
+          <div class="chip" data-paste="I will only discuss this with people who treat me with care and respect.">
+            Boundaries on who hears this
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: Math Countdown + Quick Notes -->
+      <section class="card">
+        <div class="tag">
+          <span>Castle Clock • Math Countdown</span>
+        </div>
+        <h2>Countdown to my next tiny win</h2>
+
+        <label for="minutes-input">Minutes to count down</label>
+        <input id="minutes-input" type="number" min="1" value="5" />
+
+        <div class="countdown">
+          <div class="countdown-display" id="countdown-display">00:00</div>
+          <div class="countdown-controls">
+            <button id="start-btn">Start</button>
+            <button id="pause-btn" class="secondary">Pause</button>
+            <button id="reset-btn" class="secondary">Reset</button>
+          </div>
+        </div>
+
+        <div class="math-note">
+          Behind the scenes: the castle clock is doing simple math—total seconds = minutes × 60, then subtracting 1 each tick.
+        </div>
+
+        <label for="tiny-goal">Tiny goal for this countdown</label>
+        <textarea id="tiny-goal" placeholder="Example: breathe slowly, sort one stack, write one paragraph, drink water, stretch."></textarea>
+
+        <label for="reward">Gentle reward when the timer hits 0</label>
+        <input id="reward" placeholder="Example: look at a castle photo, listen to one song, step outside for fresh air." />
+      </section>
+    </div>
+
+    <div class="footer-note">
+      You don’t have to finish everything. Just stay in the castle with yourself for this one countdown.
+    </div>
+  </div>
+
+  <script>
+    // Hot topic chips: click to paste affirmation into hot-topic box
+    const chips = document.querySelectorAll(".chip");
+    const hotTopic = document.getElementById("hot-topic");
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const text = chip.getAttribute("data-paste");
+        if (!text) return;
+        if (!hotTopic.value.trim()) {
+          hotTopic.value = text;
+        } else {
+          hotTopic.value += "\\n" + text;
+        }
+      });
+    });
+
+    // Math countdown
+    const minutesInput = document.getElementById("minutes-input");
+    const display = document.getElementById("countdown-display");
+    const startBtn = document.getElementById("start-btn");
+    const pauseBtn = document.getElementById("pause-btn");
+    const resetBtn = document.getElementById("reset-btn");
+
+    let totalSeconds = 0;
+    let remainingSeconds = 0;
+    let timerId = null;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      const mm = String(m).padStart(2, "0");
+      const ss = String(s).padStart(2, "0");
+      return mm + ":" + ss;
+    }
+
+    function updateDisplay() {
+      display.textContent = formatTime(remainingSeconds);
+    }
+
+    function startCountdown() {
+      const minutes = parseInt(minutesInput.value, 10);
+      if (isNaN(minutes) || minutes <= 0) return;
+
+      if (remainingSeconds <= 0) {
+        totalSeconds = minutes * 60;
+        remainingSeconds = totalSeconds;
+      }
+
+      if (timerId) return; // already running
+
+      timerId = setInterval(() => {
+        remainingSeconds -= 1;
+        if (remainingSeconds <= 0) {
+          remainingSeconds = 0;
+          clearInterval(timerId);
+          timerId = null;
+          // Optional: simple visual cue
+          display.style.color = "#b71c1c";
+          setTimeout(() => (display.style.color = "#1b1b3a"), 1200);
+        }
+        updateDisplay();
+      }, 1000);
+
+      updateDisplay();
+    }
+
+    function pauseCountdown() {
+      if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+      }
+    }
+
+    function resetCountdown() {
+      pauseCountdown();
+      remainingSeconds = 0;
+      updateDisplay();
+    }
+
+    startBtn.addEventListener("click", startCountdown);
+    pauseBtn.addEventListener("click", pauseCountdown);
+    resetBtn.addEventListener("click", resetCountdown);
+
+    // Initialize
+    remainingSeconds = 0;
+    updateDisplay();
+  </script>
+</body>
+</html>
