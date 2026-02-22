@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Multiverse Safety Plan – Superman / Smallville / Supergirl / Flash</title>
+<style>
+  :root {
+    --bg: #050814;
+    --card: #101628;
+    --accent-superman: #e31b23;
+    --accent-smallville: #ffb000;
+    --accent-supergirl: #ff4fa3;
+    --accent-flash: #ffcc00;
+    --text: #f5f7ff;
+    --muted: #a5b0d6;
+    --border: #27304a;
+    --radius: 14px;
+    --shadow: 0 18px 40px rgba(0,0,0,0.55);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #1b2340 0, #050814 55%, #02030a 100%);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .safety-shell {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.6));
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: var(--shadow);
+    padding: 20px 22px 24px;
+    backdrop-filter: blur(18px);
+  }
+
+  .header-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .title-block h1 {
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .title-block span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .status-chip {
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.18);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: #4ade80;
+    box-shadow: 0 0 10px rgba(74,222,128,0.9);
+  }
+
+  .tabs-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0 14px;
+  }
+
+  .tab {
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    border: 1px solid transparent;
+    cursor: pointer;
+    background: rgba(8,11,24,0.7);
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.18s ease-out;
+  }
+
+  .tab span.badge {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--muted);
+  }
+
+  .tab[data-verse="superman"] span.badge { background: var(--accent-superman); }
+  .tab[data-verse="smallville"] span.badge { background: var(--accent-smallville); }
+  .tab[data-verse="supergirl"] span.badge { background: var(--accent-supergirl); }
+  .tab[data-verse="flash"] span.badge { background: var(--accent-flash); }
+
+  .tab.active {
+    color: #0b0c12;
+    border-color: rgba(255,255,255,0.9);
+    background: linear-gradient(135deg, #ffffff, #dbe3ff);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+  }
+
+  .tab.active[data-verse="superman"] { box-shadow: 0 10px 26px rgba(227,27,35,0.55); }
+  .tab.active[data-verse="smallville"] { box-shadow: 0 10px 26px rgba(255,176,0,0.55); }
+  .tab.active[data-verse="supergirl"] { box-shadow: 0 10px 26px rgba(255,79,163,0.55); }
+  .tab.active[data-verse="flash"] { box-shadow: 0 10px 26px rgba(255,204,0,0.55); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+    gap: 14px;
+  }
+
+  @media (max-width: 880px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  .card {
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.06), rgba(5,8,20,0.96));
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 12px 14px 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.06), transparent 55%);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--muted);
+  }
+
+  .card-sub {
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .field-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    margin: 8px 0 4px;
+  }
+
+  textarea, input {
+    width: 100%;
+    background: rgba(3,6,20,0.9);
+    border-radius: 10px;
+    border: 1px solid rgba(148,163,184,0.45);
+    padding: 7px 9px;
+    font-size: 0.8rem;
+    color: var(--text);
+    resize: vertical;
+    min-height: 40px;
+  }
+
+  textarea:focus, input:focus {
+    outline: 1px solid #93c5fd;
+    border-color: #93c5fd;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .pill {
+    font-size: 0.7rem;
+    padding: 4px 9px;
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.6);
+    color: var(--muted);
+    cursor: pointer;
+    background: rgba(15,23,42,0.9);
+    transition: all 0.16s ease-out;
+  }
+
+  .pill:hover {
+    border-color: #e5e7eb;
+    color: #e5e7eb;
+  }
+
+  .pill[data-verse="superman"] { border-color: rgba(227,27,35,0.7); }
+  .pill[data-verse="smallville"] { border-color: rgba(255,176,0,0.7); }
+  .pill[data-verse="supergirl"] { border-color: rgba(255,79,163,0.7); }
+  .pill[data-verse="flash"] { border-color: rgba(255,204,0,0.7); }
+
+  .pill.active {
+    background: rgba(248,250,252,0.1);
+    color: #f9fafb;
+  }
+
+  .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .save-btn {
+    border-radius: 999px;
+    border: 1px solid rgba(148,163,184,0.7);
+    padding: 6px 14px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    background: rgba(15,23,42,0.9);
+    color: #e5e7eb;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .save-btn span.icon {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border: 1px solid rgba(148,163,184,0.9);
+  }
+
+  .verse-tagline {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .verse-tagline strong {
+    font-weight: 600;
+    color: #e5e7eb;
+  }
+</style>
+</head>
+<body>
+<div class="safety-shell">
+  <div class="header-row">
+    <div class="title-block">
+      <h1>Multiverse Safety Plan</h1>
+      <span>Superman Returns I &amp; II • Smallville • Supergirl • Flash</span>
+    </div>
+    <div class="status-chip">
+      <span class="status-dot"></span>
+      Crisis shield online
+    </div>
+  </div>
+
+  <div class="tabs-row">
+    <button class="tab active" data-verse="superman">
+      <span class="badge"></span> Superman Returns I
+    </button>
+    <button class="tab" data-verse="superman2">
+      <span class="badge"></span> Superman Returns II
+    </button>
+    <button class="tab" data-verse="smallville">
+      <span class="badge"></span> Smallville Verse
+    </button>
+    <button class="tab" data-verse="supergirl">
+      <span class="badge"></span> Supergirl
+    </button>
+    <button class="tab" data-verse="flash">
+      <span class="badge"></span> Flash
+    </button>
+  </div>
+
+  <div class="grid">
+    <!-- LEFT: Core plan -->
+    <div class="card" id="core-card">
+      <div class="card-header">
+        <div class="card-title">Core safety map</div>
+        <div class="card-sub" id="verse-tagline">
+          Superman Returns I • “When the world gets too loud, I land on the rooftop first.”
+        </div>
+      </div>
+
+      <label class="field-label">Early warning signs</label>
+      <textarea id="early-signs" placeholder="What are your Smallville storm clouds, Metropolis headlines, or Central City glitches?"></textarea>
+
+      <label class="field-label">Powers &amp; anchors</label>
+      <textarea id="powers" placeholder="What makes you feel even 1% more like a hero again? (music, places, memories, rituals)"></textarea>
+
+      <label class="field-label">Safe locations</label>
+      <textarea id="safe-places" placeholder="Fortress of Solitude, Kent farm, DEO balcony, STAR Labs hallway… your real-world versions go here."></textarea>
+
+      <label class="field-label">People on your team</label>
+      <textarea id="team" placeholder="Who is on your Justice League? (names, roles, how to reach them)"></textarea>
+
+      <label class="field-label">Emergency script</label>
+      <textarea id="script" placeholder="One or two sentences you can say or text when words are hard."></textarea>
+    </div>
+
+    <!-- RIGHT: Verse-specific boosts -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Verse boosts</div>
+        <div class="card-sub">Tap a boost to drop it into your plan.</div>
+      </div>
+
+      <div id="boosts-container">
+        <!-- Filled by JS -->
+      </div>
+
+      <div class="footer-row">
+        <div class="verse-tagline" id="verse-footer">
+          <strong>Superman Returns I:</strong> Land first, listen second, lift when you’re ready.
+        </div>
+        <button class="save-btn" id="save-btn">
+          <span class="icon"></span>
+          Save snapshot
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const verseData = {
+    superman: {
+      tagline: 'Superman Returns I • “When the world gets too loud, I land on the rooftop first.”',
+      footer: 'Superman Returns I: Land first, listen second, lift when you’re ready.',
+      accent: 'var(--accent-superman)',
+      boosts: [
+        { label: 'Rooftop pause', field: 'powers',
+          text: 'Take a 3-minute “rooftop pause”: step away, breathe, and look for one calm detail around you.' },
+        { label: 'Lois reminder', field: 'powers',
+          text: 'Remember: “You are not alone in this story.” Picture one person who has stayed, even in small ways.' },
+        { label: 'Metropolis map', field: 'safe-places',
+          text: 'List three real-world places that feel like Metropolis at sunrise, not Metropolis in crisis.' }
+      ]
+    },
+    superman2: {
+      tagline: 'Superman Returns II • “Even heroes ask for backup.”',
+      footer: 'Superman Returns II: Backup is a power, not a failure.',
+      accent: 'var(--accent-superman)',
+      boosts: [
+        { label: 'Backup call', field: 'team',
+          text: 'Choose one person you can text “Can you be my backup for a few minutes?”' },
+        { label: 'Cape off', field: 'early-signs',
+          text: 'Notice when you feel like you must “wear the cape” nonstop—tension, headaches, fake smiles.' },
+        { label: 'One small lift', field: 'powers',
+          text: 'Pick one tiny task you can complete to prove to your brain: “I can still lift.”' }
+      ]
+    },
+    smallville: {
+      tagline: 'Smallville Verse • “Even farm towns hold galaxies of hope.”',
+      footer: 'Smallville: Go back to the barn, not the battle.',
+      accent: 'var(--accent-smallville)',
+      boosts: [
+        { label: 'Kent kitchen', field: 'safe-places',
+          text: 'Name one kitchen, living room, or bench that feels like the Kent farmhouse to you.' },
+        { label: 'Chloe file', field: 'script',
+          text: 'Write a “Chloe file” text: 1) what’s happening, 2) what you need, 3) how they can respond.' },
+        { label: 'Meteor shower', field: 'early-signs',
+          text: 'List your “meteor shower” signs: sleep changes, appetite shifts, withdrawing, racing thoughts.' }
+      ]
+    },
+    supergirl: {
+      tagline: 'Supergirl • “You are allowed to be soft and still be super.”',
+      footer: 'Supergirl: Soft is not weak; it is how you recharge the sun.',
+      accent: 'var(--accent-supergirl)',
+      boosts: [
+        { label: 'DEO balcony', field: 'safe-places',
+          text: 'Choose a balcony, porch, or window where you can step out and breathe for 2 minutes.' },
+        { label: 'Alex check-in', field: 'team',
+          text: 'Who is your “Alex”? Write their name and one sentence you could send them tonight.' },
+        { label: 'Sunlight ritual', field: 'powers',
+          text: 'Create a 5-minute “sunlight ritual”: light, music, or warmth that reminds you you’re still here.' }
+      ]
+    },
+    flash: {
+      tagline: 'Flash • “You don’t have to outrun your feelings.”',
+      footer: 'Flash: Slow is still movement. Standing still is still surviving.',
+      accent: 'var(--accent-flash)',
+      boosts: [
+        { label: 'STAR Labs hallway', field: 'safe-places',
+          text: 'Pick one hallway, path, or route you can walk slowly when you feel overwhelmed.' },
+        { label: 'Slow motion', field: 'early-signs',
+          text: 'Notice when life feels “too fast”: heart racing, scrolling nonstop, jumping between tasks.' },
+        { label: 'Team Flash', field: 'team',
+          text: 'List 3 people (or hotlines, services) who can be your Team Flash in a crisis.' }
+      ]
+    }
+  };
+
+  const tabs = document.querySelectorAll('.tab');
+  const boostsContainer = document.getElementById('boosts-container');
+  const verseTagline = document.getElementById('verse-tagline');
+  const verseFooter = document.getElementById('verse-footer');
+  const saveBtn = document.getElementById('save-btn');
+
+  const fields = {
+    earlySigns: document.getElementById('early-signs'),
+    powers: document.getElementById('powers'),
+    safePlaces: document.getElementById('safe-places'),
+    team: document.getElementById('team'),
+    script: document.getElementById('script')
+  };
+
+  let currentVerseKey = 'superman';
+
+  function renderBoosts(key) {
+    const verse = verseData[key];
+    boostsContainer.innerHTML = '';
+    verse.boosts.forEach((boost, index) => {
+      const pill = document.createElement('button');
+      pill.className = 'pill';
+      pill.dataset.verse = key.includes('superman') ? 'superman' : key;
+      pill.textContent = boost.label;
+      pill.title = boost.text;
+      pill.addEventListener('click', () => {
+        pill.classList.add('active');
+        const targetField =
+          boost.field === 'early-signs' ? fields.earlySigns :
+          boost.field === 'powers' ? fields.powers :
+          boost.field === 'safe-places' ? fields.safePlaces :
+          boost.field === 'team' ? fields.team :
+          fields.script;
+
+        const sep = targetField.value.trim() ? '\n• ' : '• ';
+        targetField.value += sep + boost.text;
+      });
+      boostsContainer.appendChild(pill);
+    });
+  }
+
+  function setVerse(key) {
+    currentVerseKey = key;
+    const verse = verseData[key];
+    verseTagline.textContent = verse.tagline;
+    verseFooter.textContent = verse.footer;
+    renderBoosts(key);
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const key = tab.dataset.verse;
+      setVerse(key);
+    });
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const snapshot = {
+      verse: currentVerseKey,
+      earlySigns: fields.earlySigns.value,
+      powers: fields.powers.value,
+      safePlaces: fields.safePlaces.value,
+      team: fields.team.value,
+      script: fields.script.value,
+      timestamp: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `safety-plan-${currentVerseKey}-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // initial
+  setVerse('superman');
+</script>
+</body>
+</html>
