@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Marissa Anne Gimbel – Professional Resume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #f7f7fa;
+      --card: #ffffff;
+      --accent: #3b4a8a;
+      --accent-soft: #e3e6f5;
+      --text-main: #222222;
+      --text-muted: #555555;
+      --border: #dddddd;
+      --tag-bg: #eef0fb;
+      --tag-text: #333366;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .resume-wrapper {
+      max-width: 900px;
+      width: 100%;
+      background: var(--card);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      padding: 32px 36px 40px;
+      position: relative;
+    }
+
+    header.resume-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+    }
+
+    .name-block {
+      max-width: 60%;
+    }
+
+    .name-block h1 {
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .name-block h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      margin-bottom: 8px;
+    }
+
+    .name-block p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .contact-block {
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .contact-block div {
+      margin-bottom: 4px;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.7rem;
+    }
+
+    .section {
+      margin-bottom: 18px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-header h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 1px;
+      background: var(--accent-soft);
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+    }
+
+    .subheading {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 2px;
+    }
+
+    .muted {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .experience-item,
+    .education-item {
+      margin-bottom: 10px;
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .experience-header h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .experience-header span {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .experience-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    ul {
+      list-style: disc;
+      padding-left: 18px;
+      margin-top: 4px;
+    }
+
+    ul li {
+      font-size: 0.8rem;
+      margin-bottom: 3px;
+      line-height: 1.4;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .print-button {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: #ffffff;
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .print-button:hover {
+      background: var(--accent-soft);
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .resume-wrapper {
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+        padding: 18px 24px;
+      }
+      .print-button {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+      .name-block {
+        max-width: 100%;
+      }
+      .contact-block {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="resume-wrapper">
+    <button class="print-button" type="button" id="printBtn">
+      Print / Save as PDF
+    </button>
+
+    <!-- HEADER -->
+    <header class="resume-header">
+      <div class="name-block">
+        <h1>Marissa Anne Gimbel</h1>
+        <h2>Front-End Developer & Experience Designer</h2>
+        <p>
+          Front-end developer and UX-focused creator specializing in HTML, CSS, and JavaScript.
+          Experienced in designing and building accessible, emotionally aware interfaces, tools,
+          and overlays that support real people in real communities.
+        </p>
+      </div>
+      <div class="contact-block">
+        <div class="contact-label">Location</div>
+        <div>Henderson, Nevada, USA</div>
+
+        <div class="contact-label" style="margin-top: 6px;">Email</div>
+        <div>marissa.gimbel@example.com</div>
+
+        <div class="contact-label" style="margin-top: 6px;">Portfolio</div>
+        <div>www.marissagimbel.dev</div>
+      </div>
+    </header>
+
+    <!-- SUMMARY -->
+    <section class="section">
+      <div class="section-header">
+        <h3>Professional Summary</h3>
+        <div class="line"></div>
+      </div>
+      <p class="tagline">
+        Front-end developer and interface designer with a strong foundation in HTML, CSS, and
+        JavaScript, complemented by experience in Figma and Adobe XD. Skilled at translating
+        complex emotional, educational, and community needs into clear, intuitive, and accessible
+        digital experiences. Known for building structured, single-page tools and overlays that
+        support safety, learning, and everyday decision-making. Combines technical precision with
+        thoughtful UX to create interfaces that feel both functional and human-centered.
+      </p>
+    </section>
+
+    <div class="two-column">
+      <!-- LEFT COLUMN -->
+      <div>
+        <!-- EXPERIENCE -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Experience</h3>
+            <div class="line"></div>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <h4>Recreation Assistant</h4>
+              <span>City of Henderson · Henderson, NV</span>
+            </div>
+            <div class="experience-meta">Community Services · Public-Facing Role</div>
+            <ul>
+              <li>
+                Support daily operations of community recreation spaces, ensuring environments are
+                safe, welcoming, and accessible for diverse residents.
+              </li>
+              <li>
+                Coordinate activities, schedules, and communication in a structured, detail-oriented
+                way that mirrors strong front-end organizational thinking.
+              </li>
+              <li>
+                Apply problem-solving, empathy, and clear communication—skills that directly inform
+                user-centered design and interface decisions in technical work.
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="experience-header">
+              <h4>Front-End & UX Projects (Independent)</h4>
+              <span>HTML · CSS · JavaScript</span>
+            </div>
+            <div class="experience-meta">Self-Directed · Ongoing</div>
+            <ul>
+              <li>
+                Designed and built single-page HTML/CSS/JS overlays for emotional safety plans,
+                including interactive sections, toggles, and grounding prompts.
+              </li>
+              <li>
+                Developed modular helper panels for school systems, assistance tracking, money
+                counting, and life-coaching prompts using semantic HTML and responsive CSS.
+              </li>
+              <li>
+                Implemented JavaScript-driven interactions such as collapsible sections, tabbed
+                views, counters, and simple state-based UI to keep everything on a single page.
+              </li>
+              <li>
+                Created storybook- and pop-culture-themed layouts (e.g., sanctuary dashboards,
+                tribute timelines) that balance visual storytelling with clean, maintainable code.
+              </li>
+              <li>
+                Focused on accessibility by using clear hierarchy, keyboard-friendly interactions,
+                and readable typography for users of varying abilities.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Education & Learning</h3>
+            <div class="line"></div>
+          </div>
+
+          <div class="education-item">
+            <div class="subheading">Front-End & UX Self-Study</div>
+            <div class="muted">HTML · CSS · JavaScript · Figma · Adobe XD</div>
+            <ul>
+              <li>
+                Completed numerous self-directed projects focused on single-page layouts, component
+                design, and interactive UI patterns.
+              </li>
+              <li>
+                Studied modern front-end best practices, including responsive design, semantic HTML,
+                and modular CSS organization.
+              </li>
+              <li>
+                Used Figma and Adobe XD to prototype interfaces before implementing them in code,
+                improving clarity and reducing rework.
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <!-- TECHNICAL SKILLS -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Technical Skills</h3>
+            <div class="line"></div>
+          </div>
+
+          <div class="subheading">Core Front-End</div>
+          <div class="pill-row">
+            <span class="pill">HTML5</span>
+            <span class="pill">CSS3</span>
+            <span class="pill">JavaScript (ES6)</span>
+            <span class="pill">Responsive Layouts</span>
+            <span class="pill">Single-Page Structure</span>
+          </div>
+
+          <div class="subheading" style="margin-top: 10px;">UI / UX & Design</div>
+          <div class="pill-row">
+            <span class="pill">Figma</span>
+            <span class="pill">Adobe XD</span>
+            <span class="pill">Wireframing</span>
+            <span class="pill">Prototyping</span>
+            <span class="pill">Information Architecture</span>
+          </div>
+
+          <div class="subheading" style="margin-top: 10px;">Interaction & Components</div>
+          <div class="pill-row">
+            <span class="pill">Collapsible Sections</span>
+            <span class="pill">Tabs & Toggles</span>
+            <span class="pill">Counters</span>
+            <span class="pill">Form UI</span>
+            <span class="pill">Stateful UI (JS)</span>
+          </div>
+        </section>
+
+        <!-- PROJECT HIGHLIGHTS -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Selected Projects</h3>
+            <div class="line"></div>
+          </div>
+
+          <div class="experience-item">
+            <div class="subheading">Single-Page Safety Plan Overlay</div>
+            <div class="muted">HTML · CSS · JavaScript</div>
+            <ul>
+              <li>
+                Built a single-page interface with collapsible sections for triggers, coping
+                strategies, contacts, and grounding tools.
+              </li>
+              <li>
+                Used JavaScript to manage show/hide states, keeping the layout clean while storing
+                all content in one document.
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="subheading">School & Assistance Helper Panel</div>
+            <div class="muted">HTML · CSS · JS · UX</div>
+            <ul>
+              <li>
+                Designed a structured helper panel for tracking school tasks, assistance resources,
+                and key information in a single view.
+              </li>
+              <li>
+                Implemented responsive layout and clear visual hierarchy to support quick scanning
+                and ease of use.
+              </li>
+            </ul>
+          </div>
+
+          <div class="experience-item">
+            <div class="subheading">Money Counter & Budget Overlay</div>
+            <div class="muted">HTML · CSS · JavaScript</div>
+            <ul>
+              <li>
+                Created a simple, single-page money counter with JavaScript-powered totals and
+                category breakdowns.
+              </li>
+              <li>
+                Focused on clarity and low cognitive load, using typography and spacing to make
+                numbers easy to read.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- STRENGTHS -->
+        <section class="section">
+          <div class="section-header">
+            <h3>Professional Strengths</h3>
+            <div class="line"></div>
+          </div>
+          <ul>
+            <li>Translating real-world needs into clear, structured interfaces.</li>
+            <li>Designing single-page layouts that remain organized and easy to navigate.</li>
+            <li>Balancing visual storytelling with clean, maintainable code.</li>
+            <li>Collaborating with non-technical stakeholders and community members.</li>
+            <li>Maintaining empathy and user focus throughout the design and build process.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const btn = document.getElementById("printBtn");
+      if (btn) {
+        btn.addEventListener("click", function () {
+          window.print();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
