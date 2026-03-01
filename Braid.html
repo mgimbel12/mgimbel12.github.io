@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Easy Braid Technique /title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f4ff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #4b2e83;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 15px;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .step img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid #e0d7ff;
+    }
+
+    .step h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .blank-line {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .blank-line input {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .blank-line input.correct {
+      border-color: #2e8b57;
+      background: #e7f8ee;
+    }
+
+    .blank-line input.incorrect {
+      border-color: #c0392b;
+      background: #fdecea;
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: none;
+      background: #4b2e83;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3a2364;
+    }
+
+    .result {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Learn a Simple 3-Strand Braid</h1>
+  <div class="container">
+    <!-- STEP 1 -->
+    <div class="step">
+      <img src="step1.jpg" alt="Step 1 - Divide hair into three sections">
+      <div>
+        <h2>Step 1</h2>
+        <span class="blank-line">
+          Divide the hair into 
+          <input type="text" data-answer="three" placeholder="your answer here" />
+          equal sections.
+        </span>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="step">
+      <img src="step2.jpg" alt="Step 2 - Cross right over middle">
+      <div>
+        <h2>Step 2</h2>
+        <span class="blank-line">
+          Cross the 
+          <input type="text" data-answer="right" placeholder="your answer here" />
+          section over the middle section.
+        </span>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="step">
+      <img src="step3.jpg" alt="Step 3 - Cross left over middle">
+      <div>
+        <h2>Step 3</h2>
+        <span class="blank-line">
+          Now cross the 
+          <input type="text" data-answer="left" placeholder="your answer here" />
+          section over the new middle section.
+        </span>
+      </div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="step">
+      <img src="step4.jpg" alt="Step 4 - Repeat">
+      <div>
+        <h2>Step 4</h2>
+        <span class="blank-line">
+          Repeat crossing the 
+          <input type="text" data-answer="right" placeholder="right / left" />
+          and 
+          <input type="text" data-answer="left" placeholder="right / left" />
+          sections over the middle until you reach the end.
+        </span>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="checkBtn">Check Answers</button>
+    </div>
+    <div class="result" id="resultMsg"></div>
+  </div>
+
+  <script>
+    const checkBtn = document.getElementById('checkBtn');
+    const resultMsg = document.getElementById('resultMsg');
+
+    checkBtn.addEventListener('click', () => {
+      const inputs = document.querySelectorAll('.blank-line input');
+      let correctCount = 0;
+
+      inputs.forEach(input => {
+        const expected = input.dataset.answer.trim().toLowerCase();
+        const user = input.value.trim().toLowerCase();
+
+        if (!user) {
+          input.classList.remove('correct', 'incorrect');
+          return;
+        }
+
+        if (user === expected) {
+          input.classList.add('correct');
+          input.classList.remove('incorrect');
+          correctCount++;
+        } else {
+          input.classList.add('incorrect');
+          input.classList.remove('correct');
+        }
+      });
+
+      const total = inputs.length;
+      resultMsg.textContent = `You got ${correctCount} out of ${total} blanks correct.`;
+    });
+  </script>
+</body>
+</html>
