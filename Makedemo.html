@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Makeup Look Demo</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #fbeff7;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      max-width: 420px;
+      width: 100%;
+      padding: 1.75rem 2rem 2.25rem;
+    }
+
+    .title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #c2185b;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 1.5rem;
+    }
+
+    .face-preview {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      background: radial-gradient(circle at 30% 30%, #ffe5f1, #f8c1d9);
+      position: relative;
+    }
+
+    .eye {
+      width: 32px;
+      height: 14px;
+      border-radius: 50px;
+      background: #fff;
+      position: absolute;
+      top: 60px;
+      box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .eye.left { left: 40px; }
+    .eye.right { right: 40px; }
+
+    .eyeshadow {
+      width: 100%;
+      height: 100%;
+      background: #f48fb1;
+      transform: translateY(-60%);
+      transition: background 0.3s ease;
+    }
+
+    .pupil {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #333;
+      position: absolute;
+      top: 2px;
+      left: 11px;
+    }
+
+    .lip {
+      width: 70px;
+      height: 32px;
+      border-radius: 0 0 70px 70px;
+      background: #e91e63;
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+      transition: background 0.3s ease;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .control-group label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      margin-bottom: 0.35rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid #e0b5c9;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #c2185b;
+      box-shadow: 0 0 0 2px rgba(194,24,91,0.15);
+    }
+
+    .summary {
+      font-size: 0.9rem;
+      background: #fff3f8;
+      border-radius: 12px;
+      padding: 0.75rem 0.9rem;
+      border: 1px dashed #f48fb1;
+      color: #555;
+    }
+
+    .summary span {
+      font-weight: 600;
+      color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">Soft Glam Mixer</div>
+    <div class="subtitle">Play with lipstick + eyeshadow shades and see the look update instantly.</div>
+
+    <div class="face-preview">
+      <div class="eye left">
+        <div class="eyeshadow" id="eyeshadow-left"></div>
+        <div class="pupil"></div>
+      </div>
+      <div class="eye right">
+        <div class="eyeshadow" id="eyeshadow-right"></div>
+        <div class="pupil"></div>
+      </div>
+      <div class="lip" id="lip"></div>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="lipstick">Lipstick</label>
+        <select id="lipstick">
+          <option value="#e91e63" data-name="Rose Crush">Rose Crush</option>
+          <option value="#b71c1c" data-name="Deep Merlot">Deep Merlot</option>
+          <option value="#ff7043" data-name="Coral Glow">Coral Glow</option>
+          <option value="#ad1457" data-name="Berry Velvet">Berry Velvet</option>
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="eyeshadow">Eyeshadow</label>
+        <select id="eyeshadow">
+          <option value="#f48fb1" data-name="Blush Petal">Blush Petal</option>
+          <option value="#ce93d8" data-name="Lavender Smoke">Lavender Smoke</option>
+          <option value="#ffcc80" data-name="Peach Shimmer">Peach Shimmer</option>
+          <option value="#90caf9" data-name="Skyline">Skyline</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="summary" id="summary">
+      Current look: <span>Rose Crush</span> lips with <span>Blush Petal</span> eyes.
+    </div>
+  </div>
+
+  <script>
+    const lipstickSelect = document.getElementById('lipstick');
+    const eyeshadowSelect = document.getElementById('eyeshadow');
+    const lip = document.getElementById('lip');
+    const eyeshadowLeft = document.getElementById('eyeshadow-left');
+    const eyeshadowRight = document.getElementById('eyeshadow-right');
+    const summary = document.getElementById('summary');
+
+    function updateLook() {
+      const lipColor = lipstickSelect.value;
+      const eyeColor = eyeshadowSelect.value;
+      const lipName = lipstickSelect.options[lipstickSelect.selectedIndex].dataset.name;
+      const eyeName = eyeshadowSelect.options[eyeshadowSelect.selectedIndex].dataset.name;
+
+      lip.style.background = lipColor;
+      eyeshadowLeft.style.background = eyeColor;
+      eyeshadowRight.style.background = eyeColor;
+
+      summary.innerHTML = `Current look: <span>${lipName}</span> lips with <span>${eyeName}</span> eyes.`;
+    }
+
+    lipstickSelect.addEventListener('change', updateLook);
+    eyeshadowSelect.addEventListener('change', updateLook);
+
+    // initial
+    updateLook();
+  </script>
+</body>
+</html>
