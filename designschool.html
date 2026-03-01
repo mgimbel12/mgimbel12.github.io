@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Makeup & Design School — Practice Studio</title>
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #f7f3fa;
+        color: #333;
+    }
+
+    header {
+        background: linear-gradient(135deg, #d7a7ff, #ffb6d5);
+        padding: 40px;
+        text-align: center;
+        color: white;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+
+    .section {
+        padding: 30px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #7a3ea1;
+    }
+
+    /* Gallery */
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .swatch {
+        width: 100%;
+        height: 120px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    /* Face Chart */
+    .face-chart {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    #faceCanvas {
+        width: 200px;
+        height: 260px;
+        background: #f0e0d6;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        border: 2px solid #d7a7ff;
+    }
+
+    button {
+        padding: 10px 18px;
+        border: none;
+        background: #d7a7ff;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #b67ce6;
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Makeup & Design School Practice Studio</h1>
+    <p>HTML • CSS • JavaScript • Art • Beauty • Creativity</p>
+</header>
+
+<div class="section">
+    <h2>Practice Gallery</h2>
+    <p>Use this area to showcase looks, concepts, or school assignments.</p>
+
+    <div class="gallery">
+        <div class="card">
+            <div class="swatch" style="background:#ff9bb3;"></div>
+            Soft Glam
+        </div>
+        <div class="card">
+            <div class="swatch" style="background:#c7a7ff;"></div>
+            Editorial Purple
+        </div>
+        <div class="card">
+            <div class="swatch" style="background:#ffd27f;"></div>
+            Warm Glow
+        </div>
+        <div class="card">
+            <div class="swatch" style="background:#9edfff;"></div>
+            Ice Queen
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Color Theory Trainer</h2>
+    <p>Pick a color and see a suggested complementary shade.</p>
+
+    <input type="color" id="colorPicker" value="#d7a7ff">
+    <button onclick="generateComplement()">Find Complement</button>
+
+    <div class="card" style="margin-top:20px;">
+        <div id="resultSwatch" class="swatch"></div>
+        <p id="resultText">Complementary color will appear here.</p>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Face Chart Practice</h2>
+    <div class="face-chart">
+        <canvas id="faceCanvas"></canvas>
+        <br>
+        <input type="color" id="faceColor" value="#ff7f9f">
+        <button onclick="applyBlush()">Apply Blush</button>
+    </div>
+</div>
+
+<script>
+    function generateComplement() {
+        const hex = document.getElementById("colorPicker").value.substring(1);
+        const r = parseInt(hex.substring(0,2), 16);
+        const g = parseInt(hex.substring(2,4), 16);
+        const b = parseInt(hex.substring(4,6), 16);
+
+        const compR = (255 - r).toString(16).padStart(2, '0');
+        const compG = (255 - g).toString(16).padStart(2, '0');
+        const compB = (255 - b).toString(16).padStart(2, '0');
+
+        const complement = `#${compR}${compG}${compB}`;
+
+        document.getElementById("resultSwatch").style.background = complement;
+        document.getElementById("resultText").innerText = "Complement: " + complement;
+    }
+
+    function applyBlush() {
+        const canvas = document.getElementById("faceCanvas");
+        const ctx = canvas.getContext("2d");
+        const color = document.getElementById("faceColor").value;
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+
+        ctx.fillStyle = "#f0e0d6";
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(70, 150, 25, 0, Math.PI * 2);
+        ctx.arc(130, 150, 25, 0, Math.PI * 2);
+        ctx.fill();
+    }
+</script>
+
+</body>
+</html>
+
