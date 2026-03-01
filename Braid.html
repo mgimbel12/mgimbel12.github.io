@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Easy Braid Technique /title>
+  <title>Easy Braid Technique – Interactive Lesson</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -17,7 +17,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 0 auto;
       background: #ffffff;
       border-radius: 10px;
@@ -25,14 +25,20 @@
       box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
 
-    .step {
-      display: grid;
-      grid-template-columns: 150px 1fr;
-      gap: 15px;
-      align-items: center;
+    .intro {
       margin-bottom: 20px;
-      padding-bottom: 15px;
+      color: #444;
+      font-size: 15px;
+    }
+
+    .step {
+      margin-bottom: 25px;
+      padding-bottom: 18px;
       border-bottom: 1px solid #eee;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      align-items: flex-start;
     }
 
     .step img {
@@ -48,29 +54,47 @@
       color: #333;
     }
 
-    .blank-line {
-      display: block;
-      margin-top: 6px;
+    .text-block {
       font-size: 14px;
       color: #555;
+      line-height: 1.5;
     }
 
-    .blank-line input {
-      width: 100%;
-      padding: 6px 8px;
+    .blank {
+      display: inline-block;
+      margin: 2px 0;
+    }
+
+    .blank input {
+      min-width: 80px;
+      padding: 4px 6px;
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 14px;
     }
 
-    .blank-line input.correct {
+    .blank input.correct {
       border-color: #2e8b57;
       background: #e7f8ee;
     }
 
-    .blank-line input.incorrect {
+    .blank input.incorrect {
       border-color: #c0392b;
       background: #fdecea;
+    }
+
+    .extra-info {
+      margin-top: 8px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: #f4f0ff;
+      color: #3b2b6b;
+      font-size: 13px;
+      display: none; /* shown when step is fully correct */
+    }
+
+    .extra-info.visible {
+      display: block;
     }
 
     .controls {
@@ -99,7 +123,7 @@
       color: #333;
     }
 
-    @media (max-width: 600px) {
+    @media (max-width: 650px) {
       .step {
         grid-template-columns: 1fr;
       }
@@ -108,58 +132,169 @@
 </head>
 <body>
   <h1>Learn a Simple 3-Strand Braid</h1>
+
   <div class="container">
+    <p class="intro">
+      Read each step, look at the picture, and fill in the missing words.
+      When you click <strong>Check Answers</strong>, you’ll see which blanks are correct.
+      If you get all blanks in a step right, extra tips for that step will appear.
+    </p>
+
     <!-- STEP 1 -->
-    <div class="step">
+    <div class="step" data-step>
       <img src="step1.jpg" alt="Step 1 - Divide hair into three sections">
       <div>
-        <h2>Step 1</h2>
-        <span class="blank-line">
-          Divide the hair into 
-          <input type="text" data-answer="three" placeholder="your answer here" />
+        <h2>Step 1 – Prepare the Hair</h2>
+        <p class="text-block">
+          Start with hair that is
+          <span class="blank">
+            <input type="text" data-answer="brushed" placeholder="blank" />
+          </span>
+          and free of
+          <span class="blank">
+            <input type="text" data-answer="tangles" placeholder="blank" />
+          </span>.
+          Gather the hair at the
+          <span class="blank">
+            <input type="text" data-answer="back" placeholder="blank" />
+          </span>
+          of the head and divide it into
+          <span class="blank">
+            <input type="text" data-answer="three" placeholder="blank" />
+          </span>
           equal sections.
-        </span>
+        </p>
+        <div class="extra-info">
+          Great! Brushing out tangles first makes the braid smoother and easier to control.
+        </div>
       </div>
     </div>
 
     <!-- STEP 2 -->
-    <div class="step">
+    <div class="step" data-step>
       <img src="step2.jpg" alt="Step 2 - Cross right over middle">
       <div>
-        <h2>Step 2</h2>
-        <span class="blank-line">
-          Cross the 
-          <input type="text" data-answer="right" placeholder="your answer here" />
-          section over the middle section.
-        </span>
+        <h2>Step 2 – First Cross</h2>
+        <p class="text-block">
+          Hold one section in your
+          <span class="blank">
+            <input type="text" data-answer="left" placeholder="blank" />
+          </span>
+          hand, one in your
+          <span class="blank">
+            <input type="text" data-answer="right" placeholder="blank" />
+          </span>
+          hand, and let the
+          <span class="blank">
+            <input type="text" data-answer="middle" placeholder="blank" />
+          </span>
+          section rest between them.
+          Cross the
+          <span class="blank">
+            <input type="text" data-answer="right" placeholder="blank" />
+          </span>
+          section over the
+          <span class="blank">
+            <input type="text" data-answer="middle" placeholder="blank" />
+          </span>
+          so it becomes the new center.
+        </p>
+        <div class="extra-info">
+          Nice work. Keep your hands close to the head so the braid starts snug and secure.
+        </div>
       </div>
     </div>
 
     <!-- STEP 3 -->
-    <div class="step">
+    <div class="step" data-step>
       <img src="step3.jpg" alt="Step 3 - Cross left over middle">
       <div>
-        <h2>Step 3</h2>
-        <span class="blank-line">
-          Now cross the 
-          <input type="text" data-answer="left" placeholder="your answer here" />
-          section over the new middle section.
-        </span>
+        <h2>Step 3 – Second Cross</h2>
+        <p class="text-block">
+          Now take the
+          <span class="blank">
+            <input type="text" data-answer="left" placeholder="blank" />
+          </span>
+          section and cross it over the
+          <span class="blank">
+            <input type="text" data-answer="middle" placeholder="blank" />
+          </span>.
+          Gently
+          <span class="blank">
+            <input type="text" data-answer="tighten" placeholder="blank" />
+          </span>
+          the braid by pulling each section
+          <span class="blank">
+            <input type="text" data-answer="evenly" placeholder="blank" />
+          </span>.
+        </p>
+        <div class="extra-info">
+          When you tighten evenly, the braid looks neat instead of lumpy or loose.
+        </div>
       </div>
     </div>
 
     <!-- STEP 4 -->
-    <div class="step">
-      <img src="step4.jpg" alt="Step 4 - Repeat">
+    <div class="step" data-step>
+      <img src="step4.jpg" alt="Step 4 - Repeat pattern">
       <div>
-        <h2>Step 4</h2>
-        <span class="blank-line">
-          Repeat crossing the 
-          <input type="text" data-answer="right" placeholder="right / left" />
-          and 
-          <input type="text" data-answer="left" placeholder="right / left" />
-          sections over the middle until you reach the end.
-        </span>
+        <h2>Step 4 – Repeat the Pattern</h2>
+        <p class="text-block">
+          Keep repeating the pattern: cross the
+          <span class="blank">
+            <input type="text" data-answer="right" placeholder="blank" />
+          </span>
+          section over the
+          <span class="blank">
+            <input type="text" data-answer="middle" placeholder="blank" />
+          </span>,
+          then cross the
+          <span class="blank">
+            <input type="text" data-answer="left" placeholder="blank" />
+          </span>
+          section over the
+          <span class="blank">
+            <input type="text" data-answer="middle" placeholder="blank" />
+          </span>.
+          Continue until you reach the
+          <span class="blank">
+            <input type="text" data-answer="end" placeholder="blank" />
+          </span>
+          of the hair.
+        </p>
+        <div class="extra-info">
+          You’ve got the pattern! Just repeat right-over-middle, left-over-middle all the way down.
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 5 -->
+    <div class="step" data-step>
+      <img src="step5.jpg" alt="Step 5 - Secure braid">
+      <div>
+        <h2>Step 5 – Secure and Smooth</h2>
+        <p class="text-block">
+          When you reach the bottom, hold all three sections together and secure them with a
+          <span class="blank">
+            <input type="text" data-answer="hair tie" placeholder="blank" />
+          </span>.
+          Gently
+          <span class="blank">
+            <input type="text" data-answer="pull" placeholder="blank" />
+          </span>
+          on the sides of the braid to make it look
+          <span class="blank">
+            <input type="text" data-answer="fuller" placeholder="blank" />
+          </span>
+          or leave it tight for a more
+          <span class="blank">
+            <input type="text" data-answer="sleek" placeholder="blank" />
+          </span>
+          look.
+        </p>
+        <div class="extra-info">
+          Adjusting the braid at the end lets you choose between a soft, full style or a sleek, polished one.
+        </div>
       </div>
     </div>
 
@@ -174,10 +309,19 @@
     const resultMsg = document.getElementById('resultMsg');
 
     checkBtn.addEventListener('click', () => {
-      const inputs = document.querySelectorAll('.blank-line input');
+      const steps = document.querySelectorAll('[data-step]');
+      const allInputs = document.querySelectorAll('.blank input');
+      let total = allInputs.length;
       let correctCount = 0;
 
-      inputs.forEach(input => {
+      // Reset step extra info visibility
+      steps.forEach(step => {
+        const extra = step.querySelector('.extra-info');
+        if (extra) extra.classList.remove('visible');
+      });
+
+      // Check each input
+      allInputs.forEach(input => {
         const expected = input.dataset.answer.trim().toLowerCase();
         const user = input.value.trim().toLowerCase();
 
@@ -196,9 +340,30 @@
         }
       });
 
-      const total = inputs.length;
+      // For each step, show extra info only if all its blanks are correct and filled
+      steps.forEach(step => {
+        const inputs = step.querySelectorAll('.blank input');
+        let stepAllCorrect = true;
+        let hasAnyFilled = false;
+
+        inputs.forEach(input => {
+          const expected = input.dataset.answer.trim().toLowerCase();
+          const user = input.value.trim().toLowerCase();
+          if (user) hasAnyFilled = true;
+          if (user !== expected) {
+            stepAllCorrect = false;
+          }
+        });
+
+        const extra = step.querySelector('.extra-info');
+        if (extra && stepAllCorrect && hasAnyFilled) {
+          extra.classList.add('visible');
+        }
+      });
+
       resultMsg.textContent = `You got ${correctCount} out of ${total} blanks correct.`;
     });
   </script>
 </body>
 </html>
+
