@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Braiding Techniques Sheet</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f6f2ff;
+      margin: 0;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sheet {
+      background: #ffffff;
+      max-width: 900px;
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .techniques-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-card {
+      border-radius: 12px;
+      border: 1px solid #e0d8ff;
+      padding: 0.75rem 0.9rem;
+      background: #fbf9ff;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .tech-card.active {
+      border-color: #6b4fd8;
+      box-shadow: 0 6px 18px rgba(107,79,216,0.18);
+      background: #f3efff;
+      transform: translateY(-2px);
+    }
+
+    .tech-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .tech-tagline {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    .details {
+      border-radius: 12px;
+      border: 1px solid #e0d8ff;
+      padding: 1rem 1.25rem;
+      background: #fdfcff;
+    }
+
+    .details-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+
+    .details-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .level {
+      font-size: 0.8rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      background: #eee7ff;
+      color: #4b3aa8;
+    }
+
+    .notes {
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+
+    .steps {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.95rem;
+    }
+
+    .steps li {
+      margin-bottom: 0.35rem;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .step-indicator {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    button {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #6b4fd8;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    button:disabled {
+      background: #c9c3e8;
+      cursor: default;
+    }
+
+    @media (max-width: 600px) {
+      .sheet {
+        padding: 1.1rem 1rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <h1>Braiding Techniques</h1>
+    <div class="subtitle">Single-sheet guide • Click a card to switch techniques</div>
+
+    <div class="techniques-grid" id="techniquesGrid">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <div class="details" id="detailsPanel">
+      <div class="details-header">
+        <div class="details-title" id="detailsTitle">Select a technique</div>
+        <div class="level" id="detailsLevel"></div>
+      </div>
+      <div class="notes" id="detailsNotes">
+        Tap a braid style above to see focused, step‑by‑step instructions.
+      </div>
+      <ol class="steps" id="stepsList"></ol>
+
+      <div class="controls" id="controls" style="display:none;">
+        <div class="step-indicator" id="stepIndicator"></div>
+        <div>
+          <button id="prevStepBtn">◀ Prev step</button>
+          <button id="nextStepBtn">Next step ▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const techniques = [
+      {
+        id: "basic-three-strand",
+        name: "Basic Three-Strand Braid",
+        tagline: "Foundation braid for most styles.",
+        level: "Beginner",
+        notes: "Great starting point. Focus on even tension and smooth sections.",
+        steps: [
+          "Brush the hair to remove tangles and smooth it out.",
+          "Divide the hair into three equal sections: left, middle, right.",
+          "Cross the right section over the middle—right becomes the new middle.",
+          "Cross the left section over the middle—left becomes the new middle.",
+          "Repeat crossing right over middle, then left over middle, keeping tension even.",
+          "Continue until you reach the end, then secure with a hair tie."
+        ]
+      },
+      {
+        id: "french-braid",
+        name: "French Braid",
+        tagline: "Classic, close-to-the-head braid.",
+        level: "Intermediate",
+        notes: "Add small pieces of hair each time you cross a section over the middle.",
+        steps: [
+          "Start with a small triangle section of hair at the crown of the head.",
+          "Divide this section into three equal strands: left, middle, right.",
+          "Cross the right strand over the middle, then the left over the middle.",
+          "Before crossing again, add a small section of loose hair to the right strand, then cross it over the middle.",
+          "Repeat on the left side: add a small section of hair to the left strand, then cross it over the middle.",
+          "Continue adding hair and crossing over the middle until you reach the nape of the neck.",
+          "Finish with a regular three-strand braid to the ends and secure with a hair tie."
+        ]
+      },
+      {
+        id: "dutch-braid",
+        name: "Dutch Braid",
+        tagline: "Inside-out, raised braid.",
+        level: "Intermediate",
+        notes: "Think of it as a French braid, but strands go under the middle instead of over.",
+        steps: [
+          "Take a small triangle section at the crown and divide into three strands.",
+          "Cross the right strand under the middle—right becomes the new middle.",
+          "Cross the left strand under the middle—left becomes the new middle.",
+          "Add a small section of loose hair to the right strand, then cross it under the middle.",
+          "Add a small section of hair to the left strand, then cross it under the middle.",
+          "Continue adding hair and crossing under until you reach the nape.",
+          "Finish with a regular three-strand braid (still crossing under) and secure."
+        ]
+      },
+      {
+        id: "fishtail-braid",
+        name: "Fishtail Braid",
+        tagline: "Delicate, woven look.",
+        level: "Intermediate",
+        notes: "Use small sections for a detailed, “fishbone” pattern.",
+        steps: [
+          "Gather hair into a low ponytail and secure with a small elastic (optional for control).",
+          "Split the ponytail into two equal sections: left and right.",
+          "From the outer edge of the left section, take a small piece and cross it over to join the right section.",
+          "From the outer edge of the right section, take a small piece and cross it over to join the left section.",
+          "Repeat, alternating sides, keeping sections small and tension even.",
+          "Once you reach the end, secure with a hair tie and gently tug the braid to soften if desired."
+        ]
+      },
+      {
+        id: "rope-twist",
+        name: "Rope Twist Braid",
+        tagline: "Fast, two-strand twist.",
+        level: "Beginner",
+        notes: "Twist both strands in one direction, wrap them in the opposite direction.",
+        steps: [
+          "Brush hair and gather it into a ponytail or section.",
+          "Divide the hair into two equal strands: left and right.",
+          "Twist both strands tightly in the same direction (for example, clockwise).",
+          "Now wrap the right twisted strand over the left in the opposite direction (counterclockwise).",
+          "Continue twisting each strand and wrapping them around each other down the length.",
+          "Secure the end with a hair tie; the opposing twists help lock it in place."
+        ]
+      }
+    ];
+
+    const techniquesGrid = document.getElementById("techniquesGrid");
+    const detailsTitle = document.getElementById("detailsTitle");
+    const detailsLevel = document.getElementById("detailsLevel");
+    const detailsNotes = document.getElementById("detailsNotes");
+    const stepsList = document.getElementById("stepsList");
+    const controls = document.getElementById("controls");
+    const stepIndicator = document.getElementById("stepIndicator");
+    const prevStepBtn = document.getElementById("prevStepBtn");
+    const nextStepBtn = document.getElementById("nextStepBtn");
+
+    let activeTechniqueId = null;
+    let activeStepIndex = 0;
+
+    function renderTechniqueCards() {
+      techniquesGrid.innerHTML = "";
+      techniques.forEach(tech => {
+        const card = document.createElement("div");
+        card.className = "tech-card";
+        card.dataset.id = tech.id;
+
+        card.innerHTML = `
+          <div class="tech-name">${tech.name}</div>
+          <div class="tech-tagline">${tech.tagline}</div>
+        `;
+
+        card.addEventListener("click", () => selectTechnique(tech.id));
+        techniquesGrid.appendChild(card);
+      });
+    }
+
+    function updateActiveCard() {
+      const cards = techniquesGrid.querySelectorAll(".tech-card");
+      cards.forEach(card => {
+        card.classList.toggle("active", card.dataset.id === activeTechniqueId);
+      });
+    }
+
+    function selectTechnique(id) {
+      const tech = techniques.find(t => t.id === id);
+      if (!tech) return;
+
+      activeTechniqueId = id;
+      activeStepIndex = 0;
+
+      detailsTitle.textContent = tech.name;
+      detailsLevel.textContent = tech.level;
+      detailsNotes.textContent = tech.notes;
+
+      renderSteps(tech);
+      updateActiveCard();
+      updateStepControls(tech);
+    }
+
+    function renderSteps(tech) {
+      stepsList.innerHTML = "";
+      tech.steps.forEach((step, index) => {
+        const li = document.createElement("li");
+        li.textContent = step;
+        if (index === activeStepIndex) {
+          li.style.fontWeight = "600";
+        }
+        stepsList.appendChild(li);
+      });
+    }
+
+    function updateStepControls(tech) {
+      controls.style.display = "flex";
+      stepIndicator.textContent = `Step ${activeStepIndex + 1} of ${tech.steps.length}`;
+      prevStepBtn.disabled = activeStepIndex === 0;
+      nextStepBtn.disabled = activeStepIndex === tech.steps.length - 1;
+    }
+
+    prevStepBtn.addEventListener("click", () => {
+      const tech = techniques.find(t => t.id === activeTechniqueId);
+      if (!tech || activeStepIndex === 0) return;
+      activeStepIndex--;
+      renderSteps(tech);
+      updateStepControls(tech);
+    });
+
+    nextStepBtn.addEventListener("click", () => {
+      const tech = techniques.find(t => t.id === activeTechniqueId);
+      if (!tech || activeStepIndex >= tech.steps.length - 1) return;
+      activeStepIndex++;
+      renderSteps(tech);
+      updateStepControls(tech);
+    });
+
+    // Initial render
+    renderTechniqueCards();
+    // Optionally auto-select the first technique
+    selectTechnique(techniques[0].id);
+  </script>
+</body>
+</html>
