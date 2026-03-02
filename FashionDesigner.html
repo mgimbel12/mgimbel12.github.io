@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fashion & Design Newsletter</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/6/6e/Disneyland_Castle.jpg') center/cover no-repeat fixed;
+    color: #222;
+  }
+
+  .overlay {
+    background: rgba(255,255,255,0.85);
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  h1, h2 {
+    margin-top: 0;
+    letter-spacing: 0.05em;
+  }
+
+  .section {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 14px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+  }
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: #c46b5c;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #a55346;
+  }
+
+  .note-box {
+    background: #f7f4f2;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+  }
+
+  .steps li {
+    margin-bottom: 0.5rem;
+  }
+
+  .money-box {
+    background: #f0f8ff;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #bcd;
+  }
+
+  .reading-box {
+    background: #fdf6e3;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #e6d8b5;
+  }
+
+  .status {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+
+<body>
+<div class="overlay">
+
+  <h1>Fashion & Design Newsletter</h1>
+  <p>Full-length article writing, notes, money topics, reading, and beauty steps—all in one creative page.</p>
+
+  <!-- EMAIL SECTION -->
+  <div class="section">
+    <h2>Email Setup</h2>
+    <label>Email Address</label>
+    <input type="email" id="email" placeholder="you@example.com">
+
+    <label>Subject Line</label>
+    <input type="text" id="subject" placeholder="Weekly Fashion & Design Issue">
+
+    <button id="saveEmail">Save Email Info</button>
+    <div class="status" id="emailStatus"></div>
+  </div>
+
+  <!-- ARTICLE WRITING -->
+  <div class="section">
+    <h2>Write Your Article</h2>
+    <p>Use full-length sentences that describe the outfit, the feeling, the design choices, and the story behind the look.</p>
+
+    <textarea id="article" rows="6" placeholder="Write your fashion or design article here..."></textarea>
+    <button id="saveArticle">Save Article</button>
+    <div class="status" id="articleStatus"></div>
+  </div>
+
+  <!-- NOTES -->
+  <div class="section">
+    <h2>Notes</h2>
+    <div class="note-box">
+      <textarea id="notes" rows="4" placeholder="Quick notes, ideas, reminders..."></textarea>
+    </div>
+    <button id="saveNotes">Save Notes</button>
+    <div class="status" id="notesStatus"></div>
+  </div>
+
+  <!-- MONEY SUBJECTS -->
+  <div class="section">
+    <h2>Money Topics</h2>
+    <div class="money-box">
+      <p><strong>Budgeting for Fashion:</strong> Track spending, compare prices, and plan outfits that match your financial goals.</p>
+      <textarea id="money" rows="4" placeholder="Write your money-related notes here..."></textarea>
+    </div>
+    <button id="saveMoney">Save Money Notes</button>
+    <div class="status" id="moneyStatus"></div>
+  </div>
+
+  <!-- READING SECTION -->
+  <div class="section">
+    <h2>Reading Corner</h2>
+    <div class="reading-box">
+      <p>Write a reading reflection, book notes, or a summary of something inspiring.</p>
+      <textarea id="reading" rows="4" placeholder="Reading notes..."></textarea>
+    </div>
+    <button id="saveReading">Save Reading Notes</button>
+    <div class="status" id="readingStatus"></div>
+  </div>
+
+  <!-- NAIL TUTORIAL -->
+  <div class="section">
+    <h2>Nail Tutorial — Step by Step</h2>
+    <ol class="steps">
+      <li>Remove old polish and clean nails.</li>
+      <li>Shape nails with a file.</li>
+      <li>Push back cuticles gently.</li>
+      <li>Apply base coat.</li>
+      <li>Add two coats of color.</li>
+      <li>Finish with a top coat for shine.</li>
+    </ol>
+    <textarea id="nailNotes" rows="4" placeholder="Your nail notes or color ideas..."></textarea>
+    <button id="saveNails">Save Nail Notes</button>
+    <div class="status" id="nailStatus"></div>
+  </div>
+
+</div>
+
+<script>
+  function save(id, statusId) {
+    const value = document.getElementById(id).value.trim();
+    const status = document.getElementById(statusId);
+
+    if (!value) {
+      status.style.color = "#b23a3a";
+      status.textContent = "Please fill this section before saving.";
+      return;
+    }
+
+    console.log("Saved:", id, value);
+    status.style.color = "#2d6a4f";
+    status.textContent = "Saved (demo only).";
+  }
+
+  document.getElementById("saveEmail").onclick = () => save("email", "emailStatus");
+  document.getElementById("saveArticle").onclick = () => save("article", "articleStatus");
+  document.getElementById("saveNotes").onclick = () => save("notes", "notesStatus");
+  document.getElementById("saveMoney").onclick = () => save("money", "moneyStatus");
+  document.getElementById("saveReading").onclick = () => save("reading", "readingStatus");
+  document.getElementById("saveNails").onclick = () => save("nailNotes", "nailStatus");
+</script>
+
+</body>
+</html>
