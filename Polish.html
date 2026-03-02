@@ -1,540 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Easter Nail Polish Stepss</title>
-  <style>
-    :root {
-      --bg: #fff9fb;
-      --card: #ffffff;
-      --accent: #f7bfe6;
-      --accent-2: #b7e6ff;
-      --accent-3: #c9f7c0;
-      --text: #333;
-      --border: #e3d7ff;
-      --shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-      --radius: 16px;
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+<meta charset="UTF-8">
+<title>Nails & Easter Egg Hunt — Step by Step</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff8fb;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  h1 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: var(--font-main);
-      background: radial-gradient(circle at top left, #ffe6f7 0, #fff9fb 40%, #f3fbff 100%);
-      color: var(--text);
-    }
+  h2 {
+    margin-top: 0;
+  }
 
-    .page {
-      max-width: 1100px;
-      margin: 32px auto;
-      padding: 24px;
-    }
+  .section {
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+  }
 
-    .header {
-      text-align: center;
-      margin-bottom: 24px;
-    }
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+  }
 
-    .header h1 {
-      margin: 0 0 8px;
-      font-size: 2rem;
-      letter-spacing: 0.04em;
-    }
+  .steps li {
+    margin: 8px 0;
+  }
 
-    .header p {
-      margin: 0;
-      font-size: 0.95rem;
-      opacity: 0.8;
-    }
+  .egg-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+  }
 
-    .tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 10px;
-      padding: 6px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px dashed var(--accent);
-      font-size: 0.8rem;
-    }
+  .egg {
+    height: 140px;
+    background: #ffffff;
+    border-radius: 50% 50% 45% 45%;
+    border: 3px dashed #ff9ac4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #999;
+    cursor: pointer;
+    transition: 0.3s;
+  }
 
-    .tagline span {
-      font-size: 1.1rem;
-    }
+  .egg:hover {
+    background: #ffe6f2;
+    border-color: #ff6fa8;
+  }
 
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+  .status {
+    margin-top: 10px;
+    font-size: 15px;
+  }
 
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: var(--shadow);
-      background: linear-gradient(135deg, #ffe0f5, #ffeefc);
-      color: #5a3a5f;
-      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
-    }
-
-    .btn.secondary {
-      background: linear-gradient(135deg, #e5f6ff, #f4fbff);
-      color: #2f4a5a;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-      box-shadow: var(--shadow);
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-    }
-
-    .step-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      padding: 14px 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .step-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: #7b5a8a;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .step-label-badge {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: #fff;
-      background: linear-gradient(135deg, #f7bfe6, #fdd4ff);
-      box-shadow: 0 0 0 2px #fff;
-    }
-
-    .step-title {
-      font-weight: 600;
-      font-size: 1rem;
-      margin: 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .step-title span {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #9b7fb0;
-    }
-
-    .image-placeholder {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      border-radius: 12px;
-      border: 1px dashed #e0c7ff;
-      background:
-        radial-gradient(circle at 10% 20%, #ffe6f7 0, transparent 55%),
-        radial-gradient(circle at 80% 0%, #e5f6ff 0, transparent 55%),
-        radial-gradient(circle at 90% 90%, #f7ffd9 0, transparent 55%),
-        #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .image-placeholder::before {
-      content: "Drop Easter nail inspo here (or replace with an image)";
-      font-size: 0.75rem;
-      color: #8a7a9a;
-      text-align: center;
-      padding: 0 10px;
-      opacity: 0.9;
-    }
-
-    .egg-row {
-      position: absolute;
-      bottom: 4px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 4px;
-      opacity: 0.7;
-    }
-
-    .egg {
-      width: 14px;
-      height: 18px;
-      border-radius: 50% 50% 45% 45%;
-      background: #f7bfe6;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-    }
-
-    .egg:nth-child(2) {
-      background: #b7e6ff;
-    }
-
-    .egg:nth-child(3) {
-      background: #c9f7c0;
-    }
-
-    .egg:nth-child(4) {
-      background: #ffe6a8;
-    }
-
-    .step-prompt {
-      font-size: 0.8rem;
-      color: #7a6a8a;
-      margin-top: 2px;
-    }
-
-    .step-textarea {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #e3d7ff;
-      padding: 8px 9px;
-      font-size: 0.85rem;
-      resize: vertical;
-      min-height: 60px;
-      font-family: var(--font-main);
-      background: #fdfbff;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
-
-    .step-textarea:focus {
-      outline: none;
-      border-color: #c7a6ff;
-      box-shadow: 0 0 0 2px rgba(199, 166, 255, 0.25);
-      background: #ffffff;
-    }
-
-    .hint {
-      font-size: 0.75rem;
-      color: #9b8ab0;
-      margin-top: -2px;
-    }
-
-    .footer-note {
-      margin-top: 20px;
-      font-size: 0.8rem;
-      text-align: center;
-      color: #7a6a8a;
-      opacity: 0.9;
-    }
-
-    .footer-note strong {
-      font-weight: 600;
-    }
-
-    @media (max-width: 640px) {
-      .page {
-        padding: 16px;
-        margin: 16px auto;
-      }
-    }
-  </style>
+  .highlight {
+    color: #d6006f;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
-  <div class="page">
-    <header class="header">
-      <h1>Easter Nail Polish Steps</h1>
-      <p>Fill in each step with your own colors, designs, and little rituals for Easter‑time nails.</p>
-      <div class="tagline">
-        <span>🐣</span>
-        <span>Worksheet • Tutorial • Ceremony for your hands</span>
-      </div>
-    </header>
 
-    <section class="controls">
-      <button class="btn" id="toggleHintsBtn">
-        ✏️ Toggle example hints
-      </button>
-      <button class="btn secondary" id="resetBtn">
-        🔄 Reset all blanks
-      </button>
-    </section>
+<h1>Nails & Easter Egg Hunt — Step by Step</h1>
 
-    <section class="steps-grid" id="stepsGrid">
-      <!-- Step 1 -->
-      <article class="step-card" data-step="1">
-        <div class="step-label">
-          <div class="step-label-badge">1</div>
-          PREP & CLEAN
-        </div>
-        <h2 class="step-title">
-          Prep the canvas
-          <span>(hands + nails)</span>
-        </h2>
+<div class="section">
 
-        <div class="image-placeholder">
-          <div class="egg-row">
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-          </div>
-        </div>
-
-        <p class="step-prompt">
-          Fill in: how do you want to wash, shape, and prepare your nails before the Easter colors go on?
-        </p>
-        <textarea
-          class="step-textarea"
-          data-default="Wash hands with warm soapy water, gently push back cuticles, file nails into the shape I like (oval, almond, square), and lightly buff the surface so polish can grip."
-        ></textarea>
-        <p class="hint">
-          Example: “Wash hands, trim, file into soft oval, push back cuticles, buff lightly.”
-        </p>
-      </article>
-
-      <!-- Step 2 -->
-      <article class="step-card" data-step="2">
-        <div class="step-label">
-          <div class="step-label-badge">2</div>
-          BASE COAT
-        </div>
-        <h2 class="step-title">
-          Protect & smooth
-          <span>(base layer)</span>
-        </h2>
-
-        <div class="image-placeholder">
-          <div class="egg-row">
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-          </div>
-        </div>
-
-        <p class="step-prompt">
-          Fill in: what base coat or clear polish will you use, and what does it help you with?
-        </p>
-        <textarea
-          class="step-textarea"
-          data-default="Apply a thin, even base coat to every nail to prevent staining and help the Easter colors last longer."
-        ></textarea>
-        <p class="hint">
-          Example: “One thin layer of strengthening base coat, let it dry fully.”
-        </p>
-      </article>
-
-      <!-- Step 3 -->
-      <article class="step-card" data-step="3">
-        <div class="step-label">
-          <div class="step-label-badge">3</div>
-          EASTER COLORS
-        </div>
-        <h2 class="step-title">
-          Choose your palette
-          <span>(pastels or brights)</span>
-        </h2>
-
-        <div class="image-placeholder">
-          <div class="egg-row">
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-          </div>
-        </div>
-
-        <p class="step-prompt">
-          Fill in: which colors are you using on each nail? You can list fingers or create a pattern.
-        </p>
-        <textarea
-          class="step-textarea"
-          data-default="Thumb: pastel yellow • Index: mint green • Middle: baby pink • Ring: lilac • Pinky: sky blue. Two thin coats of each color."
-        ></textarea>
-        <p class="hint">
-          Example: “Alternate pink and lilac, 2 thin coats, let each coat dry.”
-        </p>
-      </article>
-
-      <!-- Step 4 -->
-      <article class="step-card" data-step="4">
-        <div class="step-label">
-          <div class="step-label-badge">4</div>
-          DESIGNS & DETAILS
-        </div>
-        <h2 class="step-title">
-          Add Easter art
-          <span>(optional)</span>
-        </h2>
-
-        <div class="image-placeholder">
-          <div class="egg-row">
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-          </div>
-        </div>
-
-        <p class="step-prompt">
-          Fill in: dots, stripes, tiny eggs, bunnies, crosses, flowers—what details do you want to add?
-        </p>
-        <textarea
-          class="step-textarea"
-          data-default="Use a dotting tool to add white polka dots on the pastel nails. Add tiny egg stripes on ring fingers with a thin brush."
-        ></textarea>
-        <p class="hint">
-          Example: “White dots on all nails, tiny flowers on ring fingers.”
-        </p>
-      </article>
-
-      <!-- Step 5 -->
-      <article class="step-card" data-step="5">
-        <div class="step-label">
-          <div class="step-label-badge">5</div>
-          TOP COAT
-        </div>
-        <h2 class="step-title">
-          Seal the design
-          <span>(shine + protection)</span>
-        </h2>
-
-        <div class="image-placeholder">
-          <div class="egg-row">
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-          </div>
-        </div>
-
-        <p class="step-prompt">
-          Fill in: what top coat will you use, and how will you apply it to protect your art?
-        </p>
-        <textarea
-          class="step-textarea"
-          data-default="After designs are fully dry, apply a glossy top coat in smooth strokes, sealing the tips to prevent chipping."
-        ></textarea>
-        <p class="hint">
-          Example: “One glossy top coat, cap the free edge of each nail.”
-        </p>
-      </article>
-
-      <!-- Step 6 -->
-      <article class="step-card" data-step="6">
-        <div class="step-label">
-          <div class="step-label-badge">6</div>
-          DRY & CELEBRATE
-        </div>
-        <h2 class="step-title">
-          Let them set
-          <span>(and enjoy)</span>
-        </h2>
-
-        <div class="image-placeholder">
-          <div class="egg-row">
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-            <div class="egg"></div>
-          </div>
-        </div>
-
-        <p class="step-prompt">
-          Fill in: how long will you let them dry, and what Easter moment are you getting ready for?
-        </p>
-        <textarea
-          class="step-textarea"
-          data-default="Let nails dry for at least 20–30 minutes. Get ready for Easter brunch, photos, or a quiet moment with my favorite treat."
-        ></textarea>
-        <p class="hint">
-          Example: “Dry 30 minutes while I plan my Easter outfit.”
-        </p>
-      </article>
-    </section>
-
-    <p class="footer-note">
-      You can print this, screenshot it, or save it as your personal
-      <strong>Easter nail ritual</strong> and update it every year.
-    </p>
+  <!-- Step by Step Nails -->
+  <div class="card">
+    <h2>💅 Step by Step: Easter Nails</h2>
+    <ol class="steps">
+      <li><strong>Clean:</strong> Wash hands and remove old polish.</li>
+      <li><strong>Shape:</strong> File nails into your favorite shape (round, square, almond).</li>
+      <li><strong>Prep:</strong> Push back cuticles gently and buff the surface lightly.</li>
+      <li><strong>Base Coat:</strong> Apply a thin base coat and let it dry.</li>
+      <li><strong>Color:</strong> Paint 1–2 thin coats of pastel polish (pink, lilac, mint, sky blue).</li>
+      <li><strong>Design:</strong> Add tiny flowers, dots, or mini Easter eggs if you want.</li>
+      <li><strong>Top Coat:</strong> Seal with a glossy top coat for shine and protection.</li>
+    </ol>
   </div>
 
-  <script>
-    // Initialize textareas with their default text
-    function initDefaults() {
-      document.querySelectorAll(".step-textarea").forEach((ta) => {
-        const def = ta.getAttribute("data-default") || "";
-        if (!ta.value.trim()) {
-          ta.value = def;
-        }
-      });
+  <!-- Step by Step Easter Egg Hunt -->
+  <div class="card">
+    <h2>🥚 Step by Step: Easter Egg Hunt</h2>
+    <ol class="steps">
+      <li><strong>Goal:</strong> Click eggs to “search” them.</li>
+      <li><strong>Hidden:</strong> Some eggs are empty, some have candy, one is a golden egg.</li>
+      <li><strong>Try:</strong> Click each egg to reveal what’s inside.</li>
+      <li><strong>Count:</strong> Watch how many eggs you’ve found.</li>
+      <li><strong>Win:</strong> Find the golden egg to finish the hunt.</li>
+    </ol>
+
+    <p><strong>Hunt Status:</strong></p>
+    <p class="status">
+      Eggs clicked: <span id="clickedCount">0</span> |
+      Candy eggs: <span id="candyCount">0</span> |
+      Golden egg: <span id="goldenFound">No</span>
+    </p>
+
+    <div class="egg-grid" id="eggGrid">
+      <!-- Eggs will be created by JavaScript -->
+    </div>
+
+    <p class="status" id="message"></p>
+  </div>
+
+</div>
+
+<script>
+  // --- Easter Egg Hunt Logic ---
+
+  const totalEggs = 12;
+  const eggGrid = document.getElementById('eggGrid');
+  const clickedCountEl = document.getElementById('clickedCount');
+  const candyCountEl = document.getElementById('candyCount');
+  const goldenFoundEl = document.getElementById('goldenFound');
+  const messageEl = document.getElementById('message');
+
+  let clickedCount = 0;
+  let candyCount = 0;
+  let goldenIndex = Math.floor(Math.random() * totalEggs);
+
+  // 1. Create eggs
+  for (let i = 0; i < totalEggs; i++) {
+    const egg = document.createElement('div');
+    egg.className = 'egg';
+    egg.textContent = 'Click to Hunt';
+    egg.dataset.index = i;
+    egg.dataset.opened = 'false';
+    egg.addEventListener('click', onEggClick);
+    eggGrid.appendChild(egg);
+  }
+
+  // 2. Handle egg click
+  function onEggClick(e) {
+    const egg = e.currentTarget;
+    if (egg.dataset.opened === 'true') return; // already opened
+
+    egg.dataset.opened = 'true';
+    clickedCount++;
+    clickedCountEl.textContent = clickedCount;
+
+    const index = parseInt(egg.dataset.index, 10);
+
+    if (index === goldenIndex) {
+      // Golden egg
+      egg.style.background = '#ffd700';
+      egg.style.color = '#000';
+      egg.style.borderColor = '#b8860b';
+      egg.textContent = 'Golden Egg!';
+      goldenFoundEl.textContent = 'Yes';
+      goldenFoundEl.classList.add('highlight');
+      messageEl.textContent = 'You found the golden egg! Hunt complete 🎉';
+      messageEl.classList.add('highlight');
+    } else {
+      // Candy or empty
+      const hasCandy = Math.random() < 0.6; // 60% chance of candy
+      if (hasCandy) {
+        candyCount++;
+        candyCountEl.textContent = candyCount;
+        egg.style.background = '#ffb7d5';
+        egg.style.color = '#fff';
+        egg.style.borderColor = '#ff6fa8';
+        egg.textContent = 'Candy!';
+      } else {
+        egg.style.background = '#e0e0e0';
+        egg.style.color = '#555';
+        egg.style.borderColor = '#999';
+        egg.textContent = 'Empty';
+      }
     }
+  }
+</script>
 
-    // Reset all textareas to default
-    function resetAll() {
-      if (!confirm("Reset all steps back to the example text?")) return;
-      document.querySelectorAll(".step-textarea").forEach((ta) => {
-        const def = ta.getAttribute("data-default") || "";
-        ta.value = def;
-      });
-    }
-
-    // Toggle hint visibility
-    function toggleHints() {
-      const hints = document.querySelectorAll(".hint");
-      const anyVisible = Array.from(hints).some(
-        (h) => getComputedStyle(h).display !== "none"
-      );
-      hints.forEach((h) => {
-        h.style.display = anyVisible ? "none" : "block";
-      });
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      initDefaults();
-
-      document
-        .getElementById("resetBtn")
-        .addEventListener("click", resetAll);
-
-      document
-        .getElementById("toggleHintsBtn")
-        .addEventListener("click", toggleHints);
-    });
-  </script>
 </body>
 </html>
+
+
+
+
