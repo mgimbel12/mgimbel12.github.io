@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Talking Orange & Fashion Studio</title>
+
+<style>
+    body {
+        font-family: "Comic Sans MS", "Didot", sans-serif;
+        background: #f9f6ff;
+        margin: 0;
+        padding: 40px 20px 60px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #6a4bc3;
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #ff8a00;
+        font-size: 30px;
+        margin: 30px 0 15px;
+    }
+
+    .section {
+        max-width: 900px;
+        margin: 0 auto 40px;
+        padding: 20px;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow: 0 0 20px rgba(120, 90, 200, 0.15);
+    }
+
+    /* Layout for two panels on larger screens */
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    /* TALKING ORANGE */
+
+    .orange-wrapper {
+        flex: 1 1 260px;
+    }
+
+    .orange {
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, #ffb347, #ff7a00);
+        border-radius: 50%;
+        margin: 0 auto;
+        position: relative;
+        box-shadow: 0 0 25px rgba(255, 160, 0, 0.4);
+        animation: bounce 2s infinite ease-in-out;
+    }
+
+    .eye {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 60px;
+        overflow: hidden;
+        border: 2px solid #ffb347;
+    }
+    .eye.left { left: 45px; }
+    .eye.right { right: 45px; }
+
+    .pupil {
+        width: 18px;
+        height: 18px;
+        background: black;
+        border-radius: 50%;
+        margin: 12px auto;
+        transition: 0.2s;
+    }
+
+    .blink {
+        height: 0px !important;
+        transition: height 0.15s;
+    }
+
+    .mouth {
+        width: 110px;
+        height: 55px;
+        background: #333;
+        border-radius: 0 0 60px 60px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+        border: 2px solid #ffb347;
+    }
+
+    .mouth.open {
+        height: 85px;
+        transition: height 0.15s;
+    }
+
+    #bubble {
+        margin-top: 20px;
+        font-size: 22px;
+        color: #ff7a00;
+        font-weight: bold;
+        min-height: 40px;
+    }
+
+    .orange-btn {
+        margin-top: 20px;
+        background: #ff8a00;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .orange-btn:hover {
+        background: #ffae42;
+        transform: scale(1.05);
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* FASHION STUDIO */
+
+    .fashion-wrapper {
+        flex: 1 1 260px;
+    }
+
+    .model {
+        width: 220px;
+        height: 380px;
+        margin: 0 auto 20px;
+        background: #e0d9ff;
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(120, 90, 200, 0.3);
+    }
+
+    .body-shape {
+        width: 120px;
+        height: 260px;
+        background: #fff;
+        border-radius: 60px;
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .outfit {
+        width: 140px;
+        height: 160px;
+        position: absolute;
+        top: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
+    .outfit.show {
+        opacity: 1;
+    }
+
+    .btn-row {
+        margin-top: 10px;
+    }
+
+    button.fashion-btn {
+        padding: 10px 18px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        margin: 6px;
+        cursor: pointer;
+        color: white;
+        transition: 0.2s;
+    }
+
+    .purple-btn { background: #8b5cf6; }
+    .purple-btn:hover { background: #a78bfa; }
+
+    .red-btn { background: #e63946; }
+    .red-btn:hover { background: #ff6b6b; }
+
+    .white-btn { background: #adb5bd; color: #333; }
+    .white-btn:hover { background: #ced4da; }
+
+    .caption {
+        font-size: 16px;
+        color: #555;
+        margin-top: 8px;
+    }
+
+    @media (max-width: 700px) {
+        body {
+            padding: 20px 10px 40px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<h1>Talking Orange & Fashion Style Studio</h1>
+
+<div class="section">
+    <h2>Friendly Talking Orange</h2>
+    <div class="flex-row">
+        <div class="orange-wrapper">
+            <div class="orange">
+                <div class="eye left"><div class="pupil"></div></div>
+                <div class="eye right"><div class="pupil"></div></div>
+                <div class="mouth" id="mouth"></div>
+            </div>
+            <button class="orange-btn" onclick="talk()">Say Something!</button>
+            <div id="bubble"></div>
+            <div class="caption">Tap the button to hear a kind, silly message from Orange.</div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Fashion Style Try‑On</h2>
+    <div class="flex-row">
+        <div class="fashion-wrapper">
+            <div class="model">
+                <div class="body-shape"></div>
+                <div id="purpleOutfit" class="outfit" style="background:#c084fc;"></div>
+                <div id="redOutfit" class="outfit" style="background:#ff6b6b;"></div>
+                <div id="whiteOutfit" class="outfit" style="background:#ffffff; border:2px solid #ccc;"></div>
+            </div>
+            <div class="btn-row">
+                <button class="fashion-btn purple-btn" onclick="showOutfit('purple')">Purple Clothes</button>
+                <button class="fashion-btn red-btn" onclick="showOutfit('red')">Red Clothes</button>
+                <button class="fashion-btn white-btn" onclick="showOutfit('white')">White Clothes</button>
+            </div>
+            <div class="caption">Choose a color to dress the model in a new outfit.</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Talking Orange
+    const lines = [
+        "Hi friend! I'm Orange!",
+        "You're awesome!",
+        "I like to giggle!",
+        "Guess what? You're amazing!",
+        "Orange you happy today?",
+        "Let's smile together!",
+        "You're a superstar!",
+        "I love learning new things!"
+    ];
+
+    function talk() {
+        const bubble = document.getElementById("bubble");
+        const mouth = document.getElementById("mouth");
+
+        const random = Math.floor(Math.random() * lines.length);
+        bubble.textContent = lines[random];
+
+        mouth.classList.add("open");
+        setTimeout(() => mouth.classList.remove("open"), 600);
+
+        blinkEyes();
+    }
+
+    function blinkEyes() {
+        const eyes = document.querySelectorAll(".eye");
+        eyes.forEach(e => e.classList.add("blink"));
+        setTimeout(() => {
+            eyes.forEach(e => e.classList.remove("blink"));
+        }, 200);
+    }
+
+    // Fashion Studio
+    function showOutfit(color) {
+        const outfits = {
+            purple: document.getElementById("purpleOutfit"),
+            red: document.getElementById("redOutfit"),
+            white: document.getElementById("whiteOutfit")
+        };
+
+        Object.values(outfits).forEach(o => o.classList.remove("show"));
+        outfits[color].classList.add("show");
+    }
+</script>
+
+</body>
+</html>
+
