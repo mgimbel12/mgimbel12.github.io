@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Adventure Studio – Coloring, Maps, Quiz & Recipes</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+  :root {
+    --bg: #f4f7ff;
+    --card: #ffffff;
+    --accent: #ff8b5c;
+    --accent2: #5c8bff;
+    --text: #222;
+    --muted: #666;
+    --radius-lg: 18px;
+    --radius-md: 12px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .brand {
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tagline {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 260px;
+    text-align: right;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #ffe9d9, #e3f0ff);
+    border-radius: var(--radius-lg);
+    padding: 1.8rem 1.8rem 1.6rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    margin: 0 0 0.5rem;
+    font-size: 2rem;
+  }
+
+  .hero p {
+    margin: 0 0 0.7rem;
+    color: var(--muted);
+  }
+
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.8);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .hero-pill span {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .hero-art {
+    position: relative;
+    min-height: 200px;
+  }
+
+  .balloon {
+    position: absolute;
+    width: 120px;
+    height: 160px;
+    background: radial-gradient(circle at 30% 20%, #ffe9d9, #ff8b5c);
+    border-radius: 60px 60px 50px 50px;
+    left: 50%;
+    top: 10%;
+    transform: translateX(-50%);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .balloon::after {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 30px;
+    background: #c47a4a;
+    border-radius: 8px;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .balloon-line {
+    position: absolute;
+    width: 2px;
+    height: 40px;
+    background: #c47a4a;
+    left: 50%;
+    top: 70%;
+    transform: translateX(-50%);
+  }
+
+  .cloud {
+    position: absolute;
+    background: #fff;
+    border-radius: 999px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+
+  .cloud.c1 { width: 90px; height: 40px; left: 10%; top: 25%; }
+  .cloud.c2 { width: 110px; height: 45px; right: 8%; top: 40%; }
+  .cloud.c3 { width: 70px; height: 30px; left: 20%; bottom: 10%; }
+
+  .section-title {
+    margin: 2rem 0 0.6rem;
+    font-size: 1.1rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.3rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  }
+
+  .card h3 {
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+  }
+
+  .card p {
+    margin-top: 0;
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+
+  /* Coloring grid */
+  .coloring-grid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+    margin-top: 0.8rem;
+  }
+
+  .cell {
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+  }
+
+  .swatch {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .swatch.active {
+    border-color: #000;
+  }
+
+  /* Map & YouTube */
+  .map-box {
+    background: #eef5ff;
+    border-radius: 10px;
+    padding: 0.8rem;
+    border: 1px solid #c7d7ff;
+    font-size: 0.9rem;
+  }
+
+  .map-box input {
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #b5c6ff;
+    margin-top: 0.4rem;
+  }
+
+  .youtube-frame {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    margin-top: 0.6rem;
+  }
+
+  .youtube-frame iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  /* Quiz */
+  .quiz-question {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .quiz-options {
+    margin-top: 0.4rem;
+  }
+
+  .quiz-options label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .quiz-result {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  /* Sketch notes */
+  .sketch-notes textarea {
+    width: 100%;
+    min-height: 140px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+
+  /* Search + recipes */
+  .search-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+
+  .search-bar input {
+    flex: 1;
+    padding: 0.5rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid #ccc;
+  }
+
+  .search-bar button {
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    border: none;
+    background: var(--accent2);
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+
+  .recipes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-top: 0.9rem;
+  }
+
+  .recipe-card {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid #e3e3e3;
+    padding: 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .recipe-card h4 {
+    margin: 0 0 0.3rem;
+  }
+
+  .recipe-card p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  footer {
+    margin-top: 2.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  @media (max-width: 800px) {
+    header { flex-direction: column; align-items: flex-start; }
+    .tagline { text-align: left; }
+    .hero { grid-template-columns: minmax(0, 1fr); }
+    .section-grid { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand">Adventure Studio</div>
+    <div class="tagline">
+      Coloring, maps, videos, quizzes, sketches, recipes—one big air-balloon journey page.
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="hero-pill"><span></span> Air Balloon Issue · Full-Length Play</div>
+      <h1>Lift Off into Color, Maps, and Recipes</h1>
+      <p>
+        Color your own sky, plan a tiny quest, watch a video, answer a quiz, sketch ideas,
+        and collect recipes—all in one place.
+      </p>
+      <p>
+        Use full sentences when you write, and treat each section like a little chapter in your adventure.
+      </p>
+    </div>
+    <div class="hero-art">
+      <div class="balloon"></div>
+      <div class="balloon-line"></div>
+      <div class="cloud c1"></div>
+      <div class="cloud c2"></div>
+      <div class="cloud c3"></div>
+    </div>
+  </section>
+
+  <!-- Coloring + Map/YouTube -->
+  <h2 class="section-title">Coloring page & map quest</h2>
+  <section class="section-grid">
+    <div class="card">
+      <h3>Coloring Page</h3>
+      <p>Click a color, then tap the squares to fill them. Make your own balloon pattern.</p>
+      <div class="palette" id="palette"></div>
+      <div class="coloring-grid" id="coloringGrid"></div>
+    </div>
+    <div class="card">
+      <h3>Map Quest & YouTube</h3>
+      <div class="map-box">
+        <strong>Map Quest Idea:</strong>
+        <p>Type a place you want to “visit” on this air-balloon trip.</p>
+        <input type="text" id="mapInput" placeholder="Example: Paris, a library, a mountain trail">
+        <p id="mapOutput" style="margin-top:0.4rem; color:var(--muted); font-size:0.9rem;">
+          Your quest destination will appear here.
+        </p>
+      </div>
+      <div class="youtube-frame">
+        <!-- Replace with any YouTube video ID you like -->
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="YouTube video"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz + Sketches -->
+  <h2 class="section-title">Quiz & sketches</h2>
+  <section class="section-grid">
+    <div class="card">
+      <h3>Mini Quiz</h3>
+      <p>Answer in full sentences if you want extra practice.</p>
+      <div class="quiz-question">
+        Which activity would you do first on this page?
+      </div>
+      <div class="quiz-options">
+        <label><input type="radio" name="quiz" value="coloring"> Coloring the grid</label>
+        <label><input type="radio" name="quiz" value="map"> Planning a map quest</label>
+        <label><input type="radio" name="quiz" value="video"> Watching the YouTube video</label>
+        <label><input type="radio" name="quiz" value="recipes"> Reading recipes</label>
+      </div>
+      <button id="quizBtn" style="margin-top:0.5rem;">Check Answer</button>
+      <div class="quiz-result" id="quizResult"></div>
+    </div>
+    <div class="card sketch-notes">
+      <h3>Sketch Notes</h3>
+      <p>Write or sketch with words: describe a picture, a balloon, or a map in full sentences.</p>
+      <textarea id="sketchText" placeholder="Example: The air balloon floats above a city of tiny lights..."></textarea>
+      <button id="saveSketch" style="margin-top:0.5rem;">Save Sketch Notes (console demo)</button>
+      <div class="quiz-result" id="sketchStatus"></div>
+    </div>
+  </section>
+
+  <!-- Search engine + recipes -->
+  <h2 class="section-title">Search & recipes</h2>
+  <section class="card">
+    <h3>Little Search Engine for Recipes</h3>
+    <p>Type a word like “pasta”, “snack”, or “breakfast” to filter the recipe cards.</p>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search recipes...">
+      <button id="searchBtn">Search</button>
+    </div>
+    <div class="recipes-grid" id="recipesGrid">
+      <article class="recipe-card" data-tags="breakfast sweet">
+        <h4>Cloud Pancakes</h4>
+        <p>Fluffy pancakes with berries and a little powdered sugar “sky”.</p>
+      </article>
+      <article class="recipe-card" data-tags="snack healthy">
+        <h4>Trail Mix Balloons</h4>
+        <p>Small cups of nuts, seeds, and dried fruit for travel energy.</p>
+      </article>
+      <article class="recipe-card" data-tags="dinner pasta">
+        <h4>Skyline Pasta</h4>
+        <p>Pasta with colorful vegetables that look like a tiny city from above.</p>
+      </article>
+      <article class="recipe-card" data-tags="drink snack">
+        <h4>Sunset Smoothie</h4>
+        <p>Layers of orange, pink, and yellow fruit in one tall glass.</p>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    This is a demo “Adventure Studio” page. You can change colors, text, videos, and recipes to match your own world.
+  </footer>
+</div>
+
+<script>
+  // Coloring page
+  const colors = ["#ff8b5c","#ffcf5c","#5c8bff","#7ed6df","#badc58","#e056fd","#ffffff","#000000"];
+  const paletteEl = document.getElementById("palette");
+  const gridEl = document.getElementById("coloringGrid");
+  let currentColor = colors[0];
+
+  colors.forEach((c, i) => {
+    const sw = document.createElement("div");
+    sw.className = "swatch" + (i === 0 ? " active" : "");
+    sw.style.background = c;
+    sw.addEventListener("click", () => {
+      currentColor = c;
+      document.querySelectorAll(".swatch").forEach(s => s.classList.remove("active"));
+      sw.classList.add("active");
+    });
+    paletteEl.appendChild(sw);
+  });
+
+  for (let i = 0; i < 8 * 6; i++) {
+    const cell = document.createElement("div");
+    cell.className = "cell";
+    cell.addEventListener("click", () => {
+      cell.style.background = currentColor;
+    });
+    gridEl.appendChild(cell);
+  }
+
+  // Map quest
+  const mapInput = document.getElementById("mapInput");
+  const mapOutput = document.getElementById("mapOutput");
+  mapInput.addEventListener("input", () => {
+    const v = mapInput.value.trim();
+    if (!v) {
+      mapOutput.textContent = "Your quest destination will appear here.";
+    } else {
+      mapOutput.textContent = `Your air balloon is now heading toward: ${v}.`;
+    }
+  });
+
+  // Quiz
+  const quizBtn = document.getElementById("quizBtn");
+  const quizResult = document.getElementById("quizResult");
+  quizBtn.addEventListener("click", () => {
+    const choice = document.querySelector('input[name="quiz"]:checked');
+    if (!choice) {
+      quizResult.style.color = "#b23a3a";
+      quizResult.textContent = "Choose an answer first.";
+      return;
+    }
+    const value = choice.value;
+    quizResult.style.color = "#2d6a4f";
+    quizResult.textContent =
+      `You chose "${value}". In a full sentence, you could write: ` +
+      `"First, I would start with ${value} because it feels the most fun today."`;
+  });
+
+  // Sketch notes
+  const sketchText = document.getElementById("sketchText");
+  const saveSketch = document.getElementById("saveSketch");
+  const sketchStatus = document.getElementById("sketchStatus");
+  saveSketch.addEventListener("click", () => {
+    const text = sketchText.value.trim();
+    if (!text) {
+      sketchStatus.style.color = "#b23a3a";
+      sketchStatus.textContent = "Write a few sentences before saving.";
+      return;
+    }
+    console.log("Sketch notes:", text);
+    sketchStatus.style.color = "#2d6a4f";
+    sketchStatus.textContent = "Sketch notes saved to console (demo).";
+  });
+
+  // Search engine for recipes
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
+  const recipesGrid = document.getElementById("recipesGrid");
+  const recipeCards = Array.from(recipesGrid.querySelectorAll(".recipe-card"));
+
+  function filterRecipes() {
+    const q = searchInput.value.trim().toLowerCase();
+    recipeCards.forEach(card => {
+      const tags = card.getAttribute("data-tags");
+      const text = (card.textContent || "").toLowerCase();
+      const match = !q || tags.includes(q) || text.includes(q);
+      card.style.display = match ? "" : "none";
+    });
+  }
+
+  searchBtn.addEventListener("click", filterRecipes);
+  searchInput.addEventListener("keyup", e => {
+    if (e.key === "Enter") filterRecipes();
+  });
+</script>
+</body>
+</html>
