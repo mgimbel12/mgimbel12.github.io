@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fashion Try-On Demo</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f8;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 260px 320px;
+      gap: 24px;
+      padding: 24px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .panel {
+      padding: 12px;
+    }
+
+    .panel h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #444;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 5;
+      border-radius: 16px;
+      background: linear-gradient(160deg, #ffe6f2, #e3f0ff);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-base {
+      width: 60%;
+      height: 80%;
+      border-radius: 999px;
+      background: #f7d7b5;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .avatar-head {
+      position: absolute;
+      top: -18%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      aspect-ratio: 1 / 1;
+      border-radius: 50%;
+      background: #f7d7b5;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+
+    .avatar-hair {
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 48%;
+      height: 40%;
+      border-radius: 50% 50% 60% 60%;
+      background: #2f2b3a;
+    }
+
+    .garment {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      transition: 0.25s ease;
+    }
+
+    .top {
+      top: 22%;
+      width: 70%;
+      height: 32%;
+      background: #ff8aa0;
+    }
+
+    .bottom {
+      top: 48%;
+      width: 55%;
+      height: 32%;
+      background: #4f6cff;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .group-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #777;
+      margin-bottom: 6px;
+    }
+
+    .options-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .swatch:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .swatch.active {
+      border-color: #111;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f0f0f5;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .style-label {
+      margin-top: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="panel">
+      <h2>Try-On Styles</h2>
+      <div class="controls">
+        <div>
+          <div class="group-label">Top color</div>
+          <div class="options-row" id="top-swatches">
+            <button class="swatch" data-color="#ff8aa0" style="background:#ff8aa0"></button>
+            <button class="swatch" data-color="#ffb347" style="background:#ffb347"></button>
+            <button class="swatch" data-color="#7bdcb5" style="background:#7bdcb5"></button>
+            <button class="swatch" data-color="#6c5ce7" style="background:#6c5ce7"></button>
+          </div>
+        </div>
+
+        <div>
+          <div class="group-label">Bottom color</div>
+          <div class="options-row" id="bottom-swatches">
+            <button class="swatch" data-color="#4f6cff" style="background:#4f6cff"></button>
+            <button class="swatch" data-color="#2ecc71" style="background:#2ecc71"></button>
+            <button class="swatch" data-color="#e17055" style="background:#e17055"></button>
+            <button class="swatch" data-color="#2d3436" style="background:#2d3436"></button>
+          </div>
+        </div>
+
+        <div>
+          <div class="group-label">Vibe</div>
+          <div class="tag-row">
+            <span class="tag">Streetwear</span>
+            <span class="tag">Minimal</span>
+            <span class="tag">Soft</span>
+            <span class="tag">Bold</span>
+          </div>
+          <div class="style-label" id="style-label">Soft + Bold Mix</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Virtual Fitting Room</h2>
+      <div class="avatar-wrapper">
+        <div class="avatar-base">
+          <div class="avatar-head"></div>
+          <div class="avatar-hair"></div>
+          <div class="garment top" id="top-garment"></div>
+          <div class="garment bottom" id="bottom-garment"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const topGarment = document.getElementById('top-garment');
+    const bottomGarment = document.getElementById('bottom-garment');
+    const styleLabel = document.getElementById('style-label');
+
+    function setupSwatches(containerId, garmentEl, type) {
+      const container = document.getElementById(containerId);
+      const swatches = Array.from(container.querySelectorAll('.swatch'));
+
+      swatches.forEach((swatch, index) => {
+        if (index === 0) swatch.classList.add('active');
+
+        swatch.addEventListener('click', () => {
+          swatches.forEach(s => s.classList.remove('active'));
+          swatch.classList.add('active');
+
+          const color = swatch.getAttribute('data-color');
+          garmentEl.style.background = color;
+          updateStyleLabel();
+        });
+      });
+    }
+
+    function updateStyleLabel() {
+      const topColor = window.getComputedStyle(topGarment).backgroundColor;
+      const bottomColor = window.getComputedStyle(bottomGarment).backgroundColor;
+
+      let mood = 'Balanced Look';
+
+      if (topColor === bottomColor) {
+        mood = 'Monochrome Mood';
+      } else if (topColor.includes('255, 184') || topColor.includes('255, 138')) {
+        mood = 'Soft + Warm';
+      } else if (bottomColor.includes('79, 108') || bottomColor.includes('45, 52')) {
+        mood = 'Bold Street Mix';
+      }
+
+      styleLabel.textContent = mood;
+    }
+
+    setupSwatches('top-swatches', topGarment, 'top');
+    setupSwatches('bottom-swatches', bottomGarment, 'bottom');
+    updateStyleLabel();
+  </script>
+</body>
+</html>
