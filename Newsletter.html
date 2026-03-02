@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fashion & Design Newsletter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f7f4f2;
+      --card: #ffffff;
+      --accent: #c46b5c;
+      --accent-soft: #f3d5cd;
+      --text-main: #222222;
+      --text-muted: #777777;
+      --border-soft: #e2d7d2;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3.5rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .brand {
+      font-size: 1.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 260px;
+      text-align: right;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #fdf7f4, #f3e3dd);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.75rem 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      border: 1px solid var(--border-soft);
+    }
+
+    .hero-text h1 {
+      margin: 0 0 0.5rem;
+      font-size: 2rem;
+    }
+
+    .hero-text p {
+      margin: 0 0 1rem;
+      color: var(--text-muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-pill span {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .hero-image {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #000;
+      min-height: 200px;
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.9;
+    }
+
+    .hero-image-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fff;
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+    }
+
+    .section-title {
+      margin: 2.2rem 0 0.75rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .feature-card {
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.5rem;
+      border: 1px solid var(--border-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .feature-card img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      object-fit: cover;
+      max-height: 260px;
+    }
+
+    .feature-meta {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      margin: 0 0 0.4rem;
+    }
+
+    .feature-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin: 0 0 0.75rem;
+    }
+
+    .feature-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #faf7f5;
+    }
+
+    .read-link {
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .read-link:hover {
+      text-decoration: underline;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .look-card {
+      background: var(--card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .look-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .look-body {
+      padding: 0.7rem 0.8rem 0.8rem;
+    }
+
+    .look-title {
+      font-size: 0.95rem;
+      margin: 0 0 0.2rem;
+    }
+
+    .look-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .newsletter {
+      margin-top: 2.2rem;
+      background: var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 1.4rem 1.5rem 1.6rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    .newsletter h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.25rem;
+    }
+
+    .newsletter p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text-muted);
+    }
+
+    .newsletter-form label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    .newsletter-form input[type="email"] {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .newsletter-form input[type="email"]:focus {
+      outline: 2px solid var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .newsletter-form button {
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .newsletter-form button:hover {
+      background: #a55346;
+    }
+
+    .newsletter-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    .status {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 720px) {
+      .hero,
+      .feature-card,
+      .newsletter {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .tagline {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">Studio Lines</div>
+      <div class="tagline">
+        Weekly notes on pants, proportion, and the quiet drama of everyday outfits.
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-pill">
+          <span></span> New issue · Pants & Proportion
+        </div>
+        <h1>Volume 03 — The Architecture of Trousers</h1>
+        <p>
+          Wide-leg, tapered, pleated, or cropped—this week we sketch how pant shapes redraw your whole silhouette.
+        </p>
+        <p>
+          Save ideas, pin details, and treat your closet like a design studio instead of a mystery drawer.
+        </p>
+      </div>
+      <div class="hero-image">
+        <!-- Replace src with your own hosted image -->
+        <img src="https://images.pexels.com/photos/7671166/pexels-photo-7671166.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Fashion pants editorial" />
+        <div class="hero-image-badge">Editorial: Soft tailoring, grounded in sneakers</div>
+      </div>
+    </section>
+
+    <h2 class="section-title">Feature story</h2>
+    <section class="feature-card">
+      <div>
+        <div class="feature-meta">Fit study · Straight vs. wide-leg</div>
+        <h3 class="feature-title">Why your pants decide the whole outfit before your top does</h3>
+        <p class="feature-text">
+          Start with the leg line: straight, wide, or tapered. Once that’s set, everything else is just
+          supporting cast—proportions, fabric weight, and shoe height all orbit around that one decision.
+        </p>
+        <div class="feature-tags">
+          <span class="tag">Denim architecture</span>
+          <span class="tag">Office to street</span>
+          <span class="tag">Comfort math</span>
+        </div>
+        <a href="#" class="read-link">Read the full breakdown →</a>
+      </div>
+      <div>
+        <!-- Replace src with your own hosted image -->
+        <img src="https://images.pexels.com/photos/7671250/pexels-photo-7671250.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Straight and wide-leg pants" />
+      </div>
+    </section>
+
+    <h2 class="section-title">Look board</h2>
+    <section class="grid">
+      <article class="look-card">
+        <img src="https://images.pexels.com/photos/7671169/pexels-photo-7671169.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Wide-leg trousers" />
+        <div class="look-body">
+          <h4 class="look-title">Soft wide-leg + cropped knit</h4>
+          <p class="look-note">Balance volume on the bottom with a clean, slightly shorter top.</p>
+        </div>
+      </article>
+      <article class="look-card">
+        <img src="https://images.pexels.com/photos/7671165/pexels-photo-7671165.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Tailored pants" />
+        <div class="look-body">
+          <h4 class="look-title">Tailored straight-leg + blazer</h4>
+          <p class="look-note">Office bones, weekend energy—swap shoes to shift the mood.</p>
+        </div>
+      </article>
+      <article class="look-card">
+        <img src="https://images.pexels.com/photos/7671167/pexels-photo-7671167.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Casual pants" />
+        <div class="look-body">
+          <h4 class="look-title">Relaxed cuff + sneakers</h4>
+          <p class="look-note">A tiny cuff shows ankle and lightens the whole look.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="newsletter">
+      <div>
+        <h2>Get the next issue in your inbox</h2>
+        <p>
+          One email a week: outfit formulas, fabric notes, and small experiments with pants, color, and proportion.
+        </p>
+      </div>
+      <div class="newsletter-form">
+        <label for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+        <button id="subscribeBtn">Subscribe to Studio Lines</button>
+        <div class="newsletter-note">
+          Front-end only demo: this doesn’t actually send yet. Connect it to your email service later.
+        </div>
+        <div class="status" id="status"></div>
+      </div>
+    </section>
+
+    <footer>
+      You’re receiving this preview as a design mock. Swap text, colors, and images to match your own studio.
+    </footer>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    const status = document.getElementById('status');
+
+    subscribeBtn.addEventListener('click', () => {
+      const email = emailInput.value.trim();
+
+      if (!email) {
+        status.style.color = '#b23a3a';
+        status.textContent = 'Add an email address to join the list.';
+        return;
+      }
+
+      // Simple front-end validation
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isValid) {
+        status.style.color = '#b23a3a';
+        status.textContent = 'That doesn’t look like a valid email yet.';
+        return;
+      }
+
+      // Mock “send”
+      console.log('--- NEWSLETTER SIGNUP ---');
+      console.log('Email:', email);
+
+      status.style.color = '#2d6a4f';
+      status.textContent = 'You’re on the list (demo). Connect this form to your email platform to make it real.';
+    });
+  </script>
+</body>
+</html>
