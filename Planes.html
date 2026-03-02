@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Creative Studio: Colors, Planes & Cookies</title>
+
+<style>
+    body {
+        font-family: "Comic Sans MS", sans-serif;
+        background: #f4f2ff;
+        margin: 0;
+        padding: 30px 15px 60px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 42px;
+        color: #5b4bc3;
+        margin-bottom: 5px;
+    }
+
+    h2 {
+        font-size: 30px;
+        color: #ff8a00;
+        margin-top: 40px;
+    }
+
+    p {
+        margin: 6px 0;
+        color: #444;
+    }
+
+    .section {
+        background: #ffffff;
+        padding: 25px;
+        margin: 30px auto;
+        border-radius: 20px;
+        max-width: 1000px;
+        box-shadow: 0 0 18px rgba(90, 80, 200, 0.15);
+    }
+
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 25px;
+        margin-top: 15px;
+    }
+
+    /* COLOR PLATE */
+    .palette-wrapper {
+        max-width: 420px;
+        margin: 0 auto;
+    }
+
+    .palette {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .color-swatch {
+        width: 70px;
+        height: 70px;
+        border-radius: 14px;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: 0.2s;
+    }
+
+    .color-swatch:hover {
+        transform: scale(1.05);
+        border-color: #888;
+    }
+
+    .color-display {
+        margin-top: 18px;
+        padding: 12px;
+        border-radius: 12px;
+        background: #f3f0ff;
+        font-size: 18px;
+        color: #333;
+        min-height: 30px;
+    }
+
+    /* PAPER PLANES */
+    .plane-card {
+        width: 260px;
+        background: #e9f7ff;
+        border-radius: 16px;
+        padding: 15px;
+        text-align: left;
+        border: 2px solid #b5e0ff;
+        box-shadow: 0 0 10px rgba(120, 190, 255, 0.3);
+    }
+
+    .plane-card h3 {
+        margin-top: 0;
+        color: #0077b6;
+    }
+
+    .plane-step {
+        font-size: 14px;
+        margin: 4px 0;
+    }
+
+    .plane-button {
+        margin-top: 10px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        border: none;
+        background: #0096c7;
+        color: white;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .plane-button:hover {
+        background: #00b4d8;
+    }
+
+    .plane-output {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #005f73;
+        min-height: 18px;
+    }
+
+    /* COOKIE RECIPE */
+    .recipe-card {
+        max-width: 420px;
+        margin: 0 auto;
+        background: #fff7e6;
+        border-radius: 18px;
+        padding: 18px;
+        border: 2px solid #ffd28a;
+        box-shadow: 0 0 12px rgba(255, 200, 120, 0.35);
+        text-align: left;
+    }
+
+    .recipe-card h3 {
+        margin-top: 0;
+        color: #ff8a00;
+    }
+
+    .recipe-section-title {
+        font-weight: bold;
+        margin-top: 10px;
+        color: #cc6a00;
+    }
+
+    .recipe-list {
+        margin: 4px 0 8px 18px;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    .recipe-list li {
+        margin: 2px 0;
+    }
+
+    .tip-box {
+        margin-top: 10px;
+        padding: 8px;
+        border-radius: 10px;
+        background: #fff0cc;
+        font-size: 13px;
+        color: #7a4a00;
+    }
+
+    /* FOOTER */
+    .footer {
+        margin-top: 40px;
+        font-size: 14px;
+        color: #777;
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Creative Studio: Colors • Paper Planes • Cookies</h1>
+<p>A playful single‑sheet activity page for creativity, crafts, and cooking fun.</p>
+
+<!-- COLOR PLATE -->
+<div class="section">
+    <h2>Color Plate</h2>
+    <p>Tap a color to see its name and color code.</p>
+
+    <div class="palette-wrapper">
+        <div class="palette">
+            <div class="color-swatch" style="background:#ffadad" onclick="selectColor('Soft Red', '#ffadad')"></div>
+            <div class="color-swatch" style="background:#ffd6a5" onclick="selectColor('Peach', '#ffd6a5')"></div>
+            <div class="color-swatch" style="background:#fdffb6" onclick="selectColor('Lemon', '#fdffb6')"></div>
+            <div class="color-swatch" style="background:#caffbf" onclick="selectColor('Mint', '#caffbf')"></div>
+
+            <div class="color-swatch" style="background:#9bf6ff" onclick="selectColor('Sky Blue', '#9bf6ff')"></div>
+            <div class="color-swatch" style="background:#a0c4ff" onclick="selectColor('Blueberry', '#a0c4ff')"></div>
+            <div class="color-swatch" style="background:#bdb2ff" onclick="selectColor('Lavender', '#bdb2ff')"></div>
+            <div class="color-swatch" style="background:#ffc6ff" onclick="selectColor('Cotton Candy', '#ffc6ff')"></div>
+        </div>
+
+        <div id="colorDisplay" class="color-display">
+            Choose a color from the plate to begin.
+        </div>
+    </div>
+</div>
+
+<!-- PAPER PLANES -->
+<div class="section">
+    <h2>Paper Planes</h2>
+    <p>Three simple paper plane ideas. Click a button to see a random step.</p>
+
+    <div class="flex-row">
+        <div class="plane-card">
+            <h3>Classic Dart</h3>
+            <p class="plane-step">A straight, simple flyer for distance.</p>
+            <button class="plane-button" onclick="showPlaneStep('dart')">Show a Step</button>
+            <div id="dartOutput" class="plane-output"></div>
+        </div>
+
+        <div class="plane-card">
+            <h3>Glider</h3>
+            <p class="plane-step">Wide wings that float gently through the air.</p>
+            <button class="plane-button" onclick="showPlaneStep('glider')">Show a Step</button>
+            <div id="gliderOutput" class="plane-output"></div>
+        </div>
+
+        <div class="plane-card">
+            <h3>Stunt Plane</h3>
+            <p class="plane-step">Fun for loops and turns with a little practice.</p>
+            <button class="plane-button" onclick="showPlaneStep('stunt')">Show a Step</button>
+            <div id="stuntOutput" class="plane-output"></div>
+        </div>
+    </div>
+</div>
+
+<!-- COOKIE RECIPE -->
+<div class="section">
+    <h2>Chocolate Chip Cookies Recipe</h2>
+    <div class="recipe-card">
+        <h3>Soft Chocolate Chip Cookies</h3>
+
+        <div class="recipe-section-title">Ingredients</div>
+        <ul class="recipe-list">
+            <li>2 1/4 cups all‑purpose flour</li>
+            <li>1 teaspoon baking soda</li>
+            <li>1/2 teaspoon salt</li>
+            <li>1 cup softened butter</li>
+            <li>3/4 cup white sugar</li>
+            <li>3/4 cup brown sugar</li>
+            <li>2 large eggs</li>
+            <li>2 teaspoons vanilla extract</li>
+            <li>2 cups chocolate chips</li>
+        </ul>
+
+        <div class="recipe-section-title">Directions</div>
+        <ul class="recipe-list">
+            <li>Preheat oven to 350°F (175°C).</li>
+            <li>Mix flour, baking soda, and salt.</li>
+            <li>Cream butter and sugars until fluffy.</li>
+            <li>Beat in eggs and vanilla.</li>
+            <li>Stir dry ingredients into wet mixture.</li>
+            <li>Fold in chocolate chips.</li>
+            <li>Scoop dough onto a baking sheet.</li>
+            <li>Bake 9–11 minutes until edges are golden.</li>
+        </ul>
+
+        <div class="tip-box">
+            Always bake with an adult’s help. Let cookies cool before tasting!
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    Creative Studio © 2026 — Colors, Crafts & Cookies
+</div>
+
+<script>
+    // COLOR PLATE
+    function selectColor(name, code) {
+        const display = document.getElementById("colorDisplay");
+        display.textContent = name + " — " + code;
+    }
+
+    // PAPER PLANES
+    const planeSteps = {
+        dart: [
+            "Fold the paper in half lengthwise, then open it.",
+            "Fold the top corners to the center line.",
+            "Fold the new edges to the center again.",
+            "Fold the plane in half.",
+            "Fold down the wings to match the bottom edge."
+        ],
+        glider: [
+            "Fold the paper in half widthwise, then open it.",
+            "Fold the top edge down to make a thick nose.",
+            "Fold the paper in half.",
+            "Fold each side down to make wide wings.",
+            "Bend the back of the wings up slightly."
+        ],
+        stunt: [
+            "Fold the paper in half lengthwise, then open it.",
+            "Fold the top corners to the center.",
+            "Fold the top point down.",
+            "Fold the corners to the center again.",
+            "Fold in half and add winglets."
+        ]
+    };
+
+    function showPlaneStep(type) {
+        const steps = planeSteps[type];
+        const randomIndex = Math.floor(Math.random() * steps.length);
+        const text = steps[randomIndex];
+
+        const outputId = type + "Output";
+        const output = document.getElementById(outputId);
+        output.textContent = text;
+    }
+</script>
+
+</body>
+</html>
