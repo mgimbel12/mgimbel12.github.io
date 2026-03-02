@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Annoying Orange Demo</title>
+<style>
+    body {
+        font-family: "Didot", serif;
+        background: #fff7e6;
+        margin: 0;
+        padding: 40px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #ff7a00;
+        font-size: 42px;
+        letter-spacing: 1px;
+        margin-bottom: 20px;
+    }
+
+    .orange {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle, #ff9d00, #ff6a00);
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        position: relative;
+        box-shadow: 0 0 20px rgba(255, 140, 0, 0.5);
+        animation: bounce 2s infinite ease-in-out;
+    }
+
+    /* Eyes */
+    .eye {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 60px;
+    }
+    .eye.left { left: 50px; }
+    .eye.right { right: 50px; }
+
+    .pupil {
+        width: 18px;
+        height: 18px;
+        background: black;
+        border-radius: 50%;
+        margin: 11px auto;
+    }
+
+    /* Mouth */
+    .mouth {
+        width: 100px;
+        height: 50px;
+        background: black;
+        border-radius: 0 0 50px 50px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Button */
+    button {
+        background: #ff7a00;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover {
+        background: #ff9d00;
+        transform: scale(1.05);
+    }
+
+    /* Bounce animation */
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-12px); }
+    }
+
+    /* Speech bubble */
+    #bubble {
+        margin-top: 20px;
+        font-size: 24px;
+        color: #ff6a00;
+        font-weight: bold;
+        min-height: 40px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Annoying Orange Demo</h1>
+
+<div class="orange">
+    <div class="eye left"><div class="pupil"></div></div>
+    <div class="eye right"><div class="pupil"></div></div>
+    <div class="mouth"></div>
+</div>
+
+<button onclick="talk()">Make Orange Talk</button>
+
+<div id="bubble"></div>
+
+<script>
+    const lines = [
+        "Hey! Hey Apple!",
+        "Knife!!!",
+        "You're an apple! Hehehehehe!",
+        "Orange you glad to see me?",
+        "Hey! Hey! Listen!"
+    ];
+
+    function talk() {
+        const bubble = document.getElementById("bubble");
+        const random = Math.floor(Math.random() * lines.length);
+        bubble.textContent = lines[random];
+    }
+</script>
+
+</body>
+</html>
+
