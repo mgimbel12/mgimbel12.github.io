@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nails Step by Step — Color </title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff8fb;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 25px;
+  }
+
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+  }
+
+  .step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .step-title {
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .step-text {
+    margin: 8px 0 15px 0;
+    font-size: 15px;
+  }
+
+  .image-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .image-row input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+
+  .image-row button {
+    align-self: flex-start;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #ff9ac4;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .image-row button:hover {
+    background: #ff6fa8;
+  }
+
+  .image-display {
+    margin-top: 10px;
+    min-height: 120px;
+    border-radius: 12px;
+    border: 3px dashed #ffb7d5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 14px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .image-display img {
+    max-width: 100%;
+    max-height: 220px;
+    display: block;
+  }
+
+  .color-picker {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+
+  .color-picker input {
+    margin-left: 8px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Nails Step by Step</h1>
+<p class="subtitle">Color image blanks with URLs for each step of your nail routine.</p>
+
+<div class="section">
+
+  <!-- Shared color picker -->
+  <div class="card">
+    <div class="color-picker">
+      Use this color for your step borders:
+      <input type="color" id="borderColor" value="#ffb7d5" onchange="updateBorders()">
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="card step-card" data-step="1">
+    <div class="step-header">
+      <div class="step-title">Step 1 — Clean</div>
+    </div>
+    <p class="step-text">
+      Wash your hands, remove old polish, and dry thoroughly. This is your fresh starting canvas.
+    </p>
+
+    <div class="image-row">
+      <input type="text" placeholder="Paste image URL for Step 1 (clean hands)" id="url-step-1">
+      <button onclick="addImageForStep(1)">Add Image</button>
+      <div class="image-display" id="display-step-1">
+        Image blank for Step 1 — waiting for your URL.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="card step-card" data-step="2">
+    <div class="step-header">
+      <div class="step-title">Step 2 — Shape</div>
+    </div>
+    <p class="step-text">
+      File nails into your favorite shape (round, square, almond) with gentle, even strokes.
+    </p>
+
+    <div class="image-row">
+      <input type="text" placeholder="Paste image URL for Step 2 (shaping nails)" id="url-step-2">
+      <button onclick="addImageForStep(2)">Add Image</button>
+      <div class="image-display" id="display-step-2">
+        Image blank for Step 2 — waiting for your URL.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="card step-card" data-step="3">
+    <div class="step-header">
+      <div class="step-title">Step 3 — Base Coat</div>
+    </div>
+    <p class="step-text">
+      Apply a thin base coat to protect your nails and help the color last longer.
+    </p>
+
+    <div class="image-row">
+      <input type="text" placeholder="Paste image URL for Step 3 (base coat)" id="url-step-3">
+      <button onclick="addImageForStep(3)">Add Image</button>
+      <div class="image-display" id="display-step-3">
+        Image blank for Step 3 — waiting for your URL.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="card step-card" data-step="4">
+    <div class="step-header">
+      <div class="step-title">Step 4 — Color</div>
+    </div>
+    <p class="step-text">
+      Paint 1–2 thin coats of your chosen polish color. Let each coat dry between layers.
+    </p>
+
+    <div class="image-row">
+      <input type="text" placeholder="Paste image URL for Step 4 (color coat)" id="url-step-4">
+      <button onclick="addImageForStep(4)">Add Image</button>
+      <div class="image-display" id="display-step-4">
+        Image blank for Step 4 — waiting for your URL.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5 -->
+  <div class="card step-card" data-step="5">
+    <div class="step-header">
+      <div class="step-title">Step 5 — Design</div>
+    </div>
+    <p class="step-text">
+      Add flowers, dots, stripes, or tiny Easter eggs for a playful, seasonal design.
+    </p>
+
+    <div class="image-row">
+      <input type="text" placeholder="Paste image URL for Step 5 (design details)" id="url-step-5">
+      <button onclick="addImageForStep(5)">Add Image</button>
+      <div class="image-display" id="display-step-5">
+        Image blank for Step 5 — waiting for your URL.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 6 -->
+  <div class="card step-card" data-step="6">
+    <div class="step-header">
+      <div class="step-title">Step 6 — Top Coat</div>
+    </div>
+    <p class="step-text">
+      Seal everything with a glossy top coat to protect your art and add shine.
+    </p>
+
+    <div class="image-row">
+      <input type="text" placeholder="Paste image URL for Step 6 (top coat finish)" id="url-step-6">
+      <button onclick="addImageForStep(6)">Add Image</button>
+      <div class="image-display" id="display-step-6">
+        Image blank for Step 6 — waiting for your URL.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Apply border color to all image blanks
+  function updateBorders() {
+    const color = document.getElementById('borderColor').value;
+    const displays = document.querySelectorAll('.image-display');
+    displays.forEach(d => {
+      d.style.borderColor = color;
+    });
+  }
+
+  // Initialize borders on load
+  updateBorders();
+
+  // Add image for a specific step
+  function addImageForStep(stepNumber) {
+    const urlInput = document.getElementById('url-step-' + stepNumber);
+    const display = document.getElementById('display-step-' + stepNumber);
+    const url = (urlInput.value || '').trim();
+
+    if (!url) {
+      display.innerHTML = "<span style='color:red;'>Please paste a valid image URL for this step.</span>";
+      return;
+    }
+
+    display.innerHTML = `
+      <img src="${url}" alt="Step ${stepNumber} image">
+    `;
+  }
+</script>
+
+</body>
+</html>
+
