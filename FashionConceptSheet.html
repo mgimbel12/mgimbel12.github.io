@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fashion Concept Sheet</title>
+<style>
+  body {
+    font-family: 'Didot', serif;
+    margin: 0;
+    padding: 0;
+    background: #f7f5f4;
+    color: #222;
+  }
+
+  header {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  h1 {
+    font-size: 3rem;
+    letter-spacing: 2px;
+  }
+
+  .hero {
+    width: 280px;
+    display: block;
+    margin: 20px auto;
+  }
+
+  .palette {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 40px 0;
+  }
+
+  .swatch {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #333;
+  }
+
+  .look-area {
+    text-align: center;
+    margin: 40px 0;
+  }
+
+  .look-area img {
+    width: 260px;
+    transition: 0.4s ease;
+  }
+
+  .fabric-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .fabric {
+    height: 120px;
+    background-size: cover;
+    border-radius: 8px;
+  }
+
+  textarea {
+    width: 90%;
+    height: 180px;
+    margin: 40px auto;
+    display: block;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Fashion Concept Sheet</h1>
+  <img src="sketch-hero.png" class="hero" alt="Hero Sketch">
+</header>
+
+<section class="palette">
+  <div class="swatch" style="background:#d7263d" onclick="setColor('red')"></div>
+  <div class="swatch" style="background:#1b6ca8" onclick="setColor('blue')"></div>
+  <div class="swatch" style="background:#111" onclick="setColor('black')"></div>
+</section>
+
+<section class="look-area">
+  <img id="look" src="look-red.png" alt="Fashion Look">
+</section>
+
+<section class="fabric-wall">
+  <div class="fabric" style="background-image:url('fabric1.jpg')"></div>
+  <div class="fabric" style="background-image:url('fabric2.jpg')"></div>
+  <div class="fabric" style="background-image:url('fabric3.jpg')"></div>
+  <div class="fabric" style="background-image:url('fabric4.jpg')"></div>
+</section>
+
+<textarea placeholder="Designer notes, fabric ideas, construction details..."></textarea>
+
+<script>
+  function setColor(color) {
+    document.getElementById('look').src = `look-${color}.png`;
+  }
+</script>
+
+</body>
+</html>
