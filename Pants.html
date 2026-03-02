@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Pants Style Picker</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background:#f5f5f8;
+      margin:0;
+      padding:2rem;
+      color:#222;
+    }
+    .card {
+      max-width:700px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:16px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      padding:1.75rem 2rem;
+    }
+    h1 {
+      margin-top:0;
+      font-size:1.8rem;
+      letter-spacing:0.03em;
+    }
+    .row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:1.5rem;
+      margin-top:1.5rem;
+    }
+    .column {
+      flex:1 1 260px;
+    }
+    label {
+      font-weight:600;
+      display:block;
+      margin-bottom:0.35rem;
+    }
+    select, input[type="email"], button {
+      width:100%;
+      padding:0.6rem 0.75rem;
+      border-radius:8px;
+      border:1px solid #ccc;
+      font-size:0.95rem;
+    }
+    select:focus, input[type="email"]:focus {
+      outline:2px solid #4b7bec;
+      border-color:#4b7bec;
+    }
+    .preview {
+      margin-top:1rem;
+      padding:1rem;
+      border-radius:12px;
+      background:#f0f3ff;
+      font-size:0.95rem;
+    }
+    .tag {
+      display:inline-block;
+      background:#222;
+      color:#fff;
+      padding:0.15rem 0.5rem;
+      border-radius:999px;
+      font-size:0.75rem;
+      margin-right:0.35rem;
+    }
+    .email-note {
+      font-size:0.8rem;
+      color:#666;
+      margin-top:0.35rem;
+    }
+    button {
+      margin-top:0.75rem;
+      background:#4b7bec;
+      color:#fff;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+    }
+    button:hover {
+      background:#3867d6;
+    }
+    .status {
+      margin-top:0.5rem;
+      font-size:0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Pants Style Picker</h1>
+    <p>Play with fits, fabrics, and vibes—then “email” the look to yourself as a style note.</p>
+
+    <div class="row">
+      <div class="column">
+        <label for="fit">Fit</label>
+        <select id="fit">
+          <option value="wide-leg">Wide-leg</option>
+          <option value="straight">Straight</option>
+          <option value="tapered">Tapered</option>
+          <option value="flare">Flare</option>
+          <option value="cargo">Cargo</option>
+        </select>
+
+        <label for="fabric" style="margin-top:0.75rem;">Fabric</label>
+        <select id="fabric">
+          <option value="denim">Denim</option>
+          <option value="linen">Linen</option>
+          <option value="cotton twill">Cotton twill</option>
+          <option value="corduroy">Corduroy</option>
+          <option value="tech stretch">Tech stretch</option>
+        </select>
+
+        <label for="vibe" style="margin-top:0.75rem;">Style vibe</label>
+        <select id="vibe">
+          <option value="minimal street">Minimal street</option>
+          <option value="office polished">Office polished</option>
+          <option value="sporty casual">Sporty casual</option>
+          <option value="artsy layered">Artsy layered</option>
+          <option value="night-out sleek">Night-out sleek</option>
+        </select>
+      </div>
+
+      <div class="column">
+        <label>Look preview</label>
+        <div class="preview" id="preview">
+          <span class="tag">wide-leg</span>
+          <span class="tag">denim</span>
+          <span class="tag">minimal street</span>
+          <p id="previewText">
+            Wide-leg denim styled in a minimal street vibe—think clean sneakers, simple tee, and a sharp jacket.
+          </p>
+        </div>
+
+        <label for="email" style="margin-top:0.75rem;">Email this look to:</label>
+        <input type="email" id="email" placeholder="you@example.com" />
+        <div class="email-note">
+          Front-end only demo: this won’t actually send, but you can hook it to an email API later.
+        </div>
+        <button id="sendBtn">Save as style email</button>
+        <div class="status" id="status"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fit = document.getElementById('fit');
+    const fabric = document.getElementById('fabric');
+    const vibe = document.getElementById('vibe');
+    const preview = document.getElementById('preview');
+    const previewText = document.getElementById('previewText');
+    const emailInput = document.getElementById('email');
+    const sendBtn = document.getElementById('sendBtn');
+    const status = document.getElementById('status');
+
+    function updatePreview() {
+      const f = fit.value;
+      const fa = fabric.value;
+      const v = vibe.value;
+
+      preview.innerHTML = `
+        <span class="tag">${f}</span>
+        <span class="tag">${fa}</span>
+        <span class="tag">${v}</span>
+        <p id="previewText"></p>
+      `;
+
+      const text = `Imagine ${f} ${fa} pants in a ${v} mood—build around them with tops, shoes, and layers that echo that energy.`;
+      preview.querySelector('#previewText').textContent = text;
+    }
+
+    fit.addEventListener('change', updatePreview);
+    fabric.addEventListener('change', updatePreview);
+    vibe.addEventListener('change', updatePreview);
+
+    sendBtn.addEventListener('click', () => {
+      const email = emailInput.value.trim();
+      if (!email) {
+        status.style.color = '#c0392b';
+        status.textContent = 'Add an email to “save” this look.';
+        return;
+      }
+      const f = fit.value;
+      const fa = fabric.value;
+      const v = vibe.value;
+
+      const subject = `Style note: ${f} ${fa} pants – ${v}`;
+      const body = `Your saved look:\n\nFit: ${f}\nFabric: ${fa}\nVibe: ${v}\n\nStyle around this as your base piece.`;
+
+      status.style.color = '#2d6a4f';
+      status.textContent = `Pretend email ready → Subject: "${subject}" | Body preview in console.`;
+
+      console.log('--- STYLE EMAIL MOCK ---');
+      console.log('To:', email);
+      console.log('Subject:', subject);
+      console.log('Body:', body);
+    });
+
+    updatePreview();
+  </script>
+</body>
+</html>
