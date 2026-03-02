@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Friendly Talking Orange</title>
+
+<style>
+    body {
+        font-family: "Comic Sans MS", "Didot", sans-serif;
+        background: #fff8e6;
+        text-align: center;
+        padding: 40px;
+    }
+
+    h1 {
+        color: #ff8a00;
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .orange {
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, #ffb347, #ff7a00);
+        border-radius: 50%;
+        margin: 0 auto;
+        position: relative;
+        box-shadow: 0 0 25px rgba(255, 160, 0, 0.4);
+        animation: bounce 2s infinite ease-in-out;
+    }
+
+    /* Eyes */
+    .eye {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 60px;
+        overflow: hidden;
+        border: 2px solid #ffb347;
+    }
+    .eye.left { left: 45px; }
+    .eye.right { right: 45px; }
+
+    .pupil {
+        width: 18px;
+        height: 18px;
+        background: black;
+        border-radius: 50%;
+        margin: 12px auto;
+        transition: 0.2s;
+    }
+
+    /* Blinking */
+    .blink {
+        height: 0px !important;
+        transition: height 0.15s;
+    }
+
+    /* Mouth */
+    .mouth {
+        width: 110px;
+        height: 55px;
+        background: #333;
+        border-radius: 0 0 60px 60px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+        border: 2px solid #ffb347;
+    }
+
+    .mouth.open {
+        height: 85px;
+        transition: height 0.15s;
+    }
+
+    /* Button */
+    button {
+        margin-top: 25px;
+        background: #ff8a00;
+        color: white;
+        border: none;
+        padding: 14px 22px;
+        font-size: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover {
+        background: #ffae42;
+        transform: scale(1.05);
+    }
+
+    /* Bounce animation */
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Speech bubble */
+    #bubble {
+        margin-top: 25px;
+        font-size: 24px;
+        color: #ff7a00;
+        font-weight: bold;
+        min-height: 40px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Friendly Talking Orange</h1>
+
+<div class="orange">
+    <div class="eye left"><div class="pupil"></div></div>
+    <div class="eye right"><div class="pupil"></div></div>
+    <div class="mouth" id="mouth"></div>
+</div>
+
+<button onclick="talk()">Say Something!</button>
+
+<div id="bubble"></div>
+
+<script>
+    const lines = [
+        "Hi friend! I'm Orange!",
+        "You're awesome!",
+        "I like to giggle!",
+        "Guess what? You're amazing!",
+        "Orange you happy today?",
+        "Let's smile together!",
+        "You're a superstar!",
+        "I love learning new things!"
+    ];
+
+    function talk() {
+        const bubble = document.getElementById("bubble");
+        const mouth = document.getElementById("mouth");
+
+        const random = Math.floor(Math.random() * lines.length);
+        bubble.textContent = lines[random];
+
+        mouth.classList.add("open");
+        setTimeout(() => mouth.classList.remove("open"), 600);
+
+        blinkEyes();
+    }
+
+    function blinkEyes() {
+        const eyes = document.querySelectorAll(".eye");
+        eyes.forEach(e => e.classList.add("blink"));
+        setTimeout(() => {
+            eyes.forEach(e => e.classList.remove("blink"));
+        }, 200);
+    }
+</script>
+
+</body>
+</html>
+
