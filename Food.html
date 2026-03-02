@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fashion, Art & Food Studio</title>
+
+<style>
+    body {
+        font-family: "Comic Sans MS", sans-serif;
+        background: #f8f4ff;
+        margin: 0;
+        padding: 30px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 42px;
+        color: #6a4bc3;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 30px;
+        color: #ff8a00;
+        margin-top: 40px;
+    }
+
+    .section {
+        background: #ffffff;
+        padding: 25px;
+        margin: 30px auto;
+        border-radius: 20px;
+        max-width: 1000px;
+        box-shadow: 0 0 20px rgba(120, 90, 200, 0.15);
+    }
+
+    /* FLEX LAYOUT */
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    /* TALKING ORANGE */
+    .orange {
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, #ffb347, #ff7a00);
+        border-radius: 50%;
+        margin: 0 auto;
+        position: relative;
+        animation: bounce 2s infinite ease-in-out;
+        box-shadow: 0 0 25px rgba(255, 160, 0, 0.4);
+    }
+
+    .eye {
+        width: 45px;
+        height: 45px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        top: 60px;
+        overflow: hidden;
+        border: 2px solid #ffb347;
+    }
+    .eye.left { left: 45px; }
+    .eye.right { right: 45px; }
+
+    .pupil {
+        width: 18px;
+        height: 18px;
+        background: black;
+        border-radius: 50%;
+        margin: 12px auto;
+    }
+
+    .blink { height: 0px !important; }
+
+    .mouth {
+        width: 110px;
+        height: 55px;
+        background: #333;
+        border-radius: 0 0 60px 60px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        overflow: hidden;
+        border: 2px solid #ffb347;
+    }
+
+    .mouth.open { height: 85px; }
+
+    #bubble {
+        margin-top: 20px;
+        font-size: 22px;
+        color: #ff7a00;
+        font-weight: bold;
+        min-height: 40px;
+    }
+
+    .orange-btn {
+        margin-top: 20px;
+        background: #ff8a00;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* FASHION MODEL */
+    .model {
+        width: 220px;
+        height: 380px;
+        background: #e0d9ff;
+        border-radius: 20px;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(120, 90, 200, 0.3);
+    }
+
+    .body-shape {
+        width: 120px;
+        height: 260px;
+        background: #fff;
+        border-radius: 60px;
+        position: absolute;
+        top: 60px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .outfit {
+        width: 140px;
+        height: 160px;
+        position: absolute;
+        top: 90px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px;
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+
+    .outfit.show { opacity: 1; }
+
+    .fashion-btn {
+        padding: 10px 18px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        margin: 6px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .purple-btn { background: #8b5cf6; }
+    .red-btn { background: #e63946; }
+    .white-btn { background: #adb5bd; color: #333; }
+
+    /* DECORATIONS */
+    .decor-box {
+        width: 180px;
+        height: 180px;
+        border-radius: 20px;
+        background: #f3eaff;
+        border: 3px dashed #c4b5fd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #6a4bc3;
+        font-weight: bold;
+    }
+
+    /* ART CONCEPT */
+    .art-canvas {
+        width: 300px;
+        height: 200px;
+        background: #fff;
+        border: 3px solid #d0bfff;
+        border-radius: 15px;
+        margin: 0 auto;
+        box-shadow: 0 0 15px rgba(150, 120, 220, 0.2);
+    }
+
+    /* RECIPES */
+    .recipe-card {
+        width: 260px;
+        background: #fff7e6;
+        border-radius: 15px;
+        padding: 15px;
+        border: 2px solid #ffd28a;
+        box-shadow: 0 0 10px rgba(255, 200, 120, 0.3);
+        text-align: left;
+    }
+
+    .recipe-card h3 {
+        color: #ff8a00;
+        margin-top: 0;
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Fashion • Art • Food • Talking Orange Studio</h1>
+
+<!-- TALKING ORANGE -->
+<div class="section">
+    <h2>Friendly Talking Orange</h2>
+    <div class="orange">
+        <div class="eye left"><div class="pupil"></div></div>
+        <div class="eye right"><div class="pupil"></div></div>
+        <div class="mouth" id="mouth"></div>
+    </div>
+    <button class="orange-btn" onclick="talk()">Say Something!</button>
+    <div id="bubble"></div>
+</div>
+
+<!-- FASHION -->
+<div class="section">
+    <h2>Fashion Style Try‑On</h2>
+    <div class="model">
+        <div class="body-shape"></div>
+        <div id="purpleOutfit" class="outfit" style="background:#c084fc;"></div>
+        <div id="redOutfit" class="outfit" style="background:#ff6b6b;"></div>
+        <div id="whiteOutfit" class="outfit" style="background:#ffffff; border:2px solid #ccc;"></div>
+    </div>
+
+    <button class="fashion-btn purple-btn" onclick="showOutfit('purple')">Purple Outfit</button>
+    <button class="fashion-btn red-btn" onclick="showOutfit('red')">Red Outfit</button>
+    <button class="fashion-btn white-btn" onclick="showOutfit('white')">White Outfit</button>
+</div>
+
+<!-- DECORATIONS -->
+<div class="section">
+    <h2>Clothing Decorations</h2>
+    <div class="flex-row">
+        <div class="decor-box">Stars ✨</div>
+        <div class="decor-box">Hearts ❤️</div>
+        <div class="decor-box">Bows 🎀</div>
+    </div>
+</div>
+
+<!-- ART CONCEPT -->
+<div class="section">
+    <h2>Art Concept Canvas</h2>
+    <div class="art-canvas"></div>
+    <p>Use this space to imagine patterns, colors, and fashion ideas.</p>
+</div>
+
+<!-- RECIPES -->
+<div class="section">
+    <h2>Simple Recipe Cards</h2>
+    <div class="flex-row">
+        <div class="recipe-card">
+            <h3>Fruit Pizza</h3>
+            <p>- Sugar cookie crust<br>- Cream cheese frosting<br>- Strawberries, kiwi, blueberries</p>
+        </div>
+
+        <div class="recipe-card">
+            <h3>Mini Pancakes</h3>
+            <p>- Pancake batter<br>- Butter<br>- Maple syrup<br>- Fresh berries</p>
+        </div>
+
+        <div class="recipe-card">
+            <h3>Rainbow Salad</h3>
+            <p>- Lettuce<br>- Carrots<br>- Purple cabbage<br>- Corn<br>- Tomatoes</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    /* TALKING ORANGE */
+    const lines = [
+        "Hi friend! I'm Orange!",
+        "You're awesome!",
+        "Let's smile together!",
+        "Guess what? You're amazing!",
+        "Orange you happy today?",
+        "You're a superstar!",
+        "I love learning new things!"
+    ];
+
+    function talk() {
+        const bubble = document.getElementById("bubble");
+        const mouth = document.getElementById("mouth");
+
+        const random = Math.floor(Math.random() * lines.length);
+        bubble.textContent = lines[random];
+
+        mouth.classList.add("open");
+        setTimeout(() => mouth.classList.remove("open"), 600);
+
+        blinkEyes();
+    }
+
+    function blinkEyes() {
+        const eyes = document.querySelectorAll(".eye");
+        eyes.forEach(e => e.classList.add("blink"));
+        setTimeout(() => eyes.forEach(e => e.classList.remove("blink")), 200);
+    }
+
+    /* FASHION */
+    function showOutfit(color) {
+        const outfits = {
+            purple: document.getElementById("purpleOutfit"),
+            red: document.getElementById("redOutfit"),
+            white: document.getElementById("whiteOutfit")
+        };
+
+        Object.values(outfits).forEach(o => o.classList.remove("show"));
+        outfits[color].classList.add("show");
+    }
+</script>
+
+</body>
+</html>
+
