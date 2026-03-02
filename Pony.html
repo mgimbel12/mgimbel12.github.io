@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shopkins & My Little Pony Panel</title>
+<style>
+    body {
+        font-family: 'Comic Sans MS', sans-serif;
+        background: linear-gradient(135deg, #ffb6f9, #aee6ff);
+        text-align: center;
+        padding: 40px;
+        color: #444;
+    }
+
+    h1 {
+        font-size: 32px;
+        margin-bottom: 20px;
+        color: #ff4fa8;
+        text-shadow: 2px 2px #fff;
+    }
+
+    .card {
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 20px;
+        background: white;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    }
+
+    img {
+        width: 200px;
+        height: auto;
+        margin-bottom: 15px;
+    }
+
+    button {
+        background: #ff4fa8;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    button:hover {
+        background: #ff2f8c;
+    }
+</style>
+</head>
+<body>
+
+<h1>Shopkins & My Little Pony</h1>
+
+<div class="card">
+    <img id="characterImg" src="https://i.imgur.com/8yKQv8U.png" alt="Character">
+    <h2 id="characterName">Apple Blossom (Shopkins)</h2>
+
+    <button onclick="toggleCharacter()">Switch Character</button>
+</div>
+
+<script>
+    let showingShopkins = true;
+
+    function toggleCharacter() {
+        const img = document.getElementById("characterImg");
+        const name = document.getElementById("characterName");
+
+        if (showingShopkins) {
+            img.src = "https://i.imgur.com/7p0Q5tF.png"; 
+            name.textContent = "Pinkie Pie (My Little Pony)";
+        } else {
+            img.src = "https://i.imgur.com/8yKQv8U.png";
+            name.textContent = "Apple Blossom (Shopkins)";
+        }
+
+        showingShopkins = !showingShopkins;
+    }
+</script>
+
+</body>
+</html>
