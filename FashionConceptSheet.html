@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Fashion Concept Sheet</title>
+<title>Fashion Concept Sheet — Full Length</title>
+
 <style>
   body {
     font-family: 'Didot', serif;
@@ -10,6 +11,7 @@
     padding: 0;
     background: #f7f5f4;
     color: #222;
+    line-height: 1.5;
   }
 
   header {
@@ -18,12 +20,20 @@
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 3.2rem;
     letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-size: 2rem;
+    margin-top: 60px;
+    text-align: center;
+    letter-spacing: 1px;
   }
 
   .hero {
-    width: 280px;
+    width: 300px;
     display: block;
     margin: 20px auto;
   }
@@ -36,8 +46,8 @@
   }
 
   .swatch {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid #333;
@@ -49,32 +59,42 @@
   }
 
   .look-area img {
-    width: 260px;
+    width: 280px;
     transition: 0.4s ease;
   }
 
   .fabric-wall {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
     padding: 20px;
+    margin-top: 20px;
   }
 
   .fabric {
-    height: 120px;
+    height: 140px;
     background-size: cover;
+    background-position: center;
     border-radius: 8px;
   }
 
   textarea {
     width: 90%;
-    height: 180px;
+    height: 200px;
     margin: 40px auto;
     display: block;
     padding: 12px;
     font-size: 1rem;
     border: 1px solid #aaa;
     border-radius: 6px;
+    background: #fff;
+  }
+
+  .divider {
+    width: 80%;
+    height: 2px;
+    background: #ccc;
+    margin: 60px auto;
   }
 </style>
 </head>
@@ -86,6 +106,10 @@
   <img src="https://i.pinimg.com/736x/7b/e8/1e/7be81e885163f2d1c32efb7b56a09655.jpg" class="hero" alt="Hero Sketch">
 </header>
 
+<div class="divider"></div>
+
+<h2>Color Exploration</h2>
+
 <section class="palette">
   <div class="swatch" style="background:#d7263d" onclick="setColor('red')"></div>
   <div class="swatch" style="background:#1b6ca8" onclick="setColor('blue')"></div>
@@ -96,6 +120,10 @@
   <img id="look" src="https://harunmudak.com/wp-content/uploads/2020/07/3fa5d7cc9e82a5000884790e0303f482-768x1056.jpg" alt="Fashion Look">
 </section>
 
+<div class="divider"></div>
+
+<h2>Fabric & Texture Wall</h2>
+
 <section class="fabric-wall">
   <div class="fabric" style="background-image:url('https://mir-s3-cdn-cf.behance.net/project_modules/1400/81f1cb50356031.58ced098bc747.jpg')"></div>
   <div class="fabric" style="background-image:url('https://i.pinimg.com/736x/d3/90/76/d39076e6218216892dc26d5c018e421a.jpg')"></div>
@@ -103,13 +131,46 @@
   <div class="fabric" style="background-image:url('https://tse1.mm.bing.net/th/id/OIP.7-l2nEobnKkd7RI3SILSlgHaJF?rs=1&pid=ImgDetMain&o=7&rm=3')"></div>
 </section>
 
-<textarea placeholder="Designer notes, fabric ideas, construction details..."></textarea>
+<div class="divider"></div>
+
+<h2>Designer Notes</h2>
+
+<textarea placeholder="Silhouette ideas, construction notes, fabric pairings, color stories..."></textarea>
+
+<div class="divider"></div>
+
+<h2>Runway Variations</h2>
+
+<section class="look-area">
+  <img id="altLook" src="https://harunmudak.com/wp-content/uploads/2020/07/3fa5d7cc9e82a5000884790e0303f482-768x1056.jpg" alt="Alternate Look">
+</section>
 
 <script>
+  const looks = {
+    red: [
+      "https://harunmudak.com/wp-content/uploads/2020/07/3fa5d7cc9e82a5000884790e0303f482-768x1056.jpg",
+      "https://i.pinimg.com/736x/44/ed/77/44ed77c196f035ae78992302ccc00ce5.jpg",
+      "https://img.freepik.com/premium-photo/3d-rendered-style-configuration-sketch-inventively-planned-design_1069963-16604.jpg"
+    ],
+    blue: [
+      "https://thumbs.dreamstime.com/b/bright-blue-hand-sketch-style-dress-blue-background-sketch-dress-bright-blue-background-features-hand-drawn-310746779.jpg",
+      "https://i.pinimg.com/736x/1b/6c/a8/1b6ca8d2c9e8b5b4a4d1d9c0e4e8b9f4.jpg"
+    ],
+    black: [
+      "https://i.pinimg.com/736x/94/8d/94/948d944dadc1eaedb693854c89642140.jpg",
+      "https://img.freepik.com/premium-photo/fashion-woman-model-sketch-design_910054-55040.jpg?w=996",
+      "https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/71835341670871.57f9069a18c29.jpg"
+    ]
+  };
+
+  let currentIndex = { red: 0, blue: 0, black: 0 };
+
   function setColor(color) {
-    document.getElementById('look').src = `look-${color}.png`;
+    const images = looks[color];
+    const index = currentIndex[color];
+    document.getElementById("look").src = images[index];
+    currentIndex[color] = (index + 1) % images.length;
   }
 </script>
-
 </body>
 </html>
