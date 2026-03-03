@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Friendship & Color Wheel Interactive Sheet</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom right, #ffe7c2, #ffd1a1);
+    margin: 0;
+    padding: 20px;
+  }
+
+  h1, h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .section {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 12px;
+    max-width: 800px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .color-preview {
+    width: 100%;
+    height: 120px;
+    border-radius: 10px;
+    margin-top: 10px;
+    border: 2px solid #ccc;
+  }
+
+  .character-box {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .character {
+    flex: 1;
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+
+  .character .face {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+
+  .email-box {
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    background: orange;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background: #ff7b00;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>Friendship, Color, and Creativity Interactive Sheet</h1>
+
+<div class="section">
+  <h2>Color Wheel Mood Selector</h2>
+  <p>This section allows you to choose a color that represents your current mood. The color you select will appear in the preview box below, and it will help you express your emotional tone in a clear and creative way.</p>
+
+  <input type="color" id="colorPicker">
+  <div id="colorPreview" class="color-preview"></div>
+</div>
+
+<div class="section">
+  <h2>Friendship Characters</h2>
+  <p>Each character represents a different type of friendship. These characters speak in full sentences so that their personalities feel complete and expressive.</p>
+
+  <div class="character-box">
+    <div class="character">
+      <div class="face">🍊</div>
+      <p id="orangeLine">I am the Orange Friend, and I enjoy making people laugh with my silly personality.</p>
+      <button onclick="talkOrange()">Speak</button>
+    </div>
+
+    <div class="character">
+      <div class="face">🍓</div>
+      <p>I am the Strawberry Friend, and I bring kindness and sweetness into every friendship.</p>
+    </div>
+
+    <div class="character">
+      <div class="face">🍦</div>
+      <p>I am the Ice Cream Friend, and I remind everyone that friendships can be fun, colorful, and comforting.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Email Marissa</h2>
+  <p>This form allows you to send a message directly to Marissa at her email address. When you press the button, your email app will open with the address already filled in so that you can send your message in complete sentences.</p>
+
+  <div class="email-box">
+    <label>Your Message:</label><br>
+    <textarea id="emailMessage" rows="5" style="width:100%; border-radius:8px; padding:10px;"></textarea>
+    <br><br>
+    <button onclick="sendEmail()">Send Email to Marissa</button>
+  </div>
+</div>
+
+<script>
+  // Color Wheel Preview
+  const picker = document.getElementById("colorPicker");
+  const preview = document.getElementById("colorPreview");
+
+  picker.addEventListener("input", () => {
+    preview.style.background = picker.value;
+  });
+
+  // Orange Friend Dialogue
+  function talkOrange() {
+    const lines = [
+      "I am feeling very energetic today, and I hope you are feeling great too!",
+      "I enjoy bright colors because they make me feel alive and excited.",
+      "I think friendships are important because they help us feel supported and understood.",
+      "I hope your day is filled with creativity, laughter, and kindness."
+    ];
+    document.getElementById("orangeLine").innerText = lines[Math.floor(Math.random() * lines.length)];
+  }
+
+  // Email Function
+  function sendEmail() {
+    const message = encodeURIComponent(document.getElementById("emailMessage").value);
+    const email = "Rissarooland@gmail.com";
+    window.location.href = `mailto:${email}?subject=Message from Interactive Sheet&body=${message}`;
+  }
+</script>
+
+</body>
+</html>
