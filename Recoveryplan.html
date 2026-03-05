@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mental Health Safety & Recovery Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-subtle: #1f2937;
+      --danger: #f97373;
+      --success: #4ade80;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.55);
+      --shadow-pill: 0 10px 30px rgba(15, 23, 42, 0.9);
+      --pill-bg: rgba(15, 23, 42, 0.9);
+      --pill-border: rgba(148, 163, 184, 0.35);
+      --focus-ring: 0 0 0 1px rgba(56, 189, 248, 0.9), 0 0 0 8px rgba(56, 189, 248, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      padding: 22px 22px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(96, 165, 250, 0.12) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .shell-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 880px) {
+      .shell-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .left-panel,
+    .right-panel {
+      background: radial-gradient(circle at top, #020617 0, #020617 55%, #020617 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.9);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left-panel::before,
+    .right-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(96, 165, 250, 0.12) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .title-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.98));
+      box-shadow: var(--shadow-pill);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .title-pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #22c55e, #16a34a);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .title-main {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #e5e7eb;
+    }
+
+    .title-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .quick-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: var(--shadow-pill);
+      font-size: 11px;
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #38bdf8, #0ea5e9);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+    }
+
+    .tabs {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: var(--shadow-pill);
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      font-size: 11px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.18s ease;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tab.active {
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e5e7eb;
+      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.6), 0 10px 25px rgba(15, 23, 42, 0.9);
+    }
+
+    .tab-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.7);
+    }
+
+    .tab.active .tab-dot {
+      background: #38bdf8;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .section {
+      background: radial-gradient(circle at top, #020617, #020617 55%, #020617 100%);
+      border-radius: 14px;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      padding: 10px 11px 9px;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.08) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(96, 165, 250, 0.08) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .section-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-tag {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-soft);
+    }
+
+    .section-note {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-main);
+      font-size: 12px;
+      padding: 7px 9px;
+      resize: vertical;
+      min-height: 60px;
+      outline: none;
+      transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
+      color: rgba(148, 163, 184, 0.7);
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: var(--focus-ring);
+      background: #020617;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 5px;
+    }
+
+    .chip {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: all 0.16s ease;
+    }
+
+    .chip:hover {
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e5e7eb;
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e5e7eb;
+      font-size: 11px;
+      padding: 6px 11px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      box-shadow: var(--shadow-pill);
+      transition: all 0.18s ease;
+    }
+
+    .btn.secondary {
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-soft);
+    }
+
+    .btn.danger {
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #fecaca;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    .btn.danger:hover {
+      border-color: rgba(248, 113, 113, 1);
+      box-shadow: 0 12px 30px rgba(127, 29, 29, 0.9);
+    }
+
+    .mini-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(148, 163, 184, 0.9);
+      margin-bottom: 4px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .two-col {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .badge-soft {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.96);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 10px;
+      color: var(--text-soft);
+    }
+
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .disclaimer {
+      font-size: 10px;
+      color: rgba(148, 163, 184, 0.9);
+      line-height: 1.5;
+    }
+
+    .disclaimer strong {
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="shell-inner">
+      <!-- LEFT: Safety Plan -->
+      <div class="left-panel">
+        <div class="panel-inner">
+          <div class="header-row">
+            <div class="title-block">
+              <div class="title-pill">
+                <span class="title-pill-dot"></span>
+                <span>Safety Plan</span>
+              </div>
+              <div class="title-main">Mental Health Safety Plan</div>
+              <div class="title-sub">Grounding, supports, and steps when things feel overwhelming.</div>
+            </div>
+            <div class="quick-status">
+              <span class="status-dot"></span>
+              <span id="safety-status">Unsaved changes</span>
+            </div>
+          </div>
+
+          <div class="tabs" id="safety-tabs">
+            <button class="tab active" data-tab="early-signs">
+              <span class="tab-dot"></span>
+              <span>Early Signs</span>
+            </button>
+            <button class="tab" data-tab="coping">
+              <span class="tab-dot"></span>
+              <span>Coping Tools</span>
+            </button>
+            <button class="tab" data-tab="support">
+              <span class="tab-dot"></span>
+              <span>Support Network</span>
+            </button>
+          </div>
+
+          <!-- Safety Plan Sections -->
+          <div id="safety-early-signs" class="section-grid">
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    <span>Early warning signs</span>
+                    <span class="section-tag">Check-in</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  What are the first clues that you’re starting to struggle (thoughts, feelings, body, behavior)?
+                </div>
+                <div class="chips-row">
+                  <button class="chip" data-fill="safety-early-signs-textarea">
+                    Racing thoughts
+                  </button>
+                  <button class="chip" data-fill="safety-early-signs-textarea">
+                    Withdrawing from others
+                  </button>
+                  <button class="chip" data-fill="safety-early-signs-textarea">
+                    Trouble sleeping
+                  </button>
+                </div>
+                <textarea id="safety-early-signs-textarea"
+                  placeholder="Example: I stop answering messages, I feel numb or on edge, I can’t focus..."></textarea>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Triggers & stressors
+                    <span class="section-tag">Awareness</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Situations, places, or topics that tend to make things harder.
+                </div>
+                <textarea id="safety-triggers-textarea"
+                  placeholder="Example: Certain conflicts, anniversaries, social media, specific environments..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="safety-coping" class="section-grid hidden">
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Coping strategies
+                    <span class="section-tag">In the moment</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  List grounding tools, sensory comforts, or activities that help you ride out tough waves.
+                </div>
+                <div class="chips-row">
+                  <button class="chip" data-fill="safety-coping-textarea">
+                    5–4–3–2–1 grounding
+                  </button>
+                  <button class="chip" data-fill="safety-coping-textarea">
+                    Slow breathing
+                  </button>
+                  <button class="chip" data-fill="safety-coping-textarea">
+                    Safe playlist / show
+                  </button>
+                </div>
+                <textarea id="safety-coping-textarea"
+                  placeholder="Example: Box breathing, cold water on wrists, journaling, stepping outside, texting a safe person..."></textarea>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Safety steps
+                    <span class="section-tag">If things escalate</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Gentle, concrete steps you can follow if you start feeling unsafe.
+                </div>
+                <textarea id="safety-steps-textarea"
+                  placeholder="Example: 1) Put away anything unsafe. 2) Text/call ____. 3) Move to a safer space. 4) Use grounding tool..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div id="safety-support" class="section-grid hidden">
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Support people
+                    <span class="section-tag">Connection</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Trusted people you can reach out to, and how they can support you.
+                </div>
+                <textarea id="safety-support-textarea"
+                  placeholder="Example: Friend, family, mentor, peer support, community contact..."></textarea>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Professional & crisis resources
+                    <span class="section-tag">Important</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Add your therapist, doctor, local crisis lines, or emergency contacts. In an emergency, contact local
+                  emergency services.
+                </div>
+                <textarea id="safety-resources-textarea"
+                  placeholder="Example: Therapist name & number, clinic, local crisis line, emergency contact..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-row">
+            <div class="disclaimer">
+              <strong>Note:</strong> This page is a personal planning tool and does not replace professional care.
+            </div>
+            <div class="btn-row">
+              <button class="btn secondary" id="safety-reset">Reset</button>
+              <button class="btn" id="safety-save">Save plan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Recovery Plan -->
+      <div class="right-panel">
+        <div class="panel-inner">
+          <div class="header-row">
+            <div class="title-block">
+              <div class="title-pill">
+                <span class="title-pill-dot"></span>
+                <span>Recovery Plan</span>
+              </div>
+              <div class="title-main">Recovery & Wellness Plan</div>
+              <div class="title-sub">Daily supports, long-term goals, and gentle structure for healing.</div>
+            </div>
+            <div class="quick-status">
+              <span class="status-dot"></span>
+              <span id="recovery-status">Unsaved changes</span>
+            </div>
+          </div>
+
+          <div class="tabs" id="recovery-tabs">
+            <button class="tab active" data-tab="daily">
+              <span class="tab-dot"></span>
+              <span>Daily</span>
+            </button>
+            <button class="tab" data-tab="goals">
+              <span class="tab-dot"></span>
+              <span>Goals</span>
+            </button>
+            <button class="tab" data-tab="relapse">
+              <span class="tab-dot"></span>
+              <span>Relapse Plan</span>
+            </button>
+          </div>
+
+          <!-- Recovery: Daily -->
+          <div id="recovery-daily" class="section-grid">
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Daily anchors
+                    <span class="section-tag">Routine</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Small, realistic things that help you feel more steady each day.
+                </div>
+                <div class="chips-row">
+                  <button class="chip" data-fill="recovery-daily-anchors">
+                    Morning check-in
+                  </button>
+                  <button class="chip" data-fill="recovery-daily-anchors">
+                    Hydration & meals
+                  </button>
+                  <button class="chip" data-fill="recovery-daily-anchors">
+                    Movement / stretching
+                  </button>
+                </div>
+                <textarea id="recovery-daily-anchors"
+                  placeholder="Example: Drink water, take meds as prescribed, short walk, 10 minutes of journaling..."></textarea>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Helpful thoughts & reminders
+                    <span class="section-tag">Reframe</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Phrases, affirmations, or truths you want to remember on hard days.
+                </div>
+                <textarea id="recovery-affirmations"
+                  placeholder="Example: I have gotten through hard days before. I am allowed to rest. I don’t have to do this alone."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recovery: Goals -->
+          <div id="recovery-goals" class="section-grid hidden">
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Short-term goals
+                    <span class="section-tag">Next steps</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Gentle, achievable goals for the next days or weeks.
+                </div>
+                <textarea id="recovery-short-goals"
+                  placeholder="Example: Schedule an appointment, finish one small task, reconnect with a supportive person..."></textarea>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Long-term hopes
+                    <span class="section-tag">Future</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Bigger hopes or directions you’re moving toward, at your own pace.
+                </div>
+                <textarea id="recovery-long-goals"
+                  placeholder="Example: Return to school or work, build stable housing, deepen supportive relationships..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recovery: Relapse Plan -->
+          <div id="recovery-relapse" class="section-grid hidden">
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Signs of slipping
+                    <span class="section-tag">Awareness</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  How you might notice you’re drifting away from your recovery supports.
+                </div>
+                <textarea id="recovery-relapse-signs"
+                  placeholder="Example: Skipping meds, canceling appointments, isolating, using old coping patterns..."></textarea>
+              </div>
+            </div>
+
+            <div class="section">
+              <div class="section-inner">
+                <div class="section-header">
+                  <div class="section-title">
+                    Relapse response plan
+                    <span class="section-tag">Repair</span>
+                  </div>
+                </div>
+                <div class="section-note">
+                  Steps to gently re-engage supports if you notice those signs.
+                </div>
+                <textarea id="recovery-relapse-plan"
+                  placeholder="Example: Reach out to my provider, tell a trusted person, restart one small daily anchor..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="footer-row">
+            <div class="badge-soft">
+              <span class="badge-dot"></span>
+              <span>Recovery is not linear. Small steps count.</span>
+            </div>
+            <div class="btn-row">
+              <button class="btn secondary" id="recovery-reset">Reset</button>
+              <button class="btn" id="recovery-save">Save plan</button>
+            </div>
+          </div>
+
+          <div style="margin-top: 8px;" class="disclaimer">
+            This page is for reflection and planning only and is not a substitute for professional mental health care.
+            If you are in immediate danger or thinking about harming yourself, contact local emergency services or a
+            crisis resource in your area.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple helper: tab switching
+    function setupTabs(containerId, prefix) {
+      const container = document.getElementById(containerId);
+      const tabs = container.querySelectorAll(".tab");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+
+          const target = tab.getAttribute("data-tab");
+          const sections = document.querySelectorAll(`[id^="${prefix}-"]`);
+          sections.forEach((sec) => sec.classList.add("hidden"));
+          const activeSection = document.getElementById(`${prefix}-${target}`);
+          if (activeSection) activeSection.classList.remove("hidden");
+        });
+      });
+    }
+
+    setupTabs("safety-tabs", "safety");
+    setupTabs("recovery-tabs", "recovery");
+
+    // Chips: append text to target textarea
+    document.querySelectorAll(".chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const targetId = chip.getAttribute("data-fill");
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        const text = chip.textContent.trim();
+        if (target.value.includes(text)) return;
+        target.value = (target.value + (target.value ? "\n" : "") + text).trim();
+        markDirty(targetId.startsWith("safety") ? "safety" : "recovery");
+      });
+    });
+
+    // LocalStorage keys
+    const SAFETY_KEY = "mh_safety_plan_v1";
+    const RECOVERY_KEY = "mh_recovery_plan_v1";
+
+    const safetyFields = [
+      "safety-early-signs-textarea",
+      "safety-triggers-textarea",
+      "safety-coping-textarea",
+      "safety-steps-textarea",
+      "safety-support-textarea",
+      "safety-resources-textarea",
+    ];
+
+    const recoveryFields = [
+      "recovery-daily-anchors",
+      "recovery-affirmations",
+      "recovery-short-goals",
+      "recovery-long-goals",
+      "recovery-relapse-signs",
+      "recovery-relapse-plan",
+    ];
+
+    function markDirty(type) {
+      const el = document.getElementById(type + "-status");
+      if (el) el.textContent = "Unsaved changes";
+    }
+
+    function markSaved(type) {
+      const el = document.getElementById(type + "-status");
+      if (el) el.textContent = "Saved";
+    }
+
+    function loadPlan(key, fields) {
+      const raw = localStorage.getItem(key);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        fields.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && data[id] !== undefined) {
+            el.value = data[id];
+          }
+        });
+      } catch (e) {
+        console.warn("Could not parse stored plan", e);
+      }
+    }
+
+    function savePlan(key, fields, type) {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) data[id] = el.value;
+      });
+      localStorage.setItem(key, JSON.stringify(data));
+      markSaved(type);
+    }
+
+    function resetPlan(key, fields, type) {
+      if (!confirm("Clear this plan? This cannot be undone.")) return;
+      localStorage.removeItem(key);
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      markDirty(type);
+    }
+
+    // Attach listeners
+    safetyFields.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener("input", () => markDirty("safety"));
+      }
+    });
+
+    recoveryFields.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.addEventListener("input", () => markDirty("recovery"));
+      }
+    });
+
+    document.getElementById("safety-save").addEventListener("click", () =>
+      savePlan(SAFETY_KEY, safetyFields, "safety")
+    );
+    document.getElementById("recovery-save").addEventListener("click", () =>
+      savePlan(RECOVERY_KEY, recoveryFields, "recovery")
+    );
+
+    document.getElementById("safety-reset").addEventListener("click", () =>
+      resetPlan(SAFETY_KEY, safetyFields, "safety")
+    );
+    document.getElementById("recovery-reset").addEventListener("click", () =>
+      resetPlan(RECOVERY_KEY, recoveryFields, "recovery")
+    );
+
+    // Initial load
+    loadPlan(SAFETY_KEY, safetyFields);
+    loadPlan(RECOVERY_KEY, recoveryFields);
+    markSaved("safety");
+    markSaved("recovery");
+  </script>
+</body>
+</html>
