@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cleft Lip & Palate – Medical Treatment Journey</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    header {
+      background: #2b4c7e;
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 1.5rem auto 2.5rem;
+      padding: 0 1rem;
+    }
+
+    .notice {
+      background: #fff3cd;
+      border: 1px solid #ffeeba;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    .notice strong {
+      color: #8a6d3b;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .step-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-number {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      background: #2b4c7e;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    }
+
+    .step-card h2 {
+      margin-top: 0.4rem;
+      font-size: 1.1rem;
+      color: #2b4c7e;
+    }
+
+    .step-card p {
+      font-size: 0.92rem;
+      line-height: 1.4;
+      margin-bottom: 0.4rem;
+    }
+
+    .age-tag {
+      display: inline-block;
+      background: #e3ecff;
+      color: #2b4c7e;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .toggle-details {
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
+      color: #2b4c7e;
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .details {
+      display: none;
+      margin-top: 0.4rem;
+      font-size: 0.88rem;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #555;
+      padding: 1rem 0 1.5rem;
+    }
+
+    footer strong {
+      color: #2b4c7e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cleft Lip & Cleft Palate</h1>
+    <p>Educational overview of the typical medical treatment journey (not medical instructions).</p>
+  </header>
+
+  <main>
+    <section class="notice">
+      <strong>Important:</strong> Cleft lip and cleft palate are treated only by qualified medical teams
+      (surgeons, pediatricians, speech therapists, dentists, etc.). This page is for general education
+      and web‑design practice only. It does <strong>not</strong> replace professional medical advice,
+      diagnosis, or treatment.
+    </section>
+
+    <section class="steps">
+      <!-- Step 1 -->
+      <article class="step-card">
+        <div class="step-number">1</div>
+        <span class="age-tag">Before birth / Newborn</span>
+        <h2>Diagnosis & First Consultations</h2>
+        <p>
+          Cleft lip and/or palate may be seen on prenatal ultrasound or at birth. Families are referred
+          to a specialized cleft or craniofacial team.
+        </p>
+        <button class="toggle-details">Show details</button>
+        <div class="details">
+          <p>
+            The team explains what a cleft lip/palate is, discusses feeding strategies, and helps parents
+            plan for surgery and long‑term care. Emotional support and education are a key part of this step.
+          </p>
+        </div>
+      </article>
+
+      <!-- Step 2 -->
+      <article class="step-card">
+        <div class="step-number">2</div>
+        <span class="age-tag">First weeks–months</span>
+        <h2>Feeding Support & Early Devices</h2>
+        <p>
+          Babies may need special bottles or positioning to feed safely. Some centers use devices like
+          nasoalveolar molding (NAM) to gently shape tissues before surgery.
+        </p>
+        <button class="toggle-details">Show details</button>
+        <div class="details">
+          <p>
+            NAM is a custom appliance made by specialists. It helps bring the lip and gum segments closer
+            together and can improve the shape of the nose, preparing for better surgical results.
+          </p>
+        </div>
+      </article>
+
+      <!-- Step 3 -->
+      <article class="step-card">
+        <div class="step-number">3</div>
+        <span class="age-tag">Around 3–6 months</span>
+        <h2>Cleft Lip Repair Surgery</h2>
+        <p>
+          Under general anesthesia, surgeons carefully close the split in the upper lip and realign the
+          lip muscles to improve function and appearance.
+        </p>
+        <button class="toggle-details">Show details</button>
+        <div class="details">
+          <p>
+            The exact technique depends on the type and width of the cleft. The goal is to restore lip
+            continuity, support feeding, and create a more typical lip and nose shape. Some children may
+            need additional surgeries later.
+          </p>
+        </div>
+      </article>
+
+      <!-- Step 4 -->
+      <article class="step-card">
+        <div class="step-number">4</div>
+        <span class="age-tag">Around 9–14 months</span>
+        <h2>Cleft Palate Repair Surgery</h2>
+        <p>
+          Surgeons close the opening in the roof of the mouth and reposition the palate muscles to help
+          with speech and feeding.
+        </p>
+        <button class="toggle-details">Show details</button>
+        <div class="details">
+          <p>
+            This surgery helps separate the mouth from the nose, which is important for normal speech
+            sounds and swallowing. Ear tubes may be placed at the same time to reduce fluid buildup and
+            hearing problems.
+          </p>
+        </div>
+      </article>
+
+      <!-- Step 5 -->
+      <article class="step-card">
+        <div class="step-number">5</div>
+        <span class="age-tag">Toddler–childhood</span>
+        <h2>Speech, Hearing & Dental Care</h2>
+        <p>
+          Children are followed by speech‑language pathologists, audiologists, and dentists to monitor
+          speech, hearing, and tooth development.
+        </p>
+        <button class="toggle-details">Show details</button>
+        <div class="details">
+          <p>
+            Some children may need additional palate procedures to improve speech, orthodontic treatment
+            to align teeth, and ongoing hearing checks. Care is coordinated by the cleft team over many years.
+          </p>
+        </div>
+      </article>
+
+      <!-- Step 6 -->
+      <article class="step-card">
+        <div class="step-number">6</div>
+        <span class="age-tag">School age–teen years</span>
+        <h2>Further Surgeries & Long‑Term Follow‑up</h2>
+        <p>
+          As the child grows, they may need bone grafts to the gum area, jaw or nose surgery, and
+          continued orthodontics.
+        </p>
+        <button class="toggle-details">Show details</button>
+        <div class="details">
+          <p>
+            The goal is to support function (speech, chewing, breathing) and appearance through growth.
+            The cleft team works with the family to decide if and when additional procedures are helpful.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      This page is for <strong>education and web‑design practice only</strong>. For any questions or concerns
+      about cleft lip or palate, always talk to a qualified healthcare professional.
+    </p>
+  </footer>
+
+  <script>
+    // Simple JS: toggle details for each step
+    document.querySelectorAll('.toggle-details').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const details = this.nextElementSibling;
+        const isVisible = details.style.display === 'block';
+        details.style.display = isVisible ? 'none' : 'block';
+        this.textContent = isVisible ? 'Show details' : 'Hide details';
+      });
+    });
+  </script>
+</body>
+</html>
