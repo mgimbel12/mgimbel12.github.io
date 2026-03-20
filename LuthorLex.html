@@ -425,6 +425,45 @@
     footer span.safe {
       color: var(--accent);
     }
+
+      .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      background: #000;
+      box-sizing: border-box;
+      min-height: 100vh;
+    }
+
+    .video-card {
+      background: #111;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+      transition: transform 0.2s ease;
+    }
+
+    .video-card:hover {
+      transform: scale(1.03);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      display: block;
+    }
+
+    .video-label {
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+      color: #fff;
+      background: #222;
+      border-top: 1px solid #333;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
   </style>
 </head>
 <body>
@@ -441,6 +480,8 @@
         <span class="lex-tag-dot"></span>
         LEX OPS • MENTAL HEALTH SAFE MODE
       </div>
+    
+    
     </header>
 
     <div class="main-grid">
@@ -450,58 +491,61 @@
           <div class="panel-title">YouTube <span>intel wall</span></div>
           <div class="panel-badge">6 feeds • pulled by code</div>
         </div>
-        <div class="video-grid">
-          <!-- Replace VIDEO_ID with real IDs -->
-          <div class="video-card">
-            <iframe
-              src="https://youtu.be/woNEEJmdJhY?si=QzkLUmABvhAytTZG"
-              title="Video 1"
-              allowfullscreen
-            ></iframe>
-            <div class="video-label">Feed 01</div>
-          </div>
-          <div class="video-card">
-            <iframe
-              src="https://youtu.be/KEfTPdomH6o?si=pdawkOMLI3Cr7HzM"
-              title="Video 2"
-              allowfullscreen
-            ></iframe>
-            <div class="video-label">Feed 02</div>
-          </div>
-          <div class="video-card">
-            <iframe
-              src="https://www.youtube.com/watch?v=Ndw6Gpg7Wzk&list=RDNdw6Gpg7Wzk&start_radio=1"
-              title="Video 3"
-              allowfullscreen
-            ></iframe>
-            <div class="video-label">Feed 03</div>
-          </div>
-          <div class="video-card">
-            <iframe
-              src="https://www.youtube.com/watch?v=uoDoEJX3dow&list=RDuoDoEJX3dow&start_radio=1"
-              title="Video 4"
-              allowfullscreen
-            ></iframe>
-            <div class="video-label">Feed 04</div>
-          </div>
-          <div class="video-card">
-            <iframe
-              src="https://youtu.be/0W_eA_rI_C0?si=wO-0oG7_qXVkt2Ig"
-              title="Video 5"
-              allowfullscreen
-            ></iframe>
-            <div class="video-label">Feed 05</div>
-          </div>
-          <div class="video-card">
-            <iframe
-              src="https://youtu.be/s_blXkXklp0?si=khfY4PW9u4mPUDqV"
-              title="Video 6"
-              allowfullscreen
-            ></iframe>
-            <div class="video-label">Feed 06</div>
-          </div>
-        </div>
-      </section>
+<div class="video-grid">
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/woNEEJmdJhY"
+        title="Feed 01"
+        allowfullscreen>
+      </iframe>
+      <div class="video-label">Feed 01</div>
+    </div>
+
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/KEfTPdomH6o"
+        title="Feed 02"
+        allowfullscreen>
+      </iframe>
+      <div class="video-label">Feed 02</div>
+    </div>
+
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/Ndw6Gpg7Wzk"
+        title="Feed 03"
+        allowfullscreen>
+      </iframe>
+      <div class="video-label">Feed 03</div>
+    </div>
+
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/uoDoEJX3dow"
+        title="Feed 04"
+        allowfullscreen>
+      </iframe>
+      <div class="video-label">Feed 04</div>
+    </div>
+
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/0W_eA_rI_C0"
+        title="Feed 05"
+        allowfullscreen>
+      </iframe>
+      <div class="video-label">Feed 05</div>
+    </div>
+
+    <div class="video-card">
+      <iframe
+        src="https://www.youtube.com/embed/s_blXkXklp0"
+        title="Feed 06"
+        allowfullscreen>
+      </iframe>
+      <div class="video-label">Feed 06</div>
+    </div>
+  </div>        
 
       <!-- RIGHT: Safety plan + countdown -->
       <div class="right-column">
