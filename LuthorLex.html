@@ -1,784 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Lex Luthor Control Room – Safety & Countdown</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --bg: #050608;
-      --panel: #101218;
-      --accent: #35ff6b;
-      --accent-soft: rgba(53, 255, 107, 0.15);
-      --text-main: #f5f5f5;
-      --text-soft: #b7bcc7;
-      --danger: #ff4b6a;
-      --border-soft: #262a33;
-      --lex-purple: #7b5cff;
-      --lex-gold: #f5d76e;
-      --radius: 14px;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
-      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+<meta charset="UTF-8" />
+<title>Intel Wall + Safety Plan Console</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    font-family: system-ui, sans-serif;
+    color: #fff;
+  }
 
-    body {
-      font-family: var(--font-main);
-      background: radial-gradient(circle at top, #151827 0, #050608 55%);
-      color: var(--text-main);
-      min-height: 100vh;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+  /* MAIN GRID LAYOUT */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    padding: 25px;
+  }
 
-    .page-shell {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+  /* PANEL WRAPPER */
+  .panel {
+    background: #111;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
 
-    header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 16px;
-    }
+  .panel-header {
+    margin-bottom: 15px;
+  }
 
-    .title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+  .panel-title {
+    font-size: 22px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
 
-    .title-block h1 {
-      font-size: 1.9rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
+  .panel-title span {
+    color: #0aff9d;
+  }
 
-    .title-block h1 span {
-      color: var(--lex-purple);
-    }
+  .panel-badge {
+    font-size: 13px;
+    opacity: 0.7;
+    margin-top: 3px;
+  }
 
-    .title-block p {
-      font-size: 0.95rem;
-      color: var(--text-soft);
-      max-width: 520px;
-    }
+  /* VIDEO GRID */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 15px;
+  }
 
-    .lex-tag {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: linear-gradient(120deg, rgba(123, 92, 255, 0.2), rgba(53, 255, 107, 0.08));
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+  .video-card {
+    background: #181818;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease;
+  }
 
-    .lex-tag-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
+  .video-card:hover {
+    transform: scale(1.03);
+  }
 
-    /* Layout: videos + right column */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 2fr 1.3fr;
-      gap: 20px;
-      align-items: flex-start;
-    }
+  .video-card iframe {
+    width: 100%;
+    height: 180px;
+    border: none;
+  }
 
-    @media (max-width: 1000px) {
-      .main-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+  .video-label {
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    background: #222;
+    border-top: 1px solid #333;
+  }
 
-    /* Video panel */
-    .panel {
-      background: radial-gradient(circle at top left, #1b1f30 0, #101218 40%, #050608 100%);
-      border-radius: var(--radius);
-      border: 1px solid var(--border-soft);
-      box-shadow: var(--shadow-soft);
-      padding: 16px 18px 18px;
-      position: relative;
-      overflow: hidden;
-    }
+  /* RIGHT COLUMN */
+  .right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
 
-    .panel::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, rgba(53, 255, 107, 0.08), transparent 60%);
-      opacity: 0.7;
-      pointer-events: none;
-    }
+  /* SAFETY PLAN */
+  .safety-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      position: relative;
-      z-index: 1;
-    }
+  .safety-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
 
-    .panel-title {
-      font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--text-soft);
-    }
+  .safety-label {
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #0aff9d;
+  }
 
-    .panel-title span {
-      color: var(--accent);
-    }
+  .safety-textarea {
+    width: 100%;
+    min-height: 90px;
+    background: #000;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    color: #fff;
+    resize: vertical;
+    font-size: 14px;
+  }
 
-    .panel-badge {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-soft);
-      color: var(--accent);
-      background: rgba(0, 0, 0, 0.4);
-    }
-
-    .video-grid {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    @media (max-width: 900px) {
-      .video-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 600px) {
-      .video-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .video-card {
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      background: #050608;
-      aspect-ratio: 16 / 9;
-      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
-    }
-
-    .video-card iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-
-    .video-label {
-      position: absolute;
-      left: 8px;
-      bottom: 8px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.7);
-      color: var(--text-soft);
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      backdrop-filter: blur(4px);
-    }
-
-    /* Right column: safety + countdown stacked */
-    .right-column {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* Safety plan */
-    .safety-body {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 0.85rem;
-    }
-
-    .safety-row {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .safety-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
-    }
-
-    .safety-input,
-    .safety-textarea {
-      width: 100%;
-      border-radius: 9px;
-      border: 1px solid var(--border-soft);
-      background: rgba(5, 6, 8, 0.9);
-      color: var(--text-main);
-      padding: 7px 9px;
-      font-size: 0.85rem;
-      resize: vertical;
-      min-height: 32px;
-      outline: none;
-      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
-
-    .safety-textarea {
-      min-height: 60px;
-    }
-
-    .safety-input:focus,
-    .safety-textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(53, 255, 107, 0.4);
-      background: #050608;
-    }
-
-    .safety-hint {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      opacity: 0.8;
-    }
-
-    .safety-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 4px;
-      font-size: 0.75rem;
-      color: var(--text-soft);
-    }
-
-    .safety-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
-    }
-
-    .safety-actions {
-      display: flex;
-      gap: 8px;
-    }
-
-    .btn-soft {
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: rgba(0, 0, 0, 0.6);
-      color: var(--text-main);
-      padding: 4px 10px;
-      font-size: 0.75rem;
-      cursor: pointer;
-      transition: background 0.15s ease, border 0.15s ease, transform 0.1s ease;
-    }
-
-    .btn-soft:hover {
-      background: rgba(53, 255, 107, 0.08);
-      border-color: var(--accent-soft);
-      transform: translateY(-1px);
-    }
-
-    .btn-danger {
-      border-color: rgba(255, 75, 106, 0.4);
-      color: var(--danger);
-    }
-
-    .btn-danger:hover {
-      background: rgba(255, 75, 106, 0.12);
-    }
-
-    /* Countdown */
-    .countdown-body {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      font-size: 0.85rem;
-    }
-
-    .countdown-config {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .countdown-config label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--text-soft);
-    }
-
-    .countdown-input {
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: rgba(5, 6, 8, 0.9);
-      color: var(--text-main);
-      padding: 5px 9px;
-      font-size: 0.8rem;
-      outline: none;
-      min-width: 150px;
-    }
-
-    .countdown-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(53, 255, 107, 0.4);
-    }
-
-    .countdown-display {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .countdown-chip {
-      flex: 1 1 80px;
-      min-width: 80px;
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      background: rgba(0, 0, 0, 0.7);
-      padding: 6px 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .countdown-value {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--lex-gold);
-    }
-
-    .countdown-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--text-soft);
-    }
-
-    .countdown-note {
-      font-size: 0.7rem;
-      color: var(--text-soft);
-      opacity: 0.85;
-    }
-
-    footer {
-      font-size: 0.75rem;
-      color: var(--text-soft);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 8px;
-      opacity: 0.8;
-    }
-
-    footer span.lex {
-      color: var(--lex-purple);
-    }
-
-    footer span.safe {
-      color: var(--accent);
-    }
-
-      .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      background: #000;
-      box-sizing: border-box;
-      min-height: 100vh;
-    }
-
-    .video-card {
-      background: #111;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-      transition: transform 0.2s ease;
-    }
-
-    .video-card:hover {
-      transform: scale(1.03);
-    }
-
-    .video-card iframe {
-      width: 100%;
-      height: 200px;
-      border: none;
-      display: block;
-    }
-
-    .video-label {
-      padding: 10px;
-      text-align: center;
-      font-weight: bold;
-      color: #fff;
-      background: #222;
-      border-top: 1px solid #333;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-  </style>
+  .safety-hint {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+</style>
 </head>
+
 <body>
-  <div class="page-shell">
-    <header>
-      <div class="title-block">
-        <h1><span>Lex Luthor</span> Control Room</h1>
-        <p>
-          Six-screen YouTube wall, a grounded mental health safety plan, and a live countdown to whatever mission
-          matters next.
-        </p>
-      </div>
-      <div class="lex-tag">
-        <span class="lex-tag-dot"></span>
-        LEX OPS • MENTAL HEALTH SAFE MODE
-      </div>
-    
-    
-    </header>
 
-    <div class="main-grid">
-      <!-- LEFT: 6 YouTube videos -->
-      <section class="panel">
-        <div class="panel-header">
-          <div class="panel-title">YouTube <span>intel wall</span></div>
-          <div class="panel-badge">6 feeds • pulled by code</div>
+<div class="main-grid">
+
+  <!-- LEFT SIDE: INTEL WALL -->
+  <section class="panel">
+    <div class="panel-header">
+      <div class="panel-title">YouTube <span>intel wall</span></div>
+      <div class="panel-badge">6 feeds • pulled by code</div>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/woNEEJmdJhY" title="Feed 01" allowfullscreen></iframe>
+        <div class="video-label">Feed 01</div>
+      </div>
+
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/KEfTPdomH6o" title="Feed 02" allowfullscreen></iframe>
+        <div class="video-label">Feed 02</div>
+      </div>
+
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/Ndw6Gpg7Wzk" title="Feed 03" allowfullscreen></iframe>
+        <div class="video-label">Feed 03</div>
+      </div>
+
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/uoDoEJX3dow" title="Feed 04" allowfullscreen></iframe>
+        <div class="video-label">Feed 04</div>
+      </div>
+
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/0W_eA_rI_C0" title="Feed 05" allowfullscreen></iframe>
+        <div class="video-label">Feed 05</div>
+      </div>
+
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/s_blXkXklp0" title="Feed 06" allowfullscreen></iframe>
+        <div class="video-label">Feed 06</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT SIDE: SAFETY PLAN -->
+  <div class="right-column">
+
+    <section class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Mental health <span>safety plan</span></div>
+        <div class="panel-badge">Grounding protocol</div>
+      </div>
+
+      <div class="safety-body">
+
+        <div class="safety-row">
+          <div class="safety-label">Warning signs</div>
+          <textarea class="safety-textarea" id="warningSigns"
+            placeholder="What are the first clues you’re not okay? Thoughts, body signals, situations..."></textarea>
+          <div class="safety-hint">Name the early signals so Lex-mode can switch to safe-mode faster.</div>
         </div>
-<div class="video-grid">
-    <div class="video-card">
-      <iframe
-        src="https://www.youtube.com/embed/woNEEJmdJhY"
-        title="Feed 01"
-        allowfullscreen>
-      </iframe>
-      <div class="video-label">Feed 01</div>
-    </div>
 
-    <div class="video-card">
-      <iframe
-        src="https://www.youtube.com/embed/KEfTPdomH6o"
-        title="Feed 02"
-        allowfullscreen>
-      </iframe>
-      <div class="video-label">Feed 02</div>
-    </div>
+        <div class="safety-row">
+          <div class="safety-label">Coping strategies</div>
+          <textarea class="safety-textarea" id="copingStrategies"
+            placeholder="Music, grounding, breathing, movement, safe shows, creative rituals..."></textarea>
+        </div>
 
-    <div class="video-card">
-      <iframe
-        src="https://www.youtube.com/embed/Ndw6Gpg7Wzk"
-        title="Feed 03"
-        allowfullscreen>
-      </iframe>
-      <div class="video-label">Feed 03</div>
-    </div>
+        <div class="safety-row">
+          <div class="safety-label">People & places that feel safe</div>
+          <textarea class="safety-textarea" id="safePeoplePlaces"
+            placeholder="Names, numbers, locations, online spaces that feel steady and kind..."></textarea>
+        </div>
 
-    <div class="video-card">
-      <iframe
-        src="https://www.youtube.com/embed/uoDoEJX3dow"
-        title="Feed 04"
-        allowfullscreen>
-      </iframe>
-      <div class="video-label">Feed 04</div>
-    </div>
-
-    <div class="video-card">
-      <iframe
-        src="https://www.youtube.com/embed/0W_eA_rI_C0"
-        title="Feed 05"
-        allowfullscreen>
-      </iframe>
-      <div class="video-label">Feed 05</div>
-    </div>
-
-    <div class="video-card">
-      <iframe
-        src="https://www.youtube.com/embed/s_blXkXklp0"
-        title="Feed 06"
-        allowfullscreen>
-      </iframe>
-      <div class="video-label">Feed 06</div>
-    </div>
-  </div>        
-
-      <!-- RIGHT: Safety plan + countdown -->
-      <div class="right-column">
-        <!-- Safety plan -->
-        <section class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Mental health <span>safety plan</span></div>
-            <div class="panel-badge">Grounding protocol</div>
-          </div>
-          <div class="safety-body">
-            <div class="safety-row">
-              <div class="safety-label">Warning signs</div>
-              <textarea
-                class="safety-textarea"
-                id="warningSigns"
-                placeholder="What are the first clues you’re not okay? Thoughts, body signals, situations..."
-              ></textarea>
-              <div class="safety-hint">Name the early signals so Lex-mode can switch to safe-mode faster.</div>
-            </div>
-
-            <div class="safety-row">
-              <div class="safety-label">Coping strategies</div>
-              <textarea
-                class="safety-textarea"
-                id="copingStrategies"
-                placeholder="Music, grounding, breathing, movement, safe shows, creative rituals..."
-              ></textarea>
-            </div>
-
-            <div class="safety-row">
-              <div class="safety-label">People & places that feel safe</div>
-              <textarea
-                class="safety-textarea"
-                id="safePeoplePlaces"
-                placeholder="Names, numbers, locations, online spaces that feel steady and kind..."
-              ></textarea>
-            </div>
-
-            <div class="safety-row">
-              <div class="safety-label">Reasons to stay</div>
-              <textarea
-                class="safety-textarea"
-                id="reasonsToStay"
-                placeholder="Future moments, people, projects, tiny joys that are worth holding on for..."
-              ></textarea>
-            </div>
-
-            <div class="safety-footer">
-              <div class="safety-status">
-                <span class="status-dot"></span>
-                <span>Safe-mode protocol loaded locally (browser only).</span>
-              </div>
-              <div class="safety-actions">
-                <button class="btn-soft" id="savePlanBtn">Save</button>
-                <button class="btn-soft btn-danger" id="clearPlanBtn">Clear</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Countdown -->
-        <section class="panel">
-          <div class="panel-header">
-            <div class="panel-title">Mission <span>countdown</span></div>
-            <div class="panel-badge">Calendar to whatever</div>
-          </div>
-          <div class="countdown-body">
-            <div class="countdown-config">
-              <label for="targetDate">Target date</label>
-              <input type="date" id="targetDate" class="countdown-input" />
-              <button class="btn-soft" id="setCountdownBtn">Set</button>
-            </div>
-
-            <div class="countdown-display" id="countdownDisplay">
-              <div class="countdown-chip">
-                <div class="countdown-value" id="daysValue">0</div>
-                <div class="countdown-label">Days</div>
-              </div>
-              <div class="countdown-chip">
-                <div class="countdown-value" id="hoursValue">0</div>
-                <div class="countdown-label">Hours</div>
-              </div>
-              <div class="countdown-chip">
-                <div class="countdown-value" id="minutesValue">0</div>
-                <div class="countdown-label">Minutes</div>
-              </div>
-              <div class="countdown-chip">
-                <div class="countdown-value" id="secondsValue">0</div>
-                <div class="countdown-label">Seconds</div>
-              </div>
-            </div>
-
-            <div class="countdown-note" id="countdownNote">
-              Choose a date—court date, move-in day, creative launch, healing milestone—and watch the numbers shift.
-            </div>
-          </div>
-        </section>
       </div>
-    </div>
+    </section>
 
-    <footer>
-      <span>Interface: <span class="lex">Lex Luthor</span> aesthetic, but the power stays with you.</span>
-      <span>Mode: <span class="safe">Mental health safety first</span> • All data stays in this browser.</span>
-    </footer>
   </div>
 
-  <script>
-    // --- Safety plan: localStorage save/restore ---
-    const fields = ["warningSigns", "copingStrategies", "safePeoplePlaces", "reasonsToStay"];
-    const saveBtn = document.getElementById("savePlanBtn");
-    const clearBtn = document.getElementById("clearPlanBtn");
+</div>
 
-    function loadSafetyPlan() {
-      fields.forEach((id) => {
-        const el = document.getElementById(id);
-        const stored = localStorage.getItem("lexSafety_" + id);
-        if (el && stored !== null) {
-          el.value = stored;
-        }
-      });
-    }
-
-    function saveSafetyPlan() {
-      fields.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-          localStorage.setItem("lexSafety_" + id, el.value || "");
-        }
-      });
-      flashNote("countdownNote", "Safety plan saved locally in this browser.", 2200);
-    }
-
-    function clearSafetyPlan() {
-      if (!confirm("Clear all safety plan fields?")) return;
-      fields.forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) {
-          el.value = "";
-        }
-        localStorage.removeItem("lexSafety_" + id);
-      });
-      flashNote("countdownNote", "Safety plan cleared from this browser.", 2200);
-    }
-
-    saveBtn.addEventListener("click", saveSafetyPlan);
-    clearBtn.addEventListener("click", clearSafetyPlan);
-    loadSafetyPlan();
-
-    // --- Countdown logic ---
-    const targetDateInput = document.getElementById("targetDate");
-    const setCountdownBtn = document.getElementById("setCountdownBtn");
-    const daysValue = document.getElementById("daysValue");
-    const hoursValue = document.getElementById("hoursValue");
-    const minutesValue = document.getElementById("minutesValue");
-    const secondsValue = document.getElementById("secondsValue");
-    const countdownNote = document.getElementById("countdownNote");
-
-    let countdownTarget = null;
-    let countdownTimer = null;
-
-    function loadCountdown() {
-      const stored = localStorage.getItem("lexCountdown_target");
-      if (stored) {
-        countdownTarget = new Date(stored);
-        if (!isNaN(countdownTarget)) {
-          targetDateInput.value = stored.slice(0, 10);
-          startCountdown();
-        }
-      }
-    }
-
-    function setCountdown() {
-      const value = targetDateInput.value;
-      if (!value) {
-        flashNote("countdownNote", "Pick a date first.", 2000);
-        return;
-      }
-      countdownTarget = new Date(value + "T00:00:00");
-      if (isNaN(countdownTarget)) {
-        flashNote("countdownNote", "That date doesn’t look valid.", 2000);
-        return;
-      }
-      localStorage.setItem("lexCountdown_target", countdownTarget.toISOString());
-      startCountdown();
-      flashNote("countdownNote", "Countdown locked in.", 2000);
-    }
-
-    function startCountdown() {
-      if (countdownTimer) clearInterval(countdownTimer);
-      updateCountdown();
-      countdownTimer = setInterval(updateCountdown, 1000);
-    }
-
-    function updateCountdown() {
-      if (!countdownTarget) return;
-      const now = new Date();
-      const diff = countdownTarget - now;
-
-      if (diff <= 0) {
-        daysValue.textContent = 0;
-        hoursValue.textContent = 0;
-        minutesValue.textContent = 0;
-        secondsValue.textContent = 0;
-        countdownNote.textContent = "Countdown reached. This moment is here now.";
-        clearInterval(countdownTimer);
-        return;
-      }
-
-      const totalSeconds = Math.floor(diff / 1000);
-      const days = Math.floor(totalSeconds / (3600 * 24));
-      const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-      const minutes = Math.floor((totalSeconds % 3600) / 60);
-      const seconds = totalSeconds % 60;
-
-      daysValue.textContent = days;
-      hoursValue.textContent = hours;
-      minutesValue.textContent = minutes;
-      secondsValue.textContent = seconds;
-    }
-
-    function flashNote(id, message, duration) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const original = el.textContent;
-      el.textContent = message;
-      el.style.opacity = "1";
-      setTimeout(() => {
-        el.textContent = original;
-      }, duration || 2000);
-    }
-
-    setCountdownBtn.addEventListener("click", setCountdown);
-    loadCountdown();
-  </script>
 </body>
 </html>
