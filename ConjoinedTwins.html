@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Conjoined Twins – Care Journey</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #050816;
+      color: #f9fafb;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .shell {
+      max-width: 1100px;
+      width: 100%;
+      background: #0b1120;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+      display: grid;
+      grid-template-columns: 1.1fr 2fr;
+      gap: 20px;
+    }
+
+    .header {
+      grid-column: 1 / -1;
+      margin-bottom: 8px;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .header span {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .header-note {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step {
+      background: #020617;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid #1f2937;
+      cursor: pointer;
+      transition: border 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    }
+
+    .step:hover {
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .step.active {
+      border-color: #22c55e;
+      background: #022c22;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .step-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    .detail {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .detail-heading {
+      font-size: 18px;
+      font-weight: 600;
+      color: #22c55e;
+    }
+
+    .detail-body {
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    .detail-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .disclaimer {
+      font-size: 11px;
+      opacity: 0.7;
+      border-top: 1px solid #1f2937;
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 800px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="header">
+      <h1>Conjoined Twins <span>care journey</span></h1>
+      <div class="header-note">
+        Educational overview only. This does <strong>not</strong> teach surgery or give medical instructions.
+      </div>
+    </div>
+
+    <!-- LEFT: STEPS -->
+    <div class="steps">
+      <div class="step active" data-step="diagnosis">
+        <div class="step-title">1. Prenatal diagnosis & imaging</div>
+        <div class="step-tag">Before birth</div>
+      </div>
+
+      <div class="step" data-step="team">
+        <div class="step-title">2. Building a specialist team</div>
+        <div class="step-tag">High‑risk planning</div>
+      </div>
+
+      <div class="step" data-step="birth">
+        <div class="step-title">3. Delivery & early stabilization</div>
+        <div class="step-tag">Birth & NICU</div>
+      </div>
+
+      <div class="step" data-step="planning">
+        <div class="step-title">4. Detailed evaluation & separation planning</div>
+        <div class="step-tag">Complex decision‑making</div>
+      </div>
+
+      <div class="step" data-step="surgery">
+        <div class="step-title">5. Separation surgery (when possible)</div>
+        <div class="step-tag">Highly specialized</div>
+      </div>
+
+      <div class="step" data-step="longterm">
+        <div class="step-title">6. Recovery & long‑term follow‑up</div>
+        <div class="step-tag">Growing up</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: DETAIL PANEL -->
+    <div class="detail">
+      <div class="detail-heading" id="detailHeading">
+        1. Prenatal diagnosis & imaging
+      </div>
+      <div class="detail-body" id="detailBody">
+        Conjoined twins are often detected during pregnancy using ultrasound and other imaging tests.
+        Doctors study:
+        <ul class="detail-list">
+          <li>Where the twins are joined (chest, abdomen, head, etc.).</li>
+          <li>Which organs are shared and which are separate.</li>
+          <li>How the hearts and other vital organs are functioning.</li>
+        </ul>
+        This information helps families and doctors plan a safe delivery and future care.
+      </div>
+      <div class="disclaimer">
+        This page is for learning only. It does not replace medical advice and does not describe how to do surgery.
+        Any real decisions about conjoined twins must be made with experienced medical teams.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const stepData = {
+      diagnosis: {
+        title: "1. Prenatal diagnosis & imaging",
+        body: `
+          Conjoined twins are usually identified before birth with detailed imaging.
+          <ul class="detail-list">
+            <li>Ultrasound and sometimes MRI show how the twins are connected.</li>
+            <li>Doctors look at which organs are shared and how well they work.</li>
+            <li>This helps decide where the pregnancy and delivery should be managed.</li>
+          </ul>
+        `
+      },
+      team: {
+        title: "2. Building a specialist team",
+        body: `
+          Because conjoined twins are rare and complex, care is usually centered in a specialized hospital.
+          <ul class="detail-list">
+            <li>Neonatologists, surgeons, anesthesiologists, cardiologists, radiologists, and nurses work together.</li>
+            <li>The team talks with the family about risks, options, and possible outcomes.</li>
+            <li>Plans are made for delivery, immediate care, and whether separation might ever be possible.</li>
+          </ul>
+        `
+      },
+      birth: {
+        title: "3. Delivery & early stabilization",
+        body: `
+          Delivery is carefully planned, often by cesarean section in a hospital prepared for high‑risk births.
+          <ul class="detail-list">
+            <li>Right after birth, the focus is on breathing, circulation, and keeping the twins stable.</li>
+            <li>They may go to a neonatal intensive care unit (NICU) for close monitoring.</li>
+            <li>More imaging is done after birth to confirm how they are joined.</li>
+          </ul>
+        `
+      },
+      planning: {
+        title: "4. Detailed evaluation & separation planning",
+        body: `
+          Not all conjoined twins can be separated. Doctors study whether separation is safe or possible.
+          <ul class="detail-list">
+            <li>Advanced scans map shared organs, blood vessels, and bones.</li>
+            <li>Ethical, medical, and quality‑of‑life questions are discussed with the family.</li>
+            <li>If separation is considered, the team plans timing and strategy very carefully.</li>
+          </ul>
+        `
+      },
+      surgery: {
+        title: "5. Separation surgery (when possible)",
+        body: `
+          Separation surgery is extremely complex and is only done by highly experienced teams.
+          <ul class="detail-list">
+            <li>The exact approach depends on where and how the twins are joined.</li>
+            <li>Multiple surgical specialties may be involved over many hours.</li>
+            <li>Even with expert care, there are significant risks, and sometimes separation is not an option.</li>
+          </ul>
+          The specific surgical techniques are not described here; they belong only in professional medical training.
+        `
+      },
+      longterm: {
+        title: "6. Recovery & long‑term follow‑up",
+        body: `
+          After any surgery or shared‑care plan, the twins need long‑term follow‑up.
+          <ul class="detail-list">
+            <li>Rehabilitation, physical therapy, and sometimes additional surgeries.</li>
+            <li>Support for development, schooling, and emotional well‑being.</li>
+            <li>Ongoing contact with specialists as the children grow.</li>
+          </ul>
+        `
+      }
+    };
+
+    const stepEls = document.querySelectorAll(".step");
+    const detailHeading = document.getElementById("detailHeading");
+    const detailBody = document.getElementById("detailBody");
+
+    stepEls.forEach(step => {
+      step.addEventListener("click", () => {
+        stepEls.forEach(s => s.classList.remove("active"));
+        step.classList.add("active");
+
+        const key = step.getAttribute("data-step");
+        const content = stepData[key];
+        if (content) {
+          detailHeading.textContent = content.title;
+          detailBody.innerHTML = content.body;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
