@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Prom × Tiffany’s × Color Theory × Design Article</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f6f9fb;
+      --card-bg: #ffffff;
+      --tiffany: #81d8d0;
+      --tiffany-soft: #aee1e1;
+      --accent-coral: #f7a89a;
+      --accent-blush: #f7c6d9;
+      --accent-yellow: #ffe7a3;
+      --text-main: #1f2933;
+      --text-soft: #4b5563;
+      --border-soft: #d0d7e2;
+      --shadow-soft: 0 14px 30px rgba(15, 23, 42, 0.12);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease;
+      --font-display: "Georgia", "Times New Roman", serif;
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at top, #e6f7f5 0, #f6f9fb 40%, #fdfdfd 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 32px 16px 64px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--tiffany), var(--tiffany-soft));
+      border-radius: 28px;
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow-soft);
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.35) 0, transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(255, 255, 255, 0.25) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 20px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .header-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 0.98rem;
+      max-width: 480px;
+      opacity: 0.95;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      backdrop-filter: blur(6px);
+      background: rgba(255, 255, 255, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ffffff;
+      opacity: 0.9;
+    }
+
+    .header-card {
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 18px;
+      padding: 14px 14px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      font-size: 0.8rem;
+    }
+
+    .header-card-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .header-card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px 10px;
+      margin-top: 6px;
+    }
+
+    .header-chip {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      text-align: center;
+    }
+
+    /* Navigation */
+    .nav {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .nav button {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .nav button span.icon {
+      font-size: 0.9rem;
+    }
+
+    .nav button.active {
+      background: #ffffff;
+      border-color: var(--tiffany);
+      color: var(--text-main);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .nav button:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+    }
+
+    /* Layout */
+    main {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title-badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: #f3f4ff;
+      color: #4b4bb5;
+      border: 1px solid #d4d4ff;
+      white-space: nowrap;
+    }
+
+    .card-body {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .card-body p + p {
+      margin-top: 6px;
+    }
+
+    .subheading {
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 4px;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 3px;
+    }
+
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: var(--tiffany);
+    }
+
+    .soft-note {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-top: 6px;
+    }
+
+    /* Color palette chips */
+    .palette-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .palette-card {
+      border-radius: 14px;
+      border: 1px solid var(--border-soft);
+      padding: 8px 10px;
+      font-size: 0.8rem;
+      background: #f9fafb;
+      min-width: 180px;
+    }
+
+    .palette-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swatch-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .swatch {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+    }
+
+    .swatch.tiffany {
+      background: var(--tiffany);
+    }
+
+    .swatch.tiffany-soft {
+      background: var(--tiffany-soft);
+    }
+
+    .swatch.teal {
+      background: #2f7f81;
+    }
+
+    .swatch.coral {
+      background: var(--accent-coral);
+    }
+
+    .swatch.mint {
+      background: #b9f3d0;
+    }
+
+    .swatch.blush {
+      background: var(--accent-blush);
+    }
+
+    .swatch.yellow {
+      background: var(--accent-yellow);
+    }
+
+    .scheme-label {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    /* Table */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 0.8rem;
+    }
+
+    th, td {
+      padding: 6px 6px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      font-weight: 600;
+      color: var(--text-main);
+      background: #f9fafb;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Collapsible sections */
+    .collapsible {
+      border-radius: 12px;
+      border: 1px dashed #d4d4dd;
+      padding: 8px 10px;
+      margin-top: 8px;
+      background: #f9fafc;
+    }
+
+    .collapsible-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 0.82rem;
+      color: var(--text-main);
+    }
+
+    .collapsible-header span.label {
+      font-weight: 600;
+    }
+
+    .collapsible-header span.toggle-icon {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .collapsible-body {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      display: none;
+    }
+
+    .collapsible.open .collapsible-body {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 26px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    footer .footer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(255, 255, 255, 0.9);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="header-inner">
+        <div>
+          <div class="tagline">PROM × TIFFANY’S × COLOR THEORY × DESIGN ARTICLE</div>
+          <h1>Full‑Length Design Module</h1>
+          <p class="subtitle">
+            A single‑sheet fusion of prom atmosphere, Tiffany’s luxury identity, color‑wheel logic, and fashion‑school garment analysis.
+          </p>
+          <div class="pill-row">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Prom Atmosphere
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Tiffany’s Brand Language
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Color Scheme Wheel
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Design Article Learning
+            </div>
+          </div>
+        </div>
+        <div class="header-card">
+          <div class="header-card-title">Module Snapshot</div>
+          <div class="header-card-grid">
+            <div class="header-chip">Prom Atmosphere</div>
+            <div class="header-chip">Tiffany Blue® Story</div>
+            <div class="header-chip">Color Palettes</div>
+            <div class="header-chip">Dress Breakdown</div>
+          </div>
+          <p class="soft-note" style="margin-top:8px;">
+            Use this as a concept sheet, teaching panel, or ceremonial fashion‑story overlay.
+          </p>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Section navigation">
+        <button data-target="prom" class="active">
+          <span class="icon">🎀</span> Prom
+        </button>
+        <button data-target="tiffany">
+          <span class="icon">💎</span> Tiffany’s
+        </button>
+        <button data-target="color">
+          <span class="icon">🎨</span> Color Theory
+        </button>
+        <button data-target="article">
+          <span class="icon">📘</span> Design Article
+        </button>
+        <button data-target="fusion">
+          <span class="icon">🌸</span> Fusion
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <section class="column">
+        <!-- 1. PROM — THE CEREMONIAL SETTING -->
+        <article class="card section-card" id="section-prom">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span>🎀 Prom — The Ceremonial Setting</span>
+              </div>
+              <div class="card-title-badge">Section 1 · Atmosphere &amp; Silhouette</div>
+            </div>
+            <div class="card-tag">Event Canvas</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Prom is more than a night on the calendar—it’s a design environment with its own emotional palette:
+              transformation, arrival, and celebration. Every choice in color, fabric, and silhouette contributes to that
+              sense of “becoming.”
+            </p>
+
+            <div class="subheading">Prom Atmosphere</div>
+            <ul>
+              <li>Romantic lighting and soft sparkle</li>
+              <li>Flowing fabrics and movement</li>
+              <li>Youthful glamour and anticipation</li>
+              <li>Photo‑friendly palettes and silhouettes</li>
+            </ul>
+
+            <div class="subheading">Prom Color Tendencies</div>
+            <ul>
+              <li>Pastels and soft gradients</li>
+              <li>Jewel tones for drama</li>
+              <li>Metallic accents that catch the light</li>
+              <li>Harmonious palettes that feel cinematic</li>
+            </ul>
+
+            <div class="subheading">Prom Silhouette Vocabulary</div>
+            <ul>
+              <li>A‑line and ballgown for classic romance</li>
+              <li>Mermaid for sculpted elegance</li>
+              <li>Slip dress for minimal, modern glamour</li>
+              <li>Two‑piece sets and high slits for contemporary edge</li>
+              <li>Off‑the‑shoulder and sweetheart necklines for softness</li>
+            </ul>
+
+            <p class="soft-note">
+              Think of prom as the stage: it sets the expectations, mood, and visual rhythm for everything else.
+            </p>
+          </div>
+        </article>
+
+        <!-- 2. TIFFANY’S — THE ICONIC BRAND LANGUAGE -->
+        <article class="card section-card" id="section-tiffany">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span>💙 Tiffany’s — The Iconic Brand Language</span>
+              </div>
+              <div class="card-title-badge">Section 2 · Identity &amp; Mood</div>
+            </div>
+            <div class="card-tag">Luxury Identity</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Tiffany’s is one of the strongest visual identities in design history. When you bring Tiffany’s into a prom
+              concept, you’re invoking calm luxury, romance, and timelessness.
+            </p>
+
+            <div class="subheading">The Signature Color</div>
+            <ul>
+              <li>Tiffany Blue® (robin’s‑egg blue)</li>
+              <li>Approximate hex values: <strong>#81D8D0</strong>, <strong>#AEE1E1</strong></li>
+              <li>Emotional tone: calm, trustworthy, romantic, upscale</li>
+            </ul>
+
+            <div class="subheading">Ribbon &amp; Jewelry Motifs</div>
+            <ul>
+              <li>White satin ribbon and clean bow shapes</li>
+              <li>Silver and platinum metal accents</li>
+              <li>Soft reflective surfaces that echo jewelry displays</li>
+            </ul>
+
+            <div class="subheading">Typography &amp; Principles</div>
+            <ul>
+              <li>High‑contrast serif fonts (Didot, Bodoni)</li>
+              <li>Generous negative space and clean geometry</li>
+              <li>Understated glamour—“less but better”</li>
+            </ul>
+
+            <div class="collapsible" data-collapsible>
+              <div class="collapsible-header">
+                <span class="label">Brand‑Language Note</span>
+                <span class="toggle-icon">＋</span>
+              </div>
+              <div class="collapsible-body">
+                <p>
+                  When you say “Tiffany’s” in a design brief, you’re not just naming a store—you’re calling in a whole
+                  visual system: color, typography, materials, and emotional tone. That system can be borrowed, remixed,
+                  and translated into prom fashion, invitations, and decor.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. COLOR SCHEME WHEEL — THE DESIGN ENGINE -->
+        <article class="card section-card" id="section-color">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span>🎨 Color Scheme Wheel — The Design Engine</span>
+              </div>
+              <div class="card-title-badge">Section 3 · Palette Logic</div>
+            </div>
+            <div class="card-tag">Color Theory</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Tiffany Blue sits between blue and green on the color wheel, which opens multiple professional palette
+              options. Color theory turns “pretty” into “intentional.”
+            </p>
+
+            <div class="palette-row">
+              <div class="palette-card">
+                <div class="palette-title">Monochromatic</div>
+                <div class="scheme-label">Tiffany Blue → Aqua → Deep Teal</div>
+                <div class="swatch-row">
+                  <div class="swatch tiffany"></div>
+                  <div class="swatch tiffany-soft"></div>
+                  <div class="swatch teal"></div>
+                </div>
+                <p class="soft-note">
+                  Mood: calm, elegant, modern. Perfect for sleek prom looks and satin fabrics.
+                </p>
+              </div>
+
+              <div class="palette-card">
+                <div class="palette-title">Complementary</div>
+                <div class="scheme-label">Tiffany Blue ↔ Soft Coral / Peach</div>
+                <div class="swatch-row">
+                  <div class="swatch tiffany"></div>
+                  <div class="swatch coral"></div>
+                </div>
+                <p class="soft-note">
+                  Mood: romantic, youthful, prom‑ready. Great for dress + accessory contrast or florals.
+                </p>
+              </div>
+
+              <div class="palette-card">
+                <div class="palette-title">Analogous</div>
+                <div class="scheme-label">Blue → Aqua → Mint</div>
+                <div class="swatch-row">
+                  <div class="swatch tiffany"></div>
+                  <div class="swatch tiffany-soft"></div>
+                  <div class="swatch mint"></div>
+                </div>
+                <p class="soft-note">
+                  Mood: fresh, airy, springtime. Ideal for layered chiffon and ombre dresses.
+                </p>
+              </div>
+
+              <div class="palette-card">
+                <div class="palette-title">Triadic</div>
+                <div class="scheme-label">Tiffany Blue + Blush Pink + Soft Yellow</div>
+                <div class="swatch-row">
+                  <div class="swatch tiffany"></div>
+                  <div class="swatch blush"></div>
+                  <div class="swatch yellow"></div>
+                </div>
+                <p class="soft-note">
+                  Mood: playful, editorial, fashion‑forward. Perfect for backdrops, accessories, and makeup.
+                </p>
+              </div>
+            </div>
+
+            <div class="collapsible" data-collapsible>
+              <div class="collapsible-header">
+                <span class="label">Color‑Theory Note</span>
+                <span class="toggle-icon">＋</span>
+              </div>
+              <div class="collapsible-body">
+                <p>
+                  When you justify a palette using the color wheel—monochromatic, complementary, analogous, triadic—you’re
+                  speaking in professional design language. It turns “I like these colors” into “this palette is harmonious
+                  because…”
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="column">
+        <!-- 4. LEARNING ABOUT A SPECIFIC ARTICLE OF DESIGN -->
+        <article class="card section-card" id="section-article">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span>📘 The Tiffany‑Inspired Prom Dress</span>
+              </div>
+              <div class="card-title-badge">Section 4 · Garment Analysis</div>
+            </div>
+            <div class="card-tag">Design Article</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Here, the “article of design” is a Tiffany‑inspired prom dress. This is a fashion‑school style breakdown of
+              silhouette, color, fabric, embellishment, and principles.
+            </p>
+
+            <div class="subheading">A. Silhouette</div>
+            <ul>
+              <li>A‑line or mermaid for timeless elegance</li>
+              <li>Structured bodice with a softly flowing skirt</li>
+              <li>Neckline as a focal point—sweetheart, off‑the‑shoulder, or subtle V‑neck</li>
+            </ul>
+
+            <div class="subheading">B. Color</div>
+            <ul>
+              <li>Tiffany Blue as the primary base</li>
+              <li>Silver accents at the waist, neckline, or straps</li>
+              <li>Optional complementary coral in florals or accessories</li>
+            </ul>
+
+            <div class="subheading">C. Fabric</div>
+            <ul>
+              <li>Satin for jewelry‑like shine</li>
+              <li>Chiffon for airy movement</li>
+              <li>Silk organza for luxury transparency and layering</li>
+            </ul>
+
+            <div class="subheading">D. Embellishment</div>
+            <ul>
+              <li>Crystal beading in silver tones</li>
+              <li>Pearl appliqué for softness</li>
+              <li>Minimalist sparkle—never overwhelming the clean Tiffany mood</li>
+            </ul>
+
+            <div class="subheading">E. Accessories</div>
+            <ul>
+              <li>Silver necklace and delicate earrings</li>
+              <li>White satin clutch or small beaded bag</li>
+              <li>Soft curls or a sleek bun to echo the ribbon motif</li>
+            </ul>
+
+            <div class="subheading">F. Design Principles Applied</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Principle</th>
+                  <th>How It Shows Up</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Balance</td>
+                  <td>Even distribution of sparkle and clean lines across bodice and skirt.</td>
+                </tr>
+                <tr>
+                  <td>Harmony</td>
+                  <td>Tiffany Blue, silver, and white working together as a unified brand‑inspired palette.</td>
+                </tr>
+                <tr>
+                  <td>Proportion</td>
+                  <td>Fitted bodice with a flowing skirt, flattering the body without overwhelming it.</td>
+                </tr>
+                <tr>
+                  <td>Emphasis</td>
+                  <td>Neckline or waist detail acting as the visual focal point.</td>
+                </tr>
+                <tr>
+                  <td>Unity</td>
+                  <td>Every element—color, fabric, accessories—feels like part of the same Tiffany story.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="soft-note">
+              This is how a single garment becomes a “lesson”: you can point to each part and name the principle it
+              expresses.
+            </p>
+          </div>
+        </article>
+
+        <!-- 5. FULL‑LENGTH CEREMONIAL FUSION -->
+        <article class="card section-card" id="section-fusion">
+          <div class="card-header">
+            <div>
+              <div class="card-title">
+                <span>🌸 Full‑Length Ceremonial Fusion</span>
+              </div>
+              <div class="card-title-badge">Section 5 · Synthesis</div>
+            </div>
+            <div class="card-tag">Story Weaving</div>
+          </div>
+          <div class="card-body">
+            <p>
+              All four worlds merge into a single design philosophy:
+            </p>
+            <ul>
+              <li><strong>Prom</strong> gives you the emotional setting and event expectations.</li>
+              <li><strong>Tiffany’s</strong> gives you the luxury identity and visual language.</li>
+              <li><strong>Color Theory</strong> gives you the palette logic and justification.</li>
+              <li><strong>Design Article Learning</strong> gives you technical garment analysis.</li>
+            </ul>
+
+            <p class="soft-note">
+              Together, they create a module that can function as a fashion class, a prom mood board, a Tiffany’s window,
+              and a designer’s notebook—all in one continuous scroll.
+            </p>
+
+            <div class="collapsible" data-collapsible>
+              <div class="collapsible-header">
+                <span class="label">How to Use This Sheet</span>
+                <span class="toggle-icon">＋</span>
+              </div>
+              <div class="collapsible-body">
+                <ul>
+                  <li>As a concept sheet for a prom collection.</li>
+                  <li>As a teaching panel on color theory and branding.</li>
+                  <li>As a ceremonial overlay for a fashion‑story presentation.</li>
+                  <li>As a template to analyze other “articles of design” in different themes.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div>Prom × Tiffany’s × Color Scheme Wheel × Design Article · Single‑Sheet Module</div>
+      <div class="footer-pill">
+        <span>✨</span>
+        <span>Ready to be remixed into overlays, storybooks, or editorial layouts.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Navigation: scroll to sections and highlight active button
+    const navButtons = document.querySelectorAll(".nav button");
+    const sectionMap = {
+      prom: "section-prom",
+      tiffany: "section-tiffany",
+      color: "section-color",
+      article: "section-article",
+      fusion: "section-fusion",
+    };
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetKey = btn.getAttribute("data-target");
+        const targetId = sectionMap[targetKey];
+        const section = document.getElementById(targetId);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+
+    // Collapsible blocks
+    const collapsibles = document.querySelectorAll("[data-collapsible]");
+    collapsibles.forEach((wrap) => {
+      const header = wrap.querySelector(".collapsible-header");
+      const icon = wrap.querySelector(".toggle-icon");
+      header.addEventListener("click", () => {
+        const isOpen = wrap.classList.toggle("open");
+        if (icon) icon.textContent = isOpen ? "－" : "＋";
+      });
+    });
+  </script>
+</body>
+</html>
