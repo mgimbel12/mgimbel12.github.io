@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cleft Lip & Palate Repair – Learning Steps</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0b1020;
+      color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      width: 100%;
+      background: #111827;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      display: grid;
+      grid-template-columns: 1.2fr 2fr;
+      gap: 24px;
+    }
+
+    .title-block {
+      grid-column: 1 / -1;
+      margin-bottom: 10px;
+    }
+
+    .title-block h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .title-block span {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    .title-note {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 6px;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .step-card {
+      background: #020617;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid #1f2937;
+      cursor: pointer;
+      transition: border 0.2s ease, background 0.2s ease, transform 0.15s ease;
+    }
+
+    .step-card:hover {
+      border-color: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .step-card.active {
+      border-color: #22c55e;
+      background: #022c22;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .step-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      margin-top: 2px;
+    }
+
+    .detail-panel {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid #1f2937;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .detail-heading {
+      font-size: 18px;
+      font-weight: 600;
+      color: #22c55e;
+    }
+
+    .detail-body {
+      font-size: 14px;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    .detail-list {
+      margin: 0;
+      padding-left: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .disclaimer {
+      font-size: 11px;
+      opacity: 0.7;
+      border-top: 1px solid #1f2937;
+      padding-top: 8px;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 800px) {
+      .wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="title-block">
+      <h1>Cleft Lip &amp; Palate Repair <span>learning steps</span></h1>
+      <div class="title-note">
+        This page is for general education only. It explains the usual stages of care, not how to perform surgery.
+      </div>
+    </div>
+
+    <!-- LEFT: STEP BUTTONS -->
+    <div class="steps-list">
+      <div class="step-card active" data-step="assessment">
+        <div class="step-title">1. Early assessment & feeding support</div>
+        <div class="step-tag">Newborn period</div>
+      </div>
+
+      <div class="step-card" data-step="preparation">
+        <div class="step-title">2. Preparation & tissue shaping</div>
+        <div class="step-tag">First months</div>
+      </div>
+
+      <div class="step-card" data-step="lip-surgery">
+        <div class="step-title">3. Cleft lip repair</div>
+        <div class="step-tag">Around 3–6 months</div>
+      </div>
+
+      <div class="step-card" data-step="palate-surgery">
+        <div class="step-title">4. Cleft palate repair</div>
+        <div class="step-tag">Around 9–12 months</div>
+      </div>
+
+      <div class="step-card" data-step="recovery">
+        <div class="step-title">5. Recovery & healing</div>
+        <div class="step-tag">Weeks after surgery</div>
+      </div>
+
+      <div class="step-card" data-step="long-term">
+        <div class="step-title">6. Long‑term support & follow‑up</div>
+        <div class="step-tag">Childhood & beyond</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: DETAIL PANEL -->
+    <div class="detail-panel">
+      <div class="detail-heading" id="detailHeading">
+        1. Early assessment & feeding support
+      </div>
+      <div class="detail-body" id="detailBody">
+        In the newborn period, a cleft team (doctors, nurses, feeding specialists, and others) examines the baby.
+        The focus is on:
+        <ul class="detail-list">
+          <li>Understanding the type of cleft lip and/or palate.</li>
+          <li>Making sure the baby can feed and gain weight, often with special bottles or techniques.</li>
+          <li>Checking breathing, hearing, and overall health.</li>
+        </ul>
+        Families are given education, reassurance, and a plan for the next steps.
+      </div>
+      <div class="disclaimer">
+        This is not medical advice or a surgical guide. For any real situation, always talk with a cleft team,
+        pediatrician, or surgeon.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const stepContent = {
+      assessment: {
+        title: "1. Early assessment & feeding support",
+        body: `
+          In the newborn period, a cleft team (doctors, nurses, feeding specialists, and others) examines the baby.
+          The focus is on:
+          <ul class="detail-list">
+            <li>Understanding the type and extent of the cleft lip and/or palate.</li>
+            <li>Helping the baby feed safely, often with special bottles or feeding positions.</li>
+            <li>Monitoring breathing, weight gain, and overall health.</li>
+          </ul>
+          Parents and caregivers receive information, emotional support, and a roadmap for future care.
+        `
+      },
+      preparation: {
+        title: "2. Preparation & tissue shaping",
+        body: `
+          Before surgery, the team makes sure the baby is growing well and is healthy enough for anesthesia.
+          In some cases, devices such as nasoalveolar molding (NAM) are used to gently guide tissues into a
+          better position.
+          <ul class="detail-list">
+            <li>Regular check‑ups to track growth and nutrition.</li>
+            <li>Possible use of molding devices to improve alignment of the lip, nose, and gums.</li>
+            <li>Planning the timing and type of surgery with the family.</li>
+          </ul>
+        `
+      },
+      "lip-surgery": {
+        title: "3. Cleft lip repair",
+        body: `
+          Cleft lip repair is usually done when the baby is around 3–6 months old, under general anesthesia.
+          The surgeon carefully brings the separated tissues of the upper lip together and restores the muscle
+          across the lip.
+          <ul class="detail-list">
+            <li>Goal: close the gap in the lip and improve function and appearance.</li>
+            <li>Stitches are placed so the lip can heal and form a new, continuous shape.</li>
+            <li>Families receive instructions about feeding, comfort, and caring for the incision afterward.</li>
+          </ul>
+        `
+      },
+      "palate-surgery": {
+        title: "4. Cleft palate repair",
+        body: `
+          Cleft palate repair is often done around 9–12 months of age, also under general anesthesia.
+          The surgeon rearranges and closes the tissues in the roof of the mouth so that the mouth and nose
+          are properly separated.
+          <ul class="detail-list">
+            <li>Goal: help with speech development, feeding, and normal function.</li>
+            <li>The soft tissues are brought together and sutured so they can heal as one palate.</li>
+            <li>After surgery, diet and activity are adjusted while the palate heals.</li>
+          </ul>
+        `
+      },
+      recovery: {
+        title: "5. Recovery & healing",
+        body: `
+          After each surgery, there is a healing period where the family follows the surgeon’s instructions
+          closely.
+          <ul class="detail-list">
+            <li>Pain control and comfort measures for the baby or child.</li>
+            <li>Special feeding instructions to protect the repair.</li>
+            <li>Follow‑up visits to check healing and remove any stitches if needed.</li>
+          </ul>
+          The team watches for any concerns and supports the family through questions and emotions.
+        `
+      },
+      "long-term": {
+        title: "6. Long‑term support & follow‑up",
+        body: `
+          Cleft care is a long‑term journey. As the child grows, they may need:
+          <ul class="detail-list">
+            <li>Speech therapy to support clear communication.</li>
+            <li>Dental and orthodontic care for teeth and jaw alignment.</li>
+            <li>Additional surgeries or procedures to refine function or appearance.</li>
+          </ul>
+          Emotional support, peer connections, and advocacy are also important parts of the healing story.
+        `
+      }
+    };
+
+    const cards = document.querySelectorAll(".step-card");
+    const detailHeading = document.getElementById("detailHeading");
+    const detailBody = document.getElementById("detailBody");
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        cards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+
+        const key = card.getAttribute("data-step");
+        const content = stepContent[key];
+
+        if (content) {
+          detailHeading.textContent = content.title;
+          detailBody.innerHTML = content.body;
+        }
+      });
+    });
+  </script>
+</body>
+</html>
