@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Utah Jazz It All the Way · Beat the Bulls</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --jazz-navy: #002b5c;
+      --jazz-gold: #f9a01b;
+      --jazz-green: #00471b;
+      --jazz-cream: #f5f3e8;
+      --bulls-red: #ce1141;
+      --bg-dark: #020617;
+      --text-main: #f9fafb;
+      --text-soft: #cbd5f5;
+      --card-bg: rgba(15, 23, 42, 0.96);
+      --border-soft: rgba(148, 163, 184, 0.7);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top, #0b1220 0, #020617 45%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px 14px 40px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-radius: 26px;
+      padding: 18px 18px 16px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(249, 160, 27, 0.22) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(0, 71, 27, 0.35) 0, transparent 60%),
+        linear-gradient(135deg, #020617, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 100%, rgba(15, 23, 42, 0.9) 0, transparent 55%),
+        radial-gradient(circle at 80% 100%, rgba(15, 23, 42, 0.9) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .header-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .header-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      max-width: 460px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 4px 12px;
+      font-size: 0.78rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-soft);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--jazz-gold);
+    }
+
+    .scoreboard {
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 18px;
+      padding: 12px 14px 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 480px) {
+      .scoreboard {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .score-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .team-block {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .team-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: conic-gradient(from 210deg, var(--jazz-gold), var(--jazz-green), var(--jazz-navy), var(--jazz-gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .team-name {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+    }
+
+    .score-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .score-value.jazz {
+      color: var(--jazz-gold);
+    }
+
+    .score-value.bulls {
+      color: rgba(206, 17, 65, 0.55);
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
+
+    .score-meta {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .badge-win {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.8);
+      background: rgba(22, 163, 74, 0.18);
+      font-size: 0.75rem;
+      color: #bbf7d0;
+      white-space: nowrap;
+    }
+
+    .badge-win span.icon {
+      font-size: 0.9rem;
+    }
+
+    .nav {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav button {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+      transition: 0.18s ease;
+    }
+
+    .nav button span.icon {
+      font-size: 0.9rem;
+    }
+
+    .nav button.active {
+      background: linear-gradient(135deg, var(--jazz-gold), #facc15);
+      color: #111827;
+      border-color: transparent;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+      transform: translateY(-1px);
+    }
+
+    .nav button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    main {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.3fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px 16px 14px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    .card-body {
+      font-size: 0.88rem;
+      color: var(--text-soft);
+    }
+
+    .card-body p + p {
+      margin-top: 6px;
+    }
+
+    .subheading {
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 4px;
+    }
+
+    ul li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 3px;
+    }
+
+    ul li::before {
+      content: "•";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: var(--jazz-gold);
+    }
+
+    .soft-note {
+      font-size: 0.78rem;
+      opacity: 0.9;
+      margin-top: 6px;
+    }
+
+    .quarters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .quarters-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .quarter-card {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 6px 8px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9) 0, #020617 70%);
+      font-size: 0.78rem;
+    }
+
+    .quarter-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .quarter-score {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .quarter-score span.jazz {
+      color: var(--jazz-gold);
+      font-weight: 700;
+    }
+
+    .quarter-score span.bulls {
+      color: rgba(206, 17, 65, 0.7);
+      text-decoration: line-through;
+    }
+
+    .mvp-card {
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 8px 10px;
+      margin-top: 8px;
+      background: radial-gradient(circle at 0 0, rgba(249, 160, 27, 0.18) 0, transparent 55%);
+      font-size: 0.82rem;
+    }
+
+    .mvp-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .mvp-name {
+      font-weight: 700;
+      color: var(--jazz-gold);
+    }
+
+    .collapsible {
+      border-radius: 12px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      padding: 8px 10px;
+      margin-top: 8px;
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .collapsible-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    .collapsible-header span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.72rem;
+    }
+
+    .collapsible-header span.toggle-icon {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .collapsible-body {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      display: none;
+    }
+
+    .collapsible.open .collapsible-body {
+      display: block;
+    }
+
+    .home-badge {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.8);
+      background: rgba(22, 163, 74, 0.16);
+      font-size: 0.78rem;
+      color: #bbf7d0;
+    }
+
+    .home-badge span.icon {
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 22px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      text-align: center;
+    }
+
+    .footer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="header-inner">
+        <div>
+          <div class="tagline">UTAH JAZZ · IT ALL THE WAY · BEAT THE BULLS</div>
+          <h1>Utah Jazz Beat Those Bulls</h1>
+          <p class="subtitle">
+            Utah Jazz it all the way—home crowd roaring, Bulls defeated, new story written on the scoreboard.
+          </p>
+          <div class="pill-row">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Home Court Energy
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Utah Jazz Colors
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Final Score Story
+            </div>
+            <div class="pill">
+              <span class="pill-dot"></span>
+              Victory Ceremony
+            </div>
+          </div>
+        </div>
+        <div class="scoreboard">
+          <div class="score-main">
+            <div class="team-block">
+              <div class="team-logo">JZ</div>
+              <div>
+                <div class="team-name">Utah Jazz</div>
+                <div class="score-value jazz" id="jazzScore">115</div>
+              </div>
+            </div>
+            <div class="team-block">
+              <div class="team-logo" style="background: radial-gradient(circle, var(--bulls-red), #450a0a);">
+                <span style="font-size:0.7rem;">CHI</span>
+              </div>
+              <div>
+                <div class="team-name">Chicago Bulls</div>
+                <div class="score-value bulls" id="bullsScore">101</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="score-meta">Final · 4th Quarter · Home Arena</div>
+            <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:6px;">
+              <div class="badge-win">
+                <span class="icon">🏆</span>
+                <span>Jazz Win · Beat Those Bulls</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Section navigation">
+        <button data-target="story" class="active">
+          <span class="icon">📣</span> Game Story
+        </button>
+        <button data-target="quarters">
+          <span class="icon">⏱️</span> Quarters
+        </button>
+        <button data-target="mvp">
+          <span class="icon">⭐</span> MVP & Stats
+        </button>
+        <button data-target="ceremony">
+          <span class="icon">🏟️</span> Ceremony
+        </button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="column">
+        <article class="card section-card" id="section-story">
+          <div class="card-header">
+            <div class="card-title">
+              <span>📣 Game Story · Utah Jazz vs Bulls</span>
+            </div>
+            <div class="card-tag">Narrative</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Utah Jazz it all the way—this is the night the Bulls walk into a wall of sound and color. The Jazz own the
+              pace, own the glass, and own the final minutes. Every possession feels like a choice: we’re not giving this
+              one away.
+            </p>
+            <p>
+              The Bulls bring their history and their red, but the Jazz answer with navy, green, and gold—layered over the
+              court like a shield. By the time the buzzer hits, the scoreboard says what the crowd already knows: Jazz beat
+              those Bulls.
+            </p>
+
+            <div class="subheading">Key Beats</div>
+            <ul>
+              <li>Jazz punch first with a 10–0 run to open the game.</li>
+              <li>Bulls try to claw back, but every run is answered.</li>
+              <li>Third‑quarter threes turn the arena into a storm.</li>
+              <li>Fourth‑quarter composure: free throws, defense, and no doubt.</li>
+            </ul>
+
+            <p class="soft-note">
+              “Utah Jazz it all the way beat those Bulls” becomes the headline, the chant, the memory.
+            </p>
+          </div>
+        </article>
+
+        <article class="card section-card" id="section-quarters">
+          <div class="card-header">
+            <div class="card-title">
+              <span>⏱️ Quarter‑by‑Quarter Breakdown</span>
+            </div>
+            <div class="card-tag">Score Flow</div>
+          </div>
+          <div class="card-body">
+            <p>
+              The win builds over four quarters—each one a different chapter in the same story.
+            </p>
+
+            <div class="quarters-grid">
+              <div class="quarter-card">
+                <div class="quarter-label">Q1 · Statement</div>
+                <div class="quarter-score">
+                  <span class="jazz">JAZZ 30</span>
+                  <span class="bulls">BULLS 22</span>
+                </div>
+                <p class="soft-note">Jazz set the tone early with pace and pressure.</p>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Q2 · Response</div>
+                <div class="quarter-score">
+                  <span class="jazz">JAZZ 27</span>
+                  <span class="bulls">BULLS 26</span>
+                </div>
+                <p class="soft-note">Bulls push, but Jazz keep the edge at half.</p>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Q3 · Surge</div>
+                <div class="quarter-score">
+                  <span class="jazz">JAZZ 31</span>
+                  <span class="bulls">BULLS 25</span>
+                </div>
+                <p class="soft-note">Threes fall, crowd erupts, lead stretches.</p>
+              </div>
+              <div class="quarter-card">
+                <div class="quarter-label">Q4 · Closeout</div>
+                <div class="quarter-score">
+                  <span class="jazz">JAZZ 27</span>
+                  <span class="bulls">BULLS 28</span>
+                </div>
+                <p class="soft-note">Bulls score, but never threaten the outcome—Jazz stay in control.</p>
+              </div>
+            </div>
+
+            <div class="collapsible" data-collapsible>
+              <div class="collapsible-header">
+                <span class="label">Rhythm of the Game</span>
+                <span class="toggle-icon">＋</span>
+              </div>
+              <div class="collapsible-body">
+                <p>
+                  Quarter‑tracking turns the final score into a rhythm map. You can see where the Jazz stepped on the gas,
+                  where the Bulls tried to answer, and where the game was never really in doubt.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="column">
+        <article class="card section-card" id="section-mvp">
+          <div class="card-header">
+            <div class="card-title">
+              <span>⭐ MVP & Stat Line</span>
+            </div>
+            <div class="card-tag">Impact</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Every “beat those Bulls” night has a player who carries the headline. This layout is ready for any real Jazz
+              name you want to drop in.
+            </p>
+
+            <div class="mvp-card">
+              <div class="mvp-label">MVP · Utah Jazz It All the Way</div>
+              <div class="mvp-name" id="mvpName">Jazz Star · #00</div>
+              <p style="margin-top:4px;">
+                32 PTS · 8 AST · 6 REB · 2 STL  
+                <br />Hit the dagger three, controlled the tempo, and never let the Bulls breathe.
+              </p>
+            </div>
+
+            <div class="subheading">Supporting Cast</div>
+            <ul>
+              <li>Big man: 18 PTS · 12 REB · rim protection and put‑backs.</li>
+              <li>Wing: 16 PTS · 4 3PM · spacing the floor.</li>
+              <li>Bench unit: energy, defense, and a +12 in the third.</li>
+            </ul>
+
+            <p class="soft-note">
+              Swap in real stats, jersey numbers, and names—this card is your reusable victory template.
+            </p>
+          </div>
+        </article>
+
+        <article class="card section-card" id="section-ceremony">
+          <div class="card-header">
+            <div class="card-title">
+              <span>🏟️ Victory Ceremony · “Beat Those Bulls”</span>
+            </div>
+            <div class="card-tag">Home Court Protected</div>
+          </div>
+          <div class="card-body">
+            <p>
+              After the buzzer, the game becomes ritual. Lights dim, music hits, and the scoreboard glows: JAZZ WIN. The
+              phrase “Utah Jazz it all the way beat those Bulls” becomes the chant echoing off the rafters.
+            </p>
+
+            <div class="subheading">Ceremonial Elements</div>
+            <ul>
+              <li>Jumbotron headline: “UTAH JAZZ IT ALL THE WAY.”</li>
+              <li>Subline: “Beat Those Bulls · Final: 115–101.”</li>
+              <li>Fans holding up navy, green, and gold like a living flag.</li>
+              <li>Players tapping the center‑court logo before walking off.</li>
+            </ul>
+
+            <div class="home-badge">
+              <span class="icon">🏠</span>
+              <span>Home Court Protected · This House Beats Those Bulls</span>
+            </div>
+
+            <div class="collapsible" data-collapsible>
+              <div class="collapsible-header">
+                <span class="label">Design Use</span>
+                <span class="toggle-icon">＋</span>
+              </div>
+              <div class="collapsible-body">
+                <ul>
+                  <li>Turn this into a digital poster or social graphic.</li>
+                  <li>Use the layout as a scoreboard overlay template.</li>
+                  <li>Swap teams and scores for future Jazz wins.</li>
+                  <li>Fold this into a larger Utah Jazz storybook or sanctuary page.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div>Utah Jazz It All the Way · Beat Those Bulls · Victory Sheet</div>
+      <div class="footer-pill">
+        <span>🎷</span>
+        <span>Ready for every future Utah Jazz win you want to archive.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const navButtons = document.querySelectorAll(".nav button");
+    const sectionMap = {
+      story: "section-story",
+      quarters: "section-quarters",
+      mvp: "section-mvp",
+      ceremony: "section-ceremony",
+    };
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetKey = btn.getAttribute("data-target");
+        const targetId = sectionMap[targetKey];
+        const section = document.getElementById(targetId);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+
+    const collapsibles = document.querySelectorAll("[data-collapsible]");
+    collapsibles.forEach((wrap) => {
+      const header = wrap.querySelector(".collapsible-header");
+      const icon = wrap.querySelector(".toggle-icon");
+      header.addEventListener("click", () => {
+        const isOpen = wrap.classList.toggle("open");
+        if (icon) icon.textContent = isOpen ? "－" : "＋";
+      });
+    });
+  </script>
+</body>
+</html>
