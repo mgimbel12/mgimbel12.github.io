@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Design on a Dime – 2026 Studio</title>
+  <style>
+    :root {
+      --bg: #050816;
+      --accent: #ffb347;
+      --accent-soft: #ffd9a0;
+      --card: #111827;
+      --text-main: #f9fafb;
+      --text-soft: #9ca3af;
+      --pill: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1f2937 0, #050816 55%, #020617 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(15,23,42,0.9));
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.35);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.65);
+      padding: 24px 24px 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 20px;
+      backdrop-filter: blur(18px);
+    }
+
+    @media (max-width: 840px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .title-block h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+    }
+
+    .title-block p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .year-pill {
+      background: var(--pill);
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-soft);
+      border: 1px solid rgba(249,250,251,0.08);
+    }
+
+    .year-pill span.icon {
+      font-size: 1rem;
+    }
+
+    .sky-panel {
+      background: radial-gradient(circle at top, #0f172a 0, #020617 70%);
+      border-radius: 18px;
+      padding: 16px 16px 18px;
+      border: 1px solid rgba(148,163,184,0.4);
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .sky-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .sky-header h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+    }
+
+    .sky-mood-label {
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+    }
+
+    .sky-toggle-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sky-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-soft);
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .sky-btn span.icon {
+      font-size: 1rem;
+    }
+
+    .sky-btn.active {
+      background: linear-gradient(135deg, #f97316, #facc15);
+      color: #111827;
+      border-color: transparent;
+      box-shadow: 0 0 18px rgba(250,204,21,0.6);
+    }
+
+    .sky-scene {
+      margin-top: 10px;
+      height: 120px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top, #020617 0, #020617 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sky-object {
+      position: absolute;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+    }
+
+    .sky-object.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .moon {
+      top: 18px;
+      left: 24px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f9fafb 0, #e5e7eb 40%, #9ca3af 100%);
+      box-shadow: 0 0 30px rgba(248,250,252,0.7);
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      right: -10px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #020617;
+    }
+
+    .sun {
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fef9c3 0, #facc15 40%, #f97316 100%);
+      box-shadow: 0 0 40px rgba(251,191,36,0.9);
+    }
+
+    .clouds {
+      bottom: 10px;
+      left: 18px;
+      right: 18px;
+      height: 60px;
+    }
+
+    .cloud {
+      position: absolute;
+      bottom: 0;
+      width: 80px;
+      height: 40px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      box-shadow: 0 0 18px rgba(148,163,184,0.7);
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      background: #e5e7eb;
+      border-radius: 999px;
+    }
+
+    .cloud::before {
+      width: 50px;
+      height: 50px;
+      left: -10px;
+      top: -20px;
+    }
+
+    .cloud::after {
+      width: 60px;
+      height: 60px;
+      right: -10px;
+      top: -26px;
+    }
+
+    .cloud:nth-child(1) { left: 10px; }
+    .cloud:nth-child(2) { left: 110px; }
+    .cloud:nth-child(3) { right: 40px; }
+
+    .rain-drop {
+      position: absolute;
+      width: 3px;
+      height: 14px;
+      background: linear-gradient(to bottom, #93c5fd, #1d4ed8);
+      border-radius: 999px;
+      opacity: 0.8;
+      animation: fall 0.9s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 0.9; }
+      100% { transform: translateY(26px); opacity: 0; }
+    }
+
+    .fashion-panel {
+      background: rgba(15,23,42,0.96);
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 16px 16px 18px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .fashion-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .fashion-visual {
+      border-radius: 14px;
+      background: radial-gradient(circle at top, #4b5563 0, #020617 70%);
+      position: relative;
+      overflow: hidden;
+      min-height: 170px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .dress-silhouette {
+      width: 90px;
+      height: 150px;
+      border-radius: 999px 999px 40px 40px;
+      background: linear-gradient(160deg, #f97316, #fb7185);
+      position: relative;
+      box-shadow: 0 18px 40px rgba(248,113,113,0.7);
+    }
+
+    .dress-silhouette::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fecaca 0, #fb7185 60%, #9f1239 100%);
+      box-shadow: 0 10px 20px rgba(248,113,113,0.8);
+    }
+
+    .dress-silhouette::after {
+      content: "";
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.7) 0, transparent 70%);
+      opacity: 0.9;
+    }
+
+    .price-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(15,23,42,0.9);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(248,250,252,0.2);
+      color: var(--accent-soft);
+    }
+
+    .price-tag span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .fashion-copy h2 {
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 6px;
+    }
+
+    .fashion-copy h3 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .fashion-copy p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--text-soft);
+    }
+
+    .learn-pill {
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+    }
+
+    .learn-pill strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .video-card,
+    .learning-card {
+      background: rgba(15,23,42,0.96);
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 12px 12px 14px;
+    }
+
+    .video-card h2,
+    .learning-card h2 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .video-frame {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020617;
+      margin-bottom: 8px;
+    }
+
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .video-input-row input {
+      flex: 1;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: #020617;
+      color: var(--text-main);
+      font-size: 0.8rem;
+    }
+
+    .video-input-row button {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #022c22;
+      font-weight: 600;
+    }
+
+    .learning-card p {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .fix-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      display: grid;
+      gap: 4px;
+    }
+
+    .fix-list li::before {
+      content: "•";
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    .today-focus {
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+    }
+
+    .today-focus strong {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div>
+      <div class="header-row">
+        <div class="title-block">
+          <h1>Moonlit Studio – Design on a Dime</h1>
+          <p>HTML • CSS • JavaScript • Creative repair lab for dresses, skies, and small fixes.</p>
+        </div>
+        <div class="year-pill">
+          <span class="icon">🛠️</span>
+          <span>Learning in 2026</span>
+        </div>
+      </div>
+
+      <div class="sky-panel">
+        <div class="sky-header">
+          <h2>Sky mood</h2>
+          <div class="sky-mood-label" id="skyLabel">Moon phase</div>
+        </div>
+        <div class="sky-toggle-row">
+          <button class="sky-btn active" data-sky="moon">
+            <span class="icon">🌙</span> Moon phase
+          </button>
+          <button class="sky-btn" data-sky="sun">
+            <span class="icon">☀️</span> Sunshine
+          </button>
+          <button class="sky-btn" data-sky="rain">
+            <span class="icon">🌧️</span> Raining clouds
+          </button>
+        </div>
+        <div class="sky-scene">
+          <div class="sky-object moon visible" id="moonObj"></div>
+          <div class="sky-object sun" id="sunObj"></div>
+          <div class="sky-object clouds" id="cloudObj">
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+            <div class="cloud"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fashion-panel">
+        <div class="fashion-visual">
+          <div class="dress-silhouette"></div>
+          <div class="price-tag">
+            Design on a dime: <span>$39</span>
+          </div>
+        </div>
+        <div class="fashion-copy">
+          <h2>Creative artwork</h2>
+          <h3>Sunset Stitch Dress</h3>
+          <p>
+            A model-ready look built from simple shapes and smart color—proof that you can “fix” a wardrobe
+            with creativity, not just cash.
+          </p>
+          <div class="tag-row">
+            <span class="tag">HTML silhouette</span>
+            <span class="tag">CSS gradients</span>
+            <span class="tag">Budget-friendly style</span>
+          </div>
+          <div class="learn-pill">
+            Today’s tiny lesson: <strong>you can prototype fashion and art in code before you ever buy fabric.</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="video-card">
+        <h2>YouTube swap slot</h2>
+        <div class="video-frame">
+          <!-- Replace the src with any YouTube embed link you like -->
+          <iframe
+            id="videoFrame"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="YouTube video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <small style="font-size:0.75rem; color:#9ca3af;">
+          Paste a YouTube <strong>embed</strong> URL (the one that starts with <code>https://www.youtube.com/embed/...</code>)
+        </small>
+        <div class="video-input-row">
+          <input id="videoInput" type="text" placeholder="https://www.youtube.com/embed/yourVideoId" />
+          <button id="videoBtn">Swap</button>
+        </div>
+      </div>
+
+      <div class="learning-card">
+        <h2>Learning how to fix things</h2>
+        <p>
+          2026 is the year of small repairs: code, clothes, confidence. One tiny fix at a time.
+        </p>
+        <ul class="fix-list">
+          <li><strong>HTML:</strong> Fix structure so everything has a place.</li>
+          <li><strong>CSS:</strong> Fix mood with color, spacing, and shape.</li>
+          <li><strong>JavaScript:</strong> Fix interaction—make buttons, toggles, and swaps.</li>
+        </ul>
+        <div class="today-focus">
+          Today I’m focusing on: <strong>changing the sky and swapping a video with one line of code.</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sky mood toggles
+    const skyButtons = document.querySelectorAll(".sky-btn");
+    const skyLabel = document.getElementById("skyLabel");
+    const moonObj = document.getElementById("moonObj");
+    const sunObj = document.getElementById("sunObj");
+    const cloudObj = document.getElementById("cloudObj");
+
+    function setSky(mode) {
+      skyButtons.forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.sky === mode);
+      });
+
+      moonObj.classList.toggle("visible", mode === "moon");
+      sunObj.classList.toggle("visible", mode === "sun");
+      cloudObj.classList.toggle("visible", mode === "rain");
+
+      if (mode === "moon") skyLabel.textContent = "Moon phase";
+      if (mode === "sun") skyLabel.textContent = "Sunshine";
+      if (mode === "rain") skyLabel.textContent = "Raining clouds";
+    }
+
+    skyButtons.forEach(btn => {
+      btn.addEventListener("click", () => setSky(btn.dataset.sky));
+    });
+
+    // Simple rain drops generator when rain is active
+    function createRain() {
+      const existing = cloudObj.querySelectorAll(".rain-drop");
+      existing.forEach(d => d.remove());
+
+      for (let i = 0; i < 18; i++) {
+        const drop = document.createElement("div");
+        drop.className = "rain-drop";
+        drop.style.left = (10 + Math.random() * 220) + "px";
+        drop.style.bottom = (20 + Math.random() * 20) + "px";
+        drop.style.animationDelay = (Math.random() * 0.8) + "s";
+        cloudObj.appendChild(drop);
+      }
+    }
+
+    // Regenerate rain when switching to rain
+    skyButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (btn.dataset.sky === "rain") {
+          createRain();
+        }
+      });
+    });
+
+    // Initial rain (hidden until rain mode is chosen)
+    createRain();
+
+    // YouTube swap
+    const videoInput = document.getElementById("videoInput");
+    const videoBtn = document.getElementById("videoBtn");
+    const videoFrame = document.getElementById("videoFrame");
+
+    videoBtn.addEventListener("click", () => {
+      const url = videoInput.value.trim();
+      if (!url) return;
+      // Very light validation: only allow embed URLs
+      if (!url.includes("youtube.com/embed/")) {
+        alert("Please use a YouTube embed URL (Format: https://www.youtube.com/embed/VIDEO_ID)");
+        return;
+      }
+      videoFrame.src = url;
+0    });
+  </script>
+</body>
+</html>
