@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Afterworlds – Storyteller</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-soft: #0c1018;
+      --accent: #f44336;
+      --accent-soft: #ff7961;
+      --accent-2: #4fc3f7;
+      --accent-3: #ffd54f;
+      --text-main: #f5f5f5;
+      --text-soft: #cfd8dc;
+      --border-soft: #263238;
+      --card-bg: #111722;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.28s ease-out;
+      --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: radial-gradient(circle at top, #1b2838 0, #05060a 55%, #020308 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 24px;
+    }
+
+    .frame {
+      width: 100%;
+      max-width: 1200px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      overflow: hidden;
+      position: relative;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 12px;
+      }
+      .frame {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left side – story + navigation */
+
+    .left {
+      padding: 24px 26px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .left {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+    }
+
+    .smallville-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(244, 67, 54, 0.12);
+      color: var(--accent-soft);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(244, 67, 54, 0.4);
+      align-self: flex-start;
+    }
+
+    .smallville-tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      box-shadow: 0 0 8px rgba(244, 67, 54, 0.9);
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .title-block h1 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: baseline;
+    }
+
+    .title-main {
+      font-weight: 700;
+    }
+
+    .title-sub {
+      font-weight: 400;
+      opacity: 0.85;
+    }
+
+    .title-block p {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-soft);
+      background: rgba(0, 0, 0, 0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-2);
+    }
+
+    .chip-dot.gold {
+      background: var(--accent-3);
+    }
+
+    .chip-dot.red {
+      background: var(--accent-soft);
+    }
+
+    /* Tabs */
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      border-radius: var(--radius-pill);
+      padding: 3px;
+      background: rgba(3, 8, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      align-self: flex-start;
+    }
+
+    .tab {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: none;
+      background: transparent;
+      color: var(--text-soft);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .tab span.icon {
+      font-size: 13px;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .tab:not(.active):hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Story content */
+
+    .story-panel {
+      margin-top: 10px;
+      padding: 14px 14px 16px;
+      border-radius: var(--radius-lg);
+      background: radial-gradient(circle at top left, rgba(79, 195, 247, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(244, 67, 54, 0.18), transparent 55%),
+                  rgba(3, 8, 15, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (max-width: 900px) {
+      .story-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .story-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-soft);
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .story-text h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .story-text p + p {
+      margin-top: 8px;
+    }
+
+    .story-text::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .story-text::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .story-text::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+    }
+
+    .story-side {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .story-tagline {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .story-quote {
+      font-size: 12px;
+      color: var(--text-soft);
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
+      padding-left: 10px;
+      line-height: 1.5;
+    }
+
+    .story-quote span {
+      color: #fff;
+    }
+
+    .story-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--text-main);
+      font-size: 11px;
+      padding: 6px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      border-color: rgba(244, 67, 54, 0.7);
+      box-shadow: 0 10px 24px rgba(244, 67, 54, 0.45);
+    }
+
+    .btn.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 32px rgba(244, 67, 54, 0.6);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-1px);
+    }
+
+    .btn span.icon {
+      font-size: 13px;
+    }
+
+    .story-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .story-meta span {
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Vision items */
+
+    .vision-strip {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .vision-pill {
+      flex: 1;
+      min-width: 140px;
+      max-width: 220px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(3, 8, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .vision-pill:hover {
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .vision-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.2), transparent 60%);
+    }
+
+    .vision-icon.red {
+      background-color: rgba(244, 67, 54, 0.2);
+    }
+
+    .vision-icon.blue {
+      background-color: rgba(79, 195, 247, 0.2);
+    }
+
+    .vision-icon.gold {
+      background-color: rgba(255, 213, 79, 0.2);
+    }
+
+    .vision-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .vision-label span.title {
+      color: #fff;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .vision-label span.sub {
+      font-size: 10px;
+      opacity: 0.75;
+    }
+
+    /* Right side – map / timeline / meters */
+
+    .right {
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: radial-gradient(circle at top right, rgba(255, 213, 79, 0.18), transparent 55%),
+                  radial-gradient(circle at bottom left, rgba(79, 195, 247, 0.18), transparent 55%),
+                  rgba(2, 6, 12, 0.96);
+      position: relative;
+    }
+
+    .right-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .right-header-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .journey-tag {
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .journey-tag span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-3);
+      box-shadow: 0 0 8px rgba(255, 213, 79, 0.9);
+    }
+
+    .timeline {
+      margin-top: 4px;
+      padding: 10px 10px 12px;
+      border-radius: var(--radius-lg);
+      background: rgba(3, 8, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr);
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .timeline-marker {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.9);
+      position: relative;
+    }
+
+    .timeline-marker::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 2px;
+      height: 22px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), transparent);
+    }
+
+    .timeline-row:last-child .timeline-marker::after {
+      display: none;
+    }
+
+    .timeline-content {
+      font-size: 11px;
+      color: var(--text-soft);
+      line-height: 1.5;
+    }
+
+    .timeline-content span.label {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2px;
+    }
+
+    .timeline-content strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Meters */
+
+    .meters {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 900px) {
+      .meters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .meter-card {
+      padding: 8px 9px;
+      border-radius: var(--radius-md);
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 10px;
+      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meter-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meter-label span.name {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 9px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .meter-label span.value {
+      font-size: 10px;
+      color: #fff;
+    }
+
+    .meter-bar {
+      width: 100%;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .meter-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent-3));
+      width: 0%;
+      transition: width 0.5s ease-out;
+    }
+
+    .meter-note {
+      font-size: 9px;
+      opacity: 0.7;
+    }
+
+    /* Shopping list */
+
+    .shopping-card {
+      margin-top: 4px;
+      padding: 10px 10px 10px;
+      border-radius: var(--radius-lg);
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .shopping-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    .shopping-header span.title {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .shopping-items {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      font-size: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .shopping-items {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .shopping-item {
+      padding: 6px 7px;
+      border-radius: 10px;
+      background: rgba(3, 8, 15, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+    }
+
+    .shopping-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.18);
+    }
+
+    .shopping-item span.name {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #fff;
+    }
+
+    .shopping-item span.meta {
+      font-size: 9px;
+      opacity: 0.75;
+    }
+
+    /* Storyteller footer */
+
+    .storyteller-footer {
+      margin-top: auto;
+      padding-top: 6px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .storyteller-footer span.name {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 9px;
+    }
+
+    .storyteller-footer button {
+      font-size: 10px;
+      padding: 4px 9px;
+    }
+
+    /* Modal */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 520px;
+      max-height: 80vh;
+      background: radial-gradient(circle at top, rgba(79, 195, 247, 0.18), transparent 55%),
+                  rgba(3, 8, 15, 0.98);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .modal-close {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .modal-body {
+      font-size: 12px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .modal-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+    }
+
+    .modal-body h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .modal-body p + p {
+      margin-top: 8px;
+    }
+
+    .modal-footer {
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .modal-footer span {
+      opacity: 0.8;
+    }
+
+    .modal-footer button {
+      font-size: 10px;
+      padding: 4px 9px;
+    }
+
+    /* Small helper */
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <!-- LEFT SIDE -->
+    <div class="left">
+      <div class="smallville-tag">
+        <span class="dot"></span>
+        SMALLVILLE AFTERWORLDS • STORYTELLER
+      </div>
+
+      <div class="title-block">
+        <h1>
+          <span class="title-main">Journey Over</span>
+          <span class="title-sub">After &amp; After</span>
+        </h1>
+        <p>
+          A narrative art concept set in a shifted Smallville—where shops sell visions, the swimming hole shows
+          aftermath, and your shopping list is made of courage, boundaries, and hope. Every interaction tells you
+          something important about life circumstances.
+        </p>
+        <div class="chips-row">
+          <div class="chip">
+            <span class="chip-dot red"></span> SWIMMING &amp; SHOPPING
+          </div>
+          <div class="chip">
+            <span class="chip-dot"></span> LIFE CIRCUMSTANCES
+          </div>
+          <div class="chip">
+            <span class="chip-dot gold"></span> SMALLVILLE VERSE
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="setting">
+          <span class="icon">🏡</span>
+          Setting
+        </button>
+        <button class="tab" data-tab="shops">
+          <span class="icon">🛍️</span>
+          Shops
+        </button>
+        <button class="tab" data-tab="swim">
+          <span class="icon">🌊</span>
+          Swimming
+        </button>
+        <button class="tab" data-tab="key">
+          <span class="icon">🔑</span>
+          Key
+        </button>
+      </div>
+
+      <!-- STORY PANEL -->
+      <div class="story-panel">
+        <div class="story-text" id="story-text">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="story-side">
+          <div class="story-tagline">Vision overlay</div>
+          <div class="story-quote" id="story-quote">
+            <!-- Filled by JS -->
+          </div>
+          <div class="story-actions">
+            <button class="btn primary" id="btn-expand">
+              <span class="icon">📖</span>
+              Expand this scene
+            </button>
+            <button class="btn secondary" id="btn-random-lesson">
+              <span class="icon">✨</span>
+              Random life lesson
+            </button>
+          </div>
+          <div class="story-meta">
+            <span id="meta-location">Location: Smallville (Afterworld)</span>
+            <span id="meta-phase">Phase: Journey Over</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISION STRIP -->
+      <div class="vision-strip">
+        <button class="vision-pill" data-vision="red-jacket">
+          <div class="vision-icon red">🧥</div>
+          <div class="vision-label">
+            <span class="title">Red Jacket</span>
+            <span class="sub">Moments you survived</span>
+          </div>
+        </button>
+
+        <button class="vision-pill" data-vision="lantern-market">
+          <div class="vision-icon gold">🏮</div>
+          <div class="vision-label">
+            <span class="title">Lantern Market</span>
+            <span class="sub">Fear turned into light</span>
+          </div>
+        </button>
+
+        <button class="vision-pill" data-vision="mirror-boutique">
+          <div class="vision-icon blue">🪞</div>
+          <div class="vision-label">
+            <span class="title">Mirror Boutique</span>
+            <span class="sub">Timelines of you</span>
+          </div>
+        </button>
+      </div>
+
+      <div class="storyteller-footer">
+        <div>
+          <span class="name">Storyteller:</span>
+          <span>Smallville Afterworlds • Life Circumstance Edition</span>
+        </div>
+        <button class="btn secondary" id="btn-reset">
+          Reset journey
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+      <div class="right-header">
+        <div class="right-header-title">Journey map • Over / After / After</div>
+        <div class="journey-tag">
+          <span class="dot"></span>
+          LIVE: Meaning scan
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-row">
+          <div class="timeline-marker">1</div>
+          <div class="timeline-content">
+            <span class="label">Journey over</span>
+            You reach the end of a chapter you thought would last forever. The credits roll, but your heart
+            doesn’t feel finished. <strong>Smallville shifts</strong>—barn doors open into memories, and the
+            main street glows like a question.
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-marker">2</div>
+          <div class="timeline-content">
+            <span class="label">After</span>
+            You wander the shops of circumstance. You don’t buy clothes or gadgets—you collect
+            <strong>visions</strong>: red jackets stitched with survival, lanterns that brighten when you name
+            your fear, mirrors that show who you could have been.
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-marker">3</div>
+          <div class="timeline-content">
+            <span class="label">After the after</span>
+            At the swimming hole, the water pulls you under gently. It shows you what you carried too long and
+            what you’re finally ready to release. When you surface, you’re not the same—but you’re more
+            yourself.
+          </div>
+        </div>
+
+        <div class="timeline-row">
+          <div class="timeline-marker">4</div>
+          <div class="timeline-content">
+            <span class="label">Return</span>
+            In the barn, you find a single key. Not to a door—to a chapter. The tag reads:
+            <strong>“The journey is over. Now the real journey begins.”</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- METERS -->
+      <div class="meters">
+        <div class="meter-card">
+          <div class="meter-label">
+            <span class="name">Courage</span>
+            <span class="value" id="meter-courage-label">0%</span>
+          </div>
+          <div class="meter-bar">
+            <div class="meter-fill" id="meter-courage"></div>
+          </div>
+          <div class="meter-note">Rises when you face the swimming hole and the lantern market.</div>
+        </div>
+
+        <div class="meter-card">
+          <div class="meter-label">
+            <span class="name">Boundaries</span>
+            <span class="value" id="meter-boundaries-label">0%</span>
+          </div>
+          <div class="meter-bar">
+            <div class="meter-fill" id="meter-boundaries"></div>
+          </div>
+          <div class="meter-note">Strengthens when you choose what not to carry anymore.</div>
+        </div>
+
+        <div class="meter-card">
+          <div class="meter-label">
+            <span class="name">Hope</span>
+            <span class="value" id="meter-hope-label">0%</span>
+          </div>
+          <div class="meter-bar">
+            <div class="meter-fill" id="meter-hope"></div>
+          </div>
+          <div class="meter-note">Grows in the “after-after” when you realize survival has a purpose.</div>
+        </div>
+      </div>
+
+      <!-- SHOPPING LIST -->
+      <div class="shopping-card">
+        <div class="shopping-header">
+          <span class="title">Shopping list • Life circumstances</span>
+          <span>Pick what you need for the next chapter, not the last one.</span>
+        </div>
+        <div class="shopping-items">
+          <button class="shopping-item" data-item="courage">
+            <span class="name">Courage</span>
+            <span class="meta">2 lbs • For walking back into your own life.</span>
+          </button>
+          <button class="shopping-item" data-item="patience">
+            <span class="name">Patience</span>
+            <span class="meta">1 jar • Healing doesn’t follow a schedule.</span>
+          </button>
+          <button class="shopping-item" data-item="boundaries">
+            <span class="name">Boundaries</span>
+            <span class="meta">Price varies • Worth every cost.</span>
+          </button>
+          <button class="shopping-item" data-item="hope">
+            <span class="name">Hope</span>
+            <span class="meta">Seasonal • Returns when you least expect it.</span>
+          </button>
+          <button class="shopping-item" data-item="self-respect">
+            <span class="name">Self-respect</span>
+            <span class="meta">Always in stock • Non-refundable.</span>
+          </button>
+          <button class="shopping-item" data-item="letting-go">
+            <span class="name">Letting go</span>
+            <span class="meta">BOGO • Release one, free another.</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Expanded scene</div>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Filled by JS -->
+      </div>
+      <div class="modal-footer">
+        <span id="modal-footer-note">Smallville Afterworlds • Life circumstance storyteller</span>
+        <button class="btn secondary" id="modal-next">
+          Next insight
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- DATA ---
+
+    const tabs = {
+      setting: {
+        title: "The shifted Smallville",
+        text: `
+In this version of Smallville, the meteor shower is long past. The town only appears when a chapter of your life has ended so loudly that the silence afterward feels unreal.
+
+Barn doors open into memories instead of hay. Cornfields shimmer like water, rows of gold bending like waves when you walk past. The main street is familiar but not—every storefront sign is written in the language of your circumstances.
+
+You arrive here when you say, “It’s over,” but your heart quietly answers, “Is it?” Smallville Afterworlds is the space between those two sentences.
+
+Nothing here is for sale in the usual way. You don’t pay with money. You pay with honesty, with the courage to admit what hurt, what you lost, and what you’re still carrying.
+
+This is the town that exists in the pause between who you were and who you’re about to become.
+        `,
+        quote: `“Life doesn’t end at the end. There is always an after—and after the after, there is understanding.”`,
+        metaLocation: "Location: Smallville (Between chapters)",
+        metaPhase: "Phase: Arrival"
+      },
+      shops: {
+        title: "The shops of circumstance",
+        text: `
+You step onto Main Street, where every shop is a metaphor disguised as a storefront.
+
+At the Red Jacket Shop, the walls are lined with jackets stitched from moments you survived. Some are frayed at the cuffs, some still smell like hospital rooms, courtrooms, or long car rides home. You don’t buy them—you earn them by telling the truth about what happened and how you stayed.
+
+At the Lantern Market, rows of lanterns hang from the ceiling, each one dim until you name a fear out loud. The more specific you are, the brighter they burn. The shopkeeper smiles and says, “Fear is just a place you haven’t walked through yet.”
+
+At the Mirror Boutique, nothing reflects your face. Instead, each mirror shows a different version of you: the one who stayed, the one who left, the one who fought, the one who forgave. You don’t choose who you should have been. You choose who you want to learn from now.
+
+These shops don’t change your past. They change your relationship to it.
+        `,
+        quote: `“Every shop on this street sells a different way to see the same life.”`,
+        metaLocation: "Location: Main Street • Shops of Circumstance",
+        metaPhase: "Phase: Inventory"
+      },
+      swim: {
+        title: "The swimming hole of aftermath",
+        text: `
+Beyond the last house on the edge of town, the land dips into a quiet hollow. There, the swimming hole waits—still, dark, and honest.
+
+The water is warm, but it pulls you under gently, not to drown you, but to show you what you’ve been carrying. Images drift past: promises you kept alone, apologies you never received, versions of yourself you abandoned to survive.
+
+You see what you lost that mattered, and what you kept that didn’t. You see the weight of expectations that were never yours to hold.
+
+When you surface, the town looks different. Not because it changed, but because you did. You’re not healed in an instant—but you are ready. Ready to swim back into your own life, not as a ghost of the old chapter, but as the author of the next one.
+
+Swimming here is not about escape. It’s about re-entry.
+        `,
+        quote: `“The water doesn’t erase you. It returns you to yourself, minus what was never yours.”`,
+        metaLocation: "Location: Swimming Hole of Aftermath",
+        metaPhase: "Phase: Release"
+      },
+      key: {
+        title: "The barn of return & the key",
+        text: `
+At the end of the road, the barn waits—the symbolic heart of Smallville. You’ve walked the shops, faced the water, and carried your new understanding back with you.
+
+Inside, the barn is almost empty. Dust floats in the light that slips through the wooden slats. In the center of the floor, on a small workbench, lies a single key.
+
+It doesn’t belong to a door, a car, or a house. It belongs to a chapter.
+
+A tag hangs from it, handwritten in a script that looks suspiciously like your own: “The journey is over. Now the real journey begins.”
+
+You realize the key doesn’t lock anything behind you. It unlocks your right to move forward without apologizing for surviving.
+
+You pick it up, and Smallville Afterworlds begins to fade—not because it’s gone, but because it has done its job. You can always return when another chapter ends. But for now, you step back into your life with a new understanding:
+
+You are not just the person things happened to. You are the person who decided what they meant.
+        `,
+        quote: `“Closure isn’t a door slamming shut. It’s a key you choose to carry into what’s next.”`,
+        metaLocation: "Location: Barn of Return",
+        metaPhase: "Phase: After & After"
+      }
+    };
+
+    const visionDetails = {
+      "red-jacket": {
+        title: "Red Jacket Shop • Survival stitched into fabric",
+        body: `
+The Red Jacket Shop is where your survival becomes visible.
+
+Each jacket on the rack is made from a moment you lived through: the night you didn’t give up, the day you walked away, the morning you got out of bed when everything in you said, “Don’t.”
+
+You don’t get a jacket by pretending you’re fine. You earn it by telling the truth: “This hurt. This changed me. I’m still here.”
+
+The lesson: Your survival is not an accident. It’s a garment you’re allowed to wear proudly.
+        `
+      },
+      "lantern-market": {
+        title: "Lantern Market • Fear turned into light",
+        body: `
+At the Lantern Market, fear is not a flaw. It’s fuel.
+
+Each lantern is dim until you name a fear out loud: “I’m afraid I’ll always be misunderstood.” “I’m afraid I’ll lose everything again.” “I’m afraid I don’t deserve better.”
+
+With every honest sentence, the lantern brightens. Not because the fear disappears, but because it’s no longer hiding in the dark.
+
+The lesson: What you name, you can navigate. Light doesn’t erase the path—it just lets you see where you’re walking.
+        `
+      },
+      "mirror-boutique": {
+        title: "Mirror Boutique • Timelines of you",
+        body: `
+The Mirror Boutique doesn’t show you what you look like. It shows you who you could have been.
+
+One mirror holds the version of you who stayed. Another, the one who left sooner. Another, the one who never spoke up. Another, the one who did.
+
+You’re not here to punish yourself with “what ifs.” You’re here to recognize that every version of you was trying to survive with the information they had.
+
+The lesson: You don’t have to hate the versions of you that didn’t know better. You can thank them for getting you here—and choose differently now.
+        `
+      }
+    };
+
+    const randomLessons = [
+      "You are allowed to outgrow the version of you that kept everyone else comfortable.",
+      "Not every ending is a failure. Some endings are a form of rescue.",
+      "You don’t have to prove how much it hurt for it to matter.",
+      "Healing is not about erasing the story. It’s about changing the way you tell it to yourself.",
+      "You are not behind. You are exactly where your survival brought you.",
+      "Letting go is not betrayal. It’s choosing not to live inside a moment that already ended."
+    ];
+
+    const shoppingInsights = {
+      courage: "Courage is not the absence of fear. It’s the decision to move while fear walks beside you.",
+      patience: "Patience is the space you give yourself to grow at a human pace, not a highlight-reel pace.",
+      boundaries: "Boundaries are not walls. They are doors with locks you control.",
+      hope: "Hope is not naive. It’s a quiet rebellion against the idea that pain is the whole story.",
+      "self-respect": "Self-respect is the moment you stop negotiating your worth with people who never learned how to see it.",
+      "letting-go": "Letting go is not losing. It’s choosing not to keep paying rent in a house that’s already burned down."
+    };
+
+    const expandedScenes = [
+      {
+        title: "Scene • Arrival in Smallville Afterworlds",
+        body: `
+You arrive in Smallville Afterworlds on a day that doesn’t look special from the outside.
+
+Maybe it’s a Tuesday. Maybe you’re just doing laundry. Maybe you’re scrolling your phone. But inside, something has snapped into place: “I can’t keep living like this.”
+
+The world doesn’t explode. No one else hears the sound. But you do.
+
+When you look up, you’re standing on a quiet road that smells like cornfields and rain. The sky is the color of a memory you can’t quite place. Ahead of you, the town waits—familiar and strange, like a rerun of a show you loved as a kid, except the dialogue has changed.
+
+You realize: this is what it feels like when a chapter ends, but your story doesn’t.
+        `
+      },
+      {
+        title: "Scene • Night swim at the aftermath pool",
+        body: `
+You go back to the swimming hole at night.
+
+The town is quiet. The shops are dark, their windows reflecting constellations you don’t recognize. The water glows faintly, like it’s lit from beneath by every truth you’ve already admitted.
+
+You step in slowly. The chill makes you gasp, but then the warmth wraps around you like a weighted blanket. When you sink beneath the surface, there is no panic—only images.
+
+You see yourself at different ages, carrying burdens that were never yours. You see the moment you decided you were “too much” or “not enough.” You see the first time you swallowed your voice to keep the peace.
+
+The water doesn’t judge you. It simply shows you what you’ve been holding.
+
+When you rise, you’re not empty. You’re lighter. There is room now—for rest, for joy, for a future that isn’t built entirely out of defense.
+        `
+      },
+      {
+        title: "Scene • The barn and the key",
+        body: `
+The barn smells like dust, wood, and something older than both—like history and possibility mixed together.
+
+You walk the perimeter first, fingers trailing along beams that have seen storms and summers and everything in between. There are no tractors, no hay bales, no tools. Just light, dust, and the small workbench in the center.
+
+The key is simple. No ornate design, no dramatic glow. Just metal, worn at the edges, like it’s been waiting a long time.
+
+When you pick it up, you feel a quiet click inside your chest, as if something that was locked has finally agreed to open.
+
+You read the tag again: “The journey is over. Now the real journey begins.”
+
+You realize the key doesn’t erase what happened. It doesn’t promise that everything will be easy from here. It simply gives you permission to stop living like your life ended in the last chapter.
+
+You slip the key into your pocket. The barn fades. The town softens. But the feeling stays:
+
+You are allowed to move forward.
+        `
+      }
+    ];
+
+    // --- STATE ---
+
+    let currentTab = "setting";
+    let currentExpandedIndex = 0;
+
+    const meters = {
+      courage: 0,
+      boundaries: 0,
+      hope: 0
+    };
+
+    // --- DOM ELEMENTS ---
+
+    const storyTextEl = document.getElementById("story-text");
+    const storyQuoteEl = document.getElementById("story-quote");
+    const metaLocationEl = document.getElementById("meta-location");
+    const metaPhaseEl = document.getElementById("meta-phase");
+
+    const tabButtons = document.querySelectorAll(".tab");
+    const visionPills = document.querySelectorAll(".vision-pill");
+    const shoppingButtons = document.querySelectorAll(".shopping-item");
+
+    const meterCourage = document.getElementById("meter-courage");
+    const meterBoundaries = document.getElementById("meter-boundaries");
+    const meterHope = document.getElementById("meter-hope");
+    const meterCourageLabel = document.getElementById("meter-courage-label");
+    const meterBoundariesLabel = document.getElementById("meter-boundaries-label");
+    const meterHopeLabel = document.getElementById("meter-hope-label");
+
+    const btnExpand = document.getElementById("btn-expand");
+    const btnRandomLesson = document.getElementById("btn-random-lesson");
+    const btnReset = document.getElementById("btn-reset");
+
+    const modalBackdrop = document.getElementById("modal-backdrop");
+    const modalTitle = document.getElementById("modal-title");
+    const modalBody = document.getElementById("modal-body");
+    const modalClose = document.getElementById("modal-close");
+    const modalNext = document.getElementById("modal-next");
+    const modalFooterNote = document.getElementById("modal-footer-note");
+
+    // --- FUNCTIONS ---
+
+    function renderTab(tabKey) {
+      const data = tabs[tabKey];
+      if (!data) return;
+
+      currentTab = tabKey;
+
+      storyTextEl.innerHTML = `
+        <h2>${data.title}</h2>
+        <p>${data.text.trim().replace(/\n\s*\n/g, "</p><p>")}</p>
+      `;
+      storyQuoteEl.innerHTML = `<span>“</span>${data.quote}<span>”</span>`;
+      metaLocationEl.textContent = data.metaLocation;
+      metaPhaseEl.textContent = data.metaPhase;
+
+      tabButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tab === tabKey);
+      });
+
+      // Adjust meters slightly based on tab
+      if (tabKey === "setting") {
+        animateMeters({ courage: 20, boundaries: 10, hope: 25 });
+      } else if (tabKey === "shops") {
+        animateMeters({ courage: 35, boundaries: 30, hope: 40 });
+      } else if (tabKey === "swim") {
+        animateMeters({ courage: 70, boundaries: 55, hope: 65 });
+      } else if (tabKey === "key") {
+        animateMeters({ courage: 80, boundaries: 75, hope: 85 });
+      }
+    }
+
+    function animateMeters(targets) {
+      Object.keys(targets).forEach((key) => {
+        const target = targets[key];
+        const current = meters[key];
+        const step = target > current ? 2 : -2;
+
+        const interval = setInterval(() => {
+          meters[key] += step;
+          if ((step > 0 && meters[key] >= target) || (step < 0 && meters[key] <= target)) {
+            meters[key] = target;
+            clearInterval(interval);
+          }
+          updateMeterUI();
+        }, 20);
+      });
+    }
+
+    function updateMeterUI() {
+      meterCourage.style.width = meters.courage + "%";
+      meterBoundaries.style.width = meters.boundaries + "%";
+      meterHope.style.width = meters.hope + "%";
+
+      meterCourageLabel.textContent = meters.courage + "%";
+      meterBoundariesLabel.textContent = meters.boundaries + "%";
+      meterHopeLabel.textContent = meters.hope + "%";
+    }
+
+    function openModal(title, body, footerNote) {
+      modalTitle.textContent = title;
+      modalBody.innerHTML = body.trim().replace(/\n\s*\n/g, "</p><p>").replace(/^/, "<p>").concat("</p>");
+      modalFooterNote.textContent = footerNote || "Smallville Afterworlds • Life circumstance storyteller";
+      modalBackdrop.classList.add("active");
+    }
+
+    function closeModal() {
+      modalBackdrop.classList.remove("active");
+    }
+
+    function showRandomLesson() {
+      const lesson = randomLessons[Math.floor(Math.random() * randomLessons.length)];
+      openModal("Life lesson • After & After", lesson, "This is not advice. It’s a mirror.");
+    }
+
+    function handleVisionClick(key) {
+      const detail = visionDetails[key];
+      if (!detail) return;
+      openModal(detail.title, detail.body, "Vision item • Smallville shops of circumstance");
+    }
+
+    function handleShoppingClick(key) {
+      const insight = shoppingInsights[key];
+      if (!insight) return;
+      openModal("Shopping list insight • " + key.replace("-", " "), insight, "You only buy what you need for the next chapter.");
+      // Boost meters based on item
+      if (key === "courage") animateMeters({ courage: Math.min(100, meters.courage + 20) });
+      if (key === "boundaries") animateMeters({ boundaries: Math.min(100, meters.boundaries + 20) });
+      if (key === "hope") animateMeters({ hope: Math.min(100, meters.hope + 20) });
+      if (key === "self-respect") {
+        animateMeters({
+          courage: Math.min(100, meters.courage + 10),
+          boundaries: Math.min(100, meters.boundaries + 15)
+        });
+      }
+      if (key === "letting-go") {
+        animateMeters({
+          boundaries: Math.min(100, meters.boundaries + 10),
+          hope: Math.min(100, meters.hope + 15)
+        });
+      }
+      if (key === "patience") {
+        animateMeters({
+          hope: Math.min(100, meters.hope + 10)
+        });
+      }
+    }
+
+    function showExpandedScene() {
+      const scene = expandedScenes[currentExpandedIndex];
+      openModal(scene.title, scene.body, "Expanded scene • Smallville Afterworlds");
+    }
+
+    function nextExpandedScene() {
+      currentExpandedIndex = (currentExpandedIndex + 1) % expandedScenes.length;
+      showExpandedScene();
+    }
+
+    function resetJourney() {
+      renderTab("setting");
+      animateMeters({ courage: 10, boundaries: 5, hope: 15 });
+    }
+
+    // --- EVENT LISTENERS ---
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const tabKey = btn.dataset.tab;
+        renderTab(tabKey);
+      });
+    });
+
+    visionPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const key = pill.dataset.vision;
+        handleVisionClick(key);
+      });
+    });
+
+    shoppingButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.item;
+        handleShoppingClick(key);
+      });
+    });
+
+    btnExpand.addEventListener("click", showExpandedScene);
+    btnRandomLesson.addEventListener("click", showRandomLesson);
+    btnReset.addEventListener("click", resetJourney);
+
+    modalClose.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target === modalBackdrop) closeModal();
+    });
+    modalNext.addEventListener("click", nextExpandedScene);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+
+    // --- INIT ---
+
+    renderTab("setting");
+    animateMeters({ courage: 20, boundaries: 10, hope: 25 });
+  </script>
+</body>
+</html>
