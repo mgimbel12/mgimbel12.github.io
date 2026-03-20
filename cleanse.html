@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Color Lab • Clean Beauty & Clean Home</title>
+  <style>
+    :root {
+      --primary: #38bdf8;
+      --secondary: #f97316;
+      --accent: #22c55e;
+      --bg: #020617;
+      --panel: #0b1120;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1d283a 0, #020617 45%, #000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 40px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--panel);
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+      padding: 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+      gap: 20px;
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--primary);
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* LEFT: CONTROLS + PREVIEW */
+    .left {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel {
+      background: #020617;
+      border-radius: 14px;
+      border: 1px solid rgba(31,41,55,0.9);
+      padding: 14px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+      color: var(--muted);
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .control-row label {
+      color: var(--muted);
+    }
+
+    .control-row input[type="color"] {
+      width: 40px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .preview-card {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(31,41,55,0.9);
+      padding: 10px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .preview-label {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* Flower */
+    .flower {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .petal {
+      position: absolute;
+      width: 30px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50px 50px 10px 10px;
+      transform-origin: 50% 80%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .petal:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg); }
+    .petal:nth-child(2) { transform: translate(-50%, -50%) rotate(60deg); }
+    .petal:nth-child(3) { transform: translate(-50%, -50%) rotate(120deg); }
+    .petal:nth-child(4) { transform: translate(-50%, -50%) rotate(180deg); }
+    .petal:nth-child(5) { transform: translate(-50%, -50%) rotate(240deg); }
+    .petal:nth-child(6) { transform: translate(-50%, -50%) rotate(300deg); }
+
+    .flower-center {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--secondary);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    }
+
+    /* Plate */
+    .plate {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--secondary) 0, #020617 70%);
+      border: 4px solid var(--secondary);
+      box-shadow: 0 0 12px rgba(0,0,0,0.7);
+    }
+
+    /* Car / Truck */
+    .vehicle {
+      width: 90px;
+      height: 50px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .vehicle-body {
+      position: absolute;
+      left: 5px;
+      right: 5px;
+      bottom: 12px;
+      height: 24px;
+      background: var(--accent);
+      border-radius: 6px;
+    }
+
+    .vehicle-cab {
+      position: absolute;
+      left: 10px;
+      bottom: 24px;
+      width: 28px;
+      height: 18px;
+      background: var(--accent);
+      border-radius: 6px 6px 2px 2px;
+    }
+
+    .window {
+      position: absolute;
+      left: 13px;
+      bottom: 27px;
+      width: 20px;
+      height: 12px;
+      background: #e5e7eb;
+      border-radius: 4px;
+    }
+
+    .wheel {
+      position: absolute;
+      bottom: 4px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #020617;
+      border: 3px solid #111827;
+    }
+
+    .wheel.left { left: 16px; }
+    .wheel.right { right: 16px; }
+
+    /* RIGHT: CLEAN INGREDIENT STORIES */
+    .right {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .stories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .story-card {
+      background: #020617;
+      border-radius: 12px;
+      border: 1px solid rgba(31,41,55,0.9);
+      padding: 12px;
+    }
+
+    .story-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .story-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .story-body {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .story-list {
+      margin: 6px 0 0;
+      padding-left: 16px;
+    }
+
+    .story-list li {
+      margin-bottom: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand">COLOR LAB <span>2026</span></div>
+      <div class="tagline">
+        Flower petals, plates, and vehicles changing color • clean beauty & clean home story cards.
+      </div>
+    </header>
+
+    <!-- LEFT: CONTROLS + PREVIEW -->
+    <div class="left">
+      <div class="panel">
+        <div class="panel-title">Color scheme</div>
+        <div class="controls">
+          <div class="control-row">
+            <label for="primaryColor">Petals / accents</label>
+            <input type="color" id="primaryColor" value="#38bdf8" />
+          </div>
+          <div class="control-row">
+            <label for="secondaryColor">Plate / centers</label>
+            <input type="color" id="secondaryColor" value="#f97316" />
+          </div>
+          <div class="control-row">
+            <label for="accentColor">Vehicle body</label>
+            <input type="color" id="accentColor" value="#22c55e" />
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Visual previews</div>
+        <div class="preview-grid">
+          <div class="preview-card">
+            <div class="flower">
+              <div class="petal"></div>
+              <div class="petal"></div>
+              <div class="petal"></div>
+              <div class="petal"></div>
+              <div class="petal"></div>
+              <div class="petal"></div>
+              <div class="flower-center"></div>
+            </div>
+            <div class="preview-label">Flower petals changing color</div>
+          </div>
+
+          <div class="preview-card">
+            <div class="plate"></div>
+            <div class="preview-label">Plate / compact changing color</div>
+          </div>
+
+          <div class="preview-card">
+            <div class="vehicle">
+              <div class="vehicle-body"></div>
+              <div class="vehicle-cab"></div>
+              <div class="window"></div>
+              <div class="wheel left"></div>
+              <div class="wheel right"></div>
+            </div>
+            <div class="preview-label">Car / truck color changing</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: CLEAN INGREDIENT STORIES -->
+    <div class="right">
+      <div class="panel">
+        <div class="panel-title">Clean ingredient stories</div>
+        <div class="stories">
+          <div class="story-card">
+            <div class="story-title">Face & makeup cleanse</div>
+            <div class="story-tag">Gentle skin focus</div>
+            <div class="story-body">
+              Imagine a line that leans toward:
+              <ul class="story-list">
+                <li>Plant‑based cleansers instead of harsh sulfates.</li>
+                <li>Fragrance‑light or fragrance‑free options for sensitive skin.</li>
+                <li>Simple ingredient lists you can actually read.</li>
+              </ul>
+              Always check real product labels and talk to professionals if you have skin concerns.
+            </div>
+          </div>
+
+          <div class="story-card">
+            <div class="story-title">Nails, hands & care</div>
+            <div class="story-tag">Nourishing touch</div>
+            <div class="story-body">
+              Concept ideas for kinder nail and hand care:
+              <ul class="story-list">
+                <li>Conditioning oils (like jojoba or sweet almond) instead of only drying solvents.</li>
+                <li>Formulas that avoid very strong, irritating solvents where possible.</li>
+                <li>Moisturizing hand creams after polish removal.</li>
+              </ul>
+              This is general information, not medical advice or a guarantee of “healing.”
+            </div>
+          </div>
+
+          <div class="story-card">
+            <div class="story-title">Home & environment</div>
+            <div class="story-tag">Cleaning with care</div>
+            <div class="story-body">
+              For home cleaning, some people look for:
+              <ul class="story-list">
+                <li>Biodegradable, plant‑based surfactants.</li>
+                <li>Avoiding unnecessary dyes or heavy synthetic fragrances.</li>
+                <li>Clear disposal and recycling guidance on packaging.</li>
+              </ul>
+              Always follow safety labels and local guidelines for any cleaning product.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const primaryInput = document.getElementById("primaryColor");
+    const secondaryInput = document.getElementById("secondaryColor");
+    const accentInput = document.getElementById("accentColor");
+
+    function updateColors() {
+      document.documentElement.style.setProperty("--primary", primaryInput.value);
+      document.documentElement.style.setProperty("--secondary", secondaryInput.value);
+      document.documentElement.style.setProperty("--accent", accentInput.value);
+    }
+
+    primaryInput.addEventListener("input", updateColors);
+    secondaryInput.addEventListener("input", updateColors);
+    accentInput.addEventListener("input", updateColors);
+
+    updateColors();
+  </script>
+</body>
+</html>
