@@ -517,7 +517,526 @@
         <img id="lightboxImg" src="" alt="" />
       </div>
       <div class="lightbox-caption">
-        <span id="lightboxText"></span>
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cleft Lip & Conjoined Twins – Educational Reference</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #020617;
+      --panel: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.16);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: rgba(148, 163, 184, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: var(--text);
+      padding: 2rem 1.25rem 3rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 720px;
+      margin-inline: auto;
+    }
+
+    .disclaimer {
+      margin: 1.5rem auto 2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0.9rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(248, 250, 252, 0.08);
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 820px;
+      text-align: left;
+    }
+
+    .disclaimer strong {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      padding: 0.2rem;
+      background: rgba(15, 23, 42, 0.9);
+      margin: 0 auto 1.5rem;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    .tab-panels {
+      margin-top: 0.5rem;
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Panel layout */
+    .panel {
+      background: var(--panel);
+      border-radius: 1.25rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.9);
+      padding: 1.25rem 1.4rem 1.4rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel-header {
+      margin-bottom: 0.75rem;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .panel-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .text-block {
+      font-size: 0.86rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .text-block p + p {
+      margin-top: 0.4rem;
+    }
+
+    .bullet-list {
+      margin-top: 0.25rem;
+      padding-left: 1.1rem;
+      font-size: 0.86rem;
+    }
+
+    .bullet-list li {
+      margin-bottom: 0.25rem;
+    }
+
+    .note-box {
+      margin-top: 0.6rem;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.75rem;
+      border: 1px dashed rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .note-box strong {
+      color: #f97316;
+    }
+
+    /* Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .thumb {
+      position: relative;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+      cursor: pointer;
+      background: #020617;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.2s ease;
+    }
+
+    .thumb:hover img {
+      transform: scale(1.05);
+    }
+
+    .thumb-label {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 0.25rem 0.4rem;
+      font-size: 0.7rem;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95), transparent);
+      color: var(--muted);
+    }
+
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .pill {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    /* Lightbox */
+    .lightbox-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      padding: 1.5rem;
+    }
+
+    .lightbox-backdrop.active {
+      display: flex;
+    }
+
+    .lightbox {
+      background: #020617;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      padding: 0.9rem 0.9rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 1);
+    }
+
+    .lightbox-img-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 0.75rem;
+      background: #020617;
+      border: 1px solid rgba(30, 64, 175, 0.7);
+    }
+
+    .lightbox-img-wrap img {
+      max-width: 100%;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 0.6rem;
+    }
+
+    .lightbox-caption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .lightbox-close {
+      border: none;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(30, 64, 175, 0.9);
+      color: #e5e7eb;
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Cleft Lip & Conjoined Twins</h1>
+      <p>
+        Educational layout for understanding these complex conditions, the goals of surgery, and supportive care.
+        Replace all placeholder text and images with institution‑approved, ethical educational content.
+      </p>
+      <div class="disclaimer">
+        <strong>Important:</strong> This page structure is for education and awareness only. It must not be used
+        as a guide to perform surgery. Actual surgical care for cleft lip or conjoined twins is provided only by
+        qualified medical teams in accredited hospitals, following local laws, ethics, and safety protocols.
+      </div>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="cleft" role="tab" aria-selected="true">
+        Cleft Lip
+      </button>
+      <button class="tab-btn" data-tab="conjoined" role="tab" aria-selected="false">
+        Conjoined Twins
+      </button>
+    </div>
+
+    <section class="tab-panels">
+      <!-- Cleft Lip Panel -->
+      <article class="tab-panel active" id="panel-cleft">
+        <div class="panel">
+          <div>
+            <div class="panel-header">
+              <h2 class="panel-title">Cleft Lip – Overview</h2>
+              <p class="panel-sub">
+                Congenital condition where the upper lip does not form completely before birth.
+              </p>
+            </div>
+
+            <div class="section-label">What this page can explain</div>
+            <div class="text-block">
+              <p>
+                Use this section to describe, in simple language, what a cleft lip is, how common it is,
+                and how specialized teams support children and families.
+              </p>
+              <ul class="bullet-list">
+                <li>Basic anatomy and how the lip normally forms.</li>
+                <li>How a cleft lip can affect feeding, speech, and appearance.</li>
+                <li>How multidisciplinary teams (surgeons, nurses, speech therapists) work together.</li>
+              </ul>
+            </div>
+
+            <div class="section-label">Goals of surgery (high‑level)</div>
+            <div class="text-block">
+              <p>
+                Instead of step‑by‑step surgical instructions, focus on the goals:
+              </p>
+              <ul class="bullet-list">
+                <li>Re‑align the lip to create a more continuous shape.</li>
+                <li>Support feeding, speech development, and oral function.</li>
+                <li>Support emotional well‑being and social confidence.</li>
+              </ul>
+            </div>
+
+            <div class="note-box">
+              <strong>No operative instructions:</strong> Do not describe how to cut, suture, or operate.
+              Keep this section focused on understanding, expectations, and support for families.
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">Photo / diagram gallery</div>
+            <div class="gallery">
+              <!-- Replace with real, approved educational images -->
+              <div class="thumb"
+                   data-img="    "
+                   data-caption="Illustration of cleft lip anatomy (placeholder).">
+                <img src="                   "/>
+                <div class="thumb-label">Anatomy diagram</div>
+              </div>
+
+              <div class="thumb"
+                   data-img="            "
+                   data-caption="Example of multidisciplinary care team (placeholder).">
+                <img src="           " alt="Team care placeholder" />
+                <div class="thumb-label">Team care</div>
+              </div>
+            </div>
+
+            <div class="section-label">Care & support topics</div>
+            <div class="text-block">
+              <ul class="bullet-list">
+                <li>Feeding support and special bottles.</li>
+                <li>Follow‑up visits and long‑term planning.</li>
+                <li>Emotional support for children and families.</li>
+              </ul>
+            </div>
+
+            <div class="meta-pills">
+              <span class="pill">Awareness</span>
+              <span class="pill">Family education</span>
+              <span class="pill">No surgical instructions</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Conjoined Twins Panel -->
+      <article class="tab-panel" id="panel-conjoined">
+        <div class="panel">
+          <div>
+            <div class="panel-header">
+              <h2 class="panel-title">Conjoined Twins – Overview</h2>
+              <p class="panel-sub">
+                Extremely rare condition where twins are physically connected at birth.
+              </p>
+            </div>
+
+            <div class="section-label">Understanding the condition</div>
+            <div class="text-block">
+              <p>
+                Use this section to explain, at a high level, how conjoined twins develop and how complex
+                their care is. Emphasize that every case is unique.
+              </p>
+              <ul class="bullet-list">
+                <li>Different types of connections (chest, abdomen, head, etc.).</li>
+                <li>How shared organs and blood supply affect decisions.</li>
+                <li>The role of ethics, family wishes, and long‑term planning.</li>
+              </ul>
+            </div>
+
+            <div class="section-label">Surgery goals & planning (high‑level)</div>
+            <div class="text-block">
+              <p>
+                If separation surgery is considered, teams focus on:
+              </p>
+              <ul class="bullet-list">
+                <li>Detailed imaging and planning to understand shared structures.</li>
+                <li>Balancing risks and potential quality of life for both children.</li>
+                <li>Coordinating many specialists (surgeons, anesthesiologists, ICU, ethics, etc.).</li>
+              </ul>
+            </div>
+
+            <div class="note-box">
+              <strong>Do not teach how to operate:</strong> This layout is only for describing concepts,
+              not for teaching surgical techniques. Real decisions and procedures belong to expert teams.
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">Photo / diagram gallery</div>
+            <div class="gallery">
+              <!-- Replace with real, approved educational images -->
+              <div class="thumb"
+                   data-img="            "
+                   data-caption="Illustration of imaging and planning (placeholder).">
+                <img src="        " alt="Planning imaging placeholder" />
+                <div class="thumb-label">Imaging & planning</div>
+              </div>
+
+              <div class="thumb"
+                   data-img="            "
+                   data-caption="Example of large care team (placeholder).">
+                <img src="                              " alt="Care team placeholder" />
+                <div class="thumb-label">Care team</div>
+              </div>
+            </div>
+
+            <div class="section-label">Family & long‑term support</div>
+            <div class="text-block">
+              <ul class="bullet-list">
+                <li>Psychological and social support for the family.</li>
+                <li>Rehabilitation and follow‑up after any procedures.</li>
+                <li>Respecting cultural, spiritual, and personal values.</li>
+              </ul>
+            </div>
+
+            <div class="meta-pills">
+              <span class="pill">Rare condition</span>
+              <span class="pill">Ethics & planning</span>
+              <span class="pill">Specialist care only</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox-backdrop" id="lightboxBackdrop" aria-hidden="true">
+    <div class="lightbox" role="dialog" aria-modal="true">
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImg" src="" alt="" />
+      </div>
+      <div class="lightbox-caption">
+  <span id="lightboxText"></span>
         <button class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
       </div>
     </div>
