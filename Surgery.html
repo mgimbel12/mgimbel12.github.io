@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Surgical Techniques Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .disclaimer {
+      margin: 1.5rem auto 2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0.75rem;
+      background: rgba(248, 250, 252, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .disclaimer strong {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    /* Technique cards grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.8);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.95);
+      border-color: rgba(56, 189, 248, 0.7);
+    }
+
+    .card-img-wrap {
+      position: relative;
+      overflow: hidden;
+      max-height: 180px;
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.25s ease;
+    }
+
+    .card:hover .card-img-wrap img {
+      transform: scale(1.05);
+    }
+
+    .card-tag {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .card-body {
+      padding: 0.9rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .card-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .card-meta span::before {
+      content: "•";
+      font-size: 0.7rem;
+      color: rgba(148, 163, 184, 0.8);
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Modal / lightbox */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 40;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #020617;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      max-width: 980px;
+      width: 100%;
+      max-height: 90vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 1);
+    }
+
+    @media (max-width: 800px) {
+      .modal {
+        grid-template-columns: 1fr;
+        max-height: 92vh;
+      }
+    }
+
+    .modal-image {
+      background: #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border-right: 1px solid rgba(30, 64, 175, 0.6);
+    }
+
+    @media (max-width: 800px) {
+      .modal-image {
+        border-right: none;
+        border-bottom: 1px solid rgba(30, 64, 175, 0.6);
+      }
+    }
+
+    .modal-image img {
+      max-width: 100%;
+      max-height: 80vh;
+      border-radius: 0.9rem;
+      object-fit: contain;
+    }
+
+    .modal-content {
+      padding: 1.1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.85rem;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--muted);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(30, 64, 175, 0.9);
+      color: #e5e7eb;
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding-right: 2.5rem;
+    }
+
+    .modal-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .modal-section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(148, 163, 184, 0.9);
+      margin-top: 0.35rem;
+    }
+
+    .steps {
+      margin-top: 0.25rem;
+      font-size: 0.82rem;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    .steps ol {
+      padding-left: 1.1rem;
+      margin-top: 0.25rem;
+    }
+
+    .steps li {
+      margin-bottom: 0.25rem;
+    }
+
+    .notes {
+      margin-top: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px dashed rgba(51, 65, 85, 0.9);
+      padding-top: 0.4rem;
+    }
+
+    .notes strong {
+      color: #f97316;
+      font-weight: 600;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .meta-pill {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Surgical Technique Reference</h1>
+      <p>
+        Visual reference layout for surgical techniques. Replace the placeholder images and text with
+        your own institution-approved photographs and descriptions.
+      </p>
+      <div class="disclaimer">
+        <strong>Educational layout only.</strong> This template is for structuring content. Actual surgical
+        training must be supervised by qualified medical professionals and follow all local regulations.
+      </div>
+    </header>
+
+    <!-- Technique cards -->
+    <section class="grid" id="techniqueGrid">
+      <!-- Example card 1 -->
+      <article class="card"
+        data-title="Incision Planning – Example"
+        data-subtitle="Skin marking and orientation"
+        data-img="https://via.placeholder.com/900x600?text=Incision+Planning"
+        data-steps='[
+          "Confirm patient identity, site, and side according to institutional protocol.",
+          "Mark the planned incision line respecting anatomical landmarks.",
+          "Ensure adequate exposure while minimizing tissue trauma."
+        ]'
+        data-notes="Always follow your hospital’s surgical safety checklist and marking policy.">
+        <div class="card-img-wrap">
+          <span class="card-tag">Step Series</span>
+          <img src="https://via.placeholder.com/600x400?text=Incision+Planning" alt="Incision planning example" />
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Incision Planning – Example</h2>
+          <div class="card-meta">
+            <span>Pre-op marking</span>
+            <span>Orientation</span>
+          </div>
+          <p class="card-desc">
+            Demonstrates basic layout for showing pre-operative skin markings with clear, labeled photographs.
+          </p>
+        </div>
+      </article>
+
+      <!-- Example card 2 -->
+      <article class="card"
+        data-title="Layered Closure – Example"
+        data-subtitle="Fascial and skin closure sequence"
+        data-img="https://via.placeholder.com/900x600?text=Layered+Closure"
+        data-steps='[
+          "Approximate deep fascia with interrupted or running sutures as per protocol.",
+          "Close subcutaneous tissue if indicated, avoiding dead space.",
+          "Align skin edges and perform final skin closure."
+        ]'
+        data-notes="Suture choice, spacing, and tension should follow your department’s standards and attending guidance.">
+        <div class="card-img-wrap">
+          <span class="card-tag">Closure</span>
+          <img src="https://via.placeholder.com/600x400?text=Layered+Closure" alt="Layered closure example" />
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">Layered Closure – Example</h2>
+          <div class="card-meta">
+            <span>Fascia</span>
+            <span>Subcuticular</span>
+          </div>
+          <p class="card-desc">
+            Example layout for illustrating layered closure with one main photograph and step-by-step text.
+          </p>
+        </div>
+      </article>
+
+      <!-- Add more <article class="card"> blocks as needed -->
+    </section>
+  </main>
+
+  <!-- Modal / detail view -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-image">
+        <img id="modalImg" src="" alt="" />
+      </div>
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose" aria-label="Close detail view">&times;</button>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-sub" id="modalSubtitle"></p>
+
+        <div class="meta-row">
+          <span class="meta-pill">Photo + Steps</span>
+          <span class="meta-pill">For supervised training only</span>
+        </div>
+
+        <div class="modal-section-label">Technique steps</div>
+        <div class="steps">
+          <ol id="modalSteps"></ol>
+        </div>
+
+        <div class="modal-section-label">Notes</div>
+        <p class="notes" id="modalNotes"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const backdrop = document.getElementById("modalBackdrop");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalSubtitle = document.getElementById("modalSubtitle");
+    const modalSteps = document.getElementById("modalSteps");
+    const modalNotes = document.getElementById("modalNotes");
+    const modalClose = document.getElementById("modalClose");
+
+    function openModalFromCard(card) {
+      const img = card.getAttribute("data-img");
+      const title = card.getAttribute("data-title") || "";
+      const subtitle = card.getAttribute("data-subtitle") || "";
+      const stepsJson = card.getAttribute("data-steps") || "[]";
+      const notes = card.getAttribute("data-notes") || "";
+
+      let steps = [];
+      try {
+        steps = JSON.parse(stepsJson);
+      } catch (e) {
+        steps = [];
+      }
+
+      modalImg.src = img;
+      modalImg.alt = title;
+      modalTitle.textContent = title;
+      modalSubtitle.textContent = subtitle;
+      modalNotes.textContent = notes;
+
+      modalSteps.innerHTML = "";
+      steps.forEach((step) => {
+        const li = document.createElement("li");
+        li.textContent = step;
+        modalSteps.appendChild(li);
+      });
+
+      backdrop.classList.add("active");
+      backdrop.setAttribute("aria-hidden", "false");
+    }
+
+    function closeModal() {
+      backdrop.classList.remove("active");
+      backdrop.setAttribute("aria-hidden", "true");
+      modalImg.src = "";
+    }
+
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("click", () => openModalFromCard(card));
+    });
+
+    modalClose.addEventListener("click", closeModal);
+
+    backdrop.addEventListener("click", (e) => {
+      if (e.target === backdrop) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && backdrop.classList.contains("active")) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
+
