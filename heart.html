@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Open Heart Surgery – Gentle Guide</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f4f5fb;
+      --card: #ffffff;
+      --accent: #dc2626;
+      --accent-soft: #fee2e2;
+      --text-main: #111827;
+      --text-soft: #4b5563;
+      --border-soft: #e5e7eb;
+      --radius: 14px;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #fee2e2 0, #f4f5fb 45%, #f4f5fb 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 24px 12px 40px;
+    }
+
+    .page { max-width: 980px; margin: 0 auto; }
+
+    header { text-align: center; margin-bottom: 24px; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 { font-size: clamp(2rem, 3vw, 2.5rem); margin-bottom: 6px; }
+
+    .subtitle {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .card h2 { font-size: 1.1rem; margin-bottom: 8px; }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .highlight {
+      background: #fefce8;
+      border-left: 4px solid #facc15;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .timeline { grid-template-columns: 1fr; }
+    }
+
+    .timeline-step {
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px dashed #e5e7eb;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+    }
+
+    .timeline-step strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      margin-bottom: 2px;
+    }
+
+    /* FAQ accordion */
+
+    .faq { margin-top: 10px; }
+
+    .faq-item {
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      margin-bottom: 6px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 8px 10px;
+      background: #fee2e2;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #7f1d1d;
+    }
+
+    .faq-question span {
+      flex: 1;
+      text-align: left;
+      margin-right: 8px;
+    }
+
+    .faq-icon {
+      font-size: 1rem;
+      color: #7f1d1d;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-question.open .faq-icon { transform: rotate(90deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      padding: 0 10px;
+      font-size: 0.88rem;
+      color: #4b5563;
+      background: #f9fafb;
+    }
+
+    .faq-answer-inner { padding: 6px 0 8px; }
+
+    footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="badge">Educational overview</div>
+      <h1>Open Heart Surgery – Simple Guide</h1>
+      <p class="subtitle">
+        A calm, plain-language look at what open heart surgery is, why it may be done,
+        and how people are supported before and after. This is not a “how to” for surgery.
+      </p>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT: MAIN EXPLANATION -->
+      <section class="card">
+        <h2>What is open heart surgery?</h2>
+        <p>
+          Open heart surgery is a major operation where surgeons open the chest so they
+          can reach the heart directly. It is used to treat serious heart problems such as
+          blocked arteries, damaged heart valves, or some heart defects present at birth.
+        </p>
+
+        <p>
+          Only highly trained heart surgeons and medical teams perform this surgery in a
+          hospital operating room. It is never something a person can or should try to do
+          on their own.
+        </p>
+
+        <div class="pill-row">
+          <div class="pill">Hospital only</div>
+          <div class="pill">Specialist heart team</div>
+          <div class="pill">Serious heart conditions</div>
+        </div>
+
+        <div class="highlight">
+          This page is for education only. It does not teach anyone how to perform surgery
+          and does not replace medical advice, diagnosis, or treatment.
+        </div>
+
+        <h2 style="margin-top: 14px;">Why might someone need it?</h2>
+        <p>
+          Doctors may recommend open heart surgery when medicines or less invasive
+          procedures are not enough to treat a heart problem. Common reasons include
+          bypassing blocked arteries, repairing or replacing heart valves, or fixing
+          certain heart defects.
+        </p>
+
+        <h2 style="margin-top: 14px;">Before, during, and after</h2>
+        <div class="timeline">
+          <div class="timeline-step">
+            <strong>Before surgery</strong>
+            Tests, medical visits, and careful planning with the heart team. Patients
+            learn about risks, benefits, and what to expect.
+          </div>
+          <div class="timeline-step">
+            <strong>Day of surgery</strong>
+            The person goes to the operating room, receives anesthesia (medicine to
+            sleep), and the heart team performs the operation.
+          </div>
+          <div class="timeline-step">
+            <strong>Recovery</strong>
+            Time in intensive care, then the hospital, then healing at home with follow‑up
+            visits and cardiac rehab if recommended.
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: FAQ / SUPPORT -->
+      <aside class="card">
+        <h2>Common questions</h2>
+        <p>
+          Tap a question to open it. These are general ideas you can bring to your own
+          healthcare team.
+        </p>
+
+        <div class="faq" id="faq">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is open heart surgery the only option?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Not always. For some heart problems, doctors may offer medicines or
+                less invasive procedures instead. Your cardiologist and surgeon can
+                explain which options fit your situation and why.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What are the risks and benefits?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                All major surgery has risks, such as bleeding, infection, or problems
+                with the heart or lungs. The possible benefit is improving heart
+                function and quality of life. Only your medical team can explain your
+                personal risk and benefit balance.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How long is recovery?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Recovery can take weeks to months, depending on the person and the
+                exact procedure. Your team will give you specific instructions about
+                activity, wound care, and follow‑up visits.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Who can I talk to for support?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Many people lean on family, friends, spiritual communities, and
+                support groups. Hospitals often have social workers, nurses, or
+                patient navigators who can connect you with resources.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight" style="margin-top: 10px;">
+          Always bring your personal questions to your heart doctor or surgeon. They
+          know your medical details and can give specific guidance.
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Educational only – not medical advice. For any decisions about open heart surgery,
+      talk with a qualified healthcare professional.
+    </footer>
+  </div>
+
+  <script>
+    // Simple FAQ accordion
+    const faqContainer = document.getElementById("faq");
+    const items = faqContainer.querySelectorAll(".faq-item");
+
+    items.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
+
+      button.addEventListener("click", () => {
+        const isOpen = button.classList.contains("open");
+
+        // Close all
+        items.forEach((other) => {
+          const otherBtn = other.querySelector(".faq-question");
+          const otherAns = other.querySelector(".faq-answer");
+          otherBtn.classList.remove("open");
+          otherAns.style.maxHeight = 0;
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          button.classList.add("open");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
