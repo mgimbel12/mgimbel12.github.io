@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Surgery Guide – Simple Overview</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f4f5fb;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --text-main: #111827;
+      --text-soft: #4b5563;
+      --border-soft: #e5e7eb;
+      --radius: 14px;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #e0f2fe 0, #f4f5fb 45%, #f4f5fb 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 24px 12px 40px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--text-soft);
+      font-size: 0.98rem;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(0, 1.3fr);
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .highlight {
+      background: #fefce8;
+      border-left: 4px solid #facc15;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin-top: 6px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 640px) {
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .timeline-step {
+      background: #f9fafb;
+      border-radius: 10px;
+      border: 1px dashed #e5e7eb;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+    }
+
+    .timeline-step strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      margin-bottom: 2px;
+    }
+
+    /* FAQ accordion */
+
+    .faq {
+      margin-top: 10px;
+    }
+
+    .faq-item {
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      margin-bottom: 6px;
+      overflow: hidden;
+      background: #f9fafb;
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 8px 10px;
+      background: #eff6ff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #1e3a8a;
+    }
+
+    .faq-question span {
+      flex: 1;
+      text-align: left;
+      margin-right: 8px;
+    }
+
+    .faq-icon {
+      font-size: 1rem;
+      color: #1e3a8a;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-question.open .faq-icon {
+      transform: rotate(90deg);
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+      padding: 0 10px;
+      font-size: 0.88rem;
+      color: #4b5563;
+      background: #f9fafb;
+    }
+
+    .faq-answer-inner {
+      padding: 6px 0 8px;
+    }
+
+    footer {
+      margin-top: 24px;
+      font-size: 0.8rem;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="badge">Educational overview</div>
+      <h1>[Name of Surgery] – Simple Guide</h1>
+      <p class="subtitle">
+        A calm, plain-language look at what this surgery is for, what usually happens,
+        and how people are supported before and after.
+      </p>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT: MAIN EXPLANATION -->
+      <section class="card">
+        <h2>What is this surgery?</h2>
+        <p>
+          This section explains, in simple words, what the surgery is meant to do.
+          You can describe which part of the body is involved and the main goal
+          (for example: improving function, comfort, or appearance).
+        </p>
+
+        <p>
+          The details here should be gentle and non-graphic. Real medical decisions
+          always belong to the patient, family, and healthcare team.
+        </p>
+
+        <div class="pill-row">
+          <div class="pill">Plain language</div>
+          <div class="pill">No medical orders</div>
+          <div class="pill">Bring to your doctor</div>
+        </div>
+
+        <div class="highlight">
+          This page is for education only. It does not replace medical advice, diagnosis,
+          or treatment from a qualified professional.
+        </div>
+
+        <h2 style="margin-top: 14px;">Benefits & possible risks</h2>
+        <p>
+          You can list common reasons people choose this surgery (like improved
+          function or quality of life) and gently mention that all surgeries have
+          risks, which must be discussed with the care team.
+        </p>
+        <ul style="margin-left: 18px; font-size: 0.93rem; color: #4b5563;">
+          <li>Potential benefits in everyday life</li>
+          <li>Possible risks or side effects (described in general terms)</li>
+          <li>Importance of asking questions and understanding options</li>
+        </ul>
+
+        <h2 style="margin-top: 14px;">Before, during, and after</h2>
+        <div class="timeline">
+          <div class="timeline-step">
+            <strong>Before surgery</strong>
+            Pre-surgery visits, questions for the surgeon, and any tests or instructions
+            the team may give.
+          </div>
+          <div class="timeline-step">
+            <strong>Day of surgery</strong>
+            Arrival at the hospital or clinic, meeting the team, and going to the
+            operating room.
+          </div>
+          <div class="timeline-step">
+            <strong>Recovery</strong>
+            Healing time, follow-up visits, and who to call if there are concerns.
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: FAQ / SUPPORT -->
+      <aside class="card">
+        <h2>Common questions</h2>
+        <p>
+          Tap a question to open it. These are general ideas you can bring to your
+          own healthcare team.
+        </p>
+
+        <div class="faq" id="faq">
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do I prepare for this surgery?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Preparation usually includes meeting with the surgeon, sharing your
+                medical history, and following any instructions they give (such as
+                when to stop eating or drinking). Always follow the plan your team
+                provides for you.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What questions can I ask my surgeon?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                You might ask about the goals of surgery, how long it takes, what
+                recovery is like, possible risks, and who to contact if you’re worried
+                afterward. Writing questions down before the visit can help.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How long does recovery usually take?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Recovery time depends on the type of surgery and the person’s health.
+                Only your healthcare team can give you a realistic time frame and
+                specific activity limits.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Who can support me emotionally?</span>
+              <span class="faq-icon">▶</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">
+                Many people lean on family, friends, spiritual communities, or support
+                groups. You can also ask your healthcare team about counseling or
+                patient support resources connected to the hospital or clinic.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight" style="margin-top: 10px;">
+          Always bring your personal questions to your healthcare team. They know your
+          medical situation and can give specific guidance.
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Educational only – not medical advice. For personal decisions, talk with a
+      qualified healthcare professional.
+    </footer>
+  </div>
+
+  <script>
+    // Simple FAQ accordion
+    const faqContainer = document.getElementById("faq");
+    const items = faqContainer.querySelectorAll(".faq-item");
+
+    items.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
+
+      button.addEventListener("click", () => {
+        const isOpen = button.classList.contains("open");
+
+        // Close all
+        items.forEach((other) => {
+          const otherBtn = other.querySelector(".faq-question");
+          const otherAns = other.querySelector(".faq-answer");
+          otherBtn.classList.remove("open");
+          otherAns.style.maxHeight = 0;
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          button.classList.add("open");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
