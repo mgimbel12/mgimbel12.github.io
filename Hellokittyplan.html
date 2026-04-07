@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello Kitty Safety Plan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffe6f2, #fff5fb);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px;
+      color: #333;
+    }
+
+    .plan-wrapper {
+      width: 100%;
+      max-width: 960px;
+      background: #ffffffcc;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 3px solid #ffb6d9;
+      padding: 24px 24px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hello-kitty-bow {
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle at 30% 30%, #ffe6f2 0, #ff4f8b 40%, #c51f5c 100%);
+      border-radius: 50% 50% 40% 40%;
+      opacity: 0.25;
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .hello-kitty-face {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #333;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .hello-kitty-face::before,
+    .hello-kitty-face::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 18px;
+      border-radius: 50%;
+      background: #333;
+      top: 22px;
+    }
+
+    .hello-kitty-face::before {
+      left: 18px;
+    }
+
+    .hello-kitty-face::after {
+      right: 18px;
+    }
+
+    .hello-kitty-nose {
+      position: absolute;
+      width: 14px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f7c948;
+      top: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .hello-kitty-bow-small {
+      position: absolute;
+      width: 26px;
+      height: 18px;
+      background: #ff4f8b;
+      border-radius: 50%;
+      top: 4px;
+      right: -4px;
+      box-shadow: 0 0 0 2px #c51f5c;
+    }
+
+    .hello-kitty-bow-small::before,
+    .hello-kitty-bow-small::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #ff7aa8;
+      border-radius: 50%;
+      top: 0;
+    }
+
+    .hello-kitty-bow-small::before {
+      left: -10px;
+    }
+
+    .hello-kitty-bow-small::after {
+      right: -10px;
+    }
+
+    .title-block h1 {
+      font-size: 1.8rem;
+      color: #c51f5c;
+      letter-spacing: 0.03em;
+      margin-bottom: 4px;
+    }
+
+    .title-block p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 18px 0 10px;
+    }
+
+    .meta-field label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #c51f5c;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .meta-field input {
+      width: 100%;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #ffb6d9;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    .sections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .section-card {
+      background: #fff9fc;
+      border-radius: 14px;
+      border: 2px solid #ffd1e6;
+      padding: 12px 12px 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at 30% 30%, #ffe6f2 0, #ffd1e6 40%, transparent 70%);
+      opacity: 0.5;
+      top: -30px;
+      left: -30px;
+      pointer-events: none;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #c51f5c;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .section-tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #ffe6f2;
+      color: #c51f5c;
+      border: 1px solid #ffb6d9;
+    }
+
+    .section-note {
+      font-size: 0.8rem;
+      color: #777;
+      margin-bottom: 6px;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 80px;
+      resize: vertical;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #ffb6d9;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    .chips-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 4px;
+    }
+
+    .chip {
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px dashed #ffb6d9;
+      background: #fff;
+      color: #c51f5c;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    .chip:hover {
+      background: #ffe6f2;
+      transform: translateY(-1px);
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 10px;
+      border-top: 1px dashed #ffb6d9;
+    }
+
+    .hello-affirmation {
+      font-size: 0.9rem;
+      color: #c51f5c;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s, transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn-save {
+      background: #ff4f8b;
+      color: #fff;
+      box-shadow: 0 3px 8px rgba(197, 31, 92, 0.35);
+    }
+
+    .btn-save:hover {
+      background: #e53b77;
+      transform: translateY(-1px);
+    }
+
+    .btn-clear {
+      background: #ffe6f2;
+      color: #c51f5c;
+      border: 1px solid #ffb6d9;
+    }
+
+    .btn-clear:hover {
+      background: #ffd1e6;
+      transform: translateY(-1px);
+    }
+
+    .status {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 4px;
+    }
+
+    .status span {
+      font-weight: 600;
+      color: #c51f5c;
+    }
+
+    @media (max-width: 600px) {
+      .plan-wrapper {
+        padding: 18px 14px 24px;
+      }
+      .title-block h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="plan-wrapper">
+    <div class="hello-kitty-bow"></div>
+
+    <div class="header">
+      <div class="hello-kitty-face">
+        <div class="hello-kitty-bow-small"></div>
+        <div class="hello-kitty-nose"></div>
+      </div>
+      <div class="title-block">
+        <h1>Hello Kitty Safety Plan</h1>
+        <p>A gentle, cute place to write what keeps you safe, calm, and connected.</p>
+      </div>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-field">
+        <label for="name">My name</label>
+        <input id="name" type="text" placeholder="Hello Kitty’s friend named..." />
+      </div>
+      <div class="meta-field">
+        <label for="date">Today’s date</label>
+        <input id="date" type="date" />
+      </div>
+      <div class="meta-field">
+        <label for="support">Main support person</label>
+        <input id="support" type="text" placeholder="Name / role / how to reach them" />
+      </div>
+    </div>
+
+    <di1v class="sections-grid">
+      <!-- Section 1: Early signs -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Early signs</div>
+          <div class="section-tag">Noticing feelings</div>
+        </div>
+        <p class="section-note">
+          What are the first little clues that I’m starting to feel overwhelmed, sad, or unsafe?
+        </p>
+        <div class="chips-row">
+          <div class="chip" data-target="earlySigns">Quiet / withdrawn</div>
+          <div class="chip" data-target="earlySigns">Heart racing</div>
+          <div class="chip" data-target="earlySigns">Hard to focus</div>
+          <div class="chip" data-target="earlySigns">Want to hide</div>
+        </div>
+        <textarea id="earlySigns" placeholder="I notice I might be in trouble when..."></textarea>
+      </div>
+
+      <!-- Section 2: Soothing activities -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Soothing activities</div>
+          <div class="section-tag">Hello Kitty calm</div>
+        </div>
+        <p class="section-note">
+          Gentle things I can do by myself that feel soft, kind, and safe—like Hello Kitty time.
+        </p>
+        <div class="chips-row">
+          <div class="chip" data-target="soothing">Watch a cute show</div>
+          <div class="chip" data-target="soothing">Color or doodle</div>
+          <div class="chip" data-target="soothing">Warm drink</div>
+          <div class="chip" data-target="soothing">Soft blanket</div>
+        </div>
+        <textarea id="soothing" placeholder="When I need comfort, I can..."></textarea>
+      </div>
+
+      <!-- Section 3: Safe people & places -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Safe people & places</div>
+          <div class="section-tag">Not alone</div>
+        </div>
+        <p class="section-note">
+          Who and where feels safe, kind, and steady—like a cozy Hello Kitty neighborhood?
+        </p>
+        <div class="chips-row">
+          <div class="chip" data-target="safePeople">Friend I trust</div>
+          <div class="chip" data-target="safePeople">Family member</div>
+          <div class="chip" data-target="safePeople">Therapist / helper</div>
+          <div class="chip" data-target="safePeople">Library / park</div>
+        </div>
+        <textarea id="safePeople" placeholder="Names, numbers, and places that feel safe..."></textarea>
+      </div>
+
+      <!-- Section 4: Safety steps -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Safety steps</div>
+          <div class="section-tag">When it’s serious</div>
+        </div>
+        <p class="section-note">
+          Clear steps I can follow when I feel very unsafe or scared.
+        </p>
+        <div class="chips-row">
+          <div class="chip" data-target="steps">Move to a safer room</div>
+          <div class="chip" data-target="steps">Call / text support</div>
+          <div class="chip" data-target="steps">Leave the situation</div>
+          <div class="chip" data-target="steps">Ask for help nearby</div>
+        </div>
+        <textarea id="steps" placeholder="Step 1, Step 2, Step 3..."></textarea>
+      </div>
+
+      <!-- Section 5: Kind words to myself -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Kind words to myself</div>
+          <div class="section-tag">Hello Kitty affirmations</div>
+        </div>
+        <p class="section-note">
+          Gentle phrases I can repeat, like Hello Kitty cheering me on.
+        </p>
+        <div class="chips-row">
+          <div class="chip" data-target="affirmations">I am worthy of kindness.</div>
+          <div class="chip" data-target="affirmations">This feeling will pass.</div>
+          <div class="chip" data-target="affirmations">I am not alone.</div>
+          <div class="chip" data-target="affirmations">I deserve to be safe.</div>
+        </div>
+        <textarea id="affirmations" placeholder="My kind words to myself..."></textarea>
+      </div>
+
+      <!-- Section 6: Things that keep me going -->
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Things that keep me going</div>
+          <div class="section-tag">Reasons to stay</div>
+        </div>
+        <p class="section-note">
+          People, dreams, pets, places, and tiny joys that matter to me.
+        </p>
+        <div class="chips-row">
+          <div class="chip" data-target="reasons">People I love</div>
+          <div class="chip" data-target="reasons">Future adventures</div>
+          <div class="chip" data-target="reasons">Creative projects</div>
+          <div class="chip" data-target="reasons">Favorite characters</div>
+        </div>
+        <textarea id="reasons" placeholder="I want to stay for..."></textarea>
+      </div>
+    </div>
+
+    <div class="footer-row">
+      <div>
+        <div class="hello-affirmation">
+          “Hello, little heart. You are important. Your safety plan matters.”
+        </div>
+        <div class="status" id="statusText">
+          Last saved: <span>not yet</span>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="btn-save" id="saveBtn">
+          <span>💾</span> Save plan (this browser)
+        </button>
+        <button class="btn-clear" id="clearBtn">
+          <span>🧽</span> Clear all
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fields = [
+      "name",
+      "date",
+      "support",
+      "earlySigns",
+      "soothing",
+      "safePeople",
+      "steps",
+      "affirmations",
+      "reasons"
+    ];
+
+    const STORAGE_KEY = "helloKittySafetyPlan";
+
+    function savePlan() {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        data[id] = el.value;
+      });
+      data.lastSaved = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      updateStatus();
+    }
+
+    function loadPlan() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      try {
+        const data = JSON.parse(raw);
+        fields.forEach((id) => {
+          if (data[id] !== undefined) {
+            const el = document.getElementById(id);
+            el.value = data[id];
+          }
+        });
+        updateStatus(data.lastSaved);
+      } catch (e) {
+        console.error("Could not load plan", e);
+      }
+    }
+
+    function clearPlan() {
+      if (!confirm("Clear everything in this Hello Kitty Safety Plan?")) return;
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        el.value = "";
+      });
+      localStorage.removeItem(STORAGE_KEY);
+      updateStatus();
+    }
+
+    function updateStatus(lastSavedFromLoad) {
+      const statusSpan = document.querySelector("#statusText span");
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        statusSpan.textContent = "not yet";
+        return;
+      }
+      let lastSaved = lastSavedFromLoad;
+      if (!lastSaved) {
+        try {
+          const data = JSON.parse(raw);
+          lastSaved = data.lastSaved;
+        } catch {
+          lastSaved = null;
+        }
+      }
+      if (!lastSaved) {
+        statusSpan.textContent = "just now";
+        return;
+      }
+      const d = new Date(lastSaved);
+      statusSpan.textContent = d.toLocaleString();
+    }
+
+    // Chips: append text to target textarea
+    document.addEventListener("click", (e) => {
+      const chip = e.target.closest(".chip");
+      if (!chip) return;
+      const targetId = chip.getAttribute("data-target");
+      const target = document.getElementById(targetId);
+      if (!target) return;
+      const text = chip.textContent.trim();
+      if (target.value && !target.value.endsWith("\n")) {
+        target.value += "\n";
+      }
+      target.value += "- " + text;
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", savePlan);
+    document.getElementById("clearBtn").addEventListener("click", clearPlan);
+
+    // Auto-load on start
+    loadPlan();
+  </script>
+</body>
+</html>
