@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Law in Order Panel</title>
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f7f7fb;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .panel {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #2a2a72;
+        margin-bottom: 10px;
+    }
+
+    .symbol {
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+
+    .section {
+        margin-bottom: 20px;
+    }
+
+    .button {
+        display: block;
+        margin: 20px auto;
+        padding: 12px 20px;
+        background: #2a2a72;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .result {
+        margin-top: 15px;
+        padding: 15px;
+        background: #eef2ff;
+        border-radius: 8px;
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="panel">
+    <div class="symbol">⚖️</div>
+    <h1>Law in Order</h1>
+
+    <div class="section">
+        <strong>Law</strong> is the written rule.  
+        <br>
+        <strong>Order</strong> is the way we follow it.
+    </div>
+
+    <div class="section">
+        Click the button to see how rules work in real time.
+    </div>
+
+    <button class="button" onclick="applyRule()">Apply Rule</button>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+function applyRule() {
+    const rules = [
+        "Everyone deserves fairness.",
+        "Rights must be protected.",
+        "Rules apply equally to all.",
+        "Justice requires clarity.",
+        "Order keeps communities safe."
+    ];
+
+    const pick = rules[Math.floor(Math.random() * rules.length)];
+    const box = document.getElementById("result");
+
+    box.style.display = "block";
+    box.textContent = "Rule Applied: " + pick;
+}
+</script>
+
+</body>
+</html>
