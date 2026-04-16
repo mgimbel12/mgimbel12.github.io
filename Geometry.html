@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Geometry – Terms, Definitions & Learning Panel</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f7f5ff;
+    color: #2a2a44;
+    padding: 30px;
+  }
+
+  .panel {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(80,60,180,0.15);
+    border: 1px solid #e6e2ff;
+  }
+
+  h1 {
+    text-align: center;
+    color: #5a4bff;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    margin-top: 30px;
+    color: #6b5bff;
+  }
+
+  .term-box {
+    background: #faf9ff;
+    border: 1px solid #e3dfff;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 12px 0;
+  }
+
+  .term-title {
+    font-weight: 600;
+    color: #4a3aff;
+  }
+
+  .quiz-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f0edff;
+    border-radius: 12px;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #6b5bff;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #5848e8;
+  }
+
+  #result {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #3aa76d;
+  }
+</style>
+</head>
+
+<body>
+<div class="panel">
+
+  <h1>Geometry – Terms, Definitions & Learnings</h1>
+  <p style="text-align:center; color:#666;">A gentle, short full-length learning panel for understanding Geometry.</p>
+
+  <!-- TERMS & DEFINITIONS -->
+  <h2>📘 Key Geometry Terms</h2>
+
+  <div class="term-box">
+    <div class="term-title">Point</div>
+    A location in space with no size, only position.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Line</div>
+    A straight path that extends forever in both directions.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Line Segment</div>
+    A part of a line with two endpoints.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Ray</div>
+    A line that starts at one point and extends forever in one direction.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Angle</div>
+    Formed by two rays sharing a common endpoint (the vertex).
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Right Angle</div>
+    An angle that measures exactly 90°.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Acute Angle</div>
+    An angle that measures less than 90°.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Obtuse Angle</div>
+    An angle that measures more than 90° but less than 180°.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Parallel Lines</div>
+    Lines that never meet and stay the same distance apart.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Perpendicular Lines</div>
+    Lines that intersect to form right angles.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Polygon</div>
+    A closed shape made of straight line segments.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Triangle</div>
+    A polygon with three sides and three angles.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Circle</div>
+    A set of points all the same distance from a center point.
+  </div>
+
+  <!-- INTERACTIVE QUIZ -->
+  <h2>🧠 Quick Geometry Quiz</h2>
+
+  <div class="quiz-box">
+    <label>What type of angle measures **less than 90°**?</label><br>
+    <input id="answer" type="text" placeholder="Type your answer…" style="margin-top:10px; padding:8px; width:200px;">
+    <br>
+    <button onclick="checkAnswer()">Check Answer</button>
+    <div id="result"></div>
+  </div>
+
+</div>
+
+<script>
+  function checkAnswer() {
+    const user = document.getElementById("answer").value.toLowerCase().trim();
+    const result = document.getElementById("result");
+
+    if (user === "acute angle" || user === "acute") {
+      result.textContent = "Correct! An acute angle is less than 90°.";
+      result.style.color = "#3aa76d";
+    } else {
+      result.textContent = "Not quite. Try again.";
+      result.style.color = "#d9534f";
+    }
+  }
+</script>
+
+</body>
+</html>
