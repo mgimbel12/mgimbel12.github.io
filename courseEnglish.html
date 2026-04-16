@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>English II Homework Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #f7f8fc;
+      --card-bg: #ffffff;
+      --accent: #6b7cff;
+      --accent-soft: #e3e6ff;
+      --text-main: #222222;
+      --text-soft: #555555;
+      --border-soft: #dde1f0;
+      --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top left, #fdf2ff 0, #f7f8fc 40%, #eef6ff 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #ffffff 0, #f9fbff 40%, #ffffff 100%);
+      border-radius: 28px;
+      box-shadow: var(--shadow-soft);
+      padding: 28px 24px 32px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 192, 203, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(209, 213, 255, 0.25) 0, transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(187, 247, 208, 0.2) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header.panel-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .title-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .title-pill span.icon {
+      font-size: 14px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h1 span.emoji {
+      font-size: 26px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      max-width: 520px;
+    }
+
+    .mode-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 12px;
+      color: var(--text-soft);
+      background: rgba(255, 255, 255, 0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #a5b4fc;
+    }
+
+    .chip.primary {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #1e293b;
+    }
+
+    .chip.primary span.dot {
+      background: var(--accent);
+    }
+
+    .sections-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 18px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .sections-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 18px;
+      box-shadow: 0 8px 18px rgba(148, 163, 184, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .card-title span.icon {
+      font-size: 18px;
+    }
+
+    .card-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: #eef2ff;
+      color: #4338ca;
+      border: 1px solid rgba(129, 140, 248, 0.4);
+      white-space: nowrap;
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--text-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-body p {
+      line-height: 1.5;
+    }
+
+    .list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .list li::before {
+      content: "•";
+      color: var(--accent);
+      font-size: 14px;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+
+    .sentence-frame {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      font-size: 12px;
+      color: #4b5563;
+    }
+
+    .sentence-frame code {
+      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      background: #e5e7eb;
+      padding: 2px 4px;
+      border-radius: 6px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .soft-pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background: #f3f4ff;
+      color: #4338ca;
+      border: 1px solid rgba(129, 140, 248, 0.35);
+    }
+
+    .soft-pill.neutral {
+      background: #f3f4f6;
+      color: #374151;
+      border-color: rgba(156, 163, 175, 0.6);
+    }
+
+    .symbolism-box {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: #fefce8;
+      border: 1px solid #facc15;
+      font-size: 12px;
+      color: #854d0e;
+    }
+
+    .symbolism-box strong {
+      font-weight: 600;
+    }
+
+    .texas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .texas-item {
+      border-radius: var(--radius-md);
+      background: #eff6ff;
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      padding: 8px 9px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .texas-item span.label {
+      font-weight: 600;
+      color: #1d4ed8;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .example-box {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      font-size: 12px;
+      color: #374151;
+    }
+
+    .example-box span.label {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .example-box p {
+      margin-top: 2px;
+    }
+
+    .two-col-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 4px 10px;
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .two-col-list div {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .two-col-list div::before {
+      content: "•";
+      color: var(--accent);
+      font-size: 14px;
+      margin-top: 1px;
+    }
+
+    .mini-compare {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 6px;
+      font-size: 12px;
+    }
+
+    .mini-compare-item {
+      padding: 7px 8px;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .mini-compare-item span.label {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .essay-structure {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .essay-block {
+      padding: 8px 9px;
+      border-radius: var(--radius-md);
+      background: #f9fafb;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .essay-block span.heading {
+      font-weight: 600;
+      font-size: 12px;
+      color: #111827;
+    }
+
+    .essay-block ul {
+      list-style: none;
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .essay-block ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .essay-block ul li::before {
+      content: "–";
+      color: #6b7280;
+      font-size: 13px;
+      margin-top: 0;
+    }
+
+    .prompt-box {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: #ecfdf3;
+      border: 1px solid #4ade80;
+      font-size: 12px;
+      color: #166534;
+    }
+
+    .prompt-box span.label {
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .summary-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+      font-size: 13px;
+    }
+
+    .summary-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .summary-list li::before {
+      content: "✓";
+      color: #16a34a;
+      font-size: 14px;
+      margin-top: 0;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-note span.flowers {
+      font-size: 14px;
+    }
+
+    .toggle-btn {
+      border: none;
+      background: transparent;
+      font-size: 11px;
+      color: #4b5563;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      padding: 3px 7px;
+      border-radius: var(--radius-pill);
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .toggle-btn:hover {
+      background: rgba(148, 163, 184, 0.12);
+      color: #111827;
+    }
+
+    .toggle-btn span.chevron {
+      font-size: 12px;
+      transition: transform var(--transition-fast);
+    }
+
+    .toggle-btn[data-open="false"] span.chevron {
+      transform: rotate(-90deg);
+    }
+
+    .card.collapsed .card-body {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell" aria-label="English II Homework Panel">
+    <header class="panel-header">
+      <div class="title-block">
+        <div class="title-pill">
+          <span class="icon">📘</span>
+          <span>English II • Reading • Writing • Grammar • Analysis</span>
+        </div>
+        <h1>
+          <span class="emoji">🌿</span>
+          <span>English II Homework — Full Length Panel</span>
+        </h1>
+        <p class="subtitle">
+          A gentle, classroom‑ready guide to reading, writing, grammar, and literary analysis — designed like a learning overlay.
+        </p>
+      </div>
+
+      <div class="mode-chips">
+        <div class="chip primary">
+          <span class="dot"></span>
+          <span>Core Skills: Reading &amp; Writing</span>
+        </div>
+        <div class="chip">
+          <span class="dot"></span>
+          <span>Literary Devices &amp; Theme</span>
+        </div>
+        <div class="chip">
+          <span class="dot"></span>
+          <span>Essay &amp; Creative Practice</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="sections-grid">
+      <div class="left-column">
+        <!-- 1. Reading Comprehension -->
+        <article class="card" data-section="reading">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">👀</span>
+              <span>Reading Comprehension — Understanding a Text</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <p><strong>Core idea:</strong> English II expects you to explain what a text means and how the author creates meaning.</p>
+            <ul class="list">
+              <li><strong>Main Idea:</strong> What the text is mostly about.</li>
+              <li><strong>Supporting Details:</strong> Facts, examples, or quotes that prove the main idea.</li>
+              <li><strong>Author’s Purpose:</strong> To inform, persuade, entertain, or express feelings/ideas.</li>
+              <li><strong>Tone:</strong> The author’s attitude (hopeful, serious, joyful, angry, calm, etc.).</li>
+              <li><strong>Theme:</strong> The big message about life or human experience.</li>
+            </ul>
+            <p><strong>How to answer reading questions:</strong></p>
+            <ul class="list">
+              <li>Use complete sentences.</li>
+              <li>Include evidence (a quote or detail) from the text.</li>
+              <li>Explain why that evidence matters.</li>
+            </ul>
+            <div class="sentence-frame">
+              <strong>Sentence frame:</strong><br />
+              The author shows that <code>________</code>. This is supported by the line, “<code>________</code>,” which suggests <code>________</code>.
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Literary Devices -->
+        <article class="card" data-section="devices">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">✨</span>
+              <span>Literary Devices — Tools Authors Use</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <p>These are like the HTML/CSS/JavaScript of English class — the building blocks of style and meaning.</p>
+            <ul class="list">
+              <li><strong>Simile:</strong> Comparison using <em>like</em> or <em>as</em>.</li>
+              <li><strong>Metaphor:</strong> Direct comparison without using like or as.</li>
+              <li><strong>Imagery:</strong> Language that appeals to the senses (sight, sound, touch, taste, smell).</li>
+              <li><strong>Symbolism:</strong> An object that represents a deeper idea.</li>
+              <li><strong>Foreshadowing:</strong> Hints about what will happen later.</li>
+              <li><strong>Irony:</strong> The opposite of what is expected.</li>
+              <li><strong>Theme:</strong> The message about life or human nature.</li>
+            </ul>
+
+            <div class="symbolism-box">
+              <strong>Symbolism examples (storybook style):</strong><br />
+              A daisy might symbolize innocence or a new beginning.<br />
+              A white rose might symbolize peace, forgiveness, or purity.<br />
+              A tulip might symbolize hope, renewal, or emotional growth.
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Writing Skills — Paragraph -->
+        <article class="card" data-section="paragraph">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">✏️</span>
+              <span>Writing Skills — Strong Paragraphs (T.E.X.A.S.)</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <p>A complete English II paragraph often follows the <strong>T.E.X.A.S.</strong> structure:</p>
+            <div class="texas-grid">
+              <div class="texas-item">
+                <span class="label">T — Topic</span>
+                <span>The main idea of the paragraph.</span>
+              </div>
+              <div class="texas-item">
+                <span class="label">E — Evidence</span>
+                <span>A quote or detail from the text.</span>
+              </div>
+              <div class="texas-item">
+                <span class="label">X — eXplanation</span>
+                <span>Explain what the evidence means.</span>
+              </div>
+              <div class="texas-item">
+                <span class="label">A — Analysis</span>
+                <span>Connect to theme, symbolism, or deeper meaning.</span>
+              </div>
+              <div class="texas-item">
+                <span class="label">S — Summary</span>
+                <span>Wrap up the idea and connect back to the topic.</span>
+              </div>
+            </div>
+
+            <div class="example-box">
+              <span class="label">Example paragraph</span>
+              <p>
+                In the story, the author shows that courage often begins quietly. The narrator explains,
+                “She stepped forward even though her voice trembled.” This detail reveals that bravery is not
+                the absence of fear but the decision to move anyway. The moment symbolizes a turning point
+                where the character chooses growth over comfort. Overall, the author uses this scene to teach
+                that courage can start small but still change everything.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Essay Writing -->
+        <article class="card" data-section="essay">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">🧩</span>
+              <span>Essay Writing — Full Structure</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <p>A standard English II essay usually includes an introduction, body paragraphs, and a conclusion.</p>
+            <div class="essay-structure">
+              <div class="essay-block">
+                <span class="heading">Introduction</span>
+                <ul>
+                  <li>Hook (interesting opening).</li>
+                  <li>Background or context.</li>
+                  <li>Thesis statement (your main argument).</li>
+                </ul>
+              </div>
+              <div class="essay-block">
+                <span class="heading">Body Paragraphs</span>
+                <ul>
+                  <li>Use T.E.X.A.S. structure.</li>
+                  <li>Include transitions between ideas.</li>
+                  <li>Focus on analysis, not just summary.</li>
+                </ul>
+              </div>
+              <div class="essay-block">
+                <span class="heading">Conclusion</span>
+                <ul>
+                  <li>Restate the thesis in new words.</li>
+                  <li>Summarize your main points.</li>
+                  <li>End with a final insight or connection.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="sentence-frame" style="margin-top: 8px;">
+              <strong>Thesis frame:</strong><br />
+              The author uses <code>________</code>, <code>________</code>, and <code>________</code> to show that <code>________</code>.
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="right-column">
+        <!-- 4. Grammar & Sentence Skills -->
+        <article class="card" data-section="grammar">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">🧠</span>
+              <span>Grammar &amp; Sentence Skills</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <p>English II focuses on clarity, correctness, and flow.</p>
+            <div class="two-col-list">
+              <div><strong>Subject–verb agreement</strong></div>
+              <div><strong>Pronoun clarity</strong></div>
+              <div><strong>Comma rules</strong></div>
+              <div><strong>Run‑on vs. complete sentences</strong></div>
+              <div><strong>Transitions</strong> (however, therefore, meanwhile, in addition)</div>
+            </div>
+
+            <div class="mini-compare">
+              <div class="mini-compare-item">
+                <span class="label">Run‑on (incorrect)</span>
+                <div>She loved to read she visited the library often.</div>
+              </div>
+              <div class="mini-compare-item">
+                <span class="label">Correct sentence</span>
+                <div>She loved to read, so she visited the library often.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6. Creative Writing Practice -->
+        <article class="card" data-section="creative">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">🎨</span>
+              <span>Creative Writing Practice</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <p>English II also includes narrative (story) writing. Strong narratives usually have:</p>
+            <ul class="list">
+              <li>Clear setting (where and when).</li>
+              <li>Developed characters.</li>
+              <li>Conflict (a problem or challenge).</li>
+              <li>Rising action (events building up).</li>
+              <li>Climax (the most intense moment).</li>
+              <li>Resolution (how it ends).</li>
+              <li>Theme (what the story is really about).</li>
+            </ul>
+
+            <div class="prompt-box">
+              <span class="label">Mini‑prompt</span>
+              Write a short scene where a flower (daisy, white rose, or tulip) becomes a symbol for a character’s
+              emotional change.
+            </div>
+          </div>
+        </article>
+
+        <!-- 7. Study Guide Summary -->
+        <article class="card" data-section="summary">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="icon">✅</span>
+              <span>Study Guide Summary</span>
+            </div>
+            <button class="toggle-btn" data-open="true" type="button">
+              <span class="chevron">▾</span>
+              <span>Collapse</span>
+            </button>
+          </div>
+          <div class="card-body">
+            <ul class="summary-list">
+              <li>Identify theme, tone, purpose, and main idea.</li>
+              <li>Use evidence and analysis in your answers.</li>
+              <li>Write clear paragraphs with structure (T.E.X.A.S.).</li>
+              <li>Recognize literary devices and explain their effect.</li>
+              <li>Edit for grammar, punctuation, and clarity.</li>
+              <li>Build essays with intro, body, and conclusion.</li>
+              <li>Practice creative storytelling with symbolism and emotion.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer-note">
+      <span>Use this panel as a full English II homework guide, study sheet, or overlay content.</span>
+      <span class="flowers">🌼 Daisy • 🤍 White Rose • 🌷 Tulip — symbols of innocence, peace, and renewal</span>
+    </footer>
+  </main>
+
+  <script>
+    // Simple JS to toggle card sections open/closed
+    document.querySelectorAll(".card").forEach(function (card) {
+      var btn = card.querySelector(".toggle-btn");
+      if (!btn) return;
+
+      btn.addEventListener("click", function () {
+        var isOpen = btn.getAttribute("data-open") === "true";
+        btn.setAttribute("data-open", String(!isOpen));
+        card.classList.toggle("collapsed", isOpen);
+        btn.querySelector("span:nth-child(2)").textContent = isOpen ? "Expand" : "Collapse";
+      });
+    });
+  </script>
+</body>
+</html>
