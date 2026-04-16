@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>English IV – Life Stories</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(#ebf8ff, #ffffff);
+      padding: 20px;
+      color: #1a202c;
+    }
+    .card {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .tag-row {
+      margin-bottom: 0.5rem;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #edf2f7;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    .section-text {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .flex {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .col {
+      flex: 1 1 220px;
+    }
+    .quiz-question {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.9rem;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 4px 0;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e0;
+      background: #f7fafc;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .answers button.correct {
+      background: #c6f6d5;
+      border-color: #38a169;
+    }
+    .answers button.wrong {
+      background: #fed7d7;
+      border-color: #e53e3e;
+    }
+    .feedback {
+      font-size: 0.8rem;
+      margin-top: 3px;
+      min-height: 1em;
+    }
+    .score {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    /* SVG container */
+    .svg-wrap {
+      text-align: center;
+    }
+    svg {
+      width: 160px;
+      height: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>English IV – Life Stories in the Clouds</h1>
+    <div class="tag-row">
+      <span class="tag">Life Circumstances</span>
+      <span class="tag">Reading &amp; Writing</span>
+      <span class="tag">Short Texts</span>
+      <span class="tag">Creative Reflection</span>
+    </div>
+
+    <div class="flex">
+      <div class="col section-text">
+        <h2>Course Snapshot</h2>
+        <p><strong>Focus:</strong> Real‑life stories about choices, challenges, and change.</p>
+        <p><strong>Skills:</strong> Theme, point of view, inference, and personal response.</p>
+        <p><strong>Texts:</strong> Short stories, memoirs, speeches, and articles.</p>
+        <p><strong>Projects:</strong> Mini‑essays, journals, and “what would you do?” writing.</p>
+      </div>
+
+      <div class="col svg-wrap">
+        <!-- SVG: clouds + open book + EN letters -->
+        <svg viewBox="0 0 200 140">
+          <!-- sky -->
+          <rect x="0" y="0" width="200" height="140" fill="#ebf8ff" />
+          <!-- clouds -->
+          <g fill="#ffffff" opacity="0.95">
+            <ellipse cx="40" cy="35" rx="22" ry="12" />
+            <ellipse cx="60" cy="32" rx="18" ry="10" />
+            <ellipse cx="52" cy="40" rx="20" ry="11" />
+
+            <ellipse cx="140" cy="30" rx="22" ry="12" />
+            <ellipse cx="160" cy="28" rx="18" ry="10" />
+            <ellipse cx="152" cy="36" rx="20" ry="11" />
+          </g>
+          <!-- book -->
+          <g>
+            <path d="M60 70 L100 60 L140 70 L140 110 L100 100 L60 110 Z"
+                  fill="#ffffff" stroke="#4a5568" stroke-width="2" />
+            <line x1="100" y1="60" x2="100" y2="100" stroke="#4a5568" stroke-width="2" />
+            <!-- lines on pages -->
+            <g stroke="#a0aec0" stroke-width="1">
+              <line x1="66" y1="78" x2="96" y2="71" />
+              <line x1="66" y1="86" x2="96" y2="79" />
+              <line x1="66" y1="94" x2="96" y2="87" />
+
+              <line x1="104" y1="71" x2="134" y2="78" />
+              <line x1="104" y1="79" x2="134" y2="86" />
+              <line x1="104" y1="87" x2="134" y2="94" />
+            </g>
+          </g>
+          <!-- EN letters floating -->
+          <text x="70" y="52" font-size="16" fill="#2b6cb0" font-weight="700">EN</text>
+          <text x="120" y="52" font-size="16" fill="#2b6cb0" font-weight="700">IV</text>
+        </svg>
+      </div>
+    </div>
+
+    <h2>Quick Quiz – Life &amp; Literature</h2>
+    <div id="quiz"></div>
+    <div class="score" id="score">Score: 0 / 0</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "A story about a teen choosing between family duty and college is mainly about:",
+        answers: [
+          "Weather patterns",
+          "Life circumstances and choices",
+          "Grammar rules",
+          "Sports statistics"
+        ],
+        correct: 1
+      },
+      {
+        text: "The theme of a story is:",
+        answers: [
+          "The main character’s name",
+          "The time and place",
+          "The central message or big idea",
+          "The longest sentence"
+        ],
+        correct: 2
+      },
+      {
+        text: "When you make an inference, you:",
+        answers: [
+          "Copy a sentence exactly",
+          "Guess randomly",
+          "Combine clues in the text with what you know",
+          "Only read the title"
+        ],
+        correct: 2
+      },
+      {
+        text: "A memoir is:",
+        answers: [
+          "A made-up fantasy story",
+          "A true story from someone’s life, told by that person",
+          "A science textbook",
+          "A list of rules"
+        ],
+        correct: 1
+      },
+      {
+        text: "An author writing about losing a job and starting again is most likely exploring:",
+        answers: [
+          "Resilience and change",
+          "Punctuation",
+          "Weather",
+          "Sports scores"
+        ],
+        correct: 0
+      }
+    ];
+
+    const quizEl = document.getElementById("quiz");
+    const scoreEl = document.getElementById("score");
+    let correctCount = 0;
+    let answeredCount = 0;
+
+    function updateScore() {
+      scoreEl.textContent = `Score: ${correctCount} / ${answeredCount}`;
+    }
+
+    questions.forEach((q, index) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "quiz-question";
+
+      const title = document.createElement("div");
+      title.textContent = `Q${index + 1}. ${q.text}`;
+      qDiv.appendChild(title);
+
+      const answersDiv = document.createElement("div");
+      answersDiv.className = "answers";
+
+      const feedback = document.createElement("div");
+      feedback.className = "feedback";
+
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.addEventListener("click", () => {
+          // only count first click as an answer
+          if (!btn.dataset.clicked) {
+            answeredCount++;
+            if (i === q.correct) {
+              correctCount++;
+            }
+            updateScore();
+          }
+          btn.dataset.clicked = "true";
+
+          // reset styles
+          [...answersDiv.children].forEach(b => {
+            b.classList.remove("correct", "wrong");
+          });
+          if (i === q.correct) {
+            btn.classList.add("correct");
+            feedback.textContent = "Correct! 🌤️ The big idea matters.";
+          } else {
+            btn.classList.add("wrong");
+            feedback.textContent = "Not quite. Think about the life situation and the message.";
+          }
+        });
+        answersDiv.appendChild(btn);
+      });
+
+      qDiv.appendChild(answersDiv);
+      qDiv.appendChild(feedback);
+      quizEl.appendChild(qDiv);
+    });
+
+    updateScore();
+  </script>
+</body>
+</html>
