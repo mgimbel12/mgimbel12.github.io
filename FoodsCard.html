@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Food Handlers Helper</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background:#f7fafc;
+      padding:20px;
+      color:#1a202c;
+    }
+    .card {
+      max-width:600px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:12px;
+      padding:20px 24px;
+      box-shadow:0 8px 20px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size:1.4rem;
+      margin-bottom:0.5rem;
+    }
+    .note-pill {
+      display:inline-block;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:0.75rem;
+      margin:2px;
+      background:#edf2f7;
+    }
+    .question {
+      margin-top:16px;
+      padding-top:12px;
+      border-top:1px solid #e2e8f0;
+    }
+    .answers button {
+      display:block;
+      width:100%;
+      text-align:left;
+      margin:4px 0;
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid #cbd5e0;
+      background:#f7fafc;
+      cursor:pointer;
+      font-size:0.9rem;
+    }
+    .answers button.correct {
+      background:#c6f6d5;
+      border-color:#38a169;
+    }
+    .answers button.wrong {
+      background:#fed7d7;
+      border-color:#e53e3e;
+    }
+    .feedback {
+      font-size:0.85rem;
+      margin-top:4px;
+      min-height:1em;
+    }
+    .steps {
+      display:flex;
+      gap:10px;
+      margin-top:14px;
+      flex-wrap:wrap;
+    }
+    .step-icon {
+      flex:1 1 100px;
+      text-align:center;
+      font-size:0.75rem;
+    }
+    svg {
+      width:60px;
+      height:60px;
+      margin-bottom:4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Food Handlers Helper</h1>
+    <div>
+      <span class="note-pill">Clean</span>
+      <span class="note-pill">Separate</span>
+      <span class="note-pill">Cook</span>
+      <span class="note-pill">Chill</span>
+    </div>
+
+    <!-- SVG icons of the steps -->
+    <div class="steps">
+      <div class="step-icon">
+        <!-- Clean: hands + water drops -->
+        <svg viewBox="0 0 64 64">
+          <rect x="6" y="30" width="52" height="24" rx="6" fill="#e2f0ff"/>
+          <path d="M18 34c4 0 6 4 6 8v6H14v-6c0-4 2-8 4-8z" fill="#90cdf4"/>
+          <path d="M30 22c3 0 5 3 5 6v14h-6V28c0-3 1-6 1-6z" fill="#63b3ed"/>
+          <circle cx="40" cy="18" r="3" fill="#4299e1"/>
+          <circle cx="46" cy="14" r="2.5" fill="#63b3ed"/>
+          <circle cx="50" cy="20" r="2" fill="#3182ce"/>
+        </svg>
+        Clean
+      </div>
+      <div class="step-icon">
+        <!-- Separate: two boards -->
+        <svg viewBox="0 0 64 64">
+          <rect x="8" y="18" width="20" height="28" rx="3" fill="#fed7d7"/>
+          <rect x="36" y="18" width="20" height="28" rx="3" fill="#c6f6d5"/>
+          <line x1="28" y1="32" x2="36" y2="32" stroke="#4a5568" stroke-width="2" stroke-dasharray="3 3"/>
+        </svg>
+        Separate
+      </div>
+      <div class="step-icon">
+        <!-- Cook: pot on heat -->
+        <svg viewBox="0 0 64 64">
+          <rect x="14" y="26" width="36" height="18" rx="4" fill="#feb2b2"/>
+          <rect x="10" y="24" width="44" height="4" rx="2" fill="#4a5568"/>
+          <path d="M18 46c2 3 4 3 6 0s4-3 6 0 4 3 6 0 4-3 6 0" fill="none" stroke="#ed8936" stroke-width="2"/>
+          <path d="M26 18c0-3 2-4 2-6 0-1-0.5-2-1-2" fill="none" stroke="#718096" stroke-width="2"/>
+          <path d="M34 18c0-3 2-4 2-6 0-1-0.5-2-1-2" fill="none" stroke="#718096" stroke-width="2"/>
+        </svg>
+        Cook
+      </div>
+      <div class="step-icon">
+        <!-- Chill: snowflake -->
+        <svg viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="10" fill="#bee3f8"/>
+          <line x1="32" y1="16" x2="32" y2="48" stroke="#2b6cb0" stroke-width="2"/>
+          <line x1="16" y1="32" x2="48" y2="32" stroke="#2b6cb0" stroke-width="2"/>
+          <line x1="22" y1="22" x2="42" y2="42" stroke="#2b6cb0" stroke-width="2"/>
+          <line x1="42" y1="22" x2="22" y2="42" stroke="#2b6cb0" stroke-width="2"/>
+        </svg>
+        Chill
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div id="quiz"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "How long should you wash your hands?",
+        answers: ["5 seconds", "10 seconds", "20 seconds", "Until they feel clean"],
+        correct: 2
+      },
+      {
+        text: "What is cross-contamination?",
+        answers: [
+          "Cooking food twice",
+          "Transfer of germs from raw food to ready-to-eat food",
+          "Using a food thermometer",
+          "Storing food in the fridge"
+        ],
+        correct: 1
+      },
+      {
+        text: "Which action is part of 'Separate'?",
+        answers: [
+          "Using one board for everything",
+          "Storing raw chicken above salad",
+          "Using different boards for raw meat and produce",
+          "Leaving meat on the counter"
+        ],
+        correct: 2
+      }
+    ];
+
+    const quizEl = document.getElementById("quiz");
+
+    questions.forEach((q, index) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question";
+
+      const title = document.createElement("div");
+      title.textContent = `Q${index + 1}. ${q.text}`;
+      qDiv.appendChild(title);
+
+      const answersDiv = document.createElement("div");
+      answersDiv.className = "answers";
+
+      const feedback = document.createElement("div");
+      feedback.className = "feedback";
+
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.addEventListener("click", () => {
+          // reset styles
+          [...answersDiv.children].forEach(b => {
+            b.classList.remove("correct", "wrong");
+          });
+          if (i === q.correct) {
+            btn.classList.add("correct");
+            feedback.textContent = "Correct! ✅";
+          } else {
+            btn.classList.add("wrong");
+            feedback.textContent = "Try again. Remember: Clean, Separate, Cook, Chill.";
+          }
+        });
+        answersDiv.appendChild(btn);
+      });
+
+      qDiv.appendChild(answersDiv);
+      qDiv.appendChild(feedback);
+      quizEl.appendChild(qDiv);
+    });
+  </script>
+</body>
+</html>
