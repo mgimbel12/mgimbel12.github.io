@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Life Skills & Friendship Learning Panel</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: linear-gradient(#f0faff, #ffffff);
+    padding: 20px;
+    color: #1a202c;
+  }
+  .page {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  }
+  h1 { font-size: 1.7rem; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.25rem; margin-top: 1.4rem; }
+  .tag {
+    display:inline-block;
+    background:#edf2f7;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:0.75rem;
+    margin:2px;
+  }
+  .section {
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    padding:12px 14px;
+    margin-top:12px;
+    background:#f9fbff;
+  }
+  .section-header {
+    display:flex;
+    justify-content:space-between;
+    cursor:pointer;
+  }
+  .section-title { font-weight:600; font-size:1rem; }
+  .toggle { font-size:0.8rem; color:#4a5568; }
+  .section-body { margin-top:8px; font-size:0.92rem; line-height:1.45; }
+  .collapsed .section-body { display:none; }
+  button {
+    margin-top:10px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid #cbd5e0;
+    background:#edf2f7;
+    cursor:pointer;
+    font-size:0.8rem;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1>Life Skills, Friendship & Everyday Learning</h1>
+
+  <div>
+    <span class="tag">Friendship</span>
+    <span class="tag">Life Skills</span>
+    <span class="tag">Saving Water</span>
+    <span class="tag">Cooking</span>
+    <span class="tag">Conflict Recovery</span>
+    <span class="tag">Short & Long Versions</span>
+  </div>
+
+  <button id="toggleAll">Collapse / Expand All</button>
+
+  <!-- FRIENDSHIP -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">How to Make Friends</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Smile, say hello, be kind.</li>
+        <li>Ask simple questions.</li>
+        <li>Share small moments.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Friendship begins with gentle openness. A smile, a wave, or a simple “Hi, how are you?” can open a door. People feel safe when they feel seen. Asking small questions—“How was your day?” or “What do you like to do?”—creates connection. Friendship grows through shared moments, trust, and showing up with kindness.</p>
+    </div>
+  </div>
+
+  <!-- CALLING FRIENDS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Calling Friends</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Check in.</li>
+        <li>Keep it simple.</li>
+        <li>Be warm.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Calling a friend doesn’t need to be perfect. A simple “Just checking on you” can brighten someone’s day. Speak gently, listen fully, and let the conversation flow naturally. The goal is connection, not performance.</p>
+    </div>
+  </div>
+
+  <!-- TEACHING FRIENDS SKILLS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Teaching Friends a New Skill</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Show, don’t rush.</li>
+        <li>Encourage.</li>
+        <li>Practice together.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Teaching a friend is an act of patience. Break the skill into small steps, demonstrate slowly, and let them try. Celebrate progress, not perfection. Learning together strengthens trust and confidence.</p>
+    </div>
+  </div>
+
+  <!-- LEARNING NEW SKILLS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Learning New Skills</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Start small.</li>
+        <li>Repeat often.</li>
+        <li>Stay curious.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>New skills grow through repetition and curiosity. Begin with the basics, practice regularly, and allow mistakes to guide you. Learning is a journey, not a race.</p>
+    </div>
+  </div>
+
+  <!-- MAKING A BED -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Making a Bed</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Smooth sheets.</li>
+        <li>Pull blankets.</li>
+        <li>Fluff pillows.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Making a bed is a small act of order that sets the tone for the day. Straighten the sheets, pull the blankets evenly, and fluff the pillows. A tidy bed creates a tidy mind.</p>
+    </div>
+  </div>
+
+  <!-- SAVING WATER -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Saving Water</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Turn off taps.</li>
+        <li>Shorter showers.</li>
+        <li>Fix leaks.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Water is precious. Turning off the faucet while brushing, taking shorter showers, and repairing leaks protects our environment. Small habits create big change.</p>
+    </div>
+  </div>
+
+  <!-- COOKING A MEAL -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Cooking a Meal</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Prep ingredients.</li>
+        <li>Cook safely.</li>
+        <li>Clean as you go.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Cooking begins with preparation—washing hands, gathering ingredients, and reading steps. Cook with care, watch temperatures, and clean as you go. A meal is more than food; it’s comfort, creativity, and care.</p>
+    </div>
+  </div>
+
+  <!-- LIFE CHALLENGES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Life Challenges</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Pause.</li>
+        <li>Breathe.</li>
+        <li>Try again.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Life challenges test our strength. When things feel heavy, pause and breathe. Challenges are not signs of failure—they are invitations to grow. Every setback carries a lesson.</p>
+    </div>
+  </div>
+
+  <!-- REGAINING AFTER CONFLICT -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">Regaining Confidence After Conflict</div>
+      <div class="toggle">short + long</div>
+    </div>
+    <div class="section-body">
+      <strong>Short‑hand:</strong>
+      <ul>
+        <li>Reflect.</li>
+        <li>Repair.</li>
+        <li>Rebuild.</li>
+      </ul>
+
+      <strong>Long‑hand:</strong>
+      <p>Conflict can shake confidence, but it can also strengthen understanding. Reflect on what happened, repair what you can, and rebuild trust slowly. Growth comes from honesty, courage, and compassion.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // Toggle individual sections
+  document.querySelectorAll('.section-header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.parentElement.classList.toggle('collapsed');
+    });
+  });
+
+  // Collapse / expand all
+  const toggleAll = document.getElementById('toggleAll');
+  let collapsed = false;
+  toggleAll.addEventListener('click', () => {
+    collapsed = !collapsed;
+    document.querySelectorAll('.section').forEach(sec => {
+      if (collapsed) sec.classList.add('collapsed');
+      else sec.classList.remove('collapsed');
+    });
+  });
+</script>
+
+</body>
+</html>
