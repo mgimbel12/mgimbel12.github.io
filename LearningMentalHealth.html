@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mental Health Psychology I – Mind Triangle</title>
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: #f5f7fb;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .panel {
+        max-width: 800px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 14px;
+        padding: 24px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+        text-align: center;
+        color: #283593;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #555;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    .triangle {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        flex: 1 1 200px;
+        background: #eef2ff;
+        border-radius: 10px;
+        padding: 14px;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .card-title {
+        font-weight: 600;
+        color: #1a237e;
+        margin-bottom: 6px;
+    }
+
+    .card-text {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .output {
+        margin-top: 18px;
+        padding: 14px;
+        background: #e3f2fd;
+        border-radius: 10px;
+        min-height: 40px;
+        font-size: 14px;
+        color: #0d47a1;
+    }
+
+    .note {
+        margin-top: 16px;
+        font-size: 12px;
+        color: #666;
+        line-height: 1.4;
+    }
+</style>
+</head>
+<body>
+
+<div class="panel">
+    <h1>Mental Health Psychology I</h1>
+    <div class="subtitle">
+        Thoughts, feelings, and behaviors are connected. Click a card to see an example.
+    </div>
+
+    <div class="triangle">
+        <div class="card" onclick="showExample('thought')">
+            <div class="card-title">Thoughts</div>
+            <div class="card-text">
+                What I say to myself in my mind.
+            </div>
+        </div>
+
+        <div class="card" onclick="showExample('feeling')">
+            <div class="card-title">Feelings</div>
+            <div class="card-text">
+                Emotions in my body and heart.
+            </div>
+        </div>
+
+        <div class="card" onclick="showExample('behavior')">
+            <div class="card-title">Behaviors</div>
+            <div class="card-text">
+                What I do or choose not to do.
+            </div>
+        </div>
+    </div>
+
+    <div id="output" class="output">
+        Click a card to explore how one part of the triangle can affect the others.
+    </div>
+
+    <div class="note">
+        This panel is for learning only and cannot replace support from a mental health professional.
+        If emotions feel heavy or overwhelming, it’s important to reach out to a trusted person or a qualified clinician.
+    </div>
+</div>
+
+<script>
+const examples = {
+    thought: [
+        "Thought: “I always mess things up.” → Feeling: discouraged → Behavior: avoiding new tasks.",
+        "Thought: “Maybe I can learn this step by step.” → Feeling: hopeful → Behavior: trying again.",
+        "Thought: “They didn’t text back; they must be mad at me.” → Feeling: anxious → Behavior: withdrawing."
+    ],
+    feeling: [
+        "Feeling: nervous before a presentation → Thought: “Everyone will judge me.” → Behavior: canceling or avoiding.",
+        "Feeling: proud after finishing a project → Thought: “I worked hard and it shows.” → Behavior: sharing it with others.",
+        "Feeling: lonely → Thought: “No one cares about me.” → Behavior: not answering messages."
+    ],
+    behavior: [
+        "Behavior: going for a short walk → Feeling: a bit calmer → Thought: “Small steps can help.”",
+        "Behavior: staying in bed all day → Feeling: more down → Thought: “Nothing will change.”",
+        "Behavior: texting a friend → Feeling: more connected → Thought: “I’m not completely alone.”"
+    ]
+};
+
+function showExample(type) {
+    const list = examples[type];
+    const pick = list[Math.floor(Math.random() * list.length)];
+    const output = document.getElementById("output");
+    output.textContent = pick;
+}
+</script>
+
+</body>
+</html>
