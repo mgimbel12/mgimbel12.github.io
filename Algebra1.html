@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Algebra I – Terms, Definitions & Learning Panel</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #f7f5ff;
+    color: #2a2a44;
+    padding: 30px;
+  }
+
+  .panel {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(80,60,180,0.15);
+    border: 1px solid #e6e2ff;
+  }
+
+  h1 {
+    text-align: center;
+    color: #5a4bff;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    margin-top: 30px;
+    color: #6b5bff;
+  }
+
+  .term-box {
+    background: #faf9ff;
+    border: 1px solid #e3dfff;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 12px 0;
+  }
+
+  .term-title {
+    font-weight: 600;
+    color: #4a3aff;
+  }
+
+  .quiz-box {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f0edff;
+    border-radius: 12px;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #6b5bff;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #5848e8;
+  }
+
+  #result {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #3aa76d;
+  }
+</style>
+</head>
+
+<body>
+<div class="panel">
+
+  <h1>Algebra I – Terms, Definitions & Learnings</h1>
+  <p style="text-align:center; color:#666;">A gentle learning panel for understanding the language of Algebra.</p>
+
+  <!-- TERMS & DEFINITIONS -->
+  <h2>📘 Key Terms & Definitions</h2>
+
+  <div class="term-box">
+    <div class="term-title">Variable</div>
+    A symbol (usually a letter) that represents an unknown value. Example: x, y, n.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Coefficient</div>
+    The number multiplied by a variable. Example: in 4x, the coefficient is 4.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Constant</div>
+    A number that does not change. Example: 7, −3, 12.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Expression</div>
+    A math phrase with numbers, variables, and operations. Example: 3x + 5.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Equation</div>
+    A statement showing two expressions are equal. Example: 2x + 1 = 7.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Solution</div>
+    The value that makes an equation true. Example: x = 3.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Linear Equation</div>
+    An equation whose graph is a straight line. Example: y = mx + b.
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Slope (m)</div>
+    The steepness of a line. Formula: (change in y) ÷ (change in x).
+  </div>
+
+  <div class="term-box">
+    <div class="term-title">Y‑Intercept (b)</div>
+    Where the line crosses the y‑axis.
+  </div>
+
+  <!-- INTERACTIVE QUIZ -->
+  <h2>🧠 Quick Practice Quiz</h2>
+
+  <div class="quiz-box">
+    <label>What is the coefficient in the expression <strong>7x + 2</strong>?</label><br>
+    <input id="answer" type="number" placeholder="Type your answer…" style="margin-top:10px; padding:8px; width:150px;">
+    <br>
+    <button onclick="checkAnswer()">Check Answer</button>
+    <div id="result"></div>
+  </div>
+
+</div>
+
+<script>
+  function checkAnswer() {
+    const user = document.getElementById("answer").value;
+    const result = document.getElementById("result");
+
+    if (user == 7) {
+      result.textContent = "Correct! The coefficient is 7.";
+      result.style.color = "#3aa76d";
+    } else {
+      result.textContent = "Not quite. Try again.";
+      result.style.color = "#d9534f";
+    }
+  }
+</script>
+
+</body>
+</html>
