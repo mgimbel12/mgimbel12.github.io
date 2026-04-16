@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>United We Learn – Full World Document</title>
+  <style>
+    body {u
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(#e6f4ff, #ffffff);
+      padding: 20px;
+      color: #1a202c;
+    }
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 24px 26px 30px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 1.7rem;
+      margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin: 1.2rem 0 0.4rem;
+    }
+    h3 {
+      font-size: 1.05rem;
+      margin: 0.6rem 0 0.2rem;
+    }
+    .tag-row { margin: 4px 0 10px; }
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #edf2f7;
+      font-size: 0.75rem;
+      margin: 2px;
+    }
+    .svg-wrap {
+      text-align: center;
+      margin: 10px 0 16px;
+    }
+    svg {
+      width: 240px;
+      height: 150px;
+    }
+    .section {
+      border-radius: 14px;
+      border: 1px solid #e2e8f0;
+      padding: 12px 14px 10px;
+      margin-top: 10px;
+      background: #f9fbff;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+    .section-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+    .toggle {
+      font-size: 0.8rem;
+      color: #4a5568;
+    }
+    .section-body {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    .section-body ul {
+      margin: 4px 0 0 18px;
+      padding: 0;
+    }
+    .section-body li {
+      margin-bottom: 3px;
+    }
+    .collapsed .section-body {
+      display: none;
+    }
+    #collapseAllBtn {
+      margin-top: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e0;
+      background: #edf2f7;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>United We Learn – World of People, Nature, and History</h1>
+    <div class="tag-row">
+      <span class="tag">Flowers</span>
+      <span class="tag">Sun &amp; Moon</span>
+      <span class="tag">Science</span>
+      <span class="tag">Earth &amp; Marine</span>
+      <span class="tag">History</span>
+      <span class="tag">Native Nations</span>
+      <span class="tag">Armed Forces</span>
+      <span class="tag">P.E. &amp; Dance</span>
+      <span class="tag">People &amp; Creation</span>
+      <span class="tag">United We Stand</span>
+    </div>
+
+    <div class="svg-wrap">
+      <!-- Sun, Moon, Earth, Flowers SVG -->
+      <svg viewBox="0 0 260 150">
+        <rect width="260" height="150" fill="#e6f4ff" />
+        <!-- sun -->
+        <circle cx="45" cy="40" r="16" fill="#f6e05e" />
+        <!-- sun rays -->
+        <g stroke="#f6e05e" stroke-width="2">
+          <line x1="45" y1="18" x2="45" y2="10" />
+          <line x1="45" y1="62" x2="45" y2="70" />
+          <line x1="23" y1="40" x2="15" y2="40" />
+          <line x1="67" y1="40" x2="75" y2="40" />
+          <line x1="31" y1="26" x2="25" y2="20" />
+          <line x1="59" y1="26" x2="65" y2="20" />
+          <line x1="31" y1="54" x2="25" y2="60" />
+          <line x1="59" y1="54" x2="65" y2="60" />
+        </g>
+        <!-- moon -->
+        <path d="M210 32a16 16 0 1 0 10 28 14 14 0 1 1 -10 -28z" fill="#cbd5e0" />
+        <!-- clouds -->
+        <g fill="#ffffff" opacity="0.95">
+          <ellipse cx="110" cy="32" rx="26" ry="12" />
+          <ellipse cx="134" cy="30" rx="20" ry="10" />
+          <ellipse cx="126" cy="40" rx="22" ry="11" />
+        </g>
+        <!-- Earth -->
+        <circle cx="130" cy="100" r="32" fill="#63b3ed" />
+        <path d="M110 90 L120 82 L135 88 L142 100 L132 112 L118 108 Z" fill="#2b6cb0" />
+        <path d="M140 110 L150 104 L158 110 L154 118 L144 120 Z" fill="#2f855a" />
+        <!-- flowers -->
+        <g>
+          <line x1="40" y1="120" x2="40" y2="140" stroke="#38a169" stroke-width="2" />
+          <circle cx="40" cy="116" r="5" fill="#f56565" />
+          <circle cx="35" cy="116" r="3" fill="#fed7e2" />
+          <circle cx="45" cy="116" r="3" fill="#fed7e2" />
+          <line x1="55" y1="122" x2="55" y2="140" stroke="#38a169" stroke-width="2" />
+          <circle cx="55" cy="118" r="4" fill="#ed8936" />
+        </g>
+        <!-- text -->
+        <text x="90" y="142" font-size="13" fill="#2b6cb0" font-weight="700">
+          United We Learn
+        </text>
+      </svg>
+    </div>
+
+    <button id="collapseAllBtn">Collapse / Expand All</button>
+
+    <!-- Nature & Sky -->
+    <h2>Nature &amp; Sky</h2>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Flowers &amp; Plants</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Beauty, growth, and healing; living things depend on light, water, soil, and care.</li>
+          <li>Different plants support animals, people, and whole ecosystems.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Sun &amp; Moon</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Sun and Moon guide days, nights, seasons, and tides.</li>
+          <li>They shape science (energy, gravity) and many cultural stories and calendars.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Science & Earth -->
+    <h2>Science &amp; Earth</h2>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Science (General)</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Asking questions, testing ideas, and using evidence to understand how the world works.</li>
+          <li>Connects to health, technology, environment, and everyday life.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Earth Science</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Rocks, water, air, and plates; earthquakes, volcanoes, weather, and climate.</li>
+          <li>Earth is always changing, shaping mountains, oceans, and land where people live.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Marine Science</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Oceans, waves, currents, coral reefs, and sea life.</li>
+          <li>Water shapes climate, weather, and the survival of many species, including humans.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Plants &amp; Animals</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Ecosystems, food chains, and habitats; every species has a role in the web of life.</li>
+          <li>Protecting biodiversity protects our own future.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- History & People -->
+    <h2>History &amp; People</h2>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">World History</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Civilizations rise and fall; trade, conflict, ideas, and inventions connect people across the globe.</li>
+          <li>History shows patterns of power, resistance, creativity, and change.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">U.S. / America History</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>From colonies to today: founding documents, conflicts, movements, and everyday lives.</li>
+          <li>Stories of freedom, struggle, injustice, and ongoing work toward equality.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Native American History</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>First peoples, diverse nations, land, culture, and deep relationships with place.</li>
+          <li>Histories of displacement and resilience, and ongoing sovereignty and leadership.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Armed Forces / Military History</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Service, sacrifice, wars, and peacekeeping; how conflict reshapes borders and lives.</li>
+          <li>Veterans, families, and communities carry these stories forward.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">History of the People</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Workers, families, children, elders; not just leaders—everyone’s story matters.</li>
+          <li>Everyday choices and small acts of courage shape communities.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Individuals Shape the World</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Inventors, artists, activists, teachers, and neighbors can spark big change.</li>
+          <li>Voices that were once ignored can become powerful forces for justice.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Movement & Creation -->
+    <h2>Movement, Creation &amp; Unity</h2>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">P.E. &amp; Dance</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Movement, health, rhythm, and expression; bodies telling stories through steps and motion.</li>
+          <li>Exercise and dance support both physical and emotional well‑being.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Dances &amp; Movements in History</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Cultural identity, celebration, protest, and joy; history written in choreography.</li>
+          <li>From traditional dances to modern movements, people express who they are.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">Creation of the World</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Scientific views: Big Bang, star formation, Earth’s geology, and evolution of life.</li>
+          <li>Many cultures hold creation stories that give meaning, identity, and purpose.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">United We Stand &amp; Learning of the People</div>
+        <div class="toggle">short‑hand</div>
+      </div>
+      <div class="section-body">
+        <ul>
+          <li>Community, teamwork, and shared values; standing together for safety, justice, and hope.</li>
+          <li>Learning from many voices—past and present—helps us build a kinder, wiser future.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Toggle individual sections
+    document.querySelectorAll('.section-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('collapsed');
+      });
+    });
+
+    // Collapse / expand all
+    const collapseBtn = document.getElementById('collapseAllBtn');
+    let allCollapsed = false;
+    collapseBtn.addEventListener('click', () => {
+      const sections = document.querySelectorAll('.section');
+      allCollapsed = !allCollapsed;
+      sections.forEach(sec => {
+        if (allCollapsed) {
+          sec.classList.add('collapsed');
+        } else {
+          sec.classList.remove('collapsed');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
