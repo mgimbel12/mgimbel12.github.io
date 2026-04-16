@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Algebra Concepts – Life, Learning, and Music</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", system-ui, sans-serif;
+    background: #f6f5ff;
+    color: #222244;
+    padding: 30px;
+  }
+
+  .panel {
+    max-width: 1000px;
+    margin: auto;
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(70, 50, 160, 0.18);
+    border: 1px solid #e4e0ff;
+  }
+
+  h1 {
+    text-align: center;
+    color: #5a4bff;
+    margin-bottom: 6px;
+  }
+
+  p.subtitle {
+    text-align: center;
+    color: #666688;
+    margin-bottom: 16px;
+  }
+
+  .tag-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 14px;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: #f0edff;
+    color: #5a4bff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  h2 {
+    margin-top: 26px;
+    color: #5a4bff;
+  }
+
+  .section-note {
+    font-size: 0.9rem;
+    color: #666688;
+    margin-bottom: 6px;
+  }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 10px;
+  }
+
+  .card {
+    background: #faf9ff;
+    border-radius: 14px;
+    border: 1px solid #e3dfff;
+    padding: 14px 16px;
+  }
+
+  .card-title {
+    font-weight: 600;
+    color: #4a3aff;
+    margin-bottom: 4px;
+  }
+
+  .formula {
+    font-family: "Fira Code", monospace;
+    font-size: 0.9rem;
+    color: #333366;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 6px;
+  }
+
+  .pill {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #e3dfff;
+    color: #666688;
+  }
+
+  .life-card {
+    background: #f7fbff;
+    border-radius: 14px;
+    border: 1px solid #dbe9ff;
+    padding: 14px 16px;
+    margin-top: 10px;
+  }
+
+  .quiz-box, .test-box {
+    margin-top: 24px;
+    padding: 18px 20px;
+    background: #f0edff;
+    border-radius: 14px;
+  }
+
+  .quiz-box label, .test-box label {
+    font-size: 0.95rem;
+  }
+
+  input, select {
+    margin-top: 8px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #cfc8ff;
+    font-size: 0.9rem;
+  }
+
+  button {
+    margin-top: 10px;
+    padding: 9px 18px;
+    border: none;
+    border-radius: 999px;
+    background: #5a4bff;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  button:hover {
+    background: #4a3ae0;
+  }
+
+  #quizResult, #testResult {
+    margin-top: 10px;
+    font-weight: 600;
+  }
+
+  .music-box {
+    margin-top: 24px;
+    padding: 16px 18px;
+    background: #eaf6ff;
+    border-radius: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .music-box span {
+    font-size: 0.95rem;
+    color: #34506f;
+  }
+
+  .shorthand {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: #f7fbff;
+    border-radius: 12px;
+    border: 1px solid #e3dfff;
+    font-size: 0.9rem;
+    color: #424a6b;
+  }
+
+  @media (max-width: 800px) {
+    body {
+      padding: 16px;
+    }
+    .panel {
+      padding: 20px;
+    }
+  }
+</style>
+</head>
+
+<body>
+<div class="panel">
+
+  <h1>Algebra Concepts – Life, Learning & Music</h1>
+  <p class="subtitle">Short full-length sheet: math concepts, real life, quizzes, tests, and a little music.</p>
+
+  <div class="tag-row">
+    <span class="tag">Algebra I</span>
+    <span class="tag">Concepts</span>
+    <span class="tag">Life Connections</span>
+    <span class="tag">Practice</span>
+  </div>
+
+  <!-- CORE ALGEBRA CONCEPTS -->
+  <h2>📘 Core Algebra Concepts</h2>
+  <p class="section-note">Short explanations that a math teacher can point to quickly.</p>
+
+  <div class="concept-grid">
+    <div class="card">
+      <div class="card-title">Variables & Expressions</div>
+      <p>A variable is a letter that stands for a number. An expression combines numbers, variables, and operations.</p>
+      <p class="formula">Example: 3x + 5</p>
+      <div class="pill-row">
+        <span class="pill">x = unknown</span>
+        <span class="pill">3 = coefficient</span>
+        <span class="pill">5 = constant</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Equations</div>
+      <p>An equation says two expressions are equal. Solving means finding the value that makes it true.</p>
+      <p class="formula">Example: 2x + 4 = 10 → x = 3</p>
+      <div class="pill-row">
+        <span class="pill">Balance</span>
+        <span class="pill">Do to both sides</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Inequalities</div>
+      <p>Show when one side is greater, less, or equal/greater than another.</p>
+      <p class="formula">Example: x + 3 &gt; 7 → x &gt; 4</p>
+      <div class="pill-row">
+        <span class="pill">&gt;, &lt;, ≥, ≤</span>
+        <span class="pill">Ranges</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Slope & Linear Functions</div>
+      <p>Linear functions make straight lines. Slope is “rise over run.”</p>
+      <p class="formula">y = mx + b</p>
+      <div class="pill-row">
+        <span class="pill">m = slope</span>
+        <span class="pill">b = y-intercept</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIFE CIRCUMSTANCES & ALGEBRA -->
+  <h2>🌱 Life Circumstances that Use Algebra</h2>
+  <p class="section-note">Short stories teachers can use to connect math to real life.</p>
+
+  <div class="life-card">
+    <strong>Budgeting:</strong> A student wants to buy snacks and save money.  
+    If they earn <span class="formula">$10</span> a week and spend <span class="formula">$4</span>, the expression  
+    <span class="formula">10w − 4w</span> shows how much they save after <span class="formula">w</span> weeks.
+  </div>
+
+  <div class="life-card">
+    <strong>Travel & Distance:</strong> A bus travels at a constant speed.  
+    Distance can be written as <span class="formula">d = rt</span> (distance = rate × time).  
+    This helps plan trips, arrival times, and fuel costs.
+  </div>
+
+  <div class="life-card">
+    <strong>Sharing & Fairness:</strong> Splitting a bill or dividing supplies uses division and fractions.  
+    Algebra helps make sure everyone gets a fair share.
+  </div>
+
+  <div class="life-card">
+    <strong>Growth & Change:</strong> Saving money, growing plants, or tracking progress in sports  
+    can be modeled with functions that show change over time.
+  </div>
+
+  <!-- QUICK QUIZ -->
+  <h2>🧠 Quick Algebra Quiz</h2>
+  <div class="quiz-box">
+    <label for="coefInput">
+      1. In the expression <strong>7x + 2</strong>, what is the coefficient?
+    </label><br>
+    <input id="coefInput" type="number" placeholder="Type a number…">
+
+    <br><br>
+
+    <label for="slopeSelect">
+      2. In the function <strong>y = 3x + 1</strong>, what is the slope?
+    </label><br>
+    <select id="slopeSelect">
+      <option value="">Choose…</option>
+      <option value="1">1</option>
+      <option value="3">3</option>
+      <option value="x">x</option>
+    </select>
+
+    <br>
+    <button id="checkQuiz">Check Quiz</button>
+    <div id="quizResult"></div>
+  </div>
+
+  <!-- MINI TEST -->
+  <h2>📑 Mini Algebra Test (3 Questions)</h2>
+  <div class="test-box">
+    <label for="solveEq">
+      1. Solve the equation: <strong>2x + 4 = 12</strong>. What is x?
+    </label><br>
+    <input id="solveEq" type="number" placeholder="x = ?">
+
+    <br><br>
+
+    <label for="ineqInput">
+      2. Fill in the blank: If <strong>x + 5 &gt; 9</strong>, then x &gt; ______.
+    </label><br>
+    <input id="ineqInput" type="number" placeholder="Type a number…">
+
+    <br><br>
+
+    <label for="lifeSelect">
+      3. Which concept best fits planning a weekly budget?
+    </label><br>
+    <select id="lifeSelect">
+      <option value="">Choose…</option>
+      <option value="variables">Variables & Expressions</option>
+      <option value="slope">Slope</option>
+      <option value="inequalities">Inequalities</option>
+    </select>
+
+    <br>
+    <button id="checkTest">Check Test</button>
+    <div id="testResult"></div>
+  </div>
+
+  <!-- FUN MUSIC AREA -->
+  <h2>🎵 Fun Music While You Learn</h2>
+  <div class="music-box">
+    <span>Add your own calm study track as <code>algebra-music.mp3</code> in the same folder.</span>
+    <audio id="musicPlayer" src="algebra-music.mp3"></audio>
+    <button id="toggleMusic">Play Music</button>
+  </div>
+
+  <!-- SHORTHAND SUMMARY -->
+  <div class="shorthand">
+    <strong>Very short shorthand version:</strong><br>
+    Algebra = patterns, balance, and change.  
+    Variables stand for unknowns, equations balance both sides, functions show how one thing changes with another.  
+    Life uses Algebra in money, time, fairness, and planning the future.
+  </div>
+
+</div>
+
+<script>
+  // QUIZ
+  const coefInput = document.getElementById("coefInput");
+  const slopeSelect = document.getElementById("slopeSelect");
+  const quizResult = document.getElementById("quizResult");
+  const checkQuiz = document.getElementById("checkQuiz");
+
+  checkQuiz.addEventListener("click", () => {
+    let score = 0;
+    if (coefInput.value == 7) score++;
+    if (slopeSelect.value === "3") score++;
+
+    if (score === 2) {
+      quizResult.textContent = "Great job! Both answers are correct.";
+      quizResult.style.color = "#3aa76d";
+    } else if (score === 1) {
+      quizResult.textContent = "You got one right. Review and try again.";
+      quizResult.style.color = "#f0ad4e";
+    } else {
+      quizResult.textContent = "Not yet. Re-read the concepts and try again.";
+      quizResult.style.color = "#d9534f";
+    }
+  });
+
+  // MINI TEST
+  const solveEq = document.getElementById("solveEq");
+  const ineqInput = document.getElementById("ineqInput");
+  const lifeSelect = document.getElementById("lifeSelect");
+  const testResult = document.getElementById("testResult");
+  const checkTest = document.getElementById("checkTest");
+
+  checkTest.addEventListener("click", () => {
+    let score = 0;
+    if (solveEq.value == 4) score++;          // 2x + 4 = 12 → x = 4
+    if (ineqInput.value == 4) score++;        // x + 5 > 9 → x > 4
+    if (lifeSelect.value === "variables") score++;
+
+    if (score === 3) {
+      testResult.textContent = "Excellent! 3/3 on the mini test.";
+      testResult.style.color = "#3aa76d";
+    } else if (score === 2) {
+      testResult.textContent = "Nice work! 2/3 correct. Check the one you missed.";
+      testResult.style.color = "#f0ad4e";
+    } else {
+      testResult.textContent = "Keep going. Use the life examples and concept cards to review.";
+      testResult.style.color = "#d9534f";
+    }
+  });
+
+  // MUSIC
+  const musicPlayer = document.getElementById("musicPlayer");
+  const toggleMusic = document.getElementById("toggleMusic");
+  let isPlaying = false;
+
+  toggleMusic.addEventListener("click", () => {
+    if (!musicPlayer.src) return;
+    if (!isPlaying) {
+      musicPlayer.play();
+      toggleMusic.textContent = "Pause Music";
+      isPlaying = true;
+    } else {
+      musicPlayer.pause();
+      toggleMusic.textContent = "Play Music";
+      isPlaying = false;
+    }
+  });
+</script>
+
+</body>
+</html>
