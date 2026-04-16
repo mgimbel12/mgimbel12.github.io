@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>World of History & American Government – 2026 Panel</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: linear-gradient(#e6f4ff, #ffffff);
+    padding: 20px;
+    color: #1a202c;
+  }
+  .card {
+    max-width: 780px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+  h1 { font-size: 1.6rem; margin-bottom: 0.25rem; }
+  h2 { font-size: 1.2rem; margin-top: 1rem; }
+  .tag { display:inline-block; background:#edf2f7; padding:4px 10px; border-radius:999px; font-size:0.75rem; margin:2px; }
+  .svg-wrap { text-align:center; margin-top:10px; }
+  svg { width:200px; height:140px; }
+  .section { margin-top:12px; font-size:0.95rem; line-height:1.45; }
+  textarea {
+    width:100%; height:80px; margin-top:6px; padding:8px;
+    border-radius:8px; border:1px solid #cbd5e0; font-size:0.9rem;
+  }
+  .word-count { font-size:0.8rem; margin-top:4px; }
+  .quiz-question { margin-top:12px; padding-top:8px; border-top:1px solid #e2e8f0; }
+  .answers button {
+    display:block; width:100%; margin:4px 0; padding:6px 8px;
+    border-radius:8px; border:1px solid #cbd5e0; background:#f7fafc;
+    cursor:pointer; font-size:0.85rem; text-align:left;
+  }
+  .correct { background:#c6f6d5 !important; border-color:#38a169 !important; }
+  .wrong { background:#fed7d7 !important; border-color:#e53e3e !important; }
+  .feedback { font-size:0.8rem; min-height:1em; margin-top:3px; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>World of History & American Government – 2026</h1>
+  <div>
+    <span class="tag">History</span>
+    <span class="tag">Government</span>
+    <span class="tag">Life Circumstances</span>
+    <span class="tag">Word Count</span>
+    <span class="tag">2026 Topics</span>
+  </div>
+
+  <div class="svg-wrap">
+    <!-- SVG: Earth + clouds -->
+    <svg viewBox="0 0 200 140">
+      <rect width="200" height="140" fill="#e6f4ff"/>
+      <g fill="#ffffff" opacity="0.95">
+        <ellipse cx="50" cy="30" rx="26" ry="12"/>
+        <ellipse cx="75" cy="28" rx="20" ry="10"/>
+        <ellipse cx="65" cy="38" rx="22" ry="11"/>
+        <ellipse cx="150" cy="32" rx="24" ry="12"/>
+        <ellipse cx="170" cy="30" rx="18" ry="10"/>
+        <ellipse cx="162" cy="40" rx="20" ry="11"/>
+      </g>
+      <circle cx="100" cy="90" r="35" fill="#90cdf4"/>
+      <path d="M80 80 L95 70 L110 82 L120 95 L105 110 L90 100 Z"
+            fill="#2b6cb0"/>
+      <text x="70" y="130" font-size="14" fill="#2b6cb0" font-weight="700">
+        History & Gov
+      </text>
+    </svg>
+  </div>
+
+  <h2>Short‑Hand Notes</h2>
+  <div class="section">
+    History = people + choices.  
+    Government = rules + rights.  
+    America = Constitution + branches.  
+    Life = circumstances + change.  
+    2026 = learning + community + future.
+  </div>
+
+  <h2>Full Notes</h2>
+  <div class="section">
+    <strong>World History:</strong> Civilizations grow, trade, explore, and face challenges.  
+    <strong>American Government:</strong> Legislative makes laws, Executive enforces, Judicial interprets.  
+    <strong>Life Circumstances:</strong> History affects families, workers, students, and communities.  
+    <strong>2026 Topics:</strong> Civic participation, community decisions, how laws shape daily life.
+  </div>
+
+  <h2>Word Count Practice</h2>
+  <textarea id="wcBox" placeholder="Write your short response here..."></textarea>
+  <div class="word-count" id="wcCount">Words: 0</div>
+
+  <h2>Quick Quiz</h2>
+  <div id="quiz"></div>
+</div>
+
+<script>
+  // Word Counter
+  const wcBox = document.getElementById("wcBox");
+  const wcCount = document.getElementById("wcCount");
+  wcBox.addEventListener("input", () => {
+    const words = wcBox.value.trim().split(/\s+/).filter(w => w.length > 0);
+    wcCount.textContent = "Words: " + words.length;
+  });
+
+  // Quiz
+  const questions = [
+    {
+      text: "What does the Legislative Branch do?",
+      answers: ["Makes laws", "Enforces laws", "Interprets laws", "Writes stories"],
+      correct: 0
+    },
+    {
+      text: "History is mainly the study of:",
+      answers: ["People and their choices", "Only numbers", "Only maps", "Only wars"],
+      correct: 0
+    },
+    {
+      text: "Life circumstances in history describe:",
+      answers: ["How events affect real people", "Only government buildings", "Only famous leaders", "Only dates"],
+      correct: 0
+    }
+  ];
+
+  const quizEl = document.getElementById("quiz");
+
+  questions.forEach((q, index) => {
+    const qDiv = document.createElement("div");
+    qDiv.className = "quiz-question";
+
+    const title = document.createElement("div");
+    title.textContent = `Q${index + 1}. ${q.text}`;
+    qDiv.appendChild(title);
+
+    const answersDiv = document.createElement("div");
+    answersDiv.className = "answers";
+
+    const feedback = document.createElement("div");
+    feedback.className = "feedback";
+
+    q.answers.forEach((ans, i) => {
+      const btn = document.createElement("button");
+      btn.textContent = ans;
+      btn.addEventListener("click", () => {
+        [...answersDiv.children].forEach(b => b.classList.remove("correct", "wrong"));
+        if (i === q.correct) {
+          btn.classList.add("correct");
+          feedback.textContent = "Correct!";
+        } else {
+          btn.classList.add("wrong");
+          feedback.textContent = "Try again.";
+        }
+      });
+      answersDiv.appendChild(btn);
+    });
+
+    qDiv.appendChild(answersDiv);
+    qDiv.appendChild(feedback);
+    quizEl.appendChild(qDiv);
+  });
+</script>
+
+</body>
+</html>
