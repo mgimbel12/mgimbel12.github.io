@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Earth Science – Mountains & Clouds</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: linear-gradient(#e6f4ff, #ffffff);
+      padding: 20px;
+      color: #1a202c;
+    }
+    .card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px 24px 24px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+    h2 {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
+    }
+    .tag-row {
+      margin-bottom: 0.5rem;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #edf2f7;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+    .flex {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .col {
+      flex: 1 1 240px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .svg-wrap {
+      text-align: center;
+    }
+    svg {
+      width: 220px;
+      height: 140px;
+    }
+    .quiz-question {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.9rem;
+    }
+    .answers button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      margin: 4px 0;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e0;
+      background: #f7fafc;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .answers button.correct {
+      background: #c6f6d5;
+      border-color: #38a169;
+    }
+    .answers button.wrong {
+      background: #fed7d7;
+      border-color: #e53e3e;
+    }
+    .feedback {
+      font-size: 0.8rem;
+      margin-top: 3px;
+      min-height: 1em;
+    }
+    .score {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Earth Science – Mountains, Clouds & Change</h1>
+    <div class="tag-row">
+      <span class="tag">Earth’s Formation</span>
+      <span class="tag">Natural Disasters</span>
+      <span class="tag">Clouds</span>
+      <span class="tag">Homework &amp; Quiz</span>
+    </div>
+
+    <div class="flex">
+      <div class="col">
+        <h2>Course Snapshot</h2>
+        <p><strong>Big idea:</strong> Earth formed from dust and rock pulled together by gravity, and it is still changing.</p>
+        <p><strong>Earth scientists:</strong> Study rocks, plates, oceans, weather, and disasters.</p>
+        <p><strong>Homework:</strong></p>
+        <ul>
+          <li>Explain plate tectonics in 3–4 sentences.</li>
+          <li>Describe one natural disaster and its effects.</li>
+          <li>List three cloud types and the weather they bring.</li>
+        </ul>
+      </div>
+
+      <div class="col svg-wrap">
+        <!-- SVG: mountains + clouds -->
+        <svg viewBox="0 0 240 150">
+          <!-- sky -->
+          <rect x="0" y="0" width="240" height="150" fill="#e6f4ff" />
+          <!-- clouds -->
+          <g fill="#ffffff" opacity="0.95">
+            <ellipse cx="60" cy="35" rx="26" ry="13" />
+            <ellipse cx="84" cy="32" rx="20" ry="11" />
+            <ellipse cx="74" cy="42" rx="22" ry="12" />
+
+            <ellipse cx="170" cy="30" rx="24" ry="12" />
+            <ellipse cx="192" cy="28" rx="18" ry="10" />
+            <ellipse cx="184" cy="38" rx="20" ry="11" />
+          </g>
+          <!-- mountains -->
+          <g>
+            <polygon points="40,120 100,40 160,120" fill="#718096" />
+            <polygon points="80,120 150,50 220,120" fill="#4a5568" />
+            <!-- snow caps -->
+            <polygon points="100,40 90,55 110,55" fill="#edf2f7" />
+            <polygon points="150,50 140,65 160,65" fill="#e2e8f0" />
+          </g>
+          <!-- Earth text -->
+          <text x="20" y="130" font-size="14" fill="#2b6cb0" font-weight="700">
+            Earth Science
+          </text>
+        </svg>
+      </div>
+    </div>
+
+    <h2>Quick Quiz – Earth & Disasters</h2>
+    <div id="quiz"></div>
+    <div class="score" id="score">Score: 0 / 0</div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        text: "Earth mostly formed from:",
+        answers: [
+          "Floating ice cubes",
+          "Dust and rock pulled together by gravity",
+          "Only water",
+          "Just air"
+        ],
+        correct: 1
+      },
+      {
+        text: "Plate tectonics explains:",
+        answers: [
+          "Why continents move and mountains form",
+          "Why plants are green",
+          "How clouds form",
+          "Why the Moon glows"
+        ],
+        correct: 0
+      },
+      {
+        text: "A natural disaster is:",
+        answers: [
+          "A natural event that can cause big damage",
+          "A planned party",
+          "A homework sheet",
+          "A video game"
+        ],
+        correct: 0
+      },
+      {
+        text: "Clouds are made of:",
+        answers: [
+          "Smoke",
+          "Tiny water droplets or ice crystals",
+          "Sand",
+          "Metal"
+        ],
+        correct: 1
+      },
+      {
+        text: "Mountains often form where:",
+        answers: [
+          "Plates collide or push together",
+          "There is no rock",
+          "Only sand exists",
+          "The ocean is deepest"
+        ],
+        correct: 0
+      }
+    ];
+
+    const quizEl = document.getElementById("quiz");
+    const scoreEl = document.getElementById("score");
+    let correctCount = 0;
+    let answeredCount = 0;
+
+    function updateScore() {
+      scoreEl.textContent = `Score: ${correctCount} / ${answeredCount}`;
+    }
+
+    questions.forEach((q, index) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "quiz-question";
+
+      const title = document.createElement("div");
+      title.textContent = `Q${index + 1}. ${q.text}`;
+      qDiv.appendChild(title);
+
+      const answersDiv = document.createElement("div");
+      answersDiv.className = "answers";
+
+      const feedback = document.createElement("div");
+      feedback.className = "feedback";
+
+      q.answers.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.addEventListener("click", () => {
+          if (!btn.dataset.clicked) {
+            answeredCount++;
+            if (i === q.correct) correctCount++;
+            updateScore();
+          }
+          btn.dataset.clicked = "true";
+
+          [...answersDiv.children].forEach(b => {
+            b.classList.remove("correct", "wrong");
+          });
+          if (i === q.correct) {
+            btn.classList.add("correct");
+            feedback.textContent = "Correct! 🌋 Earth is always changing.";
+          } else {
+            btn.classList.add("wrong");
+            feedback.textContent = "Try again. Think about how Earth formed and moves.";
+          }
+        });
+        answersDiv.appendChild(btn);
+      });
+
+      qDiv.appendChild(answersDiv);
+      qDiv.appendChild(feedback);
+      quizEl.appendChild(qDiv);
+    });
+
+    updateScore();
+  </script>
+</body>
+</html>
