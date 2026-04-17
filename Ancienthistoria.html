@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ancient Historia: America</title>
+
+<style>
+/* ————— GLOBAL ————— */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family: Georgia, serif;
+  background:#0f172a;
+  color:#f8fafc;
+  line-height:1.6;
+  padding-bottom:4rem;
+}
+h1,h2,h3{letter-spacing:.05em;}
+section{margin:2rem auto;max-width:900px;padding:1rem;}
+
+/* ————— HEADER ————— */
+header{
+  text-align:center;
+  padding:2rem 1rem 1rem;
+  background:radial-gradient(circle at top,#1e293b,#020617);
+  border-bottom:1px solid #1f2937;
+}
+h1{font-size:2.4rem;text-transform:uppercase;}
+.subtitle{color:#cbd5f5;margin-top:.5rem;font-size:1rem;}
+
+/* ————— NAV BUTTONS ————— */
+.nav-btn{
+  background:transparent;
+  border:1px solid #64748b;
+  color:#e5e7eb;
+  padding:.5rem 1rem;
+  margin:.25rem;
+  border-radius:999px;
+  cursor:pointer;
+  transition:.2s;
+}
+.nav-btn:hover{background:#1d283a;transform:translateY(-2px);}
+
+/* ————— CONTENT ————— */
+.content-section{display:none;animation:fade .4s ease-in-out;}
+.content-section.active{display:block;}
+
+.card{
+  background:#020617;
+  border:1px solid #1f2937;
+  padding:1rem;
+  border-radius:.75rem;
+  margin-bottom:1rem;
+  box-shadow:0 10px 25px rgba(0,0,0,.35);
+}
+
+/* ————— TIMELINE ————— */
+.timeline{
+  list-style:none;
+  border-left:2px solid #4b5563;
+  padding-left:1rem;
+}
+.timeline li{
+  margin-bottom:1rem;
+  position:relative;
+  padding-left:.5rem;
+}
+.timeline li::before{
+  content:"";
+  position:absolute;
+  left:-.7rem;
+  top:.4rem;
+  width:.5rem;
+  height:.5rem;
+  background:#facc15;
+  border-radius:50%;
+}
+.year{color:#facc15;font-weight:bold;margin-right:.5rem;}
+
+/* ————— FACT BUTTON ————— */
+#fact-btn{
+  background:#facc15;
+  color:#1f2937;
+  border:none;
+  padding:.5rem 1rem;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:bold;
+  margin-top:.5rem;
+  transition:.2s;
+}
+#fact-btn:hover{background:#eab308;transform:translateY(-2px);}
+.fact-display{margin-top:.75rem;font-style:italic;color:#e5e7eb;}
+
+/* ————— FOOTER ————— */
+footer{
+  text-align:center;
+  padding:1rem;
+  border-top:1px solid #1f2937;
+  color:#9ca3af;
+  background:#020617;
+  margin-top:3rem;
+}
+
+/* ————— ANIMATION ————— */
+@keyframes fade{
+  from{opacity:0;transform:translateY(6px);}
+  to{opacity:1;transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Ancient Historia: America</h1>
+  <p class="subtitle">Echoes of the First Peoples</p>
+
+  <nav>
+    <button class="nav-btn" data-section="intro">Introduction</button>
+    <button class="nav-btn" data-section="civilizations">Civilizations</button>
+    <button class="nav-btn" data-section="timeline">Timeline</button>
+  </nav>
+</header>
+
+<!-- ————— INTRO ————— -->
+<section id="intro" class="content-section active">
+  <h2>Introduction</h2>
+  <p>
+    Long before modern borders, the lands of the Americas were home to
+    countless nations, stories, sciences, and ceremonies. From the Arctic to
+    the Andes, communities observed the stars, cultivated the soil, and built
+    cities that still whisper through stone.
+  </p>
+</section>
+
+<!-- ————— CIVILIZATIONS ————— -->
+<section id="civilizations" class="content-section">
+  <h2>Major Ancient Civilizations</h2>
+
+  <div class="card">
+    <h3>Olmec</h3>
+    <p>
+      Known for colossal stone heads and early developments in writing,
+      astronomy, and ceremonial centers along the Gulf Coast.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Maya</h3>
+    <p>
+      Masters of calendars, writing, mathematics, and astronomy. Their cities
+      rose like emerald constellations across the rainforest.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Aztec</h3>
+    <p>
+      Builders of Tenochtitlan, floating gardens, marketplaces, and a rich
+      tradition of poetry, philosophy, and ritual.
+    </p>
+  </div>
+
+  <div class="card">
+    <h3>Inca</h3>
+    <p>
+      Engineers of the Andes: terraced agriculture, vast road networks, and
+      cities like Machu Picchu woven into mountain stone.
+    </p>
+  </div>
+</section>
+
+<!-- ————— TIMELINE ————— -->
+<section id="timeline" class="content-section">
+  <h2>Simple Timeline</h2>
+
+  <ul class="timeline">
+    <li><span class="year">c. 2000 BCE</span>Early agricultural communities flourish across the Americas.</li>
+    <li><span class="year">c. 1200–400 BCE</span>Olmec civilization develops in Mesoamerica.</li>
+    <li><span class="year">c. 250–900 CE</span>Classic Maya period: cities, astronomy, writing.</li>
+    <li><span class="year">c. 1300–1521 CE</span>Aztec Empire rises and falls in central Mexico.</li>
+    <li><span class="year">c. 1400–1533 CE</span>Inca Empire expands through the Andes.</li>
+  </ul>
+
+  <button id="fact-btn">Show Random Ancient Fact</button>
+  <p id="fact-display" class="fact-display"></p>
+</section>
+
+<footer>
+  This page honors the depth and diversity of Indigenous histories across the Americas.
+</footer>
+
+<script>
+/* ————— SECTION SWITCHING ————— */
+const navButtons=document.querySelectorAll(".nav-btn");
+const sections=document.querySelectorAll(".content-section");
+
+navButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const target=btn.getAttribute("data-section");
+    sections.forEach(sec=>{
+      sec.classList.toggle("active",sec.id===target);
+    });
+  });
+});
+
+/* ————— RANDOM FACTS ————— */
+const facts=[
+  "Many Indigenous nations tracked time by the moon, stars, and seasons.",
+  "Ancient American cities often aligned with solstices and equinoxes.",
+  "Terraced farming in the Andes allowed crops at multiple altitudes.",
+  "Mesoamerican peoples developed writing and number systems early.",
+  "Oral tradition carried law, history, and philosophy across generations."
+];
+
+document.getElementById("fact-btn").addEventListener("click",()=>{
+  const random=facts[Math.floor(Math.random()*facts.length)];
+  document.getElementById("fact-display").textContent=random;
+});
+</script>
+
+</body>
+</html>
