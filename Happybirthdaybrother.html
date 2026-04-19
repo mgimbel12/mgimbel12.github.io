@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Popcorn</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #ffe9b3, #ffb3c6);
+      font-family: system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #4b1f0e;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0.25rem 0;
+      color: #4b1f0e;
+      font-weight: 600;
+    }
+
+    .button {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      background: #ffcf33;
+      color: #4b1f0e;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.1s, box-shadow 0.1s;
+    }
+
+    .button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .popcorn {
+      position: fixed;
+      width: 18px;
+      height: 18px;
+      border-radius: 50% 60% 55% 65%;
+      background: #fff7d1;
+      box-shadow:
+        0 0 0 3px #f7d76a,
+        0 0 10px rgba(0,0,0,0.2);
+      pointer-events: none;
+      animation: pop 1.2s ease-out forwards;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: translateY(0) scale(0.4) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 1;
+      }
+      60% {
+        transform: translateY(-140px) scale(1.1) rotate(20deg);
+      }
+      100% {
+        transform: translateY(-220px) scale(0.9) rotate(-10deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 Happy Birthday! 🎉</h1>
+  <p>Pop corn go pop, go pop, go popcorn!</p>
+  <p>Click the button to make the popcorn dance.</p>
+
+  <button class="button" id="popButton">Pop Corn!</button>
+
+  <script>
+    const button = document.getElementById('popButton');
+
+    function createKernel() {
+      const kernel = document.createElement('div');
+      kernel.className = 'popcorn';
+
+      const x = Math.random() * window.innerWidth;
+      const y = window.innerHeight - 40;
+
+      kernel.style.left = x + 'px';
+      kernel.style.top = y + 'px';
+
+      document.body.appendChild(kernel);
+
+      kernel.addEventListener('animationend', () => {
+        kernel.remove();
+      });
+    }
+
+    function popBurst(count = 18) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(createKernel, i * 60);
+      }
+    }
+
+    button.addEventListener('click', () => {
+      popBurst();
+    });
+
+    // Optional: auto-pop a little when the page loads
+    window.addEventListener('load', () => {
+      popBurst(10);
+    });
+  </script>
+</body>
+</html>
