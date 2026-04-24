@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>World Atlas</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body,html,#map { height:100%; margin:0; }
+    #map { width:100vw; height:100vh; }
+    .info { position:absolute; top:10px; left:10px; background:#fff; padding:8px; border-radius:4px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div class="info" id="info">Hover a country</div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([20,0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19}).addTo(map);
+
+    // load GeoJSON (replace with your world GeoJSON URL)
+    fetch('https://example.com/world_countries.geojson')
+      .then(r => r.json())
+      .then(geojson => {
+        function style(feature){ return {color:'#444', weight:1, fillColor:'#cce', fillOpacity:0.7}; }
+        function onEachFeature(feature, layer){
+          layer.on({
+            mouseover(e){ e.target.setStyle({fillOpacity:1}); document.getElementById('info').textContent = feature.properties.name; },
+            mouseout(e){ geojsonLayer.resetStyle(e.target); document.getElementById('info').textContent = 'Hover a country'; },
+            click(e){ layer.bindPopup(`<b>${feature.properties.name}</b>`).openPopup(); }
+          });
+        }
+        const geojsonLayer = L.geoJSON(geojson, {style, onEachFeature}).addTo(map);
+      });
+  </script>
+</body>
+</html>
