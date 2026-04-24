@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sleeping Beauty Castle — History & Timeline</title>
+  <meta name="description" content="A full-page interactive history of Sleeping Beauty Castle at Disneyland (1955–present). Includes timeline, facts, and subtle animations." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1724;
+      --accent:#7fb3ff;
+      --muted:#9aa7bf;
+      --gold:#f6d365;
+      --pink:#f7a8c8;
+      --glass: rgba(255,255,255,0.04);
+      --radius:14px;
+      --max-width:1100px;
+      --ff-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      font-family:var(--ff-sans);
+      background: linear-gradient(180deg,#071026 0%, #071a2a 60%, #0b1220 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    .wrap{
+      max-width:var(--max-width);
+      margin:36px auto;
+      padding:28px;
+    }
+
+    header{
+      display:flex;
+      gap:20px;
+      align-items:center;
+      margin-bottom:22px;
+    }
+
+    .logo{
+      width:96px;
+      height:96px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--pink),var(--accent));
+      border-radius:18px;
+      box-shadow:0 6px 30px rgba(0,0,0,0.6), inset 0 -6px 18px rgba(255,255,255,0.03);
+      flex:0 0 96px;
+    }
+
+    .logo svg{ width:72px; height:72px; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.45)); }
+
+    h1{
+      font-size:1.6rem;
+      margin:0;
+      letter-spacing:-0.02em;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:0.95rem;
+      margin-top:6px;
+    }
+
+    main{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:22px;
+      align-items:start;
+    }
+
+    /* Left column content */
+    .content{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .hero{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .castle-scene{
+      width:220px;
+      height:160px;
+      flex:0 0 220px;
+      position:relative;
+      border-radius:12px;
+      overflow:hidden;
+      background: linear-gradient(180deg,#7fb3ff 0%, #cfe9ff 60%, #fefefe 100%);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      transform:translateZ(0);
+    }
+
+    /* Simple decorative ground */
+    .castle-ground{
+      position:absolute;
+      left:0;right:0;bottom:0;height:48px;
+      background:linear-gradient(180deg,#2b6b3a,#1f4f2a);
+    }
+
+    .castle-caption{
+      flex:1;
+      min-width:0;
+    }
+
+    .castle-caption p{ margin:0 0 8px 0; color:var(--muted); }
+
+    .cta{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      margin-top:8px;
+    }
+
+    .btn{
+      background:linear-gradient(180deg,var(--accent),#4a8fe6);
+      color:#042033;
+      padding:10px 14px;
+      border-radius:10px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(79,144,255,0.18);
+    }
+
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:none;
+    }
+
+    /* Article sections */
+    section h2{
+      margin:12px 0 8px 0;
+      font-size:1.05rem;
+      color:#eaf4ff;
+    }
+
+    .lead{
+      color:var(--muted);
+      margin-bottom:12px;
+    }
+
+    .facts{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .fact{
+      background:var(--glass);
+      padding:12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
+
+    .fact strong{ display:block; color:var(--gold); font-size:0.98rem; margin-bottom:6px; }
+
+    /* Right column: timeline card */
+    .aside{
+      position:sticky;
+      top:28px;
+      align-self:start;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:18px;
+      box-shadow:0 8px 30px rgba(0,0,0,0.55);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+
+    .timeline{
+      margin-top:8px;
+    }
+
+    .timeline-list{
+      display:flex;
+      gap:8px;
+      overflow:auto;
+      padding:8px 2px;
+      scrollbar-width:none;
+    }
+
+    .timeline-list::-webkit-scrollbar{ display:none; }
+
+    .year{
+      min-width:84px;
+      padding:10px 12px;
+      border-radius:10px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+      border:1px solid rgba(255,255,255,0.02);
+      text-align:center;
+      cursor:pointer;
+      transition:transform .18s ease, box-shadow .18s ease;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .year.active{
+      background:linear-gradient(180deg,var(--accent),#6aa8ff);
+      color:#042033;
+      transform:translateY(-6px);
+      box-shadow:0 12px 30px rgba(79,144,255,0.18);
+    }
+
+    .timeline-detail{
+      margin-top:14px;
+      color:var(--muted);
+      min-height:120px;
+    }
+
+    /* small utilities */
+    .muted{ color:var(--muted); font-size:0.95rem; }
+    .small{ font-size:0.9rem; color:var(--muted); }
+
+    footer{
+      margin-top:26px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      main{ grid-template-columns: 1fr; }
+      .castle-scene{ width:160px; height:120px; }
+      .aside{ position:relative; top:auto; }
+    }
+
+    /* Subtle animated sparkle */
+    .sparkle{
+      position:absolute;
+      width:8px;height:8px;
+      background:radial-gradient(circle at 30% 30%, #fff 0%, rgba(255,255,255,0.9) 20%, rgba(255,255,255,0.2) 40%, transparent 60%);
+      border-radius:50%;
+      opacity:0;
+      transform:scale(0.6);
+      pointer-events:none;
+      filter:blur(0.6px);
+      animation:twinkle 2.6s linear infinite;
+    }
+
+    @keyframes twinkle{
+      0%{ opacity:0; transform:scale(0.6) translateY(0); }
+      10%{ opacity:1; transform:scale(1.1) translateY(-6px); }
+      50%{ opacity:0.6; transform:scale(0.9) translateY(-12px); }
+      100%{ opacity:0; transform:scale(0.6) translateY(-20px); }
+    }
+
+    /* Accessibility focus */
+    .year:focus{ outline:3px solid rgba(127,179,255,0.18); outline-offset:3px; }
+
+    /* Small print for credits */
+    .credit{ font-size:0.82rem; color:var(--muted); margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <!-- stylized castle glyph -->
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="6" y="28" width="52" height="30" rx="4" fill="#fff" opacity="0.06"/>
+          <path d="M20 28v-8l6-6 6 6v8" fill="#fff" opacity="0.12"/>
+          <path d="M38 28v-8l6-6 6 6v8" fill="#fff" opacity="0.12"/>
+          <path d="M32 10l-4 4h8l-4-4z" fill="#fff" opacity="0.18"/>
+          <rect x="28" y="28" width="8" height="30" rx="1.5" fill="#fff" opacity="0.14"/>
+        </svg>
+      </div>
+
+      <div>
+        <h1>Sleeping Beauty Castle — History & Timeline</h1>
+        <div class="subtitle">Disneyland, Anaheim — original park icon since July 17, 1955</div>
+      </div>
+    </header>
+
+    <main>
+      <article class="content" aria-labelledby="main-heading">
+        <div class="hero" role="region" aria-label="Castle illustration and summary">
+          <div class="castle-scene" id="castleScene" aria-hidden="false">
+            <!-- Inline SVG castle illustration (original, stylized) -->
+            <svg viewBox="0 0 360 260" preserveAspectRatio="xMidYMid meet" style="width:100%;height:100%;display:block;">
+              <defs>
+                <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#9fd1ff"/>
+                  <stop offset="1" stop-color="#dff1ff"/>
+                </linearGradient>
+                <linearGradient id="turret" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#f7a8c8"/>
+                  <stop offset="1" stop-color="#f0c6d9"/>
+                </linearGradient>
+                <linearGradient id="stone" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stop-color="#e6e9ef"/>
+                  <stop offset="1" stop-color="#cfd6e3"/>
+                </linearGradient>
+              </defs>
+
+              <rect x="0" y="0" width="360" height="260" fill="url(#sky)"/>
+              <!-- distant hills -->
+              <ellipse cx="180" cy="220" rx="220" ry="60" fill="#cfe9ff" opacity="0.6"/>
+              <ellipse cx="180" cy="230" rx="260" ry="40" fill="#bfe0ff" opacity="0.35"/>
+
+              <!-- castle base -->
+              <g id="castle" transform="translate(40,40)">
+                <rect x="40" y="90" width="180" height="110" rx="8" fill="url(#stone)"/>
+                <!-- central tower -->
+                <rect x="100" y="30" width="40" height="70" rx="4" fill="url(#stone)"/>
+                <polygon points="120,6 100,30 140,30" fill="#7fb3ff"/>
+                <!-- left turret -->
+                <rect x="20" y="60" width="36" height="70" rx="4" fill="url(#stone)"/>
+                <polygon points="38,40 20,60 56,60" fill="url(#turret)"/>
+                <!-- right turret -->
+                <rect x="224" y="60" width="36" height="70" rx="4" fill="url(#stone)"/>
+                <polygon points="242,40 224,60 260,60" fill="url(#turret)"/>
+                <!-- windows -->
+                <g fill="#0b1220" opacity="0.85">
+                  <rect x="120" y="110" width="16" height="22" rx="2"/>
+                  <rect x="64" y="110" width="16" height="22" rx="2"/>
+                  <rect x="232" y="110" width="16" height="22" rx="2"/>
+                </g>
+                <!-- drawbridge -->
+                <rect x="140" y="170" width="40" height="30" rx="2" fill="#b07a4b"/>
+                <line x1="140" y1="170" x2="180" y2="200" stroke="#8a5f3b" stroke-width="2" opacity="0.6"/>
+              </g>
+            </svg>
+
+            <!-- decorative sparkles (positioned by JS) -->
+            <div class="sparkle" id="spark1" style="left:28px; top:18px;"></div>
+            <div class="sparkle" id="spark2" style="left:140px; top:12px; animation-delay:0.6s;"></div>
+            <div class="sparkle" id="spark3" style="left:190px; top:36px; animation-delay:1.2s;"></div>
+
+            <div class="castle-ground" aria-hidden="true"></div>
+          </div>
+
+          <div class="castle-caption">
+            <h2 id="main-heading" style="margin:0 0 6px 0;">Original Disneyland Icon</h2>
+            <p class="lead">Sleeping Beauty Castle opened with Disneyland on <strong>July 17, 1955</strong>. Designed to evoke fairy‑tale imagery rather than historical accuracy, it uses forced perspective and color to feel larger than its actual height.</p>
+
+            <div class="cta" role="toolbar" aria-label="Actions">
+              <button class="btn" id="btnTimeline">Explore Timeline</button>
+              <button class="btn ghost" id="btnRead">Read Full History</button>
+            </div>
+          </div>
+        </div>
+
+        <section aria-labelledby="design-heading">
+          <h2 id="design-heading">Design and Inspiration</h2>
+          <p class="muted">Walt Disney and WED designers modeled the castle on European fairy‑tale references (notably Neuschwanstein) and used theatrical techniques like forced perspective to create a welcoming centerpiece for guests.</p>
+
+          <div class="facts" aria-hidden="false">
+            <div class="fact">
+              <strong>Opened</strong>
+              July 17, 1955
+            </div>
+            <div class="fact">
+              <strong>Height</strong>
+              ~77 feet (designed to read larger)
+            </div>
+            <div class="fact">
+              <strong>Walkthrough</strong>
+              Diorama walkthrough opened April 1957; refurbished and restored in 2008
+            </div>
+            <div class="fact">
+              <strong>Inspiration</strong>
+              Neuschwanstein; Eyvind Earle's production design influence
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="features-heading">
+          <h2 id="features-heading">Features & Restorations</h2>
+          <p class="muted">The castle includes a stylized walkthrough, a working drawbridge used on special occasions, and periodic restorations (notably for Disneyland's 50th anniversary in 2005).</p>
+
+          <ul class="small" style="margin-top:10px;">
+            <li>Walkthrough dioramas originally opened in 1957 and reflect Disney production art.</li>
+            <li>Drawbridge lowered for opening day and select celebrations.</li>
+            <li>Major repaint and decorative crowns added for the 50th anniversary (2005).</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="impact-heading">
+          <h2 id="impact-heading">Cultural Impact</h2>
+          <p class="muted">As Disneyland's original park icon, Sleeping Beauty Castle became a visual shorthand for Disney and inspired later park castles worldwide. Its silhouette appears in promotional materials, film openings, and as a brand symbol.</p>
+        </section>
+
+        <footer>
+          <div class="credit">This page is an original, educational summary and interactive presentation of Sleeping Beauty Castle's history and features.</div>
+        </footer>
+      </article>
+
+      <aside class="aside">
+        <div class="card" aria-labelledby="timeline-heading">
+          <h2 id="timeline-heading">Timeline</h2>
+
+          <div class="timeline" role="list" aria-label="Castle timeline">
+            <div class="timeline-list" id="timelineList" tabindex="0">
+              <div class="year" data-year="1953" tabindex="0">1953–55</div>
+              <div class="year" data-year="1955" tabindex="0">1955</div>
+              <div class="year" data-year="1957" tabindex="0">1957</div>
+              <div class="year" data-year="1983" tabindex="0">1983</div>
+              <div class="year" data-year="2005" tabindex="0">2005</div>
+              <div class="year" data-year="2008" tabindex="0">2008</div>
+              <div class="year" data-year="2020" tabindex="0">2020s</div>
+            </div>
+
+            <div class="timeline-detail" id="timelineDetail" aria-live="polite">
+              <strong>1953–1955</strong>
+              <div class="small muted" style="margin-top:6px;">Design and construction planning; production drawings completed in early 1955.</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    // Interactive timeline data
+    const timelineData = {
+      "1953": {
+        title: "Design & Planning",
+        text: "Design and construction planning; production drawings completed in early 1955. Walt Disney and WED envisioned the park as a giant movie set with a welcoming centerpiece."
+      },
+      "1955": {
+        title: "Park Opening",
+        text: "Disneyland and Sleeping Beauty Castle open to the public on July 17, 1955, establishing the castle as the park's visual heart."
+      },
+      "1957": {
+        title: "Walkthrough Opens",
+        text: "The Sleeping Beauty diorama walkthrough opened in April 1957, featuring stylized scenes inspired by production designer Eyvind Earle."
+      },
+      "1983": {
+        title: "Drawbridge Event",
+        text: "The castle's drawbridge was lowered for the New Fantasyland opening and a few other special occasions."
+      },
+      "2005": {
+        title: "50th Anniversary",
+        text: "Major repaint and decorative crowns were added to the turrets for Disneyland's 50th anniversary celebration."
+      },
+      "2008": {
+        title: "Walkthrough Restoration",
+        text: "The walkthrough was refurbished to restore Eyvind Earle's aesthetic and reopened to guests."
+      },
+      "2020": {
+        title: "Ongoing Care",
+        text: "Periodic restorations and maintenance continue to preserve the castle as an enduring symbol of Disney's storytelling legacy."
+      }
+    };
+
+    // DOM references
+    const years = Array.from(document.querySelectorAll('.year'));
+    const detail = document.getElementById('timelineDetail');
+    const btnTimeline = document.getElementById('btnTimeline');
+    const btnRead = document.getElementById('btnRead');
+    const castleScene = document.getElementById('castleScene');
+
+    // Initialize first active year
+    function setActiveYear(el){
+      years.forEach(y => y.classList.remove('active'));
+      el.classList.add('active');
+      const key = el.dataset.year;
+      const data = timelineData[key] || { title: el.textContent, text: "Detail not available." };
+      detail.innerHTML = `<strong>${data.title}</strong><div class="small muted" style="margin-top:8px;">${data.text}</div>`;
+      // subtle castle animation when selecting a year
+      pulseCastle();
+    }
+
+    years.forEach((y, idx) => {
+      y.addEventListener('click', () => setActiveYear(y));
+      y.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          setActiveYear(y);
+        }
+      });
+      // set first as active
+      if(idx === 0) setActiveYear(y);
+    });
+
+    // Buttons
+    btnTimeline.addEventListener('click', () => {
+      // focus the timeline list for keyboard users
+      document.getElementById('timelineList').focus();
+      // animate a quick scroll to the 1955 year
+      const target = document.querySelector('.year[data-year="1955"]');
+      if(target) target.scrollIntoView({behavior:'smooth', inline:'center'});
+      target && setActiveYear(target);
+    });
+
+    btnRead.addEventListener('click', () => {
+      // Expand the "Design and Inspiration" section by scrolling into view
+      document.getElementById('design-heading').scrollIntoView({behavior:'smooth', block:'center'});
+    });
+
+    // Castle pulse animation
+    function pulseCastle(){
+      castleScene.animate([
+        { transform: 'translateY(0) scale(1)' },
+        { transform: 'translateY(-6px) scale(1.01)' },
+        { transform: 'translateY(0) scale(1)' }
+      ], {
+        duration: 700,
+        easing: 'cubic-bezier(.2,.9,.3,1)'
+      });
+    }
+
+    // Randomize sparkle positions and delays for a lively effect
+    function randomizeSparkles(){
+      const sparks = Array.from(document.querySelectorAll('.sparkle'));
+      sparks.forEach((s, i) => {
+        const w = castleScene.clientWidth;
+        const h = castleScene.clientHeight;
+        const left = Math.round(20 + Math.random() * (w - 40));
+        const top = Math.round(8 + Math.random() * (h - 60));
+        s.style.left = left + 'px';
+        s.style.top = top + 'px';
+        s.style.animationDelay = (Math.random() * 1.6) + 's';
+        s.style.opacity = 0.9 - Math.random() * 0.6;
+      });
+    }
+
+    // Run on load and on resize
+    window.addEventListener('load', randomizeSparkles);
+    window.addEventListener('resize', () => {
+      // throttle
+      clearTimeout(window._sparkleResize);
+      window._sparkleResize = setTimeout(randomizeSparkles, 220);
+    });
+
+    // Keyboard accessibility: left/right to move timeline
+    document.addEventListener('keydown', (e) => {
+      const activeIndex = years.findIndex(y => y.classList.contains('active'));
+      if(e.key === 'ArrowRight'){
+        const next = years[Math.min(years.length - 1, activeIndex + 1)];
+        next && (next.scrollIntoView({behavior:'smooth', inline:'center'}), setActiveYear(next));
+      } else if(e.key === 'ArrowLeft'){
+        const prev = years[Math.max(0, activeIndex - 1)];
+        prev && (prev.scrollIntoView({behavior:'smooth', inline:'center'}), setActiveYear(prev));
+      }
+    });
+
+    // Small progressive enhancement: reveal more detailed text when "Read Full History" is clicked twice
+    let readClicks = 0;
+    btnRead.addEventListener('dblclick', () => {
+      const more = document.createElement('div');
+      more.className = 'fact';
+      more.style.marginTop = '12px';
+      more.innerHTML = '<strong>Timeline Snapshot</strong><div class="small muted" style="margin-top:6px;">1953–1955: Planning and production drawings; 1955: Opening; 1957: Walkthrough; 1983: Drawbridge event; 2005: 50th anniversary restoration; 2008: Walkthrough restoration.</div>';
+      document.querySelector('.content').appendChild(more);
+      btnRead.disabled = true;
+      btnRead.textContent = 'History Expanded';
+    });
+
+    // Announce interactive hints for screen reader users
+    const timelineList = document.getElementById('timelineList');
+    timelineList.setAttribute('aria-describedby', 'timelineHint');
+    const hint = document.createElement('div');
+    hint.id = 'timelineHint';
+    hint.className = 'small muted';
+    hint.style.marginTop = '8px';
+    hint.textContent = 'Use left/right arrow keys or click a year to view details.';
+    document.querySelector('.card').appendChild(hint);
+  </script>
+</body>
+</html>
+
