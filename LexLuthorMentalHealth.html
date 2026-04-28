@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor & Mental Health Awareness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0f172a;
+      --accent: #f97316;
+      --accent-soft: #22d3ee;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.9);
+      --hero: #22c55e;
+      --villain: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.96),
+        rgba(15, 23, 42, 0.75),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #f97316 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #020617;
+      box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.4);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .brand-text span:last-child {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .nav-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: rgba(250, 204, 21, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+      color: var(--accent-soft);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+      max-width: 720px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-kicker {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #facc15, #f97316, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      background: radial-gradient(circle at top, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    /* SVG LEX */
+    .lex-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .lex-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lex-text p + p {
+      margin-top: 8px;
+    }
+
+    .lex-text {
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .lex-svg-card {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: var(--shadow-soft);
+      padding: 10px;
+    }
+
+    .lex-svg {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+
+    /* REFLECTION CARDS */
+    .grid-reflect {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .card h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
+      color: var(--accent-soft);
+    }
+
+    .card p + p {
+      margin-top: 6px;
+    }
+
+    /* INTERACTIVE CHECK-IN */
+    .checkin-card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .checkin-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .mood-btn {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: none;
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.15s ease-out;
+    }
+
+    .mood-btn:hover {
+      border-color: rgba(250, 204, 21, 0.8);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .mood-btn.active {
+      border-color: rgba(34, 197, 94, 0.9);
+      background: rgba(22, 163, 74, 0.15);
+      color: #bbf7d0;
+    }
+
+    .checkin-message {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--text-main);
+      min-height: 40px;
+    }
+
+    .checkin-message strong {
+      color: var(--accent-soft);
+    }
+
+    .note-small {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer span strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <span>Mental health lens</span>
+          <span>Lex Luthor & Inner Worlds</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#intro">Intro</a>
+        <a href="#lex">Lex lens</a>
+        <a href="#awareness">Awareness</a>
+        <a href="#checkin">Check-in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- INTRO -->
+    <section class="hero" id="intro">
+      <div>
+        <div class="hero-kicker">Storytelling • Reflection • Care</div>
+        <h1 class="hero-title">
+          Behind the <span>Villain</span>: Lex Luthor & Mental Health Awareness
+        </h1>
+        <div class="hero-text">
+          <p>
+            This page uses Lex Luthor as a fictional mirror for real feelings:
+            pressure, loneliness, perfectionism, and the fear of not being
+            enough. It is not therapy, but a gentle space to think about how
+            power, control, and hurt can shape our choices.
+          </p>
+          <p>
+            If you are struggling with your mental health, it’s important to
+            talk with a qualified professional or a trusted person in your life.
+            You deserve real support, not just a comic-book monologue.
+          </p>
+          <p class="hero-note">
+            This is educational and reflective only. It cannot diagnose, treat,
+            or replace professional mental health care.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>From “villain” to human feelings</h3>
+        <p>
+          Lex Luthor is often shown as a genius who wants control over
+          everything. Underneath that, you can imagine a person who is afraid of
+          being powerless, ignored, or hurt again.
+        </p>
+        <p>
+          Real people sometimes hide pain behind success, anger, or jokes.
+          Mental health awareness means noticing those layers and remembering
+          that asking for help is a sign of strength, not weakness.
+        </p>
+      </div>
+    </section>
+
+    <!-- LEX LUTHOR LENS -->
+    <section id="lex">
+      <h2 class="section-title">Lex Luthor as a lens</h2>
+      <p class="section-subtitle">
+        We’re not defending Lex’s harmful choices. Instead, we’re using his
+        story as a “what if” lens: what if someone like Lex had safe people,
+        healthy boundaries, and support for his inner storms?
+      </p>
+
+      <div class="lex-layout">
+        <div class="lex-text">
+          <p>
+            In many versions of his story, Lex grows up with intense pressure,
+            high expectations, and very little emotional safety. He learns that
+            control and power are the only ways to stay safe. Over time, that
+            belief hardens into cruelty.
+          </p>
+          <p>
+            In real life, people who experience criticism, bullying, or
+            emotional neglect can also start to believe they must be perfect or
+            untouchable. That can lead to burnout, isolation, or hurting others
+            without meaning to.
+          </p>
+          <p>
+            Mental health awareness invites a different path: noticing the pain
+            underneath the armor, and choosing support, boundaries, and care
+            instead of domination or self-destruction.
+          </p>
+        </div>
+
+        <div class="lex-svg-card">
+          <!-- Stylized Lex Luthor SVG -->
+          <svg
+            class="lex-svg"
+            viewBox="0 0 260 220"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="lexBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0f172a" />
+                <stop offset="1" stop-color="#020617" />
+              </linearGradient>
+              <linearGradient id="lexSuit" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f97373" />
+                <stop offset="1" stop-color="#f97316" />
+              </linearGradient>
+              <linearGradient id="lexGlow" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#22d3ee" />
+                <stop offset="1" stop-color="#22c55e" />
+              </linearGradient>
+            </defs>
+
+            <!-- Background card -->
+            <rect
+              x="6"
+              y="6"
+              width="248"
+              height="208"
+              rx="24"
+              fill="url(#lexBg)"
+              stroke="#1f2937"
+            />
+
+            <!-- Glow behind head -->
+            <circle cx="130" cy="90" r="46" fill="url(#lexGlow)" opacity="0.18" />
+
+            <!-- Head -->
+            <circle cx="130" cy="90" r="38" fill="#e5e7eb" />
+            <!-- Eyes -->
+            <circle cx="118" cy="88" r="4" fill="#020617" />
+            <circle cx="142" cy="88" r="4" fill="#020617" />
+            <!-- Brows (slightly tilted) -->
+            <rect x="110" y="80" width="16" height="2" rx="1" fill="#020617" />
+            <rect x="134" y="78" width="16" height="2" rx="1" fill="#020617" />
+            <!-- Mouth (flat) -->
+            <rect x="120" y="104" width="20" height="3" rx="1.5" fill="#020617" />
+
+            <!-- Suit -->
+            <path
+              d="M90 180 L130 120 L170 180 Z"
+              fill="url(#lexSuit)"
+            />
+            <!-- Shirt -->
+            <path
+              d="M115 180 L130 135 L145 180 Z"
+              fill="#e5e7eb"
+            />
+
+            <!-- Side text -->
+            <text
+              x="24"
+              y="32"
+              font-size="11"
+              fill="#9ca3af"
+              letter-spacing="2"
+            >
+              LEX LUTHOR
+            </text>
+            <text
+              x="24"
+              y="48"
+              font-size="9"
+              fill="#6b7280"
+              letter-spacing="1.5"
+            >
+              FICTIONAL CHARACTER • INNER STORMS
+            </text>
+            <text
+              x="24"
+              y="80"
+              font-size="9"
+              fill="#9ca3af"
+            >
+              Themes: control, fear, loneliness
+            </text>
+            <text
+              x="24"
+              y="96"
+              font-size="9"
+              fill="#9ca3af"
+            >
+              What if: support, boundaries, care?
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- AWARENESS CARDS -->
+    <section id="awareness">
+      <h2 class="section-title">Mental health awareness themes</h2>
+      <p class="section-subtitle">
+        These cards use Lex’s story as a starting point to talk about real-life
+        mental health ideas. They are not rules—just gentle reminders.
+      </p>
+
+      <div class="grid-reflect">
+        <article class="card">
+          <h3>Pressure & perfectionism</h3>
+          <p>
+            Lex often feels he must be the smartest and most powerful person in
+            the room. In real life, perfectionism can hide fear of failure or
+            rejection.
+          </p>
+          <p>
+            It’s okay to be learning, to make mistakes, and to ask for help.
+            Your worth is not measured by how “perfect” you are.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Isolation vs. connection</h3>
+          <p>
+            Lex pushes people away when he feels betrayed or unsafe. Isolation
+            can make sadness, anxiety, or anger feel even heavier.
+          </p>
+          <p>
+            Reaching out to a friend, family member, teacher, or counselor can
+            be a powerful step. You don’t have to carry everything alone.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Power vs. vulnerability</h3>
+          <p>
+            Lex chooses power over vulnerability. But real healing often starts
+            with saying, “I’m not okay right now,” to someone trustworthy.
+          </p>
+          <p>
+            Sharing feelings with safe people and professionals is a sign of
+            courage, not weakness.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Getting real support</h3>
+          <p>
+            Fictional characters have dramatic arcs. Real people need steady,
+            grounded support: mental health professionals, community resources,
+            and caring relationships.
+          </p>
+          <p>
+            If your feelings are heavy, persistent, or scary, please talk with a
+            qualified mental health professional or a trusted adult in your
+            life.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CHECK-IN -->
+    <section id="checkin">
+      <h2 class="section-title">Gentle check-in</h2>
+      <p class="section-subtitle">
+        This little interaction is not a test or diagnosis. It’s just a way to
+        pause and notice how you’re feeling, with a short supportive message.
+      </p>
+
+      <div class="checkin-card">
+        <p>
+          How are you feeling right now? Choose the closest option. You can
+          change your answer as many times as you like.
+        </p>
+
+        <div class="checkin-row">
+          <button class="mood-btn" data-mood="okay">Mostly okay</button>
+          <button class="mood-btn" data-mood="tired">Tired / drained</button>
+          <button class="mood-btn" data-mood="overwhelmed">Overwhelmed</button>
+          <button class="mood-btn" data-mood="numb">Numb / unsure</button>
+        </div>
+
+        <div class="checkin-message" id="checkinMessage"></div>
+
+        <p class="note-small">
+          This is just a reflection tool. For ongoing or intense struggles,
+          please reach out to a mental health professional or a trusted person
+          in your life for real-world support.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <span>
+        Creative mental health awareness page using <strong>Lex Luthor</strong>
+        as a fictional lens for reflection.
+      </span>
+      <span>
+        This page is educational only and does not replace professional care.
+      </span>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll("header nav a").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const targetId = el.getAttribute("href");
+        if (!targetId || !targetId.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+
+    // Simple mood check-in
+    const moodButtons = document.querySelectorAll(".mood-btn");
+    const messageEl = document.getElementById("checkinMessage");
+
+    const messages = {
+      okay:
+        "You’re feeling mostly okay. That’s worth noticing and protecting. Keep small habits that support you—rest, food, movement, and connection.",
+      tired:
+        "You’re feeling tired or drained. Your body and mind may be asking for rest. It’s okay to slow down and to say no to extra pressure when you can.",
+      overwhelmed:
+        "You’re feeling overwhelmed. That’s a lot to carry. Talking with someone you trust or a mental health professional can help you sort through the storm.",
+      numb:
+        "You’re feeling numb or unsure. That can be a sign of overload. Gentle routines, grounding activities, and safe conversations can help you reconnect with yourself."
+    };
+
+    moodButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        moodButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mood = btn.dataset.mood;
+        messageEl.innerHTML =
+          "<strong>Reflection:</strong> " + (messages[mood] || "");
+      });
+    });
+  </script>
+</body>
+</html>
+
