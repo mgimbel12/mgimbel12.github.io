@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lana Lang Safety Plan</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #151a2c;
+      --accent: #ff4f7b;
+      --accent-soft: rgba(255, 79, 123, 0.15);
+      --text: #f7f7ff;
+      --muted: #a7b0d6;
+      --border: #262c46;
+      --focus: #ffd166;
+      --danger: #ff6b6b;
+      --success: #4ade80;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2340 0, #050712 55%, #020308 100%);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(135deg, rgba(255, 79, 123, 0.08), rgba(111, 66, 193, 0.08));
+      border-radius: 24px;
+      padding: 2px;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.02);
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #1b2138 0, #090b16 55%);
+      border-radius: 22px;
+      padding: 24px 24px 18px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .meta span {
+      display: block;
+    }
+
+    .meta strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .section {
+      background: rgba(5, 7, 18, 0.7);
+      border-radius: 16px;
+      padding: 14px 14px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      margin-bottom: 10px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .section-pill {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(6, 9, 24, 0.9);
+      color: var(--text);
+      padding: 8px 9px;
+      font-size: 0.85rem;
+      resize: vertical;
+      min-height: 52px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 1px rgba(255, 209, 102, 0.4);
+      background: rgba(10, 14, 34, 0.95);
+    }
+
+    .hint {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease, color 0.15s ease, border 0.15s ease;
+    }
+
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .pill.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .emergency {
+      border: 1px solid rgba(255, 107, 107, 0.6);
+      background: radial-gradient(circle at top, rgba(255, 107, 107, 0.18), rgba(5, 7, 18, 0.9));
+    }
+
+    .emergency .section-title {
+      color: var(--danger);
+    }
+
+    .emergency-numbers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 9px;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: rgba(5, 7, 18, 0.8);
+    }
+
+    .chip-label {
+      color: var(--muted);
+    }
+
+    .chip-value {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff4f7b, #ff9a5a);
+      border-color: rgba(255, 255, 255, 0.2);
+      color: #1b1020;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .status {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+      min-height: 1em;
+    }
+
+    .status.ok {
+      color: var(--success);
+    }
+
+    .status.warn {
+      color: var(--danger);
+    }
+
+    .quote {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+      border-left: 2px solid rgba(255, 255, 255, 0.08);
+      padding-left: 8px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-label="Lana Lang Safety Plan">
+      <header>
+        <div class="title-block">
+          <h1>
+            Lana Lang
+            <span class="badge">Safety Plan Console</span>
+          </h1>
+          <p class="subtitle">
+            A quiet place to map out what keeps you grounded when the world feels like it’s falling from the sky.
+          </p>
+        </div>
+        <div class="meta">
+          <span><strong>Owner:</strong> <span id="ownerName">Lana Lang</span></span>
+          <span><strong>Last saved:</strong> <span id="lastSaved">Not yet</span></span>
+        </div>
+      </header>
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Signals & feelings</div>
+            <div class="section-pill">Early warning signs</div>
+          </div>
+          <label for="signals">What tells you things are getting heavy?</label>
+          <textarea id="signals" placeholder="Examples: I stop answering messages, I feel numb or overwhelmed, I can’t sleep, I feel like disappearing..."></textarea>
+          <p class="hint">
+            Naming the storm doesn’t make it stronger—it makes it easier to see.
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Safe anchors</div>
+            <div class="section-pill">Soothing actions</div>
+          </div>
+          <label for="coping">What helps you stay grounded for the next 10 minutes?</label>
+          <textarea id="coping" placeholder="Examples: Take a shower, step outside and feel the air, listen to one song on repeat, hug a pillow, write one sentence..."></textarea>
+          <div class="pill-row" id="copingPills">
+            <span class="pill">Slow breathing (4–6 count)</span>
+            <span class="pill">Cold water on hands</span>
+            <span class="pill">Look for 5 calm objects</span>
+            <span class="pill">Text a safe person</span>
+          </div>
+          <p class="hint">
+            You don’t have to fix everything—just choose one small, kind action.
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Safe places & people</div>
+            <div class="section-pill">Connection</div>
+          </div>
+          <label for="places">Where can you go or who can you be around to feel safer?</label>
+          <textarea id="places" placeholder="Examples: My room with the lights low, the park bench near the library, sitting in the kitchen while someone cooks..."></textarea>
+          <p class="hint">
+            Safety can be a person, a place, a routine, or even a memory that reminds you you’re still here.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-column">
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Trusted contacts</div>
+            <div class="section-pill">Reach out</div>
+          </div>
+          <label for="contact1">Contact 1 (name + how to reach them)</label>
+          <input id="contact1" type="text" placeholder="Example: Chloe – text / call" />
+          <label for="contact2">Contact 2</label>
+          <input id="contact2" type="text" placeholder="Example: Clark – call if I feel unsafe" />
+          <label for="contact3">Contact 3</label>
+          <input id="contact3" type="text" placeholder="Example: Counselor – email / office hours" />
+          <p class="hint">
+            Let at least one person know they’re on your “safety team” so they understand how important they are.
+          </p>
+        </div>
+
+        <div class="section emergency" aria-label="Emergency options">
+          <div class="section-header">
+            <div class="section-title">If this becomes an emergency</div>
+            <div class="section-pill">Immediate safety</div>
+          </div>
+          <p class="hint">
+            If you ever feel like you might act on thoughts of harming yourself or someone else, treat it as an emergency.
+            Reach out to a trusted adult, friend, or professional right away.
+          </p>
+
+          <div class="emergency-numbers">
+            <div class="chip">
+              <span class="chip-label">Local emergency</span>
+              <span class="chip-value">Call 9‑1‑1</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">Non‑emergency info</span>
+              <span class="chip-value">Call 3‑1‑1</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">Trusted person</span>
+              <span class="chip-value" id="trustedPersonChip">Add in contacts</span>
+            </div>
+          </div>
+
+          <p class="quote">
+            “You are not a burden for needing help. You are a human being whose safety matters more than any storyline.”
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Commitment to safety</div>
+            <div class="section-pill">One step at a time</div>
+          </div>
+          <label for="commitment">When I feel unsafe, I will first...</label>
+          <textarea id="commitment" placeholder="Example: I will tell one person how I’m really feeling before I make any big decisions."></textarea>
+          <p class="hint">
+            This is not a promise to feel okay—it’s a promise to give yourself more time and more support.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button class="btn-ghost" id="clearPlan" type="button">Clear</button>
+          <button class="btn-primary" id="savePlan" type="button">
+            Save plan
+          </button>
+        </div>
+        <div class="status" id="statusText"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simple localStorage key
+    const STORAGE_KEY = "lanaLangSafetyPlan";
+
+    const fields = [
+      "signals",
+      "coping",
+      "places",
+      "contact1",
+      "contact2",
+      "contact3",
+      "commitment"
+    ];
+
+    const statusText = document.getElementById("statusText");
+    const lastSaved = document.getElementById("lastSaved");
+    const trustedPersonChip = document.getElementById("trustedPersonChip");
+
+    function setStatus(message, type = "") {
+      statusText.textContent = message || "";
+      statusText.classList.remove("ok", "warn");
+      if (type) statusText.classList.add(type);
+    }
+
+    function formatTime(date) {
+      return (
+        date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }) +
+        " " +
+        date.toLocaleTimeString(undefined, {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      );
+    }
+
+    function loadPlan() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          setStatus("No saved plan yet. You can start filling this in whenever you’re ready.");
+          return;
+        }
+        const data = JSON.parse(raw);
+        fields.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && data[id] !== undefined) {
+            el.value = data[id];
+          }
+        });
+        if (data.lastSaved) {
+          lastSaved.textContent = data.lastSaved;
+        }
+        if (data.contact1) {
+          trustedPersonChip.textContent = data.contact1;
+        }
+        setStatus("Plan loaded from this browser.", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not load saved plan.", "warn");
+      }
+    }
+
+    function savePlan() {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        data[id] = el ? el.value.trim() : "";
+      });
+      const now = new Date();
+      data.lastSaved = formatTime(now);
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        lastSaved.textContent = data.lastSaved;
+        if (data.contact1) {
+          trustedPersonChip.textContent = data.contact1;
+        }
+        setStatus("Plan saved in this browser only.", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not save plan (storage error).", "warn");
+      }
+    }
+
+    function clearPlan() {
+      if (!confirm("Clear all fields in this safety plan on this device?")) return;
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      setStatus("Fields cleared. You can start again whenever you’re ready.");
+    }
+
+    // Coping pills: click to append text
+    const copingPills = document.getElementById("copingPills");
+    const copingArea = document.getElementById("coping");
+    if (copingPills && copingArea) {
+      copingPills.addEventListener("click", (e) => {
+        const pill = e.target.closest(".pill");
+        if (!pill) return;
+        pill.classList.toggle("active");
+        const text = pill.textContent.trim();
+        const current = copingArea.value.trim();
+        if (!current) {
+          copingArea.value = text;
+        } else if (!current.includes(text)) {
+          copingArea.value = current + (current.endsWith(".") ? " " : ". ") + text;
+        }
+      });
+    }
+
+    document.getElementById("savePlan").addEventListener("click", savePlan);
+    document.getElementById("clearPlan").addEventListener("click", clearPlan);
+
+    // Load on start
+    loadPlan();
+  </script>
+</body>
+</html>
+
