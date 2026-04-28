@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor & The House of El – Treasure Map Quest</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0f172a;
+      --accent: #facc15;
+      --accent-soft: #22d3ee;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --danger: #f97316;
+      --hero: #22c55e;
+      --villain: #f97373;
+      --border-soft: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Floating background orbs */
+    .orb {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.35;
+      z-index: -1;
+      animation: float 18s ease-in-out infinite alternate;
+    }
+
+    .orb.orb-1 {
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, #22d3ee, transparent 70%);
+      top: -40px;
+      left: -40px;
+      animation-delay: -4s;
+    }
+
+    .orb.orb-2 {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, #f97316, transparent 70%);
+      bottom: -80px;
+      right: -40px;
+      animation-delay: -8s;
+    }
+
+    .orb.orb-3 {
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, #22c55e, transparent 70%);
+      top: 40%;
+      right: 10%;
+      animation-delay: -2s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(40px, -40px, 0) scale(1.1);
+      }
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.96),
+        rgba(15, 23, 42, 0.75),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #f97316 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #020617;
+      box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.4);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .brand-text span:last-child {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: rgba(250, 204, 21, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.4fr);
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-text {
+      padding-right: 10px;
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 4vw, 40px);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #facc15, #f97316, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-soft);
+      max-width: 520px;
+      margin-bottom: 18px;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      background: radial-gradient(circle at top left, #1e293b, #020617);
+    }
+
+    .tag.heroic {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    .tag.villain {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.18s ease-out;
+      background: none;
+      color: var(--text-main);
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #facc15, #f97316);
+      color: #020617;
+      font-weight: 700;
+      box-shadow: 0 14px 30px rgba(248, 181, 0, 0.45);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(248, 181, 0, 0.6);
+    }
+
+    .btn-ghost {
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--text-soft);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .btn-ghost:hover {
+      border-color: rgba(250, 204, 21, 0.6);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 18px;
+    }
+
+    .hero-card {
+      position: relative;
+      border-radius: 24px;
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      overflow: hidden;
+    }
+
+    .hero-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+    }
+
+    .hero-card-header span:last-child {
+      color: var(--accent-soft);
+    }
+
+    .hero-card-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    @media (max-width: 520px) {
+      .hero-card-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-card-bio {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .hero-card-bio h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
+      color: #e5e7eb;
+    }
+
+    .hero-card-bio p {
+      margin-bottom: 6px;
+    }
+
+    .hero-card-bio .meta {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+
+    .hero-card-bio .meta span {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .hero-card-svg {
+      position: relative;
+      width: 100%;
+      height: 160px;
+    }
+
+    .floating-chip {
+      position: absolute;
+      top: -10px;
+      right: 10px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--accent-soft);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.9);
+      animation: chipFloat 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes chipFloat {
+      0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate3d(0, -6px, 0);
+        opacity: 1;
+      }
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 16px;
+      color: var(--accent-soft);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+      max-width: 640px;
+    }
+
+    .grid-characters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 12px;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .pill {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-soft);
+    }
+
+    .pill.hero {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    .pill.villain {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+    }
+
+    .card-body {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .card-body p + p {
+      margin-top: 6px;
+    }
+
+    .card-footer {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-footer span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .dot.villain {
+      background: #f97373;
+      box-shadow: 0 0 0 4px rgba(248, 113, 113, 0.25);
+    }
+
+    /* Video section */
+    .video-wrapper {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .video-header {
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .video-header span:last-child {
+      color: var(--accent-soft);
+    }
+
+    .video-body {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at center, #111827, #020617);
+    }
+
+    .video-body iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-note {
+      padding: 10px 14px 12px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px dashed rgba(148, 163, 184, 0.4);
+    }
+
+    /* Map quest */
+    .map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .map-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .map-card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .map-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+
+    .map-card ol {
+      margin-left: 18px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .map-card li + li {
+      margin-top: 6px;
+    }
+
+    .map-svg-wrapper {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: var(--shadow-soft);
+      padding: 10px;
+    }
+
+    .map-svg {
+      width: 100%;
+      height: 260px;
+      display: block;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer span strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">L</div>
+        <div class="brand-text">
+          <span>Multiverse dossier</span>
+          <span>Lex Luthor & The House of El</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#lex">Lex Luthor</a>
+        <a href="#heroes">Heroes</a>
+        <a href="#video">Video</a>
+        <a href="#map">Treasure Map</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-kicker">Biography • Worlds • Motives</div>
+        <h1 class="hero-title">
+          Between <span>Genius & Hope</span>:
+          Lex Luthor, Smallville, and the House of El
+        </h1>
+        <p class="hero-subtitle">
+          A single page “multiverse file” that drifts between timelines:
+          Smallville’s conflicted Lex, the cinematic power of
+          <em>Superman Returns</em>, and the heroic line of Superman,
+          Supergirl, and the Flash—ending in a playful treasure map quest.
+        </p>
+        <div class="hero-tags">
+          <span class="tag villain">Lex Luthor</span>
+          <span class="tag heroic">Superman</span>
+          <span class="tag heroic">Supergirl</span>
+          <span class="tag heroic">Flash</span>
+          <span class="tag">Smallville</span>
+          <span class="tag">Superman Returns</span>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-scroll="#map">
+            Start Treasure Quest
+            <span>➜</span>
+          </button>
+          <button class="btn btn-ghost" data-scroll="#video">
+            Watch Multiverse Clip
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card">
+          <div class="floating-chip">Floating dossier</div>
+          <div class="hero-card-header">
+            <span>Subject: Lex Luthor</span>
+            <span>Universe: Smallville / Metropolis</span>
+          </div>
+          <div class="hero-card-inner">
+            <div class="hero-card-bio">
+              <h3>Lex Luthor – The Brilliant Adversary</h3>
+              <p>
+                Lex Luthor is often portrayed as one of the most intelligent
+                humans in the DC universe. In <strong>Smallville</strong>,
+                he begins as a complicated friend to Clark Kent, torn between
+                genuine loyalty and a growing obsession with power and control.
+              </p>
+              <p>
+                Across comics and films—including <strong>Superman Returns</strong>—
+                Lex sees Superman not as a savior, but as a threat to human
+                independence. His genius, resources, and charisma make him
+                a villain who believes he is the hero of his own story.
+              </p>
+              <p class="meta">
+                <span>Alignment: <strong>Anti-hero / Villain</strong></span>
+                <span>Core traits: Intellect, ambition, control</span>
+              </p>
+            </div>
+            <div class="hero-card-svg">
+              <!-- Simple SVG “Luthor vs House of El” motif -->
+              <svg viewBox="0 0 220 160" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="lexGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#f97373" />
+                    <stop offset="1" stop-color="#f97316" />
+                  </linearGradient>
+                  <linearGradient id="elGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#22c55e" />
+                    <stop offset="1" stop-color="#22d3ee" />
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="4" result="blur" />
+                    <feColorMatrix
+                      in="blur"
+                      type="matrix"
+                      values="0 0 0 0 0.9
+                              0 0 0 0 0.7
+                              0 0 0 0 0.3
+                              0 0 0 0.8 0"
+                    />
+                  </filter>
+                </defs>
+
+                <!-- Background panel -->
+                <rect
+                  x="4"
+                  y="4"
+                  width="212"
+                  height="152"
+                  rx="18"
+                  fill="#020617"
+                  stroke="#1f2937"
+                />
+
+                <!-- Lex side -->
+                <path
+                  d="M20 30 L90 30 L80 80 L20 80 Z"
+                  fill="url(#lexGrad)"
+                  opacity="0.9"
+                />
+                <text
+                  x="28"
+                  y="52"
+                  font-size="12"
+                  fill="#020617"
+                  font-weight="700"
+                >
+                  LEX
+                </text>
+                <text
+                  x="28"
+                  y="68"
+                  font-size="8"
+                  fill="#020617"
+                  letter-spacing="2"
+                >
+                  CONTROL
+                </text>
+
+                <!-- House of El side -->
+                <path
+                  d="M130 26 L200 26 L210 76 L140 76 Z"
+                  fill="url(#elGrad)"
+                  opacity="0.9"
+                />
+                <text
+                  x="140"
+                  y="48"
+                  font-size="10"
+                  fill="#020617"
+                  font-weight="700"
+                >
+                  HOUSE OF EL
+                </text>
+                <text
+                  x="140"
+                  y="64"
+                  font-size="8"
+                  fill="#020617"
+                  letter-spacing="1.5"
+                >
+                  HOPE
+                </text>
+
+                <!-- Clash line -->
+                <line
+                  x1="100"
+                  y1="40"
+                  x2="120"
+                  y2="70"
+                  stroke="#e5e7eb"
+                  stroke-width="1.5"
+                  stroke-dasharray="4 3"
+                />
+                <circle
+                  cx="110"
+                  cy="55"
+                  r="4"
+                  fill="#facc15"
+                  filter="url(#glow)"
+                />
+
+                <!-- Labels -->
+                <text
+                  x="20"
+                  y="110"
+                  font-size="8"
+                  fill="#9ca3af"
+                  letter-spacing="1.5"
+                >
+                  SMALLVILLE: FRIENDSHIP TURNING
+                </text>
+                <text
+                  x="20"
+                  y="124"
+                  font-size="8"
+                  fill="#9ca3af"
+                  letter-spacing="1.5"
+                >
+                  SUPERMAN RETURNS: GRAND SCHEMES
+                </text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HEROES GRID -->
+    <section id="heroes">
+      <h2 class="section-title">The House of El & Allies</h2>
+      <p class="section-subtitle">
+        Superman, Supergirl, and the Flash each carry a different kind of hope:
+        the quiet farm-boy courage of Clark Kent, the resilient optimism of
+        Kara, and the kinetic, time-bending heart of Barry Allen. Together,
+        they form a counterweight to Lex Luthor’s obsession with control.
+      </p>
+
+      <div class="grid-characters">
+        <!-- Superman -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-title">Superman</div>
+            <div class="pill hero">Symbol of hope</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Superman, born Kal-El, is the last son of Krypton and raised as
+              Clark Kent in Smallville. His powers—flight, strength, and
+              invulnerability—are matched by a moral compass shaped by his
+              adoptive parents.
+            </p>
+            <p>
+              To Lex Luthor, Superman is an alien interference in human
+              destiny. To most of Metropolis, he is a reminder that power can
+              be used with humility and compassion.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span><span class="dot"></span> Alignment: Hero</span>
+            <span>Home: Metropolis</span>
+          </div>
+        </article>
+
+        <!-- Supergirl -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-title">Supergirl</div>
+            <div class="pill hero">Courage & resilience</div>
+          </div>
+          <div class="card-body">
+            <p>
+              Supergirl, Kara Zor-El, arrives on Earth carrying memories of
+              Krypton that Clark never had. Her story often explores identity,
+              grief, and the pressure of living up to the “S” symbol.
+            </p>
+            <p>
+              Where Lex sees vulnerability as weakness, Kara turns her
+              vulnerability into empathy, protecting people who feel small in
+              a dangerous world.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span><span class="dot"></span> Alignment: Hero</span>
+            <span>Home: National City / Metropolis</span>
+          </div>
+        </article>
+
+        <!-- Flash -->
+        <article class="card">
+          <div class="card-header">
+            <div class="card-title">The Flash</div>
+            <div class="pill hero">Heart & speed</div>
+          </div>
+          <div class="card-body">
+            <p>
+              The Flash, often Barry Allen, is the fastest man alive. His
+              connection to the Speed Force lets him outrun bullets, bend time,
+              and race through multiverses.
+            </p>
+            <p>
+              Barry’s optimism and sense of justice contrast sharply with
+              Lex’s cynicism. Where Lex tries to control the future, the Flash
+              keeps trying to fix it, even when it hurts.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span><span class="dot"></span> Alignment: Hero</span>
+            <span>Home: Central City</span>
+          </div>
+        </article>
+
+        <!-- Lex Luthor recap -->
+        <article class="card" id="lex">
+          <div class="card-header">
+            <div class="card-title">Lex Luthor</div>
+            <div class="pill villain">Genius & control</div>
+          </div>
+          <div class="card-body">
+            <p>
+              In <strong>Smallville</strong>, Lex begins as a lonely heir
+              searching for connection, especially with Clark. Over time,
+              secrets, fear, and his father’s influence push him toward
+              paranoia and ruthless choices.
+            </p>
+            <p>
+              In <strong>Superman Returns</strong>, Lex leans fully into
+              grand, world-altering schemes. His biography becomes a study in
+              how brilliance without empathy can turn into something dangerous.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span><span class="dot villain"></span> Alignment: Villain</span>
+            <span>Home: Metropolis / Global</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- VIDEO SECTION -->
+    <section id="video">
+      <h2 class="section-title">Lazy-loaded multiverse video</h2>
+      <p class="section-subtitle">
+        Below is a placeholder YouTube embed. The iframe uses
+        <strong>lazy loading</strong> so the video waits until it scrolls into
+        view before fully loading—like a portal that only opens when you walk
+        up to it.
+      </p>
+
+      <div class="video-wrapper">
+        <div class="video-header">
+          <span>Multiverse clip</span>
+          <span>Mode: Lazy loading</span>
+        </div>
+        <div class="video-body">
+          <!-- Replace the src with any Lex / Superman related video you like -->
+          <iframe
+            loading="lazy"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Lex Luthor & Superman Tribute (Placeholder)"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-note">
+          This is a demo embed. Swap the <code>src</code> with your chosen
+          YouTube URL to turn this into a full-length tribute or analysis
+          video about Lex Luthor, Smallville, Superman Returns, or the House
+          of El.
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP QUEST -->
+    <section id="map">
+      <h2 class="section-title">Map quest to the “Treasurement”</h2>
+      <p class="section-subtitle">
+        Imagine this as a playful quest: you’re moving through a stylized map
+        of Metropolis and Smallville, following clues left by Lex and the
+        heroes. The “treasure” isn’t gold—it’s a reminder that power without
+        empathy is empty, and that hope is the real artifact worth guarding.
+      </p>
+
+      <div class="map-layout">
+        <div class="map-card">
+          <h3>Quest steps</h3>
+          <ol>
+            <li>
+              <strong>Start in Smallville:</strong> Picture the Kent farm at
+              sunrise. Ask yourself: what did Clark learn here that Lex never
+              did?
+            </li>
+            <li>
+              <strong>Travel to Metropolis:</strong> Follow the path of
+              skyscrapers and headlines. Notice how the city reacts to
+              Superman and to Lex.
+            </li>
+            <li>
+              <strong>Decode Lex’s plan:</strong> On the map, his route is
+              sharp and angular—built on control, fear, and spectacle.
+            </li>
+            <li>
+              <strong>Follow the House of El:</strong> Their path curves
+              gently, looping back to protect people who fall behind.
+            </li>
+            <li>
+              <strong>Reach the “Treasurement”:</strong> At the glowing “X,”
+              you find no weapon, no throne—only a simple idea: the strongest
+              person in the room is the one who chooses to protect, not to
+              dominate.
+            </li>
+          </ol>
+        </div>
+
+        <div class="map-svg-wrapper">
+          <!-- SVG treasure map -->
+          <svg
+            class="map-svg"
+            viewBox="0 0 320 220"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="mapBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0f172a" />
+                <stop offset="1" stop-color="#020617" />
+              </linearGradient>
+              <radialGradient id="treasureGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="#facc15" stop-opacity="1" />
+                <stop offset="1" stop-color="#facc15" stop-opacity="0" />
+              </radialGradient>
+              <pattern
+                id="grid"
+                x="0"
+                y="0"
+                width="16"
+                height="16"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M 16 0 L 0 0 0 16"
+                  fill="none"
+                  stroke="#1f2937"
+                  stroke-width="0.5"
+                />
+              </pattern>
+            </defs>
+
+            <!-- Background -->
+            <rect
+              x="4"
+              y="4"
+              width="312"
+              height="212"
+              rx="22"
+              fill="url(#mapBg)"
+              stroke="#1f2937"
+            />
+            <rect
+              x="10"
+              y="10"
+              width="300"
+              height="200"
+              rx="18"
+              fill="url(#grid)"
+              opacity="0.35"
+            />
+
+            <!-- Smallville marker -->
+            <circle cx="60" cy="170" r="10" fill="#22c55e" />
+            <text
+              x="60"
+              y="190"
+              font-size="10"
+              text-anchor="middle"
+              fill="#bbf7d0"
+            >
+              Smallville
+            </text>
+
+            <!-- Metropolis marker -->
+            <rect
+              x="220"
+              y="40"
+              width="60"
+              height="40"
+              rx="6"
+              fill="#22d3ee"
+            />
+            <text
+              x="250"
+              y="65"
+              font-size="10"
+              text-anchor="middle"
+              fill="#020617"
+            >
+              Metropolis
+            </text>
+
+            <!-- Lex path (sharp, angular) -->
+            <path
+              d="M60 170 L120 140 L180 120 L240 80"
+              fill="none"
+              stroke="#f97373"
+              stroke-width="2"
+              stroke-dasharray="6 4"
+            />
+            <text
+              x="130"
+              y="132"
+              font-size="9"
+              fill="#fecaca"
+            >
+              Lex route
+            </text>
+
+            <!-- House of El path (curved) -->
+            <path
+              d="M60 170 C 100 150, 150 150, 220 120"
+              fill="none"
+              stroke="#22c55e"
+              stroke-width="2"
+              stroke-dasharray="4 3"
+            />
+            <text
+              x="140"
+              y="160"
+              font-size="9"
+              fill="#bbf7d0"
+            >
+              House of El route
+            </text>
+
+            <!-- Treasure glow -->
+            <circle
+              cx="260"
+              cy="150"
+              r="40"
+              fill="url(#treasureGlow)"
+              opacity="0.7"
+            />
+            <!-- Treasure X -->
+            <line
+              x1="246"
+              y1="136"
+              x2="274"
+              y2="164"
+              stroke="#facc15"
+              stroke-width="3"
+            />
+            <line
+              x1="274"
+              y1="136"
+              x2="246"
+              y2="164"
+              stroke="#facc15"
+              stroke-width="3"
+            />
+            <text
+              x="260"
+              y="180"
+              font-size="10"
+              text-anchor="middle"
+              fill="#facc15"
+            >
+              Treasurement
+            </text>
+
+            <!-- Legend -->
+            <rect
+              x="20"
+              y="20"
+              width="120"
+              height="60"
+              rx="10"
+              fill="#020617"
+              stroke="#1f2937"
+            />
+            <text
+              x="30"
+              y="36"
+              font-size="9"
+              fill="#9ca3af"
+            >
+              Legend
+            </text>
+            <line
+              x1="30"
+              y1="46"
+              x2="50"
+              y2="46"
+              stroke="#f97373"
+              stroke-width="2"
+              stroke-dasharray="6 4"
+            />
+            <text
+              x="56"
+              y="48"
+              font-size="8"
+              fill="#fecaca"
+            >
+              Lex path
+            </text>
+            <line
+              x1="30"
+              y1="58"
+              x2="50"
+              y2="58"
+              stroke="#22c55e"
+              stroke-width="2"
+              stroke-dasharray="4 3"
+            />
+            <text
+              x="56"
+              y="60"
+              font-size="8"
+              fill="#bbf7d0"
+            >
+              House of El path
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>
+        Multiverse file assembled as a creative tribute to
+        <strong>Lex Luthor, Smallville, Superman Returns, Superman, Supergirl,
+        and the Flash</strong>.
+      </span>
+      <span>Customize the text, colors, and video URL to make it your own.</span>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for buttons and nav links
+    document.querySelectorAll("[data-scroll], header nav a").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const targetId = el.getAttribute("data-scroll") || el.getAttribute("href");
+        if (!targetId || !targetId.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
