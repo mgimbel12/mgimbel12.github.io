@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tales of Tales: Safety Plan – Lex Luthor Verse</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: radial-gradient(circle at top, #1b1b2f, #050509);
+      color: #f5f5f5;
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: linear-gradient(90deg, #3a0ca3, #7209b7);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.5rem 2rem;
+      background: rgba(10, 10, 25, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .tagline {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 1.5rem;
+    }
+    .verse {
+      line-height: 1.7;
+      border-left: 3px solid #f72585;
+      padding-left: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.98rem;
+    }
+    .plan {
+      margin-top: 1.5rem;
+    }
+    .plan h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #f72585;
+    }
+    .step {
+      margin: 0.6rem 0;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(247,37,133,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .step span.label {
+      font-weight: 600;
+      color: #ffd166;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      background: #f72585;
+      color: #fff;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+    .note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Tales of Tales: Safety Plan</h1>
+    <div class="tagline">Lex Luthor Verse – when the mastermind learns to protect, not destroy.</div>
+  </header>
+
+  <main>
+    <section class="verse" id="verse">
+      In towers of steel and neon glare,<br>
+      I drafted blueprints for despair.<br>
+      But every scheme, each ruthless chart,<br>
+      Collided with a fragile heart.<br><br>
+
+      So now my plans are redrawn, clean—<br>
+      Not world’s end, but a safer scene.<br>
+      A map for storms inside the mind,<br>
+      Where every step is: breathe, be kind.
+    </section>
+
+    <section class="plan">
+      <h2>Safety Plan – Issue #1</h2>
+
+      <div class="step">
+        <div>
+          <span class="label">Step 1:</span> Notice the signal.
+          <div class="detail">Racing thoughts, tight chest, wanting to hide from everyone.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <span class="label">Step 2:</span> Ground in the present.
+          <div class="detail">Name 5 things you see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <span class="label">Step 3:</span> Call your allies.
+          <div class="detail">Trusted friends, family, or a professional you can talk to about what you’re feeling.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div>
+          <span class="label">Step 4:</span> Choose one safe action.
+          <div class="detail">Drink water, step outside, journal, listen to calming music, or rest in a quiet space.</div>
+        </div>
+      </div>
+    </section>
+
+    <button id="toggleVerse">Switch Timeline</button>
+
+    <div class="note">
+      This is a fictional universe. For real-life crises, talk to someone you trust or a qualified professional.
+    </div>
+  </main>
+
+  <script>
+    const verse = document.getElementById('verse');
+    const btn = document.getElementById('toggleVerse');
+
+    const verseA = `
+      In towers of steel and neon glare,<br>
+      I drafted blueprints for despair.<br>
+      But every scheme, each ruthless chart,<br>
+      Collided with a fragile heart.<br><br>
+
+      So now my plans are redrawn, clean—<br>
+      Not world’s end, but a safer scene.<br>
+      A map for storms inside the mind,<br>
+      Where every step is: breathe, be kind.
+    `;
+
+    const verseB = `
+      I once wrote codes for chaos, cold,<br>
+      Equations bent on taking hold.<br>
+      But data doesn’t lie for long—<br>
+      Hurt the world, you hurt the song.<br><br>
+
+      So I rewire the master plan:<br>
+      Shield the city, shield each hand.<br>
+      Genius, now a different art—<br>
+      Build a fortress in the heart.
+    `;
+
+    let alt = false;
+    btn.addEventListener('click', () => {
+      alt = !alt;
+      verse.innerHTML = alt ? verseB : verseA;
+    });
+  </script>
+</body>
+</html>
