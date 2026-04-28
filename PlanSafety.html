@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor Contingency Safety Plan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b1b2f 0, #0b0b15 45%, #000 100%);
+      color: #f5f6fa;
+    }
+
+    .shell {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: rgba(10, 10, 20, 0.96);
+      border-radius: 16px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      border: 1px solid #2f3640;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid #44bd32;
+      color: #44bd32;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .logo-chip span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #44bd32;
+      box-shadow: 0 0 12px #44bd32;
+    }
+
+    h1 {
+      margin: 0.8rem 0 0.3rem;
+      font-size: 1.9rem;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #dcdde1;
+      max-width: 540px;
+      margin: 0.25rem auto 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      background: #111320;
+      border-radius: 12px;
+      padding: 1rem;
+      border: 1px solid #2f3640;
+    }
+
+    section h2 {
+      font-size: 1rem;
+      margin: 0 0 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    section h2 .tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid #718093;
+      color: #718093;
+    }
+
+    section p.helper {
+      font-size: 0.8rem;
+      color: #a4b0be;
+      margin: 0 0 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #353b48;
+      background: #05060c;
+      color: #f5f6fa;
+      resize: vertical;
+      font: inherit;
+    }
+
+    textarea::placeholder {
+      color: #7f8fa6;
+    }
+
+    textarea:focus {
+      outline: 2px solid #44bd32;
+      border-color: #44bd32;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1.3rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    #savePlan {
+      background: #44bd32;
+      color: #000;
+      box-shadow: 0 0 14px rgba(68, 189, 50, 0.6);
+    }
+
+    #savePlan:hover {
+      background: #2ecc71;
+    }
+
+    #clearPlan {
+      background: transparent;
+      color: #f5f6fa;
+      border: 1px solid #718093;
+    }
+
+    #clearPlan:hover {
+      background: rgba(113, 128, 147, 0.2);
+    }
+
+    .status {
+      font-size: 0.8rem;
+      color: #a4b0be;
+      min-height: 1.2em;
+    }
+
+    .status span {
+      color: #44bd32;
+    }
+
+    .disclaimer {
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      color: #dcdde1;
+      background: #111320;
+      border-radius: 10px;
+      padding: 0.8rem;
+      border: 1px solid #353b48;
+    }
+
+    .disclaimer strong {
+      color: #e1b12c;
+    }
+
+    .calm-panel {
+      margin-top: 0.5rem;
+      padding: 0.7rem;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(39, 174, 96, 0.18), rgba(52, 152, 219, 0.12));
+      border: 1px solid rgba(39, 174, 96, 0.5);
+      font-size: 0.85rem;
+    }
+
+    .calm-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7bed9f;
+      margin-bottom: 0.3rem;
+    }
+
+    .calm-text {
+      margin: 0;
+      color: #dcdde1;
+    }
+
+    .calm-text span {
+      color: #7bed9f;
+    }
+
+    .prompt {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: #a4b0be;
+    }
+
+    .prompt span {
+      color: #9c88ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="logo-chip">
+        <span></span>
+        LexCorp Protocol: Safe Mode
+      </div>
+      <h1>Lex Luthor Contingency Safety Plan</h1>
+      <p class="subtitle">
+        Even the sharpest mind needs a backup plan. This page helps you map warning signs, strategies, and allies
+        so you can stay as safe as possible—no capes required.
+      </p>
+    </header>
+
+    <div class="grid">
+      <!-- Left column -->
+      <div>
+        <section>
+          <h2>
+            Warning Signs
+            <span class="tag">System Scan</span>
+          </h2>
+          <p class="helper">
+            What are the early “alerts” that tell you you’re starting to struggle? (thoughts, feelings, body signals, behaviors)
+          </p>
+          <textarea id="warningSigns" placeholder="- I stop answering messages
+- I feel numb or overwhelmed
+- I can’t focus, everything feels too much"></textarea>
+        </section>
+
+        <section>
+          <h2>
+            Coping Strategies
+            <span class="tag">Defense Grid</span>
+          </h2>
+          <p class="helper">
+            What helps you feel even a little safer or calmer? Think small, realistic steps you can actually do.
+          </p>
+          <textarea id="copingStrategies" placeholder="- Drink water, slow breaths (in 4, hold 4, out 6)
+- Step outside or look out a window
+- Put on music that feels grounding
+- Text someone safe just to say hi"></textarea>
+        </section>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <section>
+          <h2>
+            Supportive People
+            <span class="tag">Allies</span>
+          </h2>
+          <p class="helper">
+            Who can you reach out to when things get hard? Include names, how to contact them, and how they support you.
+          </p>
+          <textarea id="supportPeople" placeholder="- [Name] – friend – can listen without judging
+- [Name] – family – can drive me somewhere safe
+- [Name] – mentor – can help me make a plan"></textarea>
+        </section>
+
+        <section>
+          <h2>
+            Emergency Contacts
+            <span class="tag">Critical Override</span>
+          </h2>
+          <p class="helper">
+            Add local emergency numbers, crisis lines in your region, clinics, or trusted adults you can contact in a crisis.
+          </p>
+          <textarea id="emergencyContacts" placeholder="- Local emergency number (e.g., 9-1-1)
+- Trusted adult:
+- Local clinic / hospital:
+- School counselor / community center:"></textarea>
+
+          <div class="calm-panel" id="calmPanel">
+            <div class="calm-title">Grounding Protocol</div>
+            <p class="calm-text" id="calmText">
+              Take one slow breath. Notice one thing you can see, one thing you can hear, and one thing you can touch.
+              You are <span>still here</span>.
+            </p>
+            <p class="prompt">
+              Tap anywhere in this panel to cycle a new grounding prompt. <span>Small steps count.</span>
+            </p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="savePlan">
+        💾 Save Plan (this device)
+      </button>
+      <button id="clearPlan">
+        ♻️ Clear All (this device)
+      </button>
+      <div class="status" id="statusMsg"></div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>Important:</strong> This page is not a substitute for professional help or emergency services.
+      If you are in immediate danger, feel unable to stay safe, or think you might hurt yourself or someone else,
+      please contact local emergency services or a trusted person right away. You deserve support and safety.
+      Everything you write here is stored only in this browser on this device.
+    </div>
+  </div>
+
+  <script>
+    // --- Local storage keys ---
+    const fields = [
+      "warningSigns",
+      "copingStrategies",
+      "supportPeople",
+      "emergencyContacts"
+    ];
+
+    const statusMsg = document.getElementById("statusMsg");
+
+    function loadPlan() {
+      fields.forEach(id => {
+        const saved = localStorage.getItem("lexSafetyPlan_" + id);
+        if (saved !== null) {
+          const el = document.getElementById(id);
+          if (el) el.value = saved;
+        }
+      });
+      statusMsg.textContent = "";
+    }
+
+    function savePlan() {
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        localStorage.setItem("lexSafetyPlan_" + id, el.value);
+      });
+      statusMsg.innerHTML = "<span>Plan saved locally.</span>";
+      setTimeout(() => (statusMsg.textContent = ""), 4000);
+    }
+
+    function clearPlan() {
+      if (!confirm("This will clear all fields stored on this device. Continue?")) return;
+      fields.forEach(id => {
+        localStorage.removeItem("lexSafetyPlan_" + id);
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      statusMsg.textContent = "Plan cleared from this device.";
+      setTimeout(() => (statusMsg.textContent = ""), 4000);
+    }
+
+    document.getElementById("savePlan").addEventListener("click", savePlan);
+    document.getElementById("clearPlan").addEventListener("click", clearPlan);
+    loadPlan();
+
+    // --- Grounding prompts ---
+    const prompts = [
+      "Pause. Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste.",
+      "Breathe in for 4, hold for 4, out for 6. Repeat a few times. You are allowed to slow down.",
+      "Look around and find one color that feels calming. Let your eyes rest on it for a few breaths.",
+      "Place your feet on the floor. Notice the support beneath you. You do not have to do everything at once.",
+      "Think of one person, place, or memory that feels even a little safe. Hold it gently in your mind."
+    ];
+
+    const calmPanel = document.getElementById("calmPanel");
+    const calmText = document.getElementById("calmText");
+
+    calmPanel.addEventListener("click", () => {
+      const next = prompts[Math.floor(Math.random() * prompts.length)];
+      calmText.textContent = next;
+    });
+  </script>
+</body>
+</html>
