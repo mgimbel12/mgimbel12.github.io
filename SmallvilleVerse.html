@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville – History, Lex Luthor & Mini Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0f172a;
+      --accent: #f97316;
+      --accent-soft: #22d3ee;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.35);
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.9);
+      --hero: #22c55e;
+      --villain: #f97373;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.96),
+        rgba(15, 23, 42, 0.75),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #f97316 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #020617;
+      box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.4);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .brand-text span:last-child {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 14px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .nav-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: rgba(250, 204, 21, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+      color: var(--accent-soft);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+      max-width: 720px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 880px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 4vw, 40px);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #facc15, #f97316, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-kicker {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .hero-text p {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+      max-width: 640px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      color: var(--text-soft);
+      background: radial-gradient(circle at top left, #111827, #020617);
+    }
+
+    .tag.hero {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    .tag.villain {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      background: radial-gradient(circle at top, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    .video-wrapper {
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .video-header {
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    }
+
+    .video-header span:last-child {
+      color: var(--accent-soft);
+    }
+
+    .video-body {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: radial-gradient(circle at center, #111827, #020617);
+    }
+
+    .video-body iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-note {
+      padding: 10px 14px 12px;
+      font-size: 11px;
+      color: var(--text-soft);
+      border-top: 1px dashed rgba(148, 163, 184, 0.4);
+    }
+
+    .lex-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 880px) {
+      .lex-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .lex-text {
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .lex-text p + p {
+      margin-top: 8px;
+    }
+
+    .lex-svg-card {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: var(--shadow-soft);
+      padding: 10px;
+    }
+
+    .lex-svg {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+
+    .game-card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .game-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .game-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .game-cell {
+      position: relative;
+      border-radius: 10px;
+      background: #020617;
+      border: 1px solid #1f2937;
+      padding: 6px;
+      cursor: pointer;
+      transition: transform 0.1s ease-out, box-shadow 0.1s ease-out,
+        border-color 0.1s ease-out;
+    }
+
+    .game-cell:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.9);
+      border-color: rgba(250, 204, 21, 0.6);
+    }
+
+    .game-cell svg {
+      width: 100%;
+      height: 60px;
+      display: block;
+    }
+
+    .game-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-top: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .badge.hero {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    .badge.villain {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      cursor: pointer;
+      background: none;
+      color: var(--text-main);
+      transition: all 0.15s ease-out;
+    }
+
+    .btn:hover {
+      border-color: rgba(250, 204, 21, 0.7);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer span strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">S</div>
+        <div class="brand-text">
+          <span>Smallville dossier</span>
+          <span>History • Lex Luthor • Game</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#history">History</a>
+        <a href="#video">Video</a>
+        <a href="#lex">Lex Luthor</a>
+        <a href="#game">Game</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO / INTRO -->
+    <section class="hero" id="history">
+      <div>
+        <div class="hero-kicker">TV history • Origin story</div>
+        <h1 class="hero-title">
+          <span>Smallville</span>: From Farm Fields to Metropolis Skies
+        </h1>
+        <p>
+          <strong>Smallville</strong> is a television series that explores the early
+          years of Clark Kent before he becomes Superman. It blends teen drama,
+          science fiction, and superhero mythology, focusing on how a boy from a
+          small town grows into a symbol of hope.
+        </p>
+        <p>
+          Across its seasons, the show follows Clark’s relationships with his
+          parents, his friends, and his future enemies. Meteor showers, secret
+          labs, and mysterious powers all orbit around one question: what kind
+          of person will Clark choose to be?
+        </p>
+        <div class="tag-row">
+          <span class="tag hero">Clark Kent</span>
+          <span class="tag hero">Smallville</span>
+          <span class="tag villain">Lex Luthor</span>
+          <span class="tag">Meteor shower</span>
+          <span class="tag">Origin story</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Why Smallville matters in Superman history</h3>
+        <p>
+          The show reimagines Superman’s origin as a long journey instead of a
+          quick montage. We see Clark struggle with secrecy, friendship, and
+          responsibility. The series also deepens the relationship between Clark
+          and Lex Luthor, turning them from strangers into complicated friends
+          before they become enemies.
+        </p>
+        <p>
+          This focus on character and emotion helped a new generation connect
+          with the Superman mythos, long before capes and costumes appeared.
+        </p>
+      </div>
+    </section>
+
+    <!-- VIDEO DOCUMENTATION -->
+    <section id="video">
+      <h2 class="section-title">Smallville – History & Documentary Video</h2>
+      <p class="section-subtitle">
+        Here is a placeholder YouTube embed for a documentary or video essay
+        about the history of <strong>Smallville</strong>. The iframe uses
+        <strong>lazy loading</strong>, so it waits to fully load until you
+        scroll it into view.
+      </p>
+
+      <div class="video-wrapper">
+        <div class="video-header">
+          <span>Smallville documentary</span>
+          <span>Mode: Lazy loading</span>
+        </div>
+        <div class="video-body">
+          <!-- Replace src with your favorite Smallville history / documentary video -->
+          <iframe
+            loading="lazy"
+            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            title="Smallville History Documentary (Placeholder)"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-note">
+          Swap the <code>src</code> with a real Smallville documentary or
+          history video to turn this into a full-length learning page.
+        </div>
+      </div>
+    </section>
+
+    <!-- LEX LUTHOR BIO + SVG -->
+    <section id="lex">
+      <h2 class="section-title">Lex Luthor – SVG Portrait & Biography</h2>
+      <p class="section-subtitle">
+        In <strong>Smallville</strong>, Lex Luthor is more than a villain. He is
+        a lonely heir, a curious investigator, and a friend who slowly drifts
+        into darkness. Below is a short biography and a stylized SVG portrait.
+      </p>
+
+      <div class="lex-layout">
+        <div class="lex-text">
+          <p>
+            Lex arrives in Smallville as the son of a powerful businessman. A
+            near-fatal accident brings him into Clark Kent’s life, and the two
+            form an unlikely friendship. Lex admires Clark’s honesty and
+            strength, but he also senses that Clark is hiding something.
+          </p>
+          <p>
+            Over time, secrets, fear, and his father’s harsh expectations push
+            Lex toward obsession. He becomes determined to uncover the truth
+            about the meteor shower, the strange events in town, and Clark
+            himself. His story is a slow transformation from wounded ally to
+            formidable adversary.
+          </p>
+          <p>
+            This makes Lex one of the most interesting characters in the
+            Smallville universe: a person who might have been a hero, but who
+            chooses control over trust.
+          </p>
+        </div>
+
+        <div class="lex-svg-card">
+          <!-- Simple SVG Lex Luthor icon -->
+          <svg
+            class="lex-svg"
+            viewBox="0 0 260 220"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="lexBg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#0f172a" />
+                <stop offset="1" stop-color="#020617" />
+              </linearGradient>
+              <linearGradient id="lexSuit" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f97373" />
+                <stop offset="1" stop-color="#f97316" />
+              </linearGradient>
+              <linearGradient id="lexTie" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#22d3ee" />
+                <stop offset="1" stop-color="#22c55e" />
+              </linearGradient>
+            </defs>
+
+            <!-- Card background -->
+            <rect
+              x="6"
+              y="6"
+              width="248"
+              height="208"
+              rx="24"
+              fill="url(#lexBg)"
+              stroke="#1f2937"
+            />
+
+            <!-- Nameplate -->
+            <text
+              x="24"
+              y="32"
+              font-size="12"
+              fill="#9ca3af"
+              letter-spacing="2"
+            >
+              LEX LUTHOR
+            </text>
+            <text
+              x="24"
+              y="48"
+              font-size="9"
+              fill="#6b7280"
+              letter-spacing="2"
+            >
+              SMALLVILLE • COMPLEX ANTAGONIST
+            </text>
+
+            <!-- Head (bald) -->
+            <circle cx="130" cy="90" r="40" fill="#e5e7eb" />
+            <!-- Eyes -->
+            <circle cx="118" cy="88" r="4" fill="#020617" />
+            <circle cx="142" cy="88" r="4" fill="#020617" />
+            <!-- Brows -->
+            <rect x="110" y="80" width="16" height="2" rx="1" fill="#020617" />
+            <rect x="134" y="80" width="16" height="2" rx="1" fill="#020617" />
+            <!-- Mouth (serious) -->
+            <rect x="120" y="104" width="20" height="3" rx="1.5" fill="#020617" />
+
+            <!-- Suit -->
+            <path
+              d="M90 180 L130 120 L170 180 Z"
+              fill="url(#lexSuit)"
+            />
+            <!-- Shirt -->
+            <path
+              d="M115 180 L130 135 L145 180 Z"
+              fill="#e5e7eb"
+            />
+            <!-- Tie -->
+            <path
+              d="M130 135 L136 160 L130 180 L124 160 Z"
+              fill="url(#lexTie)"
+            />
+
+            <!-- Side text -->
+            <text
+              x="24"
+              y="80"
+              font-size="9"
+              fill="#9ca3af"
+            >
+              Traits: Intellect, ambition, control
+            </text>
+            <text
+              x="24"
+              y="96"
+              font-size="9"
+              fill="#9ca3af"
+            >
+              Role: Friend turned rival
+            </text>
+            <text
+              x="24"
+              y="112"
+              font-size="9"
+              fill="#9ca3af"
+            >
+              Theme: Power vs. trust
+            </text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI GAME -->
+    <section id="game">
+      <h2 class="section-title">Mini Game – Find Lex in Smallville</h2>
+      <p class="section-subtitle">
+        Little game: click on the Lex Luthor tiles to gain points. If you click
+        on Clark Kent by mistake, you lose points. The board shuffles each
+        round. Try to reach a high score before the timer runs out!
+      </p>
+
+      <div class="game-card">
+        <div class="game-info">
+          <span>Score: <strong id="score">0</strong></span>
+          <span>Time left: <strong id="time">30</strong> s</span>
+          <span class="badge villain">Lex = +2</span>
+          <span class="badge hero">Clark = −1</span>
+          <button class="btn" id="restartBtn">Restart</button>
+        </div>
+
+        <div class="game-grid" id="gameGrid">
+          <!-- Cells will be filled by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>
+        Creative documentation page for <strong>Smallville</strong>, featuring
+        Lex Luthor, a documentary embed, SVG art, and a mini game.
+      </span>
+      <span>Customize the text, colors, and YouTube URL to match your own project.</span>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll("header nav a").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const targetId = el.getAttribute("href");
+        if (!targetId || !targetId.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+
+    // Mini game: Find Lex
+    const grid = document.getElementById("gameGrid");
+    const scoreEl = document.getElementById("score");
+    const timeEl = document.getElementById("time");
+    const restartBtn = document.getElementById("restartBtn");
+
+    let score = 0;
+    let timeLeft = 30;
+    let timerId = null;
+
+    const CELLS = 12; // number of tiles
+
+    function createIconSVG(type) {
+      // type: "lex" or "clark"
+      if (type === "lex") {
+        return `
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="72" height="52" rx="10" fill="#111827" stroke="#f97373" />
+            <circle cx="40" cy="24" r="12" fill="#e5e7eb" />
+            <circle cx="36" cy="22" r="2" fill="#020617" />
+            <circle cx="44" cy="22" r="2" fill="#020617" />
+            <rect x="34" y="28" width="12" height="2" rx="1" fill="#020617" />
+            <path d="M26 52 L40 34 L54 52 Z" fill="#f97373" />
+            <text x="10" y="16" font-size="7" fill="#fecaca">LEX</text>
+          </svg>
+        `;
+      } else {
+        return `
+          <svg viewBox="0 0 80 60" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="4" width="72" height="52" rx="10" fill="#111827" stroke="#22c55e" />
+            <circle cx="40" cy="24" r="12" fill="#e5e7eb" />
+            <circle cx="36" cy="22" r="2" fill="#020617" />
+            <circle cx="44" cy="22" r="2" fill="#020617" />
+            <path d="M34 30 Q40 34 46 30" stroke="#020617" stroke-width="2" fill="none" />
+            <path d="M26 52 L40 34 L54 52 Z" fill="#22c55e" />
+            <text x="8" y="16" font-size="7" fill="#bbf7d0">CLARK</text>
+          </svg>
+        `;
+      }
+    }
+
+    function buildGrid() {
+      grid.innerHTML = "";
+      const types = [];
+      // ensure at least a few Lex tiles
+      for (let i = 0; i < CELLS; i++) {
+        types.push(i < 5 ? "lex" : "clark");
+      }
+      // shuffle
+      for (let i = types.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [types[i], types[j]] = [types[j], types[i]];
+      }
+
+      types.forEach((type) => {
+        const cell = document.createElement("button");
+        cell.className = "game-cell";
+        cell.dataset.type = type;
+        cell.innerHTML = createIconSVG(type);
+        cell.addEventListener("click", () => handleCellClick(cell));
+        grid.appendChild(cell);
+      });
+    }
+
+    function handleCellClick(cell) {
+      if (timeLeft <= 0) return;
+      const type = cell.dataset.type;
+      if (type === "lex") {
+        score += 2;
+      } else {
+        score -= 1;
+      }
+      scoreEl.textContent = score;
+      // brief flash
+      cell.style.borderColor =
+        type === "lex" ? "rgba(248,113,113,0.9)" : "rgba(34,197,94,0.9)";
+      setTimeout(() => {
+        cell.style.borderColor = "#1f2937";
+      }, 150);
+      // reshuffle board slightly
+      buildGrid();
+    }
+
+    function startTimer() {
+      clearInterval(timerId);
+      timerId = setInterval(() => {
+        timeLeft -= 1;
+        if (timeLeft <= 0) {
+          timeLeft = 0;
+          clearInterval(timerId);
+        }
+        timeEl.textContent = timeLeft;
+      }, 1000);
+    }
+
+    function restartGame() {
+      score = 0;
+      timeLeft = 30;
+      scoreEl.textContent = score;
+      timeEl.textContent = timeLeft;
+      buildGrid();
+      startTimer();
+    }
+
+    restartBtn.addEventListener("click", restartGame);
+
+    // Initialize
+    buildGrid();
+    startTimer();
+  </script>
+</body>
+</html>
+
