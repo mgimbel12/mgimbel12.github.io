@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor – Tribute & Family Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --card: #101320;
+      --accent: #f5c542;
+      --accent-soft: #f5c54222;
+      --text-main: #f7f7f7;
+      --text-muted: #a7a9b8;
+      --danger: #e85b5b;
+      --safe: #4caf50;
+      --border-soft: #262a3b;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.55);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition: 0.25s ease;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2138 0, #05060a 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #0b0d16 0, #05060a 40%, #15182a 100%);
+      border-radius: 26px;
+      border: 1px solid #2a3044;
+      box-shadow: var(--shadow-soft);
+      padding: 26px 26px 30px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 840px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    h1 {
+      font-size: 32px;
+      line-height: 1.1;
+      margin: 14px 0 6px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 10px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--text-muted);
+      background: #05060a;
+    }
+
+    .pill strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .quote-card {
+      margin-top: 18px;
+      padding: 14px 14px 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top left, #262a3b33 0, transparent 55%);
+      font-size: 13px;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::before {
+      content: "“";
+      position: absolute;
+      top: -26px;
+      right: 10px;
+      font-size: 80px;
+      color: #ffffff08;
+      pointer-events: none;
+    }
+
+    .quote-card span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .quote-author {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #7f83a0;
+    }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .timeline {
+      margin-top: 18px;
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      padding: 14px 14px 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px 12px;
+      padding: 8px 0;
+      border-bottom: 1px dashed #262a3b;
+    }
+
+    .timeline-item:last-child {
+      border-bottom: none;
+    }
+
+    .timeline-year {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .timeline-body-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .timeline-body-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #343a52;
+      color: #c2c4d6;
+      background: #101320;
+    }
+
+    /* Right column – Family Safety Plan */
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-accent {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, #f5c54211 0, transparent 55%);
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .safety-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #37415a;
+      background: #05060a;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .safety-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--safe);
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .card-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .safety-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .safety-box {
+      border-radius: 14px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 10px 10px 9px;
+      font-size: 12px;
+    }
+
+    .safety-box-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .safety-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: #151a2a;
+      border: 1px solid #343a52;
+      color: var(--accent);
+    }
+
+    .safety-list {
+      list-style: none;
+      margin-top: 2px;
+    }
+
+    .safety-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+      color: var(--text-muted);
+    }
+
+    .safety-bullet {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #555b76;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .emergency-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .emergency-pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #3a425a;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #05060a;
+      color: var(--text-muted);
+    }
+
+    .emergency-pill span {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .danger-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #f2b3b3;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .danger-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--danger);
+      margin-top: 4px;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px var(--danger);
+    }
+
+    /* Interactive checklist */
+
+    .checklist {
+      margin-top: 14px;
+      border-radius: 14px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 10px 10px 8px;
+      font-size: 12px;
+    }
+
+    .checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .checklist-title {
+      font-weight: 600;
+    }
+
+    .checklist-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      cursor: pointer;
+      padding: 4px 4px;
+      border-radius: 10px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .checklist-item:hover {
+      background: #101320;
+      border-color: #343a52;
+    }
+
+    .check-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #4b5270;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: transparent;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    .checklist-item.done .check-circle {
+      background: var(--safe);
+      border-color: var(--safe);
+      color: #05060a;
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    .check-text {
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .checklist-item.done .check-text {
+      color: #d9f5dd;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <!-- LEFT: Tribute -->
+    <section>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        LEX LUTHOR • LEGACY PROFILE
+      </div>
+
+      <h1>Lex Luthor<br><span class="highlight">Mind, Power, and Consequence</span></h1>
+
+      <p class="subtitle">
+        A fictional titan of intellect whose story reminds us that <span class="highlight">genius without empathy</span>
+        can shake entire worlds. This tribute reframes his legend as a mirror: what do we build with our power?
+      </p>
+
+      <div class="pill-row">
+        <div class="pill"><strong>Role:</strong> Visionary industrialist, complex antagonist</div>
+        <div class="pill"><strong>Theme:</strong> Responsibility, legacy, and choice</div>
+        <div class="pill"><strong>Symbol:</strong> The mind that can save or shatter</div>
+      </div>
+
+      <div class="quote-card">
+        In every version of Lex Luthor, there is a question burning underneath the armor:
+        <span>“What would you do with absolute power?”</span> The answer is never simple—and that is why his story matters.
+        <div class="quote-author">Tribute reflection • Reimagining the Luthor mythos</div>
+      </div>
+
+      <div class="timeline">
+        <div class="section-title">Story beats reimagined</div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">Origin</div>
+          <div>
+            <div class="timeline-body-title">Gifted mind, fragile trust</div>
+            <div class="timeline-body-text">
+              A brilliant child who learned early that the world can be cruel. Intelligence became armor,
+              and control became a shield against fear.
+            </div>
+            <div class="chip-row">
+              <span class="chip">Genius</span>
+              <span class="chip">Mistrust</span>
+              <span class="chip">Self‑protection</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">Rise</div>
+          <div>
+            <div class="timeline-body-title">From survivor to architect</div>
+            <div class="timeline-body-text">
+              Building empires, shaping cities, Lex proves that one person’s vision can move economies—
+              but also that unchecked ego can endanger the very people he claims to protect.
+            </div>
+            <div class="chip-row">
+              <span class="chip">Power</span>
+              <span class="chip">Influence</span>
+              <span class="chip">Ethical tension</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">Mirror</div>
+          <div>
+            <div class="timeline-body-title">The lesson for us</div>
+            <div class="timeline-body-text">
+              Lex Luthor’s story is a cautionary tale: brilliance without compassion can become a storm.
+              Our task is to choose differently—using our gifts to keep families, communities, and futures safe.
+            </div>
+            <div class="chip-row">
+              <span class="chip">Accountability</span>
+              <span class="chip">Community</span>
+              <span class="chip">Safety</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT: Family Safety Plan -->
+    <section>
+      <div class="card">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div class="safety-tag">
+            <span class="safety-dot"></span>
+            Family Safety Plan • Inspired by the Luthor “what if”
+          </div>
+
+          <h2>Family Safety Plan</h2>
+          <p class="card-sub">
+            A calm, practical plan for real families—no super‑villains, just everyday courage.
+            Use this as a gentle template and adapt it to your home.
+          </p>
+
+          <div class="safety-grid">
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🏠</span>
+                Safe places & exits
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Choose <strong>two safe rooms</strong> in your home where everyone can gather in an emergency.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Walk through <strong>two exit routes</strong> from your home (front door, back door, stairs).</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Pick a <strong>meeting spot</strong> outside (a tree, a neighbor’s porch) where everyone reunites.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">📞</span>
+                Contacts & code words
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Write down <strong>3 trusted adults</strong> (family, neighbors, community leaders) with phone numbers.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Create a simple <strong>family code word</strong> that means “I need help, now.”</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Teach children how to say their <strong>full name, address, and city</strong> to emergency services.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="safety-grid" style="margin-top: 10px;">
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🧠</span>
+                Feelings & boundaries
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Remind everyone: <strong>no one</strong> is allowed to hurt, threaten, or scare them on purpose.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Practice phrases like “<strong>I don’t feel safe</strong>” and “<strong>I need a trusted adult</strong>.”</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Make a list of <strong>safe places</strong> in the community (school office, library, community center).</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🧳</span>
+                Go‑bag basics
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Small backpack with <strong>water, snacks, flashlight,</strong> and a copy of important numbers.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Any <strong>medications</strong> that must be kept nearby, if a doctor has prescribed them.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>A comforting item: <strong>photo, small toy, or note</strong> reminding them they are not alone.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="emergency-row">
+            <div class="emergency-pill">
+              🚨 In danger? Call <span>9‑1‑1</span> (emergency)
+            </div>
+            <div class="emergency-pill">
+              🧭 Need local help? Call <span>3‑1‑1</span> (community info, non‑emergency)
+            </div>
+          </div>
+
+          <div class="danger-note">
+            <span class="danger-dot"></span>
+            <span>
+              This page is not a substitute for professional help. If anyone in your family is being hurt or feels unsafe,
+              reach out to emergency services or a trusted professional right away.
+            </span>
+          </div>
+
+          <div class="checklist" id="checklist">
+            <div class="checklist-header">
+              <div class="checklist-title">Quick practice checklist</div>
+              <div class="checklist-count" id="check-count">0 / 4 done</div>
+            </div>
+
+            <div class="checklist-item" data-id="1">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We chose our safe rooms and meeting spot.</div>
+            </div>
+
+            <div class="checklist-item" data-id="2">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We wrote down 3 trusted adults and their numbers.</div>
+            </div>
+
+            <div class="checklist-item" data-id="3">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We practiced our family code word.</div>
+            </div>
+
+            <div class="checklist-item" data-id="4">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We walked through our exit routes together.</div>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Even in stories of power and conflict, we can choose a different legacy:
+            <span class="highlight">protecting one another, listening, and planning for safety</span>.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Simple interactive checklist
+    (function () {
+      const checklist = document.getElementById("checklist");
+      const countLabel = document.getElementById("check-count");
+      if (!checklist || !countLabel) return;
+
+      const items = Array.from(checklist.querySelectorAll(".checklist-item"));
+
+      function updateCount() {
+        const done = items.filter(i => i.classList.contains("done")).length;
+        countLabel.textContent = done + " / " + items.length + " done";
+      }
+
+      items.forEach(item => {
+        item.addEventListener("click", () => {
+          item.classList.toggle("done");
+          updateCount();
+        });
+      });
+
+      updateCount();
+    })();
+  </script>
+</body>
+</html>
