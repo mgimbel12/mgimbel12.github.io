@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disney Safety Plan</title>
+  <style>
+    :root {
+      --bg: #041b3b;
+      --card: #0b2a5c;
+      --accent: #ffd447;
+      --accent-soft: rgba(255, 212, 71, 0.18);
+      --accent-pink: #ff7aa2;
+      --text: #fffaf5;
+      --muted: #d0ddff;
+      --border: #23427a;
+      --focus: #fffb9a;
+      --success: #7cf29c;
+      --danger: #ff6b6b;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top, #123a7a 0, #041b3b 45%, #020818 100%),
+        url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='1.2' fill='%23ffffff' opacity='0.6'/%3E%3Ccircle cx='80' cy='40' r='1.4' fill='%23ffffff' opacity='0.5'/%3E%3Ccircle cx='140' cy='90' r='1.1' fill='%23ffffff' opacity='0.4'/%3E%3Ccircle cx='40' cy='120' r='1.3' fill='%23ffffff' opacity='0.5'/%3E%3C/svg%3E");
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+      background: linear-gradient(135deg, rgba(255, 212, 71, 0.25), rgba(255, 122, 162, 0.25));
+      border-radius: 26px;
+      padding: 2px;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, #163a7a 0, #04152f 55%);
+      border-radius: 24px;
+      padding: 22px 22px 16px;
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 820px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sparkle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0, #ffe9a8 40%, transparent 70%);
+      box-shadow: 0 0 18px rgba(255, 244, 189, 0.9);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      color: #1b1730;
+      background: var(--accent-soft);
+      background-image: linear-gradient(135deg, #ffeaa7, #ffd447);
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .meta span {
+      display: block;
+    }
+
+    .meta strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .section {
+      background: rgba(4, 15, 40, 0.9);
+      border-radius: 16px;
+      padding: 14px 14px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 10px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .section-pill {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(3, 12, 34, 0.95);
+      color: var(--text);
+      padding: 8px 9px;
+      font-size: 0.86rem;
+      resize: vertical;
+      min-height: 52px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 1px rgba(255, 251, 154, 0.6);
+      background: rgba(6, 18, 50, 0.98);
+    }
+
+    .hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.15s ease, color 0.15s ease, border 0.15s ease, transform 0.05s ease;
+    }
+
+    .pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .pill.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #1b1730;
+      font-weight: 600;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .emergency {
+      border: 1px solid rgba(255, 107, 107, 0.7);
+      background: radial-gradient(circle at top, rgba(255, 107, 107, 0.22), rgba(4, 15, 40, 0.95));
+    }
+
+    .emergency .section-title {
+      color: var(--danger);
+    }
+
+    .emergency-numbers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 6px 9px;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: rgba(4, 10, 28, 0.95);
+    }
+
+    .chip-label {
+      color: var(--muted);
+    }
+
+    .chip-value {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ffd447, #ff9f7b);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #1b1730;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .status {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+      min-height: 1em;
+    }
+
+    .status.ok {
+      color: var(--success);
+    }
+
+    .status.warn {
+      color: var(--danger);
+    }
+
+    .quote {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+      border-left: 2px solid rgba(255, 255, 255, 0.18);
+      padding-left: 8px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-label="Disney Safety Plan">
+      <header>
+        <div class="title-block">
+          <h1>
+            <span class="sparkle" aria-hidden="true"></span>
+            Disney Safety Plan
+            <span class="badge">Star Guide</span>
+          </h1>
+          <p class="subtitle">
+            A gentle, storybook space to write what helps you feel safe, brave, and cared for when feelings get big.
+          </p>
+        </div>
+        <div class="meta">
+          <span><strong>For:</strong> <span id="ownerName">My Story</span></span>
+          <span><strong>Last saved:</strong> <span id="lastSaved">Not yet</span></span>
+        </div>
+      </header>
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">When the clouds roll in</div>
+            <div class="section-pill">Feelings & signs</div>
+          </div>
+          <label for="signals">How do you know you’re having a hard time?</label>
+          <textarea id="signals" placeholder="Examples: I get very quiet, I feel like crying a lot, my tummy hurts, I don’t want to do things I usually like..."></textarea>
+          <p class="hint">
+            Naming your feelings is like turning on a little lantern in the dark.
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Tiny bits of magic</div>
+            <div class="section-pill">Calming actions</div>
+          </div>
+          <label for="coping">What small things help you feel a little safer or calmer?</label>
+          <textarea id="coping" placeholder="Examples: Hug a stuffed animal, listen to a favorite song, draw for 5 minutes, drink water, sit with a trusted adult..."></textarea>
+          <div class="pill-row" id="copingPills">
+            <span class="pill">Slow belly breaths (in 4, out 4)</span>
+            <span class="pill">Hold a favorite toy</span>
+            <span class="pill">Look for 5 things I like in the room</span>
+            <span class="pill">Ask for a hug</span>
+          </div>
+          <p class="hint">
+            You don’t have to fix everything—just choose one kind, gentle action for right now.
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Safe places in my world</div>
+            <div class="section-pill">Comfort zones</div>
+          </div>
+          <label for="places">Where do you feel the most safe or cozy?</label>
+          <textarea id="places" placeholder="Examples: My bed with my blanket, the couch with my family, the school counselor’s office, a quiet corner with books..."></textarea>
+          <p class="hint">
+            A safe place can be a room, a chair, a corner, or anywhere you feel more okay being yourself.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-column">
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">My safety team</div>
+            <div class="section-pill">Trusted people</div>
+          </div>
+          <label for="contact1">Trusted grown‑up 1 (name + how to reach them)</label>
+          <input id="contact1" type="text" placeholder="Example: Mom – call / talk in person" />
+          <label for="contact2">Trusted grown‑up 2</label>
+          <input id="contact2" type="text" placeholder="Example: Teacher – ask to talk after class" />
+          <label for="contact3">Trusted grown‑up 3</label>
+          <input id="contact3" type="text" placeholder="Example: Counselor – go to office" />
+          <p class="hint">
+            Let these people know they are on your “safety team” so they understand how important they are.
+          </p>
+        </div>
+
+        <div class="section emergency" aria-label="Emergency options">
+          <div class="section-header">
+            <div class="section-title">If it feels like an emergency</div>
+            <div class="section-pill">Immediate safety</div>
+          </div>
+          <p class="hint">
+            If you ever feel like you might hurt yourself or someone else, tell a trusted adult right away and treat it like an emergency.
+          </p>
+
+          <div class="emergency-numbers">
+            <div class="chip">
+              <span class="chip-label">Local emergency</span>
+              <span class="chip-value">Call 9‑1‑1</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">Non‑emergency info</span>
+              <span class="chip-value">Call 3‑1‑1</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">Trusted person</span>
+              <span class="chip-value" id="trustedPersonChip">Add from safety team</span>
+            </div>
+          </div>
+
+          <p class="quote">
+            “Your story matters. When things feel too big, you deserve help, care, and time to feel safe again.”
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">My safety promise</div>
+            <div class="section-pill">Next step</div>
+          </div>
+          <label for="commitment">When I feel really unsafe, I will first...</label>
+          <textarea id="commitment" placeholder="Example: I will tell one trusted grown‑up exactly how I feel before I make any big choices."></textarea>
+          <p class="hint">
+            This is not a promise to feel happy—it’s a promise to reach for help and give yourself more time.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button class="btn-ghost" id="clearPlan" type="button">Clear</button>
+          <button class="btn-primary" id="savePlan" type="button">
+            Save plan
+          </button>
+        </div>
+        <div class="status" id="statusText"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "disneySafetyPlan";
+
+    const fields = [
+      "signals",
+      "coping",
+      "places",
+      "contact1",
+      "contact2",
+      "contact3",
+      "commitment"
+    ];
+
+    const statusText = document.getElementById("statusText");
+    const lastSaved = document.getElementById("lastSaved");
+    const trustedPersonChip = document.getElementById("trustedPersonChip");
+
+    function setStatus(message, type = "") {
+      statusText.textContent = message || "";
+      statusText.classList.remove("ok", "warn");
+      if (type) statusText.classList.add(type);
+    }
+
+    function formatTime(date) {
+      return (
+        date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }) +
+        " " +
+        date.toLocaleTimeString(undefined, {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      );
+    }
+
+    function loadPlan() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          setStatus("No saved plan yet. You can start filling this in whenever it feels right.");
+          return;
+        }
+        const data = JSON.parse(raw);
+        fields.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && data[id] !== undefined) {
+            el.value = data[id];
+          }
+        });
+        if (data.lastSaved) {
+          lastSaved.textContent = data.lastSaved;
+        }
+        if (data.contact1) {
+          trustedPersonChip.textContent = data.contact1;
+        }
+        setStatus("Plan loaded on this device.", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not load saved plan.", "warn");
+      }
+    }
+
+    function savePlan() {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        data[id] = el ? el.value.trim() : "";
+      });
+      const now = new Date();
+      data.lastSaved = formatTime(now);
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        lastSaved.textContent = data.lastSaved;
+        if (data.contact1) {
+          trustedPersonChip.textContent = data.contact1;
+        }
+        setStatus("Plan saved in this browser only.", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not save plan (storage error).", "warn");
+      }
+    }
+
+    function clearPlan() {
+      if (!confirm("Clear all fields in this safety plan on this device?")) return;
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      setStatus("Fields cleared. You can start again whenever you’re ready.");
+    }
+
+    const copingPills = document.getElementById("copingPills");
+    const copingArea = document.getElementById("coping");
+    if (copingPills && copingArea) {
+      copingPills.addEventListener("click", (e) => {
+        const pill = e.target.closest(".pill");
+        if (!pill) return;
+        pill.classList.toggle("active");
+        const text = pill.textContent.trim();
+        const current = copingArea.value.trim();
+        if (!current) {
+          copingArea.value = text;
+        } else if (!current.includes(text)) {
+          copingArea.value = current + (current.endsWith(".") ? " " : ". ") + text;
+        }
+      });
+    }
+
+    document.getElementById("savePlan").addEventListener("click", savePlan);
+    document.getElementById("clearPlan").addEventListener("click", clearPlan);
+
+    loadPlan();
+  </script>
+</body>
+</html>
