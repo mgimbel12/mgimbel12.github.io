@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Belle Reve Mental Health Safety Plan</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --accent: #4da6ff;
+    --accent-soft: rgba(77,166,255,0.15);
+    --danger: #ff6b6b;
+    --success: #4fd18b;
+    --text: #e6edf3;
+    --muted: #9aa5b1;
+    --border: #2d333b;
+    --focus: #ffd447;
+    --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    background: linear-gradient(135deg, #0d1117, #0b0f14);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 980px;
+    background: var(--accent-soft);
+    border-radius: 20px;
+    padding: 2px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+
+  .card {
+    background: var(--panel);
+    border-radius: 18px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 2fr 1.3fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 820px) {
+    .card { grid-template-columns: 1fr; }
+  }
+
+  header {
+    grid-column: 1 / -1;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .section {
+    background: #0f141a;
+    border-radius: 14px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  textarea, input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #0b0f14;
+    padding: 8px;
+    font-size: 0.85rem;
+    min-height: 52px;
+    resize: vertical;
+    outline: none;
+    color: var(--text);
+  }
+
+  textarea:focus, input:focus {
+    border-color: var(--focus);
+    box-shadow: 0 0 0 2px rgba(255,212,71,0.4);
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  .pill {
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .pill.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .emergency {
+    border-color: var(--danger);
+    background: rgba(255,107,107,0.08);
+  }
+
+  .chip {
+    background: #0b0f14;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  button {
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: #0b0f14;
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .status {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  .status.ok { color: var(--success); }
+  .status.warn { color: var(--danger); }
+</style>
+</head>
+<body>
+
+<main class="shell">
+  <section class="card">
+    <header>
+      <h1>Belle Reve Mental Health Safety Plan <span class="badge">Containment Protocol</span></h1>
+      <p class="subtitle">A secure, private plan for grounding, clarity, and reaching support when emotions feel overwhelming.</p>
+    </header>
+
+    <!-- LEFT -->
+    <div>
+      <div class="section">
+        <div class="section-title">Early Warning Signs</div>
+        <label for="signals">What tells me I’m struggling?</label>
+        <textarea id="signals" placeholder="Examples: shutting down, feeling trapped, racing thoughts, wanting to isolate..."></textarea>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Stabilization Steps</div>
+        <label for="coping">What helps me calm down?</label>
+        <textarea id="coping" placeholder="Examples: slow breathing, grounding objects, stepping outside, talking to someone safe..."></textarea>
+
+        <div class="pill-row" id="copingPills">
+          <span class="pill">Deep breath (4 in, 4 out)</span>
+          <span class="pill">Cold water on hands</span>
+          <span class="pill">Step into quiet space</span>
+          <span class="pill">Call a safe person</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Safe Locations</div>
+        <label for="places">Where can I go to feel safer?</label>
+        <textarea id="places" placeholder="Examples: bedroom, porch, car, counselor’s office, quiet hallway..."></textarea>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <div class="section">
+        <div class="section-title">Trusted Contacts</div>
+        <label for="contact1">Contact 1</label>
+        <input id="contact1" placeholder="Example: Friend – call/text" />
+        <label for="contact2">Contact 2</label>
+        <input id="contact2" placeholder="Example: Family – check-in" />
+        <label for="contact3">Contact 3</label>
+        <input id="contact3" placeholder="Example: Counselor – office hours" />
+      </div>
+
+      <div class="section emergency">
+        <div class="section-title">Emergency Options</div>
+        <div class="chip"><span>Local emergency</span><strong>Call 9‑1‑1</strong></div>
+        <div class="chip"><span>Non‑emergency</span><strong>Call 3‑1‑1</strong></div>
+        <div class="chip"><span>Trusted person</span><strong id="trustedPersonChip">Add contact</strong></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">My Safety Commitment</div>
+        <label for="commitment">When I feel unsafe, I will first...</label>
+        <textarea id="commitment" placeholder="Example: Reach out to one trusted person before making any big decisions."></textarea>
+      </div>
+
+      <div class="actions">
+        <button id="clearPlan">Clear</button>
+        <button class="btn-primary" id="savePlan">Save</button>
+      </div>
+      <div class="status" id="statusText"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const KEY = "belleReveSafetyPlan";
+  const fields = ["signals","coping","places","contact1","contact2","contact3","commitment"];
+
+  const statusText = document.getElementById("statusText");
+  const trustedChip = document.getElementById("trustedPersonChip");
+
+  function setStatus(msg, type="") {
+    statusText.textContent = msg;
+    statusText.className = "status " + type;
+  }
+
+  function loadPlan() {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && data[id]) el.value = data[id];
+    });
+    if (data.contact1) trustedChip.textContent = data.contact1;
+    setStatus("Loaded from this device.","ok");
+  }
+
+  function savePlan() {
+    const data = {};
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      data[id] = el.value.trim();
+    });
+    localStorage.setItem(KEY, JSON.stringify(data));
+    if (data.contact1) trustedChip.textContent = data.contact1;
+    setStatus("Saved on this device.","ok");
+  }
+
+  function clearPlan() {
+    if (!confirm("Clear everything?")) return;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      el.value = "";
+    });
+    setStatus("Cleared.");
+  }
+
+  document.getElementById("savePlan").onclick = savePlan;
+  document.getElementById("clearPlan").onclick = clearPlan;
+
+  // coping pills
+  const pills = document.getElementById("copingPills");
+  const copingArea = document.getElementById("coping");
+  pills.addEventListener("click", e => {
+    const pill = e.target.closest(".pill");
+    if (!pill) return;
+    pill.classList.toggle("active");
+    const text = pill.textContent.trim();
+    if (!copingArea.value.includes(text)) {
+      copingArea.value += (copingArea.value ? " " : "") + text;
+    }
+  });
+
+  loadPlan();
+</script>
+
+</body>
+</html>
