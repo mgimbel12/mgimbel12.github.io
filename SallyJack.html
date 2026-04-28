@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Jack, Sally & A Halloween Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #111827;
+      --accent: #f97316;
+      --accent-soft: #22d3ee;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.4);
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.9);
+      --sally: #ec4899;
+      --jack: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.96),
+        rgba(15, 23, 42, 0.75),
+        transparent
+      );
+      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #facc15, #f97316 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: #020617;
+      box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.4);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-text span:first-child {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .brand-text span:last-child {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .nav-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: all 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+      border-color: rgba(250, 204, 21, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 20px 60px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+      color: var(--accent-soft);
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 16px;
+      max-width: 720px;
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-kicker {
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 4vw, 36px);
+      line-height: 1.1;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(to right, #f97316, #ec4899, #22d3ee);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 8px;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      background: radial-gradient(circle at top, #020617, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card h3 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 8px;
+    }
+
+    .hero-card p {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
+    }
+
+    /* SVG JACK & SALLY */
+    .duo-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr);
+      gap: 18px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .duo-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .duo-text {
+      font-size: 14px;
+      color: var(--text-soft);
+    }
+
+    .duo-text p + p {
+      margin-top: 8px;
+    }
+
+    .duo-svg-card {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #020617, #020617);
+      box-shadow: var(--shadow-soft);
+      padding: 10px;
+    }
+
+    .duo-svg {
+      width: 100%;
+      height: 220px;
+      display: block;
+    }
+
+    /* SAFETY PLAN */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .card h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 6px;
+      color: var(--accent-soft);
+    }
+
+    .card p + p {
+      margin-top: 6px;
+    }
+
+    /* INTERACTIVE SAFETY PLAN */
+    .plan-card {
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, #020617, #020617);
+      border: 1px solid var(--border-soft);
+      padding: 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .plan-group {
+      margin-bottom: 12px;
+    }
+
+    .plan-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-soft);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .plan-input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: var(--text-main);
+      padding: 8px 10px;
+      font-size: 13px;
+      resize: vertical;
+      min-height: 40px;
+    }
+
+    .plan-input:focus {
+      outline: none;
+      border-color: rgba(250, 204, 21, 0.8);
+      box-shadow: 0 0 0 1px rgba(250, 204, 21, 0.4);
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      cursor: pointer;
+      background: none;
+      color: var(--text-main);
+      transition: all 0.15s ease-out;
+    }
+
+    .btn:hover {
+      border-color: rgba(250, 204, 21, 0.7);
+      color: var(--accent);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .plan-output {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(148, 163, 184, 0.5);
+      font-size: 13px;
+      color: var(--text-main);
+      min-height: 40px;
+      white-space: pre-line;
+    }
+
+    .note-small {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer span strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo">🎃</div>
+        <div class="brand-text">
+          <span>Halloween feelings</span>
+          <span>Jack, Sally & Safety Plans</span>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#intro">Intro</a>
+        <a href="#duo">Jack & Sally</a>
+        <a href="#plan">Safety plan</a>
+        <a href="#builder">My plan</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- INTRO -->
+    <section class="hero" id="intro">
+      <div>
+        <div class="hero-kicker">Halloween • Loneliness • Care</div>
+        <h1 class="hero-title">
+          When Halloween Feels <span>Lonely</span>
+        </h1>
+        <div class="hero-text">
+          <p>
+            This page is inspired by Jack Skellington and Sally from
+            <em>The Nightmare Before Christmas</em>, directed by Tim Burton.
+            It’s not about scares—it’s about what to do when a spooky season
+            feels a little too quiet or heavy inside.
+          </p>
+          <p>
+            A “safety plan” here means a gentle list of people, places, and
+            small actions that help you feel safer and less alone. It’s not
+            therapy or a crisis tool, but a soft starting point for care.
+          </p>
+          <p class="hero-note">
+            If your feelings are intense, scary, or overwhelming, please reach
+            out to a trusted person or a qualified mental health professional.
+            You deserve real support in the real world.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Jack, Sally & feeling out of place</h3>
+        <p>
+          Jack often feels restless and misunderstood, even when everyone
+          admires him. Sally sees danger coming and worries about the people
+          she cares about. Both of them know what it’s like to feel alone in a
+          crowd.
+        </p>
+        <p>
+          Many people feel that way around holidays—especially Halloween, when
+          everyone else seems to be having fun. It’s okay if your night looks
+          quieter, softer, or different from what you see online.
+        </p>
+      </div>
+    </section>
+
+    <!-- JACK & SALLY SVG + TEXT -->
+    <section id="duo">
+      <h2 class="section-title">Jack & Sally as a gentle mirror</h2>
+      <p class="section-subtitle">
+        We’re not retelling the whole movie—just borrowing the feeling of two
+        characters who find comfort in each other’s presence when the world
+        feels strange.
+      </p>
+
+      <div class="duo-layout">
+        <div class="duo-text">
+          <p>
+            Jack is curious and dramatic, always searching for something more.
+            Sally is thoughtful and cautious, noticing when things don’t feel
+            safe. Together, they remind us that it’s okay to want change and
+            also okay to want safety and calm.
+          </p>
+          <p>
+            On a lonely Halloween, you might feel like Jack—restless, bored,
+            or disappointed—or like Sally—worried, quiet, and watching from
+            the sidelines. Both sets of feelings are valid.
+          </p>
+          <p>
+            A safety plan is like a little map: who can I reach out to, where
+            can I go, and what small things help me feel grounded when the
+            night feels too big?
+          </p>
+        </div>
+
+        <div class="duo-svg-card">
+          <!-- Simple Jack & Sally style SVG (non-copyrighted, just inspired) -->
+          <svg
+            class="duo-svg"
+            viewBox="0 0 260 220"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient id="nightSky" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#020617" />
+                <stop offset="1" stop-color="#111827" />
+              </linearGradient>
+              <radialGradient id="moon" cx="50%" cy="30%" r="30%">
+                <stop offset="0" stop-color="#facc15" />
+                <stop offset="1" stop-color="#facc15" stop-opacity="0" />
+              </radialGradient>
+            </defs>
+
+            <!-- Background -->
+            <rect
+              x="6"
+              y="6"
+              width="248"
+              height="208"
+              rx="24"
+              fill="url(#nightSky)"
+              stroke="#1f2937"
+            />
+            <!-- Moon -->
+            <circle cx="190" cy="60" r="40" fill="url(#moon)" />
+
+            <!-- Jack (simple skeleton head) -->
+            <circle cx="90" cy="90" r="26" fill="#e5e7eb" />
+            <circle cx="82" cy="86" r="3" fill="#020617" />
+            <circle cx="98" cy="86" r="3" fill="#020617" />
+            <path
+              d="M78 96 Q90 104 102 96"
+              stroke="#020617"
+              stroke-width="2"
+              fill="none"
+            />
+            <!-- Jack body -->
+            <line x1="90" y1="116" x2="90" y2="160" stroke="#e5e7eb" />
+            <line x1="90" y1="130" x2="70" y2="150" stroke="#e5e7eb" />
+            <line x1="90" y1="130" x2="110" y2="150" stroke="#e5e7eb" />
+
+            <!-- Sally (stitched style) -->
+            <circle cx="150" cy="100" r="24" fill="#ec4899" />
+            <circle cx="144" cy="96" r="3" fill="#020617" />
+            <circle cx="156" cy="96" r="3" fill="#020617" />
+            <path
+              d="M142 106 Q150 112 158 106"
+              stroke="#020617"
+              stroke-width="2"
+              fill="none"
+            />
+            <!-- Stitches -->
+            <line x1="138" y1="92" x2="142" y2="90" stroke="#020617" />
+            <line x1="158" y1="92" x2="162" y2="90" stroke="#020617" />
+
+            <!-- Sally body -->
+            <line x1="150" y1="124" x2="150" y2="164" stroke="#ec4899" />
+            <line x1="150" y1="136" x2="132" y2="156" stroke="#ec4899" />
+            <line x1="150" y1="136" x2="168" y2="156" stroke="#ec4899" />
+
+            <!-- Hill silhouette -->
+            <path
+              d="M20 190 Q80 150 140 170 T240 190"
+              fill="none"
+              stroke="#0f172a"
+              stroke-width="4"
+            />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAFETY PLAN EXPLANATION -->
+    <section id="plan">
+      <h2 class="section-title">What is a gentle safety plan?</h2>
+      <p class="section-subtitle">
+        This is not a crisis plan or medical advice. It’s a simple list you can
+        build for yourself: people, places, and small actions that help when
+        Halloween (or any night) feels lonely or heavy.
+      </p>
+
+      <div class="plan-grid">
+        <article class="card">
+          <h3>People I can reach out to</h3>
+          <p>
+            Think of a few people who feel safe or kind: a friend, family
+            member, neighbor, teacher, mentor, or community leader.
+          </p>
+          <p>
+            You don’t have to share everything. Even a short message like
+            “Hey, can we talk?” or “Can we hang out online for a bit?” can be a
+            powerful step.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Places that feel safer</h3>
+          <p>
+            Where do you feel a little more grounded? Your room with cozy
+            lights, a living room with a movie on, a porch, a favorite park in
+            the daytime, a community center, or a faith/community space.
+          </p>
+          <p>
+            On a lonely night, choosing a safer place—physically or online—can
+            make a big difference.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Small comforting actions</h3>
+          <p>
+            Gentle actions can help: warm tea, a favorite movie, drawing,
+            journaling, listening to music, or playing a game with someone.
+          </p>
+          <p>
+            These don’t erase big feelings, but they can soften the edges while
+            you figure out your next steps.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Professional & trusted support</h3>
+          <p>
+            If your feelings are strong, persistent, or scary, talking with a
+            mental health professional is important. You can also reach out to
+            trusted adults in your life and ask them to help you find support.
+          </p>
+          <p>
+            You deserve care that is steady, respectful, and real.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE PLAN BUILDER -->
+    <section id="builder">
+      <h2 class="section-title">Build your Halloween safety plan</h2>
+      <p class="section-subtitle">
+        This little tool is just for reflection. It doesn’t save or send
+        anything. You can type ideas and then generate a simple “plan” to read
+        back to yourself.
+      </p>
+
+      <div class="plan-card">
+        <div class="plan-group">
+          <label class="plan-label" for="peopleInput">
+            People I can reach out to
+          </label>
+          <textarea
+            id="peopleInput"
+            class="plan-input"
+            placeholder="Example: my cousin, my friend from school, my neighbor, my mentor..."
+          ></textarea>
+        </div>
+
+        <div class="plan-group">
+          <label class="plan-label" for="placesInput">
+            Places that feel safer
+          </label>
+          <textarea
+            id="placesInput"
+            class="plan-input"
+            placeholder="Example: my room with lights on, the living room, a friend's house, a community space..."
+          ></textarea>
+        </div>
+
+        <div class="plan-group">
+          <label class="plan-label" for="actionsInput">
+            Small comforting actions
+          </label>
+          <textarea
+            id="actionsInput"
+            class="plan-input"
+            placeholder="Example: watch a cozy movie, draw, listen to music, bake something simple..."
+          ></textarea>
+        </div>
+
+        <button class="btn" id="buildPlanBtn">Show my plan</button>
+
+        <div class="plan-output" id="planOutput"></div>
+
+        <p class="note-small">
+          This is just a personal reflection. For serious or ongoing struggles,
+          please talk with a mental health professional or a trusted person in
+          your life. You don’t have to handle everything alone.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <span>
+        A gentle Halloween page inspired by <strong>Jack & Sally</strong> and
+        the feeling of not being alone in the dark.
+      </span>
+      <span>
+        Educational only – not a substitute for professional mental health care.
+      </span>
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll("header nav a").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        const targetId = el.getAttribute("href");
+        if (!targetId || !targetId.startsWith("#")) return;
+        e.preventDefault();
+        const target = document.querySelector(targetId);
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+
+    // Safety plan builder
+    const peopleInput = document.getElementById("peopleInput");
+    const placesInput = document.getElementById("placesInput");
+    const actionsInput = document.getElementById("actionsInput");
+    const buildBtn = document.getElementById("buildPlanBtn");
+    const output = document.getElementById("planOutput");
+
+    buildBtn.addEventListener("click", () => {
+      const people = peopleInput.value.trim();
+      const places = placesInput.value.trim();
+      const actions = actionsInput.value.trim();
+
+      let text = "My Halloween Safety Plan\n\n";
+
+      if (people) {
+        text += "People I can reach out to:\n" + people + "\n\n";
+      } else {
+        text += "People I can reach out to:\n(You can add names here later.)\n\n";
+      }
+
+      if (places) {
+        text += "Places that feel safer:\n" + places + "\n\n";
+      } else {
+        text += "Places that feel safer:\n(You can add ideas here later.)\n\n";
+      }
+
+      if (actions) {
+        text += "Small comforting actions:\n" + actions + "\n\n";
+      } else {
+        text +=
+          "Small comforting actions:\n(You can add gentle activities here later.)\n\n";
+      }
+
+      text +=
+        "Reminder: If my feelings become very heavy or scary, I will reach out to a trusted person or a mental health professional for real-world support.";
+
+      output.textContent = text;
+    });
+  </script>
+</body>
+</html>
+
