@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Craynola Safety Plan</title>
+  <style>
+    :root {
+      --bg: #fff7ea;
+      --card: #fffdf8;
+      --accent-blue: #4f8bff;
+      --accent-yellow: #ffd447;
+      --accent-pink: #ff7aa2;
+      --accent-green: #4fd18b;
+      --text: #2b2730;
+      --muted: #6f6a7a;
+      --border: #e0d5c4;
+      --focus: #ffb347;
+      --danger: #ff6b6b;
+      --success: #2f9e63;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        linear-gradient(135deg, #ffe9d1, #fff7ea),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(255, 255, 255, 0.4),
+          rgba(255, 255, 255, 0.4) 6px,
+          rgba(255, 255, 255, 0.7) 6px,
+          rgba(255, 255, 255, 0.7) 12px
+        );
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+      background: linear-gradient(135deg, #ffd447, #ff7aa2, #4f8bff, #4fd18b);
+      border-radius: 26px;
+      padding: 3px;
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 22px 22px 16px;
+      border: 2px solid #f3e4cf;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.5fr);
+      gap: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.7), transparent 40%),
+        repeating-linear-gradient(
+          to bottom,
+          rgba(255, 180, 71, 0.12),
+          rgba(255, 180, 71, 0.12) 1px,
+          transparent 1px,
+          transparent 26px
+        );
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 820px) {
+      .card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .crayon-row {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .crayon {
+      width: 10px;
+      height: 26px;
+      border-radius: 4px 4px 2px 2px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .crayon::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 4px 4px 2px 2px;
+      border: 2px solid rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+    }
+
+    .crayon.blue {
+      background: linear-gradient(#4f8bff, #2f5fd1);
+    }
+
+    .crayon.yellow {
+      background: linear-gradient(#ffd447, #ffb347);
+    }
+
+    .crayon.pink {
+      background: linear-gradient(#ff7aa2, #ff4f7b);
+    }
+
+    .crayon.green {
+      background: linear-gradient(#4fd18b, #2f9e63);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px dashed #ff9f7b;
+      color: #5a3a1a;
+      background: #ffe9d1;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .meta {
+      text-align: right;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .meta span {
+      display: block;
+    }
+
+    .meta strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 14px 14px 10px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      margin-bottom: 10px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #7a5a2f;
+    }
+
+    .section-pill {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    textarea,
+    input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fffdf8;
+      color: var(--text);
+      padding: 8px 9px;
+      font-size: 0.86rem;
+      resize: vertical;
+      min-height: 52px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    textarea:focus,
+    input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 2px rgba(255, 179, 71, 0.4);
+      background: #ffffff;
+    }
+
+    .hint {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .pill {
+      font-size: 0.72rem;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      background: #fff7ea;
+      transition: background 0.15s ease, color 0.15s ease, border 0.15s ease, transform 0.05s ease;
+    }
+
+    .pill:hover {
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      transform: translateY(-1px);
+    }
+
+    .pill.active {
+      background: #ffd447;
+      border-color: #ff9f7b;
+      color: #5a3a1a;
+      font-weight: 600;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .emergency {
+      border: 1px solid rgba(255, 107, 107, 0.7);
+      background: #ffe3e3;
+    }
+
+    .emergency .section-title {
+      color: var(--danger);
+    }
+
+    .emergency-numbers {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      padding: 6px 9px;
+      font-size: 0.78rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: #fffdf8;
+    }
+
+    .chip-label {
+      color: var(--muted);
+    }
+
+    .chip-value {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    button {
+      border-radius: 999px;
+      border: 1px solid transparent;
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ffd447, #ff9f7b);
+      border-color: rgba(0, 0, 0, 0.12);
+      color: #5a3a1a;
+      font-weight: 700;
+    }
+
+    .btn-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-ghost {
+      border-color: rgba(0, 0, 0, 0.12);
+      background: #fff7ea;
+    }
+
+    .status {
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: right;
+      min-height: 1em;
+    }
+
+    .status.ok {
+      color: var(--success);
+    }
+
+    .status.warn {
+      color: var(--danger);
+    }
+
+    .quote {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+      border-left: 3px solid #ffd447;
+      padding-left: 8px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="card" aria-label="Craynola Safety Plan">
+      <header>
+        <div class="title-block">
+          <h1>
+            <span class="crayon-row" aria-hidden="true">
+              <span class="crayon blue"></span>
+              <span class="crayon yellow"></span>
+              <span class="crayon pink"></span>
+              <span class="crayon green"></span>
+            </span>
+            Craynola Safety Plan
+            <span class="badge">Color My Calm</span>
+          </h1>
+          <p class="subtitle">
+            A colorful page to sketch out what helps you feel safe, calm, and cared for when feelings get really big.
+          </p>
+        </div>
+        <div class="meta">
+          <span><strong>Name:</strong> <span id="ownerName">My Page</span></span>
+          <span><strong>Last colored in:</strong> <span id="lastSaved">Not yet</span></span>
+        </div>
+      </header>
+
+      <!-- LEFT COLUMN -->
+      <div>
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">When colors feel too dark</div>
+            <div class="section-pill">Feelings & signs</div>
+          </div>
+          <label for="signals">How do you know you’re having a hard time?</label>
+          <textarea id="signals" placeholder="Examples: I get very quiet, I feel like crying, my tummy hurts, I don’t want to play or draw, I feel mad at everyone..."></textarea>
+          <p class="hint">
+            Writing or drawing your feelings is like choosing a crayon—once you see the color, it’s easier to work with it.
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Little colors that help</div>
+            <div class="section-pill">Calming actions</div>
+          </div>
+          <label for="coping">What small things help you feel a little safer or calmer?</label>
+          <textarea id="coping" placeholder="Examples: Hug a stuffed animal, color for 5 minutes, listen to a song, drink water, sit with a trusted grown‑up..."></textarea>
+          <div class="pill-row" id="copingPills">
+            <span class="pill">Color one page slowly</span>
+            <span class="pill">Slow belly breaths (in 4, out 4)</span>
+            <span class="pill">Hold a favorite toy or pillow</span>
+            <span class="pill">Ask a grown‑up to sit with me</span>
+          </div>
+          <p class="hint">
+            You don’t have to fix the whole picture—just add one gentle color at a time.
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Safe places on my map</div>
+            <div class="section-pill">Comfort zones</div>
+          </div>
+          <label for="places">Where do you feel the most safe or cozy?</label>
+          <textarea id="places" placeholder="Examples: My bed with my blanket, the couch with my family, the school counselor’s office, a quiet reading corner..."></textarea>
+          <p class="hint">
+            A safe place can be a room, a chair, a corner, or anywhere you feel more okay being yourself.
+          </p>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right-column">
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">My safety color crew</div>
+            <div class="section-pill">Trusted people</div>
+          </div>
+          <label for="contact1">Trusted grown‑up 1 (name + how to reach them)</label>
+          <input id="contact1" type="text" placeholder="Example: Mom – call / talk in person" />
+          <label for="contact2">Trusted grown‑up 2</label>
+          <input id="contact2" type="text" placeholder="Example: Teacher – ask to talk after class" />
+          <label for="contact3">Trusted grown‑up 3</label>
+          <input id="contact3" type="text" placeholder="Example: Counselor – go to office" />
+          <p class="hint">
+            Let these people know they are on your “safety color crew” so they understand how important they are.
+          </p>
+        </div>
+
+        <div class="section emergency" aria-label="Emergency options">
+          <div class="section-header">
+            <div class="section-title">If it feels like an emergency</div>
+            <div class="section-pill">Immediate safety</div>
+          </div>
+          <p class="hint">
+            If you ever feel like you might hurt yourself or someone else, tell a trusted adult right away and treat it like an emergency.
+          </p>
+
+          <div class="emergency-numbers">
+            <div class="chip">
+              <span class="chip-label">Local emergency</span>
+              <span class="chip-value">Call 9‑1‑1</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">Non‑emergency info</span>
+              <span class="chip-value">Call 3‑1‑1</span>
+            </div>
+            <div class="chip">
+              <span class="chip-label">Trusted person</span>
+              <span class="chip-value" id="trustedPersonChip">Add from crew</span>
+            </div>
+          </div>
+
+          <p class="quote">
+            “Every feeling is a color in your story. When the page feels too heavy, you deserve help holding the crayons.”
+          </p>
+        </div>
+
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">My safety promise</div>
+            <div class="section-pill">Next step</div>
+          </div>
+          <label for="commitment">When I feel really unsafe, I will first...</label>
+          <textarea id="commitment" placeholder="Example: I will tell one trusted grown‑up exactly how I feel before I make any big choices."></textarea>
+          <p class="hint">
+            This is not a promise to feel happy—it’s a promise to reach for help and give yourself more time.
+          </p>
+        </div>
+
+        <div class="actions">
+          <button class="btn-ghost" id="clearPlan" type="button">Clear</button>
+          <button class="btn-primary" id="savePlan" type="button">
+            Save plan
+          </button>
+        </div>
+        <div class="status" id="statusText"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "craynolaSafetyPlan";
+
+    const fields = [
+      "signals",
+      "coping",
+      "places",
+      "contact1",
+      "contact2",
+      "contact3",
+      "commitment"
+    ];
+
+    const statusText = document.getElementById("statusText");
+    const lastSaved = document.getElementById("lastSaved");
+    const trustedPersonChip = document.getElementById("trustedPersonChip");
+
+    function setStatus(message, type = "") {
+      statusText.textContent = message || "";
+      statusText.classList.remove("ok", "warn");
+      if (type) statusText.classList.add(type);
+    }
+
+    function formatTime(date) {
+      return (
+        date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }) +
+        " " +
+        date.toLocaleTimeString(undefined, {
+          hour: "2-digit",
+          minute: "2-digit"
+        })
+      );
+    }
+
+    function loadPlan() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          setStatus("No saved plan yet. You can start filling this in whenever it feels right.");
+          return;
+        }
+        const data = JSON.parse(raw);
+        fields.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && data[id] !== undefined) {
+            el.value = data[id];
+          }
+        });
+        if (data.lastSaved) {
+          lastSaved.textContent = data.lastSaved;
+        }
+        if (data.contact1) {
+          trustedPersonChip.textContent = data.contact1;
+        }
+        setStatus("Plan loaded on this device.", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not load saved plan.", "warn");
+      }
+    }
+
+    function savePlan() {
+      const data = {};
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        data[id] = el ? el.value.trim() : "";
+      });
+      const now = new Date();
+      data.lastSaved = formatTime(now);
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        lastSaved.textContent = data.lastSaved;
+        if (data.contact1) {
+          trustedPersonChip.textContent = data.contact1;
+        }
+        setStatus("Plan saved in this browser only.", "ok");
+      } catch (e) {
+        console.error(e);
+        setStatus("Could not save plan (storage error).", "warn");
+      }
+    }
+
+    function clearPlan() {
+      if (!confirm("Clear all fields in this safety plan on this device?")) return;
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      setStatus("Fields cleared. You can start again whenever you’re ready.");
+    }
+
+    const copingPills = document.getElementById("copingPills");
+    const copingArea = document.getElementById("coping");
+    if (copingPills && copingArea) {
+      copingPills.addEventListener("click", (e) => {
+        const pill = e.target.closest(".pill");
+        if (!pill) return;
+        pill.classList.toggle("active");
+        const text = pill.textContent.trim();
+        const current = copingArea.value.trim();
+        if (!current) {
+          copingArea.value = text;
+        } else if (!current.includes(text)) {
+          copingArea.value = current + (current.endsWith(".") ? " " : ". ") + text;
+        }
+      });
+    }
+
+    document.getElementById("savePlan").addEventListener("click", savePlan);
+    document.getElementById("clearPlan").addEventListener("click", clearPlan);
+
+    loadPlan();
+  </script>
+</body>
+</html>
