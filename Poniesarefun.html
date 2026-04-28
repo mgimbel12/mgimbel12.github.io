@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Pony World – Safety Plan & Game</title>
+<style>
+  :root {
+    --bg: #f7e9ff;
+    --card: #ffffff;
+    --accent: #ff7ad9;
+    --accent2: #7ad9ff;
+    --accent-soft: rgba(255,122,217,0.18);
+    --text: #3a2344;
+    --muted: #7a6685;
+    --border: #e2c9f5;
+    --danger: #ff6b6b;
+    --success: #4fd18b;
+    --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--font);
+    background: radial-gradient(circle at top, #ffe9ff, #f7e9ff 40%, #f3f0ff 100%);
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .shell {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(135deg, #ffb3f0, #b3e5ff);
+    border-radius: 26px;
+    padding: 3px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 24px;
+    padding: 18px 18px 14px;
+    border: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .card { grid-template-columns: 1fr; }
+  }
+
+  header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .subtitle {
+    margin: 2px 0 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .meta {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  .meta span { display: block; }
+  .meta strong { color: var(--text); }
+
+  .panel {
+    background: #fff7ff;
+    border-radius: 16px;
+    border: 1px solid #f0d6ff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .panel-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 3px;
+    display: block;
+  }
+
+  textarea, input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    padding: 7px;
+    font-size: 0.8rem;
+    min-height: 48px;
+    resize: vertical;
+    outline: none;
+    color: var(--text);
+  }
+
+  textarea:focus, input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(255,122,217,0.3);
+  }
+
+  .hint {
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 4px;
+  }
+
+  .pill {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid #f0d6ff;
+    background: #ffe9ff;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .pill.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  .emergency {
+    border-color: var(--danger);
+    background: #ffe9ec;
+  }
+
+  .chip {
+    border-radius: 999px;
+    border: 1px solid #f0d6ff;
+    padding: 5px 8px;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    background: #ffffff;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 6px;
+  }
+
+  button {
+    border-radius: 999px;
+    border: 1px solid #f0d6ff;
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    background: #fff7ff;
+    color: var(--text);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .status {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  .status.ok { color: var(--success); }
+  .status.warn { color: var(--danger); }
+
+  /* LEFT: SVG + GAME */
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .pony-scene {
+    background: linear-gradient(to top, #ffe9ff, #cfe9ff);
+    border-radius: 16px;
+    border: 1px solid #f0d6ff;
+    padding: 8px;
+  }
+
+  .game-panel {
+    background: #f0f7ff;
+    border-radius: 16px;
+    border: 1px solid #d0e3ff;
+    padding: 10px;
+  }
+
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .game-area {
+    position: relative;
+    height: 160px;
+    border-radius: 12px;
+    background: radial-gradient(circle at top, #fff, #e1f3ff);
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .star {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background: radial-gradient(circle, #fff 0, #ffe97a 40%, #ffb347 80%);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  }
+
+  .game-instructions {
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<main class="shell">
+  <section class="card" aria-label="Pony Safety Plan and Game">
+    <header>
+      <div>
+        <h1>Pony World Safety Plan <span class="badge">Play & Feel Safe</span></h1>
+        <p class="subtitle">
+          A gentle place to play a tiny game, look at a calm pony sky, and write what helps you feel safe.
+        </p>
+      </div>
+      <div class="meta">
+        <span><strong>For:</strong> My Pony Story</span>
+        <span><strong>Note:</strong> This page is not a doctor. Talk to a trusted adult or professional if you’re struggling.</span>
+      </div>
+    </header>
+
+    <!-- LEFT: SVG + GAME -->
+    <div class="left-col">
+      <div class="pony-scene" aria-label="Pony SVG scene">
+        <svg viewBox="0 0 260 150" width="100%" height="150" role="img" aria-label="Cartoon pony in a pastel field">
+          <defs>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ffe9ff"/>
+              <stop offset="100%" stop-color="#cfe9ff"/>
+            </linearGradient>
+            <linearGradient id="ponyBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ffb3f0"/>
+              <stop offset="100%" stop-color="#ff7ad9"/>
+            </linearGradient>
+            <linearGradient id="ponyMane" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#7ad9ff"/>
+              <stop offset="100%" stop-color="#b3a0ff"/>
+            </linearGradient>
+          </defs>
+
+          <!-- sky -->
+          <rect x="0" y="0" width="260" height="100" fill="url(#skyGrad)" />
+          <!-- ground -->
+          <rect x="0" y="100" width="260" height="50" fill="#d9f7c8" />
+
+          <!-- sun -->
+          <circle cx="35" cy="25" r="12" fill="#ffe97a" />
+
+          <!-- clouds -->
+          <g fill="#ffffff" opacity="0.9">
+            <ellipse cx="90" cy="30" rx="18" ry="10" />
+            <ellipse cx="105" cy="28" rx="14" ry="9" />
+            <ellipse cx="200" cy="35" rx="20" ry="11" />
+            <ellipse cx="215" cy="33" rx="15" ry="9" />
+          </g>
+
+          <!-- pony body -->
+          <ellipse cx="150" cy="100" rx="32" ry="20" fill="url(#ponyBody)" />
+          <!-- legs -->
+          <rect x="132" y="105" width="7" height="25" rx="3" fill="#ff9adf" />
+          <rect x="145" y="107" width="7" height="23" rx="3" fill="#ff9adf" />
+          <rect x="158" y="107" width="7" height="23" rx="3" fill="#ff9adf" />
+          <rect x="171" y="105" width="7" height="25" rx="3" fill="#ff9adf" />
+          <!-- head -->
+          <circle cx="180" cy="80" r="16" fill="url(#ponyBody)" />
+          <!-- ear -->
+          <path d="M188 66 L193 60 L191 70 Z" fill="#ff9adf" />
+          <!-- eye -->
+          <circle cx="184" cy="80" r="3.2" fill="#2b2344" />
+          <circle cx="183.5" cy="79.5" r="1.4" fill="#ffffff" />
+          <!-- muzzle -->
+          <ellipse cx="188" cy="86" rx="6" ry="4" fill="#ffd6f7" />
+          <!-- mane -->
+          <path d="M170 65 C178 55, 190 55, 196 68 C190 70, 184 74, 178 78 Z" fill="url(#ponyMane)" />
+          <!-- tail -->
+          <path d="M130 95 C118 90, 112 96, 110 105 C118 104, 124 104, 130 102 Z" fill="url(#ponyMane)" />
+
+          <!-- little hearts -->
+          <g fill="#ff7ad9" opacity="0.8">
+            <path d="M120 70
+                     C118 66,112 66,112 70
+                     C112 74,118 77,120 80
+                     C122 77,128 74,128 70
+                     C128 66,122 66,120 70Z" />
+          </g>
+        </svg>
+      </div>
+
+      <div class="game-panel" aria-label="Pony star game">
+        <div class="game-header">
+          <span>Mini Game: Catch the Stars</span>
+          <span>Score: <strong id="score">0</strong></span>
+        </div>
+        <div class="game-area" id="gameArea"></div>
+        <p class="game-instructions">
+          Tap or click the glowing stars when they appear.  
+          You can use this game as a tiny break when feelings get big.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT: SAFETY PLAN -->
+    <div>
+      <div class="panel">
+        <div class="panel-title">When feelings get big</div>
+        <label for="signals">How do I know I’m having a hard time?</label>
+        <textarea id="signals" placeholder="Examples: I get very quiet, I feel like crying, I feel mad at everyone, my tummy hurts..."></textarea>
+        <p class="hint">Naming feelings is like giving them a color—then you can decide what to do with them.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Tiny pony steps that help</div>
+        <label for="coping">What small things help me feel a little safer or calmer?</label>
+        <textarea id="coping" placeholder="Examples: Hug a stuffed animal, listen to a song, draw a pony, drink water, sit with a trusted grown‑up..."></textarea>
+        <div class="pill-row" id="copingPills">
+          <span class="pill">Slow belly breaths (in 4, out 4)</span>
+          <span class="pill">Hug a plush or pillow</span>
+          <span class="pill">Draw or color for 5 minutes</span>
+          <span class="pill">Ask a grown‑up to sit with me</span>
+        </div>
+        <p class="hint">You don’t have to fix everything—just choose one kind, gentle action for right now.</p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Safe places in my world</div>
+        <label for="places">Where do I feel the most safe or cozy?</label>
+        <textarea id="places" placeholder="Examples: My bed with my blanket, the couch with my family, the school counselor’s office, a quiet reading corner..."></textarea>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">My safety herd (trusted people)</div>
+        <label for="contact1">Trusted grown‑up 1</label>
+        <input id="contact1" placeholder="Example: Mom – call / talk in person" />
+        <label for="contact2">Trusted grown‑up 2</label>
+        <input id="contact2" placeholder="Example: Teacher – ask to talk after class" />
+        <label for="contact3">Trusted grown‑up 3</label>
+        <input id="contact3" placeholder="Example: Counselor – go to office" />
+      </div>
+
+      <div class="panel emergency" aria-label="Emergency options">
+        <div class="panel-title">If it feels like an emergency</div>
+        <div class="chip"><span>Local emergency</span><strong>Call 9‑1‑1</strong></div>
+        <div class="chip"><span>Non‑emergency info</span><strong>Call 3‑1‑1</strong></div>
+        <div class="chip"><span>Trusted person</span><strong id="trustedPersonChip">Add from herd</strong></div>
+        <p class="hint">
+          If you ever feel like you might hurt yourself or someone else, tell a trusted adult right away and treat it like an emergency.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">My safety promise</div>
+        <label for="commitment">When I feel really unsafe, I will first...</label>
+        <textarea id="commitment" placeholder="Example: I will tell one trusted grown‑up exactly how I feel before I make any big choices."></textarea>
+      </div>
+
+      <div class="actions">
+        <button id="clearPlan">Clear</button>
+        <button class="btn-primary" id="savePlan">Save</button>
+      </div>
+      <div class="status" id="statusText"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Safety plan storage
+  const STORAGE_KEY = "ponySafetyPlan";
+  const fields = ["signals","coping","places","contact1","contact2","contact3","commitment"];
+  const statusText = document.getElementById("statusText");
+  const trustedChip = document.getElementById("trustedPersonChip");
+
+  function setStatus(msg, type="") {
+    statusText.textContent = msg;
+    statusText.className = "status " + type;
+  }
+
+  function loadPlan() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && data[id] !== undefined) el.value = data[id];
+      });
+      if (data.contact1) trustedChip.textContent = data.contact1;
+      setStatus("Plan loaded on this device.", "ok");
+    } catch {
+      setStatus("Could not load saved plan.", "warn");
+    }
+  }
+
+  function savePlan() {
+    const data = {};
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      data[id] = el ? el.value.trim() : "";
+    });
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      if (data.contact1) trustedChip.textContent = data.contact1;
+      setStatus("Plan saved in this browser only.", "ok");
+    } catch {
+      setStatus("Could not save plan.", "warn");
+    }
+  }
+
+  function clearPlan() {
+    if (!confirm("Clear all fields in this safety plan on this device?")) return;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    setStatus("Fields cleared. You can start again whenever you’re ready.");
+  }
+
+  document.getElementById("savePlan").addEventListener("click", savePlan);
+  document.getElementById("clearPlan").addEventListener("click", clearPlan);
+
+  // Coping pills
+  const copingPills = document.getElementById("copingPills");
+  const copingArea = document.getElementById("coping");
+  copingPills.addEventListener("click", e => {
+    const pill = e.target.closest(".pill");
+    if (!pill) return;
+    pill.classList.toggle("active");
+    const text = pill.textContent.trim();
+    if (!copingArea.value.includes(text)) {
+      copingArea.value += (copingArea.value ? " " : "") + text;
+    }
+  });
+
+  // Tiny star game
+  const gameArea = document.getElementById("gameArea");
+  const scoreEl = document.getElementById("score");
+  let score = 0;
+
+  function spawnStar() {
+    const star = document.createElement("div");
+    star.className = "star";
+    const rect = gameArea.getBoundingClientRect();
+    const size = 18;
+    const x = Math.random() * (rect.width - size);
+    const y = Math.random() * (rect.height - size);
+    star.style.left = x + "px";
+    star.style.top = y + "px";
+
+    star.addEventListener("click", () => {
+      score++;
+      scoreEl.textContent = score;
+      gameArea.removeChild(star);
+    });
+
+    gameArea.appendChild(star);
+    setTimeout(() => {
+      if (gameArea.contains(star)) gameArea.removeChild(star);
+    }, 1800);
+  }
+
+  setInterval(spawnStar, 2000);
+
+  loadPlan();
+</script>
+</body>
+</html>
