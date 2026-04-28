@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor • Tribute & Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-calm: #071a14;
+      --card: #101320;
+      --accent: #f5c542;
+      --text-main: #f7f7f7;
+      --text-muted: #a7a9b8;
+      --safe: #4caf50;
+      --danger: #e85b5b;
+      --border-soft: #262a3b;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.55);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition: 0.25s ease;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2138 0, var(--bg) 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    body.calm-mode {
+      background: radial-gradient(circle at top, #10231c 0, var(--bg-calm) 55%);
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, #0b0d16 0, #05060a 40%, #15182a 100%);
+      border-radius: 26px;
+      border: 1px solid #2a3044;
+      box-shadow: var(--shadow-soft);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 840px) {
+      .page { grid-template-columns: 1fr; }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .crest-wrap {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #f5c54233 0, #05060a 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #3a425a;
+      box-shadow: 0 0 18px #000;
+    }
+
+    .title-block { flex: 1; min-width: 220px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.1;
+      margin: 10px 0 4px;
+    }
+
+    .highlight { color: var(--accent); font-weight: 600; }
+
+    .subtitle-main {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 520px;
+    }
+
+    .calm-toggle {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .calm-pill {
+      width: 32px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid #3a425a;
+      background: #05060a;
+      position: relative;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .calm-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #f7f7f7;
+      transition: transform var(--transition);
+    }
+
+    .calm-pill.on {
+      background: #1b3a2a;
+      border-color: var(--safe);
+    }
+
+    .calm-pill.on .calm-knob { transform: translateX(12px); }
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin: 16px 0 8px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 10px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--text-muted);
+      background: #05060a;
+    }
+
+    .pill strong { color: var(--accent); }
+
+    .quote-card {
+      margin-top: 8px;
+      padding: 14px 14px 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top left, #262a3b33 0, transparent 55%);
+      font-size: 13px;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::before {
+      content: "“";
+      position: absolute;
+      top: -26px;
+      right: 10px;
+      font-size: 80px;
+      color: #ffffff08;
+    }
+
+    .quote-author {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #7f83a0;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .video-card {
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    @media (max-width: 520px) {
+      .video-card { grid-template-columns: 1fr; }
+    }
+
+    .video-thumb {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: radial-gradient(circle at center, #f5c54233 0, #05060a 60%);
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-size: 26px;
+    }
+
+    .video-thumb span {
+      position: absolute;
+      bottom: 6px;
+      right: 8px;
+      font-size: 11px;
+      color: #f7f7f7cc;
+      background: #05060acc;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+
+    .video-body-title { font-size: 14px; font-weight: 600; }
+
+    .video-body-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .video-link { margin-top: 6px; font-size: 12px; }
+
+    .video-link a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .video-link a:hover { text-decoration: underline; }
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-accent {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, #f5c54211 0, transparent 55%);
+      pointer-events: none;
+    }
+
+    .card-inner { position: relative; z-index: 1; }
+
+    .safety-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #37415a;
+      background: #05060a;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .safety-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--safe);
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    .card h2 { font-size: 18px; margin-bottom: 4px; }
+
+    .card-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 840px) {
+      .safety-grid { grid-template-columns: 1fr; }
+    }
+
+    .safety-box {
+      border-radius: 14px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 10px 10px 9px;
+      font-size: 12px;
+    }
+
+    .safety-box-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .safety-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: #151a2a;
+      border: 1px solid #343a52;
+      color: var(--accent);
+    }
+
+    .safety-list { list-style: none; margin-top: 2px; }
+
+    .safety-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+      color: var(--text-muted);
+    }
+
+    .safety-bullet {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #555b76;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .emergency-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .emergency-pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #3a425a;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #05060a;
+      color: var(--text-muted);
+    }
+
+    .emergency-pill span {
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .danger-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #f2b3b3;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .danger-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--danger);
+      margin-top: 4px;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px var(--danger);
+    }
+
+    .checklist {
+      margin-top: 14px;
+      border-radius: 14px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 10px 10px 8px;
+      font-size: 12px;
+    }
+
+    .checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .checklist-title { font-weight: 600; }
+
+    .checklist-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      cursor: pointer;
+      padding: 4px 4px;
+      border-radius: 10px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .checklist-item:hover {
+      background: #101320;
+      border-color: #343a52;
+    }
+
+    .check-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #4b5270;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: transparent;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    .checklist-item.done .check-circle {
+      background: var(--safe);
+      border-color: var(--safe);
+      color: #05060a;
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    .check-text {
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .checklist-item.done .check-text { color: #d9f5dd; }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-note span { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="crest-wrap">
+        <!-- SVG crest -->
+        <svg width="60" height="60" viewBox="0 0 60 60" aria-hidden="true">
+          <defs>
+            <linearGradient id="lexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f5c542"/>
+              <stop offset="100%" stop-color="#f5f1c0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="30" cy="30" r="26" fill="#05060a" stroke="url(#lexGrad)" stroke-width="2.2"/>
+          <path d="M18 40 L30 14 L42 40 Z" fill="none" stroke="url(#lexGrad)" stroke-width="2"/>
+          <path d="M23 36 L30 20 L37 36 Z" fill="url(#lexGrad)" opacity="0.9"/>
+          <text x="30" y="46" text-anchor="middle" font-size="9" fill="#f7f7f7" style="letter-spacing:2px;">LEX</text>
+        </svg>
+      </div>
+
+      <div class="title-block">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          LEX LUTHOR • TRIBUTE & SAFETY PLAN
+        </div>
+        <h1>Lex Luthor<br><span class="highlight">Power, Pressure, and Protection</span></h1>
+        <p class="subtitle-main">
+          A fictional mind under impossible pressure. This page uses his story as a mirror:
+          when power and fear collide, how can we choose safety, support, and care instead of destruction?
+        </p>
+      </div>
+
+      <div class="calm-toggle" id="calm-toggle">
+        <div class="calm-pill" id="calm-pill">
+          <div class="calm-knob"></div>
+        </div>
+        <span>Toggle “calm mode”</span>
+      </div>
+    </header>
+
+    <!-- LEFT: Tribute + optional video links -->
+    <section>
+      <div class="pill-row">
+        <div class="pill"><strong>Theme:</strong> Genius, stress, and choice</div>
+        <div class="pill"><strong>Focus:</strong> Reflection, safety, and support</div>
+      </div>
+
+      <div class="quote-card">
+        Lex Luthor is not a hero to copy, but a question to sit with:
+        <span class="highlight">“What happens when we ignore our limits and refuse help?”</span>
+        His story reminds us that even the sharpest mind needs connection, boundaries, and care.
+        <div class="quote-author">Tribute reflection • Reframing the Luthor mythos</div>
+      </div>
+
+      <div class="section-title">Tribute videos (links)</div>
+      <div class="video-grid">
+        <article class="video-card">
+          <div class="video-thumb">
+            ▶
+            <span>Fan Edit</span>
+          </div>
+          <div>
+            <div class="video-body-title">Clark/Lex – “My Angel Put the Devil in Me”</div>
+            <div class="video-body-text">
+              A Smallville tribute exploring the intense emotional tension between Clark Kent and Lex Luthor:
+              trust, betrayal, admiration, and the pressure that pushes Lex toward darker choices.
+            </div>
+            <div class="video-link">
+              <a href="https://www.youtube.com/watch?v=RcCNiFBJ6Rg" target="_blank" rel="noopener noreferrer">
+                Watch on YouTube
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <div class="video-thumb">
+            ▶
+            <span>Character Study</span>
+          </div>
+          <div>
+            <div class="video-body-title">“The Weight of Genius” – Lex Luthor Study</div>
+            <div class="video-body-text">
+              Imagine Lex not as pure evil, but as someone crushed by expectations and fear of losing control—
+              a doorway into talking about stress and mental load.
+            </div>
+            <div class="video-link">
+              <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+                Add your own character study link
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="section-title">Lex Luthor as a mirror</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;">
+        In many versions of his story, Lex Luthor is brilliant, wounded, and terrified of losing control.
+        He tries to manage fear with power and distance. This page gently flips that script:
+        instead of glorifying harm, it asks how someone like Lex could build a safety plan—how any of us can
+        notice our warning signs, reach out, and protect the people we care about.
+      </p>
+    </section>
+
+    <!-- RIGHT: Mental health safety plan -->
+    <section>
+      <div class="card">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div class="safety-tag">
+            <span class="safety-dot"></span>
+            Mental Health Safety Plan • “If Lex chose help”
+          </div>
+
+          <h2>Lex Luthor Safety Plan (Fictional Lens, Real Care)</h2>
+          <p class="card-sub">
+            This is a gentle, general safety plan inspired by Lex Luthor’s fictional struggles.
+            It is not medical advice and cannot replace a therapist, doctor, or crisis service.
+            Use it as a calm template to think about your own support system.
+          </p>
+
+          <div class="safety-grid">
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🧠</span>
+                Warning signs & feelings
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Notice personal warning signs: trouble sleeping, constant anger, feeling hopeless, or wanting to isolate.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Write down thoughts that feel heavy or overwhelming so they don’t stay trapped in your head.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Remember: having big feelings does not make you “the villain.” It means you deserve understanding and support.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🤝</span>
+                People & places of support
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>List 3 trusted people (family, friends, mentors, community leaders) you can talk to when things feel too heavy.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Include safe places: school counselor’s office, clinic, community center, faith space, or library.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Practice simple phrases: “I’m not okay,” “I need help,” or “Can we talk for a few minutes?”</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="safety-grid" style="margin-top:10px;">
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🌱</span>
+                Coping tools (non‑harmful)
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Gentle activities: slow breathing, stretching, drawing, listening to calm music, or stepping outside for fresh air.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Write a short “anchor note” to yourself: reminders of people who care, reasons to stay, and hopes for the future.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Keep a small grounding object (photo, bracelet, stone) to hold when emotions spike.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">📞</span>
+                Professional & emergency help
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Write down contact information for a therapist, doctor, school counselor, or mental health clinic if you have one.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>If you or someone else is in immediate danger, call local emergency services (for example, <strong>9‑1‑1</strong> in the U.S.).</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Ask a trusted adult to help you find crisis hotlines or local mental health resources in your area.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="emergency-row">
+            <div class="emergency-pill">
+              🚨 In immediate danger? Call <span>9‑1‑1</span> (or your local emergency number).
+            </div>
+            <div class="emergency-pill">
+              🧭 Need local info? Call <span>3‑1‑1</span> where available for community services.
+            </div>
+          </div>
+
+          <div class="danger-note">
+            <span class="danger-dot"></span>
+            <span>
+              This page cannot diagnose, treat, or replace professional care. If you are struggling with thoughts of self‑harm,
+              harming others, or feel unsafe, please contact emergency services or a mental health professional right away.
+            </span>
+          </div>
+
+          <div class="checklist" id="checklist">
+            <div class="checklist-header">
+              <div class="checklist-title">Quick safety plan checklist</div>
+              <div class="checklist-count" id="check-count">0 / 4 done</div>
+            </div>
+
+            <div class="checklist-item" data-id="1">
+              <div class="check-circle">✓</div>
+              <div class="check-text">I wrote down my personal warning signs and big feelings.</div>
+            </div>
+
+            <div class="checklist-item" data-id="2">
+              <div class="check-circle">✓</div>
+              <div class="check-text">I listed 3 trusted people and safe places I can go.</div>
+            </div>
+
+            <div class="checklist-item" data-id="3">
+              <div class="check-circle">✓</div>
+              <div class="check-text">I chose at least 2 healthy coping tools that do not cause harm.</div>
+            </div>
+
+            <div class="checklist-item" data-id="4">
+              <div class="check-circle">✓</div>
+              <div class="check-text">I saved contact info for a professional or local mental health service.</div>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            Even in stories about control and conflict, we can imagine a different ending:
+            <span>asking for help, choosing safety, and protecting our own minds.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Checklist
+    (function () {
+      const checklist = document.getElementById("checklist");
+      const countLabel = document.getElementById("check-count");
+      if (!checklist || !countLabel) return;
+
+      const items = Array.from(checklist.querySelectorAll(".checklist-item"));
+
+      function updateCount() {
+        const done = items.filter(i => i.classList.contains("done")).length;
+        countLabel.textContent = done + " / " + items.length + " done";
+      }
+
+      items.forEach(item => {
+        item.addEventListener("click", () => {
+          item.classList.toggle("done");
+          updateCount();
+        });
+      });
+
+      updateCount();
+    })();
+
+    // Calm mode toggle
+    (function () {
+      const toggle = document.getElementById("calm-toggle");
+      const pill = document.getElementById("calm-pill");
+      if (!toggle || !pill) return;
+
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("calm-mode");
+        pill.classList.toggle("on");
+      });
+    })();
+  </script>
+</body>
+</html>
