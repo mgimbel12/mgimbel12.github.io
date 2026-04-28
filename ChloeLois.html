@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chloe & Lois • Genius Fun Day Safety Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-calm: #04171f;
+      --card: #101320;
+      --accent-chloe: #4fd1c5;
+      --accent-lois: #f56565;
+      --accent-soft: #4fd1c522;
+      --text-main: #f7f7f7;
+      --text-muted: #a7a9b8;
+      --safe: #48bb78;
+      --danger: #f56565;
+      --border-soft: #262a3b;
+      --shadow-soft: 0 18px 40px rgba(0,0,0,0.55);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition: 0.25s ease;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2138 0, var(--bg) 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    body.calm-mode {
+      background: radial-gradient(circle at top, #0b2833 0, var(--bg-calm) 55%);
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1180px;
+      background: linear-gradient(135deg, #0b0d16 0, #05060a 40%, #15182a 100%);
+      border-radius: 26px;
+      border: 1px solid #2a3044;
+      box-shadow: var(--shadow-soft);
+      padding: 24px 24px 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 880px) {
+      .page { grid-template-columns: 1fr; }
+    }
+
+    header {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .crest-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #4fd1c533 0, #05060a 60%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #3a425a;
+      box-shadow: 0 0 18px #000;
+    }
+
+    .title-block { flex: 1; min-width: 220px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-chloe);
+      box-shadow: 0 0 10px var(--accent-chloe);
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.1;
+      margin: 10px 0 4px;
+    }
+
+    .highlight-chloe { color: var(--accent-chloe); font-weight: 600; }
+    .highlight-lois { color: var(--accent-lois); font-weight: 600; }
+
+    .subtitle-main {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 540px;
+    }
+
+    .calm-toggle {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .calm-pill {
+      width: 32px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid #3a425a;
+      background: #05060a;
+      position: relative;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .calm-knob {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #f7f7f7;
+      transition: transform var(--transition);
+    }
+
+    .calm-pill.on {
+      background: #145c4b;
+      border-color: var(--safe);
+    }
+
+    .calm-pill.on .calm-knob { transform: translateX(12px); }
+
+    /* Left column: game + fun day */
+
+    .section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin: 16px 0 8px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 10px;
+    }
+
+    .pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--text-muted);
+      background: #05060a;
+    }
+
+    .pill strong { color: var(--accent-chloe); }
+
+    .quote-card {
+      margin-top: 8px;
+      padding: 14px 14px 14px 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top left, #262a3b33 0, transparent 55%);
+      font-size: 13px;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-card::before {
+      content: "“";
+      position: absolute;
+      top: -26px;
+      right: 10px;
+      font-size: 80px;
+      color: #ffffff08;
+    }
+
+    .quote-author {
+      margin-top: 6px;
+      font-size: 12px;
+      color: #7f83a0;
+    }
+
+    .game-card {
+      margin-top: 10px;
+      border-radius: 16px;
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      padding: 12px 12px 10px;
+      font-size: 13px;
+    }
+
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .game-title {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .game-mode-pill {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #3a425a;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .game-question {
+      border-radius: 12px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 8px 9px;
+      font-size: 12px;
+    }
+
+    .game-question strong { color: var(--accent-lois); }
+
+    .game-options {
+      margin-top: 4px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .game-option {
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid #3a425a;
+      font-size: 11px;
+      cursor: pointer;
+      color: var(--text-muted);
+      background: #05060a;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .game-option.correct {
+      border-color: var(--safe);
+      color: #d9f5dd;
+      background: #145c4b;
+    }
+
+    .game-option.wrong {
+      border-color: var(--danger);
+      color: #fed7d7;
+      background: #742a2a;
+    }
+
+    .game-score {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Right column: safety plan */
+
+    .card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      background: #05060a;
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-accent {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, #4fd1c511 0, transparent 55%);
+      pointer-events: none;
+    }
+
+    .card-inner { position: relative; z-index: 1; }
+
+    .safety-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #37415a;
+      background: #05060a;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .safety-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--safe);
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    .card h2 { font-size: 18px; margin-bottom: 4px; }
+
+    .card-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .safety-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 880px) {
+      .safety-grid { grid-template-columns: 1fr; }
+    }
+
+    .safety-box {
+      border-radius: 14px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 10px 10px 9px;
+      font-size: 12px;
+    }
+
+    .safety-box-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .safety-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: #151a2a;
+      border: 1px solid #343a52;
+      color: var(--accent-chloe);
+    }
+
+    .safety-list { list-style: none; margin-top: 2px; }
+
+    .safety-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      margin-top: 4px;
+      color: var(--text-muted);
+    }
+
+    .safety-bullet {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #555b76;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .emergency-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .emergency-pill {
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #3a425a;
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #05060a;
+      color: var(--text-muted);
+    }
+
+    .emergency-pill span {
+      font-weight: 600;
+      color: var(--accent-lois);
+    }
+
+    .danger-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: #fed7d7;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .danger-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--danger);
+      margin-top: 4px;
+      flex-shrink: 0;
+      box-shadow: 0 0 10px var(--danger);
+    }
+
+    .checklist {
+      margin-top: 14px;
+      border-radius: 14px;
+      border: 1px solid #30364a;
+      background: #05060a;
+      padding: 10px 10px 8px;
+      font-size: 12px;
+    }
+
+    .checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .checklist-title { font-weight: 600; }
+
+    .checklist-count {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      cursor: pointer;
+      padding: 4px 4px;
+      border-radius: 10px;
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .checklist-item:hover {
+      background: #101320;
+      border-color: #343a52;
+    }
+
+    .check-circle {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #4b5270;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: transparent;
+      transition: all var(--transition);
+      flex-shrink: 0;
+    }
+
+    .checklist-item.done .check-circle {
+      background: var(--safe);
+      border-color: var(--safe);
+      color: #05060a;
+      box-shadow: 0 0 10px var(--safe);
+    }
+
+    .check-text {
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .checklist-item.done .check-text { color: #d9f5dd; }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-note span { color: var(--accent-chloe); }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="crest-wrap">
+        <!-- SVG crest: Chloe & Lois initials -->
+        <svg width="64" height="64" viewBox="0 0 64 64" aria-hidden="true">
+          <defs>
+            <linearGradient id="clGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#4fd1c5"/>
+              <stop offset="100%" stop-color="#f56565"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" fill="#05060a" stroke="url(#clGrad)" stroke-width="2.2"/>
+          <path d="M18 40 Q24 22 32 22 Q40 22 46 40" fill="none" stroke="#4fd1c5" stroke-width="2"/>
+          <path d="M22 38 L22 28 M42 38 L42 26 L48 26" stroke="#f56565" stroke-width="2" fill="none"/>
+          <text x="32" y="47" text-anchor="middle" font-size="9" fill="#f7f7f7" style="letter-spacing:2px;">C & L</text>
+        </svg>
+      </div>
+
+      <div class="title-block">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          CHLOE SULLIVAN & LOIS LANE • GENIUS FUN DAY
+        </div>
+        <h1>
+          Chloe & Lois<br>
+          <span class="highlight-chloe">Genius Fun Day</span> •
+          <span class="highlight-lois">Safety Plan</span>
+        </h1>
+        <p class="subtitle-main">
+          A playful, investigative “genius day” with Chloe Sullivan and Lois Lane as inspiration:
+          solving puzzles, asking big questions, and still taking care of our minds, bodies, and boundaries.
+        </p>
+      </div>
+
+      <div class="calm-toggle" id="calm-toggle">
+        <div class="calm-pill" id="calm-pill">
+          <div class="calm-knob"></div>
+        </div>
+        <span>Toggle “calm mode”</span>
+      </div>
+    </header>
+
+    <!-- LEFT: Game / Genius Fun Day -->
+    <section>
+      <div class="pill-row">
+        <div class="pill"><strong>Mode:</strong> Genius Fun Day</div>
+        <div class="pill"><strong>Inspiration:</strong> Chloe’s curiosity & Lois’s courage</div>
+      </div>
+
+      <div class="quote-card">
+        Imagine Chloe and Lois planning a day of clues, interviews, and laughter:
+        <span class="highlight-chloe">“We chase the story, but we don’t forget ourselves.”</span>
+        Genius is not just about answers—it’s about staying safe, grounded, and connected while we explore.
+        <div class="quote-author">Fun Day Reflection • Curiosity with care</div>
+      </div>
+
+      <div class="section-title">Mini game • “Who would say this?”</div>
+      <div class="game-card">
+        <div class="game-header">
+          <div class="game-title">Chloe vs. Lois – Quote Guess</div>
+          <div class="game-mode-pill">Tap an answer • See what happens</div>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);">
+          These are playful, invented lines inspired by their personalities (not direct quotes).
+        </p>
+
+        <div class="game-grid" id="game-grid">
+          <div class="game-question" data-answer="chloe">
+            <strong>Q1.</strong> “I brought three backup plans, a color‑coded file, and snacks. We’re ready.”
+            <div class="game-options">
+              <button class="game-option" data-choice="chloe">Chloe</button>
+              <button class="game-option" data-choice="lois">Lois</button>
+            </div>
+          </div>
+
+          <div class="game-question" data-answer="lois">
+            <strong>Q2.</strong> “If the door’s locked, we find another way in—legally, preferably.”
+            <div class="game-options">
+              <button class="game-option" data-choice="chloe">Chloe</button>
+              <button class="game-option" data-choice="lois">Lois</button>
+            </div>
+          </div>
+
+          <div class="game-question" data-answer="chloe">
+            <strong>Q3.</strong> “Let’s check the facts twice before we print anything.”
+            <div class="game-options">
+              <button class="game-option" data-choice="chloe">Chloe</button>
+              <button class="game-option" data-choice="lois">Lois</button>
+            </div>
+          </div>
+
+          <div class="game-question" data-answer="lois">
+            <strong>Q4.</strong> “I’ll ask the hard question. You keep the recorder running.”
+            <div class="game-options">
+              <button class="game-option" data-choice="chloe">Chloe</button>
+              <button class="game-option" data-choice="lois">Lois</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-score" id="game-score">Score: 0 / 4</div>
+      </div>
+
+      <div class="section-title">Genius Fun Day ideas</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.5;">
+        A Chloe & Lois “Genius Fun Day” could be: building a mystery board, interviewing family about their stories,
+        writing a mini article, or making a safe, silly “news broadcast” at home. The rule of the day:
+        <span class="highlight-lois">no one’s feelings get turned into a headline without consent</span>,
+        and everyone gets breaks, snacks, and time to breathe.
+      </p>
+    </section>
+
+    <!-- RIGHT: Safety Plan -->
+    <section>
+      <div class="card">
+        <div class="card-accent"></div>
+        <div class="card-inner">
+          <div class="safety-tag">
+            <span class="safety-dot"></span>
+            Genius Fun Day • Safety Plan Template
+          </div>
+
+          <h2>Chloe & Lois Safety Plan</h2>
+          <p class="card-sub">
+            This is a gentle, general safety plan inspired by Chloe Sullivan and Lois Lane.
+            It is not medical advice and cannot replace a therapist, doctor, or crisis service.
+            Use it as a calm template to think about how to keep a fun day safe and supportive.
+          </p>
+
+          <div class="safety-grid">
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🧠</span>
+                Feelings check‑in
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Before the “genius fun day” starts, everyone shares how they’re feeling (excited, tired, worried, etc.).</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Agree on a pause word (like “time‑out” or “yellow light”) that anyone can use if they feel overwhelmed.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Remember: needing a break does not “ruin the day.” It protects the day.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🤝</span>
+                People & support
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>List at least one trusted adult who knows about the fun day and can be called if emotions get big.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Decide who is “team Chloe” (organizing, checking in) and who is “team Lois” (speaking up, asking for help).</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Make sure everyone knows: it’s okay to say “no” to any activity that feels unsafe or unkind.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="safety-grid" style="margin-top:10px;">
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">🌱</span>
+                Breaks & coping tools
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Plan regular breaks for water, snacks, stretching, and quiet time away from screens or puzzles.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Keep gentle tools nearby: drawing supplies, music, a favorite book, or a calm corner to sit in.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>End the day with a “gratitude headline”: one sentence about something kind or hopeful that happened.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="safety-box">
+              <div class="safety-box-title">
+                <span class="safety-icon">📞</span>
+                Professional & emergency help
+              </div>
+              <ul class="safety-list">
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Write down contact information for a therapist, doctor, school counselor, or mental health clinic if you have one.</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>If you or someone else is in immediate danger, call local emergency services (for example, <strong>9‑1‑1</strong> in the U.S.).</span>
+                </li>
+                <li>
+                  <span class="safety-bullet"></span>
+                  <span>Ask a trusted adult to help you find crisis hotlines or local mental health resources in your area.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="emergency-row">
+            <div class="emergency-pill">
+              🚨 In immediate danger? Call <span>9‑1‑1</span> (or your local emergency number).
+            </div>
+            <div class="emergency-pill">
+              🧭 Need local info? Call <span>3‑1‑1</span> where available for community services.
+            </div>
+          </div>
+
+          <div class="danger-note">
+            <span class="danger-dot"></span>
+            <span>
+              This page cannot diagnose, treat, or replace professional care. If you are struggling with thoughts of self‑harm,
+              harming others, or feel unsafe, please contact emergency services or a mental health professional right away.
+            </span>
+          </div>
+
+          <div class="checklist" id="checklist">
+            <div class="checklist-header">
+              <div class="checklist-title">Fun Day Safety Checklist</div>
+              <div class="checklist-count" id="check-count">0 / 4 done</div>
+            </div>
+
+            <div class="checklist-item" data-id="1">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We agreed on a pause word and everyone knows they can use it.</div>
+            </div>
+
+            <div class="checklist-item" data-id="2">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We chose at least one trusted adult we can contact if needed.</div>
+            </div>
+
+            <div class="checklist-item" data-id="3">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We planned breaks, snacks, and at least one calm activity.</div>
+            </div>
+
+            <div class="checklist-item" data-id="4">
+              <div class="check-circle">✓</div>
+              <div class="check-text">We wrote down professional or local mental health contacts.</div>
+            </div>
+          </div>
+
+          <p class="footer-note">
+            A Chloe & Lois genius day is not just about solving mysteries—
+            <span>it’s about making sure everyone feels safe, heard, and respected while we play.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Calm mode toggle
+    (function () {
+      const toggle = document.getElementById("calm-toggle");
+      const pill = document.getElementById("calm-pill");
+      if (!toggle || !pill) return;
+
+      toggle.addEventListener("click", () => {
+        document.body.classList.toggle("calm-mode");
+        pill.classList.toggle("on");
+      });
+    })();
+
+    // Safety checklist
+    (function () {
+      const checklist = document.getElementById("checklist");
+      const countLabel = document.getElementById("check-count");
+      if (!checklist || !countLabel) return;
+
+      const items = Array.from(checklist.querySelectorAll(".checklist-item"));
+
+      function updateCount() {
+        const done = items.filter(i => i.classList.contains("done")).length;
+        countLabel.textContent = done + " / " + items.length + " done";
+      }
+
+      items.forEach(item => {
+        item.addEventListener("click", () => {
+          item.classList.toggle("done");
+          updateCount();
+        });
+      });
+
+      updateCount();
+    })();
+
+    // Mini game logic
+    (function () {
+      const grid = document.getElementById("game-grid");
+      const scoreLabel = document.getElementById("game-score");
+      if (!grid || !scoreLabel) return;
+
+      let score = 0;
+      const questions = Array.from(grid.querySelectorAll(".game-question"));
+
+      questions.forEach(q => {
+        const answer = q.getAttribute("data-answer");
+        const options = q.querySelectorAll(".game-option");
+        let locked = false;
+
+        options.forEach(btn => {
+          btn.addEventListener("click", () => {
+            if (locked) return;
+            locked = true;
+
+            const choice = btn.getAttribute("data-choice");
+            if (choice === answer) {
+              btn.classList.add("correct");
+              score++;
+            } else {
+              btn.classList.add("wrong");
+              options.forEach(o => {
+                if (o.getAttribute("data-choice") === answer) {
+                  o.classList.add("correct");
+                }
+              });
+            }
+            scoreLabel.textContent = "Score: " + score + " / " + questions.length;
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
