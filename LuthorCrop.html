@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LuthorCorp // Mental Health Awareness Month 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --card: #10131c;
+      --accent: #4ade80;   /* kryptonite green, reimagined as healing */
+      --accent-soft: #22c55e33;
+      --text-main: #f9fafb;
+      --text-soft: #9ca3af;
+      --luthor-purple: #7c3aed;
+      --danger-soft: #f9731633;
+      --border-soft: #1f2933;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.65);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 180ms ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #111827 0, #020617 40%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .shell {
+      max-width: 1100px;
+      width: 100%;
+      margin: auto;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .shell {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background: linear-gradient(135deg, #020617 0, #020617 40%, #020617 60%, #020617 100%);
+      border-radius: 28px;
+      border: 1px solid #111827;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, #22c55e22 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, #7c3aed22 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+      padding: 26px 26px 22px;
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--accent-soft);
+      background: #022c22aa;
+      color: var(--accent);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    .badge-secondary {
+      border-color: #4b5563;
+      background: #020617dd;
+      color: var(--text-soft);
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 2.4vw, 2.4rem);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      max-width: 520px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .quote-block {
+      border-radius: 18px;
+      border: 1px solid var(--border-soft);
+      background: #020617dd;
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-block::before {
+      content: "“";
+      position: absolute;
+      font-size: 3.4rem;
+      line-height: 1;
+      color: #1f2937;
+      top: -10px;
+      left: 10px;
+      opacity: 0.5;
+    }
+
+    .quote-block strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #1f2937;
+      background: #020617ee;
+      color: var(--text-soft);
+    }
+
+    .pill--bright {
+      border-color: var(--accent-soft);
+      background: #022c22dd;
+      color: var(--accent);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 4px;
+    }
+
+    .btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+      background: var(--accent);
+      color: #022c22;
+      font-weight: 600;
+      box-shadow: 0 12px 30px #22c55e55;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px #22c55e66;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: #4b5563;
+      color: var(--text-soft);
+      box-shadow: none;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent);
+      background: #020617;
+    }
+
+    .btn span.icon {
+      font-size: 1rem;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.78rem;
+      color: #6b7280;
+      max-width: 520px;
+    }
+
+    .footer-note strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Right column: Lex / LuthorCorp mental health console */
+
+    .console {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 18px 18px 16px;
+    }
+
+    .console-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .console-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .console-title span.logo-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--luthor-purple);
+      box-shadow: 0 0 14px var(--luthor-purple);
+    }
+
+    .console-chip {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #374151;
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .console-chip span.status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .console-body {
+      border-radius: 18px;
+      border: 1px solid #111827;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #020617 100%);
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .console-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .console-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      color: #6b7280;
+    }
+
+    .console-value {
+      font-size: 0.8rem;
+      color: var(--text-main);
+    }
+
+    .meter-track {
+      position: relative;
+      width: 100%;
+      height: 7px;
+      border-radius: 999px;
+      background: #020617;
+      border: 1px solid #111827;
+      overflow: hidden;
+    }
+
+    .meter-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--danger-soft), var(--luthor-purple), var(--accent));
+      box-shadow: 0 0 18px #22c55e55;
+      transition: width 900ms ease-out;
+    }
+
+    .console-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .console-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .console-tag span.bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #4b5563;
+    }
+
+    .console-tag strong {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .console-footer {
+      margin-top: 4px;
+      font-size: 0.72rem;
+      color: #6b7280;
+      line-height: 1.4;
+    }
+
+    .console-footer span.highlight {
+      color: var(--accent);
+    }
+
+    .console-footer span.lex {
+      color: var(--luthor-purple);
+      font-weight: 500;
+    }
+
+    .console-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .console-btn {
+      border-radius: var(--radius-pill);
+      border: 1px solid #1f2937;
+      background: #020617;
+      color: var(--text-soft);
+      font-size: 0.75rem;
+      padding: 6px 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .console-btn:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent);
+      background: #020617;
+      transform: translateY(-1px);
+    }
+
+    .console-btn.primary {
+      border-color: var(--accent-soft);
+      background: #022c22dd;
+      color: var(--accent);
+    }
+
+    .console-btn span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .console-btn span.lex-dot {
+      background: var(--luthor-purple);
+      box-shadow: 0 0 10px var(--luthor-purple);
+    }
+
+    /* Toast */
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      max-width: 260px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid #16a34a55;
+      background: #022c22ee;
+      color: var(--text-main);
+      font-size: 0.78rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.7);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity 200ms ease-out, transform 200ms ease-out;
+      z-index: 40;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .toast-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #022c22;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .toast-text strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .toast-close {
+      margin-left: auto;
+      cursor: pointer;
+      color: #bbf7d0;
+      font-size: 0.8rem;
+    }
+
+    .toast-close:hover {
+      color: #dcfce7;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <!-- LEFT: Campaign story -->
+    <section class="panel">
+      <div class="panel-inner">
+        <div class="badge-row">
+          <div class="badge">
+            <span class="dot"></span>
+            <span>MENTAL HEALTH AWARENESS MONTH · MAY 2026</span>
+          </div>
+          <div class="badge badge-secondary">
+            LuthorCorp // Smallville Verse · Reimagined
+          </div>
+        </div>
+
+        <h1>“Rewrite the narrative” — a LuthorCorp pledge to mental health.</h1>
+
+        <p class="subtitle">
+          In another Smallville timeline, Lex Luthor looks at the glass towers of LuthorCorp and decides:
+          <br />
+          <strong>power without empathy is just another kind of kryptonite.</strong>
+          This month, the company’s brightest project is not a weapon, but a promise:
+          every mind in Metropolis deserves safety, support, and a chance to heal.
+        </p>
+
+        <div class="quote-block">
+          <p>
+            <strong>“Legacy isn’t what the world fears you for.</strong> It’s what the people closest to you
+            survive because you finally chose to listen.” — Lex, internal memo, MH-2026.
+          </p>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill pill--bright">Check‑ins over checklists</span>
+          <span class="pill">No villain arcs for asking for help</span>
+          <span class="pill">Therapy is not weakness</span>
+          <span class="pill">Boundaries are not betrayal</span>
+          <span class="pill">You are not your worst day</span>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn" id="btnLexPledge">
+            <span class="icon">🟢</span>
+            Take the LuthorCorp Listening Pledge
+          </button>
+          <button class="btn btn-outline" id="btnGrounding">
+            Open a 30‑second grounding script
+          </button>
+        </div>
+
+        <p class="footer-note">
+          <strong>Important:</strong> This page is a fictional Smallville‑inspired tribute.
+          Real mental health support matters in real life—if you or someone you know is struggling,
+          reach out to a trusted person, a local professional, or emergency services in your area.
+        </p>
+      </div>
+    </section>
+
+    <!-- RIGHT: Lex / LuthorCorp console -->
+    <section class="panel">
+      <div class="console">
+        <header class="console-header">
+          <div class="console-title">
+            <span class="logo-dot"></span>
+            <span>LuthorCorp // Emotional Systems Console</span>
+          </div>
+          <div class="console-chip">
+            <span class="status-dot"></span>
+            LIVE · May 2026
+          </div>
+        </header>
+
+        <div class="console-body">
+          <div class="console-row">
+            <div>
+              <div class="console-label">Scan</div>
+              <div class="console-value">Internal monologue · Lex Luthor</div>
+            </div>
+            <div>
+              <div class="console-label">Mode</div>
+              <div class="console-value">From control → compassion</div>
+            </div>
+          </div>
+
+          <div class="console-row">
+            <div style="flex: 1;">
+              <div class="console-label">Emotional load</div>
+              <div class="meter-track">
+                <div class="meter-fill" id="meterFill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="console-list">
+            <div class="console-tag">
+              <span class="bullet"></span>
+              <span><strong>Step 1:</strong> Name what you feel, not what you fear becoming.</span>
+            </div>
+            <div class="console-tag">
+              <span class="bullet"></span>
+              <span><strong>Step 2:</strong> Ask for help before the tower cracks.</span>
+            </div>
+            <div class="console-tag">
+              <span class="bullet"></span>
+              <span><strong>Step 3:</strong> Offer others the grace you were never given.</span>
+            </div>
+          </div>
+
+          <div class="console-footer">
+            In this verse, <span class="lex">Lex</span> funds quiet rooms instead of secret labs,
+            trains managers to notice burnout, and reminds every employee:
+            <span class="highlight">“You are not a plot twist. You are a person.”</span>
+          </div>
+
+          <div class="console-actions">
+            <button class="console-btn primary" id="btnLexAffirm">
+              <span class="dot lex-dot"></span>
+              Lex’s daily affirmation
+            </button>
+            <button class="console-btn" id="btnSupportIdeas">
+              <span class="dot"></span>
+              Ways to support a friend
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div class="toast-icon">🟢</div>
+    <div class="toast-text" id="toastText">
+      <strong>Listening pledge saved.</strong><br />
+      Smallville verse or real life: choosing to listen with kindness is a superpower.
+    </div>
+    <div class="toast-close" id="toastClose">✕</div>
+  </div>
+
+  <script>
+    // Simple helper to show a toast with custom text
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      const toastText = document.getElementById("toastText");
+      toastText.innerHTML = message;
+      toast.classList.add("visible");
+
+      if (showToast._timeout) {
+        clearTimeout(showToast._timeout);
+      }
+      showToast._timeout = setTimeout(() => {
+        toast.classList.remove("visible");
+      }, 5000);
+    }
+
+    // Animate emotional load meter on load
+    window.addEventListener("load", () => {
+      const meter = document.getElementById("meterFill");
+      requestAnimationFrame(() => {
+        meter.style.width = "72%"; // symbolic: high load, still manageable with support
+      });
+    });
+
+    // LuthorCorp Listening Pledge
+    document.getElementById("btnLexPledge").addEventListener("click", () => {
+      showToast(
+        "<strong>LuthorCorp Listening Pledge:</strong><br/>" +
+        "I will not joke about someone’s pain, I will not call them dramatic, " +
+        "and I will believe them the first time they say they’re not okay."
+      );
+    });
+
+    // 30-second grounding script
+    document.getElementById("btnGrounding").addEventListener("click", () => {
+      showToast(
+        "<strong>Grounding (30 seconds):</strong><br/>" +
+        "Pause. Feel your feet on the floor. Notice three things you can see, " +
+        "two things you can touch, one thing you can hear. Breathe in for 4, hold for 4, out for 6."
+      );
+    });
+
+    // Lex’s daily affirmation
+    document.getElementById("btnLexAffirm").addEventListener("click", () => {
+      showToast(
+        "<strong>Lex’s daily affirmation:</strong><br/>" +
+        "My past explains my pain, but it does not define my future. " +
+        "I am allowed to heal without becoming a villain."
+      );
+    });
+
+    // Ways to support a friend
+    document.getElementById("btnSupportIdeas").addEventListener("click", () => {
+      showToast(
+        "<strong>Support a friend:</strong><br/>" +
+        "Check in gently, listen more than you speak, avoid fixing, " +
+        "and remind them they deserve professional support and real rest."
+      );
+    });
+
+    // Close toast
+    document.getElementById("toastClose").addEventListener("click", () => {
+      document.getElementById("toast").classList.remove("visible");
+    });
+  </script>
+</body>
+</html>
