@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Belle Reve · History of the Hospital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #050814;
+      --card: #101726;
+      --accent: #7fd4ff;
+      --accent-soft: rgba(127, 212, 255, 0.12);
+      --text-main: #f5f7ff;
+      --text-soft: #c4c9e6;
+      --border: #2b3a5a;
+      --tag-bg: #1b2538;
+      --tag-text: #9fd8ff;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1a2740 0, #050814 55%, #02030a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .page-shell {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(135deg, rgba(17, 26, 46, 0.96), rgba(6, 10, 24, 0.98));
+      border-radius: 24px;
+      border: 1px solid rgba(127, 212, 255, 0.18);
+      box-shadow: var(--shadow-soft);
+      padding: 28px 24px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Soft glow ring */
+    .page-shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(127, 212, 255, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(180, 140, 255, 0.12) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(127, 212, 255, 0.9);
+    }
+
+    h1 {
+      font-size: 24px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    .meta-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
+    .tag {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid rgba(127, 212, 255, 0.25);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .clock {
+      font-variant-numeric: tabular-nums;
+      opacity: 0.9;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .meta-block {
+        align-items: flex-start;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(127, 212, 255, 0.08), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(180, 140, 255, 0.06), transparent 55%),
+                  var(--card);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      padding: 16px 16px 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(255, 255, 255, 0.02);
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .card-pill {
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(127, 212, 255, 0.4);
+      background: rgba(5, 8, 20, 0.7);
+      color: var(--text-soft);
+    }
+
+    .card-body {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .card-body p {
+      text-align: justify;
+    }
+
+    .timeline {
+      margin-top: 4px;
+      border-left: 1px dashed rgba(127, 212, 255, 0.4);
+      padding-left: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -11px;
+      top: 6px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(127, 212, 255, 0.9);
+    }
+
+    .timeline-year {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--tag-text);
+      margin-bottom: 2px;
+    }
+
+    .timeline-text {
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    /* Right column: expandable sections */
+
+    .section-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    details.history-section {
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(5, 8, 20, 0.9);
+      overflow: hidden;
+      transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    details.history-section[open] {
+      border-color: rgba(127, 212, 255, 0.7);
+      background: rgba(10, 16, 34, 0.98);
+      transform: translateY(-1px);
+    }
+
+    details.history-section summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    details.history-section summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .summary-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .summary-title {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+      color: var(--accent);
+    }
+
+    .summary-sub {
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .summary-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(127, 212, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(5, 8, 20, 0.9);
+    }
+
+    details[open] .summary-icon {
+      background: var(--accent);
+      color: #02030a;
+    }
+
+    .section-body {
+      padding: 0 12px 10px;
+      font-size: 12.5px;
+      color: var(--text-soft);
+      line-height: 1.6;
+      border-top: 1px solid rgba(127, 212, 255, 0.18);
+    }
+
+    .section-body p + p {
+      margin-top: 6px;
+    }
+
+    .note {
+      margin-top: 8px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px dashed rgba(127, 212, 255, 0.5);
+      font-size: 11.5px;
+      color: var(--tag-text);
+    }
+
+    footer {
+      margin-top: 18px;
+      font-size: 11px;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+      opacity: 0.85;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <div class="page-inner">
+      <header>
+        <div class="title-block">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            BELLE REVE · ARCHIVE FILE
+          </div>
+          <h1>Belle Reve History</h1>
+          <p class="subtitle">
+            A quiet record of how Belle Reve grew from a distant coastal hospital
+            into a high‑security psychiatric facility for extraordinary cases.
+          </p>
+        </div>
+
+        <div class="meta-block">
+          <div class="tag-row">
+            <span class="tag">Fictional Hospital</span>
+            <span class="tag">Mental Health Setting</span>
+            <span class="tag">Smallville / Superhero Verse</span>
+          </div>
+          <div class="clock" id="belleReveClock">
+            Loading local time…
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <!-- Left: narrative history -->
+        <section class="card">
+          <div class="card-header">
+            <div class="card-title">Background & Origins</div>
+            <div class="card-pill">Belle Reve Psychiatric Hospital</div>
+          </div>
+          <div class="card-body">
+            <p>
+              In most official maps, Belle Reve appears as a small coastal hospital,
+              built on the edge of the water where fog and tide meet. On paper, it
+              began as a modest regional facility—part medical ward, part psychiatric
+              clinic—intended to serve isolated communities that had nowhere else to go.
+            </p>
+            <p>
+              Over time, the world around it changed. As stories of metahumans,
+              vigilantes, and impossible events spread, governments quietly searched
+              for places that could hold people whose minds and abilities did not fit
+              ordinary systems. Belle Reve, remote and already walled, was slowly
+              rewritten into something else: a hospital, a prison, and a research
+              institution layered on top of one another.
+            </p>
+
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-year">FOUNDING ERA</div>
+                <div class="timeline-text">
+                  The earliest records describe Belle Reve as a charitable hospital
+                  built with donations from coastal families and civic leaders who
+                  wanted a safe place for long‑term care, away from crowded city wards.
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">TRANSITION YEARS</div>
+                <div class="timeline-text">
+                  As cases involving trauma, unexplained strength, and unusual
+                  neurological patterns increased, a special wing was added. Officially,
+                  it was a “secure psychiatric unit.” Unofficially, it became the place
+                  where extraordinary individuals were observed, contained, and studied.
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-year">HIGH‑SECURITY PERIOD</div>
+                <div class="timeline-text">
+                  Eventually, Belle Reve’s reputation shifted. It was no longer just a
+                  hospital; it was the facility whispered about in police reports and
+                  classified files—a place for dangerous minds, super‑powered inmates,
+                  and those whose stories blurred the line between patient and prisoner.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right: structured sections -->
+        <aside class="section-list">
+          <details class="history-section" open>
+            <summary>
+              <div class="summary-label">
+                <span class="summary-title">Institutional Role</span>
+                <span class="summary-sub">Hospital, prison, and research site</span>
+              </div>
+              <div class="summary-icon">I</div>
+            </summary>
+            <div class="section-body">
+              <p>
+                Belle Reve is often described as a “hospital,” but its history shows
+                overlapping roles. It houses psychiatric wards, medical units, and
+                reinforced cells designed for individuals whose abilities or histories
+                make ordinary facilities unsafe.
+              </p>
+              <p>
+                In many superhero stories, Belle Reve becomes the backdrop for moral
+                questions: Who is a patient, and who is a prisoner? How do we offer
+                treatment and safety at the same time? The hospital’s layered history
+                reflects these tensions—its corridors hold both clinical charts and
+                security protocols.
+              </p>
+              <div class="note">
+                This fictional history can be used as a gentle way to talk about real
+                mental health themes—stigma, safety, and the importance of care that
+                respects a person’s humanity.
+              </div>
+            </div>
+          </details>
+
+          <details class="history-section">
+            <summary>
+              <div class="summary-label">
+                <span class="summary-title">Architecture & Atmosphere</span>
+                <span class="summary-sub">Coastal walls, long corridors, quiet lights</span>
+              </div>
+              <div class="summary-icon">A</div>
+            </summary>
+            <div class="section-body">
+              <p>
+                Early blueprints show a simple, rectangular hospital with large
+                windows facing the sea. As security demands increased, layers were
+                added: inner courtyards, observation decks, reinforced doors, and
+                underground wings that never appear on public diagrams.
+              </p>
+              <p>
+                The atmosphere of Belle Reve is often described as suspended between
+                care and containment. Soft clinical lighting, white coats, and
+                therapy rooms exist alongside steel doors, cameras, and coded
+                keycards. The building itself tells the story of how society has
+                struggled to respond to people who are powerful, hurting, and
+                misunderstood.
+              </p>
+            </div>
+          </details>
+
+          <details class="history-section">
+            <summary>
+              <div class="summary-label">
+                <span class="summary-title">Patients & Stories</span>
+                <span class="summary-sub">Extraordinary minds, complex pasts</span>
+              </div>
+              <div class="summary-icon">P</div>
+            </summary>
+            <div class="section-body">
+              <p>
+                Across different superhero universes, Belle Reve is home to
+                characters whose lives have been shaped by trauma, power, and
+                impossible choices. Some arrive as villains, some as victims, and
+                some as both. Their files are filled with contradictions: danger and
+                vulnerability, harm and hope.
+              </p>
+              <p>
+                In a gentle, educational context, these stories can be reframed as
+                invitations to talk about real mental health: how people can change,
+                how support matters, and how labels like “criminal” or “patient”
+                never capture the whole person.
+              </p>
+              <div class="note">
+                When using Belle Reve in teaching or creative projects, it can be
+                helpful to emphasize compassion, consent, and the idea that everyone
+                deserves safety and respectful care.
+              </div>
+            </div>
+          </details>
+
+          <details class="history-section">
+            <summary>
+              <div class="summary-label">
+                <span class="summary-title">Modern Interpretation</span>
+                <span class="summary-sub">From fear to awareness</span>
+              </div>
+              <div class="summary-icon">M</div>
+            </summary>
+            <div class="section-body">
+              <p>
+                Today, many creators re‑imagine Belle Reve not only as a place of
+                fear, but as a setting where conversations about mental health can
+                grow. Instead of focusing only on punishment, stories can highlight
+                therapy, recovery, and the courage it takes to ask for help.
+              </p>
+              <p>
+                In this way, the “history” of Belle Reve becomes a mirror. It shows
+                how our ideas about mental health have shifted—from secrecy and
+                confinement toward openness, support, and community care.
+              </p>
+            </div>
+          </details>
+        </aside>
+      </main>
+
+      <footer>
+        <span>
+          Belle Reve is a fictional hospital often used in superhero stories.
+          This page treats it as a symbolic setting to talk about care, safety,
+          and mental health with respect.
+        </span>
+        <span>
+          Linked modules: <a href="Bellereve.html">Belle Reve Main</a> ·
+          <a href="BelleReveMentalHealthSafetyPlan.html">Safety Plan</a>
+        </span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // Simple live clock for atmosphere
+    function updateBelleReveClock() {
+      const el = document.getElementById("belleReveClock");
+      if (!el) return;
+
+      const now = new Date();
+      const optionsDate = { year: "numeric", month: "short", day: "2-digit" };
+      const optionsTime = { hour: "2-digit", minute: "2-digit", second: "2-digit" };
+
+      const dateStr = now.toLocaleDateString(undefined, optionsDate);
+      const timeStr = now.toLocaleTimeString(undefined, optionsTime);
+
+      el.textContent = `Local Archive Time · ${dateStr} · ${timeStr}`;
+    }
+
+    updateBelleReveClock();
+    setInterval(updateBelleReveClock, 1000);
+  </script>
+</body>
+</html>
