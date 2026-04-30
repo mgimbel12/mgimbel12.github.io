@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fall Food & Harvest Learning Panel</title>
+<style>
+    :root {
+        --bg: #f7efe5;
+        --accent: #d9a066;
+        --accent-soft: #f2d3b7;
+        --accent-soft-hover: #e8b98a;
+        --text: #4a3b2e;
+        --panel-bg: #ffffff;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+    }
+
+    header {
+        background: var(--accent);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+
+    #clock {
+        margin-top: 6px;
+        font-size: 15px;
+        opacity: 0.9;
+    }
+
+    main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        background: var(--accent-soft);
+        padding: 10px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 14px;
+        border: none;
+        outline: none;
+        transition: background 0.25s, transform 0.15s;
+    }
+
+    .tab:hover {
+        background: var(--accent-soft-hover);
+        transform: translateY(-1px);
+    }
+
+    .tab.active {
+        background: var(--accent);
+        color: #fff;
+    }
+
+    .panel {
+        display: none;
+        background: var(--panel-bg);
+        border-radius: 14px;
+        padding: 20px 22px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        line-height: 1.6;
+    }
+
+    .panel.active {
+        display: block;
+    }
+
+    h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 22px;
+    }
+
+    h3 {
+        margin-bottom: 6px;
+        margin-top: 18px;
+        font-size: 18px;
+    }
+
+    .recipe, .idea, .philosophy, .music-block {
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 1px dashed #e0c7aa;
+    }
+
+    .recipe:last-child,
+    .idea:last-child,
+    .philosophy:last-child,
+    .music-block:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .tagline {
+        font-style: italic;
+        font-size: 14px;
+        color: #7a5b3d;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin-top: 4px;
+    }
+
+    .label {
+        font-weight: 600;
+    }
+
+    @media (max-width: 700px) {
+        header h1 {
+            font-size: 22px;
+        }
+        .panel {
+            padding: 16px 14px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Fall Food, Harvest & Halloween Learning Panel</h1>
+    <div id="clock"></div>
+</header>
+
+<main>
+    <div class="tabs" aria-label="Content sections">
+        <button class="tab active" data-target="recipes">🍁 Full-Length Fall Recipes</button>
+        <button class="tab" data-target="ideas">🌾 Wholesome Food Ideas</button>
+        <button class="tab" data-target="philosophy">🌱 Harvesting & Good Eating</button>
+        <button class="tab" data-target="music">🎃 Halloween Music Moods</button>
+    </div>
+
+    <!-- RECIPES PANEL -->
+    <section id="recipes" class="panel active" aria-label="Full-length fall recipes">
+        <h2>🍁 Full-Length Fall Recipes</h2>
+        <p class="tagline">Warm, gentle meals that feel like sweaters, blankets, and early sunsets.</p>
+
+        <article class="recipe">
+            <h3>1. Harvest Pumpkin Soup with Maple &amp; Sage</h3>
+            <p><span class="label">Story:</span> A bowl that tastes like the first cold morning of October.</p>
+            <p class="label">Ingredients:</p>
+            <ul>
+                <li>1 roasted pumpkin or 3 cups pumpkin purée</li>
+                <li>1 onion, diced</li>
+                <li>2 cloves garlic, minced</li>
+                <li>3 cups vegetable broth</li>
+                <li>½ cup cream or coconut milk</li>
+                <li>1 tbsp maple syrup</li>
+                <li>Fresh sage leaves</li>
+                <li>Salt, pepper, pinch of nutmeg</li>
+            </ul>
+            <p class="label">Instructions:</p>
+            <ol>
+                <li>Sauté onion and garlic in a little oil until soft and fragrant.</li>
+                <li>Add pumpkin, broth, and a few sage leaves. Simmer for about 15 minutes.</li>
+                <li>Blend carefully until smooth and velvety.</li>
+                <li>Stir in cream and maple syrup. Adjust salt, pepper, and nutmeg.</li>
+                <li>Serve warm with bread. Add a sage leaf on top like a tiny green boat.</li>
+            </ol>
+            <p class="tagline">Pumpkins remind us that even heavy things can become soft and sweet with warmth.</p>
+        </article>
+
+        <article class="recipe">
+            <h3>2. Cinnamon Orchard Apple Crisp</h3>
+            <p><span class="label">Story:</span> A dessert that feels like a walk through a leaf-covered path.</p>
+            <p class="label">Ingredients:</p>
+            <ul>
+                <li>6 apples, sliced</li>
+                <li>½ cup brown sugar</li>
+                <li>1 tsp cinnamon</li>
+                <li>½ tsp nutmeg</li>
+                <li>1 cup oats</li>
+                <li>½ cup flour</li>
+                <li>½ cup butter, softened</li>
+            </ul>
+            <p class="label">Instructions:</p>
+            <ol>
+                <li>Toss apples with half the sugar and all the spices. Spread in a baking dish.</li>
+                <li>Mix oats, flour, remaining sugar, and butter into a crumbly topping.</li>
+                <li>Sprinkle over the apples.</li>
+                <li>Bake at 350°F (175°C) for 35–40 minutes, until golden and bubbling.</li>
+            </ol>
+            <p class="tagline">Apples teach us that sweetness grows slowly, layer by layer, season by season.</p>
+        </article>
+
+        <article class="recipe">
+            <h3>3. Autumn Harvest Sheet Pan Dinner</h3>
+            <p><span class="label">Story:</span> A simple, nourishing meal for busy evenings and shared tables.</p>
+            <p class="label">Ingredients:</p>
+            <ul>
+                <li>2 sweet potatoes, cubed</li>
+                <li>2 cups Brussels sprouts, halved</li>
+                <li>Chicken pieces or firm tofu cubes</li>
+                <li>2–3 tbsp olive oil</li>
+                <li>Rosemary, thyme, garlic, salt, pepper</li>
+            </ul>
+            <p class="label">Instructions:</p>
+            <ol>
+                <li>Preheat oven to 400°F (200°C).</li>
+                <li>Spread vegetables and protein on a sheet pan.</li>
+                <li>Drizzle with olive oil, sprinkle herbs, garlic, salt, and pepper.</li>
+                <li>Roast 30–40 minutes, stirring once, until edges are caramelized.</li>
+            </ol>
+            <p class="tagline">Harvest meals remind us that good things grow together.</p>
+        </article>
+    </section>
+
+    <!-- WHOLESOME IDEAS PANEL -->
+    <section id="ideas" class="panel" aria-label="Wholesome food ideas">
+        <h2>🌾 Wholesome Food & Harvest Ideas</h2>
+        <p class="tagline">Food as a way to teach gratitude, color, and connection.</p>
+
+        <article class="idea">
+            <h3>1. The “Gathering Bowl” Tradition</h3>
+            <p>Place a large bowl in the center of the table. Everyone adds one ingredient:</p>
+            <ul>
+                <li>A handful of greens</li>
+                <li>A scoop of grains</li>
+                <li>A sprinkle of nuts or seeds</li>
+                <li>A favorite fruit or roasted vegetable</li>
+            </ul>
+            <p>The bowl becomes a symbol of shared effort and shared nourishment. Each person can say one thing they are thankful for as they add their ingredient.</p>
+        </article>
+
+        <article class="idea">
+            <h3>2. The “Color Plate” Method</h3>
+            <p>Teach eating by color instead of strict rules:</p>
+            <ul>
+                <li><span class="label">Red:</span> Heart health (tomatoes, strawberries, peppers)</li>
+                <li><span class="label">Orange:</span> Immunity (carrots, pumpkin, sweet potatoes)</li>
+                <li><span class="label">Green:</span> Strength (spinach, broccoli, peas)</li>
+                <li><span class="label">Blue/Purple:</span> Brain health (blueberries, purple cabbage)</li>
+                <li><span class="label">White:</span> Balance (cauliflower, onions, garlic)</li>
+            </ul>
+            <p>A plate with many colors becomes a rainbow of wellness and a playful challenge for kids: “How many colors can we eat today?”</p>
+        </article>
+
+        <article class="idea">
+            <h3>3. The “Harvest Walk” Meal Plan</h3>
+            <p>Connect meals to where food grows:</p>
+            <ul>
+                <li><span class="label">Breakfast:</span> Something grown above the ground (berries, leafy greens in a smoothie).</li>
+                <li><span class="label">Lunch:</span> Something grown below the ground (roasted carrots, potatoes, beets).</li>
+                <li><span class="label">Dinner:</span> Something grown on a tree or vine (apples, squash, grapes, tomatoes).</li>
+            </ul>
+            <p>This gentle pattern helps children imagine farms, gardens, and orchards with every meal.</p>
+        </article>
+    </section>
+
+    <!-- PHILOSOPHY PANEL -->
+    <section id="philosophy" class="panel" aria-label="Harvesting and good eating philosophy">
+        <h2>🌱 Harvesting & Good Eating Philosophy</h2>
+        <p class="tagline">Harvesting is not just gathering food — it is gathering gratitude.</p>
+
+        <article class="philosophy">
+            <h3>1. Why We Harvest</h3>
+            <ul>
+                <li>We harvest to remember that the earth feeds us.</li>
+                <li>We cook to remember that families feed each other.</li>
+                <li>We eat slowly to remember that time is a gift.</li>
+                <li>We share meals to remember that no one should be alone.</li>
+            </ul>
+        </article>
+
+        <article class="philosophy">
+            <h3>2. Wholesome Eating Principles</h3>
+            <ul>
+                <li>Choose foods that still look close to how they grew from the earth.</li>
+                <li>Notice how you feel after eating—steady, energized, or sleepy—and learn from that feeling.</li>
+                <li>Eat with people when you can; eat with peace when you cannot.</li>
+                <li>Offer thanks for the hands that planted, picked, transported, and prepared your food.</li>
+            </ul>
+        </article>
+
+        <article class="philosophy">
+            <h3>3. Harvesting Practices</h3>
+            <ul>
+                <li>Start a tiny windowsill garden with herbs or cherry tomatoes.</li>
+                <li>Visit a local orchard, farm stand, or community garden.</li>
+                <li>Teach children how to wash, peel, and safely cut simple fruits and vegetables.</li>
+                <li>Create a “gratitude recipe book” where each recipe includes a memory or a person it reminds you of.</li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- MUSIC PANEL -->
+    <section id="music" class="panel" aria-label="Halloween music ideas">
+        <h2>🎃 Halloween Music Mood Ideas</h2>
+        <p class="tagline">Atmospheres and moods you can recreate with instruments, loops, or royalty-free sounds.</p>
+
+        <article class="music-block">
+            <h3>1. Gentle Spooky (Kid-Friendly)</h3>
+            <ul>
+                <li>Soft xylophone with wind chimes</li>
+                <li>Light “ghost whisper” synths</li>
+                <li>Slow, playful marimba patterns</li>
+                <li>Rustling leaves and distant owl hoots</li>
+            </ul>
+            <p>Mood: Friendly ghosts, cozy costumes, giggles on the sidewalk.</p>
+        </article>
+
+        <article class="music-block">
+            <h3>2. Autumn Magic</h3>
+            <ul>
+                <li>Harp arpeggios with soft hand drums</li>
+                <li>Forest ambience: leaves crunching, gentle wind</li>
+                <li>Warm violin or flute melodies</li>
+            </ul>
+            <p>Mood: Witches who read books, not cast curses; lanterns glowing in libraries.</p>
+        </article>
+
+        <article class="music-block">
+            <h3>3. Classic Halloween Atmosphere</h3>
+            <ul>
+                <li>Slow pipe organ chords</li>
+                <li>Theremin-style sliding notes</li>
+                <li>Hollow wind effects and soft tapping percussion</li>
+            </ul>
+            <p>Mood: Haunted house with a friendly narrator guiding everyone safely through.</p>
+        </article>
+
+        <article class="music-block">
+            <h3>4. Harvest Festival Music</h3>
+            <ul>
+                <li>Fiddle and acoustic guitar</li>
+                <li>Hand drums and clapping rhythms</li>
+                <li>Campfire crackle and gentle crowd chatter</li>
+            </ul>
+            <p>Mood: Community gathering, warm cider, hayrides, and shared stories under the stars.</p>
+        </article>
+    </section>
+</main>
+
+<script>
+    // Tab switching
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const targetId = tab.getAttribute('data-target');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+
+            tab.classList.add('active');
+            document.getElementById(targetId).classList.add('active');
+        });
+    });
+
+    // Clock
+    function updateClock() {
+        const now = new Date();
+        const options = {
+            dateStyle: 'full',
+            timeStyle: 'medium'
+        };
+        document.getElementById('clock').textContent =
+            now.toLocaleString('en-US', options);
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
