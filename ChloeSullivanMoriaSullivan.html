@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chloe & Moira Sullivan • Character Archive</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ------------------------------
+   GLOBAL STYLE
+--------------------------------*/
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(#f7f7ff, #ececff);
+  color: #222;
+  padding-bottom: 80px;
+}
+
+header {
+  text-align: center;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.4rem;
+  margin-bottom: 10px;
+  color: #3a3a6a;
+}
+
+header p {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* ------------------------------
+   CHARACTER GRID
+--------------------------------*/
+.character-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 20px;
+  justify-content: center;
+}
+
+.character-card {
+  flex: 1 1 280px;
+  max-width: 320px;
+  background: white;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.character-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.character-card h2 {
+  margin: 0 0 6px;
+  color: #2c2c5c;
+}
+
+.role {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.character-card ul {
+  padding-left: 1.2rem;
+  margin: 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+/* ------------------------------
+   DETAILS PANEL
+--------------------------------*/
+.details-box {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 25px;
+  margin: 20px auto;
+  max-width: 800px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.details-box h3 {
+  margin-top: 0;
+  color: #2c2c5c;
+}
+
+#details-text {
+  white-space: pre-line;
+  line-height: 1.55;
+  color: #333;
+}
+
+/* ------------------------------
+   SAFETY PLAN CORNER
+--------------------------------*/
+.safety-toggle {
+  display: block;
+  margin: 40px auto 10px;
+  background: #6a6ad6;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background .2s ease;
+}
+
+.safety-toggle:hover {
+  background: #5757c4;
+}
+
+.safety-box {
+  display: none;
+  max-width: 700px;
+  margin: 0 auto;
+  background: #f0f0ff;
+  border-left: 6px solid #6a6ad6;
+  padding: 20px;
+  border-radius: 10px;
+  line-height: 1.6;
+  color: #333;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #777;
+  font-size: 0.9rem;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Chloe & Moira Sullivan</h1>
+  <p>
+    A gentle character archive honoring the investigative spark of Chloe Sullivan
+    and the complex, emotional story of her mother, Moira.  
+    Built with HTML, CSS, and JavaScript in a soft, storybook style.
+  </p>
+</header>
+
+<!-- CHARACTER GRID -->
+<div class="character-grid">
+
+  <article class="character-card" data-char="chloe">
+    <h2>Chloe Sullivan</h2>
+    <p class="role">Journalist • Watchtower • Hero Support</p>
+    <ul>
+      <li>Investigative reporter</li>
+      <li>Editor of the Smallville Torch</li>
+      <li>Clark Kent’s closest friend</li>
+      <li>Later becomes Watchtower</li>
+    </ul>
+  </article>
+
+  <article class="character-card" data-char="moira">
+    <h2>Moira Sullivan</h2>
+    <p class="role">Metahuman • Mother • Complex History</p>
+    <ul>
+      <li>Mother of Chloe Sullivan</li>
+      <li>Mind‑control over meteor‑infected people</li>
+      <li>Long-term institutionalization</li>
+      <li>Emotional impact on Chloe’s life</li>
+    </ul>
+  </article>
+
+</div>
+
+<!-- DETAILS PANEL -->
+<div class="details-box">
+  <h3>Character Biography</h3>
+  <p id="details-text">Click a character card to reveal their full story.</p>
+</div>
+
+<!-- SAFETY PLAN -->
+<button class="safety-toggle" onclick="toggleSafety()">Open Safety Corner</button>
+
+<div id="safety" class="safety-box">
+  <h3>🌿 Gentle Safety Corner</h3>
+  <p>
+    Take a slow breath.  
+    You are safe in this moment.  
+    You can pause, rest, or step away whenever you need.  
+    Your feelings matter, and you deserve support and gentleness.  
+  </p>
+</div>
+
+<footer>
+  © 2026 • Storybook Character Archive • Built for Marissa A. Gimbel
+</footer>
+
+<script>
+/* ------------------------------
+   CHARACTER DESCRIPTIONS
+--------------------------------*/
+const detailsBox = document.getElementById('details-text');
+
+const descriptions = {
+  chloe: `
+Chloe Sullivan is an original Smallville character known for her fierce curiosity,
+loyalty, and investigative brilliance. She begins as the editor of the Smallville
+Torch, documenting meteor‑infected cases on her “Wall of Weird.” Her friendship
+with Clark Kent becomes one of the emotional anchors of the series.
+
+As she grows, Chloe becomes a reporter for the Daily Planet and eventually
+transforms into Watchtower — the information hub and tactical support for the
+heroes. Her intelligence, compassion, and resilience make her one of the most
+important non‑powered heroes in the Smallville universe.
+`,
+
+  moira: `
+Moira Sullivan is Chloe’s mother, a metahuman with the ability to control other
+meteor‑infected individuals. Her powers, combined with long-term institutional
+care, create a painful distance between her and Chloe.
+
+Moira’s story explores themes of mental health, trauma, and the complexity of
+family bonds. Her absence shapes Chloe’s drive to protect others, uncover truth,
+and fight for justice. Moira’s arc is tragic, powerful, and deeply human.
+`
+};
+
+/* ------------------------------
+   CLICK EVENTS
+--------------------------------*/
+document.querySelectorAll('.character-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const key = card.getAttribute('data-char');
+    detailsBox.textContent = descriptions[key].trim();
+  });
+});
+
+/* ------------------------------
+   SAFETY PANEL TOGGLE
+--------------------------------*/
+function toggleSafety() {
+  const box = document.getElementById('safety');
+  box.style.display = box.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+</body>
+</html>
+
