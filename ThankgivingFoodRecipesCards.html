@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Thanksgiving Food & Holiday Music Panel</title>
+<style>
+    :root {
+        --bg: #faf3e8;
+        --accent: #c97b4b;
+        --accent-soft: #f2d3b7;
+        --accent-hover: #e8b98a;
+        --text: #4a3b2e;
+        --panel: #ffffff;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+    }
+
+    header {
+        background: var(--accent);
+        color: white;
+        text-align: center;
+        padding: 25px;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 30px;
+        letter-spacing: 1px;
+    }
+
+    #clock {
+        margin-top: 8px;
+        font-size: 15px;
+        opacity: 0.9;
+    }
+
+    main {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .tab {
+        background: var(--accent-soft);
+        padding: 10px 16px;
+        border-radius: 999px;
+        cursor: pointer;
+        border: none;
+        transition: 0.25s;
+    }
+
+    .tab:hover {
+        background: var(--accent-hover);
+        transform: translateY(-1px);
+    }
+
+    .tab.active {
+        background: var(--accent);
+        color: white;
+    }
+
+    .panel {
+        display: none;
+        background: var(--panel);
+        padding: 20px;
+        border-radius: 14px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        line-height: 1.6;
+    }
+
+    .panel.active {
+        display: block;
+    }
+
+    h2 {
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .recipe-card {
+        background: #fff7ef;
+        border: 1px solid #e8c9a8;
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 18px;
+    }
+
+    .recipe-card h3 {
+        margin-top: 0;
+    }
+
+    .music-block {
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px dashed #d8b89a;
+    }
+
+    .music-block:last-child {
+        border-bottom: none;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Thanksgiving Food & Holiday Music Ideas</h1>
+    <div id="clock"></div>
+</header>
+
+<main>
+
+    <div class="tabs">
+        <button class="tab active" data-target="thanksgiving">🦃 Thanksgiving Foods</button>
+        <button class="tab" data-target="recipes">🥧 Recipe Cards</button>
+        <button class="tab" data-target="music">🎶 Holiday Music Ideas</button>
+    </div>
+
+    <!-- THANKSGIVING FOODS -->
+    <section id="thanksgiving" class="panel active">
+        <h2>🦃 Thanksgiving Foods</h2>
+
+        <div class="recipe-card">
+            <h3>1. Herb Butter Roast Turkey</h3>
+            <p>A golden, tender turkey brushed with garlic herb butter.</p>
+            <ul>
+                <li>Whole turkey</li>
+                <li>Butter, garlic, rosemary, thyme</li>
+                <li>Salt, pepper, lemon</li>
+            </ul>
+            <p><strong>Tip:</strong> Rub butter under the skin for extra flavor.</p>
+        </div>
+
+        <div class="recipe-card">
+            <h3>2. Classic Thanksgiving Stuffing</h3>
+            <p>Warm bread cubes with celery, onion, sage, and broth.</p>
+            <ul>
+                <li>Bread cubes</li>
+                <li>Celery & onion</li>
+                <li>Sage, thyme, broth</li>
+            </ul>
+        </div>
+
+        <div class="recipe-card">
+            <h3>3. Sweet Potato Marshmallow Bake</h3>
+            <p>Mashed sweet potatoes topped with toasted marshmallows.</p>
+        </div>
+
+        <div class="recipe-card">
+            <h3>4. Pumpkin Pie</h3>
+            <p>Silky pumpkin custard with cinnamon, nutmeg, and cloves.</p>
+        </div>
+    </section>
+
+    <!-- RECIPE CARDS -->
+    <section id="recipes" class="panel">
+        <h2>🥧 Recipe Cards (Interactive)</h2>
+
+        <div class="recipe-card">
+            <h3>🍂 Harvest Cornbread</h3>
+            <p><strong>Ingredients:</strong></p>
+            <ul>
+                <li>Cornmeal</li>
+                <li>Flour</li>
+                <li>Honey</li>
+                <li>Butter</li>
+            </ul>
+            <p><strong>Meaning:</strong> Cornbread honors Indigenous food traditions.</p>
+        </div>
+
+        <div class="recipe-card">
+            <h3>🍎 Apple Cider Punch</h3>
+            <p>Apple cider, cinnamon sticks, oranges, and cloves simmered together.</p>
+        </div>
+
+        <div class="recipe-card">
+            <h3>🥧 Pecan Pie</h3>
+            <p>Sweet, nutty, caramel-like filling with toasted pecans.</p>
+        </div>
+    </section>
+
+    <!-- MUSIC IDEAS -->
+    <section id="music" class="panel">
+        <h2>🎶 Holiday Music Ideas</h2>
+
+        <div class="music-block">
+            <h3>1. Cozy Thanksgiving Dinner Playlist</h3>
+            <ul>
+                <li>Soft acoustic guitar</li>
+                <li>Warm piano melodies</li>
+                <li>Gentle jazz brushes</li>
+            </ul>
+            <p>Mood: Candlelight, warm rolls, family stories.</p>
+        </div>
+
+        <div class="music-block">
+            <h3>2. Holiday Baking Music</h3>
+            <ul>
+                <li>Light bells</li>
+                <li>Whimsical flutes</li>
+                <li>Soft choral hums</li>
+            </ul>
+            <p>Mood: Cookies in the oven, cinnamon in the air.</p>
+        </div>
+
+        <div class="music-block">
+            <h3>3. Winter Magic Instrumentals</h3>
+            <ul>
+                <li>Harp + soft strings</li>
+                <li>Snowfall ambience</li>
+                <li>Warm orchestral swells</li>
+            </ul>
+            <p>Mood: Snowflakes, lanterns, gentle wonder.</p>
+        </div>
+
+        <div class="music-block">
+            <h3>4. Festive Family Gathering</h3>
+            <ul>
+                <li>Upbeat piano</li>
+                <li>Light percussion</li>
+                <li>Cheerful brass</li>
+            </ul>
+            <p>Mood: Laughter, games, warm cocoa.</p>
+        </div>
+    </section>
+
+</main>
+
+<script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-target');
+
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+
+            tab.classList.add('active');
+            document.getElementById(target).classList.add('active');
+        });
+    });
+
+    // Clock
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').textContent =
+            now.toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'medium' });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
+
