@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fall Recipes & History Panel</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f7efe5;
+        margin: 0;
+        padding: 0;
+        color: #4a3b2e;
+    }
+
+    header {
+        background: #d9a066;
+        padding: 20px;
+        text-align: center;
+        color: white;
+        font-size: 28px;
+        letter-spacing: 1px;
+    }
+
+    #clock {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+
+    .container {
+        padding: 20px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .tab {
+        background: #f2d3b7;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .tab:hover {
+        background: #e8b98a;
+    }
+
+    .panel {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        display: none;
+    }
+
+    .panel.active {
+        display: block;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    Fall Recipes & American Food History
+    <div id="clock"></div>
+</header>
+
+<div class="container">
+
+    <div class="tabs">
+        <div class="tab" onclick="showPanel('fall')">🍁 Fall Recipes</div>
+        <div class="tab" onclick="showPanel('history')">🇺🇸 U.S. Food History</div>
+        <div class="tab" onclick="showPanel('icecream')">🍨 Ice Cream Recipes</div>
+        <div class="tab" onclick="showPanel('island')">🏝️ Island Desserts</div>
+    </div>
+
+    <div id="fall" class="panel active">
+        <h2>🍁 Fall Recipes</h2>
+        <p><strong>Pumpkin Pie:</strong> Pumpkin purée, cinnamon, nutmeg, cloves, eggs, and sweet cream baked in a flaky crust.</p>
+        <p><strong>Apple Crisp:</strong> Warm apples, brown sugar, oats, and butter baked until golden.</p>
+        <p><strong>Butternut Squash Soup:</strong> Roasted squash blended with cream, sage, and a hint of maple.</p>
+    </div>
+
+    <div id="history" class="panel">
+        <h2>🇺🇸 History of America’s Favorite Foods</h2>
+        <p><strong>Cornbread:</strong> Rooted in Native American maize traditions, later adopted by early settlers.</p>
+        <p><strong>Apple Pie:</strong> Became a symbol of American identity in the 1800s.</p>
+        <p><strong>Thanksgiving Foods:</strong> Turkey, squash, and cranberries reflect Indigenous agricultural knowledge.</p>
+    </div>
+
+    <div id="icecream" class="panel">
+        <h2>🍨 Ice Cream Recipes</h2>
+        <p><strong>Vanilla Bean:</strong> Cream, sugar, vanilla bean, churned until silky.</p>
+        <p><strong>Strawberry Swirl:</strong> Fresh berries folded into sweet cream.</p>
+        <p><strong>Chocolate Fudge:</strong> Cocoa, cream, and melted chocolate for richness.</p>
+    </div>
+
+    <div id="island" class="panel">
+        <h2>🏝️ Island Favorite Desserts</h2>
+        <p><strong>Haupia (Hawaii):</strong> Coconut milk pudding with a soft, silky texture.</p>
+        <p><strong>Guava Cake:</strong> Light sponge cake topped with guava glaze.</p>
+        <p><strong>Banana Lumpia (Philippines):</strong> Sweet bananas wrapped and fried until golden.</p>
+    </div>
+
+</div>
+
+<script>
+function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
+
+function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+        now.toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'medium' });
+}
+setInterval(updateClock, 1000);
+updateClock();
+</script>
+
+</body>
+</html>
