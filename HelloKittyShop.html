@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hello Kitty Mini Shop</title>
+<style>
+  body {
+    font-family: 'Arial';
+    background: #ffe6f2;
+    padding: 20px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    width: 260px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    background: #ff66a3;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+
+  .safety-box {
+    display: none;
+    background: #fff0f5;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    border: 2px solid #ff99cc;
+  }
+</style>
+</head>
+<body>
+
+<h1>🎀 Hello Kitty Mini Shop 🎀</h1>
+
+<div class="card">
+  <h2>Pink Bow Sticker</h2>
+  <p>Price: $2.00</p>
+  <button class="btn" onclick="addToCart()">Add to Cart</button>
+</div>
+
+<p><strong>Cart Items:</strong> <span id="cartCount">0</span></p>
+
+<button class="btn" onclick="toggleSafety()">Open Safety Plan</button>
+
+<div id="safety" class="safety-box">
+  <h3>🌸 Safety Plan Corner</h3>
+  <p>Take a breath. You are safe.  
+  You can pause anytime.  
+  You can ask for help when things feel heavy.</p>
+</div>
+
+<script>
+  let cart = 0;
+
+  function addToCart() {
+    cart++;
+    document.getElementById('cartCount').textContent = cart;
+  }
+
+  function toggleSafety() {
+    const box = document.getElementById('safety');
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+  }
+</script>
+
+</body>
+</html>
+
