@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lana & Lex Luthor – Tribute & Safety Constellation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg-dark: #050712;
+      --bg-panel: rgba(10, 12, 30, 0.9);
+      --accent-lana: #ff7bbf;
+      --accent-lex: #7bd4ff;
+      --accent-gold: #ffd66b;
+      --text-main: #f7f7ff;
+      --text-soft: #c5c7f5;
+      --danger-soft: #ff9b9b;
+      --safe-green: #7cf5c6;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at 10% 0%, #1a1030 0, transparent 55%),
+        radial-gradient(circle at 90% 100%, #10263a 0, transparent 55%),
+        linear-gradient(135deg, #050712, #050712 40%, #0b1020 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .texture-overlay {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 0 0, rgba(255,255,255,0.06) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255,255,255,0.04) 0, transparent 55%),
+        repeating-linear-gradient(
+          135deg,
+          rgba(255,255,255,0.03) 0,
+          rgba(255,255,255,0.03) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+      mix-blend-mode: soft-light;
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(120deg, var(--accent-lana), var(--accent-lex), var(--accent-gold));
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      color: var(--text-soft);
+      max-width: 640px;
+      margin: 0.5rem auto 0;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1.75rem;
+    }
+
+    @media (max-width: 840px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background: var(--bg-panel);
+      border-radius: 1.25rem;
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.65),
+        0 0 0 1px rgba(255,255,255,0.02);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 0 0, rgba(255,123,191,0.12) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(123,212,255,0.12) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .panel h3 {
+      font-size: 1.05rem;
+      margin: 0.75rem 0 0.35rem;
+      color: var(--accent-lana);
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .panel ul {
+      list-style: none;
+      margin-top: 0.4rem;
+    }
+
+    .panel li + li {
+      margin-top: 0.25rem;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text-soft);
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-lex);
+    }
+
+    /* Countdown section */
+    .countdown-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .countdown-card {
+      flex: 1 1 140px;
+      min-width: 0;
+      background: rgba(5,7,18,0.9);
+      border-radius: 0.9rem;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .countdown-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-bottom: 0.25rem;
+    }
+
+    .countdown-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--accent-lana);
+    }
+
+    .countdown-time {
+      font-size: 1.1rem;
+      font-variant-numeric: tabular-nums;
+      color: var(--accent-gold);
+    }
+
+    .countdown-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 0.15rem;
+    }
+
+    /* Songs list */
+    .song-list {
+      margin-top: 0.5rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .song-item {
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.7rem;
+      background: rgba(5,7,18,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .song-title {
+      font-size: 0.9rem;
+      color: var(--accent-lex);
+      font-weight: 600;
+    }
+
+    .song-tagline {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .song-link {
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+      margin-top: 0.1rem;
+    }
+
+    .song-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Floating SVGs */
+    .svg-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .float-orb,
+    .float-star,
+    .float-ribbon {
+      position: absolute;
+      opacity: 0.45;
+      filter: blur(0.2px);
+    }
+
+    .float-orb {
+      width: 120px;
+      height: 120px;
+      animation: drift 32s linear infinite;
+    }
+
+    .float-star {
+      width: 40px;
+      height: 40px;
+      animation: twirl 26s linear infinite;
+    }
+
+    .float-ribbon {
+      width: 180px;
+      height: 180px;
+      animation: sway 38s linear infinite;
+    }
+
+    @keyframes drift {
+      0% { transform: translate3d(-10%, 10%, 0) scale(1); }
+      50% { transform: translate3d(110%, -10%, 0) scale(1.1); }
+      100% { transform: translate3d(-10%, 10%, 0) scale(1); }
+    }
+
+    @keyframes twirl {
+      0% { transform: translate3d(110%, 80%, 0) rotate(0deg); }
+      50% { transform: translate3d(-10%, 10%, 0) rotate(180deg); }
+      100% { transform: translate3d(110%, 80%, 0) rotate(360deg); }
+    }
+
+    @keyframes sway {
+      0% { transform: translate3d(50%, -20%, 0) rotate(0deg); }
+      50% { transform: translate3d(-10%, 60%, 0) rotate(12deg); }
+      100% { transform: translate3d(50%, -20%, 0) rotate(0deg); }
+    }
+
+    /* Games & Life – card grid */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.9rem;
+      margin-top: 0.75rem;
+    }
+
+    .game-card {
+      background: rgba(5,7,18,0.9);
+      border-radius: 0.9rem;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .game-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.12) 0, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .game-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .game-card:hover::after {
+      opacity: 0.4;
+    }
+
+    .game-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      color: var(--accent-gold);
+    }
+
+    .game-sub {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .game-reveal {
+      margin-top: 0.45rem;
+      font-size: 0.85rem;
+      color: var(--safe-green);
+      display: none;
+    }
+
+    .game-card.active .game-reveal {
+      display: block;
+    }
+
+    /* Safety & truth section */
+    .safety-list {
+      margin-top: 0.5rem;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .safety-item {
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.7rem;
+      background: rgba(5,7,18,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .safety-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--danger-soft);
+      margin-bottom: 0.15rem;
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      max-width: 640px;
+      margin-inline: auto;
+      line-height: 1.6;
+    }
+
+    .footer-note strong {
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating SVG layer -->
+  <div class="svg-layer" aria-hidden="true">
+    <!-- Soft orb -->
+    <svg class="float-orb" style="top: 10%; left: -10%;">
+      <defs>
+        <radialGradient id="orbGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ff7bbf" stop-opacity="0.9" />
+          <stop offset="50%" stop-color="#7bd4ff" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#050712" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="60" fill="url(#orbGrad)" />
+    </svg>
+
+    <!-- Star -->
+    <svg class="float-star" style="bottom: -10%; right: -10%;">
+      <polygon
+        points="20,0 25,13 39,15 28,24 31,38 20,31 9,38 12,24 1,15 15,13"
+        fill="#ffd66b"
+        fill-opacity="0.7"
+      />
+    </svg>
+
+    <!-- Ribbon -->
+    <svg class="float-ribbon" style="top: -20%; right: 10%;">
+      <defs>
+        <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff7bbf" stop-opacity="0.9" />
+          <stop offset="50%" stop-color="#7bd4ff" stop-opacity="0.8" />
+          <stop offset="100%" stop-color="#ffd66b" stop-opacity="0.9" />
+        </linearGradient>
+      </defs>
+      <path
+        d="M10,20 C60,-10 120,40 170,10
+           C150,60 120,80 150,140
+           C100,120 60,140 20,170"
+        fill="none"
+        stroke="url(#ribbonGrad)"
+        stroke-width="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-opacity="0.8"
+      />
+    </svg>
+  </div>
+
+  <div class="texture-overlay"></div>
+
+  <main>
+    <header>
+      <h1>Lana & Lex – Constellation of Lessons</h1>
+      <p>
+        A gentle tribute space inspired by Lana and Lex Luthor—where countdowns, songs, floating constellations,
+        and small games become a way to talk about truth, complicated feelings, and choosing safety in real life.
+      </p>
+    </header>
+
+    <section class="grid" aria-label="Tribute and tools">
+      <!-- Left column: countdown + songs + safety -->
+      <article class="panel">
+        <div class="panel-inner">
+          <div class="tag">
+            <span class="tag-dot"></span>
+            <span>Countdown & Soundtrack</span>
+          </div>
+          <h2>Birthdate Countdown & Relationship Playlist</h2>
+          <p>
+            These timers are a soft way to “count toward” something—birthdays, new chapters, or a promise to treat
+            yourself with more kindness than any storyline ever did.
+          </p>
+
+          <!-- Countdown cards -->
+          <div class="countdown-row" id="countdownRow">
+            <div class="countdown-card">
+              <div class="countdown-label">Countdown to</div>
+              <div class="countdown-name">Lana’s Birthday</div>
+              <div class="countdown-time" id="lanaCountdown">-- days</div>
+              <div class="countdown-sub" id="lanaCountdownSub">Setting a wish for gentler seasons.</div>
+            </div>
+
+            <div class="countdown-card">
+              <div class="countdown-label">Countdown to</div>
+              <div class="countdown-name">Lex’s Birthday</div>
+              <div class="countdown-time" id="lexCountdown">-- days</div>
+              <div class="countdown-sub" id="lexCountdownSub">Remembering that power can be redefined.</div>
+            </div>
+          </div>
+
+          <h3>Playlist of Feelings</h3>
+          <p>
+            Each song can stand for a chapter: hope, conflict, apology, boundaries, and finally—choosing your own
+            story. Replace these with your favorite tracks and links.
+          </p>
+
+          <div class="song-list">
+            <div class="song-item">
+              <div class="song-title">“First Spark” – Hopeful Theme</div>
+              <div class="song-tagline">Early seasons energy: curiosity, connection, and the feeling of being seen.</div>
+              <a class="song-link" href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                Open placeholder track
+              </a>
+            </div>
+            <div class="song-item">
+              <div class="song-title">“Storm in the Glass” – Conflict Theme</div>
+              <div class="song-tagline">When secrets, power, and fear start to twist something that once felt safe.</div>
+              <a class="song-link" href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                Open placeholder track
+              </a>
+            </div>
+            <div class="song-item">
+              <div class="song-title">“Exit Door, Open Sky” – Boundaries Theme</div>
+              <div class="song-tagline">The courage to walk away, even when the story is unfinished.</div>
+              <a class="song-link" href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                Open placeholder track
+              </a>
+            </div>
+            <div class="song-item">
+              <div class="song-title">“New Orbit” – Healing Theme</div>
+              <div class="song-tagline">Finding friends, community, and safety that don’t require you to shrink.</div>
+              <a class="song-link" href="https://www.youtube.com/" target="_blank" rel="noreferrer">
+                Open placeholder track
+              </a>
+            </div>
+          </div>
+
+          <h3>Truth & Safety Notes</h3>
+          <p>
+            Stories like Lana and Lex can mirror real life: charm and danger, love and control, apology and repetition.
+            This space is a reminder that your safety matters more than any plot twist.
+          </p>
+
+          <div class="safety-list">
+            <div class="safety-item">
+              <div class="safety-label">Truth</div>
+              Even if someone is brilliant, charming, or powerful, it is not your job to fix them. You are allowed to
+              step away from patterns that keep hurting you.
+            </div>
+            <div class="safety-item">
+              <div class="safety-label">Feelings</div>
+              It is normal to miss the good moments and still know that the overall relationship was not safe. Two
+              truths can exist at once.
+            </div>
+            <div class="safety-item">
+              <div class="safety-label">Safety</div>
+              If a relationship in your life feels controlling, frightening, or exhausting, talking to a trusted person
+              or a professional is a strong, brave move—not a betrayal.
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Right column: games & life learnings -->
+      <article class="panel">
+        <div class="panel-inner">
+          <div class="tag">
+            <span class="tag-dot"></span>
+            <span>Games & Life Lessons</span>
+          </div>
+          <h2>Mini-Games of Reflection</h2>
+          <p>
+            Click a card to reveal a small “level up” message—like a game where the prize is a kinder way of seeing
+            yourself and your choices.
+          </p>
+
+          <div class="game-grid" id="gameGrid">
+            <div class="game-card" data-message="Level up: You are allowed to choose peace over drama, even if it feels less exciting at first.">
+              <div class="game-title">Level 1 – Red Flag Radar</div>
+              <div class="game-sub">Think of one behavior that felt wrong in a story you love. Would you accept it in real life?</div>
+              <div class="game-reveal"></div>
+            </div>
+
+            <div class="game-card" data-message="Level up: Your boundaries are not a punishment; they are a map of where you feel safe.">
+              <div class="game-title">Level 2 – Boundary Builder</div>
+              <div class="game-sub">Imagine Lana writing a list of non‑negotiables. What would be on your list?</div>
+              <div class="game-reveal"></div>
+            </div>
+
+            <div class="game-card" data-message="Level up: You can love a character and still reject their harmful choices.">
+              <div class="game-title">Level 3 – Character vs. Choice</div>
+              <div class="game-sub">Separate who someone is from what they do. Which choices would you rewrite?</div>
+              <div class="game-reveal"></div>
+            </div>
+
+            <div class="game-card" data-message="Level up: Asking for help is a power move, not a weakness.">
+              <div class="game-title">Level 4 – Co‑Op Mode</div>
+              <div class="game-sub">Who could be on your “safety team” in real life—friends, family, mentors, professionals?</div>
+              <div class="game-reveal"></div>
+            </div>
+          </div>
+
+          <h3>Learnings from Life Circumstances</h3>
+          <p>
+            Lana and Lex’s arc can teach us about secrets, power, and the cost of ignoring our instincts. In real life,
+            we get to pause, ask questions, and choose differently.
+          </p>
+          <ul>
+            <li><strong>Instincts matter:</strong> when something feels off, that feeling deserves attention, not shame.</li>
+            <li><strong>Patterns count:</strong> apologies without change are just another line in the script.</li>
+            <li><strong>Support is real:</strong> talking to someone you trust can turn a cliffhanger into a bridge.</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer-note">
+      This page is a creative tribute and a gentle reminder: <strong>fiction can be intense, but your real‑life safety comes first.</strong>
+      If anything in your life feels unsafe or overwhelming, reaching out to a trusted person or a professional support
+      service is an important step. You deserve care, protection, and spaces that feel like home.
+    </p>
+  </main>
+
+  <script>
+    // === COUNTDOWN LOGIC ===
+    // Set Lana and Lex birthdates (month is 0-based: 0 = January, 6 = July, etc.)
+    // Adjust these to the dates you want to honor.
+    const lanaMonth = 6;  // July (example)
+    const lanaDay = 15;   // 15th
+    const lexMonth = 10;  // November (example)
+    const lexDay = 7;     // 7th
+
+    function daysUntilNext(month, day) {
+      const now = new Date();
+      const currentYear = now.getFullYear();
+      let target = new Date(currentYear, month, day);
+
+      if (target < now) {
+        target = new Date(currentYear + 1, month, day);
+      }
+
+      const diffMs = target - now;
+      const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+      return { days: diffDays, year: target.getFullYear() };
+    }
+
+    function updateCountdowns() {
+      const lana = daysUntilNext(lanaMonth, lanaDay);
+      const lex = daysUntilNext(lexMonth, lexDay);
+
+      const lanaEl = document.getElementById("lanaCountdown");
+      const lanaSub = document.getElementById("lanaCountdownSub");
+      const lexEl = document.getElementById("lexCountdown");
+      const lexSub = document.getElementById("lexCountdownSub");
+
+      if (lanaEl && lanaSub) {
+        lanaEl.textContent = lana.days + (lana.days === 1 ? " day" : " days");
+        lanaSub.textContent = `Next chapter: ${lana.year}. You can set a wish or intention for yourself.`;
+      }
+
+      if (lexEl && lexSub) {
+        lexEl.textContent = lex.days + (lex.days === 1 ? " day" : " days");
+        lexSub.textContent = `Next chapter: ${lex.year}. You can redefine what power means to you.`;
+      }
+    }
+
+    updateCountdowns();
+    // Optional: refresh once a day
+    setInterval(updateCountdowns, 1000 * 60 * 60 * 6);
+
+    // === GAME CARDS INTERACTION ===
+    const gameGrid = document.getElementById("gameGrid");
+    if (gameGrid) {
+      gameGrid.addEventListener("click", (event) => {
+        const card = event.target.closest(".game-card");
+        if (!card) return;
+
+        const message = card.getAttribute("data-message") || "";
+        const reveal = card.querySelector(".game-reveal");
+        if (!reveal) return;
+
+        const isActive = card.classList.contains("active");
+        // Close all cards first
+        document.querySelectorAll(".game-card").forEach((c) => c.classList.remove("active"));
+
+        if (!isActive) {
+          card.classList.add("active");
+          reveal.textContent = message;
+        } else {
+          reveal.textContent = "";
+        }
+      });
+    }
+  </script>
+</body>
+</html>
