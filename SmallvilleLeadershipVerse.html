@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Leadership Verse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1022;
+      --accent-red: #e53935;
+      --accent-yellow: #ffeb3b;
+      --accent-blue: #2196f3;
+      --text-main: #f5f7ff;
+      --text-soft: #c5cae9;
+      --card-border: rgba(255, 255, 255, 0.08);
+      --glow-soft: 0 0 24px rgba(33, 150, 243, 0.45);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 220ms ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1a237e 0, #050814 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1120px;
+      margin: auto;
+      background: linear-gradient(145deg, rgba(10, 14, 35, 0.96), rgba(3, 5, 16, 0.98));
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.85),
+        0 0 0 1px rgba(255, 255, 255, 0.02);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    /* Kryptonian halo */
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0, rgba(229, 57, 53, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 0, rgba(33, 150, 243, 0.22), transparent 55%),
+        radial-gradient(circle at 50% 100%, rgba(255, 235, 59, 0.12), transparent 55%);
+      opacity: 0.9;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      padding: 24px 28px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .crest {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 20%, #fff, transparent 55%),
+        conic-gradient(
+          from 210deg,
+          #e53935,
+          #ffeb3b,
+          #2196f3,
+          #e53935
+        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(255, 235, 59, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .crest::after {
+      content: "S";
+      font-weight: 800;
+      font-size: 22px;
+      color: #050814;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .brand-text h1 {
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      max-width: 260px;
+    }
+
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .toggle-pill {
+      width: 64px;
+      height: 28px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .toggle-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #fff, #c5cae9);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+      transform: translateX(0);
+      transition: transform var(--transition-fast);
+    }
+
+    .toggle-pill[data-mode="council"] .toggle-thumb {
+      transform: translateX(34px);
+      background: radial-gradient(circle at 30% 20%, #ffeb3b, #ff9800);
+      box-shadow: 0 0 16px rgba(255, 193, 7, 0.9);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+      gap: 20px;
+      padding: 20px 22px 24px;
+    }
+
+    @media (max-width: 840px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background: radial-gradient(circle at top, rgba(33, 150, 243, 0.12), transparent 55%),
+        linear-gradient(145deg, rgba(10, 14, 35, 0.96), rgba(3, 5, 16, 0.98));
+      border-radius: 22px;
+      border: 1px solid var(--card-border);
+      padding: 18px 18px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.06), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .panel-title h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-main);
+    }
+
+    .panel-title span {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .chip {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(15, 23, 42, 0.8);
+      color: var(--text-soft);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-blue);
+      box-shadow: 0 0 8px rgba(33, 150, 243, 0.9);
+    }
+
+    .panel-body {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .verse {
+      font-size: 0.8rem;
+      line-height: 1.5;
+      color: var(--text-soft);
+    }
+
+    .verse strong {
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    .tagline {
+      font-size: 0.75rem;
+      color: rgba(197, 202, 233, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .role-card {
+      position: relative;
+      padding: 10px 10px 9px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .role-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(33, 150, 243, 0.35), transparent 55%);
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      pointer-events: none;
+    }
+
+    .role-card[data-tier="alpha"] {
+      border-color: rgba(229, 57, 53, 0.7);
+    }
+
+    .role-card[data-tier="alpha"] .role-name {
+      color: #ffeb3b;
+    }
+
+    .role-card[data-tier="support"] {
+      border-color: rgba(33, 150, 243, 0.7);
+    }
+
+    .role-card[data-tier="support"] .role-name {
+      color: #90caf9;
+    }
+
+    .role-card[data-tier="bridge"] {
+      border-color: rgba(156, 204, 101, 0.7);
+    }
+
+    .role-card[data-tier="bridge"] .role-name {
+      color: #c5e1a5;
+    }
+
+    .role-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--glow-soft);
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(21, 31, 57, 0.98));
+    }
+
+    .role-card:hover::before {
+      opacity: 1;
+    }
+
+    .role-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+
+    .role-line {
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .role-pill {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      color: rgba(226, 232, 240, 0.9);
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .role-pill span {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent-red);
+      box-shadow: 0 0 8px rgba(229, 57, 53, 0.9);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+      font-size: 0.7rem;
+      color: var(--text-soft);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+    }
+
+    .legend-dot.alpha {
+      background: var(--accent-red);
+      box-shadow: 0 0 8px rgba(229, 57, 53, 0.9);
+    }
+
+    .legend-dot.support {
+      background: var(--accent-blue);
+      box-shadow: 0 0 8px rgba(33, 150, 243, 0.9);
+    }
+
+    .legend-dot.bridge {
+      background: #9ccc65;
+      box-shadow: 0 0 8px rgba(156, 204, 101, 0.9);
+    }
+
+    .footer {
+      padding: 10px 22px 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .footer span strong {
+      color: var(--accent-yellow);
+      font-weight: 600;
+    }
+
+    .footer-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .badge {
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Active highlight state */
+    .role-card.is-active {
+      box-shadow:
+        0 0 0 1px rgba(255, 235, 59, 0.8),
+        0 0 24px rgba(255, 235, 59, 0.6);
+      transform: translateY(-4px) scale(1.01);
+    }
+
+    .role-card.is-active::before {
+      opacity: 1;
+    }
+
+    .panel[data-mode="principal"] .tagline span,
+    .panel[data-mode="counselor"] .tagline span,
+    .panel[data-mode="council"] .tagline span {
+      color: var(--accent-yellow);
+    }
+
+    .panel[data-mode="council"] {
+      background: radial-gradient(circle at top, rgba(229, 57, 53, 0.18), transparent 55%),
+        linear-gradient(145deg, rgba(10, 14, 35, 0.96), rgba(3, 5, 16, 0.98));
+    }
+  </style>
+</head>
+<body>
+  <div class="page" aria-label="Smallville Leadership Overlay">
+    <header>
+      <div class="brand">
+        <div class="crest" aria-hidden="true"></div>
+        <div class="brand-text">
+          <h1>Smallville Leadership Verse</h1>
+          <p>
+            A symbolic overlay of school leadership roles — principal, counselor, and student council —
+            mapped like a hero team.
+          </p>
+        </div>
+      </div>
+      <div class="mode-toggle" aria-label="Toggle focus between counselor and student council">
+        <span>Focus:</span>
+        <button class="toggle-pill" type="button" data-mode="counselor" aria-pressed="false">
+          <div class="toggle-thumb"></div>
+        </button>
+        <span id="mode-label">Counselor ↔ Council</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Principal / System Guardian -->
+      <section class="panel" data-mode="principal" aria-label="Principal leadership constellation">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>Principal</h2>
+            <span>System Guardian • Vision Anchor • Culture Architect</span>
+          </div>
+          <div class="chip">
+            <span class="chip-dot"></span>
+            Earth‑side Command
+          </div>
+        </div>
+        <div class="panel-body">
+          <p class="verse">
+            In this Smallville‑style verse, the <strong>Principal</strong> is the
+            <strong>system guardian</strong> — the one who holds the whole town’s school in orbit.
+            They balance <strong>instruction</strong>, <strong>culture</strong>, and
+            <strong>operations</strong> so that every classroom has a clear sky to grow in.
+          </p>
+          <p class="tagline">
+            <span>Constellation: System‑Level Leadership</span>
+          </p>
+          <div class="role-grid">
+            <article class="role-card" data-tier="alpha" data-role="principal-instructional">
+              <h3 class="role-name">Instructional Leader</h3>
+              <p class="role-line">
+                Guards the learning core: curriculum, teaching quality, and academic expectations for the whole school.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Whole‑school learning field
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="principal-culture">
+              <h3 class="role-name">Culture & Climate Leader</h3>
+              <p class="role-line">
+                Sets the emotional weather: safety, belonging, and the tone of how people treat each other.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Atmosphere of the building
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="principal-operations">
+              <h3 class="role-name">Operational Leader</h3>
+              <p class="role-line">
+                Keeps the town clock running: schedules, budgets, safety plans, and daily logistics.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Invisible gears of the day
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="bridge" data-role="principal-community">
+              <h3 class="role-name">Community Bridge</h3>
+              <p class="role-line">
+                Speaks with families, district, and town — translating school needs into shared action.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Bridge between school & town
+              </div>
+            </article>
+          </div>
+
+          <div class="legend" aria-label="Legend for principal tiers">
+            <div class="legend-item">
+              <span class="legend-dot alpha"></span> Alpha: Core command roles
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot support"></span> Support: Daily stabilizers
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot bridge"></span> Bridge: Inside ↔ Outside links
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Counselor / Heart of the System -->
+      <section class="panel" data-mode="counselor" aria-label="Counselor and Student Council constellation">
+        <div class="panel-header">
+          <div class="panel-title">
+            <h2>Counselor & Student Council</h2>
+            <span>Heart of the System • Student Voice • Hero Team</span>
+          </div>
+          <div class="chip">
+            <span class="chip-dot"></span>
+            Student‑Side Command
+          </div>
+        </div>
+        <div class="panel-body">
+          <p class="verse" id="verse-text">
+            The <strong>School Counselor</strong> is the heart of the system — the quiet hero who
+            walks the halls with a lantern, seeing both the individual story and the whole map.
+            The <strong>Student Council</strong> is the hero team: presidents, reps, and organizers
+            who carry student voice into the center of the town’s decisions.
+          </p>
+          <p class="tagline">
+            <span id="tagline-text">Constellation: Advocacy • Belonging • Student Voice</span>
+          </p>
+
+          <!-- Counselor roles -->
+          <div class="role-grid" id="counselor-grid">
+            <article class="role-card" data-tier="alpha" data-role="counselor-advocacy">
+              <h3 class="role-name">Advocacy Leader</h3>
+              <p class="role-line">
+                Stands in the gap for students who feel unseen, challenging barriers and unfair patterns.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Equity & access shield
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="counselor-mental-health">
+              <h3 class="role-name">Mental Health Guide</h3>
+              <p class="role-line">
+                Holds space for big feelings, crisis moments, and the slow work of healing and coping.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Emotional first‑response
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="counselor-program">
+              <h3 class="role-name">Program Designer</h3>
+              <p class="role-line">
+                Builds counseling programs with data and care — lessons, groups, and supports that reach many.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Systemic interventions
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="bridge" data-role="counselor-bridge">
+              <h3 class="role-name">Bridge Builder</h3>
+              <p class="role-line">
+                Connects students, families, teachers, and community partners into one circle of support.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Web of relationships
+              </div>
+            </article>
+          </div>
+
+          <!-- Student Council roles -->
+          <div class="role-grid" id="council-grid" hidden>
+            <article class="role-card" data-tier="alpha" data-role="council-president">
+              <h3 class="role-name">President</h3>
+              <p class="role-line">
+                Leads the hero team, runs meetings, and carries the student body’s voice into the room of decisions.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Vision & responsibility
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="council-vice">
+              <h3 class="role-name">Vice President</h3>
+              <p class="role-line">
+                Second‑in‑command, organizing committees and stepping in when the president cannot.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Backup command
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="council-secretary">
+              <h3 class="role-name">Secretary</h3>
+              <p class="role-line">
+                Keeps the record of the story: minutes, attendance, announcements, and clear communication.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Memory & clarity
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="support" data-role="council-treasurer">
+              <h3 class="role-name">Treasurer</h3>
+              <p class="role-line">
+                Guards the resources: budgets, fundraising, and responsible use of student council funds.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Steward of resources
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="bridge" data-role="council-reps">
+              <h3 class="role-name">Class Representatives</h3>
+              <p class="role-line">
+                Carry grade‑level concerns and ideas from hallways and lunch tables into council meetings.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Bridge: students ↔ council
+              </div>
+            </article>
+
+            <article class="role-card" data-tier="bridge" data-role="council-pr">
+              <h3 class="role-name">Public Relations</h3>
+              <p class="role-line">
+                Designs posters, announcements, and spirit campaigns that light up the school like a signal in the sky.
+              </p>
+              <div class="role-pill">
+                <span></span>
+                Voice & visibility
+              </div>
+            </article>
+          </div>
+
+          <div class="legend" aria-label="Legend for counselor and council tiers">
+            <div class="legend-item">
+              <span class="legend-dot alpha"></span> Alpha: Core student‑side command
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot support"></span> Support: Daily function roles
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot bridge"></span> Bridge: Student voice carriers
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>
+        Smallville‑style overlay: <strong>Principal</strong> as system guardian,
+        <strong>Counselor</strong> as heart, <strong>Student Council</strong> as hero team.
+      </span>
+      <div class="footer-badges">
+        <span class="badge">Student Voice</span>
+        <span class="badge">Equity & Belonging</span>
+        <span class="badge">Leadership Map</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const toggle = document.querySelector(".toggle-pill");
+      const modeLabel = document.getElementById("mode-label");
+      const verseText = document.getElementById("verse-text");
+      const taglineText = document.getElementById("tagline-text");
+      const counselorGrid = document.getElementById("counselor-grid");
+      const councilGrid = document.getElementById("council-grid");
+      const panelCounselor = document.querySelector('.panel[data-mode="counselor"]');
+
+      const counselorVerse =
+        "The School Counselor is the heart of the system — the quiet hero who walks the halls with a lantern, " +
+        "seeing both the individual story and the whole map. They advocate, listen, and design supports so no student " +
+        "has to carry their story alone.";
+      const councilVerse =
+        "The Student Council is the hero team of the school — presidents, reps, and organizers who turn student voice " +
+        "into real projects, events, and changes. They learn to lead, to listen, and to build a school they are proud of.";
+
+      const counselorTagline = "Constellation: Advocacy • Belonging • Student Support";
+      const councilTagline = "Constellation: Representation • Spirit • Student Government";
+
+      toggle.addEventListener("click", () => {
+        const currentMode = toggle.getAttribute("data-mode");
+        const nextMode = currentMode === "counselor" ? "council" : "counselor";
+        toggle.setAttribute("data-mode", nextMode);
+        toggle.setAttribute("aria-pressed", nextMode === "council");
+        panelCounselor.setAttribute("data-mode", nextMode);
+
+        const isCouncil = nextMode === "council";
+        counselorGrid.hidden = isCouncil;
+        councilGrid.hidden = !isCouncil;
+
+        verseText.textContent = isCouncil ? councilVerse : counselorVerse;
+        taglineText.textContent = isCouncil ? councilTagline : counselorTagline;
+        modeLabel.textContent = isCouncil ? "Student Council Focus" : "Counselor Focus";
+
+        // Soft highlight animation: briefly mark alpha roles
+        const alphaSelector = isCouncil
+          ? '[data-role^="council-"][data-tier="alpha"]'
+          : '[data-role^="counselor-"][data-tier="alpha"]';
+        document
+          .querySelectorAll(".role-card.is-active")
+          .forEach((card) => card.classList.remove("is-active"));
+        document.querySelectorAll(alphaSelector).forEach((card) => {
+          card.classList.add("is-active");
+          setTimeout(() => card.classList.remove("is-active"), 900);
+        });
+      });
+
+      // Keyboard focus highlight for accessibility
+      document.querySelectorAll(".role-card").forEach((card) => {
+        card.setAttribute("tabindex", "0");
+        card.addEventListener("focus", () => card.classList.add("is-active"));
+        card.addEventListener("blur", () => card.classList.remove("is-active"));
+      });
+    })();
+  </script>
+</body>
+</html>
