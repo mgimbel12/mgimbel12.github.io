@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to Smallville</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", system-ui, sans-serif;
+      background: linear-gradient(#87cefa, #ffffff);
+      color: #222;
+    }
+
+    header {
+      background: #ff4136;
+      color: #fff;
+      text-align: center;
+      padding: 20px 10px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 1rem;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px 40px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #ff4136;
+      font-size: 1.5rem;
+    }
+
+    .fun-fact {
+      background: #fffbe6;
+      border-left: 5px solid #ffdc00;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: none;
+      background: #0074d9;
+      color: #fff;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: none;
+    }
+
+    .scene {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .scene-item {
+      flex: 1 1 150px;
+      min-width: 150px;
+      background: #f0f8ff;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .scene-item span {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #555;
+      padding: 10px 0 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to Smallville</h1>
+    <p>A cozy little town where big heroes grow up.</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Meet Young Clark</h2>
+      <p>
+        Clark is a kind kid who loves helping people, doing his homework,
+        and playing on the farm. He has some very special gifts, but his
+        biggest power is his heart.
+      </p>
+      <div class="fun-fact" id="funFactBox">
+        Click the button to see a fun fact about Clark!
+      </div>
+      <button class="btn" id="factButton">Show Fun Fact</button>
+    </section>
+
+    <section class="card">
+      <h2>Places in Smallville</h2>
+      <p>Here are some friendly spots around town:</p>
+      <div class="scene">
+        <div class="scene-item">
+          <span>🏡</span>
+          Kent Farm – where Clark helps with chores and learns responsibility.
+        </div>
+        <div class="scene-item">
+          <span>🏫</span>
+          Smallville High – where he studies, plays sports, and makes friends.
+        </div>
+        <div class="scene-item">
+          <span>☕</span>
+          The Talon – a cozy café where everyone hangs out after school.
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Hero Rule of the Day</h2>
+      <p id="heroRule">
+        Click the button to get today’s hero rule!
+      </p>
+      <button class="btn" id="ruleButton">New Hero Rule</button>
+    </section>
+  </main>
+
+  <footer>
+    Made for kids who dream big, just like Clark.
+  </footer>
+
+  <script>
+    const funFacts = [
+      "Clark always helps his friends, even with small things.",
+      "He uses his strength to protect, never to bully.",
+      "Clark listens carefully before he acts—that’s a real super skill.",
+      "He believes everyone can be a hero in their own way.",
+      "Clark’s favorite power is kindness."
+    ];
+
+    const heroRules = [
+      "Be kind, even when no one is watching.",
+      "Tell the truth, even when it’s hard.",
+      "Stand up for someone who feels alone.",
+      "Use your strengths to help, not to hurt.",
+      "Say sorry when you make a mistake—and try to fix it."
+    ];
+
+    const factBox = document.getElementById("funFactBox");
+    const factButton = document.getElementById("factButton");
+    const heroRule = document.getElementById("heroRule");
+    const ruleButton = document.getElementById("ruleButton");
+
+    function getRandomItem(list) {
+      const index = Math.floor(Math.random() * list.length);
+      return list[index];
+    }
+
+    factButton.addEventListener("click", () => {
+      factBox.textContent = getRandomItem(funFacts);
+    });
+
+    ruleButton.addEventListener("click", () => {
+      heroRule.textContent = getRandomItem(heroRules);
+    });
+  </script>
+</body>
+</html>
