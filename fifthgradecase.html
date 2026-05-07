@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>5th Grade Course of Study – Full Length Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2937;
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+      --transition-fast: 0.18s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-header {
+      padding: 1.75rem 1.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-header h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 2.4vw, 2.4rem);
+      letter-spacing: 0.04em;
+    }
+
+    .tagline {
+      margin-top: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+      gap: 1.25rem;
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    .sidebar {
+      background: linear-gradient(145deg, #020617, #020617 40%, #0b1120);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .tab-button {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform 0.08s ease-out;
+    }
+
+    .tab-button::after {
+      content: "›";
+      font-size: 0.9rem;
+      opacity: 0.4;
+    }
+
+    .tab-button:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border-color: #1f2937;
+      transform: translateX(1px);
+    }
+
+    .tab-button.active {
+      background: var(--accent-soft);
+      color: #e0f2fe;
+      border-color: var(--accent);
+    }
+
+    .content {
+      background: linear-gradient(145deg, #020617, #020617 40%, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.25rem 1.4rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .panel {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.4rem;
+    }
+
+    .focus {
+      margin: 0 0 0.9rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .subsection {
+      margin-top: 0.75rem;
+      padding: 0.7rem 0.8rem;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%);
+      border: 1px solid #111827;
+    }
+
+    .subsection h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    .subsection p {
+      margin: 0 0 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .subsection ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .subsection li + li {
+      margin-top: 0.15rem;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 0.75rem 1rem 1.1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 800px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0.5rem;
+      }
+
+      .tab-button {
+        white-space: nowrap;
+        font-size: 0.85rem;
+        padding: 0.45rem 0.7rem;
+      }
+
+      .content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1>5th Grade Course of Study</h1>
+    <p class="tagline">Full-year, full-length overview across all core subjects</p>
+  </header>
+
+  <main class="layout">
+    <nav class="sidebar" aria-label="Subjects">
+      <button class="tab-button active" data-target="ela">English Language Arts</button>
+      <button class="tab-button" data-target="math">Mathematics</button>
+      <button class="tab-button" data-target="science">Science</button>
+      <button class="tab-button" data-target="social">Social Studies</button>
+      <button class="tab-button" data-target="arts">Fine Arts</button>
+      <button class="tab-button" data-target="pe">Physical Education</button>
+      <button class="tab-button" data-target="sel">Social-Emotional Learning</button>
+      <button class="tab-button" data-target="tech">Technology & Digital Literacy</button>
+    </nav>
+
+    <section class="content">
+      <!-- ELA -->
+      <article id="ela" class="panel active" aria-label="English Language Arts">
+        <h2>English Language Arts (ELA)</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Advanced reading comprehension, multi-paragraph writing, research skills, grammar mastery, and confident speaking and listening.
+        </p>
+
+        <div class="subsection">
+          <h3>Reading Literature & Informational Text</h3>
+          <p>
+            Students read a wide range of stories, novels, articles, and informational texts. They learn to identify themes,
+            analyze characters’ motivations, and track how plots develop and resolve. They compare and contrast characters,
+            settings, and events using specific evidence from the text. Students determine the meaning of figurative language
+            and academic vocabulary in context, and they practice summarizing texts in their own words without adding personal
+            opinion. They also integrate information from multiple sources—such as articles, charts, and stories—to build a
+            deeper understanding of a topic.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Writing</h3>
+          <p>
+            Students write multi-paragraph compositions with clear introductions, organized body paragraphs, and thoughtful
+            conclusions. In opinion writing, they state a clear claim and support it with facts, details, and logical reasoning.
+            In informative and explanatory pieces, they research topics, organize information, and use text evidence to explain
+            ideas clearly. Narrative writing includes well-developed characters, dialogue, pacing, and descriptive details that
+            bring events to life. Throughout the year, students conduct short research projects using credible sources and
+            practice revising and editing their work for clarity, organization, grammar, and style.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Language (Grammar & Conventions)</h3>
+          <p>
+            Students refine their understanding of grammar and usage. They correctly use perfect verb tenses (past, present,
+            and future) and build more complex sentences using conjunctions, prepositions, and interjections. They apply rules
+            for capitalization, punctuation, and spelling in all writing tasks. Students also expand their vocabulary, using
+            precise and domain-specific words to communicate ideas more effectively in both speaking and writing.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Speaking & Listening</h3>
+          <p>
+            Students participate in structured discussions, coming prepared with notes and questions. They learn to listen
+            actively, summarize a speaker’s key points, and respond respectfully. Students plan and deliver short presentations
+            and reports, often using multimedia elements such as slides or visuals to support their ideas and engage their
+            audience.
+          </p>
+        </div>
+      </article>
+
+      <!-- Math -->
+      <article id="math" class="panel" aria-label="Mathematics">
+        <h2>Mathematics</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Fractions, decimals, volume, multi-digit operations, and foundational algebraic thinking.
+        </p>
+
+        <div class="subsection">
+          <h3>Number & Operations</h3>
+          <p>
+            Students fluently add, subtract, multiply, and divide multi-digit whole numbers using standard algorithms and
+            strategies. They extend their understanding of fractions by adding, subtracting, multiplying, and dividing them,
+            including fractions with unlike denominators. Students convert fractions to decimals and compare decimal values to
+            thousandths, using place value understanding and number lines to reason about size and order.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Algebraic Thinking</h3>
+          <p>
+            Students write and interpret numerical expressions that include parentheses, brackets, and braces. They explore
+            patterns and relationships in tables and rules, beginning to see how variables can represent unknown quantities.
+            This early algebraic thinking prepares them for more formal algebra in later grades.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Measurement & Data</h3>
+          <p>
+            Students convert among different-sized measurement units within the same system (customary and metric) and solve
+            real-world problems involving these conversions. They represent and interpret data using line plots and other
+            visual displays. Students also develop a strong understanding of volume as a measurable attribute of solid figures
+            and learn to calculate the volume of right rectangular prisms using formulas.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Geometry</h3>
+          <p>
+            Students graph points in the first quadrant of the coordinate plane to solve problems and represent relationships.
+            They classify two-dimensional figures based on properties such as parallel and perpendicular lines, types of
+            angles, and symmetry. This classification work deepens their understanding of geometric structure and vocabulary.
+          </p>
+        </div>
+      </article>
+
+      <!-- Science -->
+      <article id="science" class="panel" aria-label="Science">
+        <h2>Science</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Earth systems, matter and its interactions, ecosystems, and engineering design practices.
+        </p>
+
+        <div class="subsection">
+          <h3>Earth & Space Science</h3>
+          <p>
+            Students explore Earth’s major systems: the geosphere (land), hydrosphere (water), atmosphere (air), and biosphere
+            (living things). They study weather patterns, climate zones, and how these systems interact. Students examine
+            Earth’s natural resources and discuss how human activities can both help and harm the environment, connecting
+            science learning to real-world stewardship.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Physical Science</h3>
+          <p>
+            Students investigate the structure and properties of matter, learning about solids, liquids, and gases, as well as
+            observable properties like mass, volume, and density. They explore mixtures and solutions and learn to distinguish
+            between physical changes (such as melting or dissolving) and chemical changes (such as burning or rusting). The
+            idea that matter is conserved, even when it changes form, is emphasized through hands-on activities.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Life Science</h3>
+          <p>
+            Students study ecosystems and the flow of energy through food chains and food webs. They examine how plants and
+            animals are adapted to their environments and how changes—such as natural disasters or human actions—can affect
+            populations and habitats. Students consider how organisms survive, grow, and reproduce within their ecosystems.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Engineering & Design</h3>
+          <p>
+            Using a simple engineering design process, students define problems, brainstorm possible solutions, and build
+            prototypes. They test their designs, collect data, and use what they learn to improve their solutions. This
+            process encourages creativity, persistence, and collaboration while connecting science concepts to practical
+            problem-solving.
+          </p>
+        </div>
+      </article>
+
+      <!-- Social Studies -->
+      <article id="social" class="panel" aria-label="Social Studies">
+        <h2>Social Studies</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Foundations of U.S. history, geography skills, government structures, and basic economics.
+        </p>
+
+        <div class="subsection">
+          <h3>History</h3>
+          <p>
+            Students begin with early Native American cultures, learning about their diverse ways of life and relationships
+            with the land. They study European exploration and colonization, examining motives, routes, and impacts on
+            Indigenous peoples. The development of the 13 Colonies and regional differences in economy and culture are
+            explored. Students then learn about the causes, key figures, and major events of the American Revolution and
+            examine how the new United States government was formed.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Geography</h3>
+          <p>
+            Students use maps, globes, and coordinates to locate places and understand spatial relationships. They identify
+            major U.S. landforms, rivers, and regions and explore how geography influences settlement, culture, and economic
+            activity. Human-environment interaction—how people adapt to, depend on, and change their surroundings—is a key
+            theme throughout the year.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Civics & Government</h3>
+          <p>
+            Students learn why societies create governments and what basic rights and responsibilities citizens have. They
+            study the structure of the U.S. government, including the Legislative, Executive, and Judicial branches, and how
+            they share and balance power. Students explore how laws are made and discuss ways individuals can participate in
+            their communities, such as voting when they are older, volunteering, and staying informed.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Economics</h3>
+          <p>
+            Students are introduced to fundamental economic ideas such as supply and demand, scarcity, and opportunity cost.
+            They distinguish between goods and services and learn about natural, human, and capital resources. Simple personal
+            finance concepts—saving, spending, and budgeting—are discussed to help students begin thinking about responsible
+            money choices.
+          </p>
+        </div>
+      </article>
+
+      <!-- Fine Arts -->
+      <article id="arts" class="panel" aria-label="Fine Arts">
+        <h2>Fine Arts</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Creative expression through visual art and music, with reflection and appreciation.
+        </p>
+
+        <div class="subsection">
+          <h3>Art</h3>
+          <p>
+            Students explore the elements of art—line, shape, color, texture, value, and form—and the principles of design,
+            such as balance, contrast, emphasis, and rhythm. They create artworks using drawing, painting, collage, and simple
+            sculpture techniques. Students also practice talking about art, reflecting on their own work and the work of
+            others using respectful, descriptive language.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Music</h3>
+          <p>
+            Students develop musical skills by learning about rhythm, melody, harmony, and musical form. They read simple
+            musical notation and may perform on classroom instruments or in vocal ensembles. Listening activities introduce
+            music from different cultures, time periods, and styles, helping students build appreciation for a wide range of
+            musical traditions.
+          </p>
+        </div>
+      </article>
+
+      <!-- PE -->
+      <article id="pe" class="panel" aria-label="Physical Education">
+        <h2>Physical Education (P.E.)</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Lifelong fitness, teamwork, and healthy habits.
+        </p>
+
+        <div class="subsection">
+          <h3>Fitness & Movement</h3>
+          <p>
+            Students participate in activities that build cardiovascular endurance, muscular strength, and flexibility. They
+            learn how regular physical activity supports overall health and well-being and begin to set simple personal
+            fitness goals.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Team Sports & Cooperation</h3>
+          <p>
+            Through team games and sports, students learn rules, basic strategies, and the importance of cooperation. They
+            practice communication, fair play, and good sportsmanship, focusing on effort and improvement rather than only
+            winning.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Safety & Healthy Choices</h3>
+          <p>
+            Students discuss safety rules for physical activities, including warm-ups, cool-downs, and proper use of
+            equipment. They also learn about healthy habits such as hydration, sleep, and balanced nutrition at an age-appropriate level.
+          </p>
+        </div>
+      </article>
+
+      <!-- SEL -->
+      <article id="sel" class="panel" aria-label="Social-Emotional Learning">
+        <h2>Social-Emotional Learning (SEL)</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Self-awareness, self-management, relationships, and responsible decision-making.
+        </p>
+
+        <div class="subsection">
+          <h3>Self-Management & Emotional Regulation</h3>
+          <p>
+            Students learn to recognize their emotions and use strategies—such as deep breathing, positive self-talk, and
+            taking breaks—to manage strong feelings. They practice setting personal goals and monitoring their progress.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Relationships & Communication</h3>
+          <p>
+            Students practice active listening, respectful communication, and conflict resolution skills. Role-plays and
+            classroom discussions help them learn how to handle disagreements, apologize, and repair relationships.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Empathy, Kindness & Community</h3>
+          <p>
+            Students explore what it means to show empathy and kindness in everyday situations. They participate in classroom
+            or school-wide activities that build a sense of community and responsibility toward others.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Digital Citizenship</h3>
+          <p>
+            Students learn about safe and respectful behavior online, including protecting personal information, recognizing
+            trustworthy sources, and treating others kindly in digital spaces.
+          </p>
+        </div>
+      </article>
+
+      <!-- Technology -->
+      <article id="tech" class="panel" aria-label="Technology and Digital Literacy">
+        <h2>Technology & Digital Literacy</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Practical technology skills, research, and introductory coding concepts.
+        </p>
+
+        <div class="subsection">
+          <h3>Keyboarding & Productivity Tools</h3>
+          <p>
+            Students improve keyboarding accuracy and speed while using word processing tools to draft and revise writing.
+            They learn basic formatting skills such as headings, lists, and inserting images.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Research & Information Skills</h3>
+          <p>
+            Students practice searching for information online, evaluating sources for reliability, and recording information
+            in their own words. They learn to give simple credit to sources when using facts or images.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Introductory Coding</h3>
+          <p>
+            Through age-appropriate coding activities, students explore basic concepts such as sequences, loops, and
+            conditionals. They may use block-based programming tools to create simple animations, stories, or games.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Multimedia & Presentations</h3>
+          <p>
+            Students create simple digital presentations that combine text, images, and sometimes audio or video. They learn
+            to design slides that are clear, readable, and supportive of their spoken presentations.
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h3>Internet Safety & Responsible Use</h3>
+          <p>
+            Students review rules for staying safe online, including not sharing personal information and telling a trusted
+            adult if something online makes them uncomfortable. They discuss how to balance screen time with other activities
+            and how to use technology in positive, productive ways.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>5th Grade Course of Study • Full-Length Portfolio Panel</p>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".tab-button");
+    const panels = document.querySelectorAll(".panel");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.dataset.target;
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
