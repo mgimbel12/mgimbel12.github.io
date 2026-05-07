@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Course of Study: Swimming</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #031926;
+      --bg-alt: #06293d;
+      --card: #0b3a52;
+      --accent: #2ec4ff;
+      --accent-soft: rgba(46, 196, 255, 0.15);
+      --accent-strong: #00b4d8;
+      --text-main: #f5fbff;
+      --text-muted: #c7d7e5;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.25s ease;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      --font-display: "Segoe UI Semibold", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at top, #06324a 0, #020b13 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 32px 16px 48px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(145deg, rgba(3, 25, 38, 0.98), rgba(1, 10, 18, 0.98));
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(46, 196, 255, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(0, 212, 255, 0.16) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page-inner {
+      padding: 28px 24px 28px;
+    }
+
+    @media (min-width: 900px) {
+      .page-inner {
+        padding: 32px 40px 36px;
+      }
+    }
+
+    /* Header */
+    .header {
+      display: grid;
+      grid-template-columns: minmax(0, 2.4fr) minmax(0, 1.6fr);
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .header {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(3, 25, 38, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      width: fit-content;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .eyebrow-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 30% 0, #ffffff, #2ec4ff);
+      color: #031926;
+      font-size: 12px;
+    }
+
+    .title-main {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 32px);
+      letter-spacing: 0.02em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .title-main span.label {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .title-main span.text {
+      font-size: 1.05em;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(3, 25, 38, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .meta-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(46, 196, 255, 0.25);
+    }
+
+    /* Hero card */
+    .hero-card {
+      position: relative;
+      border-radius: 22px;
+      background: radial-gradient(circle at 0 0, rgba(46, 196, 255, 0.25), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(0, 212, 255, 0.2), transparent 55%),
+        linear-gradient(145deg, #031926, #041f30);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 16px 14px;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 0 100%, rgba(0, 212, 255, 0.18) 0, transparent 55%);
+      opacity: 0.7;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 14px;
+      align-items: center;
+      z-index: 1;
+    }
+
+    @media (max-width: 720px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .hero-copy strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .hero-badge {
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(3, 25, 38, 0.7);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hero-badge span.icon {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(46, 196, 255, 0.18);
+      color: var(--accent);
+      font-size: 11px;
+    }
+
+    .hero-visual {
+      position: relative;
+      height: 150px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 0, #2ec4ff 0, #031926 55%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wave {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 90% 20%, rgba(0, 212, 255, 0.3) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.7;
+    }
+
+    .lane-lines {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      opacity: 0.7;
+    }
+
+    .lane {
+      border-left: 1px dashed rgba(255, 255, 255, 0.35);
+      border-right: 1px dashed rgba(255, 255, 255, 0.35);
+    }
+
+    .swimmer-chip {
+      position: relative;
+      z-index: 2;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(3, 25, 38, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      backdrop-filter: blur(10px);
+    }
+
+    .swimmer-avatar {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #ffffff, #2ec4ff);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #031926;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .swimmer-chip span.label {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    /* Layout: sidebar + content */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 2.2fr);
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      background: radial-gradient(circle at 0 0, rgba(46, 196, 255, 0.12), transparent 55%),
+        linear-gradient(145deg, #031926, #041f30);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 12px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+    }
+
+    .panel-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--accent);
+      background: rgba(3, 25, 38, 0.7);
+    }
+
+    .panel-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .panel-body strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+      background: rgba(3, 25, 38, 0.7);
+    }
+
+    .pill span.dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-right: 6px;
+    }
+
+    .legend-list {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .legend-chip {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--accent);
+      background: rgba(3, 25, 38, 0.8);
+    }
+
+    /* Unit navigation */
+    .unit-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .unit-button {
+      width: 100%;
+      text-align: left;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(3, 25, 38, 0.7);
+      color: var(--text-muted);
+      padding: 7px 10px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast),
+        transform var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+    }
+
+    .unit-button-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .unit-index {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(3, 25, 38, 0.9);
+      color: var(--accent);
+    }
+
+    .unit-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .unit-name {
+      font-size: 12px;
+      color: #ffffff;
+    }
+
+    .unit-tagline {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .unit-pill {
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(3, 25, 38, 0.9);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .unit-button:hover {
+      background: rgba(4, 31, 48, 0.95);
+      border-color: rgba(46, 196, 255, 0.6);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+      color: #ffffff;
+    }
+
+    .unit-button.active {
+      background: linear-gradient(135deg, rgba(46, 196, 255, 0.16), rgba(0, 212, 255, 0.08));
+      border-color: var(--accent-strong);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      color: #ffffff;
+    }
+
+    .unit-button.active .unit-index {
+      background: radial-gradient(circle at 30% 0, #ffffff, #2ec4ff);
+      color: #031926;
+      border-color: transparent;
+    }
+
+    .unit-button.active .unit-pill {
+      background: rgba(3, 25, 38, 0.95);
+      border-color: rgba(46, 196, 255, 0.7);
+      color: var(--accent);
+    }
+
+    /* Content area */
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .content-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .content-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .content-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .content-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .content-title span.icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(46, 196, 255, 0.18);
+      color: var(--accent);
+      font-size: 13px;
+    }
+
+    .content-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 11px;
+    }
+
+    .content-meta-pill {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(3, 25, 38, 0.7);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .content-meta-pill span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+    }
+
+    .unit-card {
+      background: radial-gradient(circle at 0 0, rgba(46, 196, 255, 0.12), transparent 55%),
+        linear-gradient(145deg, #031926, #041f30);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 14px 14px 12px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 720px) {
+      .unit-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .unit-column-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .unit-list {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .unit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .unit-bullet {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--accent);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .unit-list span.label {
+      color: #ffffff;
+      font-weight: 500;
+    }
+
+    .unit-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      opacity: 0.9;
+    }
+
+    .unit-note strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Summary footer */
+    .summary {
+      margin-top: 6px;
+      padding: 12px 14px 10px;
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(255, 255, 255, 0.18);
+      background: rgba(3, 25, 38, 0.7);
+      font-size: 12px;
+      color: var(--text-muted);
+      display: grid;
+      gap: 6px;
+    }
+
+    .summary-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .summary-list {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+    }
+
+    .summary-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .summary-list span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--accent);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .summary-list span.text {
+      flex: 1;
+    }
+
+    /* Language toggle (placeholder) */
+    .lang-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(3, 25, 38, 0.7);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .lang-toggle button {
+      border: none;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      padding: 3px 8px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .lang-toggle button.active {
+      background: rgba(46, 196, 255, 0.16);
+      color: #ffffff;
+    }
+
+    /* Small helper */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-labelledby="page-title">
+    <div class="page-inner">
+      <!-- Header -->
+      <header class="header">
+        <div class="title-block">
+          <div class="eyebrow">
+            <span class="eyebrow-icon">🏊‍♀️</span>
+            <span>Physical Education · Aquatic Pathway</span>
+          </div>
+
+          <h1 id="page-title" class="title-main">
+            <span class="label">Course of Study</span>
+            <span class="text">Swimming</span>
+          </h1>
+
+          <p class="subtitle">
+            A full‑year or semester‑length pathway in aquatic skills, safety, fitness, and lifelong wellness—designed
+            for school programs, community centers, and youth leadership overlays.
+          </p>
+
+          <div class="meta-row">
+            <div class="meta-pill">
+              <span class="meta-dot"></span>
+              Grades 4–12 adaptable
+            </div>
+            <div class="meta-pill">
+              <span class="meta-dot"></span>
+              Life‑saving & lifetime fitness
+            </div>
+            <div class="meta-pill">
+              <span class="meta-dot"></span>
+              Aligns with PE & health standards
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero card -->
+        <section class="hero-card" aria-label="Swimming overview">
+          <div class="hero-inner">
+            <div class="hero-copy">
+              Swimming is both a <strong>life‑saving skill</strong> and a
+              <strong>lifetime fitness practice</strong>. This course blends water safety, stroke development, endurance,
+              and personal goal‑setting so students can move from “I’m nervous in the water” to “I can swim with
+              confidence and care for others.”
+              <div class="hero-badges">
+                <div class="hero-badge">
+                  <span class="icon">🛟</span>
+                  Water safety & rescue
+                </div>
+                <div class="hero-badge">
+                  <span class="icon">💨</span>
+                  Endurance & conditioning
+                </div>
+                <div class="hero-badge">
+                  <span class="icon">🌟</span>
+                  Lifelong wellness
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+              <div class="wave"></div>
+              <div class="lane-lines">
+                <div class="lane"></div>
+                <div class="lane"></div>
+                <div class="lane"></div>
+                <div class="lane"></div>
+                <div class="lane"></div>
+              </div>
+              <div class="swimmer-chip">
+                <div class="swimmer-avatar">S</div>
+                <div>
+                  <span class="label">Swim Pathway</span><br />
+                  <span>Safety · Strokes · Strength</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </header>
+
+      <!-- Layout -->
+      <section class="layout" aria-label="Swimming course layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <!-- Course overview -->
+          <section class="panel" aria-label="Course overview">
+            <div class="panel-header">
+              <h2 class="panel-title">Course overview</h2>
+              <span class="panel-tag">Full‑year or semester</span>
+            </div>
+            <div class="panel-body">
+              Students learn to:
+              <strong>stay safe in and around water</strong>, swim all major strokes with
+              <strong>efficient technique</strong>, build <strong>endurance and strength</strong>, and respond calmly to
+              aquatic emergencies.
+              <div class="pill-row">
+                <span class="pill"><span class="dot"></span> Safety</span>
+                <span class="pill"><span class="dot"></span> Technique</span>
+                <span class="pill"><span class="dot"></span> Fitness</span>
+                <span class="pill"><span class="dot"></span> Lifelong wellness</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Legend -->
+          <section class="panel" aria-label="Legend and structure">
+            <div class="panel-header">
+              <h2 class="panel-title">Structure & legend</h2>
+              <span class="panel-tag">8 units</span>
+            </div>
+            <div class="panel-body">
+              Each unit includes <strong>Topics</strong> (what we explore) and <strong>Skills</strong> (what students
+              can do).
+              <ul class="legend-list">
+                <li class="legend-item">
+                  <span class="legend-chip">T</span>
+                  <span>Topics: concepts, vocabulary, and experiences.</span>
+                </li>
+                <li class="legend-item">
+                  <span class="legend-chip">S</span>
+                  <span>Skills: observable actions and performance.</span>
+                </li>
+                <li class="legend-item">
+                  <span class="legend-chip">★</span>
+                  <span>Optional: advanced or enrichment pathways.</span>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Unit navigation -->
+          <section class="panel" aria-label="Unit navigation">
+            <div class="panel-header">
+              <h2 class="panel-title">Units</h2>
+              <span class="panel-tag">Tap to view</span>
+            </div>
+            <div class="panel-body">
+              <div class="unit-nav" id="unit-nav">
+                <button class="unit-button active" data-unit="1">
+                  <span class="unit-button-main">
+                    <span class="unit-index">1</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Water Safety & Aquatic Foundations</span>
+                      <span class="unit-tagline">Comfort, rules, and basic control</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Safety first</span>
+                </button>
+
+                <button class="unit-button" data-unit="2">
+                  <span class="unit-button-main">
+                    <span class="unit-index">2</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Basic Swimming Skills</span>
+                      <span class="unit-tagline">Kicking, gliding, treading</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Foundations</span>
+                </button>
+
+                <button class="unit-button" data-unit="3">
+                  <span class="unit-button-main">
+                    <span class="unit-index">3</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Stroke Development</span>
+                      <span class="unit-tagline">Freestyle, backstroke, breaststroke, butterfly</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Technique</span>
+                </button>
+
+                <button class="unit-button" data-unit="4">
+                  <span class="unit-button-main">
+                    <span class="unit-index">4</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Breathing & Endurance</span>
+                      <span class="unit-tagline">Rhythm, pacing, distance</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Conditioning</span>
+                </button>
+
+                <button class="unit-button" data-unit="5">
+                  <span class="unit-button-main">
+                    <span class="unit-index">5</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Lifesaving & Rescue Basics</span>
+                      <span class="unit-tagline">Assists, awareness, response</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Rescue</span>
+                </button>
+
+                <button class="unit-button" data-unit="6">
+                  <span class="unit-button-main">
+                    <span class="unit-index">6</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Aquatic Fitness & Conditioning</span>
+                      <span class="unit-tagline">Cardio, strength, flexibility</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Fitness</span>
+                </button>
+
+                <button class="unit-button" data-unit="7">
+                  <span class="unit-button-main">
+                    <span class="unit-index">7</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Advanced & Competitive Skills</span>
+                      <span class="unit-tagline">Starts, turns, race strategy</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">★ Optional</span>
+                </button>
+
+                <button class="unit-button" data-unit="8">
+                  <span class="unit-button-main">
+                    <span class="unit-index">8</span>
+                    <span class="unit-labels">
+                      <span class="unit-name">Personal Growth & Lifelong Wellness</span>
+                      <span class="unit-tagline">Goals, reflection, community</span>
+                    </span>
+                  </span>
+                  <span class="unit-pill">Wellness</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Language toggle placeholder -->
+          <section class="panel" aria-label="Language toggle">
+            <div class="panel-header">
+              <h2 class="panel-title">Language</h2>
+              <span class="panel-tag">Display only</span>
+            </div>
+            <div class="panel-body">
+              <div class="lang-toggle" aria-label="Language toggle (visual only)">
+                <span>Labels:</span>
+                <button type="button" class="active">EN</button>
+                <button type="button">ES</button>
+              </div>
+              <p style="margin-top: 8px; font-size: 11px;">
+                You can duplicate this panel and translate headings into Spanish or Arabic while keeping the same
+                structure.
+              </p>
+            </div>
+          </section>
+        </aside>
+
+        <!-- Content -->
+        <section class="content" aria-label="Unit details">
+          <header class="content-header">
+            <div class="content-title-block">
+              <div class="content-eyebrow">Unit focus</div>
+              <h2 class="content-title">
+                <span class="icon" id="unit-icon">🛟</span>
+                <span id="unit-title">Unit 1 — Water Safety & Aquatic Foundations</span>
+              </h2>
+            </div>
+            <div class="content-meta">
+              <div class="content-meta-pill">
+                <span class="dot"></span>
+                <span id="unit-theme">Safety · Comfort · Confidence</span>
+              </div>
+              <div class="content-meta-pill">
+                <span class="dot"></span>
+                Topics & skills view
+              </div>
+            </div>
+          </header>
+
+          <article class="unit-card" aria-live="polite">
+            <section>
+              <h3 class="unit-column-title">Topics</h3>
+              <ul class="unit-list" id="unit-topics">
+                <!-- Filled by JS -->
+              </ul>
+            </section>
+            <section>
+              <h3 class="unit-column-title">Skills</h3>
+              <ul class="unit-list" id="unit-skills">
+                <!-- Filled by JS -->
+              </ul>
+              <p class="unit-note" id="unit-note"></p>
+            </section>
+          </article>
+
+          <footer class="summary" aria-label="Course summary">
+            <div class="summary-title">By the end of this course, students will be able to:</div>
+            <ul class="summary-list">
+              <li>
+                <span class="dot"></span>
+                <span class="text">Demonstrate <strong>safe behavior</strong> in and around pools and open water.</span>
+              </li>
+              <li>
+                <span class="dot"></span>
+                <span class="text">Swim all major strokes—freestyle, backstroke, breaststroke, and introductory
+                  butterfly—with <strong>efficient technique</strong>.</span>
+              </li>
+              <li>
+                <span class="dot"></span>
+                <span class="text">Use <strong>breathing patterns and pacing</strong> to swim multiple laps with
+                  endurance.</span>
+              </li>
+              <li>
+                <span class="dot"></span>
+                <span class="text">Perform basic <strong>lifesaving assists</strong> and respond appropriately to
+                  aquatic emergencies within their training level.</span>
+              </li>
+              <li>
+                <span class="dot"></span>
+                <span class="text">Explain how swimming supports <strong>lifelong fitness, stress relief, and
+                    community</strong> engagement.</span>
+              </li>
+            </ul>
+          </footer>
+        </section>
+      </section>
+    </div>
+
+    <span class="sr-only" id="unit-description">
+      Interactive swimming course of study. Select a unit to view topics and skills.
+    </span>
+  </main>
+
+  <script>
+    const units = {
+      1: {
+        icon: "🛟",
+        title: "Unit 1 — Water Safety & Aquatic Foundations",
+        theme: "Safety · Comfort · Confidence",
+        note: "This unit is about feeling safe, oriented, and supported in the water before we ask for distance or speed.",
+        topics: [
+          "Pool rules, facility orientation, and lifeguard roles",
+          "Lifeguard signals and emergency procedures",
+          "Safe entries and exits (ladder, steps, seated, and slide‑in)",
+          "Breath control: bubbles, slow exhale, and relaxed inhaling",
+          "Buoyancy and body position in shallow and deep water",
+          "Floating on front, back, and star positions",
+          "Water comfort, trust, and partner support"
+        ],
+        skills: [
+          "Demonstrate safe behavior in and around the pool at all times",
+          "Identify lifeguard signals and explain what each one means",
+          "Enter and exit the pool using at least two safe methods",
+          "Hold breath, exhale bubbles, and return to a calm breathing pattern",
+          "Float on front and back for a set time with minimal support",
+          "Move from standing to floating and back with control",
+          "Describe personal comfort level and strategies for staying calm in water"
+        ]
+      },
+      2: {
+        icon: "🫧",
+        title: "Unit 2 — Basic Swimming Skills",
+        theme: "Kicking · Gliding · Treading",
+        note: "Here we build the basic movements that will later become full strokes.",
+        topics: [
+          "Kicking techniques: flutter, dolphin, and whip kick (intro)",
+          "Arm movements: scooping, pulling, and recovery patterns",
+          "Body alignment and streamlining in the water",
+          "Gliding from the wall with push‑offs",
+          "Treading water using different leg and arm combinations",
+          "Using kickboards and other basic equipment"
+        ],
+        skills: [
+          "Maintain a long, straight body position while gliding",
+          "Perform flutter kick on front and back for a set distance",
+          "Demonstrate basic arm pulls for front and back positions",
+          "Push off the wall into a streamlined glide",
+          "Tread water for a timed interval using safe technique",
+          "Use equipment (kickboard, noodle) responsibly to support learning"
+        ]
+      },
+      3: {
+        icon: "🏅",
+        title: "Unit 3 — Stroke Development",
+        theme: "Freestyle · Backstroke · Breaststroke · Butterfly (Intro)",
+        note: "Students learn the four main strokes with attention to form, efficiency, and comfort.",
+        topics: [
+          "Freestyle (front crawl): body roll, arm pull, and flutter kick",
+          "Backstroke: body position, arm recovery, and consistent kick",
+          "Breaststroke: timing of pull, breath, and kick",
+          "Butterfly (intro or advanced): body undulation and dolphin kick",
+          "Stroke mechanics, efficiency, and common errors",
+          "Turns and finishes appropriate to level"
+        ],
+        skills: [
+          "Swim freestyle with coordinated arms, legs, and breathing for a set distance",
+          "Swim backstroke with stable body position and continuous kick",
+          "Swim breaststroke with correct timing of pull, breath, and kick",
+          "Attempt butterfly with safe, age‑appropriate expectations",
+          "Demonstrate open turns and, where appropriate, flip turns",
+          "Identify one personal goal for improving stroke efficiency"
+        ]
+      },
+      4: {
+        icon: "💨",
+        title: "Unit 4 — Breathing Techniques & Endurance",
+        theme: "Rhythm · Pacing · Distance",
+        note: "This unit connects breathing, pacing, and mindset so students can swim longer with confidence.",
+        topics: [
+          "Rhythmic breathing patterns for freestyle and backstroke",
+          "Bilateral breathing (breathing to both sides) in freestyle",
+          "Breath control for longer distances and sets",
+          "Pacing strategies: easy, moderate, and challenging efforts",
+          "Interval training and rest intervals",
+          "Tracking distance, time, and perceived exertion"
+        ],
+        skills: [
+          "Swim multiple laps using a consistent breathing pattern",
+          "Demonstrate bilateral breathing in freestyle when appropriate",
+          "Adjust pace to complete a set distance without stopping",
+          "Use rest intervals to recover and prepare for the next swim",
+          "Record personal times or distances and reflect on progress",
+          "Describe how breathing and mindset affect endurance"
+        ]
+      },
+      5: {
+        icon: "🚨",
+        title: "Unit 5 — Lifesaving Skills & Rescue Basics",
+        theme: "Awareness · Assists · Response",
+        note: "This unit emphasizes safety, non‑contact rescues, and knowing personal limits.",
+        topics: [
+          "Recognizing signs of distress vs. active drowning",
+          "Reaching assists using poles, towels, or arms from the deck",
+          "Throwing assists with ring buoys or floatation devices",
+          "Safe approaches and non‑contact rescues",
+          "Basic CPR overview (non‑certification, awareness only)",
+          "Emergency action steps and communication"
+        ],
+        skills: [
+          "Describe the difference between distress and drowning behaviors",
+          "Perform a reaching assist from the deck while staying safe",
+          "Perform a throwing assist with reasonable accuracy",
+          "Explain why non‑contact rescues are safer for most rescuers",
+          "State the basic steps of CPR and when to activate emergency services",
+          "Identify personal limits and when to call for adult or professional help"
+        ]
+      },
+      6: {
+        icon: "💪",
+        title: "Unit 6 — Aquatic Fitness & Conditioning",
+        theme: "Cardio · Strength · Flexibility",
+        note: "Students learn to use water as a low‑impact, high‑benefit fitness environment.",
+        topics: [
+          "Cardiovascular training in water (laps, intervals, games)",
+          "Resistance and strength exercises using water and equipment",
+          "Flexibility and mobility routines in shallow water",
+          "Water aerobics and circuit‑style workouts",
+          "Injury prevention and safe progression",
+          "Monitoring heart rate and perceived exertion"
+        ],
+        skills: [
+          "Design a simple aquatic workout that includes warm‑up, main set, and cool‑down",
+          "Perform basic water‑based strength exercises with good form",
+          "Participate in water aerobics or circuits at an appropriate intensity",
+          "Demonstrate stretches or mobility exercises in the water",
+          "Monitor exertion using talk test or simple heart‑rate checks",
+          "Explain how water workouts can support joint health and recovery"
+        ]
+      },
+      7: {
+        icon: "🏁",
+        title: "Unit 7 — Advanced Swimming & Competitive Skills (Optional)",
+        theme: "Starts · Turns · Race Strategy",
+        note: "For advanced groups or teams, this unit introduces competitive skills and race thinking.",
+        topics: [
+          "Safe racing starts and dives from the side or blocks (where appropriate)",
+          "Advanced turns and finishes for each stroke",
+          "Stroke refinement and efficiency drills",
+          "Relay exchanges and team communication",
+          "Race strategy: pacing, splitting, and finishing strong",
+          "Meet etiquette and sportsmanship"
+        ],
+        skills: [
+          "Perform a safe racing start appropriate to age and facility rules",
+          "Execute turns and finishes with improved speed and control",
+          "Use drills to refine at least one chosen stroke",
+          "Participate in relay practice with clean exchanges",
+          "Describe a simple race plan for a chosen distance or stroke",
+          "Demonstrate positive sportsmanship before, during, and after races"
+        ]
+      },
+      8: {
+        icon: "🌟",
+        title: "Unit 8 — Personal Growth, Goal‑Setting & Lifelong Wellness",
+        theme: "Reflection · Goals · Community",
+        note: "This unit connects swimming to identity, leadership, and lifelong health.",
+        topics: [
+          "Setting short‑term and long‑term swimming goals",
+          "Tracking progress with logs, charts, or reflection journals",
+          "Swimming as a tool for stress relief and mental health",
+          "Community aquatic programs (lessons, teams, lifeguarding, volunteering)",
+          "Leadership and peer support in aquatic spaces",
+          "Planning for continued swimming beyond the course"
+        ],
+        skills: [
+          "Create a personal improvement plan for swimming or aquatic fitness",
+          "Reflect on strengths, challenges, and next steps in the water",
+          "Describe how swimming can support mental and emotional well‑being",
+          "Identify local opportunities to keep swimming (pools, teams, programs)",
+          "Demonstrate encouragement and support for peers in the water",
+          "Articulate one way they will continue using swimming after the course"
+        ]
+      }
+    };
+
+    const nav = document.getElementById("unit-nav");
+    const unitTitle = document.getElementById("unit-title");
+    const unitIcon = document.getElementById("unit-icon");
+    const unitTheme = document.getElementById("unit-theme");
+    const topicsList = document.getElementById("unit-topics");
+    const skillsList = document.getElementById("unit-skills");
+    const unitNote = document.getElementById("unit-note");
+
+    function renderList(listElement, items, type) {
+      listElement.innerHTML = "";
+      items.forEach((item, index) => {
+        const li = document.createElement("li");
+        const bullet = document.createElement("span");
+        bullet.className = "unit-bullet";
+        bullet.textContent = type === "topics" ? "T" : "S";
+
+        const text = document.createElement("span");
+        text.innerHTML = item;
+
+        li.appendChild(bullet);
+        li.appendChild(text);
+        listElement.appendChild(li);
+      });
+    }
+
+    function setActiveUnit(unitId) {
+      const unit = units[unitId];
+      if (!unit) return;
+
+      unitTitle.textContent = unit.title;
+      unitIcon.textContent = unit.icon;
+      unitTheme.textContent = unit.theme;
+      unitNote.textContent = unit.note;
+
+      renderList(topicsList, unit.topics, "topics");
+      renderList(skillsList, unit.skills, "skills");
+
+      const buttons = nav.querySelectorAll(".unit-button");
+      buttons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.unit === String(unitId));
+      });
+    }
+
+    nav.addEventListener("click", (event) => {
+      const button = event.target.closest(".unit-button");
+      if (!button) return;
+      const unitId = button.dataset.unit;
+      setActiveUnit(unitId);
+    });
+
+    // Initialize with Unit 1
+    setActiveUnit(1);
+  </script>
+</body>
+</html>
