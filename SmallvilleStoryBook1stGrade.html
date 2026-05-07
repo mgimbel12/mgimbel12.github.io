@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville: The First Grade League – Storybook Comic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffcc33;
+      --accent-soft: #ffe89a;
+      --hero-red: #ff8a80;
+      --hero-blue: #81d4fa;
+      --hero-green: #a5d6a7;
+      --hero-purple: #d1c4e9;
+      --hero-teal: #80cbc4;
+      --hero-gold: #ffd54f;
+      --text-main: #fdfdfd;
+      --text-soft: #d0d4ff;
+      --card-radius: 20px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --transition-fast: 0.25s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #283593 0, #050814 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 40px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(145deg, rgba(10, 16, 40, 0.96), rgba(3, 6, 20, 0.98));
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.45;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .orb--red {
+      width: 260px;
+      height: 260px;
+      background: #ff5252;
+      top: -60px;
+      left: -40px;
+    }
+
+    .orb--blue {
+      width: 260px;
+      height: 260px;
+      background: #40c4ff;
+      top: 40%;
+      right: -60px;
+    }
+
+    .orb--gold {
+      width: 220px;
+      height: 220px;
+      background: #ffd54f;
+      bottom: -40px;
+      left: 30%;
+    }
+
+    .page-inner {
+      position: relative;
+      z-index: 1;
+      padding: 26px 18px 26px;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    @media (min-width: 768px) {
+      .page-inner {
+        padding: 32px 32px 30px;
+      }
+    }
+
+    /* Header */
+
+    .header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .header {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      opacity: 0.9;
+    }
+
+    .title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35em;
+      align-items: baseline;
+    }
+
+    .title span:nth-child(1) {
+      color: var(--accent);
+      text-shadow: 0 0 18px rgba(255, 204, 51, 0.7);
+    }
+
+    .title span:nth-child(2) {
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    .tagline {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+      font-style: italic;
+    }
+
+    .crest {
+      justify-self: end;
+      position: relative;
+      width: 180px;
+      max-width: 100%;
+      aspect-ratio: 4 / 3.2;
+      border-radius: 22px;
+      background: radial-gradient(circle at 20% 0, #fff59d 0, #fbc02d 18%, #f57f17 40%, #b71c1c 100%);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crest-inner {
+      width: 82%;
+      height: 78%;
+      border-radius: 18px;
+      border: 2px solid rgba(0, 0, 0, 0.35);
+      background: radial-gradient(circle at 50% 0, #ffffff 0, #e3f2fd 40%, #1a237e 100%);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .crest-shield {
+      width: 70%;
+      aspect-ratio: 3 / 4;
+      border-radius: 18px 18px 26px 26px;
+      background: linear-gradient(160deg, #42a5f5, #1565c0);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .crest-s {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: #ffeb3b;
+      text-shadow:
+        0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 18px rgba(255, 235, 59, 0.9);
+      letter-spacing: 0.04em;
+    }
+
+    .crest-ribbon {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fffde7;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* Nav / chapter chips */
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(10, 20, 60, 0.9), rgba(5, 10, 30, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8rem;
+    }
+
+    .toolbar-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(255, 204, 51, 0.9);
+    }
+
+    .toolbar-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(8, 14, 40, 0.9);
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      font-size: 0.78rem;
+    }
+
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .chip--active {
+      background: rgba(255, 204, 51, 0.12);
+      color: var(--accent-soft);
+      border-color: rgba(255, 204, 51, 0.8);
+      transform: translateY(-1px);
+    }
+
+    /* Story pages */
+
+    .story {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      position: relative;
+      border-radius: var(--card-radius);
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.06) 0, rgba(5, 8, 20, 0.96) 45%, rgba(0, 0, 0, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .panel-title span:nth-child(1) {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .panel-title span:nth-child(2) {
+      font-size: 1rem;
+    }
+
+    .panel-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fffde7;
+      white-space: nowrap;
+    }
+
+    .panel-body {
+      font-size: 0.9rem;
+      color: #e3e7ff;
+      line-height: 1.6;
+    }
+
+    .panel-body p + p {
+      margin-top: 6px;
+    }
+
+    .panel-quote {
+      margin-top: 6px;
+      padding-left: 10px;
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
+      font-style: italic;
+      color: var(--accent-soft);
+      font-size: 0.86rem;
+    }
+
+    .panel-list {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .panel-list ul {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .panel-list li::before {
+      content: "✦";
+      margin-right: 6px;
+      color: var(--accent-soft);
+      font-size: 0.8em;
+    }
+
+    .panel-footer {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    /* Color accents per hero */
+
+    .panel--intro {
+      --accent: var(--accent);
+      --accent-soft: var(--accent-soft);
+    }
+
+    .panel--storyseed {
+      --accent: var(--hero-red);
+      --accent-soft: #ffccbc;
+    }
+
+    .panel--numberbud {
+      --accent: var(--hero-blue);
+      --accent-soft: #b3e5fc;
+    }
+
+    .panel--wonderbud {
+      --accent: var(--hero-green);
+      --accent-soft: #c8e6c9;
+    }
+
+    .panel--heartbud {
+      --accent: var(--hero-purple);
+      --accent-soft: #e8eaf6;
+    }
+
+    .panel--creativebuds {
+      --accent: var(--hero-teal);
+      --accent-soft: #b2dfdb;
+    }
+
+    .panel--kindnessbud {
+      --accent: var(--hero-gold);
+      --accent-soft: #ffe082;
+    }
+
+    .panel--finale {
+      --accent: var(--accent);
+      --accent-soft: var(--accent-soft);
+    }
+
+    /* Footer note */
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .anchor {
+      scroll-margin-top: 90px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="Smallville: The First Grade League Storybook Comic">
+    <div class="orb orb--red"></div>
+    <div class="orb orb--blue"></div>
+    <div class="orb orb--gold"></div>
+
+    <div class="page-inner">
+      <header class="header">
+        <div class="title-block">
+          <div class="eyebrow">Storybook Comic • Grade 1</div>
+          <h1 class="title">
+            <span>Smallville:</span>
+            <span>The First Grade League</span>
+          </h1>
+          <p class="subtitle">
+            A gentle origin‑year story where First Graders begin their journey as independent readers,
+            writers, counters, thinkers, and friends—guided by a league of soft, growing heroes.
+          </p>
+          <p class="tagline">
+            Built from your First Grade case study, ready for read‑aloud and portfolio panels.
+          </p>
+        </div>
+
+        <aside class="crest" aria-hidden="true">
+          <div class="crest-inner">
+            <div class="crest-shield">
+              <div class="crest-s">S</div>
+              <div class="crest-ribbon">Grade One</div>
+            </div>
+          </div>
+        </aside>
+      </header>
+
+      <section class="toolbar" aria-label="Jump to story pages">
+        <div class="toolbar-label">
+          <div class="dot"></div>
+          <span>Jump to a hero page:</span>
+        </div>
+        <div class="toolbar-chips">
+          <button class="chip chip--active" data-target="intro" type="button">
+            <span class="chip-dot"></span><span>Intro</span>
+          </button>
+          <button class="chip" data-target="storyseed" type="button">
+            <span class="chip-dot"></span><span>Storyseed (ELA)</span>
+          </button>
+          <button class="chip" data-target="numberbud" type="button">
+            <span class="chip-dot"></span><span>Numberbud (Math)</span>
+          </button>
+          <button class="chip" data-target="wonderbud" type="button">
+            <span class="chip-dot"></span><span>Wonderbud (Science)</span>
+          </button>
+          <button class="chip" data-target="heartbud" type="button">
+            <span class="chip-dot"></span><span>Heartbud (Social)</span>
+          </button>
+          <button class="chip" data-target="creativebuds" type="button">
+            <span class="chip-dot"></span><span>Creative Buds</span>
+          </button>
+          <button class="chip" data-target="kindnessbud" type="button">
+            <span class="chip-dot"></span><span>Kindness Bud</span>
+          </button>
+          <button class="chip" data-target="finale" type="button">
+            <span class="chip-dot"></span><span>Finale</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="story" aria-label="Story pages">
+        <!-- Page 1: Intro -->
+        <article id="intro" class="panel panel--intro anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 1</span>
+              <span>First Light in Smallville Elementary</span>
+            </div>
+            <div class="panel-tag">Opening Scene</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              Morning settles over Smallville like a soft blanket. The sun peeks over the hills, painting
+              the sky with gentle gold. At the corner of Maple Street, the doors of
+              <strong>Smallville Elementary</strong> swing open.
+            </p>
+            <p>
+              Today, a new group of heroes arrives—small in size, big in heart. They are
+              <strong>First Graders</strong>, stepping out of early childhood and into their first year of
+              true academic independence.
+            </p>
+            <p>
+              They don’t know it yet, but this is the year they will begin to read on their own, write their
+              thoughts, solve number puzzles, and learn how to be a friend in a bigger world.
+            </p>
+          </div>
+        </article>
+
+        <!-- Page 2: Storyseed (ELA) -->
+        <article id="storyseed" class="panel panel--storyseed anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 2</span>
+              <span>Storyseed, Guardian of Words</span>
+            </div>
+            <div class="panel-tag">ELA Hero</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In Room 1A, the reading rug glows softly. Letters on the wall shimmer like tiny stars. From
+              the bookshelf, a warm light rises and takes shape.
+            </p>
+            <p>
+              This is <strong>Storyseed</strong>, Guardian of Words. Her cape is stitched from picture books
+              and sight words. Her eyes sparkle with stories.
+            </p>
+            <div class="panel-quote">
+              “Every sound you blend is a step,” she whispers. “Every word you read is a seed that grows
+              inside you.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Help children decode CVC and CVCE words and blends.</li>
+                <li>Guide them as they read simple stories with growing fluency.</li>
+                <li>Show them how to retell the beginning, middle, and end.</li>
+                <li>Point out characters, setting, and the problem in a story.</li>
+                <li>Encourage them to use pictures and text clues when they feel stuck.</li>
+              </ul>
+            </div>
+            <p>
+              At the writing table, Storyseed gently straightens a pencil in a small hand. The child writes
+              a sentence—wobbly letters, brave heart.
+            </p>
+            <div class="panel-list">
+              <ul>
+                <li>Teach them to write complete sentences with capitals and punctuation.</li>
+                <li>Invite them to write tiny stories, opinions, and labels for their drawings.</li>
+                <li>Celebrate phonetic spelling as a sign of courage and growth.</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">ELA • Storyseed</span>
+            <span>Power: Foundational reading and writing.</span>
+          </footer>
+        </article>
+
+        <!-- Page 3: Numberbud (Math) -->
+        <article id="numberbud" class="panel panel--numberbud anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 3</span>
+              <span>Numberbud, Keeper of Counting</span>
+            </div>
+            <div class="panel-tag">Math Hero</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              On the math carpet, a line of number cards stretches across the floor. As the children count,
+              the numbers begin to glow softly.
+            </p>
+            <p>
+              From the glow steps <strong>Numberbud</strong>, Keeper of Counting. His belt is made of tens
+              and ones blocks. His boots tap out a steady rhythm: one, two, three…
+            </p>
+            <div class="panel-quote">
+              “Every number has a place,” he says. “Let’s find where they belong.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Count with children up to 120, forwards and backwards.</li>
+                <li>Help them add and subtract within 20 using fingers, drawings, and mental strategies.</li>
+                <li>Show them how tens and ones build bigger numbers.</li>
+                <li>Compare numbers: greater than, less than, and equal to.</li>
+                <li>Introduce time to the hour and half‑hour and simple word problems.</li>
+              </ul>
+            </div>
+            <p>
+              When a child hesitates at a problem, Numberbud kneels beside them, pointing gently to the
+              blocks.
+            </p>
+            <div class="panel-quote">
+              “It’s okay to think,” he smiles. “Your brain is growing every time you try.”
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Math • Numberbud</span>
+            <span>Power: Number sense and early operations.</span>
+          </footer>
+        </article>
+
+        <!-- Page 4: Wonderbud (Science) -->
+        <article id="wonderbud" class="panel panel--wonderbud anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 4</span>
+              <span>Wonderbud, Sprout of Science</span>
+            </div>
+            <div class="panel-tag">Science Hero</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              At the window, raindrops race down the glass. A child presses their hand against the cool
+              pane, eyes wide with questions.
+            </p>
+            <p>
+              A tiny green light appears on the windowsill and grows into <strong>Wonderbud</strong>, Sprout
+              of Science. Leaves curl around her shoulders like a cape.
+            </p>
+            <div class="panel-quote">
+              “Look closely,” she says. “The world is full of patterns and surprises.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Observe weather and seasons, noticing changes day by day.</li>
+                <li>Explore light and sound with simple, playful experiments.</li>
+                <li>Study plants and animals, their needs, and their habitats.</li>
+                <li>Watch the sun and moon and talk about patterns in the sky.</li>
+                <li>Practice the science cycle: predict → test → observe → record.</li>
+              </ul>
+            </div>
+            <p>
+              When a seed finally sprouts in the class plant cup, Wonderbud smiles as the children cheer.
+              They are learning that patience and curiosity can grow living things.
+            </p>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Science • Wonderbud</span>
+            <span>Power: Observation and exploration.</span>
+          </footer>
+        </article>
+
+        <!-- Page 5: Heartbud (Social Studies) -->
+        <article id="heartbud" class="panel panel--heartbud anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 5</span>
+              <span>Heartbud, Keeper of Community</span>
+            </div>
+            <div class="panel-tag">Social Studies Hero</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the classroom meeting circle, children sit shoulder to shoulder. A map of the neighborhood
+              hangs on the wall, dotted with tiny stars where each child lives.
+            </p>
+            <p>
+              From the center of the circle rises <strong>Heartbud</strong>, Keeper of Community. His heart
+              emblem glows softly, pulsing like a drum.
+            </p>
+            <div class="panel-quote">
+              “You belong to many circles,” he says. “Family, class, school, town. Each one needs your
+              kindness.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Talk about family roles and community helpers.</li>
+                <li>Use simple maps and directions to understand place.</li>
+                <li>Learn about American symbols and important holidays.</li>
+                <li>Practice classroom citizenship: taking turns, sharing, and following rules.</li>
+                <li>Use words and simple steps to solve problems together.</li>
+              </ul>
+            </div>
+            <p>
+              When two children argue over a crayon, Heartbud kneels between them, guiding them to use
+              their words and listen to each other’s feelings.
+            </p>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Social Studies • Heartbud</span>
+            <span>Power: Identity, community, and responsibility.</span>
+          </footer>
+        </article>
+
+        <!-- Page 6: Creative Buds (Art, Music, PE) -->
+        <article id="creativebuds" class="panel panel--creativebuds anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 6</span>
+              <span>The Creative Buds</span>
+            </div>
+            <div class="panel-tag">Art • Music • PE</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the art room, paint swirls into rainbows. In the music room, claps and taps echo like
+              raindrops on a roof. In the gym, sneakers squeak and laughter bounces off the walls.
+            </p>
+            <p>
+              Three small heroes appear together—<strong>Brushbud</strong>, <strong>Songbud</strong>, and
+              <strong>Motionbud</strong>. They are the <strong>Creative Buds</strong>.
+            </p>
+            <div class="panel-list">
+              <ul>
+                <li>Brushbud helps children explore lines, shapes, and colors in simple art projects.</li>
+                <li>Songbud leads rhythm patterns, echo songs, and listening games.</li>
+                <li>Motionbud guides running, jumping, balancing, and playing fair in games.</li>
+              </ul>
+            </div>
+            <p>
+              Together, they remind the class that creativity lives in hands, voices, and bodies—not just in
+              pencils and papers.
+            </p>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Specials • Creative Buds</span>
+            <span>Power: Expression, rhythm, and movement.</span>
+          </footer>
+        </article>
+
+        <!-- Page 7: Kindness Bud (SEL) -->
+        <article id="kindnessbud" class="panel panel--kindnessbud anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 7</span>
+              <span>Kindness Bud, Guardian of Feelings</span>
+            </div>
+            <div class="panel-tag">SEL Hero</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the cozy corner, a soft pillow fort waits. A child curls up there, eyes shiny with tears
+              after a hard moment.
+            </p>
+            <p>
+              A tiny golden light floats down and lands beside them. It grows into
+              <strong>Kindness Bud</strong>, Guardian of Feelings. Her voice is as gentle as a lullaby.
+            </p>
+            <div class="panel-quote">
+              “Feelings are messages,” she says. “Let’s listen to them together.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Help children name feelings: happy, sad, mad, scared, excited, proud.</li>
+                <li>Teach calm‑down strategies: breathing, counting, taking a break.</li>
+                <li>Practice using words instead of hands when upset.</li>
+                <li>Encourage empathy: “How do you think they feel?”</li>
+                <li>Celebrate effort and trying again after mistakes.</li>
+              </ul>
+            </div>
+            <p>
+              As the child’s breathing slows, Kindness Bud smiles. First Grade hearts are learning to be
+              brave and gentle at the same time.
+            </p>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">SEL • Kindness Bud</span>
+            <span>Power: Emotional regulation and empathy.</span>
+          </footer>
+        </article>
+
+        <!-- Page 8: Finale -->
+        <article id="finale" class="panel panel--finale anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 8</span>
+              <span>The First Grade League Grows</span>
+            </div>
+            <div class="panel-tag">Final Page</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              At the end of the day, the classroom grows quiet. Backpacks are zipped, chairs are tucked in.
+              But something else is happening too.
+            </p>
+            <p>
+              Storyseed, Numberbud, Wonderbud, Heartbud, the Creative Buds, and Kindness Bud gather in a
+              circle at the center of Room 1A. Their lights blend into a soft, warm glow.
+            </p>
+            <div class="panel-quote">
+              “First Grade,” they say together, “you are growing every day. In your reading, in your
+              counting, in your questions, in your friendships, and in your heart.”
+            </div>
+            <p>
+              The children may not see the heroes, but they feel something: a little more courage, a little
+              more confidence, a little more ready for tomorrow.
+            </p>
+            <p>
+              By the end of First Grade, they are emerging independent readers, beginning writers, confident
+              counters, curious scientists, helpful community members, and growing friends—ready to step
+              toward Second Grade and the next chapter of the Smallville League.
+            </p>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">League Outcome</span>
+            <span>Emerging independence in academics, emotions, and community.</span>
+          </footer>
+        </article>
+      </section>
+
+      <section class="footer-note" aria-label="Design note">
+        <p>
+          <strong>Design Note:</strong>
+          This First Grade League storybook mirrors your Second Grade and Third Grade universes, so you can
+          build a continuous K–3 Smallville portfolio.
+        </p>
+        <p>
+          You can print these pages, turn them into slides, or adapt them into comic panels with art.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const chips = document.querySelectorAll(".chip");
+    const pageInner = document.querySelector(".page-inner");
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const targetId = chip.getAttribute("data-target");
+        const targetEl = document.getElementById(targetId);
+
+        chips.forEach((c) => c.classList.remove("chip--active"));
+        chip.classList.add("chip--active");
+
+        if (targetEl) {
+          const top = targetEl.offsetTop - 12;
+          pageInner.scrollTo({ top, behavior: "smooth" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
