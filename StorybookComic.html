@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville: The Second Grade League – Storybook Comic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1024;
+      --accent: #ffcc33;
+      --accent-soft: #ffe89a;
+      --hero-red: #ff6f61;
+      --hero-blue: #64b5f6;
+      --hero-green: #81c784;
+      --hero-purple: #ce93d8;
+      --hero-teal: #80cbc4;
+      --hero-gold: #ffd54f;
+      --text-main: #fdfdfd;
+      --text-soft: #d0d4ff;
+      --card-radius: 20px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --transition-fast: 0.25s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1a237e 0, #050814 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 24px 12px 40px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 960px;
+      background: linear-gradient(145deg, rgba(10, 16, 40, 0.96), rgba(3, 6, 20, 0.98));
+      border-radius: 28px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(40px);
+      opacity: 0.45;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .orb--red {
+      width: 260px;
+      height: 260px;
+      background: #ff5252;
+      top: -60px;
+      left: -40px;
+    }
+
+    .orb--blue {
+      width: 260px;
+      height: 260px;
+      background: #40c4ff;
+      top: 40%;
+      right: -60px;
+    }
+
+    .orb--gold {
+      width: 220px;
+      height: 220px;
+      background: #ffd54f;
+      bottom: -40px;
+      left: 30%;
+    }
+
+    .page-inner {
+      position: relative;
+      z-index: 1;
+      padding: 26px 18px 26px;
+      max-height: calc(100vh - 60px);
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    @media (min-width: 768px) {
+      .page-inner {
+        padding: 32px 32px 30px;
+      }
+    }
+
+    /* Header */
+
+    .header {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .header {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      opacity: 0.9;
+    }
+
+    .title {
+      font-size: clamp(1.9rem, 3vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35em;
+      align-items: baseline;
+    }
+
+    .title span:nth-child(1) {
+      color: var(--accent);
+      text-shadow: 0 0 18px rgba(255, 204, 51, 0.7);
+    }
+
+    .title span:nth-child(2) {
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    .tagline {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+      font-style: italic;
+    }
+
+    .crest {
+      justify-self: end;
+      position: relative;
+      width: 180px;
+      max-width: 100%;
+      aspect-ratio: 4 / 3.2;
+      border-radius: 22px;
+      background: radial-gradient(circle at 20% 0, #fff59d 0, #fbc02d 18%, #f57f17 40%, #b71c1c 100%);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crest-inner {
+      width: 82%;
+      height: 78%;
+      border-radius: 18px;
+      border: 2px solid rgba(0, 0, 0, 0.35);
+      background: radial-gradient(circle at 50% 0, #ffffff 0, #e3f2fd 40%, #1a237e 100%);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .crest-shield {
+      width: 70%;
+      aspect-ratio: 3 / 4;
+      border-radius: 18px 18px 26px 26px;
+      background: linear-gradient(160deg, #1e88e5, #0d47a1);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55);
+      display: grid;
+      place-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .crest-s {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: #ffeb3b;
+      text-shadow:
+        0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 18px rgba(255, 235, 59, 0.9);
+      letter-spacing: 0.04em;
+    }
+
+    .crest-ribbon {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 2px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.65);
+      color: #fffde7;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    /* Nav / chapter chips */
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(10, 20, 60, 0.9), rgba(5, 10, 30, 0.9));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.8rem;
+    }
+
+    .toolbar-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-soft);
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(255, 204, 51, 0.9);
+    }
+
+    .toolbar-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(8, 14, 40, 0.9);
+      color: var(--text-soft);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+      font-size: 0.78rem;
+    }
+
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    .chip--active {
+      background: rgba(255, 204, 51, 0.12);
+      color: var(--accent-soft);
+      border-color: rgba(255, 204, 51, 0.8);
+      transform: translateY(-1px);
+    }
+
+    /* Story pages */
+
+    .story {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel {
+      position: relative;
+      border-radius: var(--card-radius);
+      padding: 16px 16px 14px;
+      background: radial-gradient(circle at top, rgba(255, 255, 255, 0.06) 0, rgba(5, 8, 20, 0.96) 45%, rgba(0, 0, 0, 0.98) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .panel-title span:nth-child(1) {
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .panel-title span:nth-child(2) {
+      font-size: 1rem;
+    }
+
+    .panel-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.6);
+      color: #fffde7;
+      white-space: nowrap;
+    }
+
+    .panel-body {
+      font-size: 0.9rem;
+      color: #e3e7ff;
+      line-height: 1.6;
+    }
+
+    .panel-body p + p {
+      margin-top: 6px;
+    }
+
+    .panel-quote {
+      margin-top: 6px;
+      padding-left: 10px;
+      border-left: 2px solid rgba(255, 255, 255, 0.2);
+      font-style: italic;
+      color: var(--accent-soft);
+      font-size: 0.86rem;
+    }
+
+    .panel-list {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: var(--text-soft);
+    }
+
+    .panel-list ul {
+      list-style: none;
+      padding-left: 0;
+      display: grid;
+      gap: 3px;
+    }
+
+    .panel-list li::before {
+      content: "✦";
+      margin-right: 6px;
+      color: var(--accent-soft);
+      font-size: 0.8em;
+    }
+
+    .panel-footer {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    /* Color accents per hero */
+
+    .panel--intro {
+      --accent: var(--accent);
+      --accent-soft: var(--accent-soft);
+    }
+
+    .panel--storylight {
+      --accent: var(--hero-red);
+      --accent-soft: #ffab91;
+    }
+
+    .panel--numberguard {
+      --accent: var(--hero-blue);
+      --accent-soft: #90caf9;
+    }
+
+    .panel--wonderfield {
+      --accent: var(--hero-green);
+      --accent-soft: #a5d6a7;
+    }
+
+    .panel--heartland {
+      --accent: var(--hero-purple);
+      --accent-soft: #e1bee7;
+    }
+
+    .panel--creative {
+      --accent: var(--hero-teal);
+      --accent-soft: #b2dfdb;
+    }
+
+    .panel--kindness {
+      --accent: var(--hero-gold);
+      --accent-soft: #ffe082;
+    }
+
+    .panel--finale {
+      --accent: var(--accent);
+      --accent-soft: var(--accent-soft);
+    }
+
+    /* Footer note */
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.78rem;
+      color: var(--text-soft);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    /* Smooth anchor offset for chips */
+    .anchor {
+      scroll-margin-top: 90px;
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="Smallville: The Second Grade League Storybook Comic">
+    <div class="orb orb--red"></div>
+    <div class="orb orb--blue"></div>
+    <div class="orb orb--gold"></div>
+
+    <div class="page-inner">
+      <header class="header">
+        <div class="title-block">
+          <div class="eyebrow">Storybook Comic • Grade 2</div>
+          <h1 class="title">
+            <span>Smallville:</span>
+            <span>The Second Grade League</span>
+          </h1>
+          <p class="subtitle">
+            A gentle, heroic storybook where every subject becomes a hero and every second grader discovers
+            their own superpowers: reading, numbers, curiosity, community, creativity, and kindness.
+          </p>
+          <p class="tagline">
+            Designed for read‑aloud, classroom walls, and portfolio‑ready panels.
+          </p>
+        </div>
+
+        <aside class="crest" aria-hidden="true">
+          <div class="crest-inner">
+            <div class="crest-shield">
+              <div class="crest-s">S</div>
+              <div class="crest-ribbon">Grade Two</div>
+            </div>
+          </div>
+        </aside>
+      </header>
+
+      <section class="toolbar" aria-label="Jump to story pages">
+        <div class="toolbar-label">
+          <div class="dot"></div>
+          <span>Jump to a hero page:</span>
+        </div>
+        <div class="toolbar-chips">
+          <button class="chip chip--active" data-target="intro" type="button">
+            <span class="chip-dot"></span><span>Intro</span>
+          </button>
+          <button class="chip" data-target="storylight" type="button">
+            <span class="chip-dot"></span><span>Storylight (ELA)</span>
+          </button>
+          <button class="chip" data-target="numberguard" type="button">
+            <span class="chip-dot"></span><span>Numberguard (Math)</span>
+          </button>
+          <button class="chip" data-target="wonderfield" type="button">
+            <span class="chip-dot"></span><span>Wonderfield (Science)</span>
+          </button>
+          <button class="chip" data-target="heartland" type="button">
+            <span class="chip-dot"></span><span>Heartland (Social)</span>
+          </button>
+          <button class="chip" data-target="creative" type="button">
+            <span class="chip-dot"></span><span>Creative Core</span>
+          </button>
+          <button class="chip" data-target="kindness" type="button">
+            <span class="chip-dot"></span><span>Kindness Core</span>
+          </button>
+          <button class="chip" data-target="finale" type="button">
+            <span class="chip-dot"></span><span>Finale</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="story" aria-label="Story pages">
+        <!-- Page 1: Intro -->
+        <article id="intro" class="panel panel--intro anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 1</span>
+              <span>A New Dawn in Smallville Elementary</span>
+            </div>
+            <div class="panel-tag">Opening Scene</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the quiet town of Smallville, where the sun rises like a golden shield over the rooftops,
+              a new school year begins. The doors of <strong>Smallville Elementary</strong> open wide,
+              glowing with warm light.
+            </p>
+            <p>
+              Inside, a new team is forming. Not just any team… a <strong>League</strong>. A league of
+              second graders—children who are growing braver, kinder, and stronger every day, even if they
+              don’t know it yet.
+            </p>
+          </div>
+        </article>
+
+        <!-- Page 2: Storylight -->
+        <article id="storylight" class="panel panel--storylight anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 2</span>
+              <span>The Call of Storylight (ELA Hero)</span>
+            </div>
+            <div class="panel-tag">Hero of Words</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In Classroom 2A, a soft glow appears above the reading corner. It shimmers like a lantern.
+              This is <strong>Storylight</strong>, the Hero of Words.
+            </p>
+            <div class="panel-quote">
+              “Every story you read is a doorway. Every sentence you write is a spark. Come—let’s light up
+              your imagination.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Follow characters through adventures and name the setting, problem, and solution.</li>
+                <li>Ask questions that unlock meaning and retell stories with important details.</li>
+                <li>Write small‑moment narratives, opinion pieces, and informational paragraphs.</li>
+                <li>Speak with confidence and listen with kindness during class discussions.</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">ELA • Storylight</span>
+            <span>Power: Understanding and expression.</span>
+          </footer>
+        </article>
+
+        <!-- Page 3: Numberguard -->
+        <article id="numberguard" class="panel panel--numberguard anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 3</span>
+              <span>Numberguard Arrives (Math Hero)</span>
+            </div>
+            <div class="panel-tag">Hero of Numbers</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              The classroom clock ticks. The pattern of numbers glows. Suddenly, <strong>Numberguard</strong>
+              steps forward, his boots landing with a soft thud—steady and certain.
+            </p>
+            <div class="panel-quote">
+              “Numbers are everywhere,” he says. “Let me show you how to see them.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Add and subtract with courage, using strategies and place value.</li>
+                <li>Understand numbers to 1,000 and recognize even and odd.</li>
+                <li>Tell time, count money, and solve real‑world word problems.</li>
+                <li>Recognize and describe shapes and simple patterns.</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Math • Numberguard</span>
+            <span>Power: Problem‑solving and precision.</span>
+          </footer>
+        </article>
+
+        <!-- Page 4: Wonderfield -->
+        <article id="wonderfield" class="panel panel--wonderfield anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 4</span>
+              <span>Wonderfield of Science</span>
+            </div>
+            <div class="panel-tag">Hero of Curiosity</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              Outside on the playground, the wind shifts. Leaves swirl in a circle of green light. From the
+              center rises <strong>Wonderfield</strong>, the Hero of Curiosity.
+            </p>
+            <div class="panel-quote">
+              “Ask questions,” she smiles. “The world is waiting to answer.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Observe weather and seasons, recording changes over time.</li>
+                <li>Study plants, animals, and their habitats and needs.</li>
+                <li>Explore rocks, soil, and water as Earth materials.</li>
+                <li>Experiment with light, sound, motion, and simple forces.</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Science • Wonderfield</span>
+            <span>Power: Discovery and observation.</span>
+          </footer>
+        </article>
+
+        <!-- Page 5: Heartland -->
+        <article id="heartland" class="panel panel--heartland anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 5</span>
+              <span>Heartland of Community (Social Studies Hero)</span>
+            </div>
+            <div class="panel-tag">Hero of Belonging</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the hallway, a gentle heartbeat echoes—steady and warm. <strong>Heartland</strong>, the Hero
+              of Community, appears with a glowing map behind him.
+            </p>
+            <div class="panel-quote">
+              “Every place has a story,” he says. “And you are part of it.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Use maps and globes to find places and follow directions.</li>
+                <li>Compare urban, suburban, and rural communities.</li>
+                <li>Recognize national symbols and important holidays.</li>
+                <li>Practice classroom citizenship: respect, responsibility, and cooperation.</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Social Studies • Heartland</span>
+            <span>Power: Community and connection.</span>
+          </footer>
+        </article>
+
+        <!-- Page 6: Creative Core -->
+        <article id="creative" class="panel panel--creative anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 6</span>
+              <span>The Creative Core (Art, Music, PE)</span>
+            </div>
+            <div class="panel-tag">Heroes of Expression</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the art room, colors swirl like magic dust. In the music room, notes float like fireflies.
+              In the gym, footsteps echo like thunder.
+            </p>
+            <p>
+              Three heroes appear together—<strong>Palette</strong>, <strong>Melody</strong>, and
+              <strong>Motion</strong>—the <strong>Creative Core</strong>.
+            </p>
+            <div class="panel-list">
+              <ul>
+                <li>Paint, sculpt, and imagine with lines, shapes, and textures.</li>
+                <li>Sing, clap, and move to rhythm and simple melodies.</li>
+                <li>Run, jump, and play games that build balance and teamwork.</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">Art • Music • PE</span>
+            <span>Power: Expression, harmony, and strength.</span>
+          </footer>
+        </article>
+
+        <!-- Page 7: Kindness Core -->
+        <article id="kindness" class="panel panel--kindness anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 7</span>
+              <span>Kindness Core (SEL Hero)</span>
+            </div>
+            <div class="panel-tag">Hero of the Heart</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              In the quiet corner of the classroom, a soft golden glow appears.
+              <strong>Kindness Core</strong> steps forward, hands warm like sunshine.
+            </p>
+            <div class="panel-quote">
+              “Your heart is your greatest power,” she whispers. “Let’s learn how to use it.”
+            </div>
+            <div class="panel-list">
+              <ul>
+                <li>Identify and name feelings in self and others.</li>
+                <li>Practice calm‑down strategies and peaceful problem‑solving.</li>
+                <li>Use kind words, listening ears, and sharing in friendships.</li>
+                <li>Learn that mistakes help the brain grow (growth mindset).</li>
+              </ul>
+            </div>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">SEL • Kindness Core</span>
+            <span>Power: Empathy and resilience.</span>
+          </footer>
+        </article>
+
+        <!-- Page 8: Finale -->
+        <article id="finale" class="panel panel--finale anchor">
+          <header class="panel-header">
+            <div class="panel-title">
+              <span>Page 8</span>
+              <span>The League Unites</span>
+            </div>
+            <div class="panel-tag">Final Page</div>
+          </header>
+          <div class="panel-body">
+            <p>
+              At the end of the day, all the heroes gather in the center of the classroom: Storylight,
+              Numberguard, Wonderfield, Heartland, Palette, Melody, Motion, and Kindness Core.
+            </p>
+            <p>
+              They form a circle—glowing, strong, united.
+            </p>
+            <div class="panel-quote">
+              “Second Grade,” they say together, “you are the heroes now.”
+            </div>
+            <p>
+              The children smile. They stand taller. They feel the spark inside them. Because in Smallville
+              Elementary, every child is a hero, every day is an adventure, and the League grows stronger
+              with every lesson learned.
+            </p>
+          </div>
+          <footer class="panel-footer">
+            <span class="pill">League Outcome</span>
+            <span>Readers, problem‑solvers, explorers, teammates, and kind hearts.</span>
+          </footer>
+        </article>
+      </section>
+
+      <section class="footer-note" aria-label="Design note">
+        <p>
+          <strong>Design Note:</strong>
+          This storybook comic can be printed as pages, turned into slides, or adapted into panel‑based comics.
+        </p>
+        <p>
+          You can reuse this structure for other grades by swapping hero names, colors, and learning targets.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const chips = document.querySelectorAll(".chip");
+    const pageInner = document.querySelector(".page-inner");
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const targetId = chip.getAttribute("data-target");
+        const targetEl = document.getElementById(targetId);
+
+        chips.forEach((c) => c.classList.remove("chip--active"));
+        chip.classList.add("chip--active");
+
+        if (targetEl) {
+          const top = targetEl.offsetTop - 12;
+          pageInner.scrollTo({ top, behavior: "smooth" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
