@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>World History – Course of Study Vocabulary</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --bg-soft: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.16);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --border-subtle: #1f2937;
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.7);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --transition-fast: 0.18s ease-out;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #111827 0, #020617 55%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.75rem 1.5rem 1.1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.9rem, 2.5vw, 2.5rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0.4rem 0 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .badge-row {
+      margin-top: 0.6rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+    }
+
+    main.layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(220px, 260px) minmax(0, 1fr);
+      gap: 1.25rem;
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    nav.sidebar {
+      background: linear-gradient(145deg, #020617, #020617 40%, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .tab-button {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-muted);
+      padding: 0.55rem 0.75rem;
+      border-radius: var(--radius-md);
+      text-align: left;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform 0.08s ease-out;
+    }
+
+    .tab-button::after {
+      content: "›";
+      font-size: 0.9rem;
+      opacity: 0.4;
+    }
+
+    .tab-button:hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border-color: #1f2937;
+      transform: translateX(1px);
+    }
+
+    .tab-button.active {
+      background: var(--accent-soft);
+      color: #dcfce7;
+      border-color: var(--accent);
+    }
+
+    section.content {
+      background: linear-gradient(145deg, #020617, #020617 40%, #020617);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-subtle);
+      padding: 1.25rem 1.4rem 1.4rem;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .panel {
+      display: none;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      margin: 0 0 0.4rem;
+      font-size: 1.4rem;
+    }
+
+    .focus {
+      margin: 0 0 0.9rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .subsection {
+      margin-top: 0.75rem;
+      padding: 0.7rem 0.8rem;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%);
+      border: 1px solid #111827;
+    }
+
+    .subsection h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    .subsection p {
+      margin: 0 0 0.4rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .subsection ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+      color: var(--text-main);
+    }
+
+    .subsection li + li {
+      margin-top: 0.15rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 0.75rem 1rem 1.1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 800px) {
+      main.layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav.sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: 0.5rem;
+      }
+
+      .tab-button {
+        white-space: nowrap;
+        font-size: 0.85rem;
+        padding: 0.45rem 0.7rem;
+      }
+
+      section.content {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>World History – Course of Study</h1>
+    <p>Key eras, vocabulary, and student‑friendly definitions in one panel.</p>
+    <div class="badge-row">
+      <span class="badge">Chronological</span>
+      <span class="badge">Child‑Friendly Definitions</span>
+      <span class="badge">Course of Study</span>
+      <span class="badge">Portfolio‑Ready</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <nav class="sidebar" aria-label="World History Eras">
+      <button class="tab-button active" data-target="early">
+        Early Civilizations
+      </button>
+      <button class="tab-button" data-target="classical">
+        Classical Civilizations
+      </button>
+      <button class="tab-button" data-target="middle">
+        Middle Ages
+      </button>
+      <button class="tab-button" data-target="renaissance">
+        Renaissance & Industrial
+      </button>
+      <button class="tab-button" data-target="modern">
+        Modern World
+      </button>
+      <button class="tab-button" data-target="smallville">
+        Smallville World History
+      </button>
+    </nav>
+
+    <section class="content">
+      <!-- Early Civilizations -->
+      <article id="early" class="panel active" aria-label="Early Civilizations">
+        <h2>Early Civilizations</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          The rise of the first complex societies in Mesopotamia, Egypt, the Indus Valley, and ancient China.
+        </p>
+
+        <div class="subsection">
+          <h3>Foundations of Civilization</h3>
+          <ul>
+            <li><strong>Civilization:</strong> A complex society with cities, government, writing, and organized religion.</li>
+            <li><strong>Agriculture:</strong> Farming; growing crops and raising animals for food.</li>
+            <li><strong>River Valley:</strong> Land near a river where early civilizations began.</li>
+            <li><strong>City‑State:</strong> A city and the land around it that acts like its own country.</li>
+            <li><strong>Dynasty:</strong> A family of rulers who pass power down through generations.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Egypt, Mesopotamia, and Early Writing</h3>
+          <ul>
+            <li><strong>Pharaoh:</strong> The ruler of ancient Egypt.</li>
+            <li><strong>Pyramid:</strong> A large stone tomb built for Egyptian pharaohs.</li>
+            <li><strong>Cuneiform:</strong> One of the first writing systems, created in Mesopotamia.</li>
+            <li><strong>Hieroglyphics:</strong> Picture writing used in ancient Egypt.</li>
+            <li><strong>Trade:</strong> Exchanging goods or services.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Belief Systems</h3>
+          <ul>
+            <li><strong>Polytheism:</strong> Belief in many gods.</li>
+            <li><strong>Monotheism:</strong> Belief in one god.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Classical Civilizations -->
+      <article id="classical" class="panel" aria-label="Classical Civilizations">
+        <h2>Classical Civilizations</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Greece, Rome, Persia, India, and China—governments, ideas, and networks that shaped later history.
+        </p>
+
+        <div class="subsection">
+          <h3>Government & Citizenship</h3>
+          <ul>
+            <li><strong>Democracy:</strong> A government where people vote and have a voice.</li>
+            <li><strong>Republic:</strong> A government where people elect leaders to represent them.</li>
+            <li><strong>Empire:</strong> A large territory ruled by one government or leader.</li>
+            <li><strong>Citizen:</strong> A member of a community with rights and responsibilities.</li>
+            <li><strong>Senate:</strong> A group of leaders who help make laws in ancient Rome.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Ideas, Roads, and Trade</h3>
+          <ul>
+            <li><strong>Philosophy:</strong> The study of ideas about knowledge, truth, and how to live.</li>
+            <li><strong>Aqueduct:</strong> A structure that carries water from one place to another.</li>
+            <li><strong>Silk Road:</strong> A trade route connecting Asia, Africa, and Europe.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Belief Systems in Asia</h3>
+          <ul>
+            <li><strong>Buddhism:</strong> A religion based on the teachings of Siddhartha Gautama (the Buddha).</li>
+            <li><strong>Confucianism:</strong> A Chinese philosophy focused on respect, family, and order.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Middle Ages -->
+      <article id="middle" class="panel" aria-label="Middle Ages">
+        <h2>Middle Ages</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Feudal systems, kingdoms, trade routes, and cultural exchange across Europe, Africa, Asia, and the Americas.
+        </p>
+
+        <div class="subsection">
+          <h3>Feudal Society</h3>
+          <ul>
+            <li><strong>Feudalism:</strong> A system where landowners gave land in exchange for loyalty and service.</li>
+            <li><strong>Knight:</strong> A warrior who protected a lord’s land.</li>
+            <li><strong>Serf:</strong> A farmer who worked the land for a lord.</li>
+            <li><strong>Manor:</strong> A large estate that included a village and farmland.</li>
+            <li><strong>Kingdom:</strong> A country ruled by a king or queen.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Religion, War, and Learning</h3>
+          <ul>
+            <li><strong>Crusades:</strong> Religious wars between Christians and Muslims over the Holy Land.</li>
+            <li><strong>Monastery:</strong> A community where monks lived, worked, and studied.</li>
+            <li><strong>Empire:</strong> A large group of lands ruled by one leader.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Trade and Cultural Exchange</h3>
+          <ul>
+            <li><strong>Trade Route:</strong> A path used for buying and selling goods.</li>
+            <li><strong>Cultural Diffusion:</strong> The spreading of ideas, goods, and beliefs between cultures.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Renaissance & Industrial -->
+      <article id="renaissance" class="panel" aria-label="Renaissance and Industrial Revolution">
+        <h2>Renaissance to Industrial Revolution</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Rebirth of learning, new ideas about government, exploration, and the rise of machines and factories.
+        </p>
+
+        <div class="subsection">
+          <h3>Renaissance & Reformation</h3>
+          <ul>
+            <li><strong>Renaissance:</strong> A rebirth of art, learning, and culture in Europe.</li>
+            <li><strong>Humanism:</strong> A belief that focuses on human potential and achievements.</li>
+            <li><strong>Reformation:</strong> A movement that challenged the Catholic Church and created new Christian groups.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Exploration & Colonization</h3>
+          <ul>
+            <li><strong>Exploration:</strong> Traveling to new lands to discover resources and trade routes.</li>
+            <li><strong>Colonization:</strong> When a country controls land and people far away.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>New Ways of Thinking</h3>
+          <ul>
+            <li><strong>Scientific Revolution:</strong> A time when scientists made major discoveries about nature and the universe.</li>
+            <li><strong>Enlightenment:</strong> A movement that emphasized reason, rights, and government by the people.</li>
+            <li><strong>Revolution:</strong> A major change in government or society.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Industrialization & Urbanization</h3>
+          <ul>
+            <li><strong>Industrialization:</strong> The shift from hand‑made goods to machines and factories.</li>
+            <li><strong>Urbanization:</strong> Growth of cities as people move from rural areas.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Modern World -->
+      <article id="modern" class="panel" aria-label="Modern World">
+        <h2>Modern World</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Nationalism, world wars, civil rights, globalization, and technology in the 1800s–present.
+        </p>
+
+        <div class="subsection">
+          <h3>Global Conflicts</h3>
+          <ul>
+            <li><strong>Nationalism:</strong> Strong pride and loyalty to one’s country.</li>
+            <li><strong>Imperialism:</strong> When powerful countries take control of weaker regions.</li>
+            <li><strong>World War I:</strong> A global conflict from 1914–1918.</li>
+            <li><strong>World War II:</strong> A global conflict from 1939–1945.</li>
+            <li><strong>Holocaust:</strong> The mass murder of millions of Jews and others during WWII.</li>
+            <li><strong>Cold War:</strong> Tension between the U.S. and Soviet Union without direct fighting.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>Rights, Nations, and Global Connections</h3>
+          <ul>
+            <li><strong>Civil Rights:</strong> Rights that guarantee equality and freedom for all people.</li>
+            <li><strong>Globalization:</strong> Countries becoming more connected through trade and technology.</li>
+            <li><strong>United Nations (UN):</strong> An international group that works for peace and cooperation.</li>
+            <li><strong>Technology Revolution:</strong> Rapid growth in computers, science, and communication.</li>
+            <li><strong>Diversity:</strong> A mix of different cultures, backgrounds, and identities.</li>
+            <li><strong>Citizenship:</strong> Being a member of a country with rights and responsibilities.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Smallville overlay -->
+      <article id="smallville" class="panel" aria-label="Smallville World History Overlay">
+        <h2>Smallville World History Overlay</h2>
+        <p class="focus">
+          <strong>Core Focus:</strong>
+          Symbolic, student‑friendly language that turns world history into a hero journey.
+        </p>
+
+        <div class="subsection">
+          <h3>Heroic Symbols</h3>
+          <ul>
+            <li><strong>First Builders:</strong> The earliest people who created farming, writing, and cities.</li>
+            <li><strong>Idea Travelers:</strong> People who spread inventions, stories, and beliefs across the world.</li>
+            <li><strong>Empire Makers:</strong> Leaders who united many lands under one rule.</li>
+            <li><strong>Knowledge Keepers:</strong> Thinkers, scientists, and artists who changed how people see the world.</li>
+            <li><strong>Freedom Seekers:</strong> People who fought for rights, equality, and justice.</li>
+            <li><strong>World Connectors:</strong> Modern nations working together to solve global problems.</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h3>How to Use This Overlay</h3>
+          <p>
+            These symbolic names can sit beside formal vocabulary in storybooks, comics, or leadership maps.
+            Students can match each “hero name” to real people, events, and eras in world history.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    World History Course of Study • Vocabulary & Definitions • Interactive Era Tabs
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".tab-button");
+    const panels = document.querySelectorAll(".panel");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.dataset.target;
+
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === targetId);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
