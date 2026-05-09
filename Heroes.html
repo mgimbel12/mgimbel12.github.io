@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Community Heroes Panel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #f0f6ff, #d9e4ff);
+      color: #1f2933;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(236,72,153,0.08));
+      opacity: 0;
+      transition: opacity 0.18s ease;
+      pointer-events: none;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.18);
+      border-color: rgba(59, 130, 246, 0.7);
+    }
+
+    .hero-card:hover::before {
+      opacity: 1;
+    }
+
+    .hero-icon {
+      font-size: 2.2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-details {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #334155;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    .hero-card.active .hero-details {
+      max-height: 200px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.08);
+      color: #1d4ed8;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge span {
+      font-size: 0.85rem;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .page-subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+    }
+
+    .wrapper {
+      max-width: 960px;
+      width: 100%;
+      padding: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1 class="page-title">Community Heroes & School Spirit</h1>
+    <p class="page-subtitle">
+      Click a card to learn how each role serves, protects, and encourages their community.
+    </p>
+
+    <div class="hero-grid">
+      <!-- Police Officer -->
+      <article class="hero-card" data-hero="police">
+        <div class="hero-icon">👮‍♂️</div>
+        <div class="badge">
+          <span>Safety</span> • <span>Respect</span>
+        </div>
+        <h2 class="hero-title">Police Officer</h2>
+        <p class="hero-tagline">Protecting neighborhoods and keeping the peace.</p>
+        <div class="hero-details">
+          Police officers respond to emergencies, guide traffic, and help keep communities safe.
+          They build trust by listening, staying calm, and treating people fairly—on the street,
+          at schools, and during community events.
+        </div>
+      </article>
+
+      <!-- Firefighter -->
+      <article class="hero-card" data-hero="firefighter">
+        <div class="hero-icon">🚒</div>
+        <div class="badge">
+          <span>Courage</span> • <span>Teamwork</span>
+        </div>
+        <h2 class="hero-title">Firefighter</h2>
+        <p class="hero-tagline">Answering the call when seconds matter.</p>
+        <div class="hero-details">
+          Firefighters put out fires, rescue people, and teach families about safety plans.
+          Their gear is heavy, their training is intense, and their teamwork helps them stay
+          brave and focused when others are in danger.
+        </div>
+      </article>
+
+      <!-- Modest Cheer Captain -->
+      <article class="hero-card" data-hero="cheer">
+        <div class="hero-icon">📣</div>
+        <div class="badge">
+          <span>Leadership</span> • <span>School Spirit</span>
+        </div>
+        <h2 class="hero-title">Cheer Captain</h2>
+        <p class="hero-tagline">Leading with kindness, confidence, and modesty.</p>
+        <div class="hero-details">
+          A modest cheer captain focuses on encouragement, teamwork, and positive energy.
+          Their routines and uniforms stay respectful while they cheer on classmates,
+          welcome younger students, and make sure everyone feels included on the team.
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll(".hero-card");
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        // Close others
+        cards.forEach(c => {
+          if (c !== card) c.classList.remove("active");
+        });
+        // Toggle this one
+        card.classList.toggle("active");
+      });
+    });
+  </script>
+</body>
+</html>
