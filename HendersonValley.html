@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Henderson Valley • History • ROTC • Public Safety Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --bg: #020617;
+  --panel: #020617;
+  --border: #1e293b;
+  --text: #e5e7eb;
+  --soft: #9ca3af;
+  --accent: #38bdf8;
+  --police: #3b82f6;
+  --emt: #ef4444;
+  --school: #22c55e;
+  --radius: 12px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.page {
+  width: 100%;
+  max-width: 1150px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+header h2 {
+  font-size: 0.9rem;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+}
+
+/* LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1.4fr;
+  gap: 1rem;
+}
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+/* MAP PANEL */
+.map-wrapper {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  height: 380px;
+}
+
+/* “MapQuest‑style” Henderson area (static image placeholder) */
+.map-bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Las_Vegas_Valley_topographic_map-en.svg/1024px-Las_Vegas_Valley_topographic_map-en.svg.png");
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05) contrast(1.05) brightness(0.95);
+}
+
+/* MARKERS */
+.marker {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+.marker.police { background: var(--police); }
+.marker.emt { background: var(--emt); }
+.marker.school { background: var(--school); }
+
+.marker-label {
+  position: absolute;
+  transform: translate(-50%, -140%);
+  background: rgba(15,23,42,0.9);
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  color: var(--soft);
+  white-space: nowrap;
+}
+
+/* RIGHT PANEL */
+h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--soft);
+  margin-bottom: 0.5rem;
+}
+h4 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.section {
+  margin-bottom: 0.8rem;
+  background: rgba(15,23,42,0.9);
+  border-radius: 8px;
+  padding: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+.section strong {
+  color: var(--accent);
+}
+
+/* LIST */
+.list {
+  margin-top: 0.4rem;
+  border-radius: 8px;
+  background: rgba(15,23,42,0.9);
+  padding: 0.6rem;
+  font-size: 0.85rem;
+}
+.list-item {
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-item span {
+  font-size: 0.8rem;
+}
+.list-item small {
+  font-size: 0.7rem;
+  color: var(--soft);
+}
+.list-item:hover {
+  background: rgba(148,163,184,0.15);
+}
+
+/* STATUS + LOG */
+.status {
+  font-size: 0.8rem;
+  color: var(--soft);
+  margin-top: 0.4rem;
+}
+.status span {
+  color: var(--accent);
+  font-weight: 600;
+}
+.log {
+  margin-top: 0.6rem;
+  background: rgba(15,23,42,0.9);
+  border-radius: 8px;
+  padding: 0.6rem;
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+}
+.log-entry {
+  margin-bottom: 0.25rem;
+  color: var(--soft);
+}
+.log-entry span {
+  color: var(--accent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+  <header>
+    <h1>Henderson Valley History & ROTC Map</h1>
+    <h2>Basic High School • ROTC • Police • EMT • General Info (Simulated)</h2>
+  </header>
+
+  <section class="grid">
+    <!-- MAP -->
+    <article class="card">
+      <div class="map-wrapper" id="mapWrapper">
+        <div class="map-bg"></div>
+
+        <!-- Approximate marker positions on static map -->
+        <div class="marker school" data-id="basic"
+             style="left: 60%; top: 60%;">
+          <div class="marker-label">Basic High School / ROTC</div>
+        </div>
+
+        <div class="marker police" data-id="pd"
+             style="left: 58%; top: 55%;">
+          <div class="marker-label">Henderson Police (General Area)</div>
+        </div>
+
+        <div class="marker emt" data-id="emt"
+             style="left: 62%; top: 58%;">
+          <div class="marker-label">EMT / Medical Access</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- INFO / CONTEXT -->
+    <article class="card">
+      <h3>Context overview</h3>
+      <h4>History • ROTC • Public Safety</h4>
+
+      <div class="section">
+        <strong>Henderson Valley (General History):</strong><br>
+        • Grew alongside the Las Vegas Valley and Hoover Dam era<br>
+        • Mix of residential neighborhoods, schools, and local businesses<br>
+        • Desert valley terrain, major roads and arterial routes for response<br>
+        • Community‑oriented city with schools as key landmarks
+      </div>
+
+      <div class="section">
+        <strong>Basic High School & ROTC (General):</strong><br>
+        • High school serving Henderson students<br>
+        • ROTC programs emphasize leadership, discipline, and civic duty<br>
+        • Drill fields, gyms, and assembly areas can become staging points<br>
+        • Students may be trained in basic emergency awareness and protocols
+      </div>
+
+      <div class="section">
+        <strong>Police & EMT — Helpful General Information:</strong><br>
+        • Know school entrances/exits and bus lanes<br>
+        • Identify safe staging zones away from main student flow<br>
+        • Coordinate with school admin / ROTC instructors for drills<br>
+        • Note nearby medical access routes and major intersections
+      </div>
+
+      <div class="list" id="locationList">
+        <div class="list-item" data-target="basic">
+          <span>🏫 Basic High / ROTC</span>
+          <small>School & Cadet Program</small>
+        </div>
+        <div class="list-item" data-target="pd">
+          <span>🚓 Police (General Area)</span>
+          <small>Law Enforcement</small>
+        </div>
+        <div class="list-item" data-target="emt">
+          <span>🚑 EMT Access</span>
+          <small>Medical Response</small>
+        </div>
+      </div>
+
+      <p class="status" id="statusBox">
+        Status: <span>Map loaded. All locations simulated.</span>
+      </p>
+
+      <div class="log" id="logBox">
+        <div class="log-entry">
+          <span>[System]</span> Henderson Valley overview initialized.
+        </div>
+      </div>
+    </article>
+  </section>
+</div>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const logBox = document.getElementById("logBox");
+const markers = document.querySelectorAll(".marker");
+const listItems = document.querySelectorAll(".list-item");
+
+function log(message) {
+  const entry = document.createElement("div");
+  entry.className = "log-entry";
+  const time = new Date().toLocaleTimeString();
+  entry.innerHTML = `<span>[${time}]</span> ${message}`;
+  logBox.appendChild(entry);
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+function highlightMarker(id) {
+  markers.forEach(m => {
+    m.style.boxShadow = "0 0 10px rgba(0,0,0,0.6)";
+    if (m.dataset.id === id) {
+      m.style.boxShadow = "0 0 18px rgba(56,189,248,0.9)";
+    }
+  });
+}
+
+markers.forEach(marker => {
+  marker.addEventListener("click", () => {
+    const id = marker.dataset.id;
+    const label = marker.querySelector(".marker-label").textContent;
+    statusBox.innerHTML = `Status: <span>Focused on ${label}</span>`;
+    highlightMarker(id);
+    log(`Marker selected: ${label}`);
+  });
+});
+
+listItems.forEach(item => {
+  item.addEventListener("click", () => {
+    const target = item.dataset.target;
+    const marker = document.querySelector(`.marker[data-id="${target}"]`);
+    if (!marker) return;
+    const label = marker.querySelector(".marker-label").textContent;
+    statusBox.innerHTML = `Status: <span>Focused on ${label}</span>`;
+    highlightMarker(target);
+    log(`List selection: ${label}`);
+  });
+});
+</script>
+</body>
+</html>
