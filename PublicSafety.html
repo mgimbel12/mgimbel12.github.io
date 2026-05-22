@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Henderson NV 89015 • City & Public Safety Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --bg: #020617;
+  --panel: #020617;
+  --border: #1e293b;
+  --text: #e5e7eb;
+  --soft: #9ca3af;
+  --accent: #38bdf8;
+  --police: #3b82f6;
+  --emt: #ef4444;
+  --radius: 12px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.page {
+  width: 100%;
+  max-width: 1150px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+header h2 {
+  font-size: 0.9rem;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+}
+
+/* LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1.4fr;
+  gap: 1rem;
+}
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+/* MAP PANEL */
+.map-wrapper {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  height: 380px;
+}
+
+/* “Map‑style” Henderson area (static image placeholder) */
+.map-bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Las_Vegas_Valley_topographic_map-en.svg/1024px-Las_Vegas_Valley_topographic_map-en.svg.png");
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05) contrast(1.05) brightness(0.95);
+}
+
+/* MARKERS */
+.marker {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+.marker.police { background: var(--police); }
+.marker.emt { background: var(--emt); }
+
+.marker-label {
+  position: absolute;
+  transform: translate(-50%, -140%);
+  background: rgba(15,23,42,0.9);
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  color: var(--soft);
+  white-space: nowrap;
+}
+
+/* RIGHT PANEL TITLES */
+h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--soft);
+  margin-bottom: 0.5rem;
+}
+h4 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+/* CITY INFO */
+.section {
+  margin-bottom: 0.8rem;
+  background: rgba(15,23,42,0.9);
+  border-radius: 8px;
+  padding: 0.7rem;
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+.section strong {
+  color: var(--accent);
+}
+
+/* BUTTONS */
+.btn-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.4rem;
+}
+.btn {
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.15s ease;
+}
+.btn.police { background: var(--police); }
+.btn.emt { background: var(--emt); }
+.btn.alarm {
+  grid-column: span 2;
+  background: #f97316;
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* STATUS + LOG */
+.status {
+  font-size: 0.8rem;
+  color: var(--soft);
+  margin-top: 0.4rem;
+}
+.status span {
+  color: var(--accent);
+  font-weight: 600;
+}
+.log {
+  margin-top: 0.6rem;
+  background: rgba(15,23,42,0.9);
+  border-radius: 8px;
+  padding: 0.6rem;
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+}
+.log-entry {
+  margin-bottom: 0.25rem;
+  color: var(--soft);
+}
+.log-entry span {
+  color: var(--accent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+  <header>
+    <h1>Henderson NV 89015 • General Map & Public Safety</h1>
+    <h2>City of Henderson • Cops • EMT • General Alarm (Simulated)</h2>
+  </header>
+
+  <section class="grid">
+    <!-- MAP -->
+    <article class="card">
+      <div class="map-wrapper" id="mapWrapper">
+        <div class="map-bg"></div>
+
+        <!-- Approximate marker positions on static map -->
+        <div class="marker police" data-id="pd"
+             style="left: 60%; top: 60%;">
+          <div class="marker-label">Police (General Area)</div>
+        </div>
+
+        <div class="marker emt" data-id="emt"
+             style="left: 62%; top: 63%;">
+          <div class="marker-label">EMT / Medical Access</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- INFO / CONTROLS -->
+    <article class="card">
+      <h3>City overview</h3>
+      <h4>Henderson NV 89015 • General Information</h4>
+
+      <div class="section">
+        <strong>City of Henderson (General):</strong><br>
+        • Located in the Las Vegas Valley, Nevada<br>
+        • Mix of neighborhoods, schools, parks, and local businesses<br>
+        • Desert climate, major roads and arterials for response<br>
+        • Community‑oriented city with focus on safety and quality of life
+      </div>
+
+      <div class="section">
+        <strong>Public Safety — General Notes:</strong><br>
+        • Police respond to calls for service, traffic, and community safety<br>
+        • EMT/medical respond to health emergencies and accidents<br>
+        • Clear addresses, landmarks, and cross‑streets help responders<br>
+        • Calm, accurate information from callers supports faster help
+      </div>
+
+      <div class="section">
+        <strong>General Alarm System (Simulated):</strong><br>
+        Use the buttons below as a visual representation of:<br>
+        • Dispatching police units<br>
+        • Dispatching EMT units<br>
+        • Triggering a general alarm state (training / layout only)
+      </div>
+
+      <div class="btn-row">
+        <button class="btn police" data-type="Police Unit Dispatched 🚓">
+          Dispatch Cops
+        </button>
+        <button class="btn emt" data-type="EMT Unit Dispatched 🚑">
+          Dispatch EMT
+        </button>
+        <button class="btn alarm" id="alarmBtn">
+          General Alarm
+        </button>
+      </div>
+
+      <p class="status" id="statusBox">
+        Status: <span>System idle. All elements simulated.</span>
+      </p>
+
+      <div class="log" id="logBox">
+        <div class="log-entry">
+          <span>[System]</span> Henderson 89015 panel initialized.
+        </div>
+      </div>
+    </article>
+  </section>
+</div>
+
+<audio id="beepAudio">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const logBox = document.getElementById("logBox");
+const markers = document.querySelectorAll(".marker");
+const buttons = document.querySelectorAll(".btn");
+const beepAudio = document.getElementById("beepAudio");
+const alarmBtn = document.getElementById("alarmBtn");
+
+function log(message) {
+  const entry = document.createElement("div");
+  entry.className = "log-entry";
+  const time = new Date().toLocaleTimeString();
+  entry.innerHTML = `<span>[${time}]</span> ${message}`;
+  logBox.appendChild(entry);
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+function highlightMarker(id) {
+  markers.forEach(m => {
+    m.style.boxShadow = "0 0 10px rgba(0,0,0,0.6)";
+    if (m.dataset.id === id) {
+      m.style.boxShadow = "0 0 18px rgba(56,189,248,0.9)";
+    }
+  });
+}
+
+/* Marker clicks */
+markers.forEach(marker => {
+  marker.addEventListener("click", () => {
+    const id = marker.dataset.id;
+    const label = marker.querySelector(".marker-label").textContent;
+    statusBox.innerHTML = `Status: <span>Focused on ${label}</span>`;
+    highlightMarker(id);
+    log(`Map marker selected: ${label}`);
+  });
+});
+
+/* Buttons: cops / EMT / alarm */
+buttons.forEach(btn => {
+  const type = btn.dataset.type;
+  if (!type) return;
+
+  btn.addEventListener("click", () => {
+    beepAudio.play();
+    statusBox.innerHTML = `Status: <span>${type}</span>`;
+    log(type);
+  });
+});
+
+alarmBtn.addEventListener("click", () => {
+  log("General alarm state simulated. This is a visual training/layout tool only.");
+});
+</script>
+</body>
+</html>
