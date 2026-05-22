@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>City of Henderson Call Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* COLORS */
+:root {
+  --bg: #0a0f1c;
+  --card: #1a2333;
+  --accent: #4ade80;
+  --text: #e5e7eb;
+  --soft: #9ca3af;
+  --danger: #ef4444;
+  --warn: #f97316;
+  --radius: 14px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+/* GLOBAL */
+body {
+  background: radial-gradient(circle at top, #1e293b, #0a0f1c);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+header h2 {
+  font-size: 1rem;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+  margin-top: 0.4rem;
+}
+
+/* CARD */
+.card {
+  background: var(--card);
+  padding: 1.4rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* BUTTONS */
+.btn {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 999px;
+  border: none;
+  margin-bottom: 0.7rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  color: white;
+  transition: 0.15s ease;
+}
+
+.btn.police { background: #2563eb; }
+.btn.emt { background: var(--danger); }
+.btn.workers { background: #10b981; }
+.btn.alarm { background: var(--warn); }
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* STATUS */
+.status {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: var(--soft);
+}
+
+.status span {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* LOG */
+.log {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 0.8rem;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.log-entry {
+  margin-bottom: 0.3rem;
+  color: var(--soft);
+}
+
+.log-entry span {
+  color: var(--accent);
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>City of Henderson Call Panel</h1>
+  <h2>Police • EMT • City Workers • Alarm</h2>
+</header>
+
+<div class="card">
+
+  <button class="btn police" data-type="Calling Henderson Police Department 🚓">
+    Call Police Department
+  </button>
+
+  <button class="btn emt" data-type="Calling EMT / Medical 🚑">
+    Call EMT
+  </button>
+
+  <button class="btn workers" data-type="Calling City Workers 🛠️">
+    Call City Workers
+  </button>
+
+  <button class="btn alarm" id="alarmBtn">
+    Trigger Alarm
+  </button>
+
+  <p class="status" id="statusBox">
+    Status: <span>Idle</span>
+  </p>
+
+  <div class="log" id="logBox">
+    <div class="log-entry"><span>[Loaded]</span> System ready.</div>
+  </div>
+
+</div>
+
+<!-- ALARM SOUND (BEEP) -->
+<audio id="alarmSound">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const logBox = document.getElementById("logBox");
+const alarmSound = document.getElementById("alarmSound");
+
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.type;
+
+    if (type) {
+      statusBox.innerHTML = `Status: <span>${type}</span>`;
+      addLog(type);
+    }
+  });
+});
+
+document.getElementById("alarmBtn").addEventListener("click", () => {
+  alarmSound.play();
+  statusBox.innerHTML = `Status: <span>ALARM ACTIVATED ⚠️</span>`;
+  addLog("Alarm Activated ⚠️");
+});
+
+function addLog(message) {
+  const entry = document.createElement("div");
+  entry.className = "log-entry";
+  const time = new Date().toLocaleTimeString();
+  entry.innerHTML = `<span>[${time}]</span> ${message}`;
+  logBox.appendChild(entry);
+  logBox.scrollTop = logBox.scrollHeight;
+}
+</script>
+
+</body>
+</html>
