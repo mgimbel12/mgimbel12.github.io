@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Global Police & Child Helper Map</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --bg: #020617;
+  --panel: #020617;
+  --border: #1e293b;
+  --text: #e5e7eb;
+  --soft: #9ca3af;
+  --accent: #38bdf8;
+  --police: #3b82f6;
+  --child: #22c55e;
+  --radius: 12px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+}
+header h2 {
+  font-size: 0.9rem;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+}
+
+/* LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1.3fr;
+  gap: 1rem;
+}
+.card {
+  background: var(--panel);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+/* MAP PANEL */
+.map-wrapper {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  height: 360px;
+}
+
+/* “MapQuest‑style” global map (static image) */
+.map-bg {
+  width: 100%;
+  height: 100%;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/World_map_-_low_resolution.svg/1024px-World_map_-_low_resolution.svg.png");
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.1) contrast(1.05);
+}
+
+/* MARKERS */
+.marker {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+.marker.police { background: var(--police); }
+.marker.child { background: var(--child); }
+
+.marker-label {
+  position: absolute;
+  transform: translate(-50%, -140%);
+  background: rgba(15,23,42,0.9);
+  padding: 2px 6px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  color: var(--soft);
+  white-space: nowrap;
+}
+
+/* RIGHT PANEL */
+h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--soft);
+  margin-bottom: 0.5rem;
+}
+h4 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.list {
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  background: rgba(15,23,42,0.9);
+  padding: 0.6rem;
+  font-size: 0.85rem;
+}
+.list-item {
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.list-item span {
+  font-size: 0.8rem;
+}
+.list-item small {
+  font-size: 0.7rem;
+  color: var(--soft);
+}
+.list-item:hover {
+  background: rgba(148,163,184,0.15);
+}
+
+/* STATUS + LOG */
+.status {
+  font-size: 0.85rem;
+  color: var(--soft);
+  margin-top: 0.4rem;
+}
+.status span {
+  color: var(--accent);
+  font-weight: 600;
+}
+.log {
+  margin-top: 0.6rem;
+  background: rgba(15,23,42,0.9);
+  border-radius: 8px;
+  padding: 0.6rem;
+  max-height: 180px;
+  overflow-y: auto;
+  font-size: 0.8rem;
+}
+.log-entry {
+  margin-bottom: 0.25rem;
+  color: var(--soft);
+}
+.log-entry span {
+  color: var(--accent);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+  <header>
+    <h1>Global Helper Map Console</h1>
+    <h2>Police Stations • Child Devices • World View (Simulated)</h2>
+  </header>
+
+  <section class="grid">
+    <!-- MAP -->
+    <article class="card">
+      <div class="map-wrapper" id="mapWrapper">
+        <div class="map-bg"></div>
+
+        <!-- Example markers (positions are approximate on the static map) -->
+        <div class="marker police" data-id="hq"
+             style="left: 52%; top: 40%;">
+          <div class="marker-label">Police HQ</div>
+        </div>
+
+        <div class="marker child" data-id="child1"
+             style="left: 30%; top: 45%;">
+          <div class="marker-label">Child Device A</div>
+        </div>
+
+        <div class="marker child" data-id="child2"
+             style="left: 70%; top: 55%;">
+          <div class="marker-label">Child Device B</div>
+        </div>
+
+        <div class="marker police" data-id="station2"
+             style="left: 60%; top: 30%;">
+          <div class="marker-label">Police Station East</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- INFO / CONTROLS -->
+    <article class="card">
+      <h3>Global overview</h3>
+      <h4>Police & Child Helper Devices</h4>
+
+      <div class="list" id="locationList">
+        <div class="list-item" data-target="hq">
+          <span>🚓 Police HQ</span>
+          <small>Global Coordination</small>
+        </div>
+        <div class="list-item" data-target="station2">
+          <span>🚓 Police Station East</span>
+          <small>Regional Support</small>
+        </div>
+        <div class="list-item" data-target="child1">
+          <span>🛰️ Child Device A</span>
+          <small>Learning Tablet</small>
+        </div>
+        <div class="list-item" data-target="child2">
+          <span>🛰️ Child Device B</span>
+          <small>Safety Wristband</small>
+        </div>
+      </div>
+
+      <p class="status" id="statusBox">
+        Status: <span>Map loaded. All markers simulated.</span>
+      </p>
+
+      <div class="log" id="logBox">
+        <div class="log-entry">
+          <span>[System]</span> Global map console initialized.
+        </div>
+      </div>
+    </article>
+  </section>
+</div>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const logBox = document.getElementById("logBox");
+const markers = document.querySelectorAll(".marker");
+const listItems = document.querySelectorAll(".list-item");
+
+function log(message) {
+  const entry = document.createElement("div");
+  entry.className = "log-entry";
+  const time = new Date().toLocaleTimeString();
+  entry.innerHTML = `<span>[${time}]</span> ${message}`;
+  logBox.appendChild(entry);
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+function highlightMarker(id) {
+  markers.forEach(m => {
+    m.style.boxShadow = "0 0 10px rgba(0,0,0,0.6)";
+    if (m.dataset.id === id) {
+      m.style.boxShadow = "0 0 18px rgba(56,189,248,0.9)";
+    }
+  });
+}
+
+markers.forEach(marker => {
+  marker.addEventListener("click", () => {
+    const id = marker.dataset.id;
+    let label = marker.querySelector(".marker-label").textContent;
+    statusBox.innerHTML = `Status: <span>Focused on ${label}</span>`;
+    highlightMarker(id);
+    log(`Marker selected: ${label}`);
+  });
+});
+
+listItems.forEach(item => {
+  item.addEventListener("click", () => {
+    const target = item.dataset.target;
+    const marker = document.querySelector(`.marker[data-id="${target}"]`);
+    if (!marker) return;
+    const label = marker.querySelector(".marker-label").textContent;
+    statusBox.innerHTML = `Status: <span>Focused on ${label}</span>`;
+    highlightMarker(target);
+    log(`List selection: ${label}`);
+  });
+});
+</script>
+</body>
+</html>
