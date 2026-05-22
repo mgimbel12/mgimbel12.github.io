@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML • CSS • JS • ARM Forces • Cops • EMT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050814;
+      --bg-alt: #0b1022;
+      --card: #11182b;
+      --accent-mil: #3ddc97;
+      --accent-pol: #4ea5ff;
+      --accent-emt: #ff6b6b;
+      --text: #f5f7ff;
+      --muted: #9aa3c7;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 12px;
+      background: radial-gradient(circle at top, #1b2640 0, #050814 55%);
+      color: var(--text);
+      font-family: var(--font-main);
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius: 22px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+    }
+
+    header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      background: radial-gradient(circle at top left, rgba(61,220,151,0.2), transparent 55%);
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      background: rgba(0,0,0,0.4);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #3ddc97;
+      box-shadow: 0 0 10px rgba(61,220,151,0.9);
+    }
+
+    h1 {
+      font-size: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: baseline;
+    }
+
+    h1 span.highlight {
+      background: linear-gradient(120deg, #3ddc97, #4ea5ff, #ff6b6b);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .mode-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mode-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.5);
+      color: var(--muted);
+      padding: 5px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s ease-out;
+    }
+
+    .mode-btn-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .mode-btn.active {
+      color: var(--text);
+      border-color: #4ea5ff;
+      background: radial-gradient(circle at top, rgba(78,165,255,0.3), rgba(0,0,0,0.8));
+    }
+
+    .mode-btn.active .mode-btn-dot {
+      background: #4ea5ff;
+      box-shadow: 0 0 8px rgba(78,165,255,0.9);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+      min-height: 460px;
+    }
+
+    @media (max-width: 860px) {
+      main { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    aside {
+      border-right: 1px solid var(--border-soft);
+      background: linear-gradient(180deg, rgba(11,16,34,0.95), rgba(5,8,20,0.98));
+      padding: 14px 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    @media (max-width: 860px) {
+      aside {
+        border-right: none;
+        border-bottom: 1px solid var(--border-soft);
+      }
+    }
+
+    .side-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 9px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: 0.2s ease-out;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(255,255,255,0.06);
+    }
+
+    .nav-item.active {
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border-color: rgba(255,255,255,0.18);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.6);
+    }
+
+    .nav-bar {
+      width: 8px;
+      height: 34px;
+      border-radius: 999px;
+      background: var(--accent-mil);
+    }
+
+    .nav-bar.mil { background: linear-gradient(180deg, #3ddc97, #1b9c6b); }
+    .nav-bar.pol { background: linear-gradient(180deg, #4ea5ff, #1f5fbf); }
+    .nav-bar.emt { background: linear-gradient(180deg, #ff6b6b, #c0392b); }
+
+    .nav-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .nav-title {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .nav-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--muted);
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(0,0,0,0.5);
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.mil { background: var(--accent-mil); }
+    .legend-dot.pol { background: var(--accent-pol); }
+    .legend-dot.emt { background: var(--accent-emt); }
+
+    .lang-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .lang-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.6);
+      color: var(--muted);
+      padding: 3px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.2s ease-out;
+    }
+
+    .lang-btn.active {
+      color: var(--text);
+      border-color: #3ddc97;
+      background: radial-gradient(circle at top, rgba(61,220,151,0.3), rgba(0,0,0,0.8));
+    }
+
+    section.main {
+      padding: 16px 16px 18px;
+      background: radial-gradient(circle at top right, rgba(78,165,255,0.18), transparent 55%);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: baseline;
+    }
+
+    .panel-tag {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .panel-sub {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 520px;
+    }
+
+    .panel-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .panel-meta span {
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.5);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .card {
+      background: rgba(5,8,20,0.95);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      padding: 12px 12px 13px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .card-badge {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.6);
+      color: var(--muted);
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 3px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .tag-dot.mil { background: var(--accent-mil); }
+    .tag-dot.pol { background: var(--accent-pol); }
+    .tag-dot.emt { background: var(--accent-emt); }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 3px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 5px;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "•";
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    .code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: rgba(0,0,0,0.75);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 7px 9px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 960px) {
+      .scenario-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .scenario-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .scenario {
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0,0,0,0.65);
+      padding: 7px 8px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .scenario-title {
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .scenario-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 10px;
+    }
+
+    .scenario-tag {
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.7);
+    }
+
+    .scenario-tag.mil { border-color: var(--accent-mil); }
+    .scenario-tag.pol { border-color: var(--accent-pol); }
+    .scenario-tag.emt { border-color: var(--accent-emt); }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 9px 14px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.75);
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.7);
+      color: var(--muted);
+      padding: 4px 9px;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.2s ease-out;
+    }
+
+    .btn.primary {
+      color: var(--text);
+      border-color: #3ddc97;
+      background: radial-gradient(circle at top, rgba(61,220,151,0.3), rgba(0,0,0,0.85));
+    }
+
+    .btn-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="title-block">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>HTML • CSS • JS • ARM Forces • Cops • EMT</span>
+        </div>
+        <h1>
+          Tactical
+          <span class="highlight">Learning Panel</span>
+        </h1>
+        <p class="subtitle" id="subtitle">
+          One page that links web development with military (ARM forces), police (cops), and EMT emergency response concepts.
+        </p>
+      </div>
+      <div class="mode-group">
+        <button class="mode-btn active" data-mode="overview">
+          <span class="mode-btn-dot"></span>
+          Overview
+        </button>
+        <button class="mode-btn" data-mode="training">
+          <span class="mode-btn-dot"></span>
+          Training
+        </button>
+        <button class="mode-btn" data-mode="code">
+          <span class="mode-btn-dot"></span>
+          Code Focus
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <aside>
+        <div>
+          <div class="side-title">Domains</div>
+          <div class="nav-list">
+            <div class="nav-item active" data-section="military">
+              <div class="nav-bar mil"></div>
+              <div class="nav-text">
+                <div class="nav-title">ARM Forces</div>
+                <div class="nav-sub">Ranks, missions, equipment</div>
+              </div>
+              <div class="nav-badge">01</div>
+            </div>
+            <div class="nav-item" data-section="police">
+              <div class="nav-bar pol"></div>
+              <div class="nav-text">
+                <div class="nav-title">Cops / Police</div>
+                <div class="nav-sub">Patrol, dispatch, safety</div>
+              </div>
+              <div class="nav-badge">02</div>
+            </div>
+            <div class="nav-item" data-section="emt">
+              <div class="nav-bar emt"></div>
+              <div class="nav-text">
+                <div class="nav-title">EMT / Medics</div>
+                <div class="nav-sub">Triage, vitals, response</div>
+              </div>
+              <div class="nav-badge">03</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="side-title">Legend</div>
+          <div class="legend">
+            <span><span class="legend-dot mil"></span> ARM Forces</span>
+            <span><span class="legend-dot pol"></span> Cops</span>
+            <span><span class="legend-dot emt"></span> EMT</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="side-title">Language</div>
+          <div class="lang-row">
+            <span>UI:</span>
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="es">ES</button>
+          </div>
+        </div>
+      </aside>
+
+      <section class="main">
+        <div class="panel-head">
+          <div class="panel-title-block">
+            <div class="panel-title">
+              <span id="panel-title">ARM Forces</span>
+              <span class="panel-tag" id="panel-tag">Chapter 01 • Military</span>
+            </div>
+            <p class="panel-sub" id="panel-sub">
+              Use HTML, CSS, and JavaScript to represent ranks, missions, and equipment in a clear, educational interface.
+            </p>
+          </div>
+          <div class="panel-meta">
+            <span id="meta-1">HTML structure • CSS identity • JS data</span>
+            <span id="meta-2">Beginner–Intermediate</span>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">Concept Map</div>
+              <div class="card-badge" id="badge-left">Web + Forces</div>
+            </div>
+            <div class="card-body" id="concept-body">
+              <p>
+                Treat each domain (ARM forces, cops, EMT) as data: units, calls, and patients become objects that your HTML and JavaScript can display and filter.
+              </p>
+              <div class="tag-row" id="tag-row">
+                <div class="tag">
+                  <span class="tag-dot mil"></span> Ranks & Missions
+                </div>
+                <div class="tag">
+                  <span class="tag-dot pol"></span> Calls & Patrols
+                </div>
+                <div class="tag">
+                  <span class="tag-dot emt"></span> Triage & Vitals
+                </div>
+              </div>
+              <ul class="list" id="concept-list">
+                <li>Use semantic HTML sections for each force: ARM, cops, EMT.</li>
+                <li>Style each force with its own color and icon set using CSS.</li>
+                <li>Store units, calls, and patients in JavaScript arrays or objects.</li>
+                <li>Render lists dynamically and add hover or click details.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-head">
+              <div class="card-title">Code Sketch</div>
+              <div class="card-badge" id="badge-right">JavaScript Data</div>
+            </div>
+            <div class="card-body">
+              <p id="code-caption">
+                Simple JavaScript structures for ARM forces, cops, and EMT that you can render into HTML cards.
+              </p>
+              <div class="code" id="code-block">
+const armForces = [
+  { unit: "Platoon A", role: "Security", ready: true },
+  { unit: "Medical Team M-1", role: "Field Medical", ready: true }
+];
+
+const cops = [
+  { callId: "C-101", type: "Noise", priority: "Low" },
+  { callId: "C-202", type: "Disturbance", priority: "High" }
+];
+
+const emt = [
+  { patientId: "P-1", triage: "yellow" },
+  { patientId: "P-2", triage: "red" }
+];
+
+function summary() {
+  return {
+    arm: armForces.length,
+    cops: cops.length,
+    emt: emt.length
+  };
+}
+
+console.log(summary());
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title">Scenario Tiles</div>
+            <div class="card-badge">Interactive Ideas</div>
+          </div>
+          <div class="card-body">
+            <p id="scenario-intro">
+              Example mini‑scenarios you can build as HTML/CSS/JS modules for each domain.
+            </p>
+            <div class="scenario-grid" id="scenario-grid">
+              <!-- scenarios injected by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div id="footer-text">
+        Mode: Overview • Focus: connect HTML/CSS/JS with ARM forces, cops, and EMT concepts.
+      </div>
+      <div class="footer-actions">
+        <button class="btn primary" id="btn-next">
+          <span class="btn-icon">▶</span>
+          Next Domain
+        </button>
+        <button class="btn" id="btn-random">
+          <span class="btn-icon">★</span>
+          Random Scenario
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const sections = {
+      military: {
+        title: "ARM Forces",
+        tag: "Chapter 01 • Military",
+        sub_en:
+          "Use HTML, CSS, and JavaScript to represent ranks, missions, and equipment in a clear, educational interface.",
+        sub_es:
+          "Usa HTML, CSS y JavaScript para representar rangos, misiones y equipo en una interfaz educativa clara.",
+        meta1_en: "HTML structure • CSS identity • JS data",
+        meta1_es: "Estructura HTML • Identidad CSS • Datos JS",
+        meta2: "Beginner–Intermediate",
+        badgeLeft: "Web + Forces",
+        badgeRight: "Units & Missions",
+        concept_en: [
+          "Use <section> and <article> to group ranks, missions, and vehicles.",
+          "Give each branch its own color and emblem using CSS.",
+          "Store units and missions in JavaScript arrays and render them into lists.",
+          "Add hover details for mission risk, location, and required support."
+        ],
+        concept_es: [
+          "Usa <section> y <article> para agrupar rangos, misiones y vehículos.",
+          "Da a cada rama su propio color y emblema con CSS.",
+          "Guarda unidades y misiones en arreglos de JavaScript y muéstralos en listas.",
+          "Agrega detalles al pasar el mouse: riesgo, ubicación y apoyo requerido."
+        ],
+        codeCaption_en:
+          "Example: ARM forces units and missions stored as JavaScript data.",
+        codeCaption_es:
+          "Ejemplo: unidades y misiones de fuerzas ARM guardadas como datos en JavaScript.",
+        code: `const armUnits = [
+  { name: "Platoon A", type: "Infantry", status: "Ready" },
+  { name: "Medical Team M-1", type: "Field Medical", status: "On Call" }
+];
+
+const missions = [
+  { code: "ALPHA-1", kind: "Training", risk: "Low" },
+  { code: "BRAVO-2", kind: "Support", risk: "Medium" }
+];
+
+function listArmUnits() {
+  return armUnits.map(u => \`\${u.name} — \${u.type} (\${u.status})\`);
+}
+
+console.log(listArmUnits());`,
+        scenarios_en: [
+          {
+            title: "Rank Ladder",
+            tags: ["mil"],
+            text:
+              "Vertical cards for each rank. Hover shows responsibilities and required training."
+          },
+          {
+            title: "Mission Brief Panel",
+            tags: ["mil"],
+            text:
+              "A panel that lists missions with risk level and required units, filterable by type."
+          },
+          {
+            title: "Equipment Loadout",
+            tags: ["mil"],
+            text:
+              "A grid of equipment cards with weight and purpose, toggling between training and field kits."
+          }
+        ],
+        scenarios_es: [
+          {
+            title: "Escalera de Rangos",
+            tags: ["mil"],
+            text:
+              "Tarjetas verticales para cada rango. El hover muestra responsabilidades y entrenamiento requerido."
+          },
+          {
+            title: "Panel de Misiones",
+            tags: ["mil"],
+            text:
+              "Un panel que lista misiones con nivel de riesgo y unidades requeridas, filtrable por tipo."
+          },
+          {
+            title: "Equipo de Campo",
+            tags: ["mil"],
+            text:
+              "Una cuadrícula de tarjetas de equipo con peso y propósito, cambiando entre entrenamiento y campo."
+          }
+        ]
+      },
+
+      police: {
+        title: "Cops / Police",
+        tag: "Chapter 02 • Law Enforcement",
+        sub_en:
+          "Model calls, patrol routes, and dispatch decisions with semantic HTML and simple JavaScript logic.",
+        sub_es:
+          "Modela llamadas, rutas de patrulla y decisiones de despacho con HTML semántico y lógica sencilla en JavaScript.",
+        meta1_en: "Calls • Patrol • Dispatch",
+        meta1_es: "Llamadas • Patrulla • Despacho",
+        meta2: "Beginner–Intermediate",
+        badgeLeft: "Calls & Patrols",
+        badgeRight: "Decision Logic",
+        concept_en: [
+          "Represent incoming calls as list items with priority badges.",
+          "Use a grid layout to show patrol zones and assigned units.",
+          "Write JS functions that route calls to cops, EMT, or both.",
+          "Highlight de‑escalation and community safety in every scenario."
+        ],
+        concept_es: [
+          "Representa llamadas entrantes como elementos de lista con insignias de prioridad.",
+          "Usa una cuadrícula para mostrar zonas de patrulla y unidades asignadas.",
+          "Escribe funciones JS que envíen llamadas a policía, EMT o ambos.",
+          "Destaca la desescalación y la seguridad comunitaria en cada escenario."
+        ],
+        codeCaption_en:
+          "Example: simple routing logic for calls based on type and risk.",
+        codeCaption_es:
+          "Ejemplo: lógica sencilla de enrutamiento de llamadas según tipo y riesgo.",
+        code: `function routeCall(call) {
+  if (call.type === "medical") return "EMT";
+  if (call.risk === "high") return "Cops + EMT";
+  return "Cops";
+}
+
+const example = { type: "disturbance", risk: "high" };
+console.log(routeCall(example)); // "Cops + EMT"`,
+        scenarios_en: [
+          {
+            title: "Dispatch Console",
+            tags: ["pol"],
+            text:
+              "A table of calls with filters for priority and location, plus buttons to dispatch units."
+          },
+          {
+            title: "Patrol Map",
+            tags: ["pol"],
+            text:
+              "A grid map where patrol units move between zones, emphasizing schools and parks."
+          },
+          {
+            title: "Community Feedback",
+            tags: ["pol"],
+            text:
+              "A form and dashboard where residents can submit safety concerns and see follow‑up status."
+          }
+        ],
+        scenarios_es: [
+          {
+            title: "Consola de Despacho",
+            tags: ["pol"],
+            text:
+              "Una tabla de llamadas con filtros por prioridad y ubicación, más botones para enviar unidades."
+          },
+          {
+            title: "Mapa de Patrulla",
+            tags: ["pol"],
+            text:
+              "Un mapa en cuadrícula donde las patrullas se mueven entre zonas, enfatizando escuelas y parques."
+          },
+          {
+            title: "Panel Comunitario",
+            tags: ["pol"],
+            text:
+              "Un formulario y panel donde la comunidad envía preocupaciones de seguridad y ve el seguimiento."
+          }
+        ]
+      },
+
+      emt: {
+        title: "EMT / Medics",
+        tag: "Chapter 03 • Emergency Medical",
+        sub_en:
+          "Turn triage colors, vitals, and ambulance response into calm, readable dashboards.",
+        sub_es:
+          "Convierte colores de triaje, signos vitales y respuesta de ambulancias en paneles claros y tranquilos.",
+        meta1_en: "Triage • Vitals • Timers",
+        meta1_es: "Triaje • Signos vitales • Temporizadores",
+        meta2: "Beginner–Intermediate",
+        badgeLeft: "Medical UI",
+        badgeRight: "Triage Logic",
+        concept_en: [
+          "Use colored badges (green, yellow, red, black) for triage categories.",
+          "Create a vitals panel with heart rate and breathing rate.",
+          "Use JS timers to simulate ambulance arrival times.",
+          "Keep labels simple and reassuring for learners."
+        ],
+        concept_es: [
+          "Usa insignias de color (verde, amarillo, rojo, negro) para categorías de triaje.",
+          "Crea un panel de signos vitales con frecuencia cardiaca y respiratoria.",
+          "Usa temporizadores JS para simular tiempos de llegada de ambulancias.",
+          "Mantén etiquetas simples y tranquilizadoras para el alumnado."
+        ],
+        codeCaption_en:
+          "Example: triage function that assigns a color based on condition.",
+        codeCaption_es:
+          "Ejemplo: función de triaje que asigna un color según la condición.",
+        code: `function triage(patient) {
+  if (!patient.breathing) return "black";
+  if (patient.bleeding === "severe") return "red";
+  if (patient.canWalk) return "green";
+  return "yellow";
+}
+
+const sample = { breathing: true, bleeding: "moderate", canWalk: false };
+console.log(triage(sample)); // "yellow"`,
+        scenarios_en: [
+          {
+            title: "Triage Board",
+            tags: ["emt"],
+            text:
+              "A board of patient cards with color tags and quick vitals summary."
+          },
+          {
+            title: "Ambulance Timer",
+            tags: ["emt"],
+            text:
+              "A countdown timer and route display for ambulance arrival."
+          },
+          {
+            title: "Joint Response Checklist",
+            tags: ["emt"],
+            text:
+              "A checklist that coordinates EMT with cops and ARM forces for large incidents."
+          }
+        ],
+        scenarios_es: [
+          {
+            title: "Tablero de Triaje",
+            tags: ["emt"],
+            text:
+              "Un tablero de tarjetas de pacientes con etiquetas de color y resumen rápido de signos vitales."
+          },
+          {
+            title: "Temporizador de Ambulancia",
+            tags: ["emt"],
+            text:
+              "Un temporizador de cuenta regresiva y ruta para la llegada de la ambulancia."
+          },
+          {
+            title: "Lista de Respuesta Conjunta",
+            tags: ["emt"],
+            text:
+              "Una lista de verificación que coordina EMT con policía y fuerzas ARM en incidentes grandes."
+          }
+        ]
+      }
+    };
+
+    let currentSection = "military";
+    let currentLang = "en";
+    let currentMode = "overview";
+
+    const navItems = document.querySelectorAll(".nav-item");
+    const langBtns = document.querySelectorAll(".lang-btn");
+    const modeBtns = document.querySelectorAll(".mode-btn");
+
+    const subtitle = document.getElementById("subtitle");
+    const panelTitle = document.getElementById("panel-title");
+    const panelTag = document.getElementById("panel-tag");
+    const panelSub = document.getElementById("panel-sub");
+    const meta1 = document.getElementById("meta-1");
+    const meta2 = document.getElementById("meta-2");
+    const badgeLeft = document.getElementById("badge-left");
+    const badgeRight = document.getElementById("badge-right");
+    const conceptList = document.getElementById("concept-list");
+    const codeCaption = document.getElementById("code-caption");
+    const codeBlock = document.getElementById("code-block");
+    const scenarioIntro = document.getElementById("scenario-intro");
+    const scenarioGrid = document.getElementById("scenario-grid");
+    const footerText = document.getElementById("footer-text");
+
+    function renderSection() {
+      const data = sections[currentSection];
+      const langSuffix = currentLang === "en" ? "_en" : "_es";
+
+      panelTitle.textContent = data.title;
+      panelTag.textContent = data.tag;
+      panelSub.textContent = data["sub" + langSuffix];
+      meta1.textContent = data["meta1" + langSuffix];
+      meta2.textContent = data.meta2;
+      badgeLeft.textContent = data.badgeLeft;
+      badgeRight.textContent = data.badgeRight;
+
+      conceptList.innerHTML = "";
+      data["concept" + langSuffix].forEach((item) => {
+        const li = document.createElement("li");
+        li.innerHTML = item;
+        conceptList.appendChild(li);
+      });
+
+      codeCaption.textContent = data["codeCaption" + langSuffix];
+      codeBlock.textContent = data.code;
+
+      const scenarios = data["scenarios" + langSuffix];
+      scenarioGrid.innerHTML = "";
+      scenarios.forEach((sc) => {
+        const card = document.createElement("div");
+        card.className = "scenario";
+
+        const title = document.createElement("div");
+        title.className = "scenario-title";
+        title.textContent = sc.title;
+        card.appendChild(title);
+
+        const tagsRow = document.createElement("div");
+        tagsRow.className = "scenario-tags";
+        sc.tags.forEach((t) => {
+          const span = document.createElement("span");
+          span.className = "scenario-tag " + t;
+          span.textContent = t.toUpperCase();
+          tagsRow.appendChild(span);
+        });
+        card.appendChild(tagsRow);
+
+        const p = document.createElement("p");
+        p.textContent = sc.text;
+        card.appendChild(p);
+
+        scenarioGrid.appendChild(card);
+      });
+
+      scenarioIntro.textContent =
+        currentLang === "en"
+          ? "Example mini‑scenarios you can build as HTML/CSS/JS modules for this domain."
+          : "Mini‑escenarios de ejemplo que puedes construir como módulos HTML/CSS/JS para este dominio.";
+
+      if (currentLang === "en") {
+        subtitle.textContent =
+          "One page that links web development with military (ARM forces), police (cops), and EMT emergency response concepts.";
+      } else {
+        subtitle.textContent =
+          "Una página que conecta desarrollo web con fuerzas ARM (militares), policía (cops) y EMT en respuesta de emergencia.";
+      }
+
+      let modeText;
+      if (currentMode === "overview") {
+        modeText =
+          currentLang === "en"
+            ? "Mode: Overview • Focus: connect HTML/CSS/JS with ARM forces, cops, and EMT concepts."
+            : "Modo: General • Enfoque: conectar HTML/CSS/JS con fuerzas ARM, policía y EMT.";
+      } else if (currentMode === "training") {
+        modeText =
+          currentLang === "en"
+            ? "Mode: Training • Focus: scenarios, flows, and decision‑making."
+            : "Modo: Entrenamiento • Enfoque: escenarios, flujos y toma de decisiones.";
+      } else {
+        modeText =
+          currentLang === "en"
+            ? "Mode: Code Focus • Focus: data structures and simple logic."
+            : "Modo: Código • Enfoque: estructuras de datos y lógica sencilla.";
+      }
+      footerText.textContent = modeText;
+    }
+
+    navItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        navItems.forEach((i) => i.classList.remove("active"));
+        item.classList.add("active");
+        currentSection = item.getAttribute("data-section");
+        renderSection();
+      });
+    });
+
+    langBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        langBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentLang = btn.getAttribute("data-lang");
+        renderSection();
+      });
+    });
+
+    modeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        modeBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentMode = btn.getAttribute("data-mode");
+        renderSection();
+      });
+    });
+
+    document.getElementById("btn-next").addEventListener("click", () => {
+      const order = ["military", "police", "emt"];
+      const idx = order.indexOf(currentSection);
+      const next = order[(idx + 1) % order.length];
+      currentSection = next;
+      navItems.forEach((i) => {
+        i.classList.toggle("active", i.getAttribute("data-section") === next);
+      });
+      renderSection();
+    });
+
+    document.getElementById("btn-random").addEventListener("click", () => {
+      const data = sections[currentSection];
+      const langSuffix = currentLang === "en" ? "_en" : "_es";
+      const scenarios = data["scenarios" + langSuffix];
+      const sc = scenarios[Math.floor(Math.random() * scenarios.length)];
+      alert(
+        (currentLang === "en" ? "Random scenario:\n\n" : "Escenario aleatorio:\n\n") +
+          sc.title +
+          "\n\n" +
+          sc.text
+      );
+    });
+
+    renderSection();
+  </script>
+</body>
+</html>
