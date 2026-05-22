@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>HTML • CSS • JS • Boating & Swimming Safety • Henderson NV</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #021019;
+      --bg-alt: #031824;
+      --card: #071f30;
+      --accent-water: #2f9bff;
+      --accent-safe: #3ddc97;
+      --accent-warn: #ffb347;
+      --accent-danger: #ff4b5c;
+      --text: #f5f7ff;
+      --muted: #9aa3c7;
+      --border-soft: rgba(255,255,255,0.12);
+      --radius: 18px;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 12px;
+      background:
+        radial-gradient(circle at top, #0b3a5c 0, #021019 55%);
+      color: var(--text);
+      font-family: var(--font-main);
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-radius: 24px;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.7);
+      overflow: hidden;
+      backdrop-filter: blur(16px);
+    }
+
+    header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      background:
+        radial-gradient(circle at top left, rgba(47,155,255,0.3), transparent 55%),
+        radial-gradient(circle at top right, rgba(61,220,151,0.18), transparent 60%);
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      background: rgba(0,0,0,0.45);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-water);
+      box-shadow: 0 0 10px rgba(47,155,255,0.9);
+    }
+
+    h1 {
+      font-size: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: baseline;
+    }
+
+    h1 span.highlight {
+      background: linear-gradient(120deg, #2f9bff, #3ddc97, #ffb347);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 560px;
+    }
+
+    .mode-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mode-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.55);
+      color: var(--muted);
+      padding: 5px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s ease-out;
+    }
+
+    .mode-btn-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .mode-btn.active {
+      color: var(--text);
+      border-color: var(--accent-safe);
+      background: radial-gradient(circle at top, rgba(61,220,151,0.3), rgba(0,0,0,0.85));
+    }
+
+    .mode-btn.active .mode-btn-dot {
+      background: var(--accent-safe);
+      box-shadow: 0 0 8px rgba(61,220,151,0.9);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 14px;
+      padding: 16px 16px 18px;
+    }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      padding: 12px 12px 13px;
+      box-shadow: 0 10px 26px rgba(0,0,0,0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .card-badge {
+      font-size: 10px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.65);
+      color: var(--muted);
+    }
+
+    .card-body {
+      position: relative;
+      z-index: 1;
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 3px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.65);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .tag-dot.water { background: var(--accent-water); }
+    .tag-dot.safe { background: var(--accent-safe); }
+    .tag-dot.warn { background: var(--accent-warn); }
+    .tag-dot.danger { background: var(--accent-danger); }
+
+    .list {
+      list-style: none;
+      display: grid;
+      gap: 3px;
+    }
+
+    .list li {
+      display: flex;
+      gap: 5px;
+      align-items: flex-start;
+    }
+
+    .list li::before {
+      content: "•";
+      color: rgba(255,255,255,0.7);
+      font-size: 11px;
+      margin-top: 1px;
+    }
+
+    .numbers-list {
+      list-style: none;
+      display: grid;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .number-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.65);
+      font-size: 12px;
+    }
+
+    .number-label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .number-name {
+      font-weight: 600;
+    }
+
+    .number-desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .number-phone {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.75);
+    }
+
+    .map-panel {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background:
+        radial-gradient(circle at top, rgba(47,155,255,0.25), transparent 60%),
+        rgba(0,0,0,0.7);
+      padding: 8px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 11px;
+    }
+
+    .map-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .map-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .map-box {
+      border-radius: 12px;
+      border: 1px dashed rgba(255,255,255,0.25);
+      background:
+        repeating-linear-gradient(
+          135deg,
+          rgba(255,255,255,0.05),
+          rgba(255,255,255,0.05) 6px,
+          rgba(0,0,0,0.4) 6px,
+          rgba(0,0,0,0.4) 12px
+        );
+      padding: 10px 10px 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .map-title {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .map-caption {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .map-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      font-size: 10px;
+    }
+
+    .map-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.7);
+    }
+
+    .map-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .map-dot.launch { background: var(--accent-water); }
+    .map-dot.cove { background: var(--accent-safe); }
+    .map-dot.warn { background: var(--accent-warn); }
+    .map-dot.ranger { background: var(--accent-danger); }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 720px) {
+      .scenario-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .scenario {
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.7);
+      padding: 7px 8px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .scenario-title {
+      font-weight: 600;
+      font-size: 11px;
+    }
+
+    .scenario-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      font-size: 10px;
+    }
+
+    .scenario-tag {
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.75);
+    }
+
+    .scenario-tag.water { border-color: var(--accent-water); }
+    .scenario-tag.safe { border-color: var(--accent-safe); }
+    .scenario-tag.warn { border-color: var(--accent-warn); }
+
+    .code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: rgba(0,0,0,0.8);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 7px 9px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    select {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.75);
+      color: var(--text);
+      padding: 6px 8px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .result {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--accent-safe);
+      min-height: 16px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 9px 14px;
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.8);
+    }
+
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(0,0,0,0.8);
+      color: var(--muted);
+      padding: 4px 9px;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: 0.2s ease-out;
+    }
+
+    .btn.primary {
+      color: var(--text);
+      border-color: var(--accent-water);
+      background: radial-gradient(circle at top, rgba(47,155,255,0.3), rgba(0,0,0,0.9));
+    }
+
+    .btn-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.35);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="title-block">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>Boating & Swimming Safety • Henderson NV • Lake Mead Area</span>
+        </div>
+        <h1>
+          HTML • CSS • JS
+          <span class="highlight">Water Safety Panel</span>
+        </h1>
+        <p class="subtitle" id="subtitle">
+          A single learning page that models boating and swimming safety rules, Henderson NV police contact info (example),
+          and a big‑map style view of Lake Mead kayaking areas.
+        </p>
+      </div>
+      <div class="mode-group">
+        <button class="mode-btn active" data-mode="overview">
+          <span class="mode-btn-dot"></span>
+          Overview
+        </button>
+        <button class="mode-btn" data-mode="safety">
+          <span class="mode-btn-dot"></span>
+          Safety Rules
+        </button>
+        <button class="mode-btn" data-mode="code">
+          <span class="mode-btn-dot"></span>
+          Code View
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT: safety + maps -->
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">Boating & Swimming Safety</div>
+          <div class="card-badge">Lake Mead • Kayaking • Swimming</div>
+        </div>
+        <div class="card-body">
+          <p>
+            These are general learning‑only guidelines for boating and swimming safety, inspired by Lake Mead and
+            Henderson NV area recreation. Always follow official park rules, posted signs, and local authorities.
+          </p>
+
+          <div class="tag-row">
+            <div class="tag">
+              <span class="tag-dot water"></span> Water Skills
+            </div>
+            <div class="tag">
+              <span class="tag-dot safe"></span> Life Jackets
+            </div>
+            <div class="tag">
+              <span class="tag-dot warn"></span> Weather & Wind
+            </div>
+            <div class="tag">
+              <span class="tag-dot danger"></span> No‑Go Zones
+            </div>
+          </div>
+
+          <h3 style="font-size:13px;margin-top:8px;">Swimming Safety Rules (Learning)</h3>
+          <ul class="list" id="swim-list">
+            <!-- filled by JS -->
+          </ul>
+
+          <h3 style="font-size:13px;margin-top:10px;">Boating & Kayaking Safety (Learning)</h3>
+          <ul class="list" id="boat-list">
+            <!-- filled by JS -->
+          </ul>
+
+          <div class="map-panel" style="margin-top:8px;">
+            <div style="font-size:12px;font-weight:600;">Big Map Concept • Lake Mead Area</div>
+            <p class="map-caption">
+              This is a stylized “big map” description for learning. Use real map apps or official park maps
+              for navigation and exact locations.
+            </p>
+            <div class="map-grid">
+              <div class="map-box">
+                <div class="map-title">Lake Mead & Kayak Coves</div>
+                <p class="map-caption">
+                  Imagine a wide blue lake stretching east–west. Near the Nevada side, you have launch ramps,
+                  marinas, and quiet coves for paddling.
+                </p>
+                <ul class="list">
+                  <li>Launch areas: marinas and ramps where boats and kayaks enter the water.</li>
+                  <li>Quiet coves: more sheltered spots for beginner paddlers and family swimming (when allowed).</li>
+                  <li>Open water: deeper, windier sections where strong skills and life jackets are essential.</li>
+                </ul>
+              </div>
+              <div class="map-box">
+                <div class="map-title">Legend & Safety Zones</div>
+                <p class="map-caption">
+                  Use colors and icons in your HTML/CSS map to show safer coves, caution zones, and restricted areas.
+                </p>
+                <div class="map-legend">
+                  <span><span class="map-dot launch"></span> Launch / Marina</span>
+                  <span><span class="map-dot cove"></span> Calm Cove (learning)</span>
+                  <span><span class="map-dot warn"></span> Wind / Wake Caution</span>
+                  <span><span class="map-dot ranger"></span> Ranger / No‑Go Area</span>
+                </div>
+                <ul class="list" style="margin-top:4px;">
+                  <li>Mark swim‑only zones separately from boating channels.</li>
+                  <li>Highlight ranger stations and emergency contact points.</li>
+                  <li>Always check real‑time closures and water quality alerts.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: cops + code + practice -->
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">Henderson NV Police & Practice</div>
+          <div class="card-badge" id="mode-label">Example Contacts</div>
+        </div>
+        <div class="card-body">
+          <p>
+            Below is an <strong>example</strong> of how you might model Henderson NV police station contact info in HTML/JS.
+            For real emergencies, call <strong>911</strong>. For non‑emergency questions, always look up the official,
+            current numbers and addresses from the City of Henderson or police website.
+          </p>
+
+          <h3 style="font-size:13px;margin-top:6px;">Example Station List (Not Official)</h3>
+          <ul class="numbers-list" id="station-list">
+            <!-- filled by JS -->
+          </ul>
+
+          <p style="font-size:11px;color:var(--muted);margin-top:4px;">
+            These entries are placeholders for learning. Replace them with real, verified information from official sources
+            if you use this in a real project.
+          </p>
+
+          <h3 style="font-size:13px;margin-top:10px;">JavaScript Data & Safety Helper</h3>
+          <p id="code-caption">
+            JavaScript can store safety rules and station info as objects, then choose what to show based on a situation.
+          </p>
+          <div class="code" id="code-block">
+const swimRules = [
+  { id: 1, level: "basic", text: "Always swim with a buddy; never swim alone." },
+  { id: 2, level: "basic", text: "Stay in designated swim areas and obey posted signs." }
+];
+
+const stations = [
+  { name: "Example Henderson Police Station", phone: "(555) 000‑0000", type: "non‑emergency" }
+];
+
+function recommendAction(context) {
+  if (context === "life‑threatening") return "Call 911 immediately.";
+  if (context === "non‑emergency") return "Use a verified non‑emergency police number.";
+  if (context === "water‑safety") return "Follow posted rules and wear a life jacket.";
+  return "Seek official guidance.";
+}
+
+console.log(recommendAction("water‑safety"));
+          </div>
+
+          <div class="form-row">
+            <label for="situation-select">
+              Practice: choose a situation and see what the helper suggests (learning‑only).
+            </label>
+            <select id="situation-select">
+              <option value="">Select a situation…</option>
+              <option value="life‑threatening">Serious injury or person missing in water</option>
+              <option value="non‑emergency">Noise or concern near the lake (not urgent)</option>
+              <option value="water‑safety">Planning a family kayak day</option>
+              <option value="info">Need local station address or phone</option>
+            </select>
+          </div>
+          <div class="result" id="result-text"></div>
+
+          <h3 style="font-size:13px;margin-top:10px;">Scenario Tiles • Lake & City</h3>
+          <div class="scenario-grid" id="scenario-grid">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div id="footer-text">
+        Mode: Overview • Focus: connect water safety rules, example Henderson NV police contacts, and big‑map thinking (learning‑only).
+      </div>
+      <div class="footer-actions">
+        <button class="btn primary" id="btn-random">
+          <span class="btn-icon">★</span>
+          Random Scenario
+        </button>
+        <button class="btn" id="btn-reset">
+          <span class="btn-icon">↺</span>
+          Reset Practice
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const swimRules = [
+      {
+        text: "Always swim with a buddy; never swim alone, especially in open water.",
+        level: "basic"
+      },
+      {
+        text: "Stay in designated swim areas and obey lifeguards, rangers, and posted signs.",
+        level: "basic"
+      },
+      {
+        text: "Check water depth before jumping in; never dive into unknown or shallow water.",
+        level: "warn"
+      },
+      {
+        text: "Watch for sudden drop‑offs, strong currents, and changing weather at lakes and reservoirs.",
+        level: "warn"
+      },
+      {
+        text: "Children and weak swimmers should wear a properly fitted life jacket near the water.",
+        level: "safe"
+      },
+      {
+        text: "If you feel tired or cold, get out, rest, and warm up—hypothermia can happen even in warm places.",
+        level: "warn"
+      }
+    ];
+
+    const boatRules = [
+      {
+        text: "Everyone in a kayak, canoe, or boat should wear a U.S. Coast Guard–approved life jacket.",
+        level: "safe"
+      },
+      {
+        text: "Check wind, waves, and weather before launching; avoid strong winds and storms.",
+        level: "warn"
+      },
+      {
+        text: "Stay clear of boat channels and large vessels; they may not see small kayaks easily.",
+        level: "warn"
+      },
+      {
+        text: "Carry a whistle, light, and communication device (like a charged phone in a dry bag).",
+        level: "safe"
+      },
+      {
+        text: "Do not mix alcohol or drugs with boating or swimming.",
+        level: "danger"
+      },
+      {
+        text: "Tell someone your float plan: where you are going and when you expect to return.",
+        level: "safe"
+      }
+    ];
+
+    // Example / placeholder station data (not official)
+    const stations = [
+      {
+        name: "Example Henderson Police Main Station",
+        address: "123 Example Ave, Henderson, NV",
+        phone: "(555) 000‑0000",
+        type: "Non‑Emergency (Example)"
+      },
+      {
+        name: "Example Substation – Lake Area",
+        address: "456 Lake View Rd, Henderson, NV",
+        phone: "(555) 111‑1111",
+        type: "Lake / Recreation (Example)"
+      }
+    ];
+
+    const scenarios = [
+      {
+        title: "Wind Picks Up on Lake Mead",
+        tags: ["water", "warn"],
+        text: "You notice whitecaps and stronger wind while kayaking. Head back toward shore early and stay near protected coves."
+      },
+      {
+        title: "Child Without Life Jacket Near Dock",
+        tags: ["safe"],
+        text: "A child is playing close to the water. Gently remind caregivers about life jackets and staying within arm’s reach."
+      },
+      {
+        title: "Loud Music at Late Hour Near Shore",
+        tags: ["warn"],
+        text: "Noise is bothering neighbors but no one is in danger. Use a verified non‑emergency police number, not 911."
+      },
+      {
+        title: "Person Missing After Swimming",
+        tags: ["water", "warn"],
+        text: "Someone has not returned from a swim and may be in danger. Call 911 immediately and follow instructions."
+      }
+    ];
+
+    const swimList = document.getElementById("swim-list");
+    const boatList = document.getElementById("boat-list");
+    const stationList = document.getElementById("station-list");
+    const scenarioGrid = document.getElementById("scenario-grid");
+    const situationSelect = document.getElementById("situation-select");
+    const resultText = document.getElementById("result-text");
+    const footerText = document.getElementById("footer-text");
+    const modeBtns = document.querySelectorAll(".mode-btn");
+    const codeBlock = document.getElementById("code-block");
+    const codeCaption = document.getElementById("code-caption");
+    const modeLabel = document.getElementById("mode-label");
+
+    function renderRuleList(list, container) {
+      container.innerHTML = "";
+      list.forEach((rule) => {
+        const li = document.createElement("li");
+        li.textContent = rule.text;
+        container.appendChild(li);
+      });
+    }
+
+    function renderStations() {
+      stationList.innerHTML = "";
+      stations.forEach((s) => {
+        const li = document.createElement("li");
+        li.className = "number-item";
+
+        const label = document.createElement("div");
+        label.className = "number-label";
+
+        const name = document.createElement("div");
+        name.className = "number-name";
+        name.textContent = s.name;
+
+        const desc = document.createElement("div");
+        desc.className = "number-desc";
+        desc.textContent = s.address + " • " + s.type;
+
+        label.appendChild(name);
+        label.appendChild(desc);
+
+        const phone = document.createElement("div");
+        phone.className = "number-phone";
+        phone.textContent = s.phone;
+
+        li.appendChild(label);
+        li.appendChild(phone);
+        stationList.appendChild(li);
+      });
+    }
+
+    function renderScenarios() {
+      scenarioGrid.innerHTML = "";
+      scenarios.forEach((sc) => {
+        const card = document.createElement("div");
+        card.className = "scenario";
+
+        const title = document.createElement("div");
+        title.className = "scenario-title";
+        title.textContent = sc.title;
+        card.appendChild(title);
+
+        const tagsRow = document.createElement("div");
+        tagsRow.className = "scenario-tags";
+        sc.tags.forEach((t) => {
+          const span = document.createElement("span");
+          span.className = "scenario-tag " + (t === "water" ? "water" : t);
+          span.textContent =
+            t === "water" ? "WATER" : t === "safe" ? "SAFETY" : "CAUTION";
+          tagsRow.appendChild(span);
+        });
+        card.appendChild(tagsRow);
+
+        const p = document.createElement("p");
+        p.textContent = sc.text;
+        card.appendChild(p);
+
+        scenarioGrid.appendChild(card);
+      });
+    }
+
+    function recommendAction(context) {
+      if (context === "life‑threatening") {
+        return "Call 911 immediately and follow instructions from dispatch and local rangers.";
+      }
+      if (context === "non‑emergency") {
+        return "Use a verified non‑emergency police number from official Henderson NV sources.";
+      }
+      if (context === "water‑safety") {
+        return "Check weather, wear life jackets, and stay in approved areas for kayaking and swimming.";
+      }
+      if (context === "info") {
+        return "Visit the official City of Henderson or police website for current station addresses and phone numbers.";
+      }
+      return "";
+    }
+
+    situationSelect.addEventListener("change", () => {
+      const value = situationSelect.value;
+      const text = recommendAction(value);
+      resultText.textContent = text
+        ? "Suggested action (learning‑only): " + text
+        : "";
+    });
+
+    modeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        modeBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mode = btn.getAttribute("data-mode");
+        if (mode === "overview") {
+          footerText.textContent =
+            "Mode: Overview • Focus: connect water safety rules, example Henderson NV police contacts, and big‑map thinking (learning‑only).";
+          modeLabel.textContent = "Example Contacts";
+          codeCaption.textContent =
+            "JavaScript can store safety rules and station info as objects, then choose what to show based on a situation.";
+          codeBlock.textContent = `const swimRules = [
+  { id: 1, level: "basic", text: "Always swim with a buddy; never swim alone." },
+  { id: 2, level: "basic", text: "Stay in designated swim areas and obey posted signs." }
+];
+
+const stations = [
+  { name: "Example Henderson Police Station", phone: "(555) 000‑0000", type: "non‑emergency" }
+];
+
+function recommendAction(context) {
+  if (context === "life‑threatening") return "Call 911 immediately.";
+  if (context === "non‑emergency") return "Use a verified non‑emergency police number.";
+  if (context === "water‑safety") return "Follow posted rules and wear a life jacket.";
+  return "Seek official guidance.";
+}
+
+console.log(recommendAction("water‑safety"));`;
+        } else if (mode === "safety") {
+          footerText.textContent =
+            "Mode: Safety Rules • Focus: swimming, boating, and lake‑area guidelines (learning‑only).";
+          modeLabel.textContent = "Safety Focus";
+          codeCaption.textContent =
+            "Think of each rule as a data item. You can filter or highlight rules by level (basic, caution, danger).";
+          codeBlock.textContent = `const boatRules = [
+  { text: "Wear a life jacket.", level: "safe" },
+  { text: "Check wind and weather.", level: "warn" },
+  { text: "Never mix alcohol with boating.", level: "danger" }
+];
+
+function filterRules(level) {
+  return boatRules.filter(r => r.level === level);
+}
+
+console.log(filterRules("danger"));`;
+        } else {
+          footerText.textContent =
+            "Mode: Code View • Focus: arrays, objects, and simple helper functions for safety and contact info.";
+          modeLabel.textContent = "Code View";
+          codeCaption.textContent =
+            "Here we focus on the JavaScript structures that power the lists and suggestions on this page.";
+          codeBlock.textContent = `const stations = [
+  { name: "Example Henderson Police Main Station", phone: "(555) 000‑0000" },
+  { name: "Example Lake Area Substation", phone: "(555) 111‑1111" }
+];
+
+function getStationNames() {
+  return stations.map(s => s.name);
+}
+
+console.log(getStationNames());`;
+        }
+      });
+    });
+
+    document.getElementById("btn-random").addEventListener("click", () => {
+      const s = scenarios[Math.floor(Math.random() * scenarios.length)];
+      alert("Random scenario:\n\n" + s.title + "\n\n" + s.text);
+    });
+
+    document.getElementById("btn-reset").addEventListener("click", () => {
+      situationSelect.value = "";
+      resultText.textContent = "";
+    });
+
+    renderRuleList(swimRules, swimList);
+    renderRuleList(boatRules, boatList);
+    renderStations();
+    renderScenarios();
+  </script>
+</body>
+</html>
