@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>City of Henderson Helper Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ---------- ROOT COLORS ---------- */
+:root {
+  --bg: #0a0f1c;
+  --card: #1a2333;
+  --accent: #4ade80;
+  --accent-soft: rgba(74, 222, 128, 0.18);
+  --text: #e5e7eb;
+  --soft: #9ca3af;
+  --warn: #f97316;
+  --danger: #ef4444;
+  --radius: 14px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+/* ---------- GLOBAL ---------- */
+body {
+  background: radial-gradient(circle at top, #1e293b, #0a0f1c);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* ---------- HEADER ---------- */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+header h2 {
+  font-size: 1rem;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+  margin-top: 0.4rem;
+}
+
+/* ---------- GRID ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 1.5rem;
+}
+
+.card {
+  background: var(--card);
+  padding: 1.3rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.card h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--soft);
+  margin-bottom: 0.6rem;
+}
+
+.card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ---------- BADGES ---------- */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.7rem;
+}
+
+.badge {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--soft);
+}
+
+/* ---------- BUTTONS ---------- */
+.btn {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 999px;
+  border: none;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  color: white;
+  transition: 0.15s ease;
+}
+
+.btn.police { background: #2563eb; }
+.btn.fire { background: var(--warn); }
+.btn.emt { background: var(--danger); }
+.btn.city { background: #10b981; }
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* ---------- STATUS ---------- */
+.status {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+
+.status span {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------- RADIO SIM ---------- */
+.radio-box {
+  margin-top: 0.8rem;
+  background: rgba(255,255,255,0.05);
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+}
+
+.radio-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem;
+}
+
+.radio-item:last-child { margin-bottom: 0; }
+
+.radio-label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.radio-state {
+  color: var(--accent);
+}
+
+/* ---------- MUSIC PLAYER ---------- */
+.music {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 0.8rem;
+  border-radius: 10px;
+}
+
+.music-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--soft);
+  margin-bottom: 0.4rem;
+}
+
+audio { width: 100%; }
+
+/* ---------- NOTES ---------- */
+.notes {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 0.8rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+
+/* ---------- LOG ---------- */
+.log {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 0.8rem;
+  border-radius: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+}
+
+.log-entry {
+  margin-bottom: 0.3rem;
+  color: var(--soft);
+}
+
+.log-entry span {
+  color: var(--accent);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>City of Henderson Helper Sheet</h1>
+  <h2>Police • Fire • EMT • City Workers</h2>
+</header>
+
+<div class="grid">
+
+  <!-- LEFT PANEL -->
+  <div class="card">
+    <h3>Henderson NV 89015</h3>
+    <h4>Public Safety Panel (Simulated)</h4>
+
+    <div class="badge-row">
+      <span class="badge">Police</span>
+      <span class="badge">Fire</span>
+      <span class="badge">EMT</span>
+      <span class="badge">City Workers</span>
+    </div>
+
+    <button class="btn police" data-type="Police 🚓">Police</button>
+    <button class="btn fire" data-type="Fire 🚒">Fire</button>
+    <button class="btn emt" data-type="EMT 🚑">EMT</button>
+    <button class="btn city" data-type="City Workers 🛠️">City Workers</button>
+
+    <p class="status" id="statusBox">
+      Status: <span>Idle</span> — no simulated alerts.
+    </p>
+
+    <div class="radio-box" id="radioBox">
+      <div class="radio-item">
+        <span class="radio-label">Police Channel</span>
+        <span class="radio-state">Standby</span>
+      </div>
+      <div class="radio-item">
+        <span class="radio-label">Fire Channel</span>
+        <span class="radio-state">Standby</span>
+      </div>
+      <div class="radio-item">
+        <span class="radio-label">EMT Channel</span>
+        <span class="radio-state">Standby</span>
+      </div>
+      <div class="radio-item">
+        <span class="radio-label">City Ops</span>
+        <span class="radio-state">Standby</span>
+      </div>
+    </div>
+
+    <div class="music">
+      <div class="music-title">MP3 Player</div>
+      <audio controls>
+        <source src="sample.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="card">
+    <h3>Helper Notes</h3>
+    <h4>Quick Reference</h4>
+
+    <div class="notes">
+      • This is a **simulated** dashboard for layouts and training  
+      • Not connected to real Henderson PD / Fire / EMT  
+      • Use the log below to track practice events  
+      • Replace MP3 with your own file  
+    </div>
+
+    <div class="log" id="logBox">
+      <div class="log-entry"><span>[Loaded]</span> System ready.</div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const radioBox = document.getElementById("radioBox");
+const logBox = document.getElementById("logBox");
+
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.type;
+
+    // Update status
+    statusBox.innerHTML = `Status: <span>${type}</span> — simulated alert triggered.`;
+
+    // Update radio channels
+    radioBox.querySelectorAll(".radio-item").forEach(item => {
+      const label = item.querySelector(".radio-label").textContent;
+      const state = item.querySelector(".radio-state");
+
+      if (label.toLowerCase().includes(type.split(" ")[0].toLowerCase())) {
+        state.textContent = "Active";
+      } else {
+        state.textContent = "Standby";
+      }
+    });
+
+    // Log entry
+    const entry = document.createElement("div");
+    entry.className = "log-entry";
+    const time = new Date().toLocaleTimeString();
+    entry.innerHTML = `<span>[${time}]</span> ${type} activated (simulated).`;
+    logBox.appendChild(entry);
+    logBox.scrollTop = logBox.scrollHeight;
+  });
+});
+</script>
+
+</body>
+</html>
