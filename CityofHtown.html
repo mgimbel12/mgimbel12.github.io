@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Henderson Emergency Dispatch Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+/* ====== COLOR SYSTEM ====== */
+:root {
+  --bg: #05070d;
+  --panel: #0f172a;
+  --border: #1e293b;
+  --text: #e2e8f0;
+  --soft: #94a3b8;
+  --police: #3b82f6;
+  --emt: #ef4444;
+  --workers: #10b981;
+  --alarm: #f97316;
+  --radius: 12px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.55);
+}
+
+/* ====== GLOBAL ====== */
+body {
+  background: var(--bg);
+  font-family: "Segoe UI", sans-serif;
+  color: var(--text);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 900px;
+}
+
+/* ====== HEADER ====== */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--police);
+}
+
+header h2 {
+  font-size: 1rem;
+  color: var(--soft);
+  letter-spacing: 0.2em;
+}
+
+/* ====== PANEL ====== */
+.panel {
+  background: var(--panel);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+/* ====== BUTTONS ====== */
+.btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  color: white;
+  transition: 0.15s ease;
+}
+
+.btn.police { background: var(--police); }
+.btn.emt { background: var(--emt); }
+.btn.workers { background: var(--workers); }
+.btn.alarm { background: var(--alarm); }
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* ====== STATUS ====== */
+.status {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: var(--soft);
+}
+
+.status span {
+  color: var(--police);
+  font-weight: 600;
+}
+
+/* ====== TIMER ====== */
+.timer {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--soft);
+}
+
+/* ====== LOG ====== */
+.log {
+  margin-top: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.log-entry {
+  margin-bottom: 0.4rem;
+  color: var(--soft);
+}
+
+.log-entry span {
+  color: var(--police);
+}
+
+/* ====== ALARM FLASH ====== */
+.flash {
+  animation: flash 0.35s infinite alternate;
+}
+
+@keyframes flash {
+  from { background: rgba(255,0,0,0.2); }
+  to { background: rgba(255,0,0,0.7); }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Henderson Emergency Dispatch</h1>
+  <h2>Police • EMT • City Workers • Alarm System</h2>
+</header>
+
+<div class="panel" id="panel">
+
+  <button class="btn police" data-type="Police Unit Dispatched 🚓">
+    Dispatch Police Unit
+  </button>
+
+  <button class="btn emt" data-type="EMT Unit Dispatched 🚑">
+    Dispatch EMT Unit
+  </button>
+
+  <button class="btn workers" data-type="City Workers Dispatched 🛠️">
+    Dispatch City Workers
+  </button>
+
+  <button class="btn alarm" id="alarmBtn">
+    Activate Alarm System
+  </button>
+
+  <p class="status" id="statusBox">
+    Status: <span>System Idle</span>
+  </p>
+
+  <p class="timer" id="timerBox">Arrival Timer: 0 seconds</p>
+
+  <div class="log" id="logBox">
+    <div class="log-entry"><span>[Loaded]</span> Dispatch system online.</div>
+  </div>
+
+</div>
+
+<!-- ====== SOUND EFFECTS ====== -->
+<audio id="alarmSound">
+  <source src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" type="audio/ogg">
+</audio>
+
+<audio id="arrivalSound">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const timerBox = document.getElementById("timerBox");
+const logBox = document.getElementById("logBox");
+const panel = document.getElementById("panel");
+
+const alarmSound = document.getElementById("alarmSound");
+const arrivalSound = document.getElementById("arrivalSound");
+
+let timer = 0;
+let timerInterval = null;
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timer = 0;
+  timerInterval = setInterval(() => {
+    timer++;
+    timerBox.textContent = "Arrival Timer: " + timer + " seconds";
+  }, 1000);
+}
+
+function log(message) {
+  const entry = document.createElement("div");
+  entry.className = "log-entry";
+  const time = new Date().toLocaleTimeString();
+  entry.innerHTML = `<span>[${time}]</span> ${message}`;
+  logBox.appendChild(entry);
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+document.querySelectorAll(".btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const type = btn.dataset.type;
+
+    if (type) {
+      statusBox.innerHTML = `Status: <span>${type}</span>`;
+      log(type);
+      arrivalSound.play();
+      startTimer();
+    }
+  });
+});
+
+document.getElementById("alarmBtn").addEventListener("click", () => {
+  alarmSound.play();
+  panel.classList.add("flash");
+  statusBox.innerHTML = `Status: <span>ALARM SYSTEM ACTIVATED 🚨</span>`;
+  log("ALARM SYSTEM ACTIVATED 🚨");
+
+  setTimeout(() => {
+    panel.classList.remove("flash");
+  }, 6000);
+});
+</script>
+
+</body>
+</html>
