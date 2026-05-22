@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Henderson Tactical Dispatch Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --bg: #020617;
+  --panel: #020617;
+  --card: #020617;
+  --border: #1e293b;
+  --text: #e5e7eb;
+  --soft: #9ca3af;
+  --police: #3b82f6;
+  --emt: #ef4444;
+  --workers: #22c55e;
+  --alarm: #f97316;
+  --radius: 12px;
+  --shadow: 0 18px 40px rgba(0,0,0,0.7);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #0f172a, #020617);
+  font-family: system-ui, sans-serif;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  font-size: 1.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--police);
+}
+header h2 {
+  font-size: 0.9rem;
+  color: var(--soft);
+  letter-spacing: 0.18em;
+}
+
+/* LAYOUT */
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.6fr;
+  gap: 1rem;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+/* BUTTONS */
+.btn {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 0.6rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.15s ease;
+}
+.btn.police { background: var(--police); }
+.btn.emt { background: var(--emt); }
+.btn.workers { background: var(--workers); }
+.btn.alarm { background: var(--alarm); }
+.btn.siren {
+  background: transparent;
+  border: 1px solid var(--soft);
+  color: var(--soft);
+}
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+/* STATUS / TIMER */
+.status {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--soft);
+}
+.status span {
+  color: var(--police);
+  font-weight: 600;
+}
+.timer {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--soft);
+}
+
+/* GPS */
+.gps {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+  color: var(--soft);
+}
+.gps span {
+  color: var(--workers);
+}
+
+/* RADIO CHATTER */
+.radio {
+  margin-top: 0.8rem;
+  background: rgba(15,23,42,0.9);
+  border-radius: 8px;
+  padding: 0.7rem;
+  font-size: 0.8rem;
+}
+.radio-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  color: var(--soft);
+  margin-bottom: 0.4rem;
+}
+.radio-log {
+  max-height: 150px;
+  overflow-y: auto;
+}
+.radio-entry {
+  margin-bottom: 0.25rem;
+  color: var(--soft);
+}
+.radio-entry span {
+  color: var(--police);
+}
+
+/* MAP */
+.map {
+  background: radial-gradient(circle at top, #020617, #020617);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--soft);
+}
+.map-grid {
+  position: relative;
+  background: repeating-linear-gradient(
+      to right,
+      #0b1120 0,
+      #0b1120 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      #0b1120 0,
+      #0b1120 1px,
+      transparent 1px,
+      transparent 40px
+    );
+  border-radius: 10px;
+  height: 260px;
+  overflow: hidden;
+}
+.map-label {
+  position: absolute;
+  font-size: 0.7rem;
+  color: var(--soft);
+}
+.map-label.top-left { top: 6px; left: 8px; }
+.map-label.bottom-right { bottom: 6px; right: 8px; }
+
+/* UNIT MARKERS */
+.unit {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+}
+.unit.police { background: var(--police); }
+.unit.emt { background: var(--emt); }
+.unit.workers { background: var(--workers); }
+
+/* FOOTER */
+footer {
+  margin-top: 0.8rem;
+  text-align: center;
+  font-size: 0.7rem;
+  color: var(--soft);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+  <header>
+    <h1>Henderson Tactical Dispatch</h1>
+    <h2>Simulated • Police • EMT • City Workers • Siren • GPS • Radio</h2>
+  </header>
+
+  <section class="grid">
+    <!-- LEFT: CONTROLS -->
+    <article class="card">
+      <button class="btn police" data-type="Police Unit Dispatched 🚓">
+        Dispatch Police Unit
+      </button>
+      <button class="btn emt" data-type="EMT Unit Dispatched 🚑">
+        Dispatch EMT Unit
+      </button>
+      <button class="btn workers" data-type="City Workers Dispatched 🛠️">
+        Dispatch City Workers
+      </button>
+      <button class="btn alarm" id="alarmBtn">
+        Activate Alarm
+      </button>
+      <button class="btn siren" id="sirenToggle">
+        Siren: OFF
+      </button>
+
+      <p class="status" id="statusBox">
+        Status: <span>System Idle</span>
+      </p>
+      <p class="timer" id="timerBox">Arrival Timer: 0 seconds</p>
+      <p class="gps" id="gpsBox">
+        GPS: <span>36.0300, -115.0000</span> (Simulated Henderson Area)
+      </p>
+
+      <div class="radio">
+        <div class="radio-title">Radio Chatter (Simulated)</div>
+        <div class="radio-log" id="radioLog">
+          <div class="radio-entry"><span>[Control]</span> Dispatch online. Monitoring channels.</div>
+        </div>
+      </div>
+    </article>
+
+    <!-- RIGHT: MAP -->
+    <article class="map">
+      <div class="map-header">
+        <span>General Area Map (Simulated)</span>
+        <span style="font-size:0.75rem;color:var(--soft);">Units: 🚓 🚑 🛠️</span>
+      </div>
+      <div class="map-grid" id="mapGrid">
+        <div class="map-label top-left">NW Sector</div>
+        <div class="map-label bottom-right">SE Sector</div>
+
+        <div class="unit police" id="unitPolice"></div>
+        <div class="unit emt" id="unitEmt"></div>
+        <div class="unit workers" id="unitWorkers"></div>
+      </div>
+    </article>
+  </section>
+
+  <footer>
+    All elements are simulated for layout, training, and portfolio use only. No real tracking or radio.
+  </footer>
+</div>
+
+<!-- AUDIO -->
+<audio id="sirenAudio" loop>
+  <source src="https://actions.google.com/sounds/v1/alarms/air_horn.ogg" type="audio/ogg">
+</audio>
+<audio id="beepAudio">
+  <source src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg" type="audio/ogg">
+</audio>
+
+<script>
+const statusBox = document.getElementById("statusBox");
+const timerBox = document.getElementById("timerBox");
+const gpsBox = document.getElementById("gpsBox");
+const radioLog = document.getElementById("radioLog");
+const sirenAudio = document.getElementById("sirenAudio");
+const beepAudio = document.getElementById("beepAudio");
+const sirenToggle = document.getElementById("sirenToggle");
+const alarmBtn = document.getElementById("alarmBtn");
+
+const unitPolice = document.getElementById("unitPolice");
+const unitEmt = document.getElementById("unitEmt");
+const unitWorkers = document.getElementById("unitWorkers");
+const mapGrid = document.getElementById("mapGrid");
+
+let timer = 0;
+let timerInterval = null;
+let sirenOn = false;
+
+/* TIMER */
+function startTimer() {
+  clearInterval(timerInterval);
+  timer = 0;
+  timerInterval = setInterval(() => {
+    timer++;
+    timerBox.textContent = "Arrival Timer: " + timer + " seconds";
+  }, 1000);
+}
+
+/* LOG RADIO */
+function addRadio(message, prefix = "Unit") {
+  const entry = document.createElement("div");
+  entry.className = "radio-entry";
+  const time = new Date().toLocaleTimeString();
+  entry.innerHTML = `<span>[${prefix}]</span> ${message} (${time})`;
+  radioLog.appendChild(entry);
+  radioLog.scrollTop = radioLog.scrollHeight;
+}
+
+/* GPS SIMULATION */
+function updateGPS() {
+  const baseLat = 36.03;
+  const baseLng = -115.0;
+  const lat = (baseLat + (Math.random() - 0.5) * 0.02).toFixed(4);
+  const lng = (baseLng + (Math.random() - 0.5) * 0.02).toFixed(4);
+  gpsBox.innerHTML = `GPS: <span>${lat}, ${lng}</span> (Simulated Henderson Area)`;
+}
+
+/* UNIT POSITIONING */
+function moveUnit(unit) {
+  const rect = mapGrid.getBoundingClientRect();
+  const padding = 20;
+  const x = Math.random() * (rect.width - padding * 2) + padding;
+  const y = Math.random() * (rect.height - padding * 2) + padding;
+  unit.style.left = x + "px";
+  unit.style.top = y + "px";
+}
+
+/* DISPATCH BUTTONS */
+document.querySelectorAll(".btn").forEach(btn => {
+  const type = btn.dataset.type;
+  if (!type) return;
+
+  btn.addEventListener("click", () => {
+    statusBox.innerHTML = `Status: <span>${type}</span>`;
+    beepAudio.play();
+    startTimer();
+    updateGPS();
+
+    if (type.includes("Police")) {
+      moveUnit(unitPolice);
+      addRadio("Police unit en route to location.", "Police");
+    } else if (type.includes("EMT")) {
+      moveUnit(unitEmt);
+      addRadio("EMT unit responding with lights and siren.", "EMT");
+    } else if (type.includes("Workers")) {
+      moveUnit(unitWorkers);
+      addRadio("City workers dispatched for infrastructure check.", "Public Works");
+    }
+  });
+});
+
+/* ALARM */
+alarmBtn.addEventListener("click", () => {
+  beepAudio.play();
+  statusBox.innerHTML = `Status: <span>ALARM TRIGGERED 🚨</span>`;
+  addRadio("Alarm triggered. All units stand by.", "Control");
+});
+
+/* SIREN TOGGLE */
+sirenToggle.addEventListener("click", () => {
+  sirenOn = !sirenOn;
+  if (sirenOn) {
+    sirenAudio.play();
+    sirenToggle.textContent = "Siren: ON";
+    sirenToggle.style.color = "#f97316";
+    sirenToggle.style.borderColor = "#f97316";
+    addRadio("Siren loop activated.", "Control");
+  } else {
+    sirenAudio.pause();
+    sirenAudio.currentTime = 0;
+    sirenToggle.textContent = "Siren: OFF";
+    sirenToggle.style.color = "var(--soft)";
+    sirenToggle.style.borderColor = "var(--soft)";
+    addRadio("Siren loop deactivated.", "Control");
+  }
+});
+
+/* RADIO CHATTER SIMULATION */
+const chatter = [
+  "Unit 12, status check.",
+  "Copy that, proceeding to next waypoint.",
+  "Traffic moderate, ETA three minutes.",
+  "Scene appears stable, continuing observation.",
+  "Requesting additional city workers for road assessment.",
+  "Medical unit on standby near main intersection.",
+  "Control, confirm GPS lock on responding units.",
+  "All channels clear, monitoring for new calls."
+];
+
+setInterval(() => {
+  const msg = chatter[Math.floor(Math.random() * chatter.length)];
+  addRadio(msg, "Channel");
+}, 8000);
+</script>
+</body>
+</html>
