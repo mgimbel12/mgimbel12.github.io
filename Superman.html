@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Trinity of Code & Courage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --lana-bg: #fdeaea;
+      --chloe-bg: #e8f4ff;
+      --lois-bg: #fff4d6;
+      --accent: #6b4eff;
+      --text-main: #222;
+      --text-soft: #555;
+      --radius: 14px;
+      --shadow-soft: 0 14px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #f7f2ff, #f5f7fb);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1.5rem 3rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      max-width: 980px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    header h2 {
+      font-size: 1.2rem;
+      color: var(--text-soft);
+      margin-bottom: 0.8rem;
+    }
+
+    header p {
+      max-width: 640px;
+      margin: 0.5rem auto 0;
+      color: var(--text-soft);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .badge {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      padding: 1.4rem 1.3rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .card h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-soft);
+      margin-bottom: 0.7rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 0.7rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .lana {
+      background: var(--lana-bg);
+    }
+
+    .chloe {
+      background: var(--chloe-bg);
+    }
+
+    .lois {
+      background: var(--lois-bg);
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .lois:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+    }
+
+    .section-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+      margin: 2rem 0 0.8rem;
+    }
+
+    .relationship-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .relationship-card {
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 1rem 1rem 1.1rem;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+      font-size: 0.9rem;
+    }
+
+    .relationship-card strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    .mod-panel {
+      border-radius: var(--radius);
+      background: #f2f0ff;
+      padding: 1.4rem 1.3rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 2rem;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .mod-panel h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+
+    .mod-row {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .mod-label {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+    }
+
+    .mod-text {
+      color: var(--text-soft);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cta-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      box-shadow: 0 12px 26px rgba(107, 78, 255, 0.35);
+    }
+
+    .cta-main span {
+      font-size: 1rem;
+    }
+
+    .cta-note {
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      max-width: 420px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 800px) {
+      .panel-grid,
+      .relationship-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .mod-row {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      body {
+        padding: 1.5rem 1rem 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Trinity of Code & Courage</h1>
+      <h2>Lana Lang • Chloe Sullivan • Lois Lane</h2>
+      <p>
+        A symbolic mapping of HTML, CSS, and JavaScript to relationships and
+        advocacy, inspired by Smallville and the mission of March of Dimes.
+      </p>
+      <div class="badge-row">
+        <span class="badge">HTML • CSS • JavaScript</span>
+        <span class="badge">Relationships</span>
+        <span class="badge">March of Dimes</span>
+      </div>
+    </header>
+
+    <section class="panel-grid" aria-label="Character and code mapping">
+      <article class="card lana">
+        <h3>Lana Lang</h3>
+        <h4>HTML • The Foundation</h4>
+        <p>
+          Lana represents beginnings, emotional grounding, and the quiet
+          architecture of early chapters—just as HTML defines the structure and
+          meaning of every page.
+        </p>
+        <span class="tag">Early foundations • Structure</span>
+      </article>
+
+      <article class="card chloe">
+        <h3>Chloe Sullivan</h3>
+        <h4>CSS • The Clarity</h4>
+        <p>
+          Chloe is the investigator and communicator. CSS mirrors her role by
+          giving shape, color, and visual voice to the story so others can see
+          clearly.
+        </p>
+        <span class="tag">Awareness • Visibility</span>
+      </article>
+
+      <article class="card lois" id="loisCard">
+        <h3>Lois Lane</h3>
+        <h4>JavaScript • The Motion</h4>
+        <p>
+          Lois brings action, courage, and momentum. JavaScript echoes her
+          energy by adding interaction, response, and movement to the web.
+        </p>
+        <span class="tag">Advocacy • Action</span>
+      </article>
+    </section>
+
+    <h3 class="section-title">Relationship structure</h3>
+    <section class="relationship-grid" aria-label="Relationship roles">
+      <article class="relationship-card">
+        <strong>Lana + Chloe</strong>
+        <p>
+          Foundation and clarity: HTML and CSS working together to build a page
+          that is both structurally sound and visually understandable.
+        </p>
+      </article>
+      <article class="relationship-card">
+        <strong>Chloe + Lois</strong>
+        <p>
+          Awareness and action: information brought to light and then turned
+          into courageous steps, like CSS and JavaScript in motion.
+        </p>
+      </article>
+      <article class="relationship-card">
+        <strong>Lana + Lois</strong>
+        <p>
+          Beginnings and transformation: a strong base that is later animated
+          and changed, mirroring HTML foundations enhanced by JavaScript.
+        </p>
+      </article>
+    </section>
+
+    <section class="mod-panel" aria-label="March of Dimes mapping">
+      <h3>March of Dimes Framework</h3>
+
+      <div class="mod-row">
+        <div class="mod-label">Lana • HTML</div>
+        <div class="mod-text">
+          Symbolizes early foundations and the need to protect fragile beginnings
+          — like healthy pregnancies and infant care at the heart of March of
+          Dimes.
+        </div>
+      </div>
+
+      <div class="mod-row">
+        <div class="mod-label">Chloe • CSS</div>
+        <div class="mod-text">
+          Represents education and awareness: styling information so families,
+          communities, and professionals can see clearly and act wisely.
+        </div>
+      </div>
+
+      <div class="mod-row">
+        <div class="mod-label">Lois • JavaScript</div>
+        <div class="mod-text">
+          Embodies advocacy and intervention: responding, moving, and changing
+          systems so vulnerable lives are protected and supported.
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <button class="cta-main" id="advocacyButton">
+          <span>✶</span> Activate Advocacy
+        </button>
+        <p class="cta-note" id="ctaNote">
+          Click “Activate Advocacy” or the Lois panel to see a small symbolic
+          reminder that action is part of the story.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Trinity of Code & Courage • HTML • CSS • JavaScript • Relationships •
+      March of Dimes
+    </footer>
+  </main>
+
+  <script>
+    const loisCard = document.getElementById("loisCard");
+    const advocacyButton = document.getElementById("advocacyButton");
+    const ctaNote = document.getElementById("ctaNote");
+
+    function showAdvocacyMessage(source) {
+      const message =
+        source === "lois"
+          ? "Lois Lane: Advocacy activated. Every click can be a step toward protecting early beginnings."
+          : "Advocacy activated. Structure, clarity, and action work together—just like Lana, Chloe, and Lois.";
+      alert(message);
+      ctaNote.textContent =
+        "Advocacy is a sequence: foundations protected, truths shared, and actions taken.";
+    }
+
+    loisCard.addEventListener("click", () => showAdvocacyMessage("lois"));
+    advocacyButton.addEventListener("click", () => showAdvocacyMessage("button"));
+  </script>
+</body>
+</html>
