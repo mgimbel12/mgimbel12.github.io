@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Henderson 89015 Helper Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #111827;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.18);
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --danger: #ef4444;
+      --warn: #f97316;
+      --radius: 14px;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #1f2937, #020617);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    header h1 {
+      font-size: 1.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+
+    header h2 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-soft);
+      margin-bottom: 0.6rem;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.2rem 1.3rem;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-soft);
+      margin-bottom: 0.7rem;
+    }
+
+    .card h4 {
+      font-size: 1.05rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-soft);
+    }
+
+    .info {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      margin-bottom: 0.6rem;
+    }
+
+    .emergency-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.6rem;
+    }
+
+    .emergency-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 0.55rem 0.7rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      background: #020617;
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      transition: background 0.12s ease, transform 0.12s ease,
+        box-shadow 0.12s ease;
+    }
+
+    .emergency-btn span {
+      font-size: 1rem;
+    }
+
+    .emergency-btn.police {
+      border-color: var(--accent);
+    }
+
+    .emergency-btn.fire {
+      border-color: var(--warn);
+    }
+
+    .emergency-btn.emt {
+      border-color: var(--danger);
+    }
+
+    .emergency-btn:hover {
+      background: #020617;
+      transform: translateY(-1px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .status {
+      margin-top: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .status span {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .radio-list {
+      margin-top: 0.6rem;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.7rem 0.8rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+    }
+
+    .radio-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .radio-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .radio-label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+    }
+
+    .radio-state {
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .music-block {
+      margin-top: 0.6rem;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.8rem 0.9rem;
+      font-size: 0.85rem;
+    }
+
+    .music-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 0.3rem;
+    }
+
+    .helper-list {
+      list-style: none;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .helper-list li {
+      margin-bottom: 0.4rem;
+      padding-left: 0.9rem;
+      position: relative;
+    }
+
+    .helper-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.2rem;
+      top: 0;
+      color: var(--accent);
+    }
+
+    .note {
+      margin-top: 0.7rem;
+      font-size: 0.8rem;
+      color: var(--text-soft);
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.7rem 0.8rem;
+    }
+
+    .note strong {
+      color: var(--accent);
+    }
+
+    .log {
+      margin-top: 0.7rem;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 0.7rem 0.8rem;
+      font-size: 0.8rem;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .log-entry {
+      margin-bottom: 0.25rem;
+      color: var(--text-soft);
+    }
+
+    .log-entry span {
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-soft);
+      margin-top: 1.4rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Henderson 89015 Helper Sheet</h1>
+      <h2>HTML • CSS • JavaScript • Local Panels</h2>
+      <p>
+        A single‑page helper layout with simulated Police / Fire / EMT radio
+        status, MP3 music, and quick notes. This is a visual/educational panel,
+        not a live emergency system.
+      </p>
+    </header>
+
+    <section class="grid">
+      <!-- LEFT: POLICE / FIRE / EMT + RADIO -->
+      <article class="card">
+        <h3>Henderson NV 89015</h3>
+        <h4>Police • Fire • EMT Panel</h4>
+
+        <div class="badge-row">
+          <span class="badge">Henderson Police (Simulated)</span>
+          <span class="badge">Fire &amp; Rescue</span>
+          <span class="badge">EMT / Medical</span>
+        </div>
+
+        <p class="info">
+          Use these buttons as symbolic toggles for attention and awareness.
+          For real emergencies, always dial your local emergency number (like
+          911 in the U.S.).
+        </p>
+
+        <div class="emergency-row">
+          <button class="emergency-btn police" data-type="Police">
+            <span>🚓</span> Police
+          </button>
+          <button class="emergency-btn fire" data-type="Fire">
+            <span>🚒</span> Fire
+          </button>
+          <button class="emergency-btn emt" data-type="EMT">
+            <span>🚑</span> EMT
+          </button>
+        </div>
+
+        <p class="status" id="statusText">
+          Status: <span>Idle</span> — no simulated alerts triggered.
+        </p>
+
+        <div class="radio-list" id="radioList">
+          <div class="radio-item">
+            <span class="radio-label">Police Channel</span>
+            <span class="radio-state">Standby</span>
+          </div>
+          <div class="radio-item">
+            <span class="radio-label">Fire Channel</span>
+            <span class="radio-state">Standby</span>
+          </div>
+          <div class="radio-item">
+            <span class="radio-label">EMT Channel</span>
+            <span class="radio-state">Standby</span>
+          </div>
+        </div>
+
+        <div class="music-block">
+          <div class="music-title">MP3 Music Player (Local File or Sample)</div>
+          <p>
+            You can point this to a local MP3 file or a hosted track. Replace
+            <code>sample.mp3</code> with your own file path.
+          </p>
+          <audio controls>
+            <source src="sample.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </article>
+
+      <!-- RIGHT: HELPER NOTES / LOG -->
+      <article class="card">
+        <h3>Helper Notes</h3>
+        <h4>Quick Reminders &amp; Log</h4>
+
+        <ul class="helper-list">
+          <li>For real emergencies, use official channels (911 or local non‑emergency numbers).</li>
+          <li>This panel is for planning, training, or creative layouts only.</li>
+          <li>You can adapt labels, colors, and text for drills or classroom demos.</li>
+          <li>Use the log below to track simulated events or practice scenarios.</li>
+        </ul>
+
+        <div class="note">
+          <strong>Note:</strong> The “radio” and buttons here are symbolic. They
+          do not connect to real police, fire, or EMT systems.
+        </div>
+
+        <div class="log" id="logBox" aria-label="Event log">
+          <div class="log-entry">
+            <span>[Log]</span> Panel loaded. No simulated events yet.
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      Single‑File Helper • HTML • CSS • JavaScript • Henderson NV 89015 (Simulated
+      Layout)
+    </footer>
+  </div>
+
+  <script>
+    const statusText = document.getElementById("statusText");
+    const radioList = document.getElementById("radioList");
+    const logBox = document.getElementById("logBox");
+    const buttons = document.querySelectorAll(".emergency-btn");
+
+    function updateRadio(type) {
+      const items = radioList.querySelectorAll(".radio-item");
+      items.forEach((item) => {
+        const label = item.querySelector(".radio-label").textContent;
+        const state = item.querySelector(".radio-state");
+        if (label.toLowerCase().includes(type.toLowerCase())) {
+          state.textContent = "Simulated Alert";
+        } else {
+          state.textContent = "Standby";
+        }
+      });
+    }
+
+    function addLogEntry(type) {
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      const time = new Date().toLocaleTimeString();
+      entry.innerHTML = `<span>[${time}]</span> ${type} button pressed (simulated).`;
+      logBox.appendChild(entry);
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const type = btn.getAttribute("data-type");
+        statusText.innerHTML = `Status: <span>${type} Focus</span> — simulated attention on ${type} channel.`;
+        updateRadio(type);
+        addLogEntry(type);
+      });
+    });
+  </script>
+</body>
+</html>
