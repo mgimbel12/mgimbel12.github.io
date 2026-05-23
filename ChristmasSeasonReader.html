@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Christmas Reading & Recipe Nook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --red:#c62828;
+      --green:#1b5e20;
+      --cream:#fff8e1;
+      --ink:#222;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top,#ffffff 0,#e3f2fd 40%,#0d1b2a 100%);
+      color:var(--ink);
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      background:linear-gradient(135deg,var(--green),var(--red));
+      color:#fff;
+      padding:1rem 1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+    }
+    .brand-icon{
+      width:36px;height:36px;border-radius:50%;
+      background:radial-gradient(circle at 30% 20%,#fff 0,#ffe082 35%,#f57f17 100%);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 2px rgba(255,255,255,.5);
+    }
+    .brand small{font-size:.7rem;opacity:.9;}
+    nav{display:flex;flex-wrap:wrap;gap:.5rem;}
+    nav button{
+      border:none;border-radius:999px;
+      padding:.35rem .9rem;
+      font-size:.8rem;
+      background:rgba(255,255,255,.15);
+      color:#fff;
+      display:inline-flex;align-items:center;gap:.3rem;
+      cursor:pointer;
+      transition:background .15s,transform .1s;
+    }
+    nav button.active,
+    nav button:hover{background:rgba(255,255,255,.3);transform:translateY(-1px);}
+    main{
+      flex:1;
+      max-width:1100px;
+      margin:0 auto;
+      padding:1.5rem 1.25rem 1.75rem;
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:1.5rem;
+    }
+    .intro h1{
+      font-size:clamp(2rem,3vw+1rem,2.7rem);
+      line-height:1.1;
+      color:var(--green);
+      margin-bottom:.4rem;
+    }
+    .intro h1 span{color:var(--red);}
+    .intro p{font-size:.95rem;max-width:30rem;margin-bottom:.8rem;}
+    .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+    .chip{
+      font-size:.75rem;
+      padding:.2rem .6rem;
+      border-radius:999px;
+      background:rgba(255,255,255,.85);
+      border:1px dashed rgba(0,0,0,.15);
+      display:inline-flex;align-items:center;gap:.25rem;
+    }
+    .shelf{
+      margin-top:.5rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:.8rem;
+    }
+    .card{
+      background:rgba(255,255,255,.96);
+      border-radius:.9rem;
+      padding:.7rem .75rem .8rem;
+      box-shadow:0 6px 14px rgba(0,0,0,.12);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:.3rem;
+      border:2px solid transparent;
+      transition:border-color .15s,transform .1s,box-shadow .15s;
+    }
+    .card:hover{
+      border-color:rgba(198,40,40,.7);
+      transform:translateY(-2px);
+      box-shadow:0 10px 20px rgba(0,0,0,.18);
+    }
+    .card-type{
+      font-size:.65rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:var(--green);
+    }
+    .card h3{font-size:.9rem;color:var(--ink);}
+    .card p{font-size:.75rem;color:#555;}
+    .tagline{font-size:.7rem;color:#777;}
+    .reader{
+      background:var(--cream);
+      border-radius:1rem;
+      padding:1rem 1.1rem 1.2rem;
+      box-shadow:0 10px 24px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+    .reader::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 0 0,rgba(255,255,255,.7) 0,transparent 55%),
+        radial-gradient(circle at 100% 0,rgba(255,255,255,.6) 0,transparent 55%);
+      opacity:.7;
+      pointer-events:none;
+    }
+    .reader-header{
+      position:relative;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.6rem;
+      margin-bottom:.6rem;
+    }
+    .reader-label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--red);
+    }
+    .reader-title{font-weight:700;font-size:1rem;color:var(--ink);}
+    .reader-meta{font-size:.7rem;color:#666;}
+    .reader-body{
+      position:relative;
+      margin-top:.4rem;
+      padding-top:.4rem;
+      border-top:1px dashed rgba(0,0,0,.15);
+      max-height:260px;
+      overflow:auto;
+      font-size:.85rem;
+      line-height:1.5;
+      white-space:pre-wrap;
+    }
+    .reader-body::-webkit-scrollbar{width:6px;}
+    .reader-body::-webkit-scrollbar-thumb{
+      background:rgba(0,0,0,.25);
+      border-radius:999px;
+    }
+    .pill-row{
+      position:relative;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+      margin-top:.6rem;
+    }
+    .pill-row button{
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.18);
+      background:#fff;
+      font-size:.7rem;
+      padding:.2rem .6rem;
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:.25rem;
+    }
+    .pill-row button:hover{background:#fbe9e7;}
+    .pill-row button span{font-size:.9rem;}
+    footer{
+      padding:.7rem 1.2rem 1.1rem;
+      text-align:center;
+      font-size:.75rem;
+      color:#eee;
+      background:#102027;
+    }
+    footer span{color:#ffcc80;}
+    @media(max-width:840px){
+      main{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="brand-icon">📖</div>
+    <div>
+      <div>Christmas Nook</div>
+      <small>Poems • Stories • Books • Foods</small>
+    </div>
+  </div>
+  <nav>
+    <button class="tab-btn active" data-type="poem">🕯️ Poems</button>
+    <button class="tab-btn" data-type="story">🎄 Stories</button>
+    <button class="tab-btn" data-type="book">📚 Books</button>
+    <button class="tab-btn" data-type="food">🍪 Foods</button>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Warm <span>Christmas</span> words & flavors.</h1>
+    <p>
+      Curl up with a tiny library of Christmas poems, short stories, cozy book ideas, and festive foods—
+      all on one little page.
+    </p>
+    <div class="chips">
+      <div class="chip">✨ <span>Family-friendly</span></div>
+      <div class="chip">📚 <span>Read-aloud ready</span></div>
+      <div class="chip">🍫 <span>Hot cocoa approved</span></div>
+    </div>
+
+    <div class="shelf" id="shelf"></div>
+  </section>
+
+  <aside class="reader">
+    <div class="reader-header">
+      <div>
+        <div class="reader-label" id="readerType">Poem</div>
+        <div class="reader-title" id="readerTitle">Snowlight on the Windowsill</div>
+      </div>
+      <div class="reader-meta" id="readerMeta">Short Christmas poem • 1 min read</div>
+    </div>
+    <div class="reader-body" id="readerBody"></div>
+    <div class="pill-row">
+      <button id="randomBtn"><span>🎁</span> Surprise me</button>
+      <button id="loveBtn"><span>❤️</span> Add to loves</button>
+      <button id="showLovesBtn"><span>⭐</span> View loves</button>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Tiny Christmas reading & recipe corner • Made with <span>cinnamon & code</span>
+</footer>
+
+<script>
+  const items = [
+    {
+      id:"poem1",
+      type:"poem",
+      title:"Snowlight on the Windowsill",
+      blurb:"A soft, candlelit poem about quiet Christmas Eve moments.",
+      meta:"Short Christmas poem • 1 min read",
+      text:
+`Snowlight on the windowsill,
+Footprints fading, soft and still,
+Kettle hums a gentle tune,
+Cookies cool beneath the moon.
+
+Paper stars and twinkling tree,
+Hold the hush of memory,
+Every laugh and carol sung,
+Hangs like bells the night has rung.`
+    },
+    {
+      id:"poem2",
+      type:"poem",
+      title:"Kitchen Carol",
+      blurb:"The sounds of cooking become a Christmas song.",
+      meta:"Playful poem • 1–2 min read",
+      text:
+`Whisk like sleigh bells, clink and chime,
+Sugar falling, keeping time,
+Cinnamon in swirling snow,
+Dancing where the spoons all go.
+
+Oven glows like ember bright,
+Holding back the winter night,
+Every tray that slides in place
+Writes a carol made of taste.`
+    },
+    {
+      id:"story1",
+      type:"story",
+      title:"The Lost Mitten at Midnight",
+      blurb:"A child’s mitten goes missing and finds its way to a new friend.",
+      meta:"Short story • 5 min read",
+      text:
+`On the corner of Maple and Pine, a single red mitten lay in the snow.
+It had fallen from Milo's pocket as he hurried home from the Christmas market,
+arms full of gingerbread and paper-wrapped surprises.
+
+The mitten waited under the streetlamp, listening to the crunch of passing boots.
+At midnight, when the town grew quiet, a small stray cat padded over,
+drawn by the warmth still tucked inside the wool.
+
+By morning, Milo found the mitten again—this time on his porch,
+wrapped gently around a saucer of milk, with a sleeping cat beside it.
+"Looks like you found each other," his grandmother smiled.
+And from that Christmas on, there was always one extra stocking by the fire.`
+    },
+    {
+      id:"story2",
+      type:"story",
+      title:"The Library That Stayed Open Late",
+      blurb:"A town library glows like a lantern on Christmas Eve.",
+      meta:"Gentle story • 4–5 min read",
+      text:
+`Everyone thought the library would close early on Christmas Eve.
+But when Emma walked past, the windows were still glowing gold,
+and a paper sign on the door read: "Open for one more story."
+
+Inside, the shelves seemed to lean in, listening.
+The librarian handed Emma a book wrapped in green ribbon.
+"No due date," she whispered. "Just bring it back when the snow melts."
+
+Emma read by the tree that night, pages rustling like wrapping paper.
+Years later, she could not remember the title,
+only that it felt like being handed a key made of light.`
+    },
+    {
+      id:"book1",
+      type:"book",
+      title:"Fireside Christmas Tales",
+      blurb:"A make-believe anthology of short, cozy stories for family read-aloud.",
+      meta:"Book idea • Ages 6+",
+      text:
+`Imagine a book filled with ten tiny Christmas tales:
+snowy train rides, midnight bakeries, and talking pine trees.
+Each story fits into one evening, perfect for reading by the tree.
+
+Create your own "Fireside Christmas Tales" at home:
+staple together folded pages, decorate the cover with crayons,
+and let every family member write or draw one story inside.`
+    },
+    {
+      id:"book2",
+      type:"book",
+      title:"The Cocoa-Stained Cookbook",
+      blurb:"A family recipe journal that becomes a Christmas heirloom.",
+      meta:"Book idea • Family project",
+      text:
+`Start a blank notebook this year and call it "The Cocoa-Stained Cookbook."
+Each Christmas, add three things:
+one new recipe, one photo, and one short memory.
+
+Over time, the pages will gather smudges of chocolate,
+splashes of gravy, and scribbled notes like
+"Add more cinnamon next time!"—
+a living book of Christmas loves.`
+    },
+    {
+      id:"food1",
+      type:"food",
+      title:"Cinnamon Star Cookies",
+      blurb:"Soft, spiced cookies that taste like Christmas night.",
+      meta:"Recipe idea • 30–40 min",
+      text:
+`Rough recipe sketch:
+• Butter, sugar, egg, vanilla
+• Flour, baking powder, cinnamon, pinch of nutmeg
+• Star-shaped cookie cutter
+
+Roll, cut, and bake until edges just turn gold.
+Dust with powdered sugar "snow."
+Best served while reading a favorite Christmas poem.`
+    },
+    {
+      id:"food2",
+      type:"food",
+      title:"Midnight Cocoa Bar",
+      blurb:"A build-your-own cocoa station for family and friends.",
+      meta:"Food idea • Party-friendly",
+      text:
+`Set out:
+• Big pot of hot cocoa (or two: dark and milk)
+• Bowls of marshmallows, crushed candy canes, cinnamon sticks
+• Whipped cream, chocolate chips, orange peel curls
+
+Let everyone build their own mug.
+Invite each person to share a tiny story or memory
+before they take the first sip.`
+    }
+  ];
+
+  const shelfEl = document.getElementById("shelf");
+  const readerTypeEl = document.getElementById("readerType");
+  const readerTitleEl = document.getElementById("readerTitle");
+  const readerMetaEl = document.getElementById("readerMeta");
+  const readerBodyEl = document.getElementById("readerBody");
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const randomBtn = document.getElementById("randomBtn");
+  const loveBtn = document.getElementById("loveBtn");
+  const showLovesBtn = document.getElementById("showLovesBtn");
+
+  let currentType = "poem";
+  let currentItem = null;
+  const loves = new Set();
+
+  function renderShelf() {
+    shelfEl.innerHTML = "";
+    items.filter(i => i.type === currentType).forEach(item => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.id = item.id;
+      card.innerHTML = `
+        <div class="card-type">${labelForType(item.type)}</div>
+        <h3>${item.title}</h3>
+        <p>${item.blurb}</p>
+        <div class="tagline">${item.meta}</div>
+      `;
+      card.addEventListener("click", () => openItem(item.id));
+      shelfEl.appendChild(card);
+    });
+  }
+
+  function labelForType(type) {
+    if (type === "poem") return "Christmas Poem";
+    if (type === "story") return "Christmas Story";
+    if (type === "book") return "Book Idea";
+    if (type === "food") return "Christmas Food";
+    return "Christmas";
+  }
+
+  function openItem(id) {
+    const item = items.find(i => i.id === id);
+    if (!item) return;
+    currentItem = item;
+    readerTypeEl.textContent = labelForType(item.type);
+    readerTitleEl.textContent = item.title;
+    readerMetaEl.textContent = item.meta;
+    readerBodyEl.textContent = item.text;
+    loveBtn.textContent = loves.has(item.id) ? "💚 Loved" : "❤️ Add to loves";
+  }
+
+  function setType(type) {
+    currentType = type;
+    tabButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.type === type);
+    });
+    renderShelf();
+    const first = items.find(i => i.type === type);
+    if (first) openItem(first.id);
+  }
+
+  randomBtn.addEventListener("click", () => {
+    const pool = items.filter(i => i.type === currentType);
+    if (!pool.length) return;
+    const random = pool[Math.floor(Math.random() * pool.length)];
+    openItem(random.id);
+  });
+
+  loveBtn.addEventListener("click", () => {
+    if (!currentItem) return;
+    if (loves.has(currentItem.id)) {
+      loves.delete(currentItem.id);
+      loveBtn.textContent = "❤️ Add to loves";
+      toast("Removed from Christmas loves.");
+    } else {
+      loves.add(currentItem.id);
+      loveBtn.textContent = "💚 Loved";
+      toast("Saved to Christmas loves.");
+    }
+  });
+
+  showLovesBtn.addEventListener("click", () => {
+    if (!loves.size) {
+      toast("No Christmas loves yet—open something you like and tap the heart.");
+      return;
+    }
+    const lovedItems = items.filter(i => loves.has(i.id));
+    const list = lovedItems.map(i => `• ${i.title} (${labelForType(i.type)})`).join("\n");
+    readerTypeEl.textContent = "Christmas Loves";
+    readerTitleEl.textContent = "Your saved poems, stories, books & foods";
+    readerMetaEl.textContent = `${lovedItems.length} saved item(s)`;
+    readerBodyEl.textContent = list;
+  });
+
+  function toast(message) {
+    let t = document.querySelector(".toast");
+    if (!t) {
+      t = document.createElement("div");
+      t.className = "toast";
+      document.body.appendChild(t);
+      Object.assign(t.style, {
+        position:"fixed",
+        bottom:"1rem",
+        right:"1rem",
+        background:"rgba(0,0,0,.85)",
+        color:"#fff",
+        padding:".5rem .8rem",
+        borderRadius:"999px",
+        fontSize:".75rem",
+        display:"flex",
+        alignItems:"center",
+        gap:".35rem",
+        opacity:0,
+        transform:"translateY(10px)",
+        transition:"opacity .2s,transform .2s",
+        zIndex:9999
+      });
+    }
+    t.innerHTML = `🎄 <span>${message}</span>`;
+    requestAnimationFrame(() => {
+      t.style.opacity = "1";
+      t.style.transform = "translateY(0)";
+    });
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => {
+      t.style.opacity = "0";
+      t.style.transform = "translateY(10px)";
+    }, 2200);
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => setType(btn.dataset.type));
+  });
+
+  // initial
+  setType("poem");
+</script>
+</body>
+</html>
