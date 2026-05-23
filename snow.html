@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Snow Legends & Gentle Snow</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --sky:#0b1b3b;
+      --soft-sky:#1c355f;
+      --snow:#fdfdfd;
+      --accent:#90caf9;
+      --ink:#102027;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top,#e3f2fd 0,#0b1b3b 55%,#020817 100%);
+      color:var(--snow);
+      display:flex;
+      flex-direction:column;
+      overflow-x:hidden;
+    }
+    header{
+      position:relative;
+      z-index:2;
+      padding:1rem 1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      background:linear-gradient(135deg,rgba(11,27,59,.9),rgba(25,118,210,.7));
+      backdrop-filter:blur(10px);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+    }
+    .brand-icon{
+      width:38px;height:38px;border-radius:50%;
+      background:radial-gradient(circle at 30% 20%,#fff 0,#bbdefb 40%,#42a5f5 100%);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 2px rgba(255,255,255,.6);
+      font-size:1.3rem;
+    }
+    .brand small{font-size:.7rem;opacity:.9;}
+    nav{display:flex;flex-wrap:wrap;gap:.5rem;}
+    nav button{
+      border:none;border-radius:999px;
+      padding:.35rem .9rem;
+      font-size:.8rem;
+      background:rgba(255,255,255,.12);
+      color:#e3f2fd;
+      display:inline-flex;align-items:center;gap:.3rem;
+      cursor:pointer;
+      transition:background .15s,transform .1s;
+    }
+    nav button.active,
+    nav button:hover{background:rgba(255,255,255,.28);transform:translateY(-1px);}
+    main{
+      position:relative;
+      z-index:1;
+      flex:1;
+      max-width:1100px;
+      margin:0 auto;
+      padding:1.5rem 1.25rem 1.75rem;
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:1.5rem;
+    }
+    .intro h1{
+      font-size:clamp(2rem,3vw+1rem,2.7rem);
+      line-height:1.1;
+      margin-bottom:.4rem;
+    }
+    .intro h1 span{color:#bbdefb;}
+    .intro p{font-size:.95rem;max-width:30rem;margin-bottom:.8rem;color:#e3f2fd;}
+    .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+    .chip{
+      font-size:.75rem;
+      padding:.2rem .6rem;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px dashed rgba(255,255,255,.35);
+      display:inline-flex;align-items:center;gap:.25rem;
+    }
+    .chip span{font-size:.9rem;}
+    .shelf{
+      margin-top:.5rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:.9rem;
+    }
+    .card{
+      background:rgba(255,255,255,.1);
+      border-radius:.9rem;
+      padding:.7rem .75rem .8rem;
+      border:1px solid rgba(187,222,251,.4);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:.3rem;
+      transition:border-color .15s,transform .1s,box-shadow .15s,background .15s;
+    }
+    .card:hover{
+      border-color:#bbdefb;
+      transform:translateY(-2px);
+      box-shadow:0 10px 22px rgba(0,0,0,.35);
+      background:rgba(255,255,255,.16);
+    }
+    .card-type{
+      font-size:.65rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#bbdefb;
+    }
+    .card h3{font-size:.9rem;color:#e3f2fd;}
+    .card p{font-size:.75rem;color:#cfd8dc;}
+    .tagline{font-size:.7rem;color:#b0bec5;}
+    .reader{
+      background:rgba(255,255,255,.96);
+      color:var(--ink);
+      border-radius:1rem;
+      padding:1rem 1.1rem 1.2rem;
+      box-shadow:0 10px 26px rgba(0,0,0,.4);
+      position:relative;
+      overflow:hidden;
+    }
+    .reader::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 0 0,rgba(144,202,249,.4) 0,transparent 55%),
+        radial-gradient(circle at 100% 0,rgba(227,242,253,.7) 0,transparent 55%);
+      opacity:.8;
+      pointer-events:none;
+    }
+    .reader-inner{position:relative;}
+    .reader-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.6rem;
+      margin-bottom:.6rem;
+    }
+    .reader-label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#1e88e5;
+    }
+    .reader-title{font-weight:700;font-size:1rem;color:var(--ink);}
+    .reader-meta{font-size:.7rem;color:#607d8b;}
+    .reader-body{
+      margin-top:.4rem;
+      padding-top:.4rem;
+      border-top:1px dashed rgba(0,0,0,.15);
+      max-height:260px;
+      overflow:auto;
+      font-size:.86rem;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
+    .reader-body::-webkit-scrollbar{width:6px;}
+    .reader-body::-webkit-scrollbar-thumb{
+      background:rgba(0,0,0,.25);
+      border-radius:999px;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+      margin-top:.6rem;
+    }
+    .pill-row button{
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.18);
+      background:#fff;
+      font-size:.7rem;
+      padding:.2rem .6rem;
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:.25rem;
+    }
+    .pill-row button:hover{background:#e3f2fd;}
+    .pill-row button span{font-size:.9rem;}
+    footer{
+      padding:.7rem 1.2rem 1.1rem;
+      text-align:center;
+      font-size:.75rem;
+      color:#cfd8dc;
+      background:#020817;
+    }
+    footer span{color:#bbdefb;}
+
+    /* Snow canvas */
+    .snow-layer{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      background-image:
+        radial-gradient(circle,rgba(255,255,255,.9) 0,rgba(255,255,255,0) 55%),
+        radial-gradient(circle,rgba(255,255,255,.7) 0,rgba(255,255,255,0) 55%);
+      background-size:6px 6px,4px 4px;
+      animation:snowfall 18s linear infinite;
+      opacity:.7;
+    }
+    @keyframes snowfall{
+      from{background-position:0 0,40px 40px;}
+      to{background-position:0 700px,40px 740px;}
+    }
+
+    /* Simple snowman illustration */
+    .snowman-wrap{
+      position:absolute;
+      bottom:-10px;
+      right:10px;
+      width:120px;
+      height:140px;
+      pointer-events:none;
+      opacity:.9;
+    }
+    .snowman-base,.snowman-mid,.snowman-head{
+      position:absolute;
+      border-radius:50%;
+      background:#fafafa;
+      box-shadow:0 0 0 2px rgba(176,190,197,.7);
+    }
+    .snowman-base{
+      width:80px;height:80px;
+      bottom:0;left:20px;
+    }
+    .snowman-mid{
+      width:60px;height:60px;
+      bottom:55px;left:30px;
+    }
+    .snowman-head{
+      width:45px;height:45px;
+      bottom:100px;left:38px;
+    }
+    .snowman-eye{
+      position:absolute;
+      width:5px;height:5px;
+      border-radius:50%;
+      background:#263238;
+      top:112px;
+    }
+    .snowman-eye.left{left:52px;}
+    .snowman-eye.right{left:66px;}
+    .snowman-carrot{
+      position:absolute;
+      width:18px;height:6px;
+      background:#ff9800;
+      border-radius:10px;
+      top:120px;left:66px;
+      transform:rotate(5deg);
+    }
+    .snowman-hat{
+      position:absolute;
+      width:40px;height:10px;
+      background:#263238;
+      top:96px;left:40px;
+    }
+    .snowman-hat::before{
+      content:"";
+      position:absolute;
+      width:26px;height:18px;
+      background:#263238;
+      top:-18px;left:7px;
+      border-radius:3px 3px 0 0;
+    }
+    .snowman-scarf{
+      position:absolute;
+      width:40px;height:10px;
+      background:#ef5350;
+      top:128px;left:44px;
+      border-radius:10px;
+    }
+    .snowman-scarf::after{
+      content:"";
+      position:absolute;
+      width:10px;height:22px;
+      background:#ef5350;
+      top:8px;left:6px;
+      border-radius:10px;
+    }
+
+    @media(max-width:840px){
+      main{grid-template-columns:1fr;}
+      .snowman-wrap{display:none;}
+    }
+  </style>
+</head>
+<body>
+<div class="snow-layer"></div>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">⛄</div>
+    <div>
+      <div>Snowlight Stories</div>
+      <small>Snowmen • Snowflakes • Angels • Legends</small>
+    </div>
+  </div>
+  <nav>
+    <button class="tab-btn active" data-type="symbol">❄️ Snow symbolisms</button>
+    <button class="tab-btn" data-type="legend">📜 Snow legends</button>
+    <button class="tab-btn" data-type="frosty">⛄ Frosty & friends</button>
+    <button class="tab-btn" data-type="angel">👼 Snow angels</button>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Gentle <span>snow</span>, quiet stories.</h1>
+    <p>
+      A tiny winter notebook about snowmen, snowflakes, Frosty, snow angels, and the kind of snow
+      that feels safe, kind, and full of wonder.
+    </p>
+    <div class="chips">
+      <div class="chip"><span>❄️</span> Wholesome winter feelings</div>
+      <div class="chip"><span>⛄</span> Friendly snowfolk only</div>
+      <div class="chip"><span>👼</span> Snow angels & soft truths</div>
+    </div>
+
+    <div class="shelf" id="shelf"></div>
+  </section>
+
+  <aside class="reader">
+    <div class="reader-inner">
+      <div class="reader-header">
+        <div>
+          <div class="reader-label" id="readerType">Snow symbolism</div>
+          <div class="reader-title" id="readerTitle">The First Quiet Blanket</div>
+        </div>
+        <div class="reader-meta" id="readerMeta">Short reflection • 2 min read</div>
+      </div>
+      <div class="reader-body" id="readerBody"></div>
+      <div class="pill-row">
+        <button id="randomBtn"><span>🎁</span> Surprise me</button>
+        <button id="loveBtn"><span>💙</span> Add to snow loves</button>
+        <button id="showLovesBtn"><span>⭐</span> View snow loves</button>
+      </div>
+    </div>
+    <div class="snowman-wrap">
+      <div class="snowman-base"></div>
+      <div class="snowman-mid"></div>
+      <div class="snowman-head"></div>
+      <div class="snowman-eye left"></div>
+      <div class="snowman-eye right"></div>
+      <div class="snowman-carrot"></div>
+      <div class="snowman-hat"></div>
+      <div class="snowman-scarf"></div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Good, wholesome snow • Made with <span>soft flakes & stories</span>
+</footer>
+
+<script>
+  const entries = [
+    {
+      id:"symbol1",
+      type:"symbol",
+      title:"The First Quiet Blanket",
+      blurb:"Why fresh snow can feel like a reset button for the heart.",
+      meta:"Short reflection • 2 min read",
+      text:
+`When snow first falls, the world sounds different.
+Cars hush, branches bow, and even the sidewalks seem to whisper,
+"Let’s start again."
+
+Snow has long been a symbol of a fresh page:
+not because it erases what was there,
+but because it covers it gently,
+giving us time to breathe before we write the next line.`
+    },
+    {
+      id:"symbol2",
+      type:"symbol",
+      title:"Snowflakes as Tiny Signatures",
+      blurb:"Every snowflake different, every person too.",
+      meta:"Gentle thought • 1–2 min read",
+      text:
+`We say no two snowflakes are the same.
+Whether or not we can prove it,
+the idea itself is a kind of kindness.
+
+It reminds us that being different is not a mistake,
+but the whole point:
+millions of small designs,
+all falling together to make one soft field of light.`
+    },
+    {
+      id:"legend1",
+      type:"legend",
+      title:"The Lantern in the Snow",
+      blurb:"A simple legend about a lantern that never goes out in winter storms.",
+      meta:"Snow legend • 3–4 min read",
+      text:
+`In a small mountain village, people told a story:
+on the highest hill, there was a lantern that never went out.
+No one had ever seen it up close,
+but on the snowiest nights, a warm glow shimmered through the clouds.
+
+Parents would point to the hill and say,
+"That light is every good thing we’ve done for each other,
+gathered up and kept safe."
+
+The truth behind the legend was simple:
+neighbors checking on neighbors,
+extra soup left on doorsteps,
+mittens shared, paths shoveled.
+The lantern was not magic at all—
+just the way kindness looks from far away.`
+    },
+    {
+      id:"legend2",
+      type:"legend",
+      title:"Snow Angels That Remember",
+      blurb:"A legend that every snow angel keeps one wish.",
+      meta:"Snow angel legend • 3 min read",
+      text:
+`Some children say that when you lie down in the snow
+and sweep your arms into wings,
+the snow remembers.
+
+They say each snow angel holds one wish:
+not for toys or things,
+but for something gentle—
+like "Let my friend feel brave tomorrow,"
+or "Let Grandma laugh again."
+
+The truth is that wishes like that
+often change the person who makes them first.
+And maybe that is how snow angels really work.`
+    },
+    {
+      id:"frosty1",
+      type:"frosty",
+      title:"Frosty’s Little Cousins",
+      blurb:"Imagining every snowman as part of one big, friendly family.",
+      meta:"Snowman storylet • 2–3 min read",
+      text:
+`If Frosty is the famous one,
+there must be thousands of quieter cousins:
+the lopsided snowman by the apartment steps,
+the tiny one built on a balcony,
+the one whose nose is a button because no one had a carrot.
+
+Each snowman is a small announcement:
+"We were here. We played. We laughed."
+By spring, they are gone,
+but the photos and the memory of cold, happy hands remain.`
+    },
+    {
+      id:"frosty2",
+      type:"frosty",
+      title:"The Snowman Who Faced the Sunrise",
+      blurb:"A snowman built to watch the morning instead of the night.",
+      meta:"Short story • 3 min read",
+      text:
+`Most snowmen face the street or the front door,
+but one winter, a child turned theirs toward the sunrise.
+
+Every morning, the snowman caught the first light,
+hat rim glowing, stick arms outlined in gold.
+The child said, "He’s learning how to say good morning to the world."
+
+By the time he melted, the habit had stuck.
+The child kept waking early,
+just to see what the light would do next.`
+    },
+    {
+      id:"angel1",
+      type:"angel",
+      title:"Snow Angels in the Schoolyard",
+      blurb:"A memory of a playground turned into a field of wings.",
+      meta:"Memory sketch • 2–3 min read",
+      text:
+`Recess was almost canceled that day,
+but the snow was too perfect to ignore.
+The teacher lined everyone up and said,
+"Okay, one rule: no throwing, only angels."
+
+Soon the schoolyard was full of wings:
+big ones, tiny ones, some with mitten prints for halos.
+From the classroom window later,
+it looked like the ground itself had decided to be brave and beautiful.`
+    },
+    {
+      id:"angel2",
+      type:"angel",
+      title:"The Snow Angel Promise",
+      blurb:"A simple tradition: one snow angel, one kind thing.",
+      meta:"Tiny tradition • 1–2 min read",
+      text:
+`Some families make a promise:
+every time they make a snow angel,
+they will do one kind thing that same day.
+
+It might be washing dishes without being asked,
+calling someone who feels alone,
+or shoveling a neighbor’s steps.
+
+The snow melts, the wings fade,
+but the promise keeps falling quietly,
+like flakes that never quite touch the ground.`
+    }
+  ];
+
+  const shelfEl = document.getElementById("shelf");
+  const readerTypeEl = document.getElementById("readerType");
+  const readerTitleEl = document.getElementById("readerTitle");
+  const readerMetaEl = document.getElementById("readerMeta");
+  const readerBodyEl = document.getElementById("readerBody");
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const randomBtn = document.getElementById("randomBtn");
+  const loveBtn = document.getElementById("loveBtn");
+  const showLovesBtn = document.getElementById("showLovesBtn");
+
+  let currentType = "symbol";
+  let currentEntry = null;
+  const snowLoves = new Set();
+
+  function labelForType(type){
+    if(type==="symbol") return "Snow symbolism";
+    if(type==="legend") return "Snow legend";
+    if(type==="frosty") return "Snowman story";
+    if(type==="angel") return "Snow angel story";
+    return "Snow story";
+  }
+
+  function renderShelf(){
+    shelfEl.innerHTML = "";
+    entries.filter(e => e.type === currentType).forEach(entry => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.id = entry.id;
+      card.innerHTML = `
+        <div class="card-type">${labelForType(entry.type)}</div>
+        <h3>${entry.title}</h3>
+        <p>${entry.blurb}</p>
+        <div class="tagline">${entry.meta}</div>
+      `;
+      card.addEventListener("click", () => openEntry(entry.id));
+      shelfEl.appendChild(card);
+    });
+  }
+
+  function openEntry(id){
+    const entry = entries.find(e => e.id === id);
+    if(!entry) return;
+    currentEntry = entry;
+    readerTypeEl.textContent = labelForType(entry.type);
+    readerTitleEl.textContent = entry.title;
+    readerMetaEl.textContent = entry.meta;
+    readerBodyEl.textContent = entry.text;
+    loveBtn.textContent = snowLoves.has(entry.id) ? "💙 In snow loves" : "💙 Add to snow loves";
+  }
+
+  function setType(type){
+    currentType = type;
+    tabButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.type === type);
+    });
+    renderShelf();
+    const first = entries.find(e => e.type === type);
+    if(first) openEntry(first.id);
+  }
+
+  randomBtn.addEventListener("click", () => {
+    const pool = entries.filter(e => e.type === currentType);
+    if(!pool.length) return;
+    const random = pool[Math.floor(Math.random() * pool.length)];
+    openEntry(random.id);
+  });
+
+  loveBtn.addEventListener("click", () => {
+    if(!currentEntry) return;
+    if(snowLoves.has(currentEntry.id)){
+      snowLoves.delete(currentEntry.id);
+      loveBtn.textContent = "💙 Add to snow loves";
+      toast("Removed from snow loves.");
+    }else{
+      snowLoves.add(currentEntry.id);
+      loveBtn.textContent = "💙 In snow loves";
+      toast("Saved to snow loves.");
+    }
+  });
+
+  showLovesBtn.addEventListener("click", () => {
+    if(!snowLoves.size){
+      toast("No snow loves yet—open something you like and tap the blue heart.");
+      return;
+    }
+    const loved = entries.filter(e => snowLoves.has(e.id));
+    const list = loved.map(e => `• ${e.title} (${labelForType(e.type)})`).join("\n");
+    readerTypeEl.textContent = "Snow loves";
+    readerTitleEl.textContent = "Stories & thoughts you saved";
+    readerMetaEl.textContent = `${loved.length} saved piece(s)`;
+    readerBodyEl.textContent = list;
+  });
+
+  function toast(message){
+    let t = document.querySelector(".toast");
+    if(!t){
+      t = document.createElement("div");
+      t.className = "toast";
+      document.body.appendChild(t);
+      Object.assign(t.style,{
+        position:"fixed",
+        bottom:"1rem",
+        right:"1rem",
+        background:"rgba(0,0,0,.85)",
+        color:"#fff",
+        padding:".5rem .8rem",
+        borderRadius:"999px",
+        fontSize:".75rem",
+        display:"flex",
+        alignItems:"center",
+        gap:".35rem",
+        opacity:0,
+        transform:"translateY(10px)",
+        transition:"opacity .2s,transform .2s",
+        zIndex:9999
+      });
+    }
+    t.innerHTML = `❄️ <span>${message}</span>`;
+    requestAnimationFrame(() => {
+      t.style.opacity = "1";
+      t.style.transform = "translateY(0)";
+    });
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => {
+      t.style.opacity = "0";
+      t.style.transform = "translateY(10px)";
+    }, 2200);
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => setType(btn.dataset.type));
+  });
+
+  // initial
+  setType("symbol");
+</script>
+</body>
+</html>
