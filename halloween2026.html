@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halloween Story & Idea Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#020617;
+      --panel:#020617;
+      --ink:#020617;
+      --accent:#f97316;
+      --purple:#7c3aed;
+      --green:#22c55e;
+      --orange:#fb923c;
+      --violet:#a855f7;
+      --gray:#9ca3af;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top,#111827 0,var(--bg) 55%,#000 100%);
+      color:#e5e7eb;
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      padding:1rem 1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      background:linear-gradient(135deg,#020617,#111827);
+      border-bottom:1px solid rgba(148,163,184,.5);
+    }
+    .brand{
+      display:flex;align-items:center;gap:.6rem;
+    }
+    .brand-icon{
+      width:40px;height:40px;border-radius:50%;
+      background:radial-gradient(circle at 30% 20%,#fff 0,#fee2e2 40%,#fb923c 100%);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 2px rgba(248,250,252,.7);
+      font-size:1.3rem;
+    }
+    .brand small{font-size:.7rem;opacity:.85;}
+    nav{display:flex;flex-wrap:wrap;gap:.4rem;}
+    nav button{
+      border:none;border-radius:999px;
+      padding:.35rem .9rem;
+      font-size:.8rem;
+      background:rgba(15,23,42,.9);
+      color:#e5e7eb;
+      display:inline-flex;align-items:center;gap:.3rem;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition:background .15s,border-color .15s,transform .1s;
+    }
+    nav button span{font-size:.95rem;}
+    nav button.active,
+    nav button:hover{
+      background:#020617;
+      border-color:rgba(248,250,252,.7);
+      transform:translateY(-1px);
+    }
+    main{
+      flex:1;
+      max-width:1150px;
+      margin:0 auto;
+      padding:1.5rem 1.25rem 1.75rem;
+      display:grid;
+      grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);
+      gap:1.5rem;
+    }
+    .intro h1{
+      font-size:clamp(2rem,3vw+1rem,2.7rem);
+      line-height:1.1;
+      margin-bottom:.4rem;
+    }
+    .intro h1 span{color:var(--accent);}
+    .intro p{font-size:.95rem;max-width:32rem;margin-bottom:.8rem;color:#e5e7eb;}
+    .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+    .chip{
+      font-size:.75rem;
+      padding:.2rem .6rem;
+      border-radius:999px;
+      background:rgba(15,23,42,.9);
+      border:1px dashed rgba(148,163,184,.7);
+      display:inline-flex;align-items:center;gap:.25rem;
+    }
+    .chip span{font-size:.9rem;}
+    .shelf{
+      margin-top:.5rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:.9rem;
+    }
+    .card{
+      background:rgba(15,23,42,.95);
+      border-radius:.9rem;
+      padding:.75rem .8rem .85rem;
+      border:1px solid rgba(148,163,184,.5);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+      transition:border-color .15s,transform .1s,box-shadow .15s,background .15s;
+    }
+    .card:hover{
+      border-color:var(--accent);
+      transform:translateY(-2px);
+      box-shadow:0 12px 26px rgba(15,23,42,.9);
+      background:#020617;
+    }
+    .card-type{
+      font-size:.65rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#94a3b8;
+      display:flex;align-items:center;gap:.35rem;
+    }
+    .badge-color{
+      width:10px;height:10px;border-radius:999px;
+    }
+    .card h3{font-size:.95rem;color:#f9fafb;}
+    .card p{font-size:.78rem;color:#cbd5f5;}
+    .tagline{font-size:.7rem;color:#9ca3af;}
+    .reader{
+      background:#f9fafb;
+      color:var(--ink);
+      border-radius:1rem;
+      padding:1rem 1.1rem 1.2rem;
+      box-shadow:0 12px 30px rgba(15,23,42,.9);
+      position:relative;
+      overflow:hidden;
+    }
+    .reader::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 0 0,rgba(248,250,252,.9) 0,transparent 55%),
+        radial-gradient(circle at 100% 0,rgba(226,232,240,.9) 0,transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .reader-inner{position:relative;}
+    .reader-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.6rem;
+      margin-bottom:.6rem;
+    }
+    .reader-label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#4b5563;
+    }
+    .reader-title{font-weight:700;font-size:1.05rem;color:var(--ink);}
+    .reader-meta{font-size:.7rem;color:#6b7280;}
+    .reader-body{
+      margin-top:.4rem;
+      padding-top:.4rem;
+      border-top:1px dashed rgba(148,163,184,.7);
+      max-height:260px;
+      overflow:auto;
+      font-size:.86rem;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
+    .reader-body::-webkit-scrollbar{width:6px;}
+    .reader-body::-webkit-scrollbar-thumb{
+      background:rgba(148,163,184,.9);
+      border-radius:999px;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+      margin-top:.6rem;
+    }
+    .pill-row button{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.9);
+      background:#fff;
+      font-size:.7rem;
+      padding:.2rem .6rem;
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:.25rem;
+      color:#111827;
+    }
+    .pill-row button:hover{background:#e5e7eb;}
+    .pill-row button span{font-size:.9rem;}
+
+    /* Tiny SVG preview panel */
+    .svg-preview{
+      margin-top:.7rem;
+      padding:.4rem .5rem;
+      border-radius:.6rem;
+      border:1px dashed #d1d5db;
+      background:#f3f4f6;
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      font-size:.75rem;
+      color:#4b5563;
+    }
+    .svg-preview svg{
+      width:40px;height:40px;
+    }
+
+    footer{
+      padding:.7rem 1.2rem 1.1rem;
+      text-align:center;
+      font-size:.75rem;
+      color:#9ca3af;
+      background:#020617;
+    }
+    footer span{color:var(--accent);}
+
+    /* Floating bats */
+    .bat-layer{
+      pointer-events:none;
+      position:fixed;
+      inset:0;
+      z-index:0;
+      background-image:
+        radial-gradient(circle at 10% 20%,rgba(148,163,184,.25) 0,transparent 55%),
+        radial-gradient(circle at 80% 10%,rgba(148,163,184,.18) 0,transparent 55%);
+      mix-blend-mode:soft-light;
+    }
+  </style>
+</head>
+<body>
+<div class="bat-layer"></div>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">🎃</div>
+    <div>
+      <div>Halloween Story & Idea Studio</div>
+      <small>Stories • Jokes • Drinks • Food • Art • SVG • Colors • Weddings</small>
+    </div>
+  </div>
+  <nav>
+    <button class="tab-btn active" data-type="story"><span>📖</span> Stories</button>
+    <button class="tab-btn" data-type="joke"><span>😂</span> Jokes</button>
+    <button class="tab-btn" data-type="drink"><span>🥤</span> Non‑alcoholic drinks</button>
+    <button class="tab-btn" data-type="food"><span>🍽️</span> Food</button>
+    <button class="tab-btn" data-type="art"><span>🎨</span> Ideas & art</button>
+    <button class="tab-btn" data-type="svg"><span>🧩</span> SVG & colors</button>
+    <button class="tab-btn" data-type="wedding"><span>💍</span> Halloween wedding</button>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Wholesome <span>Halloween</span> ideas on one page.</h1>
+    <p>
+      Browse short stories, kid‑friendly jokes, non‑alcoholic drink and food ideas, art concepts, SVG snippets,
+      color palettes, and even a cozy Halloween wedding concept—ready to remix into your own projects.
+    </p>
+    <div class="chips">
+      <div class="chip"><span>🧡</span> Family‑friendly</div>
+      <div class="chip"><span>🕯️</span> Spooky, not scary</div>
+      <div class="chip"><span>🧪</span> Creative HTML • CSS • JS</div>
+    </div>
+
+    <div class="shelf" id="shelf"></div>
+  </section>
+
+  <aside class="reader">
+    <div class="reader-inner">
+      <div class="reader-header">
+        <div>
+          <div class="reader-label" id="readerType">Halloween story</div>
+          <div class="reader-title" id="readerTitle">The Porch of Friendly Shadows</div>
+        </div>
+        <div class="reader-meta" id="readerMeta">Short story • 3–4 min read</div>
+      </div>
+      <div class="reader-body" id="readerBody"></div>
+      <div class="svg-preview" id="svgPreview" style="display:none;"></div>
+      <div class="pill-row">
+        <button id="randomBtn"><span>🎲</span> Random in this tab</button>
+        <button id="copyBtn"><span>📋</span> Copy text / SVG</button>
+        <button id="showAllBtn"><span>📜</span> Show all cards</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Halloween Story & Idea Studio • Made with <span>pumpkins, pixels, and gentle chills</span>
+</footer>
+
+<script>
+  const cards = [
+    // STORIES
+    {
+      id:"st1",
+      type:"story",
+      title:"The Porch of Friendly Shadows",
+      blurb:"A gentle Halloween night story.",
+      meta:"Story • cozy",
+      text:
+`On Maple Street, there was one porch that never tried to be scary.
+No fake cobwebs, no jump‑out skeletons—just warm orange lights and a bowl of candy
+with a little sign that said, “Take two, and leave a smile.”
+
+Kids said the shadows on that porch were different.
+They looked like capes, cat ears, and fairy wings,
+as if every costume left a tiny echo behind.
+
+Years later, when those kids were grown,
+they remembered that porch more than any haunted house:
+a place where Halloween felt brave, kind, and safe.`,
+      extra:null
+    },
+    {
+      id:"st2",
+      type:"story",
+      title:"The Pumpkin That Listened",
+      blurb:"A story about a very patient jack‑o’‑lantern.",
+      meta:"Story • reflective",
+      text:
+`Every year, the kids on the block carved the loudest pumpkins:
+wild faces, huge grins, and zig‑zag teeth.
+But one year, a child carved a pumpkin with soft eyes and a small, thoughtful smile.
+
+They set it on the steps and whispered,
+“You can sit with anyone who feels alone tonight.”
+
+All evening, shy trick‑or‑treaters paused by that pumpkin.
+Some patted its head, some fixed its candle, some just stood nearby.
+The pumpkin never said a word,
+but somehow, everyone who visited it walked away standing a little taller.`,
+      extra:null
+    },
+
+    // JOKES
+    {
+      id:"jk1",
+      type:"joke",
+      title:"Friendly Halloween jokes",
+      blurb:"Quick, kid‑safe jokes for parties.",
+      meta:"Jokes • kid‑friendly",
+      text:
+`Q: What do you call a kind ghost?
+A: A “boo‑buddy.”
+
+Q: Why did the pumpkin sit in the corner of the classroom?
+A: It needed to “pump‑kin” up its grades.
+
+Q: What’s a skeleton’s favorite instrument?
+A: The trom‑bone.`,
+      extra:null
+    },
+    {
+      id:"jk2",
+      type:"joke",
+      title:"More silly Halloween jokes",
+      blurb:"Light, groan‑worthy fun.",
+      meta:"Jokes • silly",
+      text:
+`Q: Why don’t bats ever get lost?
+A: They always “hang” on to the plan.
+
+Q: What’s a monster’s favorite snack?
+A: “Ghoul‑den” crackers.
+
+Q: Why did the scarecrow win an award?
+A: Because he was outstanding in his field.`,
+      extra:null
+    },
+
+    // DRINKS
+    {
+      id:"dr1",
+      type:"drink",
+      title:"Midnight Orange Fizz",
+      blurb:"Non‑alcoholic party drink.",
+      meta:"Drink • non‑alcoholic",
+      text:
+`Ingredients (serves 4):
+• 2 cups orange juice
+• 2 cups lemon‑lime soda or sparkling water
+• Orange slices and a few blueberries
+
+Instructions:
+1. Chill all ingredients.
+2. Mix orange juice and soda in a clear pitcher.
+3. Drop in orange slices and blueberries so they “float like tiny planets.”
+4. Serve in clear cups with paper straws.`,
+      extra:null
+    },
+    {
+      id:"dr2",
+      type:"drink",
+      title:"Witch’s Garden Punch",
+      blurb:"Green, but gentle and sweet.",
+      meta:"Drink • non‑alcoholic",
+      text:
+`Ingredients (serves 6):
+• 3 cups white grape juice
+• 2 cups sparkling water
+• A handful of green grapes (halved)
+• A few cucumber slices
+
+Instructions:
+1. Mix grape juice and sparkling water.
+2. Add grapes and cucumber slices.
+3. Call it “witch’s garden punch” and let kids invent the backstory.`,
+      extra:null
+    },
+
+    // FOOD
+    {
+      id:"fd1",
+      type:"food",
+      title:"Jack‑O’‑Lantern Veggie Tray",
+      blurb:"Healthy, still festive.",
+      meta:"Food • snack",
+      text:
+`Arrange orange bell pepper strips in a big circle on a tray.
+Use cucumber slices or olives to make eyes and a nose,
+and a row of carrot sticks for a smile.
+
+Add a small bowl of hummus or ranch as the “candle” in the middle.
+You’ve made a jack‑o’‑lantern that’s fun to eat.`,
+      extra:null
+    },
+    {
+      id:"fd2",
+      type:"food",
+      title:"Friendly Monster Toast",
+      blurb:"Breakfast or snack idea.",
+      meta:"Food • fun",
+      text:
+`1. Toast whole‑grain bread.
+2. Spread with cream cheese, nut butter, or sunflower butter.
+3. Use banana slices, berries, or raisins to make eyes and a smile.
+4. Add thin apple slices for “monster hair.”
+
+Take a picture before you eat your monster—it won’t last long.`,
+      extra:null
+    },
+
+    // ART & IDEAS
+    {
+      id:"art1",
+      type:"art",
+      title:"Halloween color palettes",
+      blurb:"Soft, modern palettes for designs.",
+      meta:"Art • colors",
+      text:
+`Classic:
+• Pumpkin orange: #fb923c
+• Deep purple: #4c1d95
+• Midnight: #020617
+• Candlelight: #facc15
+
+Soft pastel:
+• Misty lavender: #c4b5fd
+• Peach pumpkin: #fed7aa
+• Fog gray: #e5e7eb
+• Moonlight: #f9fafb
+
+Nature‑inspired:
+• Moss green: #16a34a
+• Rust orange: #ea580c
+• Charcoal: #111827
+• Bone: #f3f4f6`,
+      extra:null
+    },
+    {
+      id:"art2",
+      type:"art",
+      title:"Art & decor concepts",
+      blurb:"Gentle, story‑based ideas.",
+      meta:"Art • concepts",
+      text:
+`• “Library of Lanterns”: Draw or decorate shelves of glowing lanterns, each with a tiny symbol inside.
+• “Friendly Ghost Parade”: Simple sheet‑ghost shapes holding hands across a banner.
+• “Pumpkin Postcards”: Small cards with one pumpkin and one kind message (“You’re boo‑tiful,” “You’re spook‑tacular”).`,
+      extra:null
+    },
+
+    // SVG & COLORS
+    {
+      id:"svg1",
+      type:"svg",
+      title:"Simple pumpkin SVG icon",
+      blurb:"Copy‑paste into your HTML.",
+      meta:"SVG • icon",
+      text:
+`<svg viewBox="0 0 64 64" aria-hidden="true">
+  <title>Simple Pumpkin</title>
+  <g fill="none" stroke="#111827" stroke-width="2">
+    <ellipse cx="32" cy="34" rx="18" ry="14" fill="#fb923c"/>
+    <ellipse cx="24" cy="34" rx="10" ry="13" fill="#fdba74"/>
+    <ellipse cx="40" cy="34" rx="10" ry="13" fill="#f97316"/>
+    <path d="M32 20c0-4 2-6 2-8" stroke-linecap="round"/>
+    <path d="M28 18c1-2 3-3 5-3" stroke-linecap="round"/>
+  </g>
+</svg>`,
+      extra:"svg"
+    },
+    {
+      id:"svg2",
+      type:"svg",
+      title:"Tiny bat SVG icon",
+      blurb:"For buttons or badges.",
+      meta:"SVG • icon",
+      text:
+`<svg viewBox="0 0 64 32" aria-hidden="true">
+  <title>Simple Bat</title>
+  <path d="M4 20c4-6 8-8 12-6 2-4 6-6 16-6s14 2 16 6c4-2 8 0 12 6-4-2-8-1-10 1-2-2-4-3-6-3-2 3-6 5-12 5s-10-2-12-5c-2 0-4 1-6 3-2-2-6-3-10-1z"
+        fill="#020617"/>
+  <circle cx="30" cy="16" r="1.2" fill="#facc15"/>
+  <circle cx="34" cy="16" r="1.2" fill="#facc15"/>
+</svg>`,
+      extra:"svg"
+    },
+
+    // WEDDING
+    {
+      id:"wed1",
+      type:"wedding",
+      title:"Cozy Halloween wedding concept",
+      blurb:"Soft, storybook‑style celebration.",
+      meta:"Wedding • concept",
+      text:
+`Theme: “Lanterns & Leaves”
+
+Colors:
+• Deep plum, pumpkin, cream, and antique gold.
+
+Ideas:
+• Ceremony at dusk with lanterns instead of harsh lights.
+• Guests invited to wear “autumn best” rather than costumes.
+• Dessert table with pumpkin bread, caramel apples, and hot cider.
+• A quiet corner with a guest book titled “Our Favorite Stories of You Two.”`,
+      extra:null
+    },
+    {
+      id:"wed2",
+      type:"wedding",
+      title:"Halloween wedding vows & details",
+      blurb:"Tiny touches, not a haunted house.",
+      meta:"Wedding • details",
+      text:
+`Gentle vow line:
+“I promise to be your safe place on the scariest days
+and your laughter on the light‑hearted ones.”
+
+Details:
+• Table names based on constellations or storybook forests.
+• A small pumpkin at each place setting with a guest’s name.
+• First dance under string lights and paper bats that look like they’re flying away into the night.`,
+      extra:null
+    }
+  ];
+
+  const colors = {
+    story:"var(--orange)",
+    joke:"var(--purple)",
+    drink:"var(--green)",
+    food:"var(--orange)",
+    art:"var(--violet)",
+    svg:"var(--gray)",
+    wedding:"var(--accent)"
+  };
+
+  const shelfEl = document.getElementById("shelf");
+  const readerTypeEl = document.getElementById("readerType");
+  const readerTitleEl = document.getElementById("readerTitle");
+  const readerMetaEl = document.getElementById("readerMeta");
+  const readerBodyEl = document.getElementById("readerBody");
+  const svgPreviewEl = document.getElementById("svgPreview");
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const randomBtn = document.getElementById("randomBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const showAllBtn = document.getElementById("showAllBtn");
+
+  let currentType = "story";
+  let currentCard = null;
+
+  function labelForType(type){
+    if(type==="story") return "Halloween story";
+    if(type==="joke") return "Halloween jokes";
+    if(type==="drink") return "Halloween non‑alcoholic drinks";
+    if(type==="food") return "Halloween food";
+    if(type==="art") return "Halloween ideas & art";
+    if(type==="svg") return "Halloween SVG & colors";
+    if(type==="wedding") return "Halloween wedding ideas";
+    return "Halloween topic";
+  }
+
+  function renderShelf(){
+    shelfEl.innerHTML = "";
+    cards.filter(c => c.type === currentType).forEach(c => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.id = c.id;
+      const color = colors[c.type] || "#e5e7eb";
+      card.innerHTML = `
+        <div class="card-type">
+          <span class="badge-color" style="background:${color}"></span>
+          ${labelForType(c.type)}
+        </div>
+        <h3>${c.title}</h3>
+        <p>${c.blurb}</p>
+        <div class="tagline">${c.meta}</div>
+      `;
+      card.addEventListener("click", () => openCard(c.id));
+      shelfEl.appendChild(card);
+    });
+  }
+
+  function openCard(id){
+    const c = cards.find(x => x.id === id);
+    if(!c) return;
+    currentCard = c;
+    readerTypeEl.textContent = labelForType(c.type);
+    readerTitleEl.textContent = c.title;
+    readerMetaEl.textContent = c.meta;
+    readerBodyEl.textContent = c.text;
+    readerTypeEl.style.color = colors[c.type] || "#4b5563";
+
+    if(c.type === "svg" && c.extra === "svg"){
+      svgPreviewEl.style.display = "flex";
+      svgPreviewEl.innerHTML = `
+        <div>Preview:</div>
+        ${c.text}
+      `;
+    }else{
+      svgPreviewEl.style.display = "none";
+      svgPreviewEl.innerHTML = "";
+    }
+  }
+
+  function setType(type){
+    currentType = type;
+    tabButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.type === type);
+    });
+    renderShelf();
+    const first = cards.find(c => c.type === type);
+    if(first) openCard(first.id);
+  }
+
+  randomBtn.addEventListener("click", () => {
+    const pool = cards.filter(c => c.type === currentType);
+    if(!pool.length) return;
+    const random = pool[Math.floor(Math.random() * pool.length)];
+    openCard(random.id);
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    if(!currentCard) return;
+    const text = currentCard.text;
+    try{
+      await navigator.clipboard.writeText(text);
+      toast("Text / SVG copied to clipboard.");
+    }catch{
+      toast("Could not copy automatically—feel free to select and copy.");
+    }
+  });
+
+  showAllBtn.addEventListener("click", () => {
+    const list = cards.map(c => `• ${c.title} (${labelForType(c.type)})`).join("\n");
+    readerTypeEl.textContent = "All Halloween cards";
+    readerTitleEl.textContent = "Overview of everything on this page";
+    readerMetaEl.textContent = `${cards.length} cards total`;
+    readerBodyEl.textContent = list;
+    readerTypeEl.style.color = "#4b5563";
+    svgPreviewEl.style.display = "none";
+    svgPreviewEl.innerHTML = "";
+  });
+
+  function toast(message){
+    let t = document.querySelector(".toast");
+    if(!t){
+      t = document.createElement("div");
+      t.className = "toast";
+      document.body.appendChild(t);
+      Object.assign(t.style,{
+        position:"fixed",
+        bottom:"1rem",
+        right:"1rem",
+        background:"rgba(15,23,42,.95)",
+        color:"#f9fafb",
+        padding:".5rem .8rem",
+        borderRadius:"999px",
+        fontSize:".75rem",
+        display:"flex",
+        alignItems:"center",
+        gap:".35rem",
+        opacity:0,
+        transform:"translateY(10px)",
+        transition:"opacity .2s,transform .2s",
+        zIndex:9999,
+        border:"1px solid rgba(248,250,252,.8)"
+      });
+    }
+    t.innerHTML = `🎃 <span>${message}</span>`;
+    requestAnimationFrame(() => {
+      t.style.opacity = "1";
+      t.style.transform = "translateY(0)";
+    });
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => {
+      t.style.opacity = "0";
+      t.style.transform = "translateY(10px)";
+    }, 2200);
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => setType(btn.dataset.type));
+  });
+
+  // initial
+  setType("story");
+</script>
+</body>
+</html>
