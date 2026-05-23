@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Four Seasons of Greetings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#050816;
+      --panel:#0f172a;
+      --ink:#0f172a;
+      --memorial:#1e88e5;
+      --fall:#ef6c00;
+      --halloween:#8e24aa;
+      --christmas:#2e7d32;
+      --unval:#c62828;
+      --soft:#e2e8f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+    body{
+      min-height:100vh;
+      background:radial-gradient(circle at top,#1e293b 0,var(--bg) 55%,#000 100%);
+      color:#e5e7eb;
+      display:flex;
+      flex-direction:column;
+    }
+    header{
+      padding:1rem 1.5rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:1rem;
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      border-bottom:1px solid rgba(148,163,184,.4);
+    }
+    .brand{
+      display:flex;align-items:center;gap:.6rem;
+    }
+    .brand-icon{
+      width:38px;height:38px;border-radius:50%;
+      background:radial-gradient(circle at 30% 20%,#fff 0,#e0f2fe 40%,#38bdf8 100%);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 0 0 2px rgba(248,250,252,.7);
+      font-size:1.2rem;
+    }
+    .brand small{font-size:.7rem;opacity:.85;}
+    nav{display:flex;flex-wrap:wrap;gap:.4rem;}
+    nav button{
+      border:none;border-radius:999px;
+      padding:.35rem .9rem;
+      font-size:.8rem;
+      background:rgba(15,23,42,.8);
+      color:#e5e7eb;
+      display:inline-flex;align-items:center;gap:.3rem;
+      cursor:pointer;
+      border:1px solid transparent;
+      transition:background .15s,border-color .15s,transform .1s;
+    }
+    nav button span{font-size:.95rem;}
+    nav button.active,
+    nav button:hover{
+      background:#020617;
+      border-color:rgba(148,163,184,.7);
+      transform:translateY(-1px);
+    }
+    main{
+      flex:1;
+      max-width:1100px;
+      margin:0 auto;
+      padding:1.5rem 1.25rem 1.75rem;
+      display:grid;
+      grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);
+      gap:1.5rem;
+    }
+    .intro h1{
+      font-size:clamp(2rem,3vw+1rem,2.7rem);
+      line-height:1.1;
+      margin-bottom:.4rem;
+    }
+    .intro h1 span{color:#facc15;}
+    .intro p{font-size:.95rem;max-width:30rem;margin-bottom:.8rem;color:#e5e7eb;}
+    .chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem;}
+    .chip{
+      font-size:.75rem;
+      padding:.2rem .6rem;
+      border-radius:999px;
+      background:rgba(15,23,42,.9);
+      border:1px dashed rgba(148,163,184,.7);
+      display:inline-flex;align-items:center;gap:.25rem;
+    }
+    .chip span{font-size:.9rem;}
+    .shelf{
+      margin-top:.5rem;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+      gap:.9rem;
+    }
+    .card{
+      background:rgba(15,23,42,.95);
+      border-radius:.9rem;
+      padding:.75rem .8rem .85rem;
+      border:1px solid rgba(148,163,184,.5);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
+      transition:border-color .15s,transform .1s,box-shadow .15s,background .15s;
+    }
+    .card:hover{
+      border-color:#facc15;
+      transform:translateY(-2px);
+      box-shadow:0 12px 26px rgba(15,23,42,.9);
+      background:#020617;
+    }
+    .card-type{
+      font-size:.65rem;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#94a3b8;
+    }
+    .card h3{font-size:.95rem;color:#f9fafb;}
+    .card p{font-size:.78rem;color:#cbd5f5;}
+    .tagline{font-size:.7rem;color:#9ca3af;}
+    .reader{
+      background:#f9fafb;
+      color:var(--ink);
+      border-radius:1rem;
+      padding:1rem 1.1rem 1.2rem;
+      box-shadow:0 12px 30px rgba(15,23,42,.9);
+      position:relative;
+      overflow:hidden;
+    }
+    .reader::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:
+        radial-gradient(circle at 0 0,rgba(248,250,252,.9) 0,transparent 55%),
+        radial-gradient(circle at 100% 0,rgba(226,232,240,.9) 0,transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .reader-inner{position:relative;}
+    .reader-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.6rem;
+      margin-bottom:.6rem;
+    }
+    .reader-label{
+      font-size:.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:#4b5563;
+    }
+    .reader-title{font-weight:700;font-size:1.05rem;color:var(--ink);}
+    .reader-meta{font-size:.7rem;color:#6b7280;}
+    .reader-body{
+      margin-top:.4rem;
+      padding-top:.4rem;
+      border-top:1px dashed rgba(148,163,184,.7);
+      max-height:260px;
+      overflow:auto;
+      font-size:.86rem;
+      line-height:1.55;
+      white-space:pre-wrap;
+    }
+    .reader-body::-webkit-scrollbar{width:6px;}
+    .reader-body::-webkit-scrollbar-thumb{
+      background:rgba(148,163,184,.9);
+      border-radius:999px;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+      margin-top:.6rem;
+    }
+    .pill-row button{
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.9);
+      background:#fff;
+      font-size:.7rem;
+      padding:.2rem .6rem;
+      cursor:pointer;
+      display:inline-flex;align-items:center;gap:.25rem;
+      color:#111827;
+    }
+    .pill-row button:hover{background:#e5e7eb;}
+    .pill-row button span{font-size:.9rem;}
+    .badge-color{
+      display:inline-block;
+      width:10px;height:10px;
+      border-radius:999px;
+    }
+    footer{
+      padding:.7rem 1.2rem 1.1rem;
+      text-align:center;
+      font-size:.75rem;
+      color:#9ca3af;
+      background:#020617;
+    }
+    footer span{color:#facc15;}
+    @media(max-width:840px){
+      main{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="brand-icon">🌎</div>
+    <div>
+      <div>Four Seasons of Greetings</div>
+      <small>Memorial Day • Fall • Halloween • Christmas • UnValentine’s</small>
+    </div>
+  </div>
+  <nav>
+    <button class="tab-btn active" data-type="memorial"><span>🇺🇸</span> Memorial Day</button>
+    <button class="tab-btn" data-type="fall"><span>🍂</span> Fall</button>
+    <button class="tab-btn" data-type="halloween"><span>🎃</span> Halloween</button>
+    <button class="tab-btn" data-type="christmas"><span>🎄</span> Christmas</button>
+    <button class="tab-btn" data-type="unval"><span>💌</span> UnValentine’s</button>
+  </nav>
+</header>
+
+<main>
+  <section class="intro">
+    <h1>Little <span>greetings</span> for big seasons.</h1>
+    <p>
+      A single page of short, wholesome messages you can borrow or adapt for Memorial Day, cozy fall,
+      Halloween, Christmas, and UnValentine’s Day.
+    </p>
+    <div class="chips">
+      <div class="chip"><span>🕊️</span> Respectful & kind</div>
+      <div class="chip"><span>🍁</span> Seasonal feelings</div>
+      <div class="chip"><span>🎁</span> Ready-to-copy greetings</div>
+    </div>
+
+    <div class="shelf" id="shelf"></div>
+  </section>
+
+  <aside class="reader">
+    <div class="reader-inner">
+      <div class="reader-header">
+        <div>
+          <div class="reader-label" id="readerType">Memorial Day greeting</div>
+          <div class="reader-title" id="readerTitle">In Quiet Gratitude</div>
+        </div>
+        <div class="reader-meta" id="readerMeta">Short message • copy & share</div>
+      </div>
+      <div class="reader-body" id="readerBody"></div>
+      <div class="pill-row">
+        <button id="randomBtn"><span>🎲</span> Random in this season</button>
+        <button id="copyBtn"><span>📋</span> Copy greeting</button>
+        <button id="showAllBtn"><span>📜</span> Show all seasons</button>
+      </div>
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Four seasons of greetings • Made with <span>respect, cocoa, and a little mischief</span>
+</footer>
+
+<script>
+  const greetings = [
+    // Memorial Day
+    {
+      id:"mem1",
+      type:"memorial",
+      title:"In Quiet Gratitude",
+      blurb:"A respectful Memorial Day note.",
+      meta:"Memorial Day • thoughtful",
+      text:
+`Today we pause in quiet gratitude
+for those who gave more than we can ever repay.
+Wishing you a Memorial Day filled with remembrance,
+gentle pride, and the kind of peace they hoped for.`
+    },
+    {
+      id:"mem2",
+      type:"memorial",
+      title:"For the Families",
+      blurb:"A message for those who carry the stories.",
+      meta:"Memorial Day • for families",
+      text:
+`Thinking of you this Memorial Day
+and of the stories you carry in your heart.
+Thank you for the courage, love, and sacrifice
+woven into your family’s history.`
+    },
+
+    // Fall
+    {
+      id:"fall1",
+      type:"fall",
+      title:"Golden Leaves & New Pages",
+      blurb:"A cozy fall greeting.",
+      meta:"Fall • cozy",
+      text:
+`May your fall be full of golden leaves,
+warm drinks, and new pages in your story.
+Here’s to sweaters, slow sunsets,
+and the courage to let old things gently go.`
+    },
+    {
+      id:"fall2",
+      type:"fall",
+      title:"Little Harvest of Joy",
+      blurb:"Short message for autumn check-ins.",
+      meta:"Fall • friendly",
+      text:
+`Sending you a little harvest of joy today:
+crisp air, bright pumpkins, and good people to share them with.
+Happy fall—may your days feel soft and steady.`
+    },
+
+    // Halloween
+    {
+      id:"hall1",
+      type:"halloween",
+      title:"Cute, Not Creepy",
+      blurb:"Wholesome Halloween wish.",
+      meta:"Halloween • light-hearted",
+      text:
+`Wishing you a Halloween that’s more cute than creepy:
+carved pumpkins, silly costumes, and candy you actually like.
+May your night be full of laughter, not jump scares.`
+    },
+    {
+      id:"hall2",
+      type:"halloween",
+      title:"Lanterns in the Dark",
+      blurb:"A slightly poetic Halloween note.",
+      meta:"Halloween • gentle",
+      text:
+`Tonight the pumpkins glow like tiny lanterns,
+reminding us that light belongs even to the darker hours.
+Have a safe, playful Halloween—
+and may you always find your way home.`
+    },
+
+    // Christmas
+    {
+      id:"xmas1",
+      type:"christmas",
+      title:"Warm Lights, Warm Hearts",
+      blurb:"Classic Christmas greeting.",
+      meta:"Christmas • classic",
+      text:
+`May your Christmas be full of warm lights,
+soft music, and people who feel like home.
+Here’s to quiet moments, shared laughter,
+and the hope that keeps shining into the new year.`
+    },
+    {
+      id:"xmas2",
+      type:"christmas",
+      title:"Small, Bright Things",
+      blurb:"A simple message for cards or texts.",
+      meta:"Christmas • simple",
+      text:
+`Wishing you small, bright things this Christmas:
+a favorite song on the radio,
+a message from someone you miss,
+and the feeling that you are deeply, truly loved.`
+    },
+
+    // UnValentine’s Day
+    {
+      id:"unv1",
+      type:"unval",
+      title:"For the Not-So-Romantic",
+      blurb:"A friendly UnValentine’s greeting.",
+      meta:"UnValentine’s • playful",
+      text:
+`Happy UnValentine’s Day to you:
+no pressure, no perfect plans,
+just snacks, comfy clothes,
+and the reminder that your worth is not measured in roses.`
+    },
+    {
+      id:"unv2",
+      type:"unval",
+      title:"Choosing Yourself",
+      blurb:"A self-kindness message.",
+      meta:"UnValentine’s • gentle",
+      text:
+`If today feels loud with hearts and flowers,
+here’s a quieter note:
+you are allowed to choose yourself,
+to rest, to heal, and to celebrate the love
+that has carried you this far.`
+    }
+  ];
+
+  const colors = {
+    memorial:"var(--memorial)",
+    fall:"var(--fall)",
+    halloween:"var(--halloween)",
+    christmas:"var(--christmas)",
+    unval:"var(--unval)"
+  };
+
+  const shelfEl = document.getElementById("shelf");
+  const readerTypeEl = document.getElementById("readerType");
+  const readerTitleEl = document.getElementById("readerTitle");
+  const readerMetaEl = document.getElementById("readerMeta");
+  const readerBodyEl = document.getElementById("readerBody");
+  const tabButtons = document.querySelectorAll(".tab-btn");
+  const randomBtn = document.getElementById("randomBtn");
+  const copyBtn = document.getElementById("copyBtn");
+  const showAllBtn = document.getElementById("showAllBtn");
+
+  let currentType = "memorial";
+  let currentGreeting = null;
+
+  function labelForType(type){
+    if(type==="memorial") return "Memorial Day greeting";
+    if(type==="fall") return "Fall greeting";
+    if(type==="halloween") return "Halloween greeting";
+    if(type==="christmas") return "Christmas greeting";
+    if(type==="unval") return "UnValentine’s greeting";
+    return "Greeting";
+  }
+
+  function renderShelf(){
+    shelfEl.innerHTML = "";
+    greetings.filter(g => g.type === currentType).forEach(g => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.dataset.id = g.id;
+      const color = colors[g.type] || "#facc15";
+      card.innerHTML = `
+        <div class="card-type">
+          <span class="badge-color" style="background:${color}"></span>
+          &nbsp;${labelForType(g.type)}
+        </div>
+        <h3>${g.title}</h3>
+        <p>${g.blurb}</p>
+        <div class="tagline">${g.meta}</div>
+      `;
+      card.addEventListener("click", () => openGreeting(g.id));
+      shelfEl.appendChild(card);
+    });
+  }
+
+  function openGreeting(id){
+    const g = greetings.find(x => x.id === id);
+    if(!g) return;
+    currentGreeting = g;
+    readerTypeEl.textContent = labelForType(g.type);
+    readerTitleEl.textContent = g.title;
+    readerMetaEl.textContent = g.meta;
+    readerBodyEl.textContent = g.text;
+    const color = colors[g.type] || "#4b5563";
+    readerTypeEl.style.color = color;
+  }
+
+  function setType(type){
+    currentType = type;
+    tabButtons.forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.type === type);
+    });
+    renderShelf();
+    const first = greetings.find(g => g.type === type);
+    if(first) openGreeting(first.id);
+  }
+
+  randomBtn.addEventListener("click", () => {
+    const pool = greetings.filter(g => g.type === currentType);
+    if(!pool.length) return;
+    const random = pool[Math.floor(Math.random() * pool.length)];
+    openGreeting(random.id);
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    if(!currentGreeting) return;
+    const text = currentGreeting.text;
+    try{
+      await navigator.clipboard.writeText(text);
+      toast("Greeting copied to clipboard.");
+    }catch{
+      toast("Could not copy automatically—feel free to select and copy.");
+    }
+  });
+
+  showAllBtn.addEventListener("click", () => {
+    const list = greetings.map(g => `• ${g.title} (${labelForType(g.type)})`).join("\n");
+    readerTypeEl.textContent = "All seasons";
+    readerTitleEl.textContent = "Overview of every greeting";
+    readerMetaEl.textContent = `${greetings.length} total messages`;
+    readerBodyEl.textContent = list;
+    readerTypeEl.style.color = "#4b5563";
+  });
+
+  function toast(message){
+    let t = document.querySelector(".toast");
+    if(!t){
+      t = document.createElement("div");
+      t.className = "toast";
+      document.body.appendChild(t);
+      Object.assign(t.style,{
+        position:"fixed",
+        bottom:"1rem",
+        right:"1rem",
+        background:"rgba(15,23,42,.95)",
+        color:"#f9fafb",
+        padding:".5rem .8rem",
+        borderRadius:"999px",
+        fontSize:".75rem",
+        display:"flex",
+        alignItems:"center",
+        gap:".35rem",
+        opacity:0,
+        transform:"translateY(10px)",
+        transition:"opacity .2s,transform .2s",
+        zIndex:9999,
+        border:"1px solid rgba(148,163,184,.8)"
+      });
+    }
+    t.innerHTML = `✨ <span>${message}</span>`;
+    requestAnimationFrame(() => {
+      t.style.opacity = "1";
+      t.style.transform = "translateY(0)";
+    });
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => {
+      t.style.opacity = "0";
+      t.style.transform = "translateY(10px)";
+    }, 2200);
+  }
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => setType(btn.dataset.type));
+  });
+
+  // initial
+  setType("memorial");
+</script>
+</body>
+</html>
