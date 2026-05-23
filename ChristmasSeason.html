@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Christmas Shoe Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --red: #c62828;
+      --green: #1b5e20;
+      --gold: #f9a825;
+      --snow: #fdfdfd;
+      --dark: #111;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #ffffff 0, #e0f2f1 40%, #0d1b2a 100%);
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--green), var(--red));
+      color: var(--snow);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fff 0, #ffe082 30%, #f57f17 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+    }
+
+    nav {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav button {
+      border: none;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--snow);
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    nav button span {
+      font-size: 1rem;
+    }
+
+    nav button:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.1rem, 3vw + 1rem, 3rem);
+      line-height: 1.1;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-text h1 span {
+      color: var(--red);
+    }
+
+    .hero-text p {
+      font-size: 0.98rem;
+      max-width: 32rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(0, 0, 0, 0.15);
+      background: rgba(255, 255, 255, 0.8);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .badge-emoji {
+      font-size: 0.9rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn-primary,
+    .btn-ghost {
+      border-radius: 999px;
+      padding: 0.55rem 1.2rem;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: transform 0.1s, box-shadow 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--red), var(--gold));
+      color: var(--snow);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--green);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .hero-art {
+      position: relative;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      background: radial-gradient(circle at top, #ffffff 0, #e3f2fd 40%, #263238 100%);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      min-height: 230px;
+    }
+
+    .snow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.9) 0, rgba(255, 255, 255, 0) 55%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.8) 0, rgba(255, 255, 255, 0) 55%);
+      background-size: 6px 6px, 4px 4px;
+      background-position: 0 0, 50px 50px;
+      opacity: 0.7;
+      animation: snow 12s linear infinite;
+    }
+
+    @keyframes snow {
+      from {
+        background-position: 0 0, 50px 50px;
+      }
+      to {
+        background-position: 0 600px, 50px 650px;
+      }
+    }
+
+    .shoe-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 1rem;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .shoe-visual {
+      position: relative;
+      height: 150px;
+      border-radius: 0.9rem;
+      background: radial-gradient(circle at 20% 0, #fff 0, #ffebee 40%, #b71c1c 100%);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shoe-shape {
+      width: 80%;
+      height: 60%;
+      border-radius: 60% 40% 60% 30%;
+      background: linear-gradient(135deg, #fafafa, #ef5350);
+      position: relative;
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.35);
+      transform: rotate(-18deg) translateY(-4px);
+    }
+
+    .shoe-shape::before {
+      content: "";
+      position: absolute;
+      inset: 12% 10% auto 10%;
+      height: 30%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #fff, #ffe082);
+    }
+
+    .shoe-shape::after {
+      content: "";
+      position: absolute;
+      right: 4%;
+      bottom: 10%;
+      width: 26%;
+      height: 26%;
+      border-radius: 50%;
+      background: #212121;
+      box-shadow: -40px 4px 0 #212121;
+    }
+
+    .shoe-tag {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .shoe-info h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+      color: var(--dark);
+    }
+
+    .shoe-info p {
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+      color: #555;
+    }
+
+    .shoe-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .price {
+      font-weight: 700;
+      color: var(--red);
+      font-size: 1rem;
+    }
+
+    .old-price {
+      font-size: 0.8rem;
+      text-decoration: line-through;
+      color: #888;
+    }
+
+    .discount {
+      font-size: 0.75rem;
+      color: var(--green);
+      background: rgba(46, 125, 50, 0.08);
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+    }
+
+    .sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .size-pill {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      background: #fff;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .size-pill.active {
+      background: var(--green);
+      color: #fff;
+      border-color: var(--green);
+    }
+
+    .shoe-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .shoe-actions button {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: transform 0.1s, box-shadow 0.15s, background 0.15s;
+    }
+
+    .btn-cart {
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-cart:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-wish {
+      background: #fff;
+      color: var(--dark);
+      border: 1px solid rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-wish:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .mini-note {
+      font-size: 0.7rem;
+      color: #666;
+      margin-top: 0.2rem;
+    }
+
+    .section-title {
+      margin: 2rem 0 0.75rem;
+      font-size: 1.1rem;
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-title span {
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 0.9rem;
+      padding: 0.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 0.6rem;
+      left: 0.6rem;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 999px;
+      background: rgba(198, 40, 40, 0.9);
+      color: #fff;
+    }
+
+    .product-art {
+      height: 90px;
+      border-radius: 0.7rem;
+      background: radial-gradient(circle at 20% 0, #fff 0, #fce4ec 40%, #ad1457 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-shape {
+      width: 70%;
+      height: 55%;
+      border-radius: 60% 40% 60% 30%;
+      background: linear-gradient(135deg, #fafafa, #ab47bc);
+      box-shadow: 0 10px 16px rgba(0, 0, 0, 0.3);
+      transform: rotate(-16deg);
+      position: relative;
+    }
+
+    .product-shape::after {
+      content: "";
+      position: absolute;
+      right: 6%;
+      bottom: 12%;
+      width: 24%;
+      height: 24%;
+      border-radius: 50%;
+      background: #212121;
+      box-shadow: -34px 4px 0 #212121;
+    }
+
+    .product h3 {
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    .product p {
+      font-size: 0.75rem;
+      color: #555;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.3rem;
+      gap: 0.4rem;
+    }
+
+    .product-price {
+      font-weight: 700;
+      color: var(--red);
+      font-size: 0.9rem;
+    }
+
+    .product button {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--green);
+      color: #fff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .banner {
+      margin-top: 1.8rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0.9rem;
+      background: linear-gradient(135deg, #1b5e20, #004d40);
+      color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.7rem;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    .banner strong {
+      color: #ffeb3b;
+    }
+
+    .banner small {
+      opacity: 0.9;
+    }
+
+    footer {
+      padding: 1rem 1.5rem 1.4rem;
+      font-size: 0.75rem;
+      text-align: center;
+      color: #555;
+    }
+
+    footer span {
+      color: var(--red);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-art {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🎄</div>
+      <div>
+        <div>North Star</div>
+        <small style="font-size:0.7rem; opacity:0.85;">Christmas Shoe Store</small>
+      </div>
+    </div>
+    <nav>
+      <button data-scroll="featured"><span>👟</span> Featured</button>
+      <button data-scroll="kids"><span>🧒</span> Kids</button>
+      <button data-scroll="cozy"><span>🧦</span> Cozy</button>
+      <button data-scroll="deals"><span>🎁</span> Deals</button>
+      <button id="cartButton"><span>🛒</span> Cart <span id="cartCount">(0)</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="featured">
+      <div class="hero-text">
+        <h1>
+          Christmas <span>Shoe Magic</span><br />
+          for every step.
+        </h1>
+        <p>
+          Limited-edition Christmas shoes, slippers, and boots—wrapped in cozy colors, soft linings, and just the right sparkle for the season.
+        </p>
+        <div class="hero-badges">
+          <div class="badge"><span class="badge-emoji">🎁</span> Free gift wrap</div>
+          <div class="badge"><span class="badge-emoji">🚚</span> Free shipping over $50</div>
+          <div class="badge"><span class="badge-emoji">⭐</span> 4.9/5 holiday reviews</div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn-primary" data-scroll="deals">
+            Shop Christmas Deals <span>✨</span>
+          </button>
+          <button class="btn-ghost" data-scroll="kids">
+            View Kids’ Collection
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <div class="snow"></div>
+        <div class="shoe-card">
+          <div class="shoe-visual">
+            <div class="shoe-tag">New • 2026</div>
+            <div class="shoe-shape"></div>
+          </div>
+          <div class="shoe-info">
+            <h2>Santa Glow Sneakers</h2>
+            <p>Soft red knit, golden laces, and a glow-in-the-dark snowflake on the heel.</p>
+            <div class="shoe-meta">
+              <span class="price">$79</span>
+              <span class="old-price">$99</span>
+              <span class="discount">Holiday -20%</span>
+            </div>
+            <div class="sizes">
+              <button class="size-pill active">US 6</button>
+              <button class="size-pill">US 7</button>
+              <button class="size-pill">US 8</button>
+              <button class="size-pill">US 9</button>
+            </div>
+            <div class="shoe-actions">
+              <button class="btn-cart" data-product="Santa Glow Sneakers" data-price="79">
+                <span>🛒</span> Add to cart
+              </button>
+              <button class="btn-wish">
+                <span>❤️</span> Wishlist
+              </button>
+            </div>
+            <div class="mini-note">Ships in 24 hours • Gift-ready box included</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <h2 class="section-title" id="kids">
+      <span>🧒</span> Kids’ Christmas Shoes
+    </h2>
+    <section class="grid">
+      <article class="product">
+        <div class="product-tag">Best for Kids</div>
+        <div class="product-art">
+          <div class="product-shape"></div>
+        </div>
+        <h3>Elf Sprint Sneakers</h3>
+        <p>Green-and-gold runners with tiny jingle bells that softly ring with each step.</p>
+        <div class="product-footer">
+          <span class="product-price">$49</span>
+          <button data-product="Elf Sprint Sneakers" data-price="49">
+            <span>🛒</span> Add
+          </button>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art">
+          <div class="product-shape" style="background:linear-gradient(135deg,#fafafa,#ff7043);"></div>
+        </div>
+        <h3>Gingerbread High-Tops</h3>
+        <p>Cinnamon-brown canvas with candy-cane laces and frosted white stitching.</p>
+        <div class="product-footer">
+          <span class="product-price">$54</span>
+          <button data-product="Gingerbread High-Tops" data-price="54">
+            <span>🛒</span> Add
+          </button>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art">
+          <div class="product-shape" style="background:linear-gradient(135deg,#fafafa,#42a5f5);"></div>
+        </div>
+        <h3>Snowflake Light-Ups</h3>
+        <p>Each step lights up a snowflake pattern—perfect for evening carol walks.</p>
+        <div class="product-footer">
+          <span class="product-price">$59</span>
+          <button data-product="Snowflake Light-Ups" data-price="59">
+            <span>🛒</span> Add
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <h2 class="section-title" id="cozy">
+      <span>🧦</span> Cozy Slippers & Home Shoes
+    </h2>
+    <section class="grid">
+      <article class="product">
+        <div class="product-art">
+          <div class="product-shape" style="background:linear-gradient(135deg,#fafafa,#8d6e63);"></div>
+        </div>
+        <h3>Fireplace Fuzz Slippers</h3>
+        <p>Ultra-soft faux fur with a knit cuff—like a warm hug for your feet.</p>
+        <div class="product-footer">
+          <span class="product-price">$39</span>
+          <button data-product="Fireplace Fuzz Slippers" data-price="39">
+            <span>🛒</span> Add
+          </button>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art">
+          <div class="product-shape" style="background:linear-gradient(135deg,#fafafa,#ef9a9a);"></div>
+        </div>
+        <h3>Candy Cane House Shoes</h3>
+        <p>Striped red-and-white with memory foam soles for long wrapping nights.</p>
+        <div class="product-footer">
+          <span class="product-price">$42</span>
+          <button data-product="Candy Cane House Shoes" data-price="42">
+            <span>🛒</span> Add
+          </button>
+        </div>
+      </article>
+
+      <article class="product">
+        <div class="product-art">
+          <div class="product-shape" style="background:linear-gradient(135deg,#fafafa,#4db6ac);"></div>
+        </div>
+        <h3>Polar Night Booties</h3>
+        <p>Mid-ankle booties with sherpa lining and a subtle silver shimmer.</p>
+        <div class="product-footer">
+          <span class="product-price">$46</span>
+          <button data-product="Polar Night Booties" data-price="46">
+            <span>🛒</span> Add
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <h2 class="section-title" id="deals">
+      <span>🎁</span> Christmas Specials & Bundles
+    </h2>
+    <section class="banner">
+      <div>
+        <strong>Holiday Bundle:</strong> Any 2 Christmas shoes + 1 cozy slipper pair for <strong>$129</strong>.
+      </div>
+      <div>
+        <small>Use code <strong>SNOWSTEP</strong> at checkout • Ends December 24</small>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Christmas Shoe Store • Made with <span>♥</span> and hot cocoa • Demo single-page HTML/CSS/JS
+  </footer>
+
+  <script>
+    const cart = {
+      items: [],
+      get count() {
+        return this.items.reduce((sum, item) => sum + item.qty, 0);
+      }
+    };
+
+    const cartCountEl = document.getElementById("cartCount");
+    const cartButton = document.getElementById("cartButton");
+
+    function updateCartDisplay() {
+      cartCountEl.textContent = `(${cart.count})`;
+      cartButton.title = cart.items.length
+        ? cart.items.map(i => `${i.name} x${i.qty}`).join(", ")
+        : "Cart is empty";
+    }
+
+    function addToCart(name, price) {
+      const existing = cart.items.find(i => i.name === name);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.items.push({ name, price: Number(price), qty: 1 });
+      }
+      updateCartDisplay();
+      showToast(`${name} added to cart`);
+    }
+
+    function showToast(message) {
+      let toast = document.querySelector(".toast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.className = "toast";
+        document.body.appendChild(toast);
+        Object.assign(toast.style, {
+          position: "fixed",
+          bottom: "1.2rem",
+          right: "1.2rem",
+          background: "rgba(0,0,0,0.85)",
+          color: "#fff",
+          padding: "0.6rem 0.9rem",
+          borderRadius: "999px",
+          fontSize: "0.8rem",
+          display: "flex",
+          alignItems: "center",
+          gap: "0.4rem",
+          zIndex: 9999,
+          opacity: 0,
+          transform: "translateY(10px)",
+          transition: "opacity 0.2s, transform 0.2s"
+        });
+      }
+      toast.innerHTML = `🎄 <span>${message}</span>`;
+      requestAnimationFrame(() => {
+        toast.style.opacity = "1";
+        toast.style.transform = "translateY(0)";
+      });
+      clearTimeout(toast._hideTimer);
+      toast._hideTimer = setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateY(10px)";
+      }, 2000);
+    }
+
+    document.querySelectorAll("[data-product]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const name = btn.getAttribute("data-product");
+        const price = btn.getAttribute("data-price");
+        addToCart(name, price);
+      });
+    });
+
+    document.querySelectorAll("[data-scroll]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-scroll");
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+
+    document.querySelectorAll(".size-pill").forEach(pill => {
+      pill.addEventListener("click", () => {
+        const group = pill.parentElement.querySelectorAll(".size-pill");
+        group.forEach(p => p.classList.remove("active"));
+        pill.classList.add("active");
+      });
+    });
+
+    updateCartDisplay();
+  </script>
+</body>
+</html>
