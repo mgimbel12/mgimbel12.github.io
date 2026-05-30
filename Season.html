@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Seasons of the World – Holiday Panel</title>
+  <style>
+    :root {
+      --bg-winter: #0b1b3b;
+      --bg-spring: #e3f7d4;
+      --bg-summer: #ffe9b3;
+      --bg-autumn: #f7d1a3;
+      --card: #ffffff;
+      --accent: #c0392b;
+      --text-dark: #222;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1b2735, #090a0f);
+      color: #fff;
+      padding: 2rem;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 18px;
+      padding: 1.5rem 2rem 2rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(10px);
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      max-width: 420px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .controls select {
+      padding: 0.4rem 0.7rem;
+      border-radius: 999px;
+      border: none;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .controls button {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s;
+    }
+
+    .controls button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      background: #e74c3c;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: var(--card);
+      color: var(--text-dark);
+      border-radius: 14px;
+      padding: 1rem 1.1rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .card[data-season="Winter"]::before {
+      background: radial-gradient(circle at top, #7ed6ff, #0b1b3b);
+    }
+    .card[data-season="Spring"]::before {
+      background: radial-gradient(circle at top, #b8ffce, #2ecc71);
+    }
+    .card[data-season="Summer"]::before {
+      background: radial-gradient(circle at top, #ffeaa7, #e67e22);
+    }
+    .card[data-season="Autumn"]::before {
+      background: radial-gradient(circle at top, #ffbe76, #d35400);
+    }
+
+    .card-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.4rem;
+    }
+
+    .country {
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .season-tag {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .holiday-name {
+      position: relative;
+      z-index: 1;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .date {
+      position: relative;
+      z-index: 1;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      margin-bottom: 0.4rem;
+    }
+
+    .desc {
+      position: relative;
+      z-index: 1;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    footer {
+      margin-top: 1.4rem;
+      font-size: 0.75rem;
+      opacity: 0.7;
+      text-align: right;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+      .app {
+        padding: 1.2rem 1.3rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>Seasons of the World – Holiday Glimpse</h1>
+        <p>
+          Switch seasons to see a snapshot of seasonal holidays in Peru, the United States, China, and Japan.
+        </p>
+      </div>
+      <div class="controls">
+        <select id="seasonSelect">
+          <option value="Winter">Winter</option>
+          <option value="Spring">Spring</option>
+          <option value="Summer">Summer</option>
+          <option value="Autumn">Autumn</option>
+        </select>
+        <button id="randomBtn">Random season</button>
+      </div>
+    </header>
+
+    <section class="grid" id="cardsContainer">
+      <!-- Cards injected by JS -->
+    </section>
+
+    <footer>
+      Demo module – you can expand dates, add images, or turn this into a full lesson page.
+    </footer>
+  </div>
+
+  <script>
+    const data = {
+      Winter: [
+        {
+          country: "Peru",
+          holiday: "Fiesta de la Virgen de la Candelaria",
+          date: "Early February",
+          desc: "Music, dance, and processions in Puno, blending Andean and Catholic traditions."
+        },
+        {
+          country: "United States",
+          holiday: "Christmas & New Year",
+          date: "December 25 & January 1",
+          desc: "Lights, family gatherings, and countdowns to welcome the new year."
+        },
+        {
+          country: "China",
+          holiday: "Spring Festival (Chinese New Year)",
+          date: "Late January–February (lunar)",
+          desc: "Family reunions, red envelopes, and fireworks to welcome a new lunar year."
+        },
+        {
+          country: "Japan",
+          holiday: "Ōmisoka & Shōgatsu (New Year)",
+          date: "December 31–January 3",
+          desc: "Temple bells, special meals, and first shrine visits of the year (hatsumōde)."
+        }
+      ],
+      Spring: [
+        {
+          country: "Peru",
+          holiday: "Semana Santa (Holy Week)",
+          date: "March–April",
+          desc: "Religious processions and traditional foods in cities like Ayacucho and Cusco."
+        },
+        {
+          country: "United States",
+          holiday: "Easter",
+          date: "March–April",
+          desc: "Religious services, egg hunts, and spring-themed family activities."
+        },
+        {
+          country: "China",
+          holiday: "Qingming Festival",
+          date: "Early April",
+          desc: "Families visit and clean ancestors’ graves and enjoy spring outings."
+        },
+        {
+          country: "Japan",
+          holiday: "Hanami (Cherry Blossom Viewing)",
+          date: "March–April",
+          desc: "Picnics under blooming sakura trees, celebrating the beauty of fleeting moments."
+        }
+      ],
+      Summer: [
+        {
+          country: "Peru",
+          holiday: "Inti Raymi",
+          date: "June 24",
+          desc: "In Cusco, a grand festival honoring the Inca sun god with reenactments and music."
+        },
+        {
+          country: "United States",
+          holiday: "Independence Day",
+          date: "July 4",
+          desc: "Fireworks, parades, and barbecues celebrating the Declaration of Independence."
+        },
+        {
+          country: "China",
+          holiday: "Dragon Boat Festival",
+          date: "Fifth day of the fifth lunar month",
+          desc: "Dragon boat races and zongzi (rice dumplings) to honor poet Qu Yuan."
+        },
+        {
+          country: "Japan",
+          holiday: "Tanabata & Summer Matsuri",
+          date: "July–August",
+          desc: "Colorful festivals, yukata, and wishes written on paper strips (tanzaku)."
+        }
+      ],
+      Autumn: [
+        {
+          country: "Peru",
+          holiday: "Señor de los Milagros",
+          date: "October",
+          desc: "Massive purple-clad processions in Lima honoring a revered Christ image."
+        },
+        {
+          country: "United States",
+          holiday: "Thanksgiving",
+          date: "Fourth Thursday of November",
+          desc: "A day of gratitude, shared meals, and autumn flavors like pumpkin and cranberry."
+        },
+        {
+          country: "China",
+          holiday: "Mid-Autumn Festival",
+          date: "Eighth month, 15th day (lunar)",
+          desc: "Mooncakes, lanterns, and moon-gazing with family and friends."
+        },
+        {
+          country: "Japan",
+          holiday: "Tsukimi (Moon Viewing)",
+          date: "September–October",
+          desc: "Offerings of rice dumplings and pampas grass while admiring the autumn moon."
+        }
+      ]
+    };
+
+    const seasonSelect = document.getElementById("seasonSelect");
+    const cardsContainer = document.getElementById("cardsContainer");
+    const randomBtn = document.getElementById("randomBtn");
+
+    function renderSeason(season) {
+      cardsContainer.innerHTML = "";
+      const holidays = data[season];
+
+      holidays.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "card";
+        card.dataset.season = season;
+
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="country">${item.country}</span>
+            <span class="season-tag">${season}</span>
+          </div>
+          <div class="holiday-name">${item.holiday}</div>
+          <div class="date">${item.date}</div>
+          <p class="desc">${item.desc}</p>
+        `;
+
+        cardsContainer.appendChild(card);
+      });
+    }
+
+    seasonSelect.addEventListener("change", e => {
+      renderSeason(e.target.value);
+    });
+
+    randomBtn.addEventListener("click", () => {
+      const seasons = Object.keys(data);
+      const randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
+      seasonSelect.value = randomSeason;
+      renderSeason(randomSeason);
+    });
+
+    // initial load
+    renderSeason(seasonSelect.value);
+  </script>
+</body>
+</html>
