@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Alphabet Panel – Spanish, Arabic, Spain‑Preusian</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #f97316;
+      --accent-soft: rgba(249, 115, 22, 0.15);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --radius: 14px;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1f2937 0, #020617 55%);
+      font-family: var(--font-sans);
+      color: var(--text);
+      padding: 24px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 900px;
+      background: linear-gradient(135deg, #020617, #020617 40%, #111827 100%);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 22px 22px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.18), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.16), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .title-block h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #f9fafb;
+    }
+
+    .title-block p {
+      margin-top: 4px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.8);
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .tabs {
+      display: inline-flex;
+      padding: 3px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      margin-bottom: 14px;
+      gap: 3px;
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.18s ease;
+    }
+
+    .tab span.icon {
+      font-size: 0.9rem;
+    }
+
+    .tab.active {
+      background: radial-gradient(circle at top, #f97316, #ea580c);
+      color: #0b1120;
+      font-weight: 600;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7);
+    }
+
+    .tab:not(.active):hover {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+    }
+
+    .subtitle {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(52px, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .cell {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: var(--radius);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 8px 0;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      position: relative;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .cell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(249, 115, 22, 0.16), transparent 55%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .cell span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cell small {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .cell:hover::before {
+      opacity: 1;
+    }
+
+    .cell.highlight {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.6);
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .title-block h1 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="inner">
+      <div class="header">
+        <div class="title-block">
+          <h1>Alphabet Panel</h1>
+          <p>Spanish · Arabic · Spain‑Preusian (ceremonial Spanish)</p>
+        </div>
+        <div class="badge">Storybook · Bilingual · Soft</div>
+      </div>
+
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-target="spanish">
+          <span class="icon">🇪🇸</span><span>Spanish</span>
+        </button>
+        <button class="tab" data-target="arabic">
+          <span class="icon">🕋</span><span>Arabic</span>
+        </button>
+        <button class="tab" data-target="preusian">
+          <span class="icon">🕊️</span><span>Spain‑Preusian</span>
+        </button>
+      </div>
+
+      <!-- Spanish -->
+      <section class="panel" id="spanish">
+        <p class="subtitle">27 letters · Latin script · includes the unique letter Ñ.</p>
+        <div class="grid">
+          <div class="cell"><span>A</span></div>
+          <div class="cell"><span>B</span></div>
+          <div class="cell"><span>C</span></div>
+
+          <div class="cell"><span>D</span></div>
+          <div class="cell"><span>E</span></div>
+          <div class="cell"><span>F</span></div>
+
+          <div class="cell"><span>G</span></div>
+          <div class="cell"><span>H</span></div>
+          <div class="cell"><span>I</span></div>
+
+          <div class="cell"><span>J</span></div>
+          <div class="cell"><span>K</span></div>
+          <div class="cell"><span>L</span></div>
+
+          <div class="cell highlight">
+            <span>Ñ</span>
+            <small>Unique</small>
+          </div>
+
+          <div class="cell"><span>M</span></div>
+          <div class="cell"><span>N</span></div>
+
+          <div class="cell"><span>O</span></div>
+          <div class="cell"><span>P</span></div>
+          <div class="cell"><span>Q</span></div>
+
+          <div class="cell"><span>R</span></div>
+          <div class="cell"><span>S</span></div>
+          <div class="cell"><span>T</span></div>
+
+          <div class="cell"><span>U</span></div>
+          <div class="cell"><span>V</span></div>
+          <div class="cell"><span>W</span></div>
+
+          <div class="cell"><span>X</span></div>
+          <div class="cell"><span>Y</span></div>
+          <div class="cell"><span>Z</span></div>
+        </div>
+      </section>
+
+      <!-- Arabic -->
+      <section class="panel" id="arabic" style="display:none;">
+        <p class="subtitle">28 letters · right‑to‑left cursive script · some sounds not in Spanish.</p>
+        <div class="grid" dir="rtl" style="font-size:1.3rem;">
+          <div class="cell"><span>ا</span></div>
+          <div class="cell"><span>ب</span></div>
+          <div class="cell"><span>ت</span></div>
+          <div class="cell"><span>ث</span></div>
+
+          <div class="cell"><span>ج</span></div>
+          <div class="cell"><span>ح</span></div>
+          <div class="cell"><span>خ</span></div>
+
+          <div class="cell"><span>د</span></div>
+          <div class="cell"><span>ذ</span></div>
+
+          <div class="cell"><span>ر</span></div>
+          <div class="cell"><span>ز</span></div>
+
+          <div class="cell"><span>س</span></div>
+          <div class="cell"><span>ش</span></div>
+
+          <div class="cell"><span>ص</span></div>
+          <div class="cell"><span>ض</span></div>
+
+          <div class="cell"><span>ط</span></div>
+          <div class="cell"><span>ظ</span></div>
+
+          <div class="cell"><span>ع</span></div>
+          <div class="cell"><span>غ</span></div>
+
+          <div class="cell"><span>ف</span></div>
+          <div class="cell"><span>ق</span></div>
+
+          <div class="cell"><span>ك</span></div>
+          <div class="cell"><span>ل</span></div>
+          <div class="cell"><span>م</span></div>
+          <div class="cell"><span>ن</span></div>
+
+          <div class="cell"><span>ه</span></div>
+          <div class="cell"><span>و</span></div>
+          <div class="cell"><span>ي</span></div>
+        </div>
+      </section>
+
+      <!-- Spain‑Preusian -->
+      <section class="panel" id="preusian" style="display:none;">
+        <p class="subtitle">
+          Same 27 letters as Spanish · ceremonial, soft pronunciation · for your storybook / sanctuary universe.
+        </p>
+        <div class="grid">
+          <div class="cell"><span>A</span><small>Amor</small></div>
+          <div class="cell"><span>B</span><small>Brisa</small></div>
+          <div class="cell"><span>C</span><small>Canto</small></div>
+
+          <div class="cell"><span>D</span><small>Dulce</small></div>
+          <div class="cell"><span>E</span><small>Eco</small></div>
+          <div class="cell"><span>F</span><small>Faro</small></div>
+
+          <div class="cell"><span>G</span><small>Guía</small></div>
+          <div class="cell"><span>H</span><small>Hogar</small></div>
+          <div class="cell"><span>I</span><small>Isla</small></div>
+
+          <div class="cell"><span>J</span><small>Joya</small></div>
+          <div class="cell"><span>K</span><small>Karma</small></div>
+          <div class="cell"><span>L</span><small>Luz</small></div>
+
+          <div class="cell highlight">
+            <span>Ñ</span><small>Niñez</small>
+          </div>
+
+          <div class="cell"><span>M</span><small>Mantra</small></div>
+          <div class="cell"><span>N</span><small>Nido</small></div>
+
+          <div class="cell"><span>O</span><small>Oasis</small></div>
+          <div class="cell"><span>P</span><small>Paz</small></div>
+          <div class="cell"><span>Q</span><small>Quieta</small></div>
+
+          <div class="cell"><span>R</span><small>Río</small></div>
+          <div class="cell"><span>S</span><small>Sueño</small></div>
+          <div class="cell"><span>T</span><small>Tierra</small></div>
+
+          <div class="cell"><span>U</span><small>Uno</small></div>
+          <div class="cell"><span>V</span><small>Vela</small></div>
+          <div class="cell"><span>W</span><small>Wadi</small></div>
+
+          <div class="cell"><span>X</span><small>Xilófono</small></div>
+          <div class="cell"><span>Y</span><small>Yema</small></div>
+          <div class="cell"><span>Z</span><small>Zafiro</small></div>
+        </div>
+      </section>
+
+      <div class="footer-note">
+        <span><strong>Tip:</strong> Click the tabs to switch alphabets.</span>
+        <span>You can plug this panel into any HTML/CSS/JS storybook page.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-target");
+
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        panels.forEach(panel => {
+          panel.style.display = panel.id === target ? "block" : "none";
+        });
+      });
+    });
+  </script>
+</body>
+</html>
