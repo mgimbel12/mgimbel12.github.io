@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>World Holidays Explorer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card-bg: #151a2c;
+      --accent: #ffcc4d;
+      --accent-soft: rgba(255, 204, 77, 0.15);
+      --text-main: #f5f5f7;
+      --text-muted: #a0a4b8;
+      --border-soft: #262b40;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b2340 0, #050712 55%, #02030a 100%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 8vw 12px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin-inline: auto;
+    }
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+      gap: 24px;
+      padding: 16px 8vw 32px;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .controls {
+      background: linear-gradient(145deg, #10152a, #090c18);
+      border-radius: var(--radius-lg);
+      padding: 18px 18px 20px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .controls h2 {
+      margin: 0 0 4px;
+      font-size: 1.1rem;
+    }
+
+    .controls p {
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .controls label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .controls select,
+    .controls input {
+      margin-top: 4px;
+      padding: 10px 12px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      background: #050712;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .controls select:focus,
+    .controls input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: #070a18;
+    }
+
+    .holiday-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      align-content: flex-start;
+    }
+
+    .holiday-card {
+      background: radial-gradient(circle at top left, #202744 0, #101426 55%, #070914 100%);
+      border-radius: var(--radius-lg);
+      padding: 14px 14px 16px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .holiday-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top, rgba(255, 204, 77, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .holiday-card:hover::before {
+      opacity: 1;
+    }
+
+    .holiday-name {
+      font-size: 1.05rem;
+      margin: 0 0 4px;
+    }
+
+    .holiday-date {
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .holiday-region {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .holiday-type {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .holiday-type-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .holiday-notes {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 8vw 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.03);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>World Holidays Explorer</h1>
+    <p>
+      This page introduces holidays from different regions of the world, including the United States, Nevada, California, Utah, Mexico, Japan, China, and Peru. You can select a region and search by name to explore how people celebrate important days in many places.
+    </p>
+  </header>
+
+  <main>
+    <section class="controls" aria-label="Holiday filters">
+      <h2>Choose your holidays</h2>
+      <p>
+        You can select a region or country from the list and you can type a word to search for a specific holiday. The list on the right will update automatically and will show only the holidays that match your choices.
+      </p>
+
+      <div>
+        <label for="regionSelect">Region or country</label>
+        <select id="regionSelect">
+          <option value="all">All regions and countries</option>
+          <option value="usa">United States (National)</option>
+          <option value="nevada">Nevada (United States)</option>
+          <option value="california">California (United States)</option>
+          <option value="utah">Utah (United States)</option>
+          <option value="mexico">Mexico</option>
+          <option value="japan">Japan</option>
+          <option value="china">China</option>
+          <option value="peru">Peru</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="searchInput">Search by holiday name or type</label>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="You can type New Year, Independence, or Cultural"
+        />
+      </div>
+    </section>
+
+    <section class="holiday-list" id="holidayList" aria-label="Holiday results">
+      <!-- Cards will be inserted here by JavaScript -->
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      This is a simple HTML, CSS, and JavaScript project that demonstrates how to display holidays from different regions in a clear and friendly way.
+    </p>
+  </footer>
+
+  <script>
+    const holidays = [
+      // United States (national)
+      {
+        name: "New Year's Day",
+        date: "January 1",
+        regionKey: "usa",
+        regionLabel: "United States (National)",
+        type: "Public",
+        notes:
+          "This holiday marks the first day of the new year and many people celebrate with family, friends, and fireworks."
+      },
+      {
+        name: "Independence Day",
+        date: "July 4",
+        regionKey: "usa",
+        regionLabel: "United States (National)",
+        type: "Public",
+        notes:
+          "This day celebrates the adoption of the Declaration of Independence and many communities enjoy parades, barbecues, and fireworks."
+      },
+      {
+        name: "Thanksgiving Day",
+        date: "Fourth Thursday in November",
+        regionKey: "usa",
+        regionLabel: "United States (National)",
+        type: "Public and cultural",
+        notes:
+          "On this day many families gather for a special meal and they express gratitude for the good things in their lives."
+      },
+
+      // Nevada
+      {
+        name: "Nevada Day",
+        date: "Last Friday in October",
+        regionKey: "nevada",
+        regionLabel: "Nevada (United States)",
+        type: "State",
+        notes:
+          "This holiday remembers the day when Nevada became a state and many people in Nevada enjoy parades and community events."
+      },
+
+      // California
+      {
+        name: "César Chávez Day",
+        date: "March 31",
+        regionKey: "california",
+        regionLabel: "California (United States)",
+        type: "State",
+        notes:
+          "This day honors César Chávez, who worked to improve the rights and working conditions of farm workers."
+      },
+
+      // Utah
+      {
+        name: "Pioneer Day",
+        date: "July 24",
+        regionKey: "utah",
+        regionLabel: "Utah (United States)",
+        type: "State and cultural",
+        notes:
+          "This holiday remembers the arrival of pioneer settlers in the Salt Lake Valley and many people celebrate with parades, rodeos, and fireworks."
+      },
+
+      // Mexico
+      {
+        name: "Día de la Independencia",
+        date: "September 16",
+        regionKey: "mexico",
+        regionLabel: "Mexico",
+        type: "Public",
+        notes:
+          "This day celebrates the beginning of Mexico's struggle for independence and many cities hold large celebrations with music and fireworks."
+      },
+      {
+        name: "Día de Muertos",
+        date: "November 1–2",
+        regionKey: "mexico",
+        regionLabel: "Mexico",
+        type: "Cultural",
+        notes:
+          "During this celebration families remember loved ones who have died and they create colorful altars with flowers, candles, and favorite foods."
+      },
+
+      // Japan
+      {
+        name: "Shōgatsu (New Year)",
+        date: "January 1–3",
+        regionKey: "japan",
+        regionLabel: "Japan",
+        type: "Public and cultural",
+        notes:
+          "New Year is one of the most important holidays in Japan and many families visit shrines, share special foods, and send greeting cards."
+      },
+      {
+        name: "Golden Week",
+        date: "Late April to early May",
+        regionKey: "japan",
+        regionLabel: "Japan",
+        type: "Series of public holidays",
+        notes:
+          "Golden Week is a group of holidays that includes Showa Day, Constitution Memorial Day, Greenery Day, and Children's Day, and many people travel during this time."
+      },
+
+      // China
+      {
+        name: "Spring Festival (Chinese New Year)",
+        date: "Lunar New Year (date varies)",
+        regionKey: "china",
+        regionLabel: "China",
+        type: "Public and cultural",
+        notes:
+          "This festival welcomes the Lunar New Year and families gather for reunion dinners, give red envelopes, and enjoy fireworks and lion dances."
+      },
+      {
+        name: "Mid-Autumn Festival",
+        date: "15th day of the 8th lunar month",
+        regionKey: "china",
+        regionLabel: "China",
+        type: "Cultural",
+        notes:
+          "During this festival people share mooncakes, light lanterns, and look at the full moon as they celebrate family and harvest."
+      },
+
+      // Peru
+      {
+        name: "Fiestas Patrias",
+        date: "July 28–29",
+        regionKey: "peru",
+        regionLabel: "Peru",
+        type: "Public",
+        notes:
+          "These national holidays celebrate Peru's independence and many cities hold parades, concerts, and cultural events."
+      },
+      {
+        name: "Inti Raymi",
+        date: "June 24",
+        regionKey: "peru",
+        regionLabel: "Peru",
+        type: "Cultural",
+        notes:
+          "This festival honors the Inca sun god and in Cusco there is a large reenactment with traditional music, costumes, and ceremonies."
+      }
+    ];
+
+    const regionSelect = document.getElementById("regionSelect");
+    const searchInput = document.getElementById("searchInput");
+    const holidayList = document.getElementById("holidayList");
+
+    function renderHolidays() {
+      const regionValue = regionSelect.value;
+      const searchValue = searchInput.value.trim().toLowerCase();
+
+      holidayList.innerHTML = "";
+
+      const filtered = holidays.filter((holiday) => {
+        const matchesRegion =
+          regionValue === "all" || holiday.regionKey === regionValue;
+
+        const matchesSearch =
+          !searchValue ||
+          holiday.name.toLowerCase().includes(searchValue) ||
+          holiday.regionLabel.toLowerCase().includes(searchValue) ||
+          holiday.type.toLowerCase().includes(searchValue);
+
+        return matchesRegion && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        const message = document.createElement("p");
+        message.style.gridColumn = "1 / -1";
+        message.style.color = "#a0a4b8";
+        message.style.fontSize = "0.9rem";
+        message.textContent =
+          "There are no holidays that match your current region and search. Please try a different choice or clear the search box.";
+        holidayList.appendChild(message);
+        return;
+      }
+
+      filtered.forEach((holiday) => {
+        const card = document.createElement("article");
+        card.className = "holiday-card";
+
+        card.innerHTML = `
+          <h2 class="holiday-name">${holiday.name}</h2>
+          <div class="holiday-date">${holiday.date}</div>
+          <div class="holiday-region">${holiday.regionLabel}</div>
+          <div class="holiday-type">
+            <span class="holiday-type-dot"></span>
+            <span>${holiday.type}</span>
+          </div>
+          <p class="holiday-notes">${holiday.notes}</p>
+        `;
+
+        holidayList.appendChild(card);
+      });
+    }
+
+    renderHolidays();
+    regionSelect.addEventListener("change", renderHolidays);
+    searchInput.addEventListener("input", renderHolidays);
+  </script>
+</body>
+</html>
