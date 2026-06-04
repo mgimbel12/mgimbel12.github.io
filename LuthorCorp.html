@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LuthorCorp Futures: Smallville Universe Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050712;
+      --bg-panel: #101426;
+      --bg-panel-soft: #171c33;
+      --accent: #ff6bcb;
+      --accent-alt: #4dd0ff;
+      --accent-soft: rgba(255, 107, 203, 0.18);
+      --text-main: #f5f5f7;
+      --text-muted: #a0a4b8;
+      --border-soft: #262b40;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top left, #1b2340 0, transparent 55%),
+        radial-gradient(circle at bottom right, #2b163f 0, transparent 55%),
+        #050712;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 8vw 10px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top, rgba(77, 208, 255, 0.12), transparent 60%),
+        radial-gradient(circle at bottom, rgba(255, 107, 203, 0.12), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    header h1 {
+      position: relative;
+      margin: 0 0 6px;
+      font-size: 2.3rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      position: relative;
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-inline: auto;
+      font-size: 0.95rem;
+    }
+
+    .tagline {
+      position: relative;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-alt);
+    }
+
+    main {
+      flex: 1;
+      padding: 18px 8vw 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.2fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: linear-gradient(145deg, var(--bg-panel), #090c18);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top right, rgba(77, 208, 255, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .panel:hover::before {
+      opacity: 1;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .panel-subtitle {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--accent-alt);
+      background: rgba(4, 10, 30, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .left-column {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .characters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .character-card {
+      background: radial-gradient(circle at top left, #202744 0, #101426 55%, #070914 100%);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 10px 11px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .character-role {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .character-name {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .character-note {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .character-badge {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .filters-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+      margin-top: 4px;
+    }
+
+    .filters-row label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .filters-row select,
+    .filters-row input {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #050712;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .filters-row select:focus,
+    .filters-row input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+      background: #070a18;
+    }
+
+    .filter-block {
+      flex: 1 1 180px;
+    }
+
+    .hb-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .hb-card {
+      background: var(--bg-panel-soft);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 9px 10px 11px;
+      font-size: 0.85rem;
+    }
+
+    .hb-title {
+      margin: 0 0 2px;
+      font-size: 0.95rem;
+    }
+
+    .hb-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .hb-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--accent-alt);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .hb-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-alt);
+    }
+
+    .castle-scene {
+      position: relative;
+      margin-top: 8px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #3b4fb8 0, #14162e 55%, #050712 100%);
+      padding: 14px 12px 16px;
+      overflow: hidden;
+    }
+
+    .castle-silhouette {
+      position: relative;
+      width: 100%;
+      height: 120px;
+      border-radius: 14px;
+      background:
+        linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent 40%),
+        radial-gradient(circle at 20% 20%, #ffe082 0, transparent 40%),
+        radial-gradient(circle at 80% 25%, #ffffff 0, transparent 40%),
+        linear-gradient(to top, #1a237e 0, #0d1333 60%);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .castle-towers {
+      position: absolute;
+      bottom: 0;
+      width: 80%;
+      height: 70%;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .tower {
+      width: 18%;
+      background: linear-gradient(to top, #0b0f2b, #3949ab);
+      border-radius: 6px 6px 0 0;
+      position: relative;
+    }
+
+    .tower::before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 18px solid #f8bbd0;
+    }
+
+    .tower::after {
+      content: "";
+      position: absolute;
+      inset: 18% 20% 0 20%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      opacity: 0.6;
+    }
+
+    .castle-caption {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .weather-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .weather-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .weather-row label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .weather-row select,
+    .weather-row input[type="range"] {
+      flex: 1 1 140px;
+    }
+
+    .weather-row select {
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #050712;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .weather-row select:focus {
+      border-color: var(--accent-alt);
+      box-shadow: 0 0 0 1px rgba(77, 208, 255, 0.2);
+      background: #070a18;
+    }
+
+    .weather-row input[type="range"] {
+      accent-color: var(--accent-alt);
+    }
+
+    .weather-status {
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--accent-alt);
+    }
+
+    .ideas-list {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .idea-item {
+      padding: 7px 9px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .idea-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .idea-text {
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 8vw 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LuthorCorp Futures: Smallville Universe Dashboard</h1>
+    <p>
+      This experimental dashboard imagines a future where Lana Lang, Clark Kent, Lex Luthor, and the legacy of LuthorCorp
+      intersect with holidays, birthdates, weather experiments, and art concepts. It is a playful, story-style interface
+      that blends Smallville, Superman, and a Disneyland-inspired castle into one creative space.
+    </p>
+    <div class="tagline">Story, science, and second chances</div>
+  </header>
+
+  <main>
+    <section class="left-column">
+      <section class="panel" aria-label="Smallville characters and roles">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Smallville constellation</h2>
+            <p class="panel-subtitle">
+              Key characters and how they might shape the future of LuthorCorp and the world around Smallville.
+            </p>
+          </div>
+          <span class="pill">Characters</span>
+        </div>
+
+        <div class="characters-grid">
+          <article class="character-card">
+            <div class="character-badge">Heart</div>
+            <div class="character-role">Lana Lang</div>
+            <h3 class="character-name">Lana Lang</h3>
+            <p class="character-note">
+              Lana carries the emotional memory of Smallville. In a hopeful future, she guides LuthorCorp toward empathy,
+              community projects, and honest storytelling.
+            </p>
+          </article>
+
+          <article class="character-card">
+            <div class="character-badge">Hope</div>
+            <div class="character-role">Clark Kent / Superman</div>
+            <h3 class="character-name">Clark Kent</h3>
+            <p class="character-note">
+              Clark represents quiet strength and moral gravity. His presence reminds every LuthorCorp decision that power
+              should protect, not control.
+            </p>
+          </article>
+
+          <article class="character-card">
+            <div class="character-badge">Pivot</div>
+            <div class="character-role">Lex Luthor</div>
+            <h3 class="character-name">Lex Luthor</h3>
+            <p class="character-note">
+              Lex stands at the crossroads between ambition and redemption. A future LuthorCorp could become a force for
+              clean technology instead of secret weapons.
+            </p>
+          </article>
+
+          <article class="character-card">
+            <div class="character-badge">Legacy</div>
+            <div class="character-role">LuthorCorp</div>
+            <h3 class="character-name">LuthorCorp (Future)</h3>
+            <p class="character-note">
+              Imagine LuthorCorp as a transparent research company that funds weather safety, renewable energy, and
+              art-centered community spaces instead of fear.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Holidays and birthdates">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Holidays and birthdates</h2>
+            <p class="panel-subtitle">
+              Explore fictional and real-style dates that matter to this universe, from winter holidays to character
+              birthdays.
+            </p>
+          </div>
+          <span class="pill">Timeline</span>
+        </div>
+
+        <div class="filters-row">
+          <div class="filter-block">
+            <label for="hbTypeSelect">Type</label>
+            <select id="hbTypeSelect">
+              <option value="all">All types</option>
+              <option value="holiday">Holiday</option>
+              <option value="birthday">Birthdate</option>
+              <option value="event">Story event</option>
+            </select>
+          </div>
+          <div class="filter-block">
+            <label for="hbSearchInput">Search</label>
+            <input
+              type="text"
+              id="hbSearchInput"
+              placeholder="You can type Winter, Lex, Lana, or Smallville"
+            />
+          </div>
+        </div>
+
+        <div class="hb-list" id="hbList"></div>
+      </section>
+    </section>
+
+    <section class="right-column">
+      <section class="panel" aria-label="Castle concept art">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Castle of second chances</h2>
+            <p class="panel-subtitle">
+              A Disneyland-style castle reimagined as a LuthorCorp-funded art and peace center, glowing above Smallville.
+            </p>
+          </div>
+          <span class="pill">Concept art</span>
+        </div>
+
+        <div class="castle-scene">
+          <div class="castle-silhouette">
+            <div class="castle-towers">
+              <div class="tower"></div>
+              <div class="tower"></div>
+              <div class="tower"></div>
+              <div class="tower"></div>
+            </div>
+          </div>
+          <p class="castle-caption">
+            In this concept, the castle is not a fortress but a beacon. It hosts festivals, film nights, and holiday
+            celebrations where Smallville families and Metropolis visitors share stories instead of secrets.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Weather machine controls">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Weather machine prototype</h2>
+            <p class="panel-subtitle">
+              A fictional LuthorCorp device that gently adjusts weather for safety drills, harvest protection, and
+              holiday light shows.
+            </p>
+          </div>
+          <span class="pill">Experiment</span>
+        </div>
+
+        <div class="weather-controls">
+          <div class="weather-row">
+            <label for="weatherModeSelect">Mode</label>
+            <select id="weatherModeSelect">
+              <option value="clear">Clear skies for festivals</option>
+              <option value="snow">Soft snow for winter holidays</option>
+              <option value="rain">Gentle rain for crops</option>
+              <option value="storm">Storm simulation (training only)</option>
+            </select>
+          </div>
+
+          <div class="weather-row">
+            <label for="intensityRange">Intensity</label>
+            <input type="range" id="intensityRange" min="0" max="100" value="35" />
+          </div>
+
+          <div class="weather-row">
+            <label for="regionSelect">Region focus</label>
+            <select id="regionSelect">
+              <option value="smallville">Smallville fields</option>
+              <option value="metropolis">Metropolis skyline</option>
+              <option value="castle">Castle light show</option>
+            </select>
+          </div>
+
+          <p class="weather-status" id="weatherStatus">
+            The weather machine is set to create clear skies with gentle intensity above the Smallville fields.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Ideas and art concepts for LuthorCorp">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Ideas and art concepts</h2>
+            <p class="panel-subtitle">
+              A quick sketchboard of how the future of LuthorCorp could look if it chose healing over harm.
+            </p>
+          </div>
+          <span class="pill">Future</span>
+        </div>
+
+        <div class="ideas-list">
+          <div class="idea-item">
+            <div class="idea-label">LuthorCorp green labs</div>
+            <p class="idea-text">
+              Convert old secret facilities into transparent greenhouses and weather-safe research labs that share data
+              with farmers in Kansas and beyond.
+            </p>
+          </div>
+
+          <div class="idea-item">
+            <div class="idea-label">Smallville story archive</div>
+            <p class="idea-text">
+              Fund a digital archive where Lana curates memories, photos, and holiday traditions from Smallville families,
+              preserving the town's heart.
+            </p>
+          </div>
+
+          <div class="idea-item">
+            <div class="idea-label">Castle light festivals</div>
+            <p class="idea-text">
+              Host seasonal festivals at the castle, with safe weather effects from the prototype machine and art
+              installations inspired by Superman's hope instead of fear.
+            </p>
+          </div>
+
+          <div class="idea-item">
+            <div class="idea-label">Lex's redemption fund</div>
+            <p class="idea-text">
+              Create a scholarship and innovation fund in Lex Luthor's name that supports young scientists who design
+              technology for disaster relief and climate resilience.
+            </p>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      This page is a fictional, creative HTML, CSS, and JavaScript project that imagines a softer future for LuthorCorp,
+      Smallville, and everyone who ever stood under those Kansas skies.
+    </p>
+  </footer>
+
+  <script>
+    const hbItems = [
+      {
+        title: "Winter Festival in Smallville",
+        date: "December 24–26",
+        type: "holiday",
+        tag: "Town holiday",
+        description:
+          "The town gathers on Main Street with lights, cocoa, and stories. Clark quietly helps hang the highest decorations."
+      },
+      {
+        title: "Lana Lang's birthday",
+        date: "Fictional: March 1",
+        type: "birthday",
+        tag: "Lana",
+        description:
+          "Friends meet at the Talon for a small celebration. Lana uses the day to plan new community projects."
+      },
+      {
+        title: "Lex Luthor's birthday",
+        date: "Fictional: October 14",
+        type: "birthday",
+        tag: "Lex",
+        description:
+          "In this imagined future, Lex spends the day reviewing grants for climate research instead of secret weapons."
+      },
+      {
+        title: "LuthorCorp transparency day",
+        date: "Fictional: May 5",
+        type: "event",
+        tag: "LuthorCorp",
+        description:
+          "Every year, LuthorCorp opens its labs to the public, showing how technology can protect crops and communities."
+      },
+      {
+        title: "Castle of second chances opening",
+        date: "Fictional: July 1",
+        type: "event",
+        tag: "Castle",
+        description:
+          "The Disneyland-style castle opens as an art and peace center, with a light show designed by local students."
+      },
+      {
+        title: "Spring planting blessing",
+        date: "April (first Saturday)",
+        type: "holiday",
+        tag: "Smallville",
+        description:
+          "Families walk the fields and share hopes for the new season while the weather machine keeps storms at a distance."
+      }
+    ];
+
+    const hbTypeSelect = document.getElementById("hbTypeSelect");
+    const hbSearchInput = document.getElementById("hbSearchInput");
+    const hbList = document.getElementById("hbList");
+
+    function renderHB() {
+      const typeValue = hbTypeSelect.value;
+      const searchValue = hbSearchInput.value.trim().toLowerCase();
+
+      hbList.innerHTML = "";
+
+      const filtered = hbItems.filter((item) => {
+        const matchesType = typeValue === "all" || item.type === typeValue;
+        const matchesSearch =
+          !searchValue ||
+          item.title.toLowerCase().includes(searchValue) ||
+          item.description.toLowerCase().includes(searchValue) ||
+          item.tag.toLowerCase().includes(searchValue);
+
+        return matchesType && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        const msg = document.createElement("p");
+        msg.style.gridColumn = "1 / -1";
+        msg.style.color = "#a0a4b8";
+        msg.style.fontSize = "0.85rem";
+        msg.textContent =
+          "There are no holidays or birthdates that match your current filters. You can change the type or clear the search box.";
+        hbList.appendChild(msg);
+        return;
+      }
+
+      filtered.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "hb-card";
+        card.innerHTML = `
+          <h3 class="hb-title">${item.title}</h3>
+          <div class="hb-meta">${item.date}</div>
+          <div class="hb-tag">
+            <span class="hb-tag-dot"></span>
+            <span>${item.tag}</span>
+          </div>
+          <p class="hb-desc">${item.description}</p>
+        `;
+        hbList.appendChild(card);
+      });
+    }
+
+    hbTypeSelect.addEventListener("change", renderHB);
+    hbSearchInput.addEventListener("input", renderHB);
+    renderHB();
+
+    const weatherModeSelect = document.getElementById("weatherModeSelect");
+    const intensityRange = document.getElementById("intensityRange");
+    const regionSelectWeather = document.getElementById("regionSelect");
+    const weatherStatus = document.getElementById("weatherStatus");
+
+    function updateWeatherStatus() {
+      const mode = weatherModeSelect.value;
+      const intensity = Number(intensityRange.value);
+      const region = regionSelectWeather.value;
+
+      let modeText = "";
+      if (mode === "clear") {
+        modeText = "clear skies";
+      } else if (mode === "snow") {
+        modeText = "soft snow";
+      } else if (mode === "rain") {
+        modeText = "gentle rain";
+      } else if (mode === "storm") {
+        modeText = "a controlled storm simulation";
+      }
+
+      let regionText = "";
+      if (region === "smallville") {
+        regionText = "the Smallville fields";
+      } else if (region === "metropolis") {
+        regionText = "the Metropolis skyline";
+      } else if (region === "castle") {
+        regionText = "the castle light show";
+      }
+
+      let intensityText = "gentle intensity";
+      if (intensity > 70) {
+        intensityText = "high intensity";
+      } else if (intensity > 40) {
+        intensityText = "medium intensity";
+      }
+
+      weatherStatus.textContent =
+        "The weather machine is set to create " +
+        modeText +
+        " with " +
+        intensityText +
+        " above " +
+        regionText +
+        ".";
+    }
+
+    weatherModeSelect.addEventListener("change", updateWeatherStatus);
+    intensityRange.addEventListener("input", updateWeatherStatus);
+    regionSelectWeather.addEventListener("change", updateWeatherStatus);
+    updateWeatherStatus();
+  </script>
+</body>
+</html>
