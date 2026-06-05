@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smallville Verse – Beginning to Ending</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root {
+  --bg: #05060a;
+  --bg-alt: #151820;
+  --card-bg: #1b1f2a;
+  --accent: #e53935;
+  --accent-soft: #ff7043;
+  --accent-alt: #66bb6a;
+  --text-main: #e0e0e0;
+  --text-muted: #b0b0b0;
+  --radius: 14px;
+  --shadow: 0 14px 34px rgba(0,0,0,0.6);
+  --font: "Segoe UI", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: radial-gradient(circle at top, #202534 0, #05060a 55%, #000 100%);
+  color: var(--text-main);
+  line-height: 1.7;
+}
+
+/* Header */
+header {
+  text-align: center;
+  padding: 2.7rem 1rem 1.7rem;
+  background: linear-gradient(135deg, #05060a, #202534);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+header h1 {
+  margin: 0 0 .5rem;
+  font-size: clamp(2.1rem, 3.4vw, 2.8rem);
+  color: #ffffff;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+header p {
+  max-width: 780px;
+  margin: 0 auto;
+  color: var(--text-muted);
+  font-size: .96rem;
+}
+
+/* Nav */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(5,6,10,0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+nav ul {
+  margin: 0;
+  padding: .5rem;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem;
+}
+
+nav a {
+  padding: .4rem .9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: .8rem;
+  border: 1px solid transparent;
+  transition: .2s;
+}
+
+nav a:hover {
+  border-color: var(--accent-soft);
+  background: rgba(229,57,53,0.12);
+}
+
+/* Layout */
+main {
+  max-width: 1150px;
+  margin: 2rem auto 2.7rem;
+  padding: 0 1rem;
+}
+
+/* Section cards */
+.section-card {
+  background: radial-gradient(circle at top left, #262b3a 0, #1b1f2a 55%);
+  border-radius: var(--radius);
+  padding: 1.7rem 1.9rem;
+  margin-bottom: 1.7rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+}
+
+.section-card h2 {
+  margin-top: 0;
+  margin-bottom: .7rem;
+  font-size: 1.35rem;
+  color: var(--accent-soft);
+}
+
+.section-card h3 {
+  margin-top: 1.1rem;
+  margin-bottom: .4rem;
+  font-size: 1.05rem;
+  color: #ffffff;
+}
+
+.section-card p {
+  font-size: .95rem;
+}
+
+.section-card ul {
+  padding-left: 1.2rem;
+  font-size: .93rem;
+}
+
+/* SVG panel */
+.svg-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.svg-panel-text {
+  flex: 1 1 260px;
+}
+
+.svg-wrapper {
+  flex: 1 1 260px;
+  min-width: 260px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Cast grid */
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.1rem;
+  margin-top: 1rem;
+}
+
+.cast-card {
+  background: linear-gradient(145deg, #151820, #10131a);
+  border-radius: 10px;
+  padding: 1rem 1.1rem 1.2rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.cast-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(229,57,53,0.18), transparent 60%);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events: none;
+}
+
+.cast-card:hover::before {
+  opacity: 1;
+}
+
+.cast-name {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: .15rem;
+}
+
+.cast-role {
+  font-size: .9rem;
+  color: var(--accent-soft);
+  margin-bottom: .35rem;
+}
+
+.cast-notes {
+  font-size: .86rem;
+  color: var(--text-muted);
+}
+
+/* Season timeline */
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.season-card {
+  background: linear-gradient(145deg, #151820, #10131a);
+  border-radius: 10px;
+  padding: 1rem 1.1rem 1.2rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.season-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.55);
+  border-color: rgba(255,112,67,0.7);
+}
+
+.season-title {
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: .2rem;
+}
+
+.season-era {
+  font-size: .82rem;
+  color: var(--accent-alt);
+  margin-bottom: .35rem;
+}
+
+.season-desc {
+  font-size: .9rem;
+}
+
+/* Highlight */
+.highlight {
+  border-color: rgba(255,112,67,0.7);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: .45rem .95rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  transition: .2s;
+  margin-top: .7rem;
+}
+
+.btn:hover {
+  background: var(--accent-soft);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1.9rem 1rem 2.3rem;
+  font-size: .85rem;
+  color: var(--text-muted);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: #05060a;
+}
+
+/* Utility */
+.small {
+  font-size: .86rem;
+  color: var(--text-muted);
+}
+
+.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .section-card {
+    padding: 1.4rem 1.3rem;
+  }
+  nav ul {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+  nav a {
+    white-space: nowrap;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Smallville Verse</h1>
+  <p>From meteor shower to red cape: a full-length overview of the Smallville universe, its cast, seasons, and legacy.</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#svg-verse">SVG Verse Map</a></li>
+    <li><a href="#chapters">Chapters & Seasons</a></li>
+    <li><a href="#cast">Core Cast</a></li>
+    <li><a href="#arcs">Key Character Arcs</a></li>
+    <li><a href="#episodes">Important Episodes</a></li>
+    <li><a href="#beyond">Beyond the Finale</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<section id="overview" class="section-card">
+  <h2>Smallville: Beginning to Ending</h2>
+  <p><em>Smallville</em> (2001–2011) is a ten-season origin story of Clark Kent before he fully becomes Superman. It begins with a meteor shower that brings baby Kal‑El to Kansas and ends with Clark embracing his destiny as the Man of Steel, symbolically and visually stepping into the role the world will know as Superman.</p>
+  <p>The series is often understood in three broad movements:</p>
+  <ul>
+    <li><strong>High School Years (Seasons 1–4):</strong> Smallville High, meteor freaks, first love with Lana, and the fragile early friendship with Lex Luthor.</li>
+    <li><strong>Transition to Metropolis (Seasons 5–7):</strong> College-age Clark, the Fortress of Solitude, Jor‑El’s training, and the deepening darkness of Lex.</li>
+    <li><strong>Proto‑Superman Era (Seasons 8–10):</strong> The Blur, the Justice League, Lois and Clark at the Daily Planet, and the final acceptance of the Superman identity.</li>
+  </ul>
+  <p class="small">Across 217 episodes, the show weaves teen drama, science fiction, superhero mythology, and moral philosophy into a single coming‑of‑age narrative.</p>
+</section>
+
+<!-- SVG ART -->
+<section id="svg-verse" class="section-card">
+  <h2>Smallville Verse Map – SVG Art</h2>
+  <div class="svg-panel">
+    <div class="svg-panel-text">
+      <p>This SVG is a symbolic “Smallville Verse Map.” The three arcs represent the major eras of the show: Smallville High, Metropolis, and Superman’s emergence. The central crest echoes the idea of a rising hero—Clark moving from the fields of Kansas to the skies above the world.</p>
+      <p>Hover over the arcs to see labels; the colors echo meteor green, Luthor red, and Kryptonian blue.</p>
+    </div>
+    <div class="svg-wrapper">
+      <svg id="smallvilleSvg" width="260" height="260" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background circle -->
+        <defs>
+          <radialGradient id="bgGrad" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#202534"/>
+            <stop offset="100%" stop-color="#05060a"/>
+          </radialGradient>
+          <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff7043"/>
+            <stop offset="100%" stop-color="#e53935"/>
+          </linearGradient>
+          <linearGradient id="arc1" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#66bb6a"/>
+            <stop offset="100%" stop-color="#a5d6a7"/>
+          </linearGradient>
+          <linearGradient id="arc2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffb74d"/>
+            <stop offset="100%" stop-color="#ffcc80"/>
+          </linearGradient>
+          <linearGradient id="arc3" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#42a5f5"/>
+            <stop offset="100%" stop-color="#90caf9"/>
+          </linearGradient>
+        </defs>
+
+        <circle cx="130" cy="130" r="120" fill="url(#bgGrad)" stroke="#ffffff22" stroke-width="2"/>
+
+        <!-- Arcs -->
+        <path id="arcHigh" d="M40 150 A90 90 0 0 1 220 150" fill="none" stroke="url(#arc1)" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+        <path id="arcMetro" d="M55 135 A75 75 0 0 1 205 135" fill="none" stroke="url(#arc2)" stroke-width="9" stroke-linecap="round" opacity="0.9"/>
+        <path id="arcSupes" d="M70 120 A60 60 0 0 1 190 120" fill="none" stroke="url(#arc3)" stroke-width="8" stroke-linecap="round" opacity="0.9"/>
+
+        <!-- Kryptonian-style shield -->
+        <path d="M130 55 L80 95 L100 185 L130 205 L160 185 L180 95 Z"
+              fill="url(#shieldGrad)" stroke="#ffffffaa" stroke-width="2"/>
+
+        <!-- Stylized S -->
+        <path d="M115 90
+                 Q140 80 145 95
+                 Q150 110 130 115
+                 Q110 120 115 135
+                 Q120 150 145 145"
+              fill="none" stroke="#ffe082" stroke-width="4" stroke-linecap="round"/>
+
+        <!-- Labels -->
+        <text id="svgLabel" x="130" y="235" text-anchor="middle" fill="#e0e0e0" font-size="11">
+          Hover arcs to explore eras
+        </text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- CHAPTERS & SEASONS -->
+<section id="chapters" class="section-card">
+  <h2>Chapters of the Smallville Verse</h2>
+  <p>While each season has its own villains and subplots, the show can be read as a three‑chapter novel about identity, power, and destiny.</p>
+
+  <div class="timeline-grid">
+    <article class="season-card" data-era="high">
+      <div class="season-title">Seasons 1–4: Smallville High</div>
+      <div class="season-era">Meteor Freaks, First Love, and Lex’s Friendship</div>
+      <p class="season-desc">
+        Clark navigates adolescence, emerging powers, and the fallout of the meteor shower. Lana Lang is his first great love, Chloe Sullivan his investigative ally, and Lex Luthor his unlikely friend. The “villain of the week” meteor freaks mirror Clark’s own struggle with being different.
+      </p>
+    </article>
+
+    <article class="season-card" data-era="transition">
+      <div class="season-title">Seasons 5–7: Transition to Metropolis</div>
+      <div class="season-era">Fortress of Solitude, Jor‑El, and Darker Choices</div>
+      <p class="season-desc">
+        Clark begins training with Jor‑El, faces threats like Zod and Brainiac, and moves closer to Metropolis. Lex’s descent accelerates, culminating in his marriage to Lana and his obsession with power. The world grows larger, and the stakes become global rather than local.
+      </p>
+    </article>
+
+    <article class="season-card" data-era="proto">
+      <div class="season-title">Seasons 8–10: The Blur and the Birth of Superman</div>
+      <div class="season-era">The Blur, Justice League, and Final Destiny</div>
+      <p class="season-desc">
+        Clark adopts the vigilante persona of “The Blur,” works at the Daily Planet with Lois Lane, and collaborates with heroes like Green Arrow. He confronts Doomsday, Zod’s clone, Darkseid’s influence, and finally embraces the symbol and role of Superman in the series finale.
+      </p>
+    </article>
+  </div>
+
+  <button class="btn" id="toggleChapterSummary">Toggle Short Chapter Summary</button>
+  <p id="chapterSummary" class="hidden small">
+    In short, the Smallville verse moves from a small town mystery about a strange boy in Kansas to a global myth about a hero who chooses hope, responsibility, and love over fear, control, and destiny imposed by others.
+  </p>
+</section>
+
+<!-- CORE CAST -->
+<section id="cast" class="section-card">
+  <h2>Core Cast of the Smallville Verse</h2>
+  <p>These performers carry the emotional weight of the story, shaping how we understand Clark’s journey from farm boy to legend.</p>
+
+  <div class="cast-grid">
+    <article class="cast-card">
+      <div class="cast-name">Tom Welling</div>
+      <div class="cast-role">Clark Kent / The Blur</div>
+      <div class="cast-notes">
+        The heart of the series. Welling’s Clark is earnest, conflicted, and deeply human, making the eventual leap to Superman feel earned rather than inevitable.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Kristin Kreuk</div>
+      <div class="cast-role">Lana Lang</div>
+      <div class="cast-notes">
+        Clark’s first love and symbol of a “normal” life. Her arc from innocent neighbor to morally conflicted woman reflects the cost of secrets and power.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Michael Rosenbaum</div>
+      <div class="cast-role">Lex Luthor</div>
+      <div class="cast-notes">
+        A tragic, layered Lex whose friendship with Clark slowly fractures. His performance makes Lex’s fall feel like a heartbreak, not just a villain origin.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Allison Mack</div>
+      <div class="cast-role">Chloe Sullivan</div>
+      <div class="cast-notes">
+        The investigative brain of the show. Chloe’s curiosity, loyalty, and unspoken love for Clark ground the series in human intelligence and emotional nuance.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Erica Durance</div>
+      <div class="cast-role">Lois Lane</div>
+      <div class="cast-notes">
+        Introduced later, Lois becomes Clark’s equal partner. Their banter, trust, and shared mission define the mature stage of his emotional journey.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">John Schneider</div>
+      <div class="cast-role">Jonathan Kent</div>
+      <div class="cast-notes">
+        Clark’s moral compass. His emphasis on responsibility, humility, and integrity shapes the hero Clark eventually becomes, even after Jonathan’s death.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Annette O’Toole</div>
+      <div class="cast-role">Martha Kent</div>
+      <div class="cast-notes">
+        A steady source of compassion and wisdom. Martha balances Jonathan’s firmness with empathy, modeling emotional strength and ethical leadership.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">John Glover</div>
+      <div class="cast-role">Lionel Luthor</div>
+      <div class="cast-notes">
+        A complex antagonist whose shifting morality and manipulative parenting define the Luthor legacy and shape Lex’s fate.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Justin Hartley</div>
+      <div class="cast-role">Oliver Queen / Green Arrow</div>
+      <div class="cast-notes">
+        A fellow hero who challenges Clark to think globally. His presence expands the universe and introduces a more organized heroic community.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Laura Vandervoort</div>
+      <div class="cast-role">Kara Zor‑El</div>
+      <div class="cast-notes">
+        Clark’s Kryptonian cousin, whose arrival forces him to reconsider what it means to be the “last son of Krypton” and what family truly means.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Aaron Ashmore</div>
+      <div class="cast-role">Jimmy Olsen</div>
+      <div class="cast-notes">
+        The earnest photographer whose curiosity and courage embody the spirit of journalism. His fate underscores the cost of living near heroes.
+      </div>
+    </article>
+
+    <article class="cast-card">
+      <div class="cast-name">Sarah Carter</div>
+      <div class="cast-role">Alicia Baker</div>
+      <div class="cast-notes">
+        A meteor-infected young woman who truly sees Clark and accepts his secret. Her brief but powerful arc explores trust, trauma, and the limits of Clark’s ability to protect those he loves.
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- KEY CHARACTER ARCS -->
+<section id="arcs" class="section-card">
+  <h2>Key Character Arcs Across the Verse</h2>
+
+  <h3>Clark Kent: From Farm Boy to Symbol</h3>
+  <p>Clark’s arc is about learning that power without purpose is dangerous, and that destiny is not a prison but a choice. He wrestles with guilt, fear of rejection, and the tension between wanting a normal life and being called to something greater. By the finale, he accepts that his gifts belong to the world, not just to himself.</p>
+
+  <h3>Lex Luthor: Friendship, Wounds, and Villainy</h3>
+  <p>Lex begins as a lonely billionaire trying to escape his father’s shadow. His friendship with Clark is genuine, but secrecy, manipulation, and trauma erode their bond. Lex’s descent into villainy is portrayed as a series of wounded choices rather than a single turn to evil, making him one of television’s most tragic antagonists.</p>
+
+  <h3>Lana Lang: Ideal, Reality, and Departure</h3>
+  <p>Lana starts as Clark’s idealized dream of normalcy. Over time, she becomes entangled in LuthorCorp, secrets, and her own search for agency. Her eventual departure—empowered but separated from Clark—shows that love does not always align with destiny.</p>
+
+  <h3>Lois Lane: Partner, Not Sidekick</h3>
+  <p>Lois arrives as comic relief and evolves into Clark’s equal. She challenges him, believes in his mission, and refuses to be protected into ignorance. Their relationship models a partnership where truth and mutual respect are non‑negotiable.</p>
+
+  <h3>Chloe Sullivan and Oliver Queen: Purpose and Redemption</h3>
+  <p>Chloe’s journey from school newspaper editor to Watchtower, and Oliver’s from billionaire archer to team leader, form a parallel arc of redemption and responsibility. Together, they build the infrastructure that allows heroes to operate as a coordinated force.</p>
+
+  <h3>Alicia Baker: Being Known and Still Loved</h3>
+  <p>Alicia’s story is short but unforgettable. She knows Clark’s secret, accepts him, and loves him without demanding he be less than he is. Her death forces Clark to confront prejudice, fear, and the painful truth that even he cannot save everyone.</p>
+</section>
+
+<!-- IMPORTANT EPISODES -->
+<section id="episodes" class="section-card">
+  <h2>Important Episodes in the Smallville Verse</h2>
+  <p>Many episodes matter, but a few stand out as emotional and thematic pillars.</p>
+
+  <ul>
+    <li><strong>Pilot (Season 1):</strong> The meteor shower, the Kents finding baby Kal‑El, and the first meeting of Clark and Lex set the tone for the entire verse.</li>
+    <li><strong>Ryan (Season 2):</strong> Clark’s bond with a telepathic boy highlights his compassion and the limits of his power to save everyone.</li>
+    <li><strong>Memoria (Season 3):</strong> A deep dive into Lex’s childhood trauma, showing how pain and neglect shape his worldview.</li>
+    <li><strong>Commencement (Season 4):</strong> A massive meteor shower, the discovery of more Kryptonian secrets, and a turning point between high school and the larger world.</li>
+    <li><strong>Tomb (Season 5):</strong> A horror‑tinged exploration of Chloe’s trauma and the emotional cost of being close to danger.</li>
+    <li><strong>Promise (Season 6):</strong> Lana and Lex’s wedding told from three perspectives, examining love, control, and the consequences of silence.</li>
+    <li><strong>Justice (Season 6):</strong> A proto‑Justice League team‑up that shows the verse expanding beyond Clark’s personal story.</li>
+    <li><strong>Doomsday (Season 8):</strong> A controversial but pivotal confrontation that forces Clark to reconsider what it means to be a hero in the public eye.</li>
+    <li><strong>Salvation (Season 9):</strong> Clark’s near‑sacrifice and the growing clarity of his role as Earth’s protector.</li>
+    <li><strong>Finale (Season 10):</strong> Clark fully embraces the Superman identity, reconciles with his past, and steps into the sky as the symbol of hope.</li>
+  </ul>
+
+  <button class="btn" id="scrollTopBtn">Back to Top</button>
+</section>
+
+<!-- BEYOND THE FINALE -->
+<section id="beyond" class="section-card">
+  <h2>Beyond the TV Series: The Wider Smallville Verse</h2>
+  <p>The Smallville verse continues beyond the final episode in several ways:</p>
+  <ul>
+    <li><strong>Smallville Season 11 (Comics):</strong> A comic continuation that follows Clark as an established Superman, expanding on the show’s continuity with new threats and team‑ups.</li>
+    <li><strong>Arrowverse “Crisis on Infinite Earths” Cameo:</strong> Tom Welling and Erica Durance reprise their roles, revealing a version of Clark who gave up his powers to live a peaceful life with Lois and their daughters.</li>
+    <li><strong>Fandom and Legacy:</strong> The show’s focus on emotional realism and long‑form character development influenced later superhero TV, proving that capes and feelings can coexist.</li>
+  </ul>
+  <p class="small">Taken together, these pieces form a Smallville verse where the core question is not “How strong is Superman?” but “What kind of person chooses to become him?”</p>
+</section>
+
+</main>
+
+<footer>
+  <p>Smallville Verse – A full-length overview in one page, with SVG art and interactive elements.</p>
+</footer>
+
+<script>
+// SVG hover labels
+const svgLabel = document.getElementById("svgLabel");
+const arcHigh = document.getElementById("arcHigh");
+const arcMetro = document.getElementById("arcMetro");
+const arcSupes = document.getElementById("arcSupes");
+
+if (arcHigh && arcMetro && arcSupes && svgLabel) {
+  arcHigh.addEventListener("mouseenter", () => {
+    svgLabel.textContent = "Seasons 1–4: Smallville High Era";
+  });
+  arcMetro.addEventListener("mouseenter", () => {
+    svgLabel.textContent = "Seasons 5–7: Transition to Metropolis";
+  });
+  arcSupes.addEventListener("mouseenter", () => {
+    svgLabel.textContent = "Seasons 8–10: The Blur & Superman";
+  });
+  [arcHigh, arcMetro, arcSupes].forEach(arc => {
+    arc.addEventListener("mouseleave", () => {
+      svgLabel.textContent = "Hover arcs to explore eras";
+    });
+  });
+}
+
+// Chapter summary toggle
+const chapterBtn = document.getElementById("toggleChapterSummary");
+const chapterSummary = document.getElementById("chapterSummary");
+
+if (chapterBtn && chapterSummary) {
+  chapterBtn.addEventListener("click", () => {
+    chapterSummary.classList.toggle("hidden");
+    chapterBtn.textContent = chapterSummary.classList.contains("hidden")
+      ? "Toggle Short Chapter Summary"
+      : "Hide Short Chapter Summary";
+  });
+}
+
+// Scroll to top
+const scrollTopBtn = document.getElementById("scrollTopBtn");
+if (scrollTopBtn) {
+  scrollTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+// Optional: subtle click highlight on season cards
+const seasonCards = document.querySelectorAll(".season-card");
+seasonCards.forEach(card => {
+  card.addEventListener("click", () => {
+    seasonCards.forEach(c => c.classList.remove("highlight"));
+    card.classList.add("highlight");
+  });
+});
+</script>
+
+</body>
+</html>
