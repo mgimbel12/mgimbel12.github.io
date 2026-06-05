@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Oliver Queen • Mental Health Journey — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #040607;
+  --bg-alt: #0d1116;
+  --accent: #4ddf7a;
+  --accent-soft: rgba(77,223,122,0.16);
+  --danger: #e06b6b;
+  --safe: #7ed4b6;
+  --text-main: #f5f5f8;
+  --text-muted: #a5a7b6;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #040607 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 680px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(77,223,122,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.crisis {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.state-pill.growth {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+/* Reflection */
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.reflection-list {
+  padding-left: 18px;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Oliver Queen</h1>
+  <p class="subtitle">
+    A Smallville‑verse mental health journey — from trauma and addiction to purpose,
+    leadership, and self‑forgiveness.
+  </p>
+</header>
+
+<main>
+
+<!-- TIMELINE -->
+<section class="panel">
+  <div class="panel-title">Mental Health Journey Timeline</div>
+
+  <div id="timeline">
+
+    <div class="timeline-item active" data-scene="island">
+      <div class="timeline-year">Pre‑Series / Island Years</div>
+      <div class="timeline-label">Trauma, Survival & Identity Collapse</div>
+      <div class="timeline-note">
+        Oliver’s transformation begins with loss, isolation, and the trauma of
+        surviving when others didn’t.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="return">
+      <div class="timeline-year">Early Smallville</div>
+      <div class="timeline-label">Mask of the Billionaire</div>
+      <div class="timeline-note">
+        He hides pain behind charm, money, and reckless behavior — avoiding the
+        emotional fallout of the island.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="justice">
+      <div class="timeline-year">Justice League Era</div>
+      <div class="timeline-label">Purpose as a Lifeline</div>
+      <div class="timeline-note">
+        Becoming Green Arrow gives Oliver direction — but also pressure, guilt,
+        and moral conflict.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="addiction">
+      <div class="timeline-year">Season 8–9</div>
+      <div class="timeline-label">Addiction, Self‑Loathing & Collapse</div>
+      <div class="timeline-note">
+        Oliver spirals into alcoholism and self‑destruction, believing he is
+        unworthy of love or redemption.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="redemption">
+      <div class="timeline-year">Later Seasons</div>
+      <div class="timeline-label">Redemption & Self‑Forgiveness</div>
+      <div class="timeline-note">
+        Through love, purpose, and accountability, Oliver rebuilds himself into
+        a leader capable of hope.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCENE -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+
+  <div class="scene-phase" id="scene-phase">Phase: Trauma & Survival</div>
+
+  <div class="scene-quote" id="scene-quote">
+    “I wasn’t the same man who washed up on that island… and I’m still trying to
+    figure out who came back.”
+  </div>
+
+  <div class="scene-context" id="scene-context">
+    Oliver’s mental health foundation is shaped by trauma: loss, starvation,
+    violence, and the guilt of surviving when others didn’t. His identity fractures,
+    and the island becomes both a birthplace and a grave for the boy he used to be.
+  </div>
+
+  <div class="scene-tags" id="scene-tags">
+    <span>Survivor’s guilt</span>
+    <span>Identity fracture</span>
+    <span>Trauma imprint</span>
+  </div>
+
+  <div class="state-pill crisis" id="scene-state">Crisis state</div>
+</section>
+
+<!-- REFLECTION -->
+<section class="panel">
+  <div class="panel-title">Reflection & Viewer Lens</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="clinical">Clinical Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Oliver’s arc asks what happens when a man tries to rebuild himself from the
+    ashes of trauma. His heroism is not the absence of pain — it’s the choice to
+    keep fighting through it.
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how Oliver uses humor and charm as emotional armor.</li>
+    <li>Track when purpose becomes healing vs. when it becomes pressure.</li>
+    <li>Watch how guilt shapes his relationships and leadership.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis • For narrative exploration.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data
+const scenes = {
+  island: {
+    phase: "Trauma & Survival",
+    quote:
+      "“I wasn’t the same man who washed up on that island… and I’m still trying to figure out who came back.”",
+    context:
+      "Oliver’s identity fractures under trauma: starvation, violence, and the guilt of surviving when others didn’t. The island becomes the crucible that burns away his old self.",
+    tags: ["Survivor’s guilt", "Identity fracture", "Trauma imprint"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  return: {
+    phase: "Avoidance & Persona",
+    quote:
+      "“It’s easier to pretend everything’s fine than admit I’m falling apart.”",
+    context:
+      "Oliver hides behind the billionaire playboy persona — a mask built to distract from the pain he refuses to face.",
+    tags: ["Avoidance", "Emotional masking", "Recklessness"],
+    state: "Emotional avoidance",
+    stateClass: ""
+  },
+  justice: {
+    phase: "Purpose & Pressure",
+    quote:
+      "“If I don’t fight for something… then what was the point of surviving?”",
+    context:
+      "Becoming Green Arrow gives Oliver purpose, but also moral weight. Every failure feels personal, every loss a reminder of the island.",
+    tags: ["Purpose", "Moral conflict", "Leadership pressure"],
+    state: "High strain",
+    stateClass: ""
+  },
+  addiction: {
+    phase: "Collapse & Addiction",
+    quote:
+      "“Maybe the world would be better off without me.”",
+    context:
+      "Oliver spirals into alcoholism and self‑destruction, believing he is unworthy of love or redemption. This is his lowest psychological point.",
+    tags: ["Addiction", "Self‑loathing", "Despair"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  redemption: {
+    phase: "Healing & Self‑Forgiveness",
+    quote:
+      "“I can’t change my past… but I can choose who I become next.”",
+    context:
+      "Through accountability, love, and purpose, Oliver rebuilds himself. His healing is imperfect, but real — grounded in acceptance rather than denial.",
+    tags: ["Growth", "Self‑forgiveness", "Redemption"],
+    state: "Growth phase",
+    stateClass: "growth"
+  }
+};
+
+// Reflection modes
+const reflectionModes = {
+  viewer: {
+    body:
+      "Oliver’s arc asks what happens when a man tries to rebuild himself from the ashes of trauma. His heroism is not the absence of pain — it’s the choice to keep fighting through it.",
+    list: [
+      "Notice how Oliver uses humor and charm as emotional armor.",
+      "Track when purpose becomes healing vs. when it becomes pressure.",
+      "Watch how guilt shapes his relationships and leadership."
+    ]
+  },
+  clinical: {
+    body:
+      "From a fictional clinical lens, Oliver’s arc reflects trauma responses, survivor’s guilt, addiction cycles, and the long process of rebuilding identity after psychological collapse.",
+    list: [
+      "Patterns of avoidance and emotional masking.",
+      "Addiction as a response to unresolved trauma.",
+      "Identity reconstruction through purpose and connection."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(t => {
+      const span = document.createElement("span");
+      span.textContent = t;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) sceneState.classList.add(data.stateClass);
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
