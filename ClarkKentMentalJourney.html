@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Clark Kent • Mental Health Journey — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #05070b;
+  --bg-alt: #0d1018;
+  --accent: #6bb6ff;
+  --accent-soft: rgba(107,182,255,0.16);
+  --danger: #e06b6b;
+  --safe: #7ed4b6;
+  --text-main: #f7f7fa;
+  --text-muted: #a7a9b7;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #05070b 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 680px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(107,182,255,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.crisis {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.state-pill.growth {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+/* Reflection */
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.reflection-list {
+  padding-left: 18px;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Clark Kent</h1>
+  <p class="subtitle">
+    A Smallville‑verse mental health journey — exploring identity, destiny, isolation,
+    guilt, and the crises that shaped the man who becomes Superman.
+  </p>
+</header>
+
+<main>
+
+<!-- TIMELINE -->
+<section class="panel">
+  <div class="panel-title">Mental Health Journey Timeline</div>
+
+  <div id="timeline">
+
+    <div class="timeline-item active" data-scene="meteor">
+      <div class="timeline-year">Childhood</div>
+      <div class="timeline-label">Meteor Secrets & Isolation</div>
+      <div class="timeline-note">
+        Clark grows up hiding who he is — learning early that difference equals danger.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="identity">
+      <div class="timeline-year">Teen Years</div>
+      <div class="timeline-label">“Who Am I?” Identity Crisis</div>
+      <div class="timeline-note">
+        Discovering his origins triggers fear, confusion, and the pressure of destiny.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="loss">
+      <div class="timeline-year">Season 5</div>
+      <div class="timeline-label">Jonathan’s Death</div>
+      <div class="timeline-note">
+        Clark blames himself — believing his choices caused the loss of the man who
+        grounded him.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="zod">
+      <div class="timeline-year">Season 6</div>
+      <div class="timeline-label">Zod, Guilt & Responsibility</div>
+      <div class="timeline-note">
+        Clark confronts the consequences of power — and the fear of becoming a threat.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="becoming">
+      <div class="timeline-year">Final Seasons</div>
+      <div class="timeline-label">Becoming the Blur / Superman</div>
+      <div class="timeline-note">
+        Clark integrates his identities — choosing hope over fear.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCENE -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+
+  <div class="scene-phase" id="scene-phase">Phase: Early Isolation</div>
+
+  <div class="scene-quote" id="scene-quote">
+    “I’ve always felt like I was standing on the outside of my own life.”
+  </div>
+
+  <div class="scene-context" id="scene-context">
+    Clark’s earliest psychological struggle is isolation. He learns to hide his
+    abilities, his origins, and his fears — creating a foundation of secrecy that
+    shapes every relationship he forms.
+  </div>
+
+  <div class="scene-tags" id="scene-tags">
+    <span>Isolation</span>
+    <span>Fear of rejection</span>
+    <span>Secret identity</span>
+  </div>
+
+  <div class="state-pill crisis" id="scene-state">Crisis state</div>
+</section>
+
+<!-- REFLECTION -->
+<section class="panel">
+  <div class="panel-title">Reflection & Viewer Lens</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="clinical">Clinical Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Clark’s journey is about learning that strength isn’t the absence of fear — it’s
+    choosing compassion despite it. His crises shape him, but they don’t define him.
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how secrecy affects Clark’s relationships.</li>
+    <li>Track how guilt motivates — and sometimes harms — his choices.</li>
+    <li>Watch how he integrates “Clark” and “the hero” into one identity.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis • For narrative exploration.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data
+const scenes = {
+  meteor: {
+    phase: "Early Isolation",
+    quote:
+      "“I’ve always felt like I was standing on the outside of my own life.”",
+    context:
+      "Clark grows up hiding everything — his powers, his origins, his fears. This secrecy creates chronic isolation and the belief that he must protect others from the truth of who he is.",
+    tags: ["Isolation", "Fear of rejection", "Secret identity"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  identity: {
+    phase: "Identity Crisis",
+    quote:
+      "“How am I supposed to be human when I don’t even know what I am?”",
+    context:
+      "Learning he is Kryptonian triggers fear, confusion, and the pressure of destiny. Clark struggles to reconcile his human upbringing with his alien heritage.",
+    tags: ["Identity conflict", "Destiny pressure", "Fear"],
+    state: "Emotional conflict",
+    stateClass: ""
+  },
+  loss: {
+    phase: "Grief & Guilt",
+    quote:
+      "“If I hadn’t made that deal… my dad would still be here.”",
+    context:
+      "Jonathan’s death devastates Clark. He blames himself, believing his choices caused the loss. This becomes one of his deepest emotional wounds.",
+    tags: ["Grief", "Self-blame", "Loss"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  zod: {
+    phase: "Responsibility & Fear",
+    quote:
+      "“Every time I try to do the right thing… someone gets hurt.”",
+    context:
+      "Clark confronts the consequences of power — and the fear that he could become a threat. This period is marked by guilt, responsibility, and moral struggle.",
+    tags: ["Responsibility", "Moral conflict", "Fear of harm"],
+    state: "High strain",
+    stateClass: ""
+  },
+  becoming: {
+    phase: "Integration & Becoming Superman",
+    quote:
+      "“I’m done running from who I am. It’s time to become who I’m meant to be.”",
+    context:
+      "Clark integrates his identities — the farm boy, the alien, the hero — into one whole self. He chooses hope, purpose, and compassion.",
+    tags: ["Integration", "Purpose", "Growth"],
+    state: "Growth phase",
+    stateClass: "growth"
+  }
+};
+
+// Reflection modes
+const reflectionModes = {
+  viewer: {
+    body:
+      "Clark’s journey is about learning that strength isn’t the absence of fear — it’s choosing compassion despite it. His crises shape him, but they don’t define him.",
+    list: [
+      "Notice how secrecy affects Clark’s relationships.",
+      "Track how guilt motivates — and sometimes harms — his choices.",
+      "Watch how he integrates “Clark” and “the hero” into one identity."
+    ]
+  },
+  clinical: {
+    body:
+      "From a fictional clinical lens, Clark’s arc reflects themes of identity formation, chronic secrecy, survivor’s guilt, and the psychological weight of responsibility.",
+    list: [
+      "Identity conflict between human upbringing and alien heritage.",
+      "Guilt responses to loss and unintended harm.",
+      "Chronic isolation due to secrecy and fear of rejection."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(t => {
+      const span = document.createElement("span");
+      span.textContent = t;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) sceneState.classList.add(data.stateClass);
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
