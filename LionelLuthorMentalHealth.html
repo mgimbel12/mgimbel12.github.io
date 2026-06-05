@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lionel Luthor | Mental Health Journey – Smallville Verse</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #05060a;
+      --bg-alt: #0b0f18;
+      --accent: #e0b34f;
+      --accent-soft: rgba(224, 179, 79, 0.15);
+      --text-main: #f5f5f7;
+      --text-muted: #a3a7b5;
+      --danger: #e0564f;
+      --safe: #4fe0a1;
+      --border-soft: rgba(255, 255, 255, 0.08);
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.18s ease-out;
+      --transition-med: 0.28s ease;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      --font-display: "Cinzel", "Times New Roman", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #15192a 0, #05060a 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(145deg, #05060a 0, #090c14 40%, #05060a 100%);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(224, 179, 79, 0.08) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(79, 224, 161, 0.06) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid var(--border-soft);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .title-eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .meta-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(5, 6, 10, 0.7);
+      backdrop-filter: blur(10px);
+    }
+
+    .chip-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(224, 179, 79, 0.7);
+    }
+
+    .chip-danger .chip-dot {
+      background: var(--danger);
+      box-shadow: 0 0 8px rgba(224, 86, 79, 0.7);
+    }
+
+    .chip-safe .chip-dot {
+      background: var(--safe);
+      box-shadow: 0 0 8px rgba(79, 224, 161, 0.7);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 20px;
+      padding: 18px 20px 22px;
+    }
+
+    @media (max-width: 880px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Left column: journey + timeline */
+    .panel {
+      background: radial-gradient(circle at top left, #15192a 0, #05060a 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 16px 18px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(224, 179, 79, 0.08),
+        transparent 40%,
+        rgba(79, 224, 161, 0.06)
+      );
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .panel-tagline {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .journey-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 720px) {
+      .journey-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .journey-summary {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .journey-summary strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .journey-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .keyword-pill {
+      border-radius: var(--radius-pill);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(224, 179, 79, 0.35);
+      color: var(--accent);
+      background: rgba(224, 179, 79, 0.06);
+    }
+
+    .journey-meter {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 10px 10px 12px;
+      background: rgba(5, 6, 10, 0.7);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .meter-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .meter-bar {
+      position: relative;
+      height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #2b2f3f, #15192a);
+      overflow: hidden;
+    }
+
+    .meter-fill {
+      position: absolute;
+      inset: 0;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--danger), var(--accent), var(--safe));
+      box-shadow: 0 0 12px rgba(224, 179, 79, 0.7);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 1.2s var(--transition-med);
+    }
+
+    .meter-scale {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      opacity: 0.8;
+    }
+
+    /* Timeline */
+    .timeline {
+      margin-top: 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 10px 10px 6px;
+      background: rgba(5, 6, 10, 0.8);
+    }
+
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .timeline-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .timeline-legend {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .legend-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .legend-dot.dark {
+      background: var(--danger);
+    }
+
+    .legend-dot.break {
+      background: var(--accent);
+    }
+
+    .legend-dot.light {
+      background: var(--safe);
+    }
+
+    .timeline-track {
+      position: relative;
+      padding-left: 10px;
+      margin-top: 4px;
+    }
+
+    .timeline-line {
+      position: absolute;
+      left: 3px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 16px;
+      padding-bottom: 8px;
+      cursor: pointer;
+      transition: background var(--transition-fast), transform var(--transition-fast);
+      border-radius: 10px;
+    }
+
+    .timeline-item:hover {
+      background: rgba(224, 179, 79, 0.06);
+      transform: translateX(2px);
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -1px;
+      top: 6px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1px solid #05060a;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .timeline-dot.dark {
+      background: var(--danger);
+    }
+
+    .timeline-dot.break {
+      background: var(--accent);
+    }
+
+    .timeline-dot.light {
+      background: var(--safe);
+    }
+
+    .timeline-year {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .timeline-label {
+      font-size: 0.86rem;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .timeline-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-item.active {
+      background: rgba(224, 179, 79, 0.12);
+      box-shadow: 0 0 0 1px rgba(224, 179, 79, 0.4);
+    }
+
+    /* Right column: scenes + reflections */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .scene-panel {
+      background: radial-gradient(circle at top right, #15192a 0, #05060a 55%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 14px 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .scene-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(224, 179, 79, 0.12), transparent 55%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .scene-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .scene-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .scene-title {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .scene-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+    }
+
+    .scene-quote {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-main);
+      border-left: 2px solid rgba(224, 179, 79, 0.6);
+      padding-left: 10px;
+      margin-bottom: 8px;
+    }
+
+    .scene-quote span {
+      color: var(--accent);
+    }
+
+    .scene-context {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .scene-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .scene-tag-pill {
+      font-size: 0.72rem;
+      border-radius: var(--radius-pill);
+      padding: 3px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+    }
+
+    .scene-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .scene-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .state-pill {
+      border-radius: var(--radius-pill);
+      padding: 3px 9px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      border: 1px solid rgba(224, 179, 79, 0.4);
+      color: var(--accent);
+      background: rgba(224, 179, 79, 0.08);
+    }
+
+    .state-pill.dark {
+      border-color: rgba(224, 86, 79, 0.6);
+      color: var(--danger);
+      background: rgba(224, 86, 79, 0.08);
+    }
+
+    .state-pill.light {
+      border-color: rgba(79, 224, 161, 0.6);
+      color: var(--safe);
+      background: rgba(79, 224, 161, 0.08);
+    }
+
+    .scene-episode {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    /* Reflection panel */
+    .reflection-panel {
+      background: linear-gradient(135deg, #05060a, #0b0f18);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 14px 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reflection-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at bottom left, rgba(79, 224, 161, 0.12), transparent 55%);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .reflection-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .reflection-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .reflection-title {
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+    }
+
+    .reflection-mode-toggle {
+      display: inline-flex;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      background: rgba(5, 6, 10, 0.8);
+    }
+
+    .reflection-mode-toggle button {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 4px 10px;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .reflection-mode-toggle button.active {
+      background: rgba(224, 179, 79, 0.16);
+      color: var(--accent);
+    }
+
+    .reflection-body {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .reflection-body strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .reflection-list {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: grid;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .reflection-list li::before {
+      content: "▹";
+      color: var(--accent);
+      margin-right: 6px;
+    }
+
+    .reflection-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .reflection-note-pill {
+      border-radius: var(--radius-pill);
+      padding: 3px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .reflection-disclaimer {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      opacity: 0.8;
+    }
+
+    /* Footer strip */
+    footer {
+      border-top: 1px solid var(--border-soft);
+      padding: 8px 18px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .footer-left {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-pill {
+      border-radius: var(--radius-pill);
+      padding: 3px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    .footer-right span {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-block">
+        <div class="title-eyebrow">Smallville Verse • Character Mental Health Sheet</div>
+        <h1>Lionel Luthor</h1>
+        <p class="subtitle">
+          A single-sheet narrative of Lionel Luthor’s shifting mental landscape in
+          <em>Smallville</em>—from ruthless patriarch to fractured seeker of redemption.
+        </p>
+      </div>
+      <div class="meta-chips">
+        <div class="chip">
+          <span class="chip-dot"></span>
+          <span>Power, Control &amp; Legacy</span>
+        </div>
+        <div class="chip chip-danger">
+          <span class="chip-dot"></span>
+          <span>Dark Triad Traits</span>
+        </div>
+        <div class="chip chip-safe">
+          <span class="chip-dot"></span>
+          <span>Moments of Insight</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-header">
+            <div class="panel-title">Mental health journey overview</div>
+            <div class="panel-tagline">From empire to inner collapse</div>
+          </div>
+
+          <div class="journey-grid">
+            <div>
+              <p class="journey-summary">
+                Lionel Luthor’s mind is a <strong>cathedral built on fear</strong>—brilliant,
+                strategic, and relentlessly defended. Across the seasons of
+                <em>Smallville</em>, we watch him oscillate between
+                <strong>ruthless narcissism</strong>, genuine (if fragile) remorse, and
+                <strong>spiritual seeking</strong> that never fully outruns his past.
+                His mental health arc is less a straight line and more a
+                <strong>spiral staircase</strong>: each step upward toward insight is shadowed
+                by the possibility of another fall.
+              </p>
+              <div class="journey-keywords">
+                <span class="keyword-pill">Narcissistic defenses</span>
+                <span class="keyword-pill">Trauma &amp; grief</span>
+                <span class="keyword-pill">Moral dissonance</span>
+                <span class="keyword-pill">Spiritual awakening</span>
+                <span class="keyword-pill">Control vs. vulnerability</span>
+              </div>
+            </div>
+
+            <div class="journey-meter">
+              <div class="meter-label-row">
+                <span>Internal stability index</span>
+                <span id="meter-label">Phase: Corporate Tyrant</span>
+              </div>
+              <div class="meter-bar">
+                <div class="meter-fill" id="meter-fill"></div>
+              </div>
+              <div class="meter-scale">
+                <span>Fragmented</span>
+                <span>Conflicted</span>
+                <span>Integrated</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- TIMELINE -->
+          <div class="timeline">
+            <div class="timeline-header">
+              <div class="timeline-title">Key psychological beats</div>
+              <div class="timeline-legend">
+                <div class="legend-item">
+                  <span class="legend-dot dark"></span><span>Dark descent</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot break"></span><span>Breaking point</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot light"></span><span>Insight / growth</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline-track" id="timeline">
+              <div class="timeline-line"></div>
+
+              <div class="timeline-item" data-phase="Corporate Tyrant" data-stability="0.25" data-scene="early">
+                <div class="timeline-dot dark"></div>
+                <div class="timeline-year">Pre‑Series &amp; Season 1–2</div>
+                <div class="timeline-label">The architect of fear</div>
+                <div class="timeline-note">
+                  Lionel builds LuthorCorp on ruthless decisions, emotional neglect, and
+                  weaponized expectations—teaching Lex that love is conditional and power is
+                  the only safety.
+                </div>
+              </div>
+
+              <div class="timeline-item" data-phase="Shaken Monarch" data-stability="0.38" data-scene="blind">
+                <div class="timeline-dot break"></div>
+                <div class="timeline-year">Season 3</div>
+                <div class="timeline-label">Blindness &amp; forced dependence</div>
+                <div class="timeline-note">
+                  Losing his sight destabilizes Lionel’s illusion of invulnerability, forcing
+                  him to rely on others and confront the terror of not being in control.
+                </div>
+              </div>
+
+              <div class="timeline-item" data-phase="Seeker of Redemption" data-stability="0.6" data-scene="redemption">
+                <div class="timeline-dot light"></div>
+                <div class="timeline-year">Season 4–5</div>
+                <div class="timeline-label">Spiritual turn &amp; fragile remorse</div>
+                <div class="timeline-note">
+                  After his liver disease and near‑death experiences, Lionel leans into
+                  spirituality, cryptic wisdom, and attempts at protecting Clark—yet his
+                  history keeps haunting every “good” choice.
+                </div>
+              </div>
+
+              <div class="timeline-item" data-phase="Divided Self" data-stability="0.45" data-scene="possession">
+                <div class="timeline-dot break"></div>
+                <div class="timeline-year">Season 6</div>
+                <div class="timeline-label">Possession, secrets &amp; double lives</div>
+                <div class="timeline-note">
+                  Being used as a vessel for Kryptonian knowledge amplifies his sense of
+                  destiny but fractures his identity—who is Lionel without the roles he plays?
+                </div>
+              </div>
+
+              <div class="timeline-item" data-phase="Legacy of Ruin" data-stability="0.3" data-scene="finale">
+                <div class="timeline-dot dark"></div>
+                <div class="timeline-year">Later seasons &amp; Multiverse echoes</div>
+                <div class="timeline-label">The cost of a lifetime of harm</div>
+                <div class="timeline-note">
+                  Alternate‑universe versions of Lionel show what happens when his worst
+                  impulses go unchecked—offering a dark mirror to any hope of redemption.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN -->
+      <section class="right-column">
+        <!-- Scene panel -->
+        <article class="scene-panel" id="scene-panel">
+          <div class="scene-inner">
+            <div class="scene-header">
+              <div class="scene-title">Scene focus</div>
+              <div class="scene-tag" id="scene-tag">Phase: Corporate Tyrant</div>
+            </div>
+            <div class="scene-quote" id="scene-quote">
+              “Power is the only language the world respects, Lex. <span>Never</span> forget who
+              taught you that.”
+            </div>
+            <p class="scene-context" id="scene-context">
+              In Lionel’s early years as LuthorCorp’s patriarch, his worldview is a fortress:
+              vulnerability equals weakness, and weakness deserves punishment. His mental
+              health is organized around <strong>control</strong>—of image, of family, of
+              narrative. Any hint of empathy is buried under sarcasm, intimidation, and
+              calculated cruelty.
+            </p>
+            <div class="scene-tags" id="scene-tags">
+              <span class="scene-tag-pill">Emotional neglect</span>
+              <span class="scene-tag-pill">Intergenerational trauma</span>
+              <span class="scene-tag-pill">Narcissistic defenses</span>
+            </div>
+            <div class="scene-footer">
+              <div class="scene-state">
+                <span class="state-pill dark" id="scene-state-pill">Dark descent</span>
+              </div>
+              <div class="scene-episode" id="scene-episode">
+                Early seasons • Off‑screen formative years
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Reflection panel -->
+        <section class="reflection-panel">
+          <div class="reflection-inner">
+            <div class="reflection-header">
+              <div class="reflection-title">Reflection &amp; viewer lens</div>
+              <div class="reflection-mode-toggle">
+                <button class="active" data-mode="viewer">Viewer lens</button>
+                <button data-mode="clinical">Clinical lens</button>
+              </div>
+            </div>
+            <div class="reflection-body" id="reflection-body">
+              Watching Lionel’s arc invites a hard question:
+              <strong>Can someone who has done this much harm ever truly change?</strong>
+              The show never gives an easy answer. Instead, it lets us sit in the tension:
+              moments of tenderness that feel real, followed by choices that prove how deep
+              his old patterns run.
+            </div>
+            <ul class="reflection-list" id="reflection-list">
+              <li>Notice how often Lionel uses “lessons” as a mask for cruelty.</li>
+              <li>Track when his concern for Clark feels protective vs. self‑serving.</li>
+              <li>Ask where remorse ends and image‑management begins.</li>
+            </ul>
+            <div class="reflection-footer">
+              <div class="reflection-note-pill">
+                Fictional analysis only • Not a diagnosis
+              </div>
+              <div class="reflection-disclaimer">
+                This sheet explores a <em>fictional</em> character’s mental landscape and is not
+                a substitute for real‑world mental health care.
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-left">
+        <div class="footer-pill">Universe: <strong>Smallville</strong></div>
+        <div class="footer-pill">Character focus: Lionel Luthor</div>
+      </div>
+      <div class="footer-right">
+        Mental health journey mapped as a narrative tool •
+        <span>Use for discussion, not diagnosis.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Timeline interaction + meter + scene switching
+    const timelineItems = document.querySelectorAll(".timeline-item");
+    const meterFill = document.getElementById("meter-fill");
+    const meterLabel = document.getElementById("meter-label");
+
+    const sceneTag = document.getElementById("scene-tag");
+    const sceneQuote = document.getElementById("scene-quote");
+    const sceneContext = document.getElementById("scene-context");
+    const sceneTags = document.getElementById("scene-tags");
+    const sceneStatePill = document.getElementById("scene-state-pill");
+    const sceneEpisode = document.getElementById("scene-episode");
+
+    const reflectionBody = document.getElementById("reflection-body");
+    const reflectionList = document.getElementById("reflection-list");
+    const reflectionButtons = document.querySelectorAll(
+      ".reflection-mode-toggle button"
+    );
+
+    // Scene data keyed by "data-scene"
+    const sceneData = {
+      early: {
+        phase: "Corporate Tyrant",
+        quote:
+          "“Power is the only language the world respects, Lex. <span>Never</span> forget who taught you that.”",
+        context:
+          "Lionel’s early empire‑building years are defined by emotional austerity. He frames cruelty as ‘preparation’ and neglect as ‘motivation.’ His mental health is organized around a rigid belief: if he ever stops controlling, he will be consumed by the same poverty and humiliation he escaped.",
+        tags: [
+          "Emotional neglect",
+          "Intergenerational trauma",
+          "Narcissistic defenses",
+        ],
+        stateClass: "dark",
+        stateLabel: "Dark descent",
+        episode: "Pre‑series backstory • Seasons 1–2",
+      },
+      blind: {
+        phase: "Shaken Monarch",
+        quote:
+          "“Do you know what it is to wake up and realize the world can go on without you?”",
+        context:
+          "Lionel’s blindness cracks his illusion of invincibility. Forced to rely on others, he brushes against genuine vulnerability—and it terrifies him. His mental state wavers between paranoia and a fragile openness that he doesn’t yet know how to sustain.",
+        tags: ["Loss of control", "Forced dependence", "Identity threat"],
+        stateClass: "break",
+        stateLabel: "Breaking point",
+        episode: "Season 3 • Post‑prison arc",
+      },
+      redemption: {
+        phase: "Seeker of Redemption",
+        quote:
+          "“Maybe all I can do now is try to be the man my son needed me to be.”",
+        context:
+          "Facing mortality, Lionel leans into spirituality and cryptic wisdom. He tries to protect Clark and occasionally Lex, but his attempts at goodness are haunted by the weight of his past. His mental health here is a tug‑of‑war between sincere remorse and deeply ingrained habits of manipulation.",
+        tags: ["Spiritual awakening", "Ambivalent remorse", "Moral dissonance"],
+        stateClass: "light",
+        stateLabel: "Insight & growth",
+        episode: "Seasons 4–5 • Post‑liver disease",
+      },
+      possession: {
+        phase: "Divided Self",
+        quote:
+          "“Sometimes I wonder whose thoughts are really mine anymore.”",
+        context:
+          "As a vessel for Kryptonian knowledge, Lionel becomes a man split between destinies. His sense of self fractures: is he a prophet, a pawn, or a father trying to rewrite his legacy? Psychologically, this amplifies his long‑standing identity confusion—he has always been many roles, but rarely a whole person.",
+        tags: ["Identity fragmentation", "Cosmic burden", "Double life"],
+        stateClass: "break",
+        stateLabel: "Breaking point",
+        episode: "Season 6 • Vessel of Jor‑El",
+      },
+      finale: {
+        phase: "Legacy of Ruin",
+        quote:
+          "“In the end, a Luthor always pays the price… one way or another.”",
+        context:
+          "Alternate‑universe versions of Lionel show what happens when his worst traits are left unchecked. These echoes function like a psychological cautionary tale: every unhealed wound, every rationalized cruelty, compounding into a legacy that devours even his own children.",
+        tags: ["Legacy anxiety", "Moral collapse", "Unresolved guilt"],
+        stateClass: "dark",
+        stateLabel: "Dark descent",
+        episode: "Later seasons • Multiverse Lionel",
+      },
+    };
+
+    // Reflection content
+    const reflectionModes = {
+      viewer: {
+        body:
+          "Watching Lionel’s arc invites a hard question: <strong>Can someone who has done this much harm ever truly change?</strong> The show never hands us a neat redemption. Instead, it lets us sit in the tension: moments of tenderness that feel real, followed by choices that prove how deep his old patterns run.",
+        list: [
+          "Notice how often Lionel uses ‘lessons’ as a mask for cruelty.",
+          "Track when his concern for Clark feels protective vs. self‑serving.",
+          "Ask where remorse ends and image‑management begins.",
+        ],
+      },
+      clinical: {
+        body:
+          "From a clinical lens (again, purely fictional), Lionel’s arc brushes against traits associated with narcissistic and antisocial patterns, while also hinting at late‑life moral reckoning. The show doesn’t diagnose him—and neither should we—but it does dramatize how unprocessed trauma, power, and shame can twist a person’s coping strategies.",
+        list: [
+          "Patterns of grandiosity, entitlement, and lack of empathy in early seasons.",
+          "Use of control, secrecy, and intimidation as primary coping tools.",
+          "Later emergence of guilt and spiritual seeking that never fully integrates.",
+        ],
+      },
+    };
+
+    function setMeter(stability, phase) {
+      meterFill.style.transform = `scaleX(${stability})`;
+      meterLabel.textContent = `Phase: ${phase}`;
+    }
+
+    function setScene(sceneKey) {
+      const data = sceneData[sceneKey];
+      if (!data) return;
+
+      sceneTag.textContent = `Phase: ${data.phase}`;
+      sceneQuote.innerHTML = data.quote;
+      sceneContext.innerHTML = data.context;
+
+      // Tags
+      sceneTags.innerHTML = "";
+      data.tags.forEach((t) => {
+        const span = document.createElement("span");
+        span.className = "scene-tag-pill";
+        span.textContent = t;
+        sceneTags.appendChild(span);
+      });
+
+      // State pill
+      sceneStatePill.className = `state-pill ${data.stateClass}`;
+      sceneStatePill.textContent = data.stateLabel;
+
+      // Episode
+      sceneEpisode.textContent = data.episode;
+    }
+
+    function setReflection(mode) {
+      const data = reflectionModes[mode];
+      if (!data) return;
+      reflectionBody.innerHTML = data.body;
+      reflectionList.innerHTML = "";
+      data.list.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        reflectionList.appendChild(li);
+      });
+    }
+
+    // Initialize
+    window.addEventListener("load", () => {
+      // Animate meter to first item
+      const first = timelineItems[0];
+      if (first) {
+        const stability = parseFloat(first.dataset.stability || "0.3");
+        const phase = first.dataset.phase || "Corporate Tyrant";
+        setMeter(stability, phase);
+        setScene(first.dataset.scene || "early");
+        first.classList.add("active");
+        // Trigger animation
+        requestAnimationFrame(() => {
+          meterFill.style.transform = `scaleX(${stability})`;
+        });
+      }
+    });
+
+    // Timeline click handling
+    timelineItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        timelineItems.forEach((i) => i.classList.remove("active"));
+        item.classList.add("active");
+
+        const stability = parseFloat(item.dataset.stability || "0.3");
+        const phase = item.dataset.phase || "Unknown phase";
+        const sceneKey = item.dataset.scene || "early";
+
+        setMeter(stability, phase);
+        setScene(sceneKey);
+      });
+    });
+
+    // Reflection mode toggle
+    reflectionButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        reflectionButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mode = btn.dataset.mode || "viewer";
+        setReflection(mode);
+      });
+    });
+  </script>
+</body>
+</html>
