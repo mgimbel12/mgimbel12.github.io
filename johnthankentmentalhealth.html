@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Jonathan Kent • Mental Health Journey — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #0a0c0f;
+  --bg-alt: #12151c;
+  --accent: #f2c572;
+  --accent-soft: rgba(242,197,114,0.16);
+  --danger: #e06b6b;
+  --safe: #7ed4b6;
+  --text-main: #f5f5f8;
+  --text-muted: #a7a9b6;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #0a0c0f 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 680px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(242,197,114,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.crisis {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.state-pill.growth {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+/* Reflection */
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.reflection-list {
+  padding-left: 18px;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Jonathan Kent</h1>
+  <p class="subtitle">
+    A Smallville‑verse mental health journey — exploring fatherhood, fear, sacrifice,
+    secrecy, and the emotional crises that shaped Clark’s greatest mentor.
+  </p>
+</header>
+
+<main>
+
+<!-- TIMELINE -->
+<section class="panel">
+  <div class="panel-title">Mental Health Journey Timeline</div>
+
+  <div id="timeline">
+
+    <div class="timeline-item active" data-scene="adoption">
+      <div class="timeline-year">Clark’s Arrival</div>
+      <div class="timeline-label">Fear, Wonder & Responsibility</div>
+      <div class="timeline-note">
+        Jonathan struggles with the weight of raising a child who isn’t human — and
+        the fear of failing him.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="secrecy">
+      <div class="timeline-year">Early Seasons</div>
+      <div class="timeline-label">The Burden of Secrets</div>
+      <div class="timeline-note">
+        Protecting Clark becomes Jonathan’s mission — but secrecy strains his mental
+        health and relationships.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="health">
+      <div class="timeline-year">Season 2–3</div>
+      <div class="timeline-label">Heart Condition & Stress</div>
+      <div class="timeline-note">
+        Jonathan’s physical health declines under emotional pressure and fear for
+        Clark’s safety.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="politics">
+      <div class="timeline-year">Season 5</div>
+      <div class="timeline-label">Political Pressure & Moral Conflict</div>
+      <div class="timeline-note">
+        Running for office forces Jonathan to confront corruption, fear, and the
+        limits of his integrity.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="death">
+      <div class="timeline-year">Season 5</div>
+      <div class="timeline-label">Jonathan’s Death</div>
+      <div class="timeline-note">
+        His final crisis — a culmination of stress, sacrifice, and the emotional
+        weight he carried for years.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCENE -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+
+  <div class="scene-phase" id="scene-phase">Phase: Fear & Responsibility</div>
+
+  <div class="scene-quote" id="scene-quote">
+    “I’m not afraid of who you are, son… I’m afraid of the world you’ll have to face.”
+  </div>
+
+  <div class="scene-context" id="scene-context">
+    Jonathan’s first major psychological struggle is the fear of raising a child
+    whose destiny he cannot control. His love is fierce, but so is his anxiety —
+    especially about keeping Clark safe from the world, and the world safe from
+    misunderstanding Clark.
+  </div>
+
+  <div class="scene-tags" id="scene-tags">
+    <span>Fatherhood pressure</span>
+    <span>Fear of failure</span>
+    <span>Protective anxiety</span>
+  </div>
+
+  <div class="state-pill crisis" id="scene-state">Crisis state</div>
+</section>
+
+<!-- REFLECTION -->
+<section class="panel">
+  <div class="panel-title">Reflection & Viewer Lens</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="clinical">Clinical Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Jonathan’s journey is about the emotional cost of loving someone extraordinary.
+    His strength is real — but so are his fears, sacrifices, and moments of doubt.
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how Jonathan’s protectiveness sometimes becomes fear.</li>
+    <li>Track how secrecy affects his marriage and health.</li>
+    <li>Watch how his moral compass guides Clark long after his death.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis • For narrative exploration.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data
+const scenes = {
+  adoption: {
+    phase: "Fear & Responsibility",
+    quote:
+      "“I’m not afraid of who you are, son… I’m afraid of the world you’ll have to face.”",
+    context:
+      "Jonathan’s first crisis is the fear of raising a child whose destiny he cannot predict. His love is deep, but so is his anxiety about protecting Clark from a world that might fear him.",
+    tags: ["Fatherhood pressure", "Fear of failure", "Protective anxiety"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  secrecy: {
+    phase: "Burden of Secrets",
+    quote:
+      "“Every choice I make… I’m just trying to keep this family safe.”",
+    context:
+      "Jonathan carries the emotional weight of Clark’s secret. The fear of exposure strains his mental health and creates tension between his desire for honesty and his need for protection.",
+    tags: ["Secrecy", "Moral conflict", "Stress"],
+    state: "High strain",
+    stateClass: ""
+  },
+  health: {
+    phase: "Declining Health",
+    quote:
+      "“I can’t be the father he needs if I’m not here.”",
+    context:
+      "Jonathan’s heart condition worsens under stress. His fear of leaving Clark unprepared becomes a major emotional burden.",
+    tags: ["Health decline", "Stress", "Fear of loss"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  politics: {
+    phase: "Moral Pressure",
+    quote:
+      "“Doing the right thing shouldn’t cost this much… but it does.”",
+    context:
+      "Running for office forces Jonathan to confront corruption and moral compromise. The pressure intensifies his stress and accelerates his decline.",
+    tags: ["Moral conflict", "Political pressure", "Integrity"],
+    state: "High strain",
+    stateClass: ""
+  },
+  death: {
+    phase: "Final Sacrifice",
+    quote:
+      "“Take care of your mother… and be the man I know you can be.”",
+    context:
+      "Jonathan’s death is the culmination of years of emotional and physical strain. His final act is one of love and responsibility — shaping Clark’s path forever.",
+    tags: ["Sacrifice", "Legacy", "Emotional impact"],
+    state: "Growth phase",
+    stateClass: "growth"
+  }
+};
+
+// Reflection modes
+const reflectionModes = {
+  viewer: {
+    body:
+      "Jonathan’s journey is about the emotional cost of loving someone extraordinary. His strength is real — but so are his fears, sacrifices, and moments of doubt.",
+    list: [
+      "Notice how Jonathan’s protectiveness sometimes becomes fear.",
+      "Track how secrecy affects his marriage and health.",
+      "Watch how his moral compass guides Clark long after his death."
+    ]
+  },
+  clinical: {
+    body:
+      "From a fictional clinical lens, Jonathan’s arc reflects chronic stress, protective anxiety, moral pressure, and the psychological toll of secrecy and responsibility.",
+    list: [
+      "Chronic stress contributing to physical decline.",
+      "Protective instincts shaped by fear of loss.",
+      "Moral conflict between honesty and safety."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(t => {
+      const span = document.createElement("span");
+      span.textContent = t;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) sceneState.classList.add(data.stateClass);
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
