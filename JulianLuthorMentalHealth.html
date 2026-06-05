@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Julian Luthor • Symbolic Mental Health Journey — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #050509;
+  --bg-alt: #0d0f16;
+  --accent: #b0c7ff;
+  --accent-soft: rgba(176,199,255,0.16);
+  --danger: #e06b6b;
+  --safe: #7ed4b6;
+  --text-main: #f5f5f8;
+  --text-muted: #a5a7b6;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #050509 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+header {
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 680px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(176,199,255,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene panel */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.wound {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.state-pill.mirror {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.state-pill.reframed {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+/* Reflection */
+.reflection-toggle {
+  margin-bottom: 8px;
+}
+
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.reflection-list {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Julian Luthor</h1>
+  <p class="subtitle">
+    A Smallville‑verse psychological sheet — not about Julian’s own mental health
+    (he dies as an infant), but about how his memory becomes a powerful symbol
+    shaping the mental health of Lex, Lillian, and Lionel.
+  </p>
+</header>
+
+<main>
+
+<!-- LEFT: TIMELINE -->
+<section class="panel">
+  <div class="panel-title">Symbolic Journey Timeline</div>
+
+  <div id="timeline">
+    <div class="timeline-item active" data-scene="infant">
+      <div class="timeline-year">Birth & Death</div>
+      <div class="timeline-label">The Child Who Never Grew Up</div>
+      <div class="timeline-note">
+        Julian’s short life becomes a frozen moment in Luthor history — a wound that
+        never heals and a story that is never told honestly.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="lex-memory">
+      <div class="timeline-year">Lex’s Childhood Memory</div>
+      <div class="timeline-label">“I Killed My Brother”</div>
+      <div class="timeline-note">
+        Lex grows up believing he smothered Julian — carrying unbearable guilt and
+        self‑hatred that shape his identity.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="truth">
+      <div class="timeline-year">Revealed Truth</div>
+      <div class="timeline-label">Lillian’s Act, Lionel’s Silence</div>
+      <div class="timeline-note">
+        The truth emerges: Lillian killed Julian in a moment of psychological collapse,
+        and Lionel let Lex believe he was responsible.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="symbol">
+      <div class="timeline-year">Julian as Symbol</div>
+      <div class="timeline-label">Innocence, Burden & “What If”</div>
+      <div class="timeline-note">
+        Julian becomes less a person and more a symbol — of innocence, of what might
+        have been, and of the damage secrets can do.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="alternate">
+      <div class="timeline-year">Alternate Julian</div>
+      <div class="timeline-label">The Brother Lex Could Have Had</div>
+      <div class="timeline-note">
+        In alternate‑universe stories, a living Julian reflects the life Lex was
+        denied — deepening his grief and resentment.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIGHT: SCENE + REFLECTION -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+  <div class="scene-phase" id="scene-phase">Phase: Frozen in Time</div>
+  <div class="scene-quote" id="scene-quote">
+    “He never got to grow up… but somehow, he’s the one who defined all of us.”
+  </div>
+  <div class="scene-context" id="scene-context">
+    Julian’s life ends before he can form memories, choices, or a story of his own.
+    Instead, his absence becomes the center of everyone else’s story — a silent
+    gravitational pull around which guilt, grief, and denial orbit.
+  </div>
+  <div class="scene-tags" id="scene-tags">
+    <span>Frozen grief</span>
+    <span>Family secret</span>
+    <span>Unfinished story</span>
+  </div>
+  <div class="state-pill wound" id="scene-state">Family wound</div>
+</section>
+
+<section class="panel">
+  <div class="panel-title">Reflection & Viewer Lens</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="clinical">Clinical Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Julian’s “journey” is really the story of how a family handles unbearable loss.
+    Instead of being mourned openly, his death is buried under lies — and that secrecy
+    becomes a psychological poison for everyone left behind.
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how often Julian is talked about, but never truly known.</li>
+    <li>Track how Lex’s self‑image is shaped by the belief he killed his brother.</li>
+    <li>Consider what might have changed if the truth had been told sooner.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis • This sheet explores symbolism and
+    family psychology in a TV narrative, not real‑world mental health advice.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data (symbolic phases)
+const scenes = {
+  infant: {
+    phase: "Frozen in Time",
+    quote:
+      "“He never got to grow up… but somehow, he’s the one who defined all of us.”",
+    context:
+      "Julian dies as an infant, so he has no psychological arc of his own. Instead, his brief life becomes a frozen moment — a wound the Luthors never process honestly. His absence is louder than his presence ever had the chance to be.",
+    tags: ["Frozen grief", "Family secret", "Unfinished story"],
+    state: "Family wound",
+    stateClass: "wound"
+  },
+  lex-memory: {
+    phase: "Guilt Imposed on a Child",
+    quote:
+      "“I was just a kid… and I’ve spent my whole life believing I was a monster.”",
+    context:
+      "Lex grows up believing he killed Julian. This belief becomes a core part of his identity: that he is fundamentally dangerous, unworthy of love, and destined to hurt people. Psychologically, this is a manufactured trauma — a lie that shapes a life.",
+    tags: ["Manufactured guilt", "Self‑hatred", "Identity distortion"],
+    state: "Internalized blame",
+    stateClass: "wound"
+  },
+  truth: {
+    phase: "Shattered Narrative",
+    quote:
+      "“All this time… it wasn’t me. You let me carry that.”",
+    context:
+      "When Lex learns that Lillian killed Julian and Lionel let him take the blame, his entire narrative of self shifts. The relief of innocence collides with rage and betrayal. The people who were supposed to protect him weaponized the truth instead.",
+    tags: ["Betrayal", "Narrative collapse", "Trauma revelation"],
+    state: "Psychic rupture",
+    stateClass: "wound"
+  },
+  symbol: {
+    phase: "Julian as Symbol",
+    quote:
+      "“Julian became everything we lost… and everything we refused to face.”",
+    context:
+      "Julian is remembered less as a person and more as a symbol: of innocence, of what might have been, of the family the Luthors never became. For Lex, he represents the brother he might have protected; for Lillian, the child she couldn’t keep safe; for Lionel, a truth he buried to preserve his image.",
+    tags: ["Symbolic burden", "Idealized innocence", "Unspoken grief"],
+    state: "Emotional mirror",
+    stateClass: "mirror"
+  },
+  alternate: {
+    phase: "The Brother That Was",
+    quote:
+      "“Seeing him alive somewhere else… it’s like looking at the life I never got to live.”",
+    context:
+      "In alternate‑universe stories where Julian survives, he becomes a living mirror of the life Lex was denied: a brother, a different family dynamic, a chance at something softer. This deepens Lex’s grief — not just for Julian, but for the version of himself that might have existed.",
+    tags: ["Alternate paths", "Complicated grief", "Identity comparison"],
+    state: "Reframed loss",
+    stateClass: "reframed"
+  }
+};
+
+// Reflection modes
+const reflectionModes = {
+  viewer: {
+    body:
+      "Julian’s story shows how a single, unprocessed tragedy can echo through an entire family. Instead of being mourned, he becomes a secret — and that secret shapes who Lex believes he is, how Lillian sees herself, and how Lionel controls the narrative.",
+    list: [
+      "Notice who talks about Julian and who avoids his name.",
+      "Watch how Lex’s belief about Julian shifts his choices and self‑worth.",
+      "Ask what healing might have looked like if the truth had been shared."
+    ]
+  },
+  clinical: {
+    body:
+      "From a fictional clinical lens, Julian’s death functions as a core traumatic event for the Luthor family system. The combination of loss, secrecy, and misplaced blame creates conditions for complicated grief, distorted self‑concept, and intergenerational trauma.",
+    list: [
+      "Misattributed guilt placed on a child (Lex) as a long‑term psychological burden.",
+      "Unresolved grief in Lillian and Lionel, expressed through denial and control.",
+      "Family secrecy preventing healthy mourning and reinforcing dysfunctional dynamics."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(t => {
+      const span = document.createElement("span");
+      span.textContent = t;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) {
+      sceneState.classList.add(data.stateClass);
+    }
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
