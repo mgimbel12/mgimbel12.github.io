@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lionel Luthor & Healing – Mental Health Awareness</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.15);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --danger: #f97373;
+      --radius: 14px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+      --shadow-pill: 0 10px 30px rgba(15, 23, 42, 0.8);
+      --border-subtle: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      overflow: hidden;
+      position: relative;
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .glow-orbit {
+      position: absolute;
+      inset: -120px;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(56, 189, 248, 0.18), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(129, 140, 248, 0.18), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .left,
+    .right {
+      position: relative;
+      z-index: 1;
+      padding: 26px 26px 24px;
+    }
+
+    .left {
+      border-right: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    @media (max-width: 900px) {
+      .left {
+        border-right: none;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+      }
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: var(--shadow-pill);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent) 0, #0ea5e9 40%, transparent 70%);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+    }
+
+    h1 {
+      font-size: 26px;
+      line-height: 1.2;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      max-width: 460px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .sections {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 700px) {
+      .sections {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.08), transparent 55%),
+                  var(--card);
+      border-radius: var(--radius);
+      border: var(--border-subtle);
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(148, 163, 184, 0.18), transparent 40%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-title span.icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent) 0, #0ea5e9 40%, transparent 70%);
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
+      opacity: 0.9;
+    }
+
+    .card-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card-body ul {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    .card-body li {
+      margin-bottom: 4px;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.9);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .highlight {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .right-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .right-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .mode-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .mode-toggle span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.9);
+    }
+
+    .question-box {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: var(--radius);
+      border: var(--border-subtle);
+      padding: 10px 10px 8px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .question-box strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .prompt-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .prompt-input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      padding: 8px 9px;
+      font-size: 12px;
+      resize: vertical;
+      min-height: 70px;
+      outline: none;
+    }
+
+    .prompt-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.4);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+      margin-bottom: 10px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+      color: #0b1120;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.6);
+    }
+
+    .btn-primary span.icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: #0b1120;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #38bdf8;
+    }
+
+    .btn-secondary {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .status {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .status span {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .log {
+      margin-top: 10px;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      font-size: 11px;
+      color: var(--text-muted);
+      max-height: 120px;
+      overflow-y: auto;
+      white-space: pre-line;
+    }
+
+    .log strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .crisis {
+      margin-top: 10px;
+      padding: 8px 9px;
+      border-radius: 10px;
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      background: rgba(127, 29, 29, 0.35);
+      font-size: 11px;
+      color: #fecaca;
+    }
+
+    .crisis strong {
+      color: #fee2e2;
+    }
+
+    .crisis small {
+      display: block;
+      margin-top: 4px;
+      opacity: 0.9;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="glow-orbit"></div>
+
+    <!-- LEFT: Concepts & Guidance -->
+    <section class="left">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        Lionel Luthor • Healing • Mental Health Awareness
+      </div>
+
+      <h1>Lionel Luthor & the Healing Process</h1>
+      <p class="subtitle">
+        Using a complex fictional character to understand real pain, break harmful patterns, and move toward healthier ways of living.
+      </p>
+
+      <div class="tags">
+        <div class="tag">Family patterns</div>
+        <div class="tag">Control & manipulation</div>
+        <div class="tag">Emotional distance</div>
+        <div class="tag">Rewriting your story</div>
+        <div class="tag">Support & recovery</div>
+      </div>
+
+      <div class="sections">
+        <!-- Lionel as symbol -->
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"></span>
+            Lionel Luthor as a symbol
+          </div>
+          <div class="card-body">
+            Lionel can represent:
+            <ul>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Control & manipulation</span> – growing up around pressure, fear, or emotional games.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Emotional distance</span> – love that feels conditional or unsafe.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Inherited trauma</span> – pain passed down instead of healed.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Struggle to change</span> – wanting to be different but pulled back into old patterns.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Healing process -->
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"></span>
+            The healing process
+          </div>
+          <div class="card-body">
+            Healing is not a dramatic TV redemption arc; it’s small, steady shifts:
+            <ul>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Recognize patterns</span> – “This behavior protected me once, but it hurts me now.”</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Allow feelings</span> – instead of shutting down, notice what you feel and why.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Rewrite your story</span> – you are more than what was done to you.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Build support</span> – healing rarely happens in isolation.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Mental health awareness -->
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"></span>
+            Mental health awareness
+          </div>
+          <div class="card-body">
+            Awareness means:
+            <ul>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">You’re not alone</span> – many people carry similar wounds.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Your reactions make sense</span> in the context of what you lived through.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Mental health is real</span> – as important as physical health.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Seeking help is strength</span>, not weakness.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Sources of help -->
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"></span>
+            Sources of help & support
+          </div>
+          <div class="card-body">
+            Helpful supports can include:
+            <ul>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Therapists / counselors</span> – safe space to process and untangle patterns.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Trusted people</span> – friends or family who listen without judgment.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Support groups</span> – hearing “me too” reduces isolation.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Grounding practices</span> – journaling, mindfulness, creative expression.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Processing with help -->
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"></span>
+            Processing with help
+          </div>
+          <div class="card-body">
+            Processing doesn’t mean reliving everything; it means:
+            <ul>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Naming what happened</span> and how it affected you.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Choosing what to keep</span> and what to let go of.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Learning new responses</span> that are kinder to you.</span>
+              </li>
+              <li>
+                <span class="bullet"></span>
+                <span><span class="highlight">Building a future</span> not controlled by past harm.</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Key reminder -->
+        <article class="card">
+          <div class="card-title">
+            <span class="icon"></span>
+            Core reminder
+          </div>
+          <div class="card-body">
+            You are not required to become the person your pain tried to shape you into.  
+            Using Lionel Luthor—or any character—as a mirror is powerful, but your story is yours to rewrite, slowly and safely, with support.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- RIGHT: Interactive reflection -->
+    <section class="right">
+      <div class="right-header">
+        <div class="right-title">Reflection & self‑check</div>
+        <button class="mode-toggle" id="modeToggle">
+          <span class="dot"></span>
+          Gentle mode
+        </button>
+      </div>
+
+      <div class="question-box">
+        <strong>Guiding question:</strong><br />
+        What part of Lionel Luthor’s story feels closest to what you’re trying to understand or heal in yourself?
+      </div>
+
+      <div class="prompt-label">Write a few lines about what connects for you:</div>
+      <textarea id="reflection" class="prompt-input" placeholder="For example: “I relate to the pressure to be perfect…” or “I see my family in his emotional distance…”"></textarea>
+
+      <div class="chips">
+        <button class="chip" data-template="I relate to the way control and power were used in my life because...">
+          Control & power
+        </button>
+        <button class="chip" data-template="I recognize emotional distance in my own family when...">
+          Emotional distance
+        </button>
+        <button class="chip" data-template="I’m trying to break this pattern in myself:">
+          Breaking patterns
+        </button>
+        <button class="chip" data-template="Support that might help me right now is...">
+          Naming support
+        </button>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" id="processBtn">
+          <span class="icon">→</span>
+          Process this gently
+        </button>
+        <button class="btn-secondary" id="clearBtn">Clear text</button>
+        <div class="status" id="statusText">
+          Mode: <span>Gentle</span>
+        </div>
+      </div>
+
+      <div class="log" id="logBox">
+        <strong>Reflection helper:</strong>
+        Start by noticing, not judging.  
+        • What did this character wake up in you?  
+        • Where do you feel that in your body?  
+        • What kind of support would feel safe to try?
+      </div>
+
+      <div class="crisis" id="crisisBox">
+        <strong>If things feel overwhelming:</strong>
+        <small>
+          This page is for reflection, not crisis care.  
+          If you ever feel at risk of harming yourself or someone else, please reach out to a trusted person or local emergency / crisis service right away.  
+          You deserve live, human support.
+        </small>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const modeToggle = document.getElementById("modeToggle");
+    const statusText = document.getElementById("statusText").querySelector("span");
+    const reflection = document.getElementById("reflection");
+    const processBtn = document.getElementById("processBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const logBox = document.getElementById("logBox");
+    const chips = document.querySelectorAll(".chip");
+
+    let gentleMode = true;
+
+    modeToggle.addEventListener("click", () => {
+      gentleMode = !gentleMode;
+      statusText.textContent = gentleMode ? "Gentle" : "Direct";
+      modeToggle.querySelector(".dot").style.background = gentleMode ? "#38bdf8" : "#f97316";
+      modeToggle.querySelector(".dot").style.boxShadow = gentleMode
+        ? "0 0 10px rgba(56, 189, 248, 0.9)"
+        : "0 0 10px rgba(249, 115, 22, 0.9)";
+      modeToggle.lastChild.textContent = gentleMode ? " Gentle mode" : " Direct mode";
+    });
+
+    chips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        const template = chip.getAttribute("data-template");
+        if (!reflection.value.trim()) {
+          reflection.value = template + " ";
+        } else {
+          reflection.value += (reflection.value.endsWith(" ") ? "" : " ") + template + " ";
+        }
+        reflection.focus();
+      });
+    });
+
+    processBtn.addEventListener("click", () => {
+      const text = reflection.value.trim();
+      if (!text) {
+        logBox.textContent =
+          "Reflection helper:\nTry writing even one sentence about what feels familiar in Lionel’s story and your own.";
+        return;
+      }
+
+      const baseIntro = gentleMode
+        ? "Here’s a gentle way to look at what you wrote:\n\n"
+        : "Here’s a clear read of what you wrote:\n\n";
+
+      let response = baseIntro;
+
+      response += "1) What you’re noticing:\n";
+      response += `   • You mentioned: “${text.slice(0, 220)}${text.length > 220 ? "..." : ""}”\n`;
+
+      response += "\n2) What this might mean:\n";
+      response += gentleMode
+        ? "   • It sounds like you’re starting to connect a fictional story with real experiences and feelings.\n"
+        : "   • This suggests there are real experiences and patterns in your life that this character is mirroring.\n";
+
+      response += "\n3) A possible next step:\n";
+      response += gentleMode
+        ? "   • Consider sharing a small part of this with someone safe (a friend, therapist, or support line) and noticing how it feels to be heard.\n"
+        : "   • Choose one concrete action—like journaling more on this, looking for a therapist, or opening up to someone you trust.\n";
+
+      response += "\nRemember: you don’t have to do this alone, and you’re allowed to take it one small step at a time.";
+
+      logBox.textContent = response;
+    });
+
+    clearBtn.addEventListener("click", () => {
+      reflection.value = "";
+      logBox.innerHTML =
+        "<strong>Reflection helper:</strong>\nStart by noticing, not judging.\n• What did this character wake up in you?\n• Where do you feel that in your body?\n• What kind of support would feel safe to try?";
+    });
+  </script>
+</body>
+</html>
