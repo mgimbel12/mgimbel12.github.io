@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Lex Luthor • History in the Making & Innocence — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #050509;
+  --bg-alt: #0e1017;
+  --accent: #d98cff;
+  --accent-soft: rgba(217,140,255,0.16);
+  --danger: #e06b6b;
+  --safe: #7ed4b6;
+  --text-main: #f5f5f8;
+  --text-muted: #a5a7b6;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #050509 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+header { margin-bottom: 18px; }
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 700px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main { grid-template-columns: 1fr; }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(217,140,255,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.innocent {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+.state-pill.fracture {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.state-pill.corruption {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Reflection */
+.reflection-toggle {
+  margin-bottom: 8px;
+}
+
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.reflection-list {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Lex Luthor</h1>
+  <p class="subtitle">
+    History in the making & the tragedy of innocence — a Smallville‑verse mental
+    health journey tracing the boy Lex was, the man he becomes, and the forces
+    that bend him toward darkness.
+  </p>
+</header>
+
+<main>
+
+<!-- LEFT: TIMELINE -->
+<section class="panel">
+  <div class="panel-title">History in the Making — Timeline</div>
+
+  <div id="timeline">
+    <div class="timeline-item active" data-scene="child">
+      <div class="timeline-year">Childhood</div>
+      <div class="timeline-label">The Innocent Son</div>
+      <div class="timeline-note">
+        Before the lies and manipulation, Lex is a sensitive, curious child who
+        just wants to be loved.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="julian">
+      <div class="timeline-year">Julian’s Death</div>
+      <div class="timeline-label">Manufactured Guilt</div>
+      <div class="timeline-note">
+        Lex grows up believing he killed his baby brother — a lie that rewrites
+        his sense of self.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="smallville">
+      <div class="timeline-year">Early Smallville</div>
+      <div class="timeline-label">Friendship, Hope & Second Chances</div>
+      <div class="timeline-note">
+        Meeting Clark gives Lex a chance at redemption — a glimpse of the man he
+        could be.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="fracture">
+      <div class="timeline-year">Mid‑Series</div>
+      <div class="timeline-label">Trust Fractures & Obsession</div>
+      <div class="timeline-note">
+        Secrets, betrayals, and Lionel’s influence push Lex toward paranoia and
+        moral compromise.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="villain">
+      <div class="timeline-year">Later Seasons</div>
+      <div class="timeline-label">Becoming the Villain</div>
+      <div class="timeline-note">
+        Lex embraces power over connection — rewriting his own history to erase
+        the boy he once was.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIGHT: SCENE -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+  <div class="scene-phase" id="scene-phase">Phase: Innocence & Longing</div>
+  <div class="scene-quote" id="scene-quote">
+    “All I ever wanted was for my father to be proud of me.”
+  </div>
+  <div class="scene-context" id="scene-context">
+    Young Lex is not a villain in the making — he’s a lonely child in a hostile
+    environment. Sensitive, intelligent, and desperate for affection, he learns
+    early that love is conditional and safety is fragile. His innocence is real,
+    but it’s raised in a house that punishes vulnerability.
+  </div>
+  <div class="scene-tags" id="scene-tags">
+    <span>Innocence</span>
+    <span>Emotional neglect</span>
+    <span>Longing for love</span>
+  </div>
+  <div class="state-pill innocent" id="scene-state">Innocent core</div>
+</section>
+
+<!-- REFLECTION -->
+<section class="panel">
+  <div class="panel-title">Reflection & Viewer Lens</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="clinical">Clinical Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Lex’s story is a slow rewriting of his own innocence. The boy who wanted to
+    be good is taught, over and over, that power is safer than vulnerability.
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how often Lex reaches for connection before control.</li>
+    <li>Track the moments where betrayal hardens him instead of healing.</li>
+    <li>Ask where “villainy” is really a defense against pain.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis • For narrative and character
+    exploration.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data
+const scenes = {
+  child: {
+    phase: "Innocence & Longing",
+    quote:
+      "“All I ever wanted was for my father to be proud of me.”",
+    context:
+      "Young Lex is sensitive, curious, and eager to please. He’s not born cruel — he’s born into a home where love is conditional and vulnerability is punished. His innocence is real, but constantly under siege.",
+    tags: ["Innocence", "Emotional neglect", "Longing for love"],
+    state: "Innocent core",
+    stateClass: "innocent"
+  },
+  julian: {
+    phase: "Manufactured Guilt",
+    quote:
+      "“I was just a kid… and I’ve spent my whole life believing I was a monster.”",
+    context:
+      "After Julian’s death, Lex is led to believe he killed his baby brother. This lie becomes the cornerstone of his self‑image: that he is dangerous, unworthy, and fundamentally broken.",
+    tags: ["Manufactured guilt", "Self‑hatred", "Identity distortion"],
+    state: "Core fracture",
+    stateClass: "fracture"
+  },
+  smallville: {
+    phase: "Hope & Second Chances",
+    quote:
+      "“Maybe out here, I don’t have to be the man my father thinks I am.”",
+    context:
+      "In Smallville, Lex finds something new: genuine friendship with Clark, a chance to be better, and a community that doesn’t automatically fear him. This is his brightest psychological window — where innocence and hope briefly resurface.",
+    tags: ["Redemptive hope", "Friendship", "Moral possibility"],
+    state: "Fragile hope",
+    stateClass: "innocent"
+  },
+  fracture: {
+    phase: "Trust Fractures & Obsession",
+    quote:
+      "“If I can’t trust anyone… I can at least control what happens next.”",
+    context:
+      "Repeated secrets and betrayals — from Clark, from Lionel, from those he loves — push Lex toward paranoia. Control begins to feel safer than connection, and obsession replaces trust.",
+    tags: ["Paranoia", "Control", "Betrayal"],
+    state: "Psychic fracture",
+    stateClass: "fracture"
+  },
+  villain: {
+    phase: "Rewriting History",
+    quote:
+      "“The world never wanted the man I tried to be… so it will have to live with the man I’ve become.”",
+    context:
+      "By the later seasons, Lex embraces the role of the villain. He rewrites his own story to erase the boy who wanted to be good, choosing power over vulnerability and control over connection.",
+    tags: ["Self‑mythologizing", "Moral corruption", "Erased innocence"],
+    state: "Chosen corruption",
+    stateClass: "corruption"
+  }
+};
+
+// Reflection modes
+const reflectionModes = {
+  viewer: {
+    body:
+      "Lex’s story is a slow rewriting of his own innocence. The boy who wanted to be good is taught, again and again, that power is safer than vulnerability.",
+    list: [
+      "Notice how often Lex reaches for connection before control.",
+      "Track the moments where betrayal hardens him instead of healing.",
+      "Ask where “villainy” is really a defense against pain."
+    ]
+  },
+  clinical: {
+    body:
+      "From a fictional clinical lens, Lex’s arc reflects emotional neglect, misattributed guilt, chronic invalidation, and the gradual replacement of attachment needs with control and power.",
+    list: [
+      "Early emotional deprivation shaping self‑worth.",
+      "Manufactured guilt (Julian) distorting identity and morality.",
+      "Paranoia and control as defenses against repeated betrayal."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(t => {
+      const span = document.createElement("span");
+      span.textContent = t;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) sceneState.classList.add(data.stateClass);
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
