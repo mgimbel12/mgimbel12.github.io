@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Lana Lang • Mental Health Journey — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #05070b;
+  --bg-alt: #0d1018;
+  --accent: #f28bb5;
+  --accent-soft: rgba(242,139,181,0.16);
+  --safe: #7ed4b6;
+  --danger: #e06b6b;
+  --text-main: #f7f7fa;
+  --text-muted: #a7a9b7;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #05070b 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+header {
+  margin-bottom: 18px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 640px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(242,139,181,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene panel */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.growth {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+.state-pill.crisis {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+/* Reflection */
+.reflection-toggle {
+  margin-bottom: 8px;
+}
+
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.reflection-list {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Lana Lang</h1>
+  <p class="subtitle">
+    A Smallville‑verse mental health journey — tracing Lana’s path from grief‑struck girl
+    under the meteor shower to a woman fighting for autonomy, identity, and safety.
+  </p>
+</header>
+
+<main>
+
+<!-- LEFT: TIMELINE -->
+<section class="panel">
+  <div class="panel-title">Mental Health Journey Timeline</div>
+
+  <div id="timeline">
+    <div class="timeline-item active" data-scene="meteor">
+      <div class="timeline-year">Meteor Shower & Childhood</div>
+      <div class="timeline-label">Grief in the Crater</div>
+      <div class="timeline-note">
+        Lana loses her parents in the meteor shower — growing up with survivor’s guilt,
+        unanswered questions, and a town that mythologizes her tragedy.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="clark">
+      <div class="timeline-year">Early High School</div>
+      <div class="timeline-label">Idealized Love & Invisible Walls</div>
+      <div class="timeline-note">
+        Her relationship with Clark becomes a source of comfort and confusion — intimacy
+        blocked by secrets she can feel but can’t name.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="lex">
+      <div class="timeline-year">Lex Era</div>
+      <div class="timeline-label">Control, Gaslighting & Self‑Doubt</div>
+      <div class="timeline-note">
+        Lana is drawn into Lex’s orbit — experiencing manipulation, surveillance, and
+        emotional control that erode her sense of reality.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="power">
+      <div class="timeline-year">Super‑Powered Lana</div>
+      <div class="timeline-label">Agency at a Cost</div>
+      <div class="timeline-note">
+        Gaining powers gives Lana a rush of agency and justice — but also isolation,
+        moral strain, and the fear of becoming what she hates.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="departure">
+      <div class="timeline-year">Departure & Beyond</div>
+      <div class="timeline-label">Leaving Smallville to Survive</div>
+      <div class="timeline-note">
+        Lana chooses distance — from Clark, from Smallville, from the narrative that
+        kept her trapped — to protect her own mental health.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIGHT: SCENE + REFLECTION -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+  <div class="scene-phase" id="scene-phase">Phase: Grief & Identity Formation</div>
+  <div class="scene-quote" id="scene-quote">
+    “Sometimes I feel like my whole life started the day the sky fell… and I’ve been
+    trying to understand it ever since.”
+  </div>
+  <div class="scene-context" id="scene-context">
+    As a child, Lana becomes the town’s symbol of the meteor tragedy. People project
+    meaning onto her loss — sympathy, superstition, curiosity — while she quietly
+    carries grief and survivor’s guilt. Her mental health foundation is built on
+    questions she can’t answer and feelings she’s never fully allowed to express.
+  </div>
+  <div class="scene-tags" id="scene-tags">
+    <span>Childhood grief</span>
+    <span>Survivor’s guilt</span>
+    <span>Identity confusion</span>
+  </div>
+  <div class="state-pill" id="scene-state">Emotional wound</div>
+</section>
+
+<section class="panel">
+  <div class="panel-title">Reflection & Viewer Lens</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="clinical">Clinical Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Lana’s journey asks what happens when a girl is turned into a symbol before she
+    ever gets to be a person. Her relationships, choices, and moments of rebellion
+    all orbit the same question: “Who am I when I’m not what everyone needs me to be?”
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how often Lana’s choices are reactions to other people’s secrets.</li>
+    <li>Track when she moves from pleasing others to setting boundaries.</li>
+    <li>Ask where her anger is really about betrayal vs. long‑buried grief.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis • Use as a narrative tool for discussion,
+    not as mental health advice.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data
+const scenes = {
+  meteor: {
+    phase: "Grief & Identity Formation",
+    quote:
+      "“Sometimes I feel like my whole life started the day the sky fell… and I’ve been trying to understand it ever since.”",
+    context:
+      "As a child, Lana becomes the town’s symbol of the meteor tragedy. People project meaning onto her loss while she quietly carries grief and survivor’s guilt. Her sense of self forms around absence — parents she can’t remember, a past she can’t fix.",
+    tags: ["Childhood grief", "Survivor’s guilt", "Identity confusion"],
+    state: "Emotional wound",
+    stateClass: ""
+  },
+  clark: {
+    phase: "Idealization & Uncertainty",
+    quote:
+      "“I just wish you’d let me in, Clark. I can’t keep guessing who you really are.”",
+    context:
+      "With Clark, Lana experiences both safety and chronic uncertainty. She feels deeply cared for, yet constantly shut out. This emotional push‑pull feeds anxiety, self‑doubt, and the belief that if she were ‘enough,’ he’d finally be honest.",
+    tags: ["Romantic idealization", "Anxiety", "Emotional ambiguity"],
+    state: "Conflicted heart",
+    stateClass: ""
+  },
+  lex: {
+    phase: "Control & Gaslighting",
+    quote:
+      "“I don’t know what’s real anymore, Lex… and that scares me.”",
+    context:
+      "In her relationship with Lex, Lana is slowly isolated and surveilled. He frames control as protection, twisting her perceptions until she questions her own judgment. Psychologically, this is a period of erosion — of trust, autonomy, and safety.",
+    tags: ["Gaslighting", "Loss of autonomy", "Hypervigilance"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  power: {
+    phase: "Empowered but Isolated",
+    quote:
+      "“For once, I don’t have to be afraid… but I don’t recognize myself anymore.”",
+    context:
+      "With powers, Lana finally feels strong enough to fight back. Yet the cost is high: isolation, moral strain, and the fear that she’s becoming as ruthless as the people who hurt her. Her mental health here is a tug‑of‑war between agency and alienation.",
+    tags: ["Agency", "Moral conflict", "Isolation"],
+    state: "Complex growth",
+    stateClass: "growth"
+  },
+  departure: {
+    phase: "Self‑Preservation & Boundaries",
+    quote:
+      "“I had to leave, Clark. If I stayed, I’d lose myself all over again.”",
+    context:
+      "Lana’s departure is an act of self‑preservation. She chooses distance from Clark, Lex, and Smallville’s constant danger. It’s painful, but psychologically significant: a boundary drawn not out of spite, but survival.",
+    tags: ["Boundaries", "Self‑preservation", "Letting go"],
+    state: "Protective choice",
+    stateClass: "growth"
+  }
+};
+
+// Reflection modes
+const reflectionModes = {
+  viewer: {
+    body:
+      "Lana’s journey asks what happens when a girl is turned into a symbol before she ever gets to be a person. Her relationships, choices, and moments of rebellion all orbit the same question: “Who am I when I’m not what everyone needs me to be?”",
+    list: [
+      "Notice how often Lana’s choices are reactions to other people’s secrets.",
+      "Track when she moves from pleasing others to setting boundaries.",
+      "Ask where her anger is really about betrayal vs. long‑buried grief."
+    ]
+  },
+  clinical: {
+    body:
+      "From a fictional clinical lens, Lana’s arc brushes against themes of childhood trauma, complicated grief, anxious attachment, and trauma responses to control and gaslighting. The show doesn’t diagnose her, but it dramatizes how secrecy, danger, and idealization can shape a young woman’s mental health.",
+    list: [
+      "Early exposure to traumatic loss without full processing or support.",
+      "Patterns of anxious attachment in relationships marked by secrecy.",
+      "Responses to manipulation and control that lead to hypervigilance and withdrawal."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(t => {
+      const span = document.createElement("span");
+      span.textContent = t;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) {
+      sceneState.classList.add(data.stateClass);
+    }
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
