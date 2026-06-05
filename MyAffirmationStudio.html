@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Affirmation Studio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050712;
+      --bg-panel: #101426;
+      --bg-panel-soft: #171c33;
+      --accent: #ffcc4d;
+      --accent-soft: rgba(255, 204, 77, 0.18);
+      --accent-alt: #4dd0ff;
+      --text-main: #f5f5f7;
+      --text-muted: #a0a4b8;
+      --border-soft: #262b40;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top left, #1b2340 0, transparent 55%),
+        radial-gradient(circle at bottom right, #2b163f 0, transparent 55%),
+        #050712;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 8vw 10px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top, rgba(77, 208, 255, 0.12), transparent 60%),
+        radial-gradient(circle at bottom, rgba(255, 204, 77, 0.12), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    header h1 {
+      position: relative;
+      margin: 0 0 6px;
+      font-size: 2.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      position: relative;
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-inline: auto;
+      font-size: 0.95rem;
+    }
+
+    .tagline {
+      position: relative;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-alt);
+    }
+
+    main {
+      flex: 1;
+      padding: 18px 8vw 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.2fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: linear-gradient(145deg, var(--bg-panel), #090c18);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top right, rgba(77, 208, 255, 0.08), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .panel:hover::before {
+      opacity: 1;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .panel-subtitle {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--accent-alt);
+      background: rgba(4, 10, 30, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Affirmation viewer */
+    .affirmation-main {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .affirmation-display {
+      background: radial-gradient(circle at top left, #202744 0, #101426 55%, #070914 100%);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .affirmation-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .affirmation-text {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+
+    .affirmation-index {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .affirmation-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #050712;
+      color: var(--text-main);
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.1s ease;
+    }
+
+    .btn span {
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: #070a18;
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      border-color: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-alt);
+    }
+
+    .affirmation-list {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .affirmation-card {
+      background: var(--bg-panel-soft);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      padding: 9px 10px 11px;
+    }
+
+    .affirmation-card-number {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .affirmation-card-text {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Right column: people + church topics */
+    .side-group {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .people-list {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 6px;
+      font-size: 0.85rem;
+    }
+
+    .person-pill {
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .person-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-alt);
+    }
+
+    .people-filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .people-filter-row input {
+      flex: 1 1 160px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #050712;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .people-filter-row input:focus {
+      border-color: var(--accent-alt);
+      box-shadow: 0 0 0 1px rgba(77, 208, 255, 0.2);
+      background: #070a18;
+    }
+
+    .church-list {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .church-card {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+    }
+
+    .church-title {
+      margin: 0 0 2px;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    .church-text {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 8vw 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Affirmation Studio</h1>
+    <p>
+      This page gathers my affirmations, the people who help make them possible, and church topics that support my
+      growth. I can read, repeat, and return to these words whenever I need to remember my strength and worth.
+    </p>
+    <div class="tagline">Speak kindly to your own heart</div>
+  </header>
+
+  <main>
+    <!-- LEFT: AFFIRMATIONS -->
+    <section class="affirmation-main">
+      <section class="panel" aria-label="Affirmation focus">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Today’s affirmation</h2>
+            <p class="panel-subtitle">
+              A single affirmation to focus on. I can shuffle, move forward, or go back through all of them.
+            </p>
+          </div>
+          <span class="pill">Focus</span>
+        </div>
+
+        <div class="affirmation-display">
+          <div class="affirmation-label">Affirmation</div>
+          <p class="affirmation-text" id="currentAffirmation">
+            I am a strong, capable person.
+          </p>
+          <div class="affirmation-index" id="affirmationIndex">
+            Affirmation 1 of 12
+          </div>
+
+          <div class="affirmation-controls">
+            <button class="btn btn-secondary" id="prevBtn">
+              <span>⟵</span> Previous
+            </button>
+            <button class="btn" id="nextBtn">
+              Next <span>⟶</span>
+            </button>
+            <button class="btn btn-secondary" id="randomBtn">
+              <span>★</span> Random
+            </button>
+            <button class="btn btn-secondary" id="copyBtn">
+              <span>📋</span> Copy text
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-label="All affirmations">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">All affirmations</h2>
+            <p class="panel-subtitle">
+              A full list of the affirmations I am choosing to believe about myself and my future.
+            </p>
+          </div>
+          <span class="pill">List</span>
+        </div>
+
+        <div class="affirmation-list" id="affirmationList">
+          <!-- JS will inject cards -->
+        </div>
+      </section>
+    </section>
+
+    <!-- RIGHT: PEOPLE + CHURCH TOPICS -->
+    <section class="side-group">
+      <section class="panel" aria-label="People who support my affirmations">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">People who make my affirmations possible</h2>
+            <p class="panel-subtitle">
+              Names and groups that remind me I am not alone in my healing and growth.
+            </p>
+          </div>
+          <span class="pill">Support</span>
+        </div>
+
+        <div class="people-filter-row">
+          <input
+            type="text"
+            id="peopleSearch"
+            placeholder="Search people or groups (for example, Family, Friends, or a name)"
+          />
+        </div>
+
+        <div class="people-list" id="peopleList">
+          <!-- JS will inject people pills -->
+        </div>
+      </section>
+
+      <section class="panel" aria-label="Church topics that help with affirmations">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title">Church topics that support my affirmations</h2>
+            <p class="panel-subtitle">
+              Spiritual themes that strengthen my sense of worth, hope, and empowerment.
+            </p>
+          </div>
+          <span class="pill">Spirit</span>
+        </div>
+
+        <div class="church-list">
+          <article class="church-card">
+            <h3 class="church-title">Faith</h3>
+            <p class="church-text">
+              Faith helps me trust that I am held by something bigger than my fears. It reminds me that I can keep
+              moving forward even when I cannot see every step.
+            </p>
+          </article>
+
+          <article class="church-card">
+            <h3 class="church-title">Knowledge</h3>
+            <p class="church-text">
+              Knowledge helps me understand myself, my emotions, and my story. Learning more about truth, healing, and
+              the gospel gives me tools to rewrite the way I speak to myself.
+            </p>
+          </article>
+
+          <article class="church-card">
+            <h3 class="church-title">Empowerment</h3>
+            <p class="church-text">
+              Empowerment reminds me that I am not powerless. With God’s help and with the support of others, I can set
+              boundaries, make choices, and build a life that honors my worth.
+            </p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      This page is a creative HTML, CSS, and JavaScript space for my affirmations, my support system, and my faith.
+      Every time I read these words, I am practicing believing in myself a little more.
+    </p>
+  </footer>
+
+  <script>
+    // Affirmations
+    const affirmations = [
+      "I am a strong, capable person.",
+      "I have done difficult things in the past, and I can do them again.",
+      "I have experienced challenges in the past, and I am more resilient because of this.",
+      "I am allowed to feel upset, angry, and sad sometimes—that is part of being human.",
+      "My personal boundaries are important, and I am allowed to express my needs to others.",
+      "“No” is a complete sentence, and I do not have to explain or justify my boundaries.",
+      "I am allowed to feel good and to experience pleasure in life.",
+      "I am worthy of receiving good things and of accomplishing my goals in life.",
+      "The past is the past, and my past does not predict my future.",
+      "I forgive myself for the mistakes I made, and I refuse to hold them against myself.",
+      "I am allowed to take up space, to have desires, and to have a voice.",
+      "I do not have to give up my hopes and dreams."
+    ];
+
+    const currentAffirmationEl = document.getElementById("currentAffirmation");
+    const affirmationIndexEl = document.getElementById("affirmationIndex");
+    const affirmationListEl = document.getElementById("affirmationList");
+
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const randomBtn = document.getElementById("randomBtn");
+    const copyBtn = document.getElementById("copyBtn");
+
+    let currentIndex = 0;
+
+    function renderCurrentAffirmation() {
+      currentAffirmationEl.textContent = affirmations[currentIndex];
+      affirmationIndexEl.textContent =
+        "Affirmation " + (currentIndex + 1) + " of " + affirmations.length;
+    }
+
+    function renderAffirmationList() {
+      affirmationListEl.innerHTML = "";
+      affirmations.forEach((text, index) => {
+        const card = document.createElement("article");
+        card.className = "affirmation-card";
+        card.innerHTML = `
+          <div class="affirmation-card-number">Affirmation ${index + 1}</div>
+          <p class="affirmation-card-text">${text}</p>
+        `;
+        affirmationListEl.appendChild(card);
+      });
+    }
+
+    prevBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + affirmations.length) % affirmations.length;
+      renderCurrentAffirmation();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % affirmations.length;
+      renderCurrentAffirmation();
+    });
+
+    randomBtn.addEventListener("click", () => {
+      let newIndex = currentIndex;
+      if (affirmations.length > 1) {
+        while (newIndex === currentIndex) {
+          newIndex = Math.floor(Math.random() * affirmations.length);
+        }
+      }
+      currentIndex = newIndex;
+      renderCurrentAffirmation();
+    });
+
+    copyBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(affirmations[currentIndex]);
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span>📋</span> Copy text';
+        }, 1000);
+      } catch (e) {
+        copyBtn.textContent = "Copy not available";
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span>📋</span> Copy text';
+        }, 1200);
+      }
+    });
+
+    renderCurrentAffirmation();
+    renderAffirmationList();
+
+    // People who make affirmations possible
+    const people = [
+      "Shannon",
+      "Isaish",
+      "Bella",
+      "Desmond",
+      "Isiash",
+      "Benjamin",
+      "Enzo",
+      "Heather A.",
+      "Heather W.",
+      "Bryce A.",
+      "Kyle B.",
+      "Micheal Rosenbaum",
+      "Kristin Kruek",
+      "Allison Mack",
+      "Tom Welling",
+      "Grandma Jackson",
+      "Grandpa Jackson",
+      "Grandma Gimbel",
+      "Grandpa Gimbel",
+      "Dad",
+      "Mom",
+      "Aunts",
+      "Uncles",
+      "Sister",
+      "Brothers",
+      "Cousins",
+      "Friends",
+      "Family",
+      "Other(s)",
+      "Work",
+      "Scheduled Friends, Family Member",
+      "Nicholas Hoult"
+    ];
+
+    const peopleListEl = document.getElementById("peopleList");
+    const peopleSearchInput = document.getElementById("peopleSearch");
+
+    function renderPeople(filterText = "") {
+      const search = filterText.trim().toLowerCase();
+      peopleListEl.innerHTML = "";
+
+      const filtered = people.filter((name) =>
+        !search ? true : name.toLowerCase().includes(search)
+      );
+
+      if (filtered.length === 0) {
+        const msg = document.createElement("p");
+        msg.style.gridColumn = "1 / -1";
+        msg.style.fontSize = "0.85rem";
+        msg.style.color = "#a0a4b8";
+        msg.textContent =
+          "There are no names that match your search right now. You can clear the search box to see everyone again.";
+        peopleListEl.appendChild(msg);
+        return;
+      }
+
+      filtered.forEach((name) => {
+        const pill = document.createElement("div");
+        pill.className = "person-pill";
+        pill.innerHTML = `
+          <span class="person-dot"></span>
+          <span>${name}</span>
+        `;
+        peopleListEl.appendChild(pill);
+      });
+    }
+
+    peopleSearchInput.addEventListener("input", () => {
+      renderPeople(peopleSearchInput.value);
+    });
+
+    renderPeople();
+  </script>
+</body>
+</html>
