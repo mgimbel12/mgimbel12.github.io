@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Homemade Fresh Pumpkin Pie – Halloween & Holiday Treats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050712;
+      --bg-panel: #111320;
+      --bg-panel-soft: #191c33;
+      --accent: #ff9f43;
+      --accent-soft: rgba(255, 159, 67, 0.18);
+      --accent-alt: #ff6b6b;
+      --text-main: #f5f5f7;
+      --text-muted: #a0a4b8;
+      --border-soft: #262b40;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font-main);
+      background:
+        radial-gradient(circle at top left, #261b40 0, transparent 55%),
+        radial-gradient(circle at bottom right, #3b162f 0, transparent 55%),
+        #050712;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 8vw 10px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top, rgba(255, 159, 67, 0.16), transparent 60%),
+        radial-gradient(circle at bottom, rgba(255, 107, 107, 0.16), transparent 60%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    header h1 {
+      position: relative;
+      margin: 0 0 6px;
+      font-size: 2.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      position: relative;
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin-inline: auto;
+      font-size: 0.95rem;
+    }
+
+    .tagline {
+      position: relative;
+      margin-top: 10px;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    main {
+      flex: 1;
+      padding: 18px 8vw 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(260px, 1.2fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 960px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: linear-gradient(145deg, var(--bg-panel), #090c18);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top right, rgba(255, 159, 67, 0.12), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      pointer-events: none;
+    }
+
+    .panel:hover::before {
+      opacity: 1;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+
+    .panel-subtitle {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--accent-alt);
+      background: rgba(4, 10, 30, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .recipe-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .meta-chip {
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: #050712;
+      color: var(--text-main);
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #1b1307;
+      font-weight: 600;
+    }
+
+    .tab-content {
+      display: none;
+      margin-top: 6px;
+      font-size: 0.9rem;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      margin: 8px 0 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    ul, ol {
+      margin: 4px 0 8px 18px;
+      padding: 0;
+    }
+
+    li + li {
+      margin-top: 2px;
+    }
+
+    .note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Right column: Halloween / Holiday ideas */
+    .holiday-list {
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      font-size: 0.9rem;
+    }
+
+    .holiday-card {
+      padding: 8px 10px;
+      border-radius: var(--radius-md);
+      background: var(--bg-panel-soft);
+      border: 1px solid var(--border-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .holiday-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top left, rgba(255, 159, 67, 0.12), transparent 60%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .holiday-title {
+      margin: 0 0 2px;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    .holiday-text {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .toggle-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .toggle-row input {
+      accent-color: var(--accent);
+    }
+
+    .status-pill {
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 0.75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px 8vw 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Homemade Fresh Pumpkin Pie</h1>
+    <p>
+      A cozy Halloween and holiday-season treat made completely from scratch with real pie pumpkin and a flaky pastry
+      crust. This is the kind of dessert that fills the kitchen with cinnamon, ginger, and nutmeg and makes the whole
+      house feel like fall.
+    </p>
+    <div class="tagline">From pumpkin patch to pie plate</div>
+  </header>
+
+  <main>
+    <!-- LEFT: MAIN RECIPE -->
+    <section class="panel" aria-label="Pumpkin pie recipe">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Randy Scott’s Homemade Pumpkin Pie</h2>
+          <p class="panel-subtitle">
+            Skip the canned pumpkin and pre-made crust—this recipe uses mashed pie pumpkin and a homemade pastry crust.
+          </p>
+        </div>
+        <span class="pill">Halloween & Holidays</span>
+      </div>
+
+      <div class="recipe-meta">
+        <span class="meta-chip">Prep: 20 mins</span>
+        <span class="meta-chip">Cook: 40 mins</span>
+        <span class="meta-chip">Total: 1 hr</span>
+        <span class="meta-chip">Yield: 1 (9-inch) pie</span>
+        <span class="meta-chip">Servings: 8</span>
+        <span class="meta-chip">Submitted by: Randy Scott</span>
+      </div>
+
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" data-tab="ingredients">Ingredients</button>
+        <button class="tab-btn" data-tab="directions">Directions</button>
+        <button class="tab-btn" data-tab="pumpkin">Mashed Pumpkin Prep</button>
+      </div>
+
+      <!-- INGREDIENTS -->
+      <div class="tab-content active" id="ingredients" role="tabpanel">
+        <div class="section-title">Pastry crust</div>
+        <ul>
+          <li>1 ⅓ cups all-purpose flour</li>
+          <li>½ teaspoon salt</li>
+          <li>½ cup cold butter or shortening</li>
+          <li>3 tablespoons cold water, or more as needed</li>
+        </ul>
+
+        <div class="section-title">Filling</div>
+        <ul>
+          <li>2 cups mashed, cooked pie pumpkin</li>
+          <li>1 (12 fluid ounce) can evaporated milk</li>
+          <li>2 large eggs, beaten</li>
+          <li>¾ cup packed brown sugar</li>
+          <li>½ teaspoon ground cinnamon, or more to taste</li>
+          <li>½ teaspoon ground ginger, or more to taste</li>
+          <li>½ teaspoon ground nutmeg, or more to taste</li>
+          <li>½ teaspoon salt</li>
+        </ul>
+
+        <p class="note">
+          Tip: Taste your spice blend before baking—if you love extra cinnamon or nutmeg, you can add a pinch more for a
+          deeper holiday flavor.
+        </p>
+      </div>
+
+      <!-- DIRECTIONS -->
+      <div class="tab-content" id="directions" role="tabpanel">
+        <div class="section-title">Pastry crust</div>
+        <ol>
+          <li>Gather all ingredients and preheat the oven to 400°F (200°C).</li>
+          <li>Mix flour and salt together in a bowl. Cut in cold butter or shortening with a pastry blender until the mixture resembles coarse crumbs.</li>
+          <li>Mix in 3 tablespoons cold water, one tablespoon at a time, until dough is moist enough to hold together. Add up to 1 more tablespoon water if needed.</li>
+          <li>Shape dough into a ball with lightly floured hands. Roll dough on a lightly floured surface to a thickness of about 1/8 inch.</li>
+          <li>Place a 9-inch pie pan upside-down on the dough; use a sharp knife to cut a circle of dough 1 ½ inches larger than the pie pan. Remove and discard dough scraps and set pie pan aside.</li>
+          <li>Gently roll the circular piece of dough around the rolling pin; transfer it right-side up over the pie pan. Unroll, easing dough into the bottom of the pan.</li>
+          <li>Use two hands to flute the dough around the top edges.</li>
+        </ol>
+
+        <div class="section-title">Filling & baking</div>
+        <ol>
+          <li>Beat pumpkin, evaporated milk, brown sugar, eggs, cinnamon, ginger, nutmeg, and salt in a large bowl with an electric mixer until well combined.</li>
+          <li>Pour the filling into the prepared crust.</li>
+          <li>Bake in the preheated oven until a knife inserted into the filling 1 inch from the edge comes out clean, 40 to 60 minutes.</li>
+          <li>Cover the crust edges with foil if needed to prevent them from burning while the filling finishes cooking.</li>
+          <li>Remove from the oven and cool to room temperature before serving.</li>
+          <li>Slice, serve, and enjoy!</li>
+        </ol>
+
+        <p class="note">
+          For a Halloween twist, pipe whipped cream ghosts on top or add tiny chocolate chip “eyes” once the pie is cool.
+        </p>
+      </div>
+
+      <!-- PUMPKIN PREP -->
+      <div class="tab-content" id="pumpkin" role="tabpanel">
+        <div class="section-title">Preparing mashed pumpkin</div>
+        <ol>
+          <li>Cut a fresh pie pumpkin in half. Scoop out and discard seeds and stringy portions.</li>
+          <li>Leave the skin on and cut pumpkin into chunks. Measure out about 1 ½ pounds for this recipe to yield 2 cups of mashed, cooked pumpkin. If your pumpkin is larger, you can cook 3 pounds and double the pie recipe to make two pies.</li>
+          <li>Place pumpkin chunks in a saucepan over medium heat with about 1 inch of water; bring to a boil.</li>
+          <li>Reduce the heat to low, cover, and simmer until tender, about 30 minutes.</li>
+          <li>Drain and cool. Remove and discard the peel.</li>
+          <li>Return pumpkin to the saucepan and mash with a potato masher or use a food mill until smooth.</li>
+        </ol>
+
+        <p class="note">
+          Fresh pumpkin gives this pie a gentle, natural sweetness that feels perfect for Halloween night, Thanksgiving,
+          or any cozy holiday gathering.
+        </p>
+      </div>
+    </section>
+
+    <!-- RIGHT: HALLOWEEN & HOLIDAY IDEAS -->
+    <section class="panel" aria-label="Halloween and holiday treat ideas">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Halloween & Holiday Treat Ideas</h2>
+          <p class="panel-subtitle">
+            Use this pumpkin pie as the star of your dessert table, then add a few simple extras.
+          </p>
+        </div>
+        <span class="pill">Treats</span>
+      </div>
+
+      <div class="holiday-list" id="holidayList">
+        <article class="holiday-card" data-season="halloween">
+          <h3 class="holiday-title">Pumpkin Pie with Whipped Cream Ghosts</h3>
+          <p class="holiday-text">
+            Pipe little swirls of whipped cream on each slice and add mini chocolate chips for eyes. Serve after
+            trick-or-treating with hot cocoa or spiced cider.
+          </p>
+        </article>
+
+        <article class="holiday-card" data-season="halloween">
+          <h3 class="holiday-title">Pumpkin Pie Parfaits</h3>
+          <p class="holiday-text">
+            Layer chilled pumpkin pie filling, crushed graham crackers, and whipped cream in clear cups. Top with
+            Halloween sprinkles for an easy party dessert.
+          </p>
+        </article>
+
+        <article class="holiday-card" data-season="holiday">
+          <h3 class="holiday-title">Holiday Spiced Pumpkin Pie</h3>
+          <p class="holiday-text">
+            Add a pinch of cloves and a little extra cinnamon to the filling. Serve with vanilla ice cream and a drizzle
+            of caramel sauce for a Christmas or New Year’s dessert.
+          </p>
+        </article>
+
+        <article class="holiday-card" data-season="holiday">
+          <h3 class="holiday-title">Pumpkin Pie Breakfast Squares</h3>
+          <p class="holiday-text">
+            Chill leftover pie, cut into small squares, and serve with yogurt and fruit for a special holiday breakfast
+            treat the next morning.
+          </p>
+        </article>
+      </div>
+
+      <div class="toggle-row">
+        <label>
+          <input type="checkbox" id="halloweenToggle" checked />
+          Show Halloween ideas
+        </label>
+        <label>
+          <input type="checkbox" id="holidayToggle" checked />
+          Show Holiday-season ideas
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <span class="status-pill" id="ideaStatus">
+          Showing Halloween & Holiday ideas
+        </span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      This page is a creative HTML, CSS, and JavaScript recipe card for your homemade pumpkin pie, dressed up for
+      Halloween and the holiday season. Print it, save it, or keep it open while you bake.
+    </p>
+  </footer>
+
+  <script>
+    // Tabs
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-tab");
+
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        tabContents.forEach((c) => c.classList.remove("active"));
+
+        btn.classList.add("active");
+        document.getElementById(target).classList.add("active");
+      });
+    });
+
+    // Halloween / Holiday toggles
+    const halloweenToggle = document.getElementById("halloweenToggle");
+    const holidayToggle = document.getElementById("holidayToggle");
+    const holidayCards = document.querySelectorAll(".holiday-card");
+    const ideaStatus = document.getElementById("ideaStatus");
+
+    function updateIdeas() {
+      const showHalloween = halloweenToggle.checked;
+      const showHoliday = holidayToggle.checked;
+
+      holidayCards.forEach((card) => {
+        const season = card.getAttribute("data-season");
+        let visible = false;
+        if (season === "halloween" && showHalloween) visible = true;
+        if (season === "holiday" && showHoliday) visible = true;
+        card.style.display = visible ? "block" : "none";
+      });
+
+      let statusText = "";
+      if (showHalloween && showHoliday) {
+        statusText = "Showing Halloween & Holiday ideas";
+      } else if (showHalloween) {
+        statusText = "Showing Halloween ideas only";
+      } else if (showHoliday) {
+        statusText = "Showing Holiday-season ideas only";
+      } else {
+        statusText = "No ideas selected – turn one on to see treats";
+      }
+      ideaStatus.textContent = statusText;
+    }
+
+    halloweenToggle.addEventListener("change", updateIdeas);
+    holidayToggle.addEventListener("change", updateIdeas);
+    updateIdeas();
+  </script>
+</body>
+</html>
