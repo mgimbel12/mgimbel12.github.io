@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Lillian Luthor • Mental Health & Healing Possibilities — Smallville Verse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+:root {
+  --bg: #06050a;
+  --bg-alt: #10101a;
+  --accent: #f5a6c9;
+  --accent-soft: rgba(245,166,201,0.16);
+  --danger: #e06b6b;
+  --safe: #7ed4b6;
+  --text-main: #f7f7fa;
+  --text-muted: #a7a9b7;
+  --border-soft: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font-main: system-ui, "Segoe UI", sans-serif;
+  --font-display: "Cinzel", serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 24px;
+  background: radial-gradient(circle at top, #1a1c28 0%, #06050a 60%);
+  color: var(--text-main);
+  font-family: var(--font-main);
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-alt);
+  border-radius: 24px;
+  border: 1px solid var(--border-soft);
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+}
+
+/* Header */
+header { margin-bottom: 18px; }
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  max-width: 720px;
+}
+
+/* Layout */
+main {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 18px;
+}
+
+@media (max-width: 850px) {
+  main { grid-template-columns: 1fr; }
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 14px 16px 16px;
+}
+
+.panel-title {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+/* Timeline */
+.timeline-item {
+  padding: 9px 10px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+}
+
+.timeline-item:hover {
+  background: var(--accent-soft);
+  transform: translateX(2px);
+}
+
+.timeline-item.active {
+  background: rgba(245,166,201,0.25);
+  border: 1px solid var(--accent);
+}
+
+.timeline-year {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.timeline-label {
+  font-size: 0.9rem;
+  margin-top: 2px;
+}
+
+.timeline-note {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Scene */
+.scene-phase {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.scene-quote {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  border-left: 2px solid var(--accent);
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.scene-context {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.scene-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border-soft);
+  font-size: 0.75rem;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+/* State pill */
+.state-pill {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  border: 1px solid var(--border-soft);
+  color: var(--text-muted);
+}
+
+.state-pill.crisis {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.state-pill.wound {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.state-pill.growth {
+  border-color: var(--safe);
+  color: var(--safe);
+}
+
+/* Reflection */
+.reflection-toggle {
+  margin-bottom: 8px;
+}
+
+.reflection-toggle button {
+  background: transparent;
+  border: 1px solid var(--border-soft);
+  padding: 4px 10px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  cursor: pointer;
+  margin-right: 6px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.reflection-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.reflection-body {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.reflection-list {
+  padding-left: 18px;
+  margin: 0;
+}
+
+.reflection-list li {
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+/* Footer note */
+.footer-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+<header>
+  <h1>Lillian Luthor</h1>
+  <p class="subtitle">
+    A Smallville‑verse mental health sheet — exploring Lillian’s emotional wounds,
+    controlling patterns, and fictional paths that might have helped her heal.
+    This is narrative analysis, not real‑world medical advice.
+  </p>
+</header>
+
+<main>
+
+<!-- LEFT: TIMELINE -->
+<section class="panel">
+  <div class="panel-title">Mental Health Journey Timeline</div>
+
+  <div id="timeline">
+    <div class="timeline-item active" data-scene="expectations">
+      <div class="timeline-year">Early Adulthood</div>
+      <div class="timeline-label">Perfection, Image & Control</div>
+      <div class="timeline-note">
+        Lillian learns to survive high‑society pressure by being flawless — emotions
+        are weaknesses to be hidden, not shared.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="lionel">
+      <div class="timeline-year">Marriage to Lionel</div>
+      <div class="timeline-label">Emotional Neglect & Power Games</div>
+      <div class="timeline-note">
+        Life with Lionel reinforces coldness, secrecy, and the belief that control
+        is safer than vulnerability.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="lex-child">
+      <div class="timeline-year">Lex’s Childhood</div>
+      <div class="timeline-label">Distant Motherhood</div>
+      <div class="timeline-note">
+        Lillian’s own pain and perfectionism keep her emotionally distant from Lex,
+        even when she loves him.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="julian">
+      <div class="timeline-year">Julian’s Death</div>
+      <div class="timeline-label">Psychological Collapse</div>
+      <div class="timeline-note">
+        In a moment of profound mental crisis, Lillian kills Julian — a traumatic act
+        rooted in untreated distress.
+      </div>
+    </div>
+
+    <div class="timeline-item" data-scene="what-if">
+      <div class="timeline-year">Alternate Path</div>
+      <div class="timeline-label">What Could Have Helped</div>
+      <div class="timeline-note">
+        A fictional look at supports and healing practices that might have changed
+        her story.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RIGHT: SCENE -->
+<section class="panel" id="scene-panel">
+  <div class="panel-title">Scene Focus</div>
+  <div class="scene-phase" id="scene-phase">Phase: Perfection & Suppressed Pain</div>
+  <div class="scene-quote" id="scene-quote">
+    “There is no room for weakness in this family… especially not mine.”
+  </div>
+  <div class="scene-context" id="scene-context">
+    Lillian learns early that her value is tied to image and control. Feelings are
+    dangerous, vulnerability is shameful, and love is conditional. This emotional
+    environment lays the groundwork for depression, anxiety, and rigid perfectionism
+    that never gets named or treated.
+  </div>
+  <div class="scene-tags" id="scene-tags">
+    <span>Perfectionism</span>
+    <span>Suppressed emotion</span>
+    <span>High‑control coping</span>
+  </div>
+  <div class="state-pill wound" id="scene-state">Unseen wound</div>
+</section>
+
+<!-- REFLECTION & HEALING -->
+<section class="panel">
+  <div class="panel-title">Reflection & Healing Possibilities</div>
+
+  <div class="reflection-toggle">
+    <button class="active" data-mode="viewer">Viewer Lens</button>
+    <button data-mode="healing">Fictional Healing Lens</button>
+  </div>
+
+  <div class="reflection-body" id="reflection-body">
+    Lillian is often framed as cold and cruel, but underneath is a woman shaped by
+    pressure, fear, and untreated pain. Her control is a shield, not a cure.
+  </div>
+
+  <ul class="reflection-list" id="reflection-list">
+    <li>Notice how often she chooses control when she is actually afraid.</li>
+    <li>Track the moments where tenderness flickers through the armor.</li>
+    <li>Ask what might have changed if she’d had a safe place to be honest.</li>
+  </ul>
+
+  <div class="footer-note">
+    Fictional analysis only • Not a diagnosis or treatment plan • Real people who
+    struggle deserve real‑world professional care and support.
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+// Scene data (journey)
+const scenes = {
+  expectations: {
+    phase: "Perfection & Suppressed Pain",
+    quote:
+      "“There is no room for weakness in this family… especially not mine.”",
+    context:
+      "Lillian internalizes the belief that worth equals perfection. She copes with pressure by tightening control — over herself, her image, and eventually her family. Emotions are pushed down, not processed.",
+    tags: ["Perfectionism", "Suppressed emotion", "High‑control coping"],
+    state: "Unseen wound",
+    stateClass: "wound"
+  },
+  lionel: {
+    phase: "Emotional Neglect & Power Games",
+    quote:
+      "“If I don’t harden my heart, Lionel will break it for me.”",
+    context:
+      "Marriage to Lionel reinforces emotional distance and manipulation. Lillian’s pain deepens, but instead of seeking help, she doubles down on control and coldness as survival strategies.",
+    tags: ["Emotional neglect", "Manipulation", "Defensive coldness"],
+    state: "Chronic strain",
+    stateClass: "crisis"
+  },
+  lex-child: {
+    phase: "Distant Motherhood",
+    quote:
+      "“I wanted to protect you, Lex… but I didn’t know how to love you without breaking.”",
+    context:
+      "Lillian loves Lex, but her own unhealed wounds make closeness feel dangerous. She becomes distant, critical, and inconsistent — passing on pain she never had space to heal.",
+    tags: ["Attachment wounds", "Emotional distance", "Intergenerational pain"],
+    state: "Inherited wound",
+    stateClass: "wound"
+  },
+  julian: {
+    phase: "Psychological Collapse",
+    quote:
+      "“For one terrible moment… the pain was louder than my love.”",
+    context:
+      "In a moment of severe psychological crisis, Lillian kills Julian. This act is not ‘evil’ in a simple sense — it’s the catastrophic result of untreated mental distress, pressure, and isolation. Afterward, guilt and denial consume what’s left of her.",
+    tags: ["Acute crisis", "Unbearable distress", "Catastrophic act"],
+    state: "Crisis state",
+    stateClass: "crisis"
+  },
+  what-if: {
+    phase: "What Could Have Helped",
+    quote:
+      "“If someone had told me I didn’t have to be perfect… maybe I would have asked for help.”",
+    context:
+      "In an alternate, healing‑focused version of her story, Lillian has access to mental health care, safe relationships, and permission to be imperfect. Therapy, support groups, and honest conversations could have helped her name depression, anxiety, and trauma instead of acting them out.",
+    tags: ["Therapy", "Support", "Self‑compassion"],
+    state: "Growth potential",
+    stateClass: "growth"
+  }
+};
+
+// Reflection modes (viewer vs fictional healing)
+const reflectionModes = {
+  viewer: {
+    body:
+      "Lillian is often framed as cold and cruel, but underneath is a woman shaped by pressure, fear, and untreated pain. Her control is a shield, not a cure.",
+    list: [
+      "Notice how often she chooses control when she is actually afraid.",
+      "Track the moments where tenderness flickers through the armor.",
+      "Ask what might have changed if she’d had a safe place to be honest."
+    ]
+  },
+  healing: {
+    body:
+      "From a fictional healing lens, Lillian’s story brushes against themes like depression, anxiety, perfectionism, and unresolved trauma. In another version of her life, she might have found help through therapy, medication when appropriate, support groups, and relationships where she could be honest instead of perfect.",
+    list: [
+      "Naming her pain (depression, anxiety, trauma) instead of hiding it.",
+      "Individual therapy to unpack perfectionism, guilt, and control.",
+      "Safe, non‑abusive relationships where vulnerability is allowed.",
+      "Learning self‑compassion instead of constant self‑punishment."
+    ]
+  }
+};
+
+// DOM references
+const timelineItems = document.querySelectorAll(".timeline-item");
+const scenePhase = document.getElementById("scene-phase");
+const sceneQuote = document.getElementById("scene-quote");
+const sceneContext = document.getElementById("scene-context");
+const sceneTags = document.getElementById("scene-tags");
+const sceneState = document.getElementById("scene-state");
+
+const reflectionButtons = document.querySelectorAll(".reflection-toggle button");
+const reflectionBody = document.getElementById("reflection-body");
+const reflectionList = document.getElementById("reflection-list");
+
+// Timeline interaction
+timelineItems.forEach(item => {
+  item.addEventListener("click", () => {
+    timelineItems.forEach(i => i.classList.remove("active"));
+    item.classList.add("active");
+
+    const key = item.dataset.scene;
+    const data = scenes[key];
+
+    scenePhase.textContent = "Phase: " + data.phase;
+    sceneQuote.textContent = data.quote;
+    sceneContext.textContent = data.context;
+
+    sceneTags.innerHTML = "";
+    data.tags.forEach(tag => {
+      const span = document.createElement("span");
+      span.textContent = tag;
+      sceneTags.appendChild(span);
+    });
+
+    sceneState.textContent = data.state;
+    sceneState.className = "state-pill";
+    if (data.stateClass) sceneState.classList.add(data.stateClass);
+  });
+});
+
+// Reflection mode interaction
+reflectionButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    reflectionButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const mode = btn.dataset.mode;
+    const data = reflectionModes[mode];
+
+    reflectionBody.textContent = data.body;
+    reflectionList.innerHTML = "";
+    data.list.forEach(line => {
+      const li = document.createElement("li");
+      li.textContent = line;
+      reflectionList.appendChild(li);
+    });
+  });
+});
+</script>
+
+</body>
+</html>
