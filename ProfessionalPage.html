@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>All Topics – Professional Single Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #0b0d16;
+    --card: #111827;
+    --accent: #38bdf8;
+    --accent2: #f472b6;
+    --accent3: #22c55e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+    background: #0f172a;
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.9rem;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #1e293b, #0b0d16);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+  }
+
+  .section li {
+    margin-bottom: 0.4rem;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .box {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .box h3 {
+    margin-top: 0;
+    color: var(--accent2);
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .cash-box {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .cash-box input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #020617;
+    color: var(--text);
+  }
+
+  .cash-box button {
+    margin-top: 0.8rem;
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent3);
+    color: #0b0d16;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="#">About</a>
+  <a href="#">Topics</a>
+  <a href="#">Design</a>
+  <a href="#">Art</a>
+</nav>
+
+<header>
+  <h1>All Topics – Life, Art, Design & Community</h1>
+  <p>A polished, professional single‑sheet website for learning and creativity.</p>
+</header>
+
+<main>
+
+  <!-- TOPICS LIST -->
+  <section class="section">
+    <h2>Topics</h2>
+    <ul>
+      <li>Barbie</li>
+      <li>Toys for Tots</li>
+      <li>NAMI (Mental Health)</li>
+      <li>Emergency Phone Numbers</li>
+      <li>Nevada – Henderson</li>
+      <li>Roses</li>
+      <li>Tulips</li>
+      <li>Food for Thought</li>
+      <li>Idea & Art Concept</li>
+      <li>Design</li>
+      <li>Cash Count</li>
+      <li>All Topics Included</li>
+    </ul>
+  </section>
+
+  <!-- 3-WAY DESIGN GRID -->
+  <section class="section">
+    <h2>Three‑Way Design</h2>
+
+    <div class="grid">
+      <div class="box">
+        <h3>Barbie & Toys</h3>
+        <p>Color, imagination, childhood themes, and community giving.</p>
+      </div>
+
+      <div class="box">
+        <h3>Flowers & Nature</h3>
+        <p>Roses and tulips as symbols of beauty, growth, and healing.</p>
+      </div>
+
+      <div class="box">
+        <h3>Nevada & Emergencies</h3>
+        <p>Local identity, safety, and community support in Henderson.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASH COUNT -->
+  <section class="section">
+    <h2>Cash Count Tool</h2>
+    <div class="cash-box">
+      <label>Enter Amount:</label>
+      <input id="cashInput" type="number" placeholder="0.00" />
+
+      <button onclick="calculateCash()">Calculate</button>
+
+      <p id="cashResult" style="margin-top:1rem;color:var(--accent);font-weight:bold;"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Single‑Sheet HTML • CSS • JavaScript — All Topics Website
+</footer>
+
+<script>
+  function calculateCash() {
+    const value = parseFloat(document.getElementById("cashInput").value);
+    if (isNaN(value)) {
+      document.getElementById("cashResult").textContent = "Please enter a valid number.";
+      return;
+    }
+    document.getElementById("cashResult").textContent =
+      "Total Cash Count: $" + value.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
