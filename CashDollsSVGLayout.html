@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cash • Dolls • SVG • Layouts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #050816;
+    --card: #0b1020;
+    --accent: #38bdf8;
+    --accent2: #f472b6;
+    --accent3: #22c55e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: radial-gradient(circle at top, #1e293b 0, #050816 60%);
+    color: var(--text);
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #1e293b, #050816);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+  }
+
+  li {
+    margin-bottom: 0.3rem;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .box {
+    background: #020617;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .cash-box input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.4rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #020617;
+    color: var(--text);
+  }
+
+  .cash-box button {
+    margin-top: 0.8rem;
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent3);
+    color: #020617;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .cash-result {
+    margin-top: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  svg {
+    width: 80px;
+    height: 80px;
+    margin: 0.5rem;
+  }
+
+  .svg-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .layout-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .layout-pill {
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    border: 1px dashed var(--border);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Cash • Dolls • SVG • Layouts</h1>
+  <p>Single‑sheet HTML, CSS, and JavaScript for counting, listing, and designing.</p>
+</header>
+
+<main>
+
+  <!-- CASH COUNTING -->
+  <section class="section">
+    <h2>Cash Counting</h2>
+    <p>Enter how many of each coin or bill you have. The total will be calculated automatically.</p>
+
+    <div class="grid cash-box">
+      <div>
+        <label>Quarters</label>
+        <input id="quarters" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Nickels</label>
+        <input id="nickels" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Pennies</label>
+        <input id="pennies" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Dimes</label>
+        <input id="dimes" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>One Dollar</label>
+        <input id="oneDollar" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Two Dollar</label>
+        <input id="twoDollar" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Five Dollar</label>
+        <input id="fiveDollar" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Ten Dollar</label>
+        <input id="tenDollar" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label>Twenty Dollar</label>
+        <input id="twentyDollar" type="number" min="0" placeholder="0" />
+      </div>
+    </div>
+
+    <button style="margin-top:1rem;width:100%;padding:0.7rem;border-radius:8px;border:none;background:var(--accent);color:#020617;font-weight:bold;cursor:pointer;" onclick="calculateTotal()">
+      Calculate Total Cash
+    </button>
+
+    <div id="cashTotal" class="cash-result"></div>
+  </section>
+
+  <!-- DOLLS -->
+  <section class="section">
+    <h2>Dolls & Characters</h2>
+
+    <h3>Barbie Types of Dolls</h3>
+    <ul>
+      <li>Stacy</li>
+      <li>Barbie</li>
+      <li>Ken</li>
+      <li>DJ Joe Doll</li>
+    </ul>
+
+    <h3>Princess Dolls</h3>
+    <ul>
+      <li>Cinderella</li>
+      <li>Snow White</li>
+      <li>Ana</li>
+      <li>Elsa</li>
+    </ul>
+  </section>
+
+  <!-- SVG FUN -->
+  <section class="section">
+    <h2>SVG Fun Shapes & Scenes</h2>
+
+    <h3>Circle, Triangle, Diamond Fun</h3>
+    <div class="svg-row">
+      <!-- Circle Fun -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="20" fill="#38bdf8" />
+      </svg>
+
+      <!-- Triangle Fun -->
+      <svg viewBox="0 0 64 64">
+        <polygon points="32,10 10,54 54,54" fill="#f97316" />
+      </svg>
+
+      <!-- Diamond Fun -->
+      <svg viewBox="0 0 64 64">
+        <polygon points="32,6 10,32 32,58 54,32" fill="#a855f7" />
+      </svg>
+    </div>
+
+    <h3>Creatures & Places</h3>
+    <div class="svg-row">
+      <!-- Lion (simple icon) -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="24" r="12" fill="#facc15" />
+        <rect x="26" y="32" width="12" height="18" fill="#fbbf24" />
+      </svg>
+
+      <!-- Bear (simple icon) -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="30" r="12" fill="#92400e" />
+        <circle cx="24" cy="20" r="4" fill="#92400e" />
+        <circle cx="40" cy="20" r="4" fill="#92400e" />
+      </svg>
+
+      <!-- Ice Castle -->
+      <svg viewBox="0 0 64 64">
+        <rect x="18" y="26" width="28" height="26" fill="#38bdf8" />
+        <polygon points="32,10 20,26 44,26" fill="#e0f2fe" />
+      </svg>
+
+      <!-- Mermaid -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="18" r="6" fill="#f97316" />
+        <path d="M28 24 Q32 40 24 52 Q32 48 40 52 Q32 40 36 24 Z" fill="#22c55e" />
+      </svg>
+
+      <!-- Ice Cubs (little ice blocks) -->
+      <svg viewBox="0 0 64 64">
+        <rect x="14" y="30" width="12" height="12" fill="#bae6fd" />
+        <rect x="28" y="26" width="12" height="12" fill="#7dd3fc" />
+        <rect x="42" y="30" width="12" height="12" fill="#0ea5e9" />
+      </svg>
+    </div>
+
+    <h3>Sand & Sandcastle</h3>
+    <div class="svg-row">
+      <!-- Sand -->
+      <svg viewBox="0 0 64 64">
+        <rect x="4" y="40" width="56" height="16" fill="#facc15" />
+      </svg>
+
+      <!-- Sandcastle -->
+      <svg viewBox="0 0 64 64">
+        <rect x="16" y="30" width="32" height="20" fill="#fbbf24" />
+        <rect x="24" y="22" width="16" height="8" fill="#facc15" />
+        <polygon points="32,14 26,22 38,22" fill="#fde68a" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- DISNEY SVG LABELS -->
+  <section class="section">
+    <h2>Disney SVG (Labels)</h2>
+    <p>Placeholder labels for future Disney SVG icons:</p>
+    <ul>
+      <li>Daffy Duck</li>
+      <li>Donald Duck</li>
+      <li>Minnie Mouse</li>
+      <li>Mickey Mouse</li>
+      <li>Goofy</li>
+    </ul>
+  </section>
+
+  <!-- DESIGN LAYOUTS -->
+  <section class="section">
+    <h2>Design Layouts</h2>
+    <p>Basic layout shapes that can inspire page structure and composition.</p>
+
+    <div class="layout-row">
+      <span class="layout-pill">Circles</span>
+      <span class="layout-pill">Squares</span>
+      <span class="layout-pill">Diamond</span>
+      <span class="layout-pill">Dashes</span>
+    </div>
+
+    <p style="margin-top:1rem;color:var(--muted);">
+      “May the Force Be With You” – a reminder that design, like story, carries energy and hope.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Single‑Sheet HTML • CSS • JavaScript — Cash, Dolls, SVG, Layouts
+</footer>
+
+<script>
+  function val(id) {
+    return parseFloat(document.getElementById(id).value) || 0;
+  }
+
+  function calculateTotal() {
+    const quarters = val("quarters") * 0.25;
+    const nickels = val("nickels") * 0.05;
+    const pennies = val("pennies") * 0.01;
+    const dimes = val("dimes") * 0.10;
+    const one = val("oneDollar") * 1;
+    const two = val("twoDollar") * 2;
+    const five = val("fiveDollar") * 5;
+    const ten = val("tenDollar") * 10;
+    const twenty = val("twentyDollar") * 20;
+
+    const total = quarters + nickels + pennies + dimes + one + two + five + ten + twenty;
+
+    document.getElementById("cashTotal").textContent =
+      "Total Cash: $" + total.toFixed(2);
+  }
+</script>
+</body>
+</html>
