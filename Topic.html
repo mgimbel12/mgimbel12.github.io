@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Topics • Art • Design • Toys • Concepts</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #0b0d16;
+    --card: #111827;
+    --accent: #38bdf8;
+    --accent2: #f472b6;
+    --accent3: #22c55e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #1e293b, #0b0d16);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+  }
+
+  .section li {
+    margin-bottom: 0.4rem;
+    color: var(--muted);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .box {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .box h3 {
+    margin-top: 0;
+    color: var(--accent2);
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .cash-box input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #020617;
+    color: var(--text);
+  }
+
+  .cash-box button {
+    margin-top: 0.8rem;
+    width: 100%;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent3);
+    color: #0b0d16;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  svg {
+    width: 80px;
+    height: 80px;
+    margin: 0.5rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Topics • Toys • Art • Design</h1>
+  <p>A polished single‑sheet website for creativity, learning, and inspiration.</p>
+</header>
+
+<main>
+
+  <!-- TOPICS -->
+  <section class="section">
+    <h2>Topics</h2>
+    <ul>
+      <li>Name of Toys</li>
+      <li>Toys for Tots – Phone & Address</li>
+      <li>Name of Barbie</li>
+      <li>Barbie Game System</li>
+      <li>Grow Where You Are Planted</li>
+      <li>When Life Gives You Lemons, Make Lemonade</li>
+      <li>3‑Way Design</li>
+      <li>Different Layout Names</li>
+      <li>Cash Count (Dimes, Pennies, Dollars)</li>
+      <li>SVG Roses & Tulips</li>
+      <li>May the Force Be With You</li>
+      <li>Painting Ideas & Art Concepts</li>
+    </ul>
+  </section>
+
+  <!-- 3-WAY DESIGN -->
+  <section class="section">
+    <h2>3‑Way Design</h2>
+
+    <div class="grid">
+      <div class="box">
+        <h3>Layout</h3>
+        <p>Grid, Flexbox, Columns, Cards, Panels.</p>
+      </div>
+
+      <div class="box">
+        <h3>Design</h3>
+        <p>Color theory, typography, spacing, visual rhythm.</p>
+      </div>
+
+      <div class="box">
+        <h3>Experience</h3>
+        <p>Interaction, animation, user flow, accessibility.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SVG FLOWERS -->
+  <section class="section">
+    <h2>SVG Roses & Tulips</h2>
+
+    <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+      <!-- Rose -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="20" fill="#f43f5e"/>
+      </svg>
+
+      <!-- Tulip -->
+      <svg viewBox="0 0 64 64">
+        <path d="M32 10 L20 30 L44 30 Z" fill="#f472b6"/>
+        <rect x="30" y="30" width="4" height="24" fill="#22c55e"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- CASH COUNT -->
+  <section class="section">
+    <h2>Cash Count</h2>
+    <div class="cash-box">
+      <label>Dimes, Pennies, Dollars</label>
+      <input id="dimes" type="number" placeholder="Dimes" />
+      <input id="pennies" type="number" placeholder="Pennies" />
+      <input id="dollars" type="number" placeholder="Dollars" />
+
+      <button onclick="countCash()">Calculate Total</button>
+
+      <p id="cashResult" style="margin-top:1rem;color:var(--accent);font-weight:bold;"></p>
+    </div>
+  </section>
+
+  <!-- ART & CONCEPT -->
+  <section class="section">
+    <h2>Painting Ideas & Art Concepts</h2>
+    <ul>
+      <li>Barbie pastel color palette</li>
+      <li>Galaxy “May the Force Be With You” theme</li>
+      <li>Roses & tulips watercolor blend</li>
+      <li>Abstract Nevada desert sunset</li>
+      <li>Food‑for‑thought typography posters</li>
+      <li>“Grow Where You Are Planted” botanical art</li>
+      <li>Lemonade yellow‑white acrylic splash</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  Single‑Sheet HTML • CSS • JavaScript — Topics, Toys, Art & Design
+</footer>
+
+<script>
+  function countCash() {
+    const d = parseInt(document.getElementById("dimes").value) || 0;
+    const p = parseInt(document.getElementById("pennies").value) || 0;
+    const dl = parseFloat(document.getElementById("dollars").value) || 0;
+
+    const total = dl + d * 0.10 + p * 0.01;
+
+    document.getElementById("cashResult").textContent =
+      "Total Amount: $" + total.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
