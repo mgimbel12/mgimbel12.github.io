@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor – Character Profile & Creative Board</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #151821;
+      --accent: #f5c542;
+      --accent-soft: rgba(245, 197, 66, 0.15);
+      --text-main: #f7f7f7;
+      --text-muted: #a9b0c2;
+      --border-subtle: #262a36;
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --transition-fast: 0.2s ease-out;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1f2833 0, #0b0c10 55%, #050608 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1120px;
+      background: linear-gradient(135deg, rgba(245, 197, 66, 0.12), transparent 40%),
+                  radial-gradient(circle at bottom right, rgba(245, 197, 66, 0.08), transparent 55%),
+                  #050608;
+      border-radius: 28px;
+      border: 1px solid rgba(245, 245, 245, 0.06);
+      box-shadow: var(--shadow-soft);
+      padding: 28px 26px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.06), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .shell-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 880px) {
+      .shell-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      background: rgba(5, 6, 8, 0.7);
+      color: var(--text-muted);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .title-block h1 {
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .title-block p {
+      margin-top: 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 24px;
+      border: 1px solid rgba(245, 245, 245, 0.18);
+      background: radial-gradient(circle at 30% 20%, #f5c542, #f08a3d 40%, #151821 80%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 26px;
+      color: #050608;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .traits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 18px 0 10px;
+    }
+
+    @media (max-width: 640px) {
+      .traits-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .trait-pill {
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(10, 12, 18, 0.9);
+      border: 1px solid rgba(245, 245, 245, 0.08);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .trait-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-soft);
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    .summary-card {
+      margin-top: 6px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: rgba(10, 12, 18, 0.9);
+      border: 1px solid var(--border-subtle);
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .qa-card {
+      margin-top: 10px;
+      border-radius: var(--radius-md);
+      background: rgba(10, 12, 18, 0.9);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+
+    .qa-item + .qa-item {
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .qa-question {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      background: rgba(15, 18, 26, 0.9);
+      border: none;
+      color: var(--text-main);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .qa-question span {
+      flex: 1;
+      text-align: left;
+      padding-right: 10px;
+    }
+
+    .qa-question-icon {
+      font-size: 16px;
+      opacity: 0.7;
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    .qa-question.active {
+      background: rgba(245, 197, 66, 0.12);
+      color: var(--accent);
+    }
+
+    .qa-question.active .qa-question-icon {
+      transform: rotate(90deg);
+      opacity: 1;
+    }
+
+    .qa-answer {
+      max-height: 0;
+      overflow: hidden;
+      padding: 0 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      transition: max-height 0.22s ease-out, padding 0.22s ease-out;
+    }
+
+    .qa-answer.open {
+      padding: 8px 12px 10px;
+    }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      background: rgba(10, 12, 18, 0.96);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .panel-tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      color: var(--accent);
+      background: rgba(245, 197, 66, 0.06);
+    }
+
+    .panel-body {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .pill {
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      font-size: 11px;
+      color: var(--text-main);
+      background: rgba(5, 6, 8, 0.9);
+    }
+
+    .art-board-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .art-card {
+      border-radius: 14px;
+      padding: 10px 9px;
+      background: radial-gradient(circle at top, rgba(245, 197, 66, 0.16), rgba(10, 12, 18, 0.96));
+      border: 1px solid rgba(245, 245, 245, 0.12);
+      font-size: 12px;
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .art-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .art-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-note {
+      margin-top: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note span.highlight {
+      color: var(--accent);
+    }
+
+    .hover-glow:hover {
+      box-shadow: 0 0 0 1px rgba(245, 197, 66, 0.4), var(--shadow-soft);
+      transform: translateY(-1px);
+      transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="shell-inner">
+      <!-- LEFT COLUMN: PROFILE & Q/A -->
+      <section>
+        <div class="badge-row">
+          <div class="badge">Character Study</div>
+          <div class="badge">Narrative Design</div>
+          <div class="badge">Creative Profile</div>
+        </div>
+
+        <div class="header-main">
+          <div class="title-block">
+            <h1>Lex Luthor</h1>
+            <p>Reimagined as a principled, creative strategist grounded in empathy, curiosity, and service.</p>
+          </div>
+          <div class="avatar">L</div>
+        </div>
+
+        <div class="section-label">Core traits</div>
+        <div class="traits-grid">
+          <div class="trait-pill"><span class="trait-dot"></span>Positive</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Good worker</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Polite</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Kind</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Sweet</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Personal</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Divine</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Natural</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Gifted</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Friendly</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Safe</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Different</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Intangible</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Creative</div>
+          <div class="trait-pill"><span class="trait-dot"></span>Helpful</div>
+        </div>
+
+        <div class="section-label">Narrative summary</div>
+        <div class="summary-card hover-glow">
+          Lex is portrayed as a thoughtful, community‑minded innovator. He balances analytical precision with
+          genuine warmth, using his talents to build safe, imaginative spaces for the people he cares about.
+          His “difference” is not distance—it is the quiet, intangible quality that makes others feel seen,
+          supported, and invited into the story.
+        </div>
+
+        <div class="section-label">Guided questions</div>
+        <div class="qa-card hover-glow" id="qaCard">
+          <div class="qa-item">
+            <button class="qa-question">
+              <span>1. What does he enjoy doing with his family and friends?</span>
+              <span class="qa-question-icon">›</span>
+            </button>
+            <div class="qa-answer">
+              Lex loves shared experiences that blend learning and play: weekend horse‑riding lessons, friendly
+              fencing drills in the park, and collaborative board‑game nights where everyone helps design new
+              rules. For him, quality time means co‑creating memories, not just consuming entertainment.
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button class="qa-question">
+              <span>2. Where does he want to be in five years’ time?</span>
+              <span class="qa-question-icon">›</span>
+            </button>
+            <div class="qa-answer">
+              In five years, Lex envisions himself leading a small, ethical design studio that develops
+              story‑driven games and educational tools. His goal is to mentor younger creators, partner with
+              schools and community centers, and ensure that his work remains grounded in kindness and
+              accessibility.
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button class="qa-question">
+              <span>3. What does he enjoy most in his day‑to‑day life?</span>
+              <span class="qa-question-icon">›</span>
+            </button>
+            <div class="qa-answer">
+              He enjoys quiet creative rituals: sketching character concepts in pencil, refining game mechanics
+              in a notebook, and taking reflective walks to observe how people interact with the world. Small,
+              consistent acts of creativity help him feel centered and useful.
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button class="qa-question">
+              <span>4. Who is his favorite singer?</span>
+              <span class="qa-question-icon">›</span>
+            </button>
+            <div class="qa-answer">
+              Lex gravitates toward artists who tell stories with emotional depth. His favorite singer is
+              someone in the vein of Alicia Keys—soulful, grounded, and committed to using music as a vehicle
+              for hope, resilience, and social good.
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <button class="qa-question">
+              <span>5. What kind of artist inspires him the most, and why?</span>
+              <span class="qa-question-icon">›</span>
+            </button>
+            <div class="qa-answer">
+              He is most inspired by multidisciplinary artists who merge illustration, storytelling, and
+              world‑building—creators who can design a character, a setting, and a moral question in a single
+              piece. They remind him that art can be both beautiful and deeply ethical, inviting audiences to
+              imagine kinder futures.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: GAME & ART CONCEPTS -->
+      <section class="right-column">
+        <article class="panel hover-glow">
+          <div class="panel-title-row">
+            <div class="panel-title">Game idea</div>
+            <div class="panel-tag">Concept: Prototype</div>
+          </div>
+          <div class="panel-body">
+            <strong>Working title:</strong> “Lines of Honor”
+            <br /><br />
+            A narrative‑driven strategy game where players train as riders and fencers in a modern academy
+            dedicated to integrity and teamwork. Each chapter blends:
+            <ul style="margin: 8px 0 0 18px; padding: 0; list-style: disc; font-size: 13px;">
+              <li>Horse‑riding challenges that emphasize trust, patience, and non‑verbal communication.</li>
+              <li>Fencing duels that reward discipline, respect, and strategic thinking over aggression.</li>
+              <li>Story choices that explore what it means to protect others and use power responsibly.</li>
+            </ul>
+            <div class="pill-row">
+              <span class="pill">Genre: Narrative Strategy</span>
+              <span class="pill">Theme: Ethics & Courage</span>
+              <span class="pill">Mode: Single‑player / Co‑op</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel hover-glow">
+          <div class="panel-title-row">
+            <div class="panel-title">Art direction</div>
+            <div class="panel-tag">Visual Language</div>
+          </div>
+          <div class="panel-body">
+            The visual style combines clean, graphic silhouettes with warm, hand‑drawn textures. Horses and
+            fencing gear are rendered with subtle line work to highlight motion and grace rather than violence.
+            Color palettes lean into deep blues and golds to suggest night training, quiet focus, and a sense of
+            “divine” purpose.
+            <div class="pill-row">
+              <span class="pill">Silhouettes & Motion</span>
+              <span class="pill">Warm Neutrals + Gold</span>
+              <span class="pill">Character‑centric UI</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel hover-glow">
+          <div class="panel-title-row">
+            <div class="panel-title">Art board</div>
+            <div class="panel-tag">Traditional Media</div>
+          </div>
+          <div class="panel-body">
+            <p>Lex’s preferred tools emphasize immediacy and control, allowing him to iterate quickly on ideas.</p>
+            <div class="art-board-grid">
+              <div class="art-card">
+                <div class="art-label">Pencils</div>
+                <div>Gesture studies, horse anatomy, fencing poses, and quick story thumbnails.</div>
+                <div class="art-meta">Use: Foundations & motion</div>
+              </div>
+              <div class="art-card">
+                <div class="art-label">Pens</div>
+                <div>Clean line art for character sheets, costume details, and emblem designs.</div>
+                <div class="art-meta">Use: Clarity & structure</div>
+              </div>
+              <div class="art-card">
+                <div class="art-label">Markers</div>
+                <div>Value blocking, lighting tests, and fast color keys for scenes and UI elements.</div>
+                <div class="art-meta">Use: Mood & emphasis</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="footer-note">
+          <span>Designed as a <span class="highlight">college‑level character and game concept sheet</span>.</span>
+          <span>HTML · CSS · JavaScript · Ready for portfolio integration.</span>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Simple accordion behavior for Q/A section
+    document.querySelectorAll(".qa-question").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const answer = btn.nextElementSibling;
+        const isOpen = answer.classList.contains("open");
+
+        // Close all
+        document.querySelectorAll(".qa-answer").forEach((a) => {
+          a.style.maxHeight = null;
+          a.classList.remove("open");
+        });
+        document.querySelectorAll(".qa-question").forEach((q) =>
+          q.classList.remove("active")
+        );
+
+        // Open selected if it was closed
+        if (!isOpen) {
+          answer.classList.add("open");
+          btn.classList.add("active");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        }
+      });
+    });
+
+    // Initialize first question open for a nicer default state
+    const firstQuestion = document.querySelector(".qa-question");
+    if (firstQuestion) {
+      firstQuestion.click();
+    }
+  </script>
+</body>
+</html>
