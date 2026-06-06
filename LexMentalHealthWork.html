@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor – Mental Health & Healing Options</title>
+  <style>
+    :root {
+      --bg: #050712;
+      --card: #111528;
+      --accent: #f4c542;
+      --accent-soft: #f9e6a8;
+      --text-main: #f7f7ff;
+      --text-soft: #c4c7e0;
+      --good: #4caf50;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #28326a 0, #050814 55%, #02030a 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 2rem 1.5rem 3rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 1150px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+      padding: 1.75rem 1.75rem 2.25rem;
+      backdrop-filter: blur(18px);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      font-size: 1.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      color: var(--text-soft);
+      max-width: 520px;
+    }
+
+    .badge-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--accent-soft);
+      background: rgba(0,0,0,0.25);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .badge span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-soft);
+    }
+
+    .controls select {
+      padding: 0.3rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.4);
+      color: var(--text-main);
+      font-size: 0.8rem;
+    }
+
+    .lang-toggle {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .lang-toggle button {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(0,0,0,0.4);
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+
+    .lang-toggle button.active {
+      background: var(--accent);
+      color: #1b1300;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 0.8rem 0.9rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--accent-soft);
+      align-self: flex-start;
+    }
+
+    .card-focus {
+      font-size: 0.78rem;
+      color: var(--text-soft);
+    }
+
+    .card-options {
+      font-size: 0.78rem;
+      color: var(--good);
+    }
+
+    .note-small {
+      font-size: 0.7rem;
+      color: var(--text-soft);
+      margin-top: 0.7rem;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div>
+        <h1>Lex Luthor – Healing & Growth Map</h1>
+        <p id="intro-text">
+          Fictional Lex is used as a college case study. Each tile shows one part of his life
+          and healthy options to support mental health, healing, and better choices.
+        </p>
+      </div>
+      <div class="badge-row">
+        <div class="badge">
+          <span class="dot"></span> College Reflection
+        </div>
+        <div class="badge">
+          Mental Health • Ethics • Society
+        </div>
+      </div>
+    </header>
+
+    <section class="controls">
+      <div>
+        <strong>Filter focus:</strong>
+        <select id="filter-select">
+          <option value="all">All areas</option>
+          <option value="mental">Mental health & healing</option>
+          <option value="relationships">Family & relationships</option>
+          <option value="society">Public, work & society</option>
+          <option value="purpose">Purpose, faith & values</option>
+          <option value="skills">Communication & ideas</option>
+        </select>
+      </div>
+      <div class="lang-toggle">
+        <button id="btn-en" class="active">EN</button>
+        <button id="btn-pl">PL</button>
+      </div>
+    </section>
+
+    <section class="grid" id="card-grid">
+      <!-- Cards injected by JS -->
+    </section>
+
+    <p class="note-small" id="footer-note">
+      This board is symbolic and educational. Real people facing abuse, mental health crises, or
+      legal danger should contact licensed professionals, crisis lines, and trusted authorities.
+    </p>
+  </main>
+
+  <script>
+    const topics = [
+      {
+        id: 1,
+        key: "public",
+        title: "Public",
+        tag: "Society",
+        category: "society",
+        focus_en: "How Lex appears in public and media.",
+        options_en: "Use public influence to support charities, mental health campaigns, and transparency instead of fear.",
+        focus_pl: "Jak Lex jest postrzegany publicznie i w mediach.",
+        options_pl: "Wykorzystuje wpływy do wspierania organizacji charytatywnych, kampanii zdrowia psychicznego i przejrzystości zamiast strachu."
+      },
+      {
+        id: 2,
+        key: "mentalHealth",
+        title: "Mental Health",
+        tag: "Care",
+        category: "mental",
+        focus_en: "Anxiety, trauma, and anger under the surface.",
+        options_en: "Regular therapy, possible psychiatric support, and daily routines for sleep, food, and movement.",
+        focus_pl: "Lęk, trauma i złość ukryte pod powierzchnią.",
+        options_pl: "Regularna terapia, ewentualne wsparcie psychiatryczne oraz codzienne rytuały snu, jedzenia i ruchu."
+      },
+      {
+        id: 3,
+        key: "doctor",
+        title: "Doctor",
+        tag: "Professionals",
+        category: "mental",
+        focus_en: "Medical and psychological professionals in his life.",
+        options_en: "Build a trusted team: family doctor, psychiatrist, and therapist with clear treatment plans.",
+        focus_pl: "Lekarze i specjaliści psychologiczni w jego życiu.",
+        options_pl: "Tworzy zaufany zespół: lekarz rodzinny, psychiatra i terapeuta z jasnym planem leczenia."
+      },
+      {
+        id: 4,
+        key: "police",
+        title: "Police officers",
+        tag: "Safety",
+        category: "society",
+        focus_en: "Law, safety, and accountability.",
+        options_en: "Report crimes, respect investigations, and let legal systems handle violence and abuse.",
+        focus_pl: "Prawo, bezpieczeństwo i odpowiedzialność.",
+        options_pl: "Zgłasza przestępstwa, szanuje dochodzenia i pozwala systemowi prawnemu reagować na przemoc."
+      },
+      {
+        id: 5,
+        key: "healingDept",
+        title: "Department of Healing",
+        tag: "Support",
+        category: "mental",
+        focus_en: "Imagined team focused only on recovery.",
+        options_en: "Create a ‘healing department’: therapists, support groups, spiritual leaders, and mentors.",
+        focus_pl: "Wyobrażony zespół skupiony wyłącznie na zdrowieniu.",
+        options_pl: "Tworzy „dział zdrowienia”: terapeuci, grupy wsparcia, duchowi przewodnicy i mentorzy."
+      },
+      {
+        id: 6,
+        key: "personal",
+        title: "Personal",
+        tag: "Inner life",
+        category: "mental",
+        focus_en: "Private thoughts, shame, and secrets.",
+        options_en: "Journaling, honest self-reflection, and sharing feelings with safe, trusted people.",
+        focus_pl: "Prywatne myśli, wstyd i sekrety.",
+        options_pl: "Prowadzi dziennik, szczerze się nad sobą zastanawia i dzieli uczuciami z zaufanymi osobami."
+      },
+      {
+        id: 7,
+        key: "emotional",
+        title: "Emotional",
+        tag: "Feelings",
+        category: "mental",
+        focus_en: "Difficulty naming and expressing emotions.",
+        options_en: "Emotion vocabulary, therapy, and practicing ‘I feel… when…’ statements.",
+        focus_pl: "Trudność w nazywaniu i wyrażaniu emocji.",
+        options_pl: "Uczy się słownictwa emocji, korzysta z terapii i ćwiczy komunikaty „Czuję…, gdy…”."
+      },
+      {
+        id: 8,
+        key: "physical",
+        title: "Physical",
+        tag: "Body",
+        category: "mental",
+        focus_en: "Stress in the body: tension, exhaustion.",
+        options_en: "Medical checkups, exercise, stretching, and rest to reduce physical stress.",
+        focus_pl: "Stres w ciele: napięcie, wyczerpanie.",
+        options_pl: "Badania lekarskie, ruch, rozciąganie i odpoczynek, aby zmniejszyć napięcie."
+      },
+      {
+        id: 9,
+        key: "mentalHealing",
+        title: "Mental healings",
+        tag: "Recovery",
+        category: "mental",
+        focus_en: "Long-term healing, not quick fixes.",
+        options_en: "Trauma-informed therapy, support groups, and patience with slow progress.",
+        focus_pl: "Długotrwałe zdrowienie, a nie szybkie rozwiązania.",
+        options_pl: "Terapia traumy, grupy wsparcia i cierpliwość wobec powolnych postępów."
+      },
+      {
+        id: 10,
+        key: "purpose",
+        title: "Purpose of life",
+        tag: "Meaning",
+        category: "purpose",
+        focus_en: "Why he lives beyond power and revenge.",
+        options_en: "Volunteer work, study, and service projects that build a sense of meaning.",
+        focus_pl: "Dlaczego żyje – poza władzą i zemstą.",
+        options_pl: "Wolontariat, nauka i projekty służby, które budują poczucie sensu."
+      },
+      {
+        id: 11,
+        key: "helpingSolve",
+        title: "Helping solve solutions",
+        tag: "Service",
+        category: "purpose",
+        focus_en: "Using his mind to solve real problems.",
+        options_en: "Apply his intelligence to medicine, technology, or social programs that protect people.",
+        focus_pl: "Wykorzystanie umysłu do rozwiązywania prawdziwych problemów.",
+        options_pl: "Wykorzystuje inteligencję w medycynie, technologii lub programach społecznych chroniących ludzi."
+      },
+      {
+        id: 12,
+        key: "communication",
+        title: "Communication skills",
+        tag: "Skills",
+        category: "skills",
+        focus_en: "Harsh, controlling communication patterns.",
+        options_en: "Communication training, active listening, and feedback from a therapist or coach.",
+        focus_pl: "Ostry, kontrolujący styl komunikacji.",
+        options_pl: "Szkolenia komunikacyjne, aktywne słuchanie i informacja zwrotna od terapeuty lub coacha."
+      },
+      {
+        id: 13,
+        key: "helpingHands",
+        title: "Helping hands",
+        tag: "Support",
+        category: "relationships",
+        focus_en: "Letting others help instead of doing everything alone.",
+        options_en: "Accept support from friends, professionals, and community groups.",
+        focus_pl: "Pozwalanie innym pomagać zamiast robić wszystko samemu.",
+        options_pl: "Przyjmuje wsparcie przyjaciół, specjalistów i grup społecznych."
+      },
+      {
+        id: 14,
+        key: "hope",
+        title: "Hope",
+        tag: "Future",
+        category: "purpose",
+        focus_en: "Belief that change is possible.",
+        options_en: "Collect stories of recovery, set small goals, and celebrate progress.",
+        focus_pl: "Wiara, że zmiana jest możliwa.",
+        options_pl: "Poznaje historie zdrowienia, stawia małe cele i świętuje postępy."
+      },
+      {
+        id: 15,
+        key: "faith",
+        title: "Faith",
+        tag: "Spiritual",
+        category: "purpose",
+        focus_en: "Spiritual or philosophical grounding.",
+        options_en: "Explore faith traditions or philosophies that emphasize compassion and justice.",
+        focus_pl: "Duchowe lub filozoficzne zakorzenienie.",
+        options_pl: "Poznaje tradycje wiary lub filozofie oparte na współczuciu i sprawiedliwości."
+      },
+      {
+        id: 16,
+        key: "divineNature",
+        title: "Divine nature",
+        tag: "Identity",
+        category: "purpose",
+        focus_en: "Seeing himself as capable of good.",
+        options_en: "Reflect on inherent worth and potential to choose kindness over harm.",
+        focus_pl: "Postrzeganie siebie jako zdolnego do dobra.",
+        options_pl: "Rozważa swoją wartość i zdolność wybierania dobra zamiast krzywdy."
+      },
+      {
+        id: 17,
+        key: "individualWorth",
+        title: "Individual worth",
+        tag: "Self-worth",
+        category: "purpose",
+        focus_en: "Worth not based on power or money.",
+        options_en: "Affirmations, therapy, and relationships that value him as a person, not a weapon.",
+        focus_pl: "Wartość niezależna od władzy i pieniędzy.",
+        options_pl: "Afirmacje, terapia i relacje, w których jest ceniony jako człowiek, a nie narzędzie."
+      },
+      {
+        id: 18,
+        key: "workingClass",
+        title: "Working class",
+        tag: "Work",
+        category: "society",
+        focus_en: "How he treats workers and employees.",
+        options_en: "Fair wages, safe conditions, and listening to workers’ concerns.",
+        focus_pl: "Jak traktuje pracowników i osoby z klasy pracującej.",
+        options_pl: "Zapewnia godne płace, bezpieczeństwo i wysłuchuje potrzeb pracowników."
+      },
+      {
+        id: 19,
+        key: "differentParts",
+        title: "Different parts of him",
+        tag: "Integration",
+        category: "mental",
+        focus_en: "Angry, scared, caring parts inside him.",
+        options_en: "Parts work in therapy (IFS-style), integrating different sides instead of fighting them.",
+        focus_pl: "Złoszczące się, przestraszone i troskliwe części jego osobowości.",
+        options_pl: "Praca z częściami w terapii, integrowanie różnych stron zamiast walki z nimi."
+      },
+      {
+        id: 20,
+        key: "exploringIdeas",
+        title: "Exploring ideas & arguments",
+        tag: "Thinking",
+        category: "skills",
+        focus_en: "Debate without cruelty.",
+        options_en: "Practice respectful debate, evidence-based thinking, and openness to being wrong.",
+        focus_pl: "Dyskusja bez okrucieństwa.",
+        options_pl: "Ćwiczy szacunek w dyskusji, myślenie oparte na dowodach i otwartość na błąd."
+      },
+      {
+        id: 21,
+        key: "artConcept",
+        title: "Art concept & ideas",
+        tag: "Creativity",
+        category: "skills",
+        focus_en: "Using art to process pain.",
+        options_en: "Art, music, or writing to express trauma and hope in safe ways.",
+        focus_pl: "Wykorzystanie sztuki do przepracowania bólu.",
+        options_pl: "Sztuka, muzyka lub pisanie, aby bezpiecznie wyrażać traumę i nadzieję."
+      },
+      {
+        id: 22,
+        key: "society",
+        title: "Society",
+        tag: "Community",
+        category: "society",
+        focus_en: "His impact on the wider world.",
+        options_en: "Support laws and policies that protect vulnerable people instead of exploiting them.",
+        focus_pl: "Jego wpływ na szersze społeczeństwo.",
+        options_pl: "Wspiera prawo i polityki chroniące osoby wrażliwe zamiast je wykorzystywać."
+      },
+      {
+        id: 23,
+        key: "family",
+        title: "Family",
+        tag: "Relationships",
+        category: "relationships",
+        focus_en: "Complex, often abusive family history.",
+        options_en: "Family therapy where safe, boundaries, and sometimes limited contact with abusive relatives.",
+        focus_pl: "Złożona, często przemocowa historia rodzinna.",
+        options_pl: "Terapia rodzinna (gdy jest bezpieczna), granice i czasem ograniczony kontakt z przemocą."
+      },
+      {
+        id: 24,
+        key: "fears",
+        title: "Fears",
+        tag: "Anxiety",
+        category: "mental",
+        focus_en: "Fear of betrayal, weakness, and loss.",
+        options_en: "Exposure therapy, grounding skills, and talking fears through with a therapist.",
+        focus_pl: "Lęk przed zdradą, słabością i stratą.",
+        options_pl: "Terapia ekspozycyjna, techniki uziemienia i omawianie lęków z terapeutą."
+      },
+      {
+        id: 25,
+        key: "doingRight",
+        title: "Doing what is right",
+        tag: "Ethics",
+        category: "purpose",
+        focus_en: "Choosing ethics over ego.",
+        options_en: "Ethics courses, mentors, and accountability partners who challenge harmful plans.",
+        focus_pl: "Wybieranie etyki zamiast ego.",
+        options_pl: "Kursy etyki, mentorzy i osoby rozliczające go z szkodliwych planów."
+      },
+      {
+        id: 26,
+        key: "rightWrong",
+        title: "Learning right from wrong",
+        tag: "Morals",
+        category: "purpose",
+        focus_en: "Moral development beyond childhood lessons.",
+        options_en: "Study moral philosophy, law, and real-world consequences of harm.",
+        focus_pl: "Rozwój moralny wykraczający poza dziecięce lekcje.",
+        options_pl: "Studiuje filozofię moralną, prawo i realne skutki wyrządzania krzywdy."
+      },
+      {
+        id: 27,
+        key: "decisionLife",
+        title: "Decision of life",
+        tag: "Choices",
+        category: "purpose",
+        focus_en: "Big life decisions and turning points.",
+        options_en: "Decision-making frameworks, pros/cons lists, and consulting trusted advisors.",
+        focus_pl: "Wielkie decyzje życiowe i punkty zwrotne.",
+        options_pl: "Korzysta z modeli podejmowania decyzji, list za/przeciw i rad zaufanych osób."
+      },
+      {
+        id: 28,
+        key: "criticalIssues",
+        title: "Certain critical issues",
+        tag: "Crises",
+        category: "mental",
+        focus_en: "Crises like self-harm, violence, or addiction.",
+        options_en: "Emergency lines, hospitals, detox programs, and immediate professional help.",
+        focus_pl: "Kryzysy, takie jak autoagresja, przemoc czy uzależnienia.",
+        options_pl: "Numery alarmowe, szpitale, programy odwykowe i natychmiastowa pomoc specjalistów."
+      }
+    ];
+
+    const grid = document.getElementById("card-grid");
+    const filterSelect = document.getElementById("filter-select");
+    const btnEn = document.getElementById("btn-en");
+    const btnPl = document.getElementById("btn-pl");
+    const introText = document.getElementById("intro-text");
+    const footerNote = document.getElementById("footer-note");
+
+    let currentLang = "en";
+
+    function renderCards() {
+      const filter = filterSelect.value;
+      grid.innerHTML = "";
+      topics
+        .filter(t => filter === "all" || t.category === filter)
+        .forEach(t => {
+          const card = document.createElement("article");
+          card.className = "card";
+
+          const title = document.createElement("div");
+          title.className = "card-title";
+          title.textContent = t.title;
+
+          const tag = document.createElement("div");
+          tag.className = "card-tag";
+          tag.textContent = t.tag;
+
+          const focus = document.createElement("p");
+          focus.className = "card-focus";
+          focus.textContent = currentLang === "en" ? t.focus_en : t.focus_pl;
+
+          const options = document.createElement("p");
+          options.className = "card-options";
+          options.textContent = currentLang === "en" ? t.options_en : t.options_pl;
+
+          card.appendChild(title);
+          card.appendChild(tag);
+          card.appendChild(focus);
+          card.appendChild(options);
+          grid.appendChild(card);
+        });
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      if (lang === "en") {
+        btnEn.classList.add("active");
+        btnPl.classList.remove("active");
+        introText.textContent =
+          "Fictional Lex is used as a college case study. Each tile shows one part of his life and healthy options to support mental health, healing, and better choices.";
+        footerNote.textContent =
+          "This board is symbolic and educational. Real people facing abuse, mental health crises, or legal danger should contact licensed professionals, crisis lines, and trusted authorities.";
+      } else {
+        btnPl.classList.add("active");
+        btnEn.classList.remove("active");
+        introText.textContent =
+          "Fikcyjny Lex służy jako studium przypadku na studia. Każda karta pokazuje fragment jego życia i zdrowe opcje wspierające zdrowie psychiczne, proces zdrowienia i lepsze decyzje.";
+        footerNote.textContent =
+          "Ta plansza ma charakter symboliczny i edukacyjny. Osoby w realnym kryzysie powinny kontaktować się z profesjonalistami, liniami kryzysowymi i odpowiednimi służbami.";
+      }
+      renderCards();
+    }
+
+    filterSelect.addEventListener("change", renderCards);
+    btnEn.addEventListener("click", () => setLanguage("en"));
+    btnPl.addEventListener("click", () => setLanguage("pl"));
+
+    // initial render
+    renderCards();
+  </script>
+</body>
+</html>
