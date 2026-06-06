@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nightmare Before Christmas — SVG Showcase</title>
+<style>
+/* ------------------------------
+   GLOBAL STYLES
+--------------------------------*/
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1b1b2f 0, #050814 60%);
+  font-family: "Trebuchet MS", sans-serif;
+  color: #f5f0c9;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+h1 {
+  margin-top: 30px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ------------------------------
+   JACK SKELLINGTON SVG
+--------------------------------*/
+#jack-container {
+  width: 260px;
+  margin: 40px auto;
+}
+
+/* ------------------------------
+   SPIRAL HILL ANIMATION
+--------------------------------*/
+.nbc-icon {
+  width: 150px;
+  margin: 40px auto;
+}
+
+.spiral-hill {
+  animation: nbc-spin 10s linear infinite alternate;
+}
+
+@keyframes nbc-spin {
+  from { transform: rotate(-3deg) scale(1); }
+  to   { transform: rotate(3deg) scale(1.05); }
+}
+
+/* ------------------------------
+   FLOATING BATS
+--------------------------------*/
+#nbc-bats {
+  width: 300px;
+  margin: 40px auto;
+}
+
+#nbc-bats .bat {
+  transition: transform 0.4s ease, filter 0.4s ease;
+  filter: drop-shadow(0 0 4px #000);
+  cursor: pointer;
+}
+
+#nbc-bats .bat.haunt {
+  transform: translateY(-10px) scale(1.2) rotate(-5deg);
+  filter: drop-shadow(0 0 8px #f5f0c9);
+}
+
+/* ------------------------------
+   HALLOWEEN BUTTON
+--------------------------------*/
+.nbc-btn {
+  position: relative;
+  background: #050814;
+  color: #f5f0c9;
+  padding: 0.75rem 2.5rem;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  overflow: hidden;
+  margin-top: 40px;
+  font-size: 1rem;
+}
+
+.nbc-btn .nbc-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.nbc-btn:hover {
+  background: #11162a;
+}
+</style>
+</head>
+<body>
+
+<h1>Nightmare Before Christmas SVG Showcase</h1>
+
+<!-- -----------------------------------------
+     JACK SKELLINGTON MOON EMBLEM
+------------------------------------------ -->
+<div id="jack-container">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="200" height="200" fill="#050814" />
+  <circle cx="120" cy="80" r="55" fill="#f5f0c9" />
+  <path d="M0 160 Q80 90 150 150 T260 160 V200 H0 Z" fill="#050814" />
+
+  <circle cx="120" cy="80" r="25" fill="#fdfdfd" stroke="#000" stroke-width="2" />
+
+  <ellipse cx="110" cy="78" rx="6" ry="9" fill="#000" />
+  <ellipse cx="130" cy="78" rx="6" ry="9" fill="#000" />
+
+  <path d="M116 84 Q118 82 120 84" stroke="#000" stroke-width="2" fill="none" />
+  <path d="M120 84 Q122 82 124 84" stroke="#000" stroke-width="2" fill="none" />
+
+  <path d="M100 94 Q120 105 140 94" fill="none" stroke="#000" stroke-width="2" />
+
+  <line x1="106" y1="96" x2="106" y2="101" stroke="#000" stroke-width="2" />
+  <line x1="112" y1="98" x2="112" y2="103" stroke="#000" stroke-width="2" />
+  <line x1="118" y1="100" x2="118" y2="105" stroke="#000" stroke-width="2" />
+  <line x1="124" y1="100" x2="124" y2="105" stroke="#000" stroke-width="2" />
+  <line x1="130" y1="98" x2="130" y2="103" stroke="#000" stroke-width="2" />
+  <line x1="136" y1="96" x2="136" y2="101" stroke="#000" stroke-width="2" />
+</svg>
+</div>
+
+<!-- -----------------------------------------
+     SPIRAL HILL ANIMATION
+------------------------------------------ -->
+<div class="nbc-icon">
+  <svg viewBox="0 0 100 100" class="spiral-hill">
+    <path d="M0 80 Q40 30 80 70 T120 80 V100 H0 Z" fill="#050814" />
+    <path d="M55 55
+             q10 -10 18 0
+             q6 8 -2 14
+             q-6 4 -10 -2
+             q-3 -5 2 -8"
+          fill="none" stroke="#f5f0c9" stroke-width="2" />
+  </svg>
+</div>
+
+<!-- -----------------------------------------
+     FLOATING BATS WITH HOVER EFFECT
+------------------------------------------ -->
+<svg id="nbc-bats" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="bat-shape"
+          d="M0 0
+             l-10 -5 l-5 5 l-5 -5 l-10 5
+             q10 15 20 10
+             q10 5 20 -10
+             l-10 -5 l-5 5 l-5 -5 z"
+          fill="#000" />
+  </defs>
+
+  <g class="bat" transform="translate(30,40)">
+    <use href="#bat-shape" />
+  </g>
+  <g class="bat" transform="translate(100,25) scale(0.8)">
+    <use href="#bat-shape" />
+  </g>
+  <g class="bat" transform="translate(160,50) scale(1.1)">
+    <use href="#bat-shape" />
+  </g>
+</svg>
+
+<!-- -----------------------------------------
+     HALLOWEEN BUTTON
+------------------------------------------ -->
+<button class="nbc-btn">
+  <svg class="nbc-border" viewBox="0 0 200 60" preserveAspectRatio="none">
+    <rect x="2" y="2" width="196" height="56"
+          fill="none" stroke="#f5f0c9" stroke-width="3"
+          stroke-dasharray="6 4" />
+  </svg>
+  <span>Enter Halloween Town</span>
+</button>
+
+<script>
+/* -----------------------------------------
+   BAT HOVER INTERACTION
+------------------------------------------ */
+const bats = document.querySelectorAll('#nbc-bats .bat');
+
+bats.forEach(bat => {
+  bat.addEventListener('mouseenter', () => {
+    bat.classList.add('haunt');
+  });
+  bat.addEventListener('mouseleave', () => {
+    bat.classList.remove('haunt');
+  });
+});
+</script>
+
+</body>
+</html>
