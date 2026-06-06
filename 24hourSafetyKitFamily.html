@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>24-Hour Safety Kit & Family Preparedness</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --accent: #22c55e;
+      --accent-soft: #38bdf8;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      background: linear-gradient(135deg, #0b1120, #020617);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0.5rem auto 0;
+      max-width: 640px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 2rem;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--muted);
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #020617;
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      padding: 1.5rem 1.5rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-soft);
+    }
+
+    .card h3 {
+      margin: 1.25rem 0 0.35rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.75rem;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    ul {
+      margin: 0.25rem 0 0.75rem;
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+      font-size: 0.93rem;
+      color: #d1d5db;
+    }
+
+    .section-panel {
+      display: none;
+    }
+
+    .section-panel.active {
+      display: block;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>24-Hour Safety Kit & Family Support</h1>
+    <p>
+      A simple, professional guide to building a 24-hour emergency kit and planning how to
+      provide for families and life situations.
+    </p>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <button class="tab-btn active" data-target="kit">24-Hour Safety Kit</button>
+      <button class="tab-btn" data-target="family">Providing for Families</button>
+      <button class="tab-btn" data-target="situations">Planning for Situations</button>
+    </div>
+
+    <!-- 24-Hour Safety Kit -->
+    <section class="card section-panel active" id="panel-kit">
+      <h2>How to Make a 24-Hour Safety Kit</h2>
+      <p>
+        A 24-hour kit (sometimes called a “go bag”) is a small emergency kit that can help
+        you and your family stay safe for at least one day if you have to leave home quickly.
+      </p>
+
+      <h3>1. Water & Food</h3>
+      <ul>
+        <li><strong>Water:</strong> At least 1 liter per person (more if possible).</li>
+        <li><strong>Food:</strong> Non-perishable snacks (granola bars, nuts, dried fruit, canned food with opener).</li>
+      </ul>
+
+      <h3>2. Light & Communication</h3>
+      <ul>
+        <li><strong>Flashlight</strong> with extra batteries or a hand-crank light.</li>
+        <li><strong>Whistle</strong> to signal for help.</li>
+        <li><strong>Charged phone</strong> and a small power bank if you have one.</li>
+      </ul>
+
+      <h3>3. Safety & First Aid</h3>
+      <ul>
+        <li><strong>Small first aid kit:</strong> bandages, antiseptic wipes, pain reliever, any needed medications.</li>
+        <li><strong>Face masks</strong> or dust masks.</li>
+        <li><strong>Hand sanitizer</strong> and tissues or wipes.</li>
+      </ul>
+
+      <h3>4. Warmth & Clothing</h3>
+      <ul>
+        <li><strong>Light blanket</strong> or emergency foil blanket.</li>
+        <li><strong>Extra socks</strong> and a simple change of clothes.</li>
+      </ul>
+
+      <h3>5. Documents & Small Essentials</h3>
+      <ul>
+        <li>Copy of important documents (ID, emergency contacts) in a small waterproof bag.</li>
+        <li>Some cash in small bills.</li>
+        <li>Paper and pen for notes.</li>
+      </ul>
+
+      <p>
+        Pack everything in a backpack or small bag that you can carry easily. Store it in a
+        place you can reach quickly (near the door or under a bed).
+      </p>
+    </section>
+
+    <!-- Providing for Families -->
+    <section class="card section-panel" id="panel-family">
+      <h2>How to Provide for Families</h2>
+      <p>
+        Providing for families means thinking about daily needs, emergencies, and emotional
+        support. You can use this as a checklist for planning.
+      </p>
+
+      <h3>1. Daily Needs</h3>
+      <ul>
+        <li>Make a simple list of monthly needs: food, rent/mortgage, utilities, transportation.</li>
+        <li>Plan a basic budget so you know what must be covered first.</li>
+        <li>Keep a small pantry of extra food (canned goods, rice, pasta, beans).</li>
+      </ul>
+
+      <h3>2. Emergency Backup</h3>
+      <ul>
+        <li>Prepare one 24-hour kit per person (or one shared kit to start).</li>
+        <li>Have a small savings goal (even a few dollars a week) for emergencies.</li>
+        <li>Write down emergency contacts and meeting places for the family.</li>
+      </ul>
+
+      <h3>3. Emotional & Spiritual Support</h3>
+      <ul>
+        <li>Set aside time to talk about worries and plans calmly.</li>
+        <li>Use faith, prayer, or quiet reflection as a regular habit if that fits your family.</li>
+        <li>Celebrate small wins: finishing a kit, paying a bill, learning a new skill.</li>
+      </ul>
+    </section>
+
+    <!-- Planning for Situations -->
+    <section class="card section-panel" id="panel-situations">
+      <h2>Planning for Life Situations</h2>
+      <p>
+        Different situations need different plans, but the same simple questions help:
+        “What do we need? Who do we call? Where do we go?”
+      </p>
+
+      <h3>1. Home Emergencies</h3>
+      <ul>
+        <li>Know where flashlights and 24-hour kits are stored.</li>
+        <li>Decide on a safe room or meeting spot in the home.</li>
+        <li>Teach children how to call for help (911 or local emergency number).</li>
+      </ul>
+
+      <h3>2. Leaving Home Quickly</h3>
+      <ul>
+        <li>Keep shoes and a light jacket near the bed.</li>
+        <li>Have one small bag ready with essentials (your 24-hour kit).</li>
+        <li>Choose a meeting place outside the home (tree, neighbor’s house, etc.).</li>
+      </ul>
+
+      <h3>3. Providing in Hard Times</h3>
+      <ul>
+        <li>Share simple meals together, even if money is tight.</li>
+        <li>Use community resources (food banks, churches, local programs) when needed.</li>
+        <li>Write down goals: “This month we will build one kit” or “This week we will store extra water.”</li>
+      </ul>
+
+      <div class="footer-note">
+        Single-sheet HTML/CSS/JS – 24-Hour Safety Kit & Family Preparedness.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const buttons = document.querySelectorAll(".tab-btn");
+      const panels = {
+        kit: document.getElementById("panel-kit")
+        family: document.getElementById("panel-family"),
+        situations: document.getElementById("panel-situations"),
+      };
+
+      function showPanel(target) {
+        Object.keys(panels).forEach((key) => {
+          panels[key].classList.toggle("active", key === target);
+        });
+        buttons.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.target === target);
+        });
+      }
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          showPanel(btn.dataset.target);
+        });
+      });
+
+      // Initialize
+      showPanel("kit");
+    })();
+  </script>
+</body>
+</html>
