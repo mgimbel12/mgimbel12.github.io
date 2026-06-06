@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Circumstances of Life and Duty – Record Sheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --bg: #020617;
+      --card: #020617;
+      --accent: #38bdf8;
+      --accent-soft: #a855f7;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      background: linear-gradient(135deg, #020617, #0b1020);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0.5rem auto 0;
+      max-width: 640px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 2rem;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      padding: 1.5rem 1.5rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.75rem;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem 1.25rem;
+      margin-top: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.25rem;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 2.4rem;
+    }
+
+    textarea {
+      min-height: 4.5rem;
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .btn-row {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #020617;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Circumstances of Life and Duty</h1>
+    <p>
+      A professional record sheet for documenting people, times, places, and circumstances –
+      suitable for college projects, case studies, and reflective writing.
+    </p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Context & Identity</h2>
+      <p>Record who is involved and how this circumstance connects to life, duty, and responsibility.</p>
+
+      <div class="grid">
+        <div>
+          <label for="personName">Name of Person</label>
+          <input id="personName" placeholder="Full name of the person" />
+        </div>
+
+        <div>
+          <label for="artistName">Name of Artist</label>
+          <input id="artistName" placeholder="Artist, creator, or author (if relevant)" />
+        </div>
+
+        <div>
+          <label for="argumentName">Name of Argument</label>
+          <input id="argumentName" placeholder="Title or short phrase for the main issue" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Time & Place</h2>
+      <p>Capture when and where the circumstance occurs to give it clear academic context.</p>
+
+      <div class="grid">
+        <div>
+          <label for="dateName">Name of Dates</label>
+          <input id="dateName" placeholder="Example: 12 March 2026 – 15 March 2026" />
+        </div>
+
+        <div>
+          <label for="hourName">Name of Hour</label>
+          <input id="hourName" placeholder="Example: 3:15 PM" />
+        </div>
+
+        <div>
+          <label for="monthName">Name of Month</label>
+          <input id="monthName" placeholder="Example: March" />
+        </div>
+
+        <div>
+          <label for="timeName">Name of Time</label>
+          <input id="timeName" placeholder="Example: Afternoon, Night, Semester 1" />
+        </div>
+
+        <div>
+          <label for="placeName">Name of Place</label>
+          <input id="placeName" placeholder="Example: Kent Farm, Classroom, Workplace" />
+        </div>
+
+        <div>
+          <label for="periodName">Name of Period</label>
+          <input id="periodName" placeholder="Example: Childhood, College, Season 3" />
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Circumstances, Accident & Activity</h2>
+      <p>Describe what happened, why it matters, and how it connects to duty, ethics, or growth.</p>
+
+      <div class="grid">
+        <div>
+          <label for="circumstanceName">Name of Circumstance</label>
+          <input id="circumstanceName" placeholder="Short title for the situation" />
+        </div>
+
+        <div>
+          <label for="accidentName">Name of Accident</label>
+          <input id="accidentName" placeholder="If there was an accident or critical event" />
+        </div>
+
+        <div>
+          <label for="activityName">Name of Activity</label>
+          <input id="activityName" placeholder="Example: Rescue, Study Session, Meeting" />
+        </div>
+      </div>
+
+      <label for="dutyNotes" style="margin-top:1rem;">Circumstances of Life and Duty (Notes)</label>
+      <textarea id="dutyNotes" placeholder="Describe what happened, who was responsible, what duties were involved, and what was learned."></textarea>
+
+      <div class="btn-row">
+        <button class="btn-primary" id="saveBtn">Save Entry (Browser)</button>
+        <button class="btn-ghost" id="clearBtn">Clear All Fields</button>
+      </div>
+
+      <div class="footer-note">
+        Single-sheet HTML/CSS/JS – Circumstances of Life and Duty Record.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const fieldIds = [
+        "personName",
+        "artistName",
+        "argumentName",
+        "dateName",
+        "hourName",
+        "monthName",
+        "timeName",
+        "placeName",
+        "periodName",
+        "circumstanceName",
+        "accidentName",
+        "activityName",
+        "dutyNotes"
+      ];
+
+      function saveEntry() {
+        fieldIds.forEach(id => {
+          const value = document.getElementById(id).value;
+          localStorage.setItem("lifeDuty_" + id, value);
+        });
+        alert("Entry saved in this browser (local storage).");
+      }
+
+      function loadEntry() {
+        fieldIds.forEach(id => {
+          const saved = localStorage.getItem("lifeDuty_" + id);
+          if (saved !== null) {
+            document.getElementById(id).value = saved;
+          }
+        });
+      }
+
+      function clearFields() {
+        if (!confirm("Clear all fields? This will not delete saved data in local storage.")) return;
+        fieldIds.forEach(id => {
+          document.getElementById(id).value = "";
+        });
+      }
+
+      document.getElementById("saveBtn").addEventListener("click", saveEntry);
+      document.getElementById("clearBtn").addEventListener("click", clearFields);
+
+      // Load on start
+      loadEntry();
+    })();
+  </script>
+</body>
+</html>
