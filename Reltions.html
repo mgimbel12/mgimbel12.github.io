@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Cash • SVG • Stories & Relationships</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #020617;
+    --card: #020617;
+    --accent: #38bdf8;
+    --accent2: #f97316;
+    --accent3: #22c55e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #020617, #0b1020);
+    border-bottom: 1px solid var(--border);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    max-width: 640px;
+    margin-inline: auto;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.25rem 2rem;
+  }
+
+  .section {
+    background: var(--card);
+    border-radius: 1rem;
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+  }
+
+  .section h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--border);
+    background: #020617;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+
+  button {
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .btn-primary {
+    width: 100%;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
+    color: #020617;
+  }
+
+  .cash-result {
+    margin-top: 0.8rem;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  svg {
+    width: 80px;
+    height: 80px;
+    margin: 0.4rem;
+  }
+
+  .svg-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  ul {
+    margin-top: 0.4rem;
+    padding-left: 1.2rem;
+  }
+
+  li {
+    margin-bottom: 0.3rem;
+    color: var(--muted);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .info-card {
+    background: #020617;
+    border-radius: 0.8rem;
+    border: 1px solid var(--border);
+    padding: 0.9rem 1rem;
+  }
+
+  .info-card h4 {
+    margin: 0 0 0.25rem;
+    font-size: 0.95rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .info-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #e5e7eb;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 640px) {
+    header h1 { font-size: 1.6rem; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Cash • SVG • Stories & Relationships</h1>
+  <p>
+    A single‑sheet reference for counting money, exploring SVG icons, and noting key facts
+    about characters, couples, and historical figures.
+  </p>
+</header>
+
+<main>
+
+  <!-- CASH COUNTING -->
+  <section class="section">
+    <h2>Cash Count</h2>
+    <p>Enter how many of each coin or bill you have. The total will be displayed in dollars.</p>
+
+    <div class="grid">
+      <div>
+        <label for="pennies">Pennies (¢1)</label>
+        <input id="pennies" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="nickels">Nickels (¢5)</label>
+        <input id="nickels" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="dimes">Dimes (¢10)</label>
+        <input id="dimes" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="quarters">Quarters (¢25)</label>
+        <input id="quarters" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="one">One Dollar Bill</label>
+        <input id="one" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="two">Two Dollar Bill</label>
+        <input id="two" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="five">Five Dollar Bill</label>
+        <input id="five" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="ten">Ten Dollar Bill</label>
+        <input id="ten" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="twenty">Twenty Dollar Bill</label>
+        <input id="twenty" type="number" min="0" placeholder="0" />
+      </div>
+      <div>
+        <label for="hundred">Hundred Dollar Bill</label>
+        <input id="hundred" type="number" min="0" placeholder="0" />
+      </div>
+    </div>
+
+    <button class="btn-primary" onclick="calculateCash()">Calculate Total</button>
+    <div id="cashResult" class="cash-result"></div>
+  </section>
+
+  <!-- SVG ANIMALS / FOOD / ACTIVITIES -->
+  <section class="section">
+    <h2>SVG Gallery</h2>
+
+    <h3>Animals</h3>
+    <div class="svg-row">
+      <!-- Bear -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="14" fill="#92400e" />
+        <circle cx="24" cy="22" r="4" fill="#92400e" />
+        <circle cx="40" cy="22" r="4" fill="#92400e" />
+      </svg>
+      <!-- Tiger (stylized stripes) -->
+      <svg viewBox="0 0 64 64">
+        <rect x="16" y="16" width="32" height="32" fill="#f97316" />
+        <path d="M16 16 L32 48 L48 16" stroke="#020617" stroke-width="3" fill="none" />
+      </svg>
+      <!-- Rabbit / Bunny -->
+      <svg viewBox="0 0 64 64">
+        <circle cx="32" cy="36" r="10" fill="#e5e7eb" />
+        <rect x="24" y="14" width="4" height="14" fill="#e5e7eb" />
+        <rect x="36" y="14" width="4" height="14" fill="#e5e7eb" />
+      </svg>
+    </div>
+
+    <h3>Food</h3>
+    <div class="svg-row">
+      <!-- Pizza -->
+      <svg viewBox="0 0 64 64">
+        <path d="M32 8 L10 56 L54 56 Z" fill="#facc15" />
+        <circle cx="28" cy="30" r="3" fill="#b91c1c" />
+        <circle cx="36" cy="38" r="3" fill="#b91c1c" />
+      </svg>
+      <!-- Ice Cream -->
+      <svg viewBox="0 0 64 64">
+        <polygon points="32,18 22,46 42,46" fill="#fbbf24" />
+        <circle cx="32" cy="18" r="8" fill="#f472b6" />
+      </svg>
+      <!-- Breadsticks -->
+      <svg viewBox="0 0 64 64">
+        <rect x="18" y="20" width="6" height="28" fill="#facc15" />
+        <rect x="30" y="18" width="6" height="30" fill="#fbbf24" />
+        <rect x="42" y="22" width="6" height="26" fill="#fde68a" />
+      </svg>
+    </div>
+
+    <h3>Activities</h3>
+    <ul>
+      <li>Swimming</li>
+      <li>Hiking</li>
+      <li>Biking</li>
+      <li>Snorkeling</li>
+    </ul>
+  </section>
+
+  <!-- PEOPLE / BARBIE / PRINCESS / D3 INFO -->
+  <section class="section">
+    <h2>People, Stories & Relationships</h2>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <h4>Mount Rushmore</h4>
+        <p>
+          Features U.S. Presidents George Washington (b. 1732), Thomas Jefferson (b. 1743),
+          Theodore Roosevelt (b. 1858), and Abraham Lincoln (b. 1809), carved in South Dakota
+          to represent key eras of American history.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>National Treasure & Adventure</h4>
+        <p>
+          Adventure stories like <em>National Treasure</em> use American history, symbols, and
+          monuments (including presidents and founding documents) as clues in modern treasure
+          hunts and family‑team problem solving.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Saved by the Bell</h4>
+        <p>
+          A teen sitcom about high‑school friendships and relationships, originally airing in
+          the early 1990s, focusing on school life, humor, and growing up.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Smallville & Superman</h4>
+        <p>
+          <em>Smallville</em> follows Clark Kent’s teenage years in Kansas before he becomes
+          Superman, exploring family, friendship, and destiny. Superman first appeared in
+          comics in 1938 as a symbol of hope and justice.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Barbie, Stacey & Ken</h4>
+        <p>
+          Barbie debuted as a fashion doll in 1959; Ken was introduced as her boyfriend in
+          the early 1960s. Stacey and other friends expand the Barbie universe with different
+          styles, careers, and stories.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Princesses: Cinderella & Snow White</h4>
+        <p>
+          Cinderella and Snow White are classic fairy‑tale princesses whose stories center on
+          kindness, courage, and hope through hardship, often ending in loving, supportive
+          relationships and restored families.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h4>Descendants (D3) – Mal & Friends</h4>
+        <p>
+          In Disney’s <em>Descendants</em> films, Mal (daughter of Maleficent) builds
+          relationships with Ben, Uma, Harry, Gil, and others. Their stories explore trust,
+          forgiveness, and choosing good over evil in friendships and couples.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Single‑sheet HTML • CSS • JavaScript — Cash Count, SVG Gallery, Stories & Relationships
+</footer>
+
+<script>
+  function num(id) {
+    return parseFloat(document.getElementById(id).value) || 0;
+  }
+
+  function calculateCash() {
+    const pennies  = num("pennies")  * 0.01;
+    const nickels  = num("nickels")  * 0.05;
+    const dimes    = num("dimes")    * 0.10;
+    const quarters = num("quarters") * 0.25;
+    const one      = num("one")      * 1;
+    const two      = num("two")      * 2;
+    const five     = num("five")     * 5;
+    const ten      = num("ten")      * 10;
+    const twenty   = num("twenty")   * 20;
+    const hundred  = num("hundred")  * 100;
+
+    const total = pennies + nickels + dimes + quarters +
+                  one + two + five + ten + twenty + hundred;
+
+    document.getElementById("cashResult").textContent =
+      "Total Amount: $" + total.toFixed(2);
+  }
+</script>
+</body>
+</html>
