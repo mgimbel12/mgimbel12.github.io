@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Character Development Goals</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0b1020;
+      --accent: #38bdf8;
+      --accent-soft: #a855f7;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1d3557 0, var(--bg) 55%);
+      color: var(--text);
+    }
+
+    header {
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      background: linear-gradient(135deg, #020617, #0b1020);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin: 0.5rem auto 0;
+      max-width: 640px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .controls select {
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.95rem;
+      min-width: 220px;
+    }
+
+    .card {
+      background: rgba(9, 12, 20, 0.95);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      padding: 1.5rem 1.5rem 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h2 {
+      margin: 0 0 0.25rem;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+
+    .card h3 {
+      margin: 1.25rem 0 0.35rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-soft);
+    }
+
+    .card p {
+      margin: 0.25rem 0 0.75rem;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    ul {
+      margin: 0.25rem 0 0.75rem;
+      padding-left: 1.1rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+      font-size: 0.93rem;
+      color: #d1d5db;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+
+    .pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .footer-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    .character-panel {
+      display: none;
+    }
+
+    .character-panel.active {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      main {
+        padding-inline: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smallville Character Development Goals</h1>
+    <p>
+      A professional, single-sheet overview of support and growth goals for key Smallville
+      characters – suitable for college projects, portfolios, and story analysis.
+    </p>
+  </header>
+
+  <main>
+    <div class="controls">
+      <label for="characterSelect">Select Character</label>
+      <select id="characterSelect">
+        <option value="ac">AC Curry</option>
+        <option value="lex">Lex Luthor</option>
+        <option value="clark">Clark Kent</option>
+        <option value="oliver">Oliver Queen</option>
+        <option value="lionel">Lionel Luthor</option>
+        <option value="luthors">The Luthors (Family)</option>
+        <option value="lois">Lois Lane</option>
+        <option value="lana">Lana Lang</option>
+        <option value="chloe">Chloe Sullivan</option>
+        <option value="maddie">Maddie Van Horn</option>
+        <option value="all">All Smallville Characters</option>
+      </select>
+    </div>
+
+    <!-- Shared categories card -->
+    <section class="card">
+      <h2>Shared Goal Categories</h2>
+      <p>
+        These categories apply across all characters and can be used as a framework for essays,
+        projects, and character studies.
+      </p>
+      <div class="pill-row">
+        <span class="pill">Family Support</span>
+        <span class="pill">Provision</span>
+        <span class="pill">Law &amp; Order</span>
+        <span class="pill">Life Circumstances</span>
+        <span class="pill">24-Hour Kits</span>
+        <span class="pill">Business</span>
+        <span class="pill">Children</span>
+        <span class="pill">Art &amp; Concept Art</span>
+        <span class="pill">Articles &amp; FAQs</span>
+        <span class="pill">Favorite Games</span>
+        <span class="pill">Life &amp; Purpose</span>
+      </div>
+    </section>
+
+    <!-- AC Curry -->
+    <section class="card character-panel active" id="panel-ac">
+      <h2>AC Curry – Development Goals</h2>
+      <p>
+        Focused on oceans, justice, and global responsibility, AC’s goals center on protecting
+        both his family and the world he serves.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Practical and emotional support for AC and his family.</li>
+        <li><strong>Provision:</strong> Ways to provide for his family and close friends.</li>
+        <li><strong>Life circumstances:</strong> Strategies for handling global threats and personal challenges.</li>
+        <li><strong>24-hour kits:</strong> Emergency readiness for coastal and underwater crises.</li>
+        <li><strong>Business:</strong> Ocean-focused initiatives, advocacy, and partnerships.</li>
+        <li><strong>Children:</strong> Teaching future generations about stewardship.</li>
+        <li><strong>Art &amp; concept art:</strong> Visualizing underwater worlds and heroic missions.</li>
+        <li><strong>Articles &amp; FAQs:</strong> Educational pieces about oceans, justice, and hero work.</li>
+        <li><strong>Favorite games &amp; life:</strong> Healthy balance between mission and rest.</li>
+        <li><strong>Situations that make purpose:</strong> Moments where saving others defines his calling.</li>
+      </ul>
+    </section>
+
+    <!-- Lex Luthor -->
+    <section class="card character-panel" id="panel-lex">
+      <h2>Lex Luthor – Development Goals</h2>
+      <p>
+        Lex’s goals explore the tension between power, legacy, and the possibility of a better path.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Healthier patterns with his family and future children.</li>
+        <li><strong>Provision:</strong> Ethical ways to provide for family and allies.</li>
+        <li><strong>Life circumstances:</strong> Responding to trauma without repeating it.</li>
+        <li><strong>24-hour kits:</strong> Preparedness for corporate and personal crises.</li>
+        <li><strong>Business:</strong> Shifting from exploitation to responsibility.</li>
+        <li><strong>Children:</strong> Breaking generational cycles of manipulation.</li>
+        <li><strong>Art &amp; concept art:</strong> Visualizing a different kind of legacy.</li>
+        <li><strong>Articles &amp; FAQs:</strong> Thought pieces that challenge his own assumptions.</li>
+        <li><strong>Favorite games &amp; life:</strong> Learning to value connection over control.</li>
+        <li><strong>Situations that make purpose:</strong> Choosing purpose beyond power.</li>
+      </ul>
+    </section>
+
+    <!-- Clark Kent -->
+    <section class="card character-panel" id="panel-clark">
+      <h2>Clark Kent – Development Goals</h2>
+      <p>
+        Clark’s goals revolve around responsibility, law and order, and caring for both his family
+        and the wider world.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Supporting the Kents and his future family.</li>
+        <li><strong>Provision:</strong> Balancing hero work with practical provision.</li>
+        <li><strong>Law &amp; order:</strong> Acting within moral and legal boundaries.</li>
+        <li><strong>Life circumstances:</strong> Navigating secrets, destiny, and loss.</li>
+        <li><strong>24-hour kits:</strong> Preparedness for disasters and emergencies.</li>
+        <li><strong>Business:</strong> Career paths (journalism, leadership) that align with his values.</li>
+        <li><strong>Children:</strong> Future mentoring and fatherhood.</li>
+        <li><strong>Art &amp; concept art:</strong> Symbolism of the “S” and heroic imagery.</li>
+        <li><strong>FAQs &amp; articles:</strong> Questions about identity, justice, and hope.</li>
+        <li><strong>Favorite games &amp; life:</strong> Keeping humanity and joy in everyday life.</li>
+        <li><strong>Situations that make purpose:</strong> Rescues and choices that define him as a hero.</li>
+      </ul>
+    </section>
+
+    <!-- Oliver Queen -->
+    <section class="card character-panel" id="panel-oliver">
+      <h2>Oliver Queen – Development Goals</h2>
+      <p>
+        Oliver’s goals blend vigilante justice, leadership, and responsibility for those who depend on him.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Healing and supporting his extended “team family.”</li>
+        <li><strong>Provision:</strong> Using wealth to support missions and communities.</li>
+        <li><strong>Law &amp; order:</strong> Operating ethically as a vigilante.</li>
+        <li><strong>Life circumstances:</strong> Managing guilt, loss, and leadership pressure.</li>
+        <li><strong>24-hour kits:</strong> Tactical readiness and gear.</li>
+        <li><strong>Business:</strong> Aligning Queen Industries with justice.</li>
+        <li><strong>Children:</strong> Future mentoring and legacy planning.</li>
+        <li><strong>Art &amp; concept art:</strong> Suit, symbol, and team branding.</li>
+        <li><strong>FAQs &amp; articles:</strong> Public narratives about vigilantes and justice.</li>
+        <li><strong>Favorite games &amp; life:</strong> Training, archery, and healthy outlets.</li>
+        <li><strong>Situations that make purpose:</strong> Missions that define his role as leader.</li>
+      </ul>
+    </section>
+
+    <!-- Lionel Luthor -->
+    <section class="card character-panel" id="panel-lionel">
+      <h2>Lionel Luthor – Development Goals</h2>
+      <p>
+        Lionel’s goals focus on transformation from ruthless power-broker to someone capable of repentance and repair.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Repairing damage with Lex and others.</li>
+        <li><strong>Provision:</strong> Using resources for restoration, not control.</li>
+        <li><strong>Life circumstances:</strong> Facing consequences honestly.</li>
+        <li><strong>24-hour kits:</strong> Preparedness for crises he once caused.</li>
+        <li><strong>Business:</strong> Turning influence toward good.</li>
+        <li><strong>Children:</strong> Breaking cycles of abuse and manipulation.</li>
+        <li><strong>Art &amp; concept art:</strong> Reimagining the Luthor legacy.</li>
+        <li><strong>Articles &amp; FAQs:</strong> Reflective writings on power and redemption.</li>
+        <li><strong>Favorite games &amp; life:</strong> Letting go of constant scheming.</li>
+        <li><strong>Situations that make purpose:</strong> Choosing sacrifice over self-interest.</li>
+      </ul>
+    </section>
+
+    <!-- The Luthors (family) -->
+    <section class="card character-panel" id="panel-luthors">
+      <h2>The Luthors – Family Development Goals</h2>
+      <p>
+        A family-wide framework for healing, responsibility, and healthier uses of power.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Building trust instead of fear.</li>
+        <li><strong>Provision:</strong> Providing without manipulation.</li>
+        <li><strong>Life circumstances:</strong> Facing public and private fallout.</li>
+        <li><strong>24-hour kits:</strong> Emotional and practical readiness for crises.</li>
+        <li><strong>Business:</strong> Ethical leadership and philanthropy.</li>
+        <li><strong>Children:</strong> New patterns for future generations.</li>
+        <li><strong>Art &amp; concept art:</strong> Rebranding the Luthor name.</li>
+        <li><strong>Articles &amp; FAQs:</strong> Public commitments to change.</li>
+        <li><strong>Favorite games &amp; life:</strong> Learning to value relationships.</li>
+        <li><strong>Situations that make purpose:</strong> Choosing service over domination.</li>
+      </ul>
+    </section>
+
+    <!-- Lois Lane -->
+    <section class="card character-panel" id="panel-lois">
+      <h2>Lois Lane – Development Goals</h2>
+      <p>
+        Lois’s goals center on truth, law and order, and using her voice to protect others.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Supporting her family and future with Clark.</li>
+        <li><strong>Provision:</strong> Career growth in journalism.</li>
+        <li><strong>Law &amp; order:</strong> Exposing corruption and defending the innocent.</li>
+        <li><strong>Life circumstances:</strong> Balancing danger and normal life.</li>
+        <li><strong>24-hour kits:</strong> Preparedness for investigations and crises.</li>
+        <li><strong>Business:</strong> Professional integrity in media.</li>
+        <li><strong>Children:</strong> Future parenting and mentorship.</li>
+        <li><strong>Art &amp; concept art:</strong> Visual storytelling and layouts.</li>
+        <li><strong>FAQs &amp; articles:</strong> Hard-hitting pieces and human-interest stories.</li>
+        <li><strong>Favorite games &amp; life:</strong> Humor, banter, and resilience.</li>
+        <li><strong>Situations that make purpose:</strong> Stories that change lives.</li>
+      </ul>
+    </section>
+
+    <!-- Lana Lang -->
+    <section class="card character-panel" id="panel-lana">
+      <h2>Lana Lang – Development Goals</h2>
+      <p>
+        Lana’s goals focus on identity, independence, and building a life with clear purpose.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Stability for herself and loved ones.</li>
+        <li><strong>Provision:</strong> Business ventures like the Talon.</li>
+        <li><strong>Law &amp; order:</strong> Setting healthy boundaries.</li>
+        <li><strong>Life circumstances:</strong> Moving beyond trauma and secrets.</li>
+        <li><strong>24-hour kits:</strong> Emotional and practical readiness.</li>
+        <li><strong>Business:</strong> Ethical ownership and leadership.</li>
+        <li><strong>Children:</strong> Future nurturing roles.</li>
+        <li><strong>Art &amp; concept art:</strong> Visual identity and personal expression.</li>
+        <li><strong>FAQs &amp; articles:</strong> Stories about leaving toxic environments.</li>
+        <li><strong>Favorite games &amp; life:</strong> Simple joys and community.</li>
+        <li><strong>Situations that make purpose:</strong> Choosing her own path.</li>
+      </ul>
+    </section>
+
+    <!-- Chloe Sullivan -->
+    <section class="card character-panel" id="panel-chloe">
+      <h2>Chloe Sullivan – Development Goals</h2>
+      <p>
+        Chloe’s goals revolve around information, protection, and balancing truth with safety.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Supporting her family and found family.</li>
+        <li><strong>Provision:</strong> Career in journalism and intel work.</li>
+        <li><strong>Law &amp; order:</strong> Using information ethically.</li>
+        <li><strong>Life circumstances:</strong> Handling danger and emotional strain.</li>
+        <li><strong>24-hour kits:</strong> Digital and physical preparedness.</li>
+        <li><strong>Business:</strong> Professional roles in media or Watchtower.</li>
+        <li><strong>Children:</strong> Future mentoring and guidance.</li>
+        <li><strong>Art &amp; concept art:</strong> Visual data, boards, and layouts.</li>
+        <li><strong>FAQs &amp; articles:</strong> Guides, exposés, and help resources.</li>
+        <li><strong>Favorite games &amp; life:</strong> Curiosity, puzzles, and joy.</li>
+        <li><strong>Situations that make purpose:</strong> Investigations that save lives.</li>
+      </ul>
+    </section>
+
+    <!-- Maddie Van Horn -->
+    <section class="card character-panel" id="panel-maddie">
+      <h2>Maddie Van Horn – Development Goals</h2>
+      <p>
+        Maddie’s goals emphasize healing, family support, and creative expression.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family support:</strong> Emotional safety and understanding.</li>
+        <li><strong>Provision:</strong> Stability and resources for her future.</li>
+        <li><strong>Law &amp; order:</strong> Protection and fair treatment.</li>
+        <li><strong>Life circumstances:</strong> Navigating trauma and growth.</li>
+        <li><strong>24-hour kits:</strong> Safety plans and support systems.</li>
+        <li><strong>Business:</strong> Future opportunities and skills.</li>
+        <li><strong>Children:</strong> Nurturing inner child and future roles.</li>
+        <li><strong>Art &amp; concept art:</strong> Healing through creativity.</li>
+        <li><strong>FAQs &amp; articles:</strong> Resources about healing and support.</li>
+        <li><strong>Favorite games &amp; life:</strong> Play as part of recovery.</li>
+        <li><strong>Situations that make purpose:</strong> Turning pain into empathy.</li>
+      </ul>
+    </section>
+
+    <!-- All Smallville Characters -->
+    <section class="card character-panel" id="panel-all">
+      <h2>All Smallville Characters – Shared Goals</h2>
+      <p>
+        A unified framework for every character’s growth, useful for essays, projects, and
+        thematic analysis.
+      </p>
+      <h3>Key Ideas</h3>
+      <ul>
+        <li><strong>Family &amp; provision:</strong> Supporting and providing for loved ones.</li>
+        <li><strong>Law &amp; order:</strong> Finding a just way to live and lead.</li>
+        <li><strong>Life circumstances:</strong> Facing hardship with courage.</li>
+        <li><strong>24-hour kits:</strong> Being prepared for crisis.</li>
+        <li><strong>Business &amp; work:</strong> Using talents responsibly.</li>
+        <li><strong>Children &amp; future:</strong> Caring for the next generation.</li>
+        <li><strong>Art &amp; concept art:</strong> Expressing identity and mission.</li>
+        <li><strong>Articles &amp; FAQs:</strong> Sharing knowledge and guidance.</li>
+        <li><strong>Favorite games &amp; life:</strong> Keeping joy and humanity.</li>
+        <li><strong>Situations that make purpose:</strong> Moments where choices define who they become.</li>
+      </ul>
+      <div class="footer-note">
+        Single-sheet HTML/CSS/JS – Smallville Character Development Goals.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const select = document.getElementById("characterSelect");
+      const panels = document.querySelectorAll(".character-panel");
+
+      function showPanel(id) {
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === "panel-" + id);
+        });
+      }
+
+      select.addEventListener("change", () => {
+        showPanel(select.value);
+      });
+
+      // Initialize
+      showPanel(select.value);
+    })();
+  </script>
+</body>
+</html>
