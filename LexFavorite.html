@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Lex Luthor – Favorites, Healing & Faith</title>
+<style>
+  :root {
+    --bg: #0b0f1c;
+    --card: #151a2d;
+    --accent: #f4c542;
+    --text: #f7f7ff;
+    --soft: #c4c7e0;
+    --good: #4caf50;
+  }
+
+  body {
+    background: radial-gradient(circle at top, #2a336a 0, #050814 60%, #02030a 100%);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sheet {
+    width: 100%;
+    max-width: 1100px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 2rem;
+    backdrop-filter: blur(18px);
+  }
+
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .lang-toggle button {
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.4);
+    color: var(--soft);
+    cursor: pointer;
+    font-size: 0.8rem;
+  }
+
+  .lang-toggle button.active {
+    background: var(--accent);
+    color: #1b1300;
+    border-color: var(--accent);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+
+  .desc {
+    font-size: 0.8rem;
+    color: var(--soft);
+  }
+
+  iframe {
+    width: 100%;
+    height: 220px;
+    border-radius: 12px;
+    border: none;
+    margin-top: 0.5rem;
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <h1 id="header">Lex Luthor – Favorites, Healing & Faith</h1>
+
+  <div class="lang-toggle">
+    <button id="en" class="active">EN</button>
+    <button id="pl">PL</button>
+  </div>
+
+  <!-- FAVORITES GRID -->
+  <h2 id="fav-title">Favorite Types</h2>
+  <div class="grid" id="fav-grid"></div>
+
+  <!-- INNER LIFE GRID -->
+  <h2 id="inner-title" style="margin-top:1.5rem;">Inner Life & Healing</h2>
+  <div class="grid" id="inner-grid"></div>
+
+  <!-- FAITH GRID -->
+  <h2 id="faith-title" style="margin-top:1.5rem;">Faith, Nature & Purpose</h2>
+  <div class="grid" id="faith-grid"></div>
+
+  <!-- YOUTUBE LEARNING -->
+  <h2 style="margin-top:1.5rem;" id="yt-title">Learning Videos</h2>
+  <p id="yt-desc" style="font-size:0.85rem; color:var(--soft);">
+    Symbolic videos for character study, psychology, and emotional development.
+  </p>
+
+  <iframe id="yt1" src="https://www.youtube.com/embed/RcCNiFBJ6Rg"></iframe>
+  <iframe id="yt2" src="https://www.youtube.com/embed/7sxpKhIbr0E"></iframe>
+
+</div>
+
+<script>
+  const EN = {
+    header: "Lex Luthor – Favorites, Healing & Faith",
+    favTitle: "Favorite Types",
+    innerTitle: "Inner Life & Healing",
+    faithTitle: "Faith, Nature & Purpose",
+    ytTitle: "Learning Videos",
+    ytDesc: "Symbolic videos for character study, psychology, and emotional development.",
+
+    favorites: [
+      ["Favorite Music", "Dark classical, cello, dramatic scores"],
+      ["Favorite Mental Healing", "Therapy, journaling, quiet reflection"],
+      ["Favorite Memories", "Moments of genuine connection"],
+      ["Favorite Mental Issues", "Understanding trauma, anxiety, identity"],
+      ["Favorite Babies", "Ones he can protect, not control"],
+      ["Favorite Learning", "Philosophy, science, strategy"],
+      ["Favorite Teams", "Ones built on loyalty"],
+      ["Favorite Sports", "Chess, fencing"],
+      ["Favorite Things", "Books, archives, old libraries"],
+      ["Favorite Animals", "Owls, wolves"],
+      ["Favorite Creations", "Inventions, tech, architecture"],
+      ["Favorite Painting", "Symbolist and surrealist art"],
+      ["Favorite Artists", "Da Vinci, Goya, Tim Burton"],
+      ["Favorite Singers", "Orchestral, cinematic vocalists"]
+    ],
+
+    inner: [
+      ["Emotional", "Learning to name feelings safely"],
+      ["Physical", "Reducing stress, grounding the body"],
+      ["Mental", "Cognitive healing, trauma work"],
+      ["Morals", "Learning right vs wrong without ego"],
+      ["Behavioral", "Replacing control with communication"],
+      ["Character", "Choosing integrity over fear"],
+      ["Couples", "Healthy boundaries and honesty"],
+      ["Relationships", "Trust built slowly and safely"],
+      ["Helping Him", "Therapy, mentors, safe people"],
+      ["Saving Him", "Accountability + compassion"]
+    ],
+
+    faith: [
+      ["Faith", "Belief in change"],
+      ["Hope", "Small steps forward"],
+      ["Divine Nature", "Seeing worth beyond power"],
+      ["Individual Worth", "Value not tied to status"],
+      ["Nature", "Calm, grounding environments"],
+      ["Learning of His People", "Understanding community and culture"]
+    ]
+  };
+
+  const PL = {
+    header: "Lex Luthor – Ulubione, Uzdrowienie i Wiara",
+    favTitle: "Ulubione Typy",
+    innerTitle: "Wewnętrzne Życie i Uzdrowienie",
+    faithTitle: "Wiara, Natura i Sens",
+    ytTitle: "Filmy Edukacyjne",
+    ytDesc: "Symboliczne filmy do analizy postaci, psychologii i rozwoju emocjonalnego.",
+
+    favorites: [
+      ["Ulubiona Muzyka", "Mroczna klasyka, wiolonczela, dramatyczne motywy"],
+      ["Ulubione Uzdrowienie", "Terapia, dziennik, cisza"],
+      ["Ulubione Wspomnienia", "Chwile prawdziwej więzi"],
+      ["Ulubione Problemy Psychiczne", "Trauma, lęk, tożsamość"],
+      ["Ulubione Dzieci", "Te, które może chronić"],
+      ["Ulubione Nauczanie", "Filozofia, nauka, strategia"],
+      ["Ulubione Drużyny", "Oparte na lojalności"],
+      ["Ulubione Sporty", "Szachy, szermierka"],
+      ["Ulubione Rzeczy", "Książki, archiwa, biblioteki"],
+      ["Ulubione Zwierzęta", "Sowy, wilki"],
+      ["Ulubione Twory", "Wynalazki, technologia"],
+      ["Ulubiony Obraz", "Symbolizm, surrealizm"],
+      ["Ulubieni Artyści", "Da Vinci, Goya, Tim Burton"],
+      ["Ulubieni Wokaliści", "Orkiestrowi, filmowi"]
+    ],
+
+    inner: [
+      ["Emocjonalne", "Nauka bezpiecznego nazywania uczuć"],
+      ["Fizyczne", "Zmniejszanie stresu, uziemienie"],
+      ["Psychiczne", "Terapia traumy"],
+      ["Moralne", "Dobro ponad ego"],
+      ["Behawioralne", "Komunikacja zamiast kontroli"],
+      ["Charakter", "Wybór uczciwości"],
+      ["Związki", "Zdrowe granice"],
+      ["Relacje", "Zaufanie budowane powoli"],
+      ["Pomoc", "Terapia, mentorzy"],
+      ["Ratunek", "Odpowiedzialność + współczucie"]
+    ],
+
+    faith: [
+      ["Wiara", "Przekonanie o zmianie"],
+      ["Nadzieja", "Małe kroki"],
+      ["Boska Natura", "Wartość ponad władzą"],
+      ["Wartość Osobista", "Nie zależy od statusu"],
+      ["Natura", "Uspokajające środowiska"],
+      ["Nauka Jego Ludzi", "Zrozumienie społeczności"]
+    ]
+  };
+
+  let lang = EN;
+
+  function render() {
+    document.getElementById("header").textContent = lang.header;
+    document.getElementById("fav-title").textContent = lang.favTitle;
+    document.getElementById("inner-title").textContent = lang.innerTitle;
+    document.getElementById("faith-title").textContent = lang.faithTitle;
+    document.getElementById("yt-title").textContent = lang.ytTitle;
+    document.getElementById("yt-desc").textContent = lang.ytDesc;
+
+    const favGrid = document.getElementById("fav-grid");
+    const innerGrid = document.getElementById("inner-grid");
+    const faithGrid = document.getElementById("faith-grid");
+
+    favGrid.innerHTML = "";
+    innerGrid.innerHTML = "";
+    faithGrid.innerHTML = "";
+
+    lang.favorites.forEach(([t, d]) => {
+      favGrid.innerHTML += `<div class="card"><div class="title">${t}</div><div class="desc">${d}</div></div>`;
+    });
+
+    lang.inner.forEach(([t, d]) => {
+      innerGrid.innerHTML += `<div class="card"><div class="title">${t}</div><div class="desc">${d}</div></div>`;
+    });
+
+    lang.faith.forEach(([t, d]) => {
+      faithGrid.innerHTML += `<div class="card"><div class="title">${t}</div><div class="desc">${d}</div></div>`;
+    });
+  }
+
+  document.getElementById("en").onclick = () => {
+    lang = EN;
+    document.getElementById("en").classList.add("active");
+    document.getElementById("pl").classList.remove("active");
+    render();
+  };
+
+  document.getElementById("pl").onclick = () => {
+    lang = PL;
+    document.getElementById("pl").classList.add("active");
+    document.getElementById("en").classList.remove("active");
+    render();
+  };
+
+  render();
+</script>
+</body>
+</html>
