@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Fan Club – Season & Cast Dossier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --card: #151820;
+      --accent: #e63946;
+      --accent-soft: #ffb703;
+      --text: #f1faee;
+      --muted: #a8dadc;
+      --border: #1f2833;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1d3557 0, var(--bg) 55%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1d3557, #000814);
+      border-radius: 1rem;
+      padding: 1.75rem 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(230, 57, 70, 0.25), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(255, 183, 3, 0.18), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      margin: 0 0 0.25rem;
+      font-size: 1.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0 0 0.75rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+    }
+
+    .hero p {
+      margin: 0.25rem 0 0.75rem;
+      max-width: 650px;
+      line-height: 1.5;
+      color: #e9ecef;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .badge {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 249, 250, 0.18);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(6px);
+    }
+
+    .tabs {
+      margin-top: 1.75rem;
+      border-radius: 1rem;
+      background: rgba(10, 12, 16, 0.9);
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    .tab-list {
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .tab-button {
+      flex: 1 1 140px;
+      padding: 0.75rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      border-right: 1px solid var(--border);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .tab-button:last-child {
+      border-right: none;
+    }
+
+    .tab-button.active {
+      background: radial-gradient(circle at top, rgba(230, 57, 70, 0.35), transparent 70%);
+      color: var(--text);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 1.25rem 1.5rem 1.5rem;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    h4 {
+      margin-bottom: 0.25rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-soft);
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #e5e5e5;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin: 0.25rem 0 0.75rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+      font-size: 0.93rem;
+      color: #d8dee9;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.25rem 0 0.75rem;
+    }
+
+    .pill {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(229, 231, 235, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+      padding: 0.75rem 0.9rem;
+    }
+
+    .card h5 {
+      margin: 0 0 0.25rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-soft);
+    }
+
+    .card p {
+      margin: 0.15rem 0;
+      font-size: 0.9rem;
+    }
+
+    .footer-note {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-align: right;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+      .hero h2 {
+        font-size: 0.85rem;
+      }
+      .tab-button {
+        font-size: 0.78rem;
+        padding-inline: 0.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-inner">
+        <h2>Smallville Fan Club</h2>
+        <h1>Season & Cast Relationship Dossier</h1>
+        <p>
+          A professional single-sheet overview of the relationships, cast, and key
+          themes of <strong>Smallville</strong>—designed for fan clubs, portfolios,
+          and classroom-style discussion.
+        </p>
+        <div class="hero-badges">
+          <span class="badge">Lexana</span>
+          <span class="badge">Chlark</span>
+          <span class="badge">Clois</span>
+          <span class="badge">Chimmy</span>
+          <span class="badge">Clana</span>
+          <span class="badge">Oliver &amp; Chloe</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tabs" aria-label="Smallville Fan Club Sections">
+      <div class="tab-list" role="tablist">
+        <button class="tab-button active" data-tab="overview" role="tab" aria-selected="true">
+          Overview
+        </button>
+        <button class="tab-button" data-tab="relationships" role="tab" aria-selected="false">
+          Relationships
+        </button>
+        <button class="tab-button" data-tab="cast" role="tab" aria-selected="false">
+          Cast &amp; Dates
+        </button>
+        <button class="tab-button" data-tab="importance" role="tab" aria-selected="false">
+          Importance
+        </button>
+      </div>
+
+      <!-- Overview -->
+      <article id="overview" class="tab-content active" role="tabpanel">
+        <h3>Season Overview</h3>
+        <p>
+          <em>Smallville</em> follows Clark Kent through his formative years in the town of
+          Smallville, Kansas. The series blends coming-of-age drama with superhero mythology,
+          focusing on his relationships with Lana, Chloe, Lex, Lois, the Kents, and the wider
+          hero community.
+        </p>
+        <p>
+          This fan-club sheet organizes the major “ships,” cast details, and thematic
+          importance of each character into a single, printable or shareable document.
+        </p>
+        <h4>Fan Club Focus Areas</h4>
+        <ul>
+          <li><strong>Episode discussions:</strong> Season arcs, turning points, and finales.</li>
+          <li><strong>Relationship analysis:</strong> Lexana, Chlark, Clois, Chimmy, Clana, and more.</li>
+          <li><strong>Cast appreciation:</strong> Birthdays, milestones, and reunions.</li>
+          <li><strong>Creative projects:</strong> Essays, art, and web portfolios.</li>
+        </ul>
+      </article>
+
+      <!-- Relationships -->
+      <article id="relationships" class="tab-content" role="tabpanel">
+        <h3>Relationship Spotlights</h3>
+
+        <h4>Lexana (Lex &amp; Lana)</h4>
+        <p>
+          A complex relationship where genuine affection collides with power and secrecy.
+          For Lex, Lexana is an attempt at a normal life; for Lana, it marks her transition
+          into the dangerous Luthor world.
+        </p>
+
+        <h4>Chlois</h4>
+        <p>
+          A fan concept that frames Chloe as a proto-Lois Lane: investigative, sharp, and
+          fearless. It highlights her role as the show’s original reporter archetype.
+        </p>
+
+        <h4>Chlana (Chloe &amp; Lana)</h4>
+        <p>
+          A friendship that survives secrets, crushes, and shifting loyalties. Chlana
+          showcases how two very different young women learn to trust each other.
+        </p>
+
+        <h4>Lois &amp; Lex</h4>
+        <p>
+          Their scenes emphasize ideological contrast: Lois’s moral compass versus Lex’s
+          calculated pragmatism, mirroring the conflict between free press and power.
+        </p>
+
+        <h4>Chlark (Chloe &amp; Clark)</h4>
+        <p>
+          A deep emotional bond built on loyalty and investigative partnership. Chlark
+          anchors Clark’s early hero’s journey, especially before Clois becomes central.
+        </p>
+
+        <h4>Clois (Clark &amp; Lois)</h4>
+        <p>
+          The iconic endgame romance. Clois evolves from banter and rivalry into a
+          partnership defined by mutual respect and shared purpose.
+        </p>
+
+        <h4>Chimmy (Chloe &amp; Jimmy)</h4>
+        <p>
+          A warm, grounded relationship that explores how secrets and danger strain
+          everyday love.
+        </p>
+
+        <h4>Clana (Clark &amp; Lana)</h4>
+        <p>
+          The central early-series romance, representing first love and the pain of
+          hidden truths. Clana shows how secrecy can erode even the strongest feelings.
+        </p>
+
+        <h4>Oliver &amp; Chloe</h4>
+        <p>
+          A later-series partnership blending tech genius with vigilante leadership.
+          Their bond emphasizes trust, shared mission, and emotional healing.
+        </p>
+
+        <h4>Ollie (Oliver Queen)</h4>
+        <p>
+          Oliver challenges Clark to think globally and act decisively, expanding the
+          show into a team-based hero universe.
+        </p>
+
+        <h4>AC Curry &amp; Merria</h4>
+        <p>
+          Arthur Curry (Aquaman) brings oceanic stakes and environmental themes into
+          Smallville. “Merria” can serve as a fan tag for his romantic and royal future.
+        </p>
+
+        <div class="pill-row">
+          <span class="pill">Lexana</span>
+          <span class="pill">Chlois</span>
+          <span class="pill">Chlana</span>
+          <span class="pill">Chlark</span>
+          <span class="pill">Clois</span>
+          <span class="pill">Chimmy</span>
+          <span class="pill">Clana</span>
+          <span class="pill">Oliver &amp; Chloe</span>
+          <span class="pill">Ollie</span>
+          <span class="pill">AC Curry</span>
+        </div>
+      </article>
+
+      <!-- Cast & Dates -->
+      <article id="cast" class="tab-content" role="tabpanel">
+        <h3>Cast &amp; Key Dates</h3>
+        <p>
+          Use this section for birthday calendars, tribute posts, and themed viewing
+          parties. Dates are provided for quick reference.
+        </p>
+
+        <div class="two-col">
+          <div class="card">
+            <h5>Main Cast</h5>
+            <p><strong>Tom Welling</strong> (Clark Kent) – April 26, 1977</p>
+            <p><strong>Kristin Kreuk</strong> (Lana Lang) – December 30, 1982</p>
+            <p><strong>Michael Rosenbaum</strong> (Lex Luthor) – July 11, 1972</p>
+            <p><strong>Allison Mack</strong> (Chloe Sullivan) – July 29, 1982</p>
+            <p><strong>Erica Durance</strong> (Lois Lane) – June 21, 1978</p>
+          </div>
+
+          <div class="card">
+            <h5>Family &amp; Allies</h5>
+            <p><strong>John Schneider</strong> (Jonathan Kent) – April 8, 1960</p>
+            <p><strong>Annette O’Toole</strong> (Martha Kent) – April 1, 1952</p>
+            <p><strong>Justin Hartley</strong> (Oliver Queen) – January 29, 1977</p>
+            <p><strong>Alan Ritchson</strong> (Arthur “AC” Curry) – November 28, 1982</p>
+          </div>
+        </div>
+
+        <h4>Dates of Importance</h4>
+        <ul>
+          <li><strong>Pilot premiere:</strong> First appearance of Clark, Lana, Chloe, Lex, and the meteor shower.</li>
+          <li><strong>Key relationship episodes:</strong> First Clois sparks, major Clana turns, Lexana milestones, Chimmy highlights.</li>
+          <li><strong>Fandom dates:</strong> Convention reunions, fan-club founding day, and annual “Smallville Day.”</li>
+        </ul>
+
+        <h4>Places &amp; Scenes</h4>
+        <ul>
+          <li><strong>Kent Farm:</strong> Emotional center of the series.</li>
+          <li><strong>Luthor Mansion:</strong> Symbol of power and isolation.</li>
+          <li><strong>The Talon:</strong> Community hub and conversation hotspot.</li>
+          <li><strong>Daily Planet:</strong> Home of truth, journalism, and Clois.</li>
+        </ul>
+      </article>
+
+      <!-- Importance -->
+      <article id="importance" class="tab-content" role="tabpanel">
+        <h3>Importance by Character</h3>
+
+        <div class="two-col">
+          <div class="card">
+            <h5>Lex Luthor</h5>
+            <p>
+              Lexana, Clex, and his family ties chart his journey from wounded friend
+              to full antagonist, exploring trust, betrayal, and power.
+            </p>
+          </div>
+          <div class="card">
+            <h5>Chloe Sullivan</h5>
+            <p>
+              Through Chlark, Chimmy, Chlana, and Oliver, Chloe becomes a lens on
+              journalism, sacrifice, and unrequited love.
+            </p>
+          </div>
+          <div class="card">
+            <h5>Lana Lang</h5>
+            <p>
+              Clana and Lexana trace her path from small-town innocence to a woman
+              claiming her own agency and boundaries.
+            </p>
+          </div>
+          <div class="card">
+            <h5>Clark Kent</h5>
+            <p>
+              His relationships with Lana, Chloe, Lois, Lex, Oliver, and the Kents
+              shape his moral compass and destiny.
+            </p>
+          </div>
+          <div class="card">
+            <h5>Jonathan Kent</h5>
+            <p>
+              Clark’s moral anchor, modeling integrity, restraint, and sacrificial
+              love within the Kent family.
+            </p>
+          </div>
+          <div class="card">
+            <h5>Lex’s Circle</h5>
+            <p>
+              Lionel, friends, and rivals become mirrors for what Lex could have been,
+              highlighting nature vs. nurture and legacy.
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-note">
+          Designed as a single-sheet HTML/CSS/JS dossier for the Smallville Fan Club.
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const buttons = document.querySelectorAll(".tab-button");
+      const contents = document.querySelectorAll(".tab-content");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-tab");
+
+          buttons.forEach((b) => {
+            b.classList.toggle("active", b === btn);
+            b.setAttribute("aria-selected", b === btn ? "true" : "false");
+          });
+
+          contents.forEach((c) => {
+            c.classList.toggle("active", c.id === target);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
