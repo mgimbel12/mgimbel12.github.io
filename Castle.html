@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Castle of Heroes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --blue: #1f4fff;
+      --red: #e32636;
+      --yellow: #ffd93b;
+      --green: #2ecc71;
+      --aqua: #4de3ff;
+      --night: #020618;
+      --snow: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      color: #f9fbff;
+      background: radial-gradient(circle at top, #1b3cff 0, #020618 55%, #000 100%);
+      overflow: hidden;
+    }
+
+    .sky-gradient {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #4de3ff 0, #1f4fff 35%, #020618 80%);
+      z-index: -3;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.7) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+      background-size: 120px 120px, 200px 200px;
+      background-position: 0 0, 60px 80px;
+      opacity: 0.5;
+      animation: twinkle 12s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+
+    .page {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(0,0,0,0.7);
+    }
+
+    header p {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+
+    .main-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 1100px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .castle-shell {
+      position: relative;
+      border-radius: 24px;
+      padding: 1.5rem;
+      background: linear-gradient(145deg, rgba(3, 8, 30, 0.9), rgba(10, 25, 60, 0.9));
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 18px 40px rgba(0,0,0,0.7);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .castle-shell::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(77,227,255,0.18) 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(255,217,59,0.18) 0, transparent 55%);
+      opacity: 0.9;
+      z-index: -1;
+    }
+
+    .castle-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(to top, #020618 0, #07112b 40%, #122a5f 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .castle-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .castle-svg .castle-line {
+      stroke: var(--aqua);
+      stroke-width: 3;
+      fill: rgba(255,255,255,0.02);
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 6px rgba(77,227,255,0.9));
+    }
+
+    .castle-svg .window {
+      fill: rgba(255,255,255,0.08);
+      transition: fill 0.3s ease, filter 0.3s ease;
+    }
+
+    .castle-svg .window.glow {
+      fill: var(--yellow);
+      filter: drop-shadow(0 0 10px rgba(255,217,59,0.9));
+    }
+
+    .ice-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.18), transparent 40%, rgba(255,255,255,0.12)),
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.25) 0, transparent 55%);
+      mix-blend-mode: screen;
+      backdrop-filter: blur(6px);
+      opacity: 0.7;
+      animation: shimmer 7s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-10%) translateY(0); opacity: 0.6; }
+      50% { transform: translateX(10%) translateY(-2%); opacity: 0.9; }
+      100% { transform: translateX(-10%) translateY(0); opacity: 0.6; }
+    }
+
+    .hero-emblem {
+      position: absolute;
+      right: 1.2rem;
+      top: 1.2rem;
+      width: 70px;
+      height: 70px;
+      background: radial-gradient(circle at 30% 20%, #ffeaa7 0, #ffd93b 40%, #e32636 100%);
+      clip-path: polygon(50% 0%, 92% 32%, 72% 100%, 28% 100%, 8% 32%);
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.3),
+        0 0 18px rgba(227,38,54,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero-emblem span {
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: 0.04em;
+      color: #fff;
+      text-shadow: 0 0 6px rgba(0,0,0,0.7);
+    }
+
+    .hero-emblem:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.6),
+        0 0 26px rgba(227,38,54,1);
+    }
+
+    .cape {
+      position: absolute;
+      left: -20%;
+      top: 12%;
+      width: 120px;
+      height: 70px;
+      background: linear-gradient(135deg, #e32636 0, #ff6b6b 40%, #ffd93b 100%);
+      border-radius: 60% 40% 80% 20%;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 12px rgba(0,0,0,0.7));
+      animation: cape-flight 22s linear infinite;
+      transform-origin: center;
+    }
+
+    @keyframes cape-flight {
+      0% {
+        transform: translateX(-40%) translateY(0) rotate(-10deg);
+        opacity: 0;
+      }
+      10% {
+        transform: translateX(0%) translateY(-10px) rotate(-4deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateX(120%) translateY(-30px) rotate(6deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translateX(220%) translateY(10px) rotate(12deg);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateX(260%) translateY(40px) rotate(18deg);
+        opacity: 0;
+      }
+    }
+
+    .ribbons-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .ribbons-panel h2 {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+    }
+
+    .ribbons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .ribbon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 0.9rem;
+      border-radius: 999px;
+      color: #020618;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      overflow: hidden;
+      transform-origin: center left;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+    }
+
+    .ribbon span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+    }
+
+    .ribbon span.tagline {
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
+
+    .ribbon::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.4) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .ribbon:hover {
+      transform: translateX(4px) scale(1.02);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.7);
+      filter: brightness(1.05);
+    }
+
+    .ribbon:hover::after {
+      opacity: 1;
+    }
+
+    .ribbon.blue { background: linear-gradient(90deg, #1f4fff, #4de3ff); color: #f9fbff; }
+    .ribbon.red { background: linear-gradient(90deg, #e32636, #ff6b6b); color: #fff5f5; }
+    .ribbon.yellow { background: linear-gradient(90deg, #ffd93b, #ffeaa7); color: #4a3200; }
+    .ribbon.green { background: linear-gradient(90deg, #2ecc71, #7bed9f); color: #02130a; }
+    .ribbon.aqua { background: linear-gradient(90deg, #4de3ff, #a5f3fc); color: #021018; }
+
+    .ribbon small {
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+
+    .ribbon .hotkey {
+      font-size: 0.7rem;
+      padding: 0.1rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.6);
+      background: rgba(0,0,0,0.18);
+      color: inherit;
+      margin-left: 0.4rem;
+    }
+
+    .mode-label {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      opacity: 0.85;
+    }
+
+    .footer-note {
+      margin-top: 1.2rem;
+      font-size: 0.75rem;
+      opacity: 0.75;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow:
+        0 0 8px rgba(255,255,255,0.9),
+        0 0 16px rgba(77,227,255,0.9);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.9;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    .theme-disney {
+      background: radial-gradient(circle at top, #4de3ff 0, #1f4fff 35%, #020618 80%);
+    }
+
+    .theme-smallville {
+      background: radial-gradient(circle at top, #ff6b6b 0, #e32636 30%, #020618 80%);
+    }
+
+    .theme-forest {
+      background: radial-gradient(circle at top, #2ecc71 0, #14532d 40%, #020617 80%);
+    }
+
+    .theme-hope {
+      background: radial-gradient(circle at top, #ffd93b 0, #f97316 35%, #020617 80%);
+    }
+
+    .theme-aqua {
+      background: radial-gradient(circle at top, #4de3ff 0, #0ea5e9 35%, #020617 80%);
+    }
+  </style>
+</head>
+<body>
+  <div class="sky-gradient"></div>
+  <div class="stars"></div>
+
+  <div class="page">
+    <header>
+      <h1>Castle of Heroes</h1>
+      <p>Disney castle, ice princess shimmer, Smallville courage, Supergirl hope — all in one HTML • CSS • JS scene.</p>
+    </header>
+
+    <main class="main-layout">
+      <section class="castle-shell">
+        <div class="castle-stage" id="castleStage">
+          <svg class="castle-svg" viewBox="0 0 400 300" aria-hidden="true">
+            <rect x="0" y="220" width="400" height="80" fill="#020617" />
+
+            <path class="castle-line"
+              d="M60 220 L60 150 L90 150 L90 120 L110 120 L110 90 L130 90 L130 60 L150 60 L150 40 L170 40 L170 60 L190 60 L190 90 L210 90 L210 120 L230 120 L230 150 L260 150 L260 220 Z" />
+
+            <path class="castle-line"
+              d="M140 220 L140 170 L180 170 L180 140 L200 140 L200 170 L240 170 L240 220 Z" />
+
+            <path class="castle-line"
+              d="M170 140 L170 110 L190 110 L190 140 Z" />
+
+            <rect class="window" x="75" y="160" width="12" height="18" rx="2" />
+            <rect class="window" x="105" y="130" width="12" height="18" rx="2" />
+            <rect class="window" x="135" y="100" width="12" height="18" rx="2" />
+            <rect class="window" x="165" y="80" width="12" height="18" rx="2" />
+            <rect class="window" x="195" y="100" width="12" height="18" rx="2" />
+            <rect class="window" x="225" y="130" width="12" height="18" rx="2" />
+            <rect class="window" x="255" y="160" width="12" height="18" rx="2" />
+
+            <path class="castle-line"
+              d="M150 40 L160 20 L170 40 M180 60 L190 40 L200 60 M130 60 L140 40 L150 60" />
+          </svg>
+
+          <div class="ice-overlay"></div>
+          <div class="hero-emblem" id="heroEmblem" title="Toggle hero glow">
+            <span>S</span>
+          </div>
+          <div class="cape"></div>
+        </div>
+      </section>
+
+      <aside class="ribbons-panel">
+        <h2>Color Ribbons</h2>
+        <div class="ribbons">
+          <button class="ribbon blue" data-theme="disney">
+            <span class="label">Blue</span>
+            <span class="tagline">Ice Princess • Night Sky</span>
+            <span>
+              <small>Click to shift to Disney frost</small>
+              <span class="hotkey">1</span>
+            </span>
+          </button>
+
+          <button class="ribbon red" data-theme="smallville">
+            <span class="label">Red</span>
+            <span class="tagline">Smallville • Supergirl Crest</span>
+            <span>
+              <small>Click for farm‑town courage</small>
+              <span class="hotkey">2</span>
+            </span>
+          </button>
+
+          <button class="ribbon yellow" data-theme="hope">
+            <span class="label">Yellow</span>
+            <span class="tagline">Hope • Sunlight • Emblem</span>
+            <span>
+              <small>Click to warm the sky</small>
+              <span class="hotkey">3</span>
+            </span>
+          </button>
+
+          <button class="ribbon green" data-theme="forest">
+            <span class="label">Green</span>
+            <span class="tagline">Krypton Glow • Renewal</span>
+            <span>
+              <small>Click for forest magic</small>
+              <span class="hotkey">4</span>
+            </span>
+          </button>
+
+          <button class="ribbon aqua" data-theme="aqua">
+            <span class="label">Aquamarine</span>
+            <span class="tagline">Your Signature • Waterlight</span>
+            <span>
+              <small>Click to return to aquamarine</small>
+              <span class="hotkey">5</span>
+            </span>
+          </button>
+        </div>
+
+        <p class="mode-label">
+          Tip: Press keys <strong>1–5</strong> to switch themes. Click the <strong>S</strong> emblem to toggle window glow.
+        </p>
+
+        <p class="footer-note">
+          Built with pure HTML, CSS, and JavaScript — ready to drop into your portfolio and customize further.
+        </p>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const body = document.body;
+    const ribbons = document.querySelectorAll(".ribbon");
+    const heroEmblem = document.getElementById("heroEmblem");
+    const windows = document.querySelectorAll(".castle-svg .window");
+    const skyGradient = document.querySelector(".sky-gradient");
+
+    function setTheme(themeName) {
+      skyGradient.classList.remove(
+        "theme-disney",
+        "theme-smallville",
+        "theme-forest",
+        "theme-hope",
+        "theme-aqua"
+      );
+      switch (themeName) {
+        case "disney":
+          skyGradient.classList.add("theme-disney");
+          break;
+        case "smallville":
+          skyGradient.classList.add("theme-smallville");
+          break;
+        case "forest":
+          skyGradient.classList.add("theme-forest");
+          break;
+        case "hope":
+          skyGradient.classList.add("theme-hope");
+          break;
+        case "aqua":
+        default:
+          skyGradient.classList.add("theme-aqua");
+          break;
+      }
+    }
+
+    setTheme("aqua");
+
+    ribbons.forEach(ribbon => {
+      ribbon.addEventListener("click", () => {
+        const theme = ribbon.getAttribute("data-theme");
+        setTheme(theme);
+      });
+    });
+
+    window.addEventListener("keydown", (e) => {
+      const key = e.key;
+      if (key === "1") setTheme("disney");
+      if (key === "2") setTheme("smallville");
+      if (key === "3") setTheme("hope");
+      if (key === "4") setTheme("forest");
+      if (key === "5") setTheme("aqua");
+    });
+
+    let glowOn = false;
+    heroEmblem.addEventListener("click", () => {
+      glowOn = !glowOn;
+      windows.forEach(w => {
+        if (glowOn) {
+          w.classList.add("glow");
+        } else {
+          w.classList.remove("glow");
+        }
+      });
+    });
+
+    function createSnowflake() {
+      const flake = document.createElement("div");
+      flake.className = "snowflake";
+      const size = Math.random() * 6 + 4;
+      flake.style.width = size + "px";
+      flake.style.height = size + "px";
+      flake.style.left = Math.random() * 100 + "vw";
+      const duration = Math.random() * 6 + 6;
+      flake.style.animationDuration = duration + "s";
+      body.appendChild(flake);
+      setTimeout(() => flake.remove(), duration * 1000 + 1000);
+    }
+
+    setInterval(createSnowflake, 350);
+  </script>
+</body>
+</html>
