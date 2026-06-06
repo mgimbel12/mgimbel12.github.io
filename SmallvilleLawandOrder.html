@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Law & Order Charter</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0b1020;
+      --accent: #e63946;
+      --accent-soft: #ffb703;
+      --text: #f9fafb;
+      --muted: #9ca3af;
+      --border: #1f2933;
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1d3557 0, var(--bg) 55%);
+      color: var(--text);
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+    }
+
+    .card {
+      background: rgba(9, 12, 20, 0.95);
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      padding: 1.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.25rem;
+      font-size: 1.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0 0 1rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-soft);
+    }
+
+    p {
+      line-height: 1.6;
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      margin: 0.35rem 0;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin: 0.25rem 0 0.75rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+      font-size: 0.93rem;
+      color: #d1d5db;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.75rem 0 0.5rem;
+    }
+
+    .badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    .footer-note {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      text-align: right;
+    }
+
+    /* Password gate */
+    .gate {
+      max-width: 420px;
+      margin: 4rem auto 0;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      text-align: center;
+    }
+
+    .gate h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .gate p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .gate input {
+      width: 100%;
+      margin-top: 0.75rem;
+      padding: 0.55rem 0.7rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--border);
+      background: #020617;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .gate button {
+      margin-top: 0.75rem;
+      width: 100%;
+      padding: 0.6rem 0.7rem;
+      border-radius: 0.5rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+      color: #0b1020;
+      font-weight: 600;
+    }
+
+    .gate .error {
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+      color: #fca5a5;
+      min-height: 1.1em;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 1rem;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Gate -->
+  <section class="gate" id="gate">
+    <h2>Smallville Law &amp; Order</h2>
+    <p>Enter the fan-club password to view the charter.</p>
+    <input
+      type="password"
+      id="passwordInput"
+      placeholder="Password"
+      autocomplete="current-password"
+    />
+    <button id="enterButton">Enter</button>
+    <div class="error" id="errorMessage"></div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="page hidden" id="content">
+    <section class="card">
+      <h2>Charter Document</h2>
+      <h1>Smallville Law &amp; Order of Families</h1>
+      <p>
+        This charter records the guiding “laws” of the Luthors, Kents, Sullivans, Queens,
+        Currys, and the wider town of Smallville. It is intended as a reference for
+        discussions, essays, and creative projects across all seasons of the series.
+      </p>
+
+      <div class="badge-row">
+        <span class="badge">Luthors</span>
+        <span class="badge">Kents</span>
+        <span class="badge">Sullivans</span>
+        <span class="badge">Queens</span>
+        <span class="badge">Currys</span>
+        <span class="badge">Smallville</span>
+      </div>
+
+      <h3>1. Law &amp; Order of the Luthors</h3>
+      <p>
+        Power is protection. The Luthor code treats law as a tool to be bent, rewritten,
+        or purchased. Control, leverage, and legacy define their sense of order.
+      </p>
+
+      <h3>2. Law &amp; Order of the Kents</h3>
+      <p>
+        Truth, responsibility, and restraint. The Kents teach that power must serve others
+        and that moral law stands above personal gain.
+      </p>
+
+      <h3>3. Law &amp; Order of the Sullivans</h3>
+      <p>
+        The public’s right to know. Chloe’s investigative code balances transparency with
+        safety, evidence with empathy.
+      </p>
+
+      <h3>4. Law &amp; Order of the Queens</h3>
+      <p>
+        Justice beyond the courtroom. The Queens embrace vigilante missions when formal
+        systems fail, holding themselves to a strict internal charter.
+      </p>
+
+      <h3>5. Law &amp; Order of the Currys</h3>
+      <p>
+        Stewardship of the natural world. AC’s law defends oceans, ecosystems, and those
+        who cannot speak for themselves.
+      </p>
+
+      <h3>6. Law &amp; Order of Smallville</h3>
+      <p>
+        Community, memory, and survival. The town’s unwritten rules blend local authority,
+        shared trauma, and resilience.
+      </p>
+
+      <h3>7. Law &amp; Orders of Families &amp; Friends</h3>
+      <p>
+        The true order of Smallville emerges where these codes collide: Kent vs. Luthor,
+        secrecy vs. truth, institutions vs. vigilantes. Each character carries a personal
+        law that shapes the town’s future.
+      </p>
+
+      <div class="footer-note">
+        Single-sheet HTML/CSS/JS charter – password protected for fan-club archives.
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      // Change this value to set a new password
+      const PASSWORD = "smallville";
+
+      const gate = document.getElementById("gate");
+      const content = document.getElementById("content");
+      const input = document.getElementById("passwordInput");
+      const button = document.getElementById("enterButton");
+      const error = document.getElementById("errorMessage");
+
+      function unlock() {
+        const value = input.value.trim();
+        if (value === PASSWORD) {
+          gate.classList.add("hidden");
+          content.classList.remove("hidden");
+          error.textContent = "";
+        } else {
+          error.textContent = "Incorrect password. Please try again.";
+        }
+      }
+
+      button.addEventListener("click", unlock);
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          unlock();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
