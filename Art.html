@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Money Counting • SVG • Barbie & Life Lessons</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #0b0d16;
+    --card: #111827;
+    --accent: #38bdf8;
+    --accent2: #f472b6;
+    --accent3: #22c55e;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: radial-gradient(circle at top, #1e293b 0, #0b0d16 60%);
+    color: var(--text);
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #1e293b, #0b0d16);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section h3 {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: var(--accent2);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+
+  label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #020617;
+    color: var(--text);
+  }
+
+  button {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.7rem;
+    border-radius: 8px;
+    border: none;
+    background: var(--accent3);
+    color: #020617;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .result-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #0f172a;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .math-line {
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  svg {
+    width: 80px;
+    height: 80px;
+    margin: 0.5rem;
+  }
+
+  .svg-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .life-box {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Money Counting • SVG • Barbie & Life Lessons</h1>
+  <p>Learn math, life skills, and creativity in one beautiful single‑sheet design.</p>
+</header>
+
+<main>
+
+  <!-- MONEY COUNTING -->
+  <section class="section">
+    <h2>Money Counting System</h2>
+    <p>Enter how many of each coin or bill you have. The system will show the math step‑by‑step.</p>
+
+    <div class="grid">
+      <div><label>Pennies</label><input id="pennies" type="number" min="0"></div>
+      <div><label>Nickels</label><input id="nickels" type="number" min="0"></div>
+      <div><label>Dimes</label><input id="dimes" type="number" min="0"></div>
+      <div><label>Quarters</label><input id="quarters" type="number" min="0"></div>
+      <div><label>$1 Bills</label><input id="one" type="number" min="0"></div>
+      <div><label>$2 Bills</label><input id="two" type="number" min="0"></div>
+      <div><label>$5 Bills</label><input id="five" type="number" min="0"></div>
+      <div><label>$10 Bills</label><input id="ten" type="number" min="0"></div>
+      <div><label>$20 Bills</label><input id="twenty" type="number" min="0"></div>
+      <div><label>$100 Bills</label><input id="hundred" type="number" min="0"></div>
+    </div>
+
+    <button onclick="countMoney()">Calculate Money</button>
+
+    <div id="mathOutput" class="result-box"></div>
+  </section>
+
+  <!-- SVG ICONS -->
+  <section class="section">
+    <h2>SVG Icons</h2>
+
+    <h3>Rabbit</h3>
+    <svg viewBox="0 0 64 64">
+      <circle cx="32" cy="36" r="10" fill="#e5e7eb" />
+      <rect x="24" y="14" width="4" height="14" fill="#e5e7eb" />
+      <rect x="36" y="14" width="4" height="14" fill="#e5e7eb" />
+    </svg>
+
+    <h3>Pizza</h3>
+    <svg viewBox="0 0 64 64">
+      <path d="M32 8 L10 56 L54 56 Z" fill="#facc15" />
+      <circle cx="28" cy="30" r="3" fill="#b91c1c" />
+      <circle cx="36" cy="38" r="3" fill="#b91c1c" />
+    </svg>
+
+    <h3>Barbie</h3>
+    <svg viewBox="0 0 64 64">
+      <circle cx="32" cy="20" r="10" fill="#f472b6" />
+      <rect x="22" y="30" width="20" height="24" fill="#ec4899" />
+    </svg>
+
+    <h3>Ken Doll</h3>
+    <svg viewBox="0 0 64 64">
+      <circle cx="32" cy="20" r="10" fill="#38bdf8" />
+      <rect x="22" y="30" width="20" height="24" fill="#0ea5e9" />
+    </svg>
+
+    <h3>Sally & Jack (Silhouette)</h3>
+    <svg viewBox="0 0 64 64">
+      <circle cx="22" cy="28" r="10" fill="#111" />
+      <circle cx="42" cy="28" r="10" fill="#444" />
+    </svg>
+  </section>
+
+  <!-- LIFE LESSONS -->
+  <section class="section">
+    <h2>Life Learnings</h2>
+
+    <div class="life-box">
+      <h3>Barbie & Ken</h3>
+      <p>Barbie teaches confidence, creativity, and trying new careers. Ken teaches support, teamwork, and kindness.</p>
+    </div>
+
+    <div class="life-box">
+      <h3>Sally & Jack</h3>
+      <p>Sally teaches patience and intuition. Jack teaches curiosity and leadership. Together they show balance.</p>
+    </div>
+
+    <div class="life-box">
+      <h3>Money & Life Situations</h3>
+      <p>Counting money teaches responsibility, planning, saving, and understanding how small amounts grow into big totals.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Single‑Sheet HTML • CSS • JavaScript — Money, SVG, Barbie, Life Lessons
+</footer>
+
+<script>
+function val(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+function countMoney() {
+  const math = [];
+
+  const pennies = val("pennies") * 0.01;
+  math.push(`Pennies: ${val("pennies")} × $0.01 = $${pennies.toFixed(2)}`);
+
+  const nickels = val("nickels") * 0.05;
+  math.push(`Nickels: ${val("nickels")} × $0.05 = $${nickels.toFixed(2)}`);
+
+  const dimes = val("dimes") * 0.10;
+  math.push(`Dimes: ${val("dimes")} × $0.10 = $${dimes.toFixed(2)}`);
+
+  const quarters = val("quarters") * 0.25;
+  math.push(`Quarters: ${val("quarters")} × $0.25 = $${quarters.toFixed(2)}`);
+
+  const one = val("one") * 1;
+  math.push(`$1 Bills: ${val("one")} × $1 = $${one.toFixed(2)}`);
+
+  const two = val("two") * 2;
+  math.push(`$2 Bills: ${val("two")} × $2 = $${two.toFixed(2)}`);
+
+  const five = val("five") * 5;
+  math.push(`$5 Bills: ${val("five")} × $5 = $${five.toFixed(2)}`);
+
+  const ten = val("ten") * 10;
+  math.push(`$10 Bills: ${val("ten")} × $10 = $${ten.toFixed(2)}`);
+
+  const twenty = val("twenty") * 20;
+  math.push(`$20 Bills: ${val("twenty")} × $20 = $${twenty.toFixed(2)}`);
+
+  const hundred = val("hundred") * 100;
+  math.push(`$100 Bills: ${val("hundred")} × $100 = $${hundred.toFixed(2)}`);
+
+  const total = pennies + nickels + dimes + quarters + one + two + five + ten + twenty + hundred;
+
+  let output = `<h3>Total: $${total.toFixed(2)}</h3>`;
+  output += math.map(m => `<div class="math-line">${m}</div>`).join("");
+
+  document.getElementById("mathOutput").innerHTML = output;
+}
+</script>
+
+</body>
+</html>
