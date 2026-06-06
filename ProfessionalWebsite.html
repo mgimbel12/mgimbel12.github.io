@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Professional Website – Life, Purpose & Order</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #0b0d16;
+    --card: #111827;
+    --accent: #38bdf8;
+    --accent2: #f472b6;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  /* NAVIGATION */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: #0f172a;
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav .links a {
+    margin-right: 1.5rem;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  nav .links a:hover {
+    color: var(--accent);
+  }
+
+  nav .buttons button {
+    margin-left: 0.5rem;
+    padding: 0.45rem 0.8rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #1e293b;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+  }
+
+  nav .buttons button:hover {
+    background: var(--accent);
+    color: #0b0d16;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    background: linear-gradient(135deg, #1e293b, #0b0d16);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+
+  /* MAIN CONTENT */
+  main {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  .section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .section ul {
+    margin-top: 0.5rem;
+    padding-left: 1.2rem;
+  }
+
+  .section li {
+    margin-bottom: 0.4rem;
+    color: var(--muted);
+  }
+
+  /* 3-WAY DESIGN GRID */
+  .three-way {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .three-way .box {
+    background: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .three-way .box h3 {
+    margin-top: 0;
+    color: var(--accent2);
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* TOGGLE THEME */
+  .dark {
+    --bg: #0b0d16;
+    --card: #111827;
+    --text: #f9fafb;
+  }
+
+  .light {
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --text: #0b0d16;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+</style>
+</head>
+
+<body class="dark">
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="links">
+    <a href="#">About Us</a>
+    <a href="#">Who Are We?</a>
+    <a href="#">What We Represent</a>
+  </div>
+
+  <div class="buttons">
+    <button onclick="searchAlert()">Search</button>
+    <button onclick="showDate()">Date</button>
+    <button onclick="showCalendar()">Calendar</button>
+    <button onclick="toggleTheme()">Toggle</button>
+    <button onclick="cart()">Cart</button>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <h1>Life • Purpose • Law & Order</h1>
+  <p>A professional, polished website structure for all audiences.</p>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- THEMES -->
+  <section class="section">
+    <h2>Themes</h2>
+    <ul>
+      <li>Holidays</li>
+      <li>Seasons</li>
+      <li>Topics About Life</li>
+      <li>Barbie</li>
+      <li>Toys for Tots</li>
+    </ul>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="section">
+    <h2>Audience Views</h2>
+    <ul>
+      <li>Children</li>
+      <li>Teens</li>
+      <li>Adults</li>
+      <li>Seniors</li>
+    </ul>
+  </section>
+
+  <!-- TOPIC SENTENCES -->
+  <section class="section">
+    <h2>Topic Sentences</h2>
+    <ul>
+      <li>Life</li>
+      <li>Pursuit of Happiness</li>
+      <li>Law and Order</li>
+    </ul>
+  </section>
+
+  <!-- 3-WAY DESIGN -->
+  <section class="section">
+    <h2>3-Way Design Structure</h2>
+
+    <div class="three-way">
+      <div class="box">
+        <h3>Layout</h3>
+        <p>Organized sections for clarity and flow.</p>
+      </div>
+
+      <div class="box">
+        <h3>Design</h3>
+        <p>Color, spacing, typography, and visual identity.</p>
+      </div>
+
+      <div class="box">
+        <h3>Experience</h3>
+        <p>Interactive buttons, theme toggle, and audience focus.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Single‑Sheet HTML • CSS • JavaScript — Professional Website Structure
+</footer>
+
+<script>
+  function searchAlert() {
+    alert("Search function coming soon.");
+  }
+
+  function showDate() {
+    alert("Today's Date: " + new Date().toLocaleDateString());
+  }
+
+  function showCalendar() {
+    alert("Calendar feature coming soon.");
+  }
+
+  function cart() {
+    alert("Cart is currently empty.");
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle("light");
+    document.body.classList.toggle("dark");
+  }
+</script>
+
+</body>
+</html>
