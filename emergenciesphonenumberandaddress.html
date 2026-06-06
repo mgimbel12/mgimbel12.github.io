@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Emergency Contacts & Address Sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<style>
+  :root {
+    --bg: #0b0d16;
+    --card: #111827;
+    --accent: #ef4444;
+    --accent-soft: #f59e0b;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+    --font: system-ui, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font);
+    background: radial-gradient(circle at top, #1e293b 0, #0b0d16 60%);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  header {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-bottom: 2px solid var(--border);
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  header p {
+    margin-top: 0.5rem;
+    color: var(--muted);
+  }
+
+  main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: var(--accent-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  label {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.3rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #020617;
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  .highlight {
+    background: rgba(239, 68, 68, 0.15);
+    border-left: 4px solid var(--accent);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+  }
+
+  .save-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent-soft));
+    border: none;
+    border-radius: 8px;
+    color: #111827;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    letter-spacing: 0.1em;
+  }
+
+  .save-btn:hover {
+    opacity: 0.9;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Emergency Contact Sheet</h1>
+  <p>Keep this page printed or saved inside your 24‑Hour Safety Kit</p>
+</header>
+
+<main>
+
+  <section class="card">
+    <h2>Your Home Information</h2>
+
+    <label>Home Address</label>
+    <input id="homeAddress" placeholder="Enter your full address" />
+
+    <label>Nearest Cross Streets</label>
+    <input id="crossStreets" placeholder="Example: Sunset & Green Valley" />
+
+    <label>Emergency Meeting Spot</label>
+    <input id="meetingSpot" placeholder="Example: Big tree across the street" />
+  </section>
+
+  <section class="card">
+    <h2>Emergency Phone Numbers</h2>
+
+    <div class="highlight">
+      <strong>9‑1‑1 — Emergency Police, Fire, EMT</strong><br>
+      Use only for life‑threatening emergencies.
+    </div>
+
+    <label>Local Police (Non‑Emergency)</label>
+    <input id="policeNon" placeholder="Example: (702) 555‑1234" />
+
+    <label>Local Fire Department</label>
+    <input id="fireDept" placeholder="Example: (702) 555‑5678" />
+
+    <label>Nearest Hospital</label>
+    <input id="hospital" placeholder="Example: Henderson Hospital (702) 555‑9012" />
+
+    <label>Family Emergency Contact</label>
+    <input id="familyContact" placeholder="Name & phone number" />
+
+    <label>Out‑of‑State Contact</label>
+    <input id="stateContact" placeholder="Name & phone number" />
+  </section>
+
+  <section class="card">
+    <h2>Save Your Information</h2>
+    <p>This button saves your emergency info in your browser so it stays even if you close the page.</p>
+    <button class="save-btn" onclick="saveInfo()">Save Information</button>
+  </section>
+
+</main>
+
+<div class="footer">
+  Single‑Sheet HTML • CSS • JavaScript — Emergency Contact Card
+</div>
+
+<script>
+  function saveInfo() {
+    const fields = [
+      "homeAddress",
+      "crossStreets",
+      "meetingSpot",
+      "policeNon",
+      "fireDept",
+      "hospital",
+      "familyContact",
+      "stateContact"
+    ];
+
+    fields.forEach(id => {
+      localStorage.setItem(id, document.getElementById(id).value);
+    });
+
+    alert("Your emergency information has been saved.");
+  }
+
+  // Load saved info on page load
+  window.onload = () => {
+    const fields = [
+      "homeAddress",
+      "crossStreets",
+      "meetingSpot",
+      "policeNon",
+      "fireDept",
+      "hospital",
+      "familyContact",
+      "stateContact"
+    ];
+
+    fields.forEach(id => {
+      const saved = localStorage.getItem(id);
+      if (saved) document.getElementById(id).value = saved;
+    });
+  };
+</script>
+
+</body>
+</html>
