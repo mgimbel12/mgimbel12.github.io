@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bright & Jolly Christmas Night</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #2b2b40 0%, #050510 55%, #000 100%);
+      color: #fff;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Moon – slightly eerie, Tim Burton-ish */
+    .moon {
+      position: absolute;
+      top: 8%;
+      right: 12%;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fffff5 0%, #f5f5d0 40%, #d4d4a0 70%, #88886a 100%);
+      box-shadow: 0 0 40px rgba(255, 255, 220, 0.8);
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+    }
+
+    .moon::before {
+      content: "";
+      position: absolute;
+      inset: 10px 20px 30px 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, transparent 0%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+      mix-blend-mode: multiply;
+    }
+
+    /* Ground */
+    .ground {
+      position: absolute;
+      bottom: -40px;
+      left: -10%;
+      width: 120%;
+      height: 200px;
+      background: radial-gradient(circle at 50% -40px, #444 0%, #111 55%, #050505 100%);
+      border-radius: 50% 50% 0 0;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    /* Christmas tree – stylized */
+    .tree {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 130px solid transparent;
+      border-right: 130px solid transparent;
+      border-bottom: 220px solid #0b3b26;
+      filter: drop-shadow(0 0 20px rgba(0, 255, 150, 0.4));
+    }
+
+    .tree::before,
+    .tree::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 110px solid transparent;
+      border-right: 110px solid transparent;
+      border-bottom: 190px solid #0f5133;
+    }
+
+    .tree::before {
+      bottom: 40px;
+    }
+
+    .tree::after {
+      bottom: 80px;
+      border-bottom-color: #0b3b26;
+    }
+
+    .trunk {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 60px;
+      background: linear-gradient(135deg, #3b2414, #1f120a);
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Star on top */
+    .star {
+      position: absolute;
+      bottom: 310px;
+      left: 50%;
+      transform: translateX(-50%) rotate(12deg);
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-bottom: 30px solid #ffd966;
+      filter: drop-shadow(0 0 10px rgba(255, 230, 120, 0.9));
+    }
+
+    .star::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: -18px;
+      width: 0;
+      height: 0;
+      border-left: 18px solid transparent;
+      border-right: 18px solid transparent;
+      border-top: 30px solid #ffd966;
+    }
+
+    /* String lights around tree */
+    .lights {
+      position: absolute;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 160px;
+      border-radius: 50%;
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
+    .light-bulb {
+      position: absolute;
+      width: 10px;
+      height: 16px;
+      border-radius: 50% 50% 60% 60%;
+      background: #ff4b5c;
+      box-shadow: 0 0 10px rgba(255, 75, 92, 0.9);
+      transform-origin: top center;
+      animation: flicker 1.4s infinite alternate;
+    }
+
+    @keyframes flicker {
+      0% {
+        opacity: 0.4;
+        transform: scale(0.9) rotate(-4deg);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1.1) rotate(4deg);
+      }
+    }
+
+    /* Gift boxes */
+    .gifts {
+      position: absolute;
+      bottom: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 18px;
+      align-items: flex-end;
+    }
+
+    .gift {
+      position: relative;
+      background: #ff4b5c;
+      border-radius: 4px;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.7);
+      transform-style: preserve-3d;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .gift::before,
+    .gift::after {
+      content: "";
+      position: absolute;
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Vertical ribbon */
+    .gift::before {
+      width: 20%;
+      height: 100%;
+      left: 40%;
+      top: 0;
+    }
+
+    /* Horizontal ribbon */
+    .gift::after {
+      height: 18%;
+      width: 100%;
+      top: 40%;
+      left: 0;
+    }
+
+    .gift.small {
+      width: 60px;
+      height: 60px;
+      background: #ffb347;
+      animation-duration: 5.2s;
+    }
+
+    .gift.medium {
+      width: 80px;
+      height: 80px;
+      background: #6dd5ed;
+      animation-duration: 4.4s;
+    }
+
+    .gift.large {
+      width: 100px;
+      height: 100px;
+      background: #c471ed;
+      animation-duration: 6s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotateZ(0deg);
+      }
+      50% {
+        transform: translateY(-10px) rotateZ(2deg);
+      }
+      100% {
+        transform: translateY(0) rotateZ(-2deg);
+      }
+    }
+
+    /* Rotating boxes in background */
+    .floating-box {
+      position: absolute;
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.2);
+      opacity: 0.7;
+      animation: spin 16s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: translate3d(0, 0, 0) rotateZ(0deg);
+      }
+      50% {
+        transform: translate3d(20px, -40px, 0) rotateZ(180deg);
+      }
+      100% {
+        transform: translate3d(-10px, 10px, 0) rotateZ(360deg);
+      }
+    }
+
+    /* Snow */
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      color: #fff;
+      font-size: 10px;
+      opacity: 0.8;
+      pointer-events: none;
+      animation-name: snowfall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes snowfall {
+      0% {
+        transform: translate3d(0, -10px, 0);
+      }
+      100% {
+        transform: translate3d(0, 110vh, 0);
+      }
+    }
+
+    /* Title text */
+    .title {
+      position: absolute;
+      top: 8%;
+      left: 8%;
+      font-size: 2.4rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.8),
+        0 0 18px rgba(0, 255, 200, 0.6);
+    }
+
+    .title span {
+      display: block;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: #ffd966;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="moon"></div>
+    <div class="ground"></div>
+
+    <div class="title">
+      Bright & Jolly
+      <span>Christmas Night Before</span>
+    </div>
+
+    <div class="tree"></div>
+    <div class="trunk"></div>
+    <div class="star"></div>
+
+    <div class="lights" id="lights"></div>
+
+    <div class="gifts">
+      <div class="gift small"></div>
+      <div class="gift medium"></div>
+      <div class="gift large"></div>
+    </div>
+
+    <!-- Rotating boxes container -->
+    <div id="floating-boxes"></div>
+  </div>
+
+  <script>
+    // CONFIG
+    const LIGHT_COUNT = 18;
+    const FLOATING_BOX_COUNT = 10;
+    const SNOWFLAKE_COUNT = 80;
+
+    // Utility: random helper
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    // String lights around tree
+    const lightsContainer = document.getElementById("lights");
+    const lightColors = ["#ff4b5c", "#ffd166", "#06d6a0", "#4cc9f0", "#f72585"];
+
+    for (let i = 0; i < LIGHT_COUNT; i++) {
+      const bulb = document.createElement("div");
+      bulb.className = "light-bulb";
+
+      const angle = (i / LIGHT_COUNT) * Math.PI * 1.2 + 0.2;
+      const radiusX = lightsContainer.clientWidth / 2;
+      const radiusY = lightsContainer.clientHeight / 2;
+
+      const x = radiusX + Math.cos(angle) * radiusX * 0.95;
+      const y = radiusY + Math.sin(angle) * radiusY * 0.6;
+
+      bulb.style.left = x + "px";
+      bulb.style.top = y + "px";
+
+      const color = lightColors[i % lightColors.length];
+      bulb.style.background = color;
+      bulb.style.boxShadow = `0 0 12px ${color}`;
+
+      bulb.style.animationDelay = rand(-1, 1).toFixed(2) + "s";
+      bulb.style.animationDuration = rand(1.1, 1.9).toFixed(2) + "s";
+
+      lightsContainer.appendChild(bulb);
+    }
+
+    // Floating rotating boxes in background
+    const floatingContainer = document.getElementById("floating-boxes");
+    const boxColors = [
+      "rgba(255, 255, 255, 0.4)",
+      "rgba(255, 0, 120, 0.5)",
+      "rgba(0, 255, 200, 0.4)",
+      "rgba(255, 220, 120, 0.5)"
+    ];
+
+    for (let i = 0; i < FLOATING_BOX_COUNT; i++) {
+      const box = document.createElement("div");
+      box.className = "floating-box";
+
+      const size = rand(30, 90);
+      box.style.width = size + "px";
+      box.style.height = size + "px";
+
+      box.style.left = rand(0, 100) + "vw";
+      box.style.top = rand(0, 60) + "vh";
+
+      const color = boxColors[i % boxColors.length];
+      box.style.borderColor = color;
+      box.style.boxShadow = `0 0 18px ${color}`;
+
+      box.style.animationDuration = rand(10, 26).toFixed(1) + "s";
+      box.style.animationDelay = rand(-10, 0).toFixed(1) + "s";
+
+      floatingContainer.appendChild(box);
+    }
+
+    // Snowfall
+    const snowContainer = document.body;
+    const snowChars = ["❄", "✦", "✧", "✼"];
+
+    for (let i = 0; i < SNOWFLAKE_COUNT; i++) {
+      const flake = document.createElement("div");
+      flake.className = "snowflake";
+      flake.textContent = snowChars[Math.floor(Math.random() * snowChars.length)];
+
+      flake.style.left = rand(0, 100) + "vw";
+      flake.style.fontSize = rand(8, 16) + "px";
+      flake.style.animationDuration = rand(8, 20).toFixed(1) + "s";
+      flake.style.animationDelay = rand(-20, 0).toFixed(1) + "s";
+
+      snowContainer.appendChild(flake);
+    }
+  </script>
+</body>
+</html>
