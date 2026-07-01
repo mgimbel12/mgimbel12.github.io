@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>This Is Halloween</title>
+  <style>
+    :root {
+      --bg: #05040a;
+      --accent: #ff6b00;
+      --accent2: #7b1fa2;
+      --text: #f5f5f5;
+      --card: #12111f;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #1b1030 0, #05040a 55%, #000000 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 20px 10px;
+      position: relative;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-shadow: 0 0 12px rgba(255, 107, 0, 0.8);
+    }
+
+    header p {
+      margin-top: 8px;
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    .moon {
+      position: absolute;
+      right: 40px;
+      top: 20px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fdfdfd 0, #fdfdfd 40%, #c0c0c0 70%, transparent 100%);
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 18px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #05040a;
+      opacity: 0.7;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px 20px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+
+    .panel p {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0.9;
+    }
+
+    /* Spooky street scene */
+    #sceneCanvas {
+      width: 100%;
+      height: 280px;
+      border-radius: 12px;
+      background: linear-gradient(to top, #05040a 0, #0b0715 40%, #1b1030 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ground {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(to top, #05040a 0, #0b0715 100%);
+    }
+
+    .house {
+      position: absolute;
+      bottom: 80px;
+      width: 90px;
+      height: 120px;
+      background: #1b1b2b;
+      border-radius: 4px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.8);
+    }
+
+    .house::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 40px solid #1b1b2b;
+    }
+
+    .window {
+      position: absolute;
+      width: 18px;
+      height: 22px;
+      background: radial-gradient(circle, #ffe082 0, #ffb300 40%, #ff6f00 80%);
+      border-radius: 3px;
+      box-shadow: 0 0 10px rgba(255, 179, 0, 0.7);
+    }
+
+    .door {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 40px;
+      background: #2e1b12;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .door::after {
+      content: "";
+      position: absolute;
+      right: 4px;
+      top: 18px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #ffb703;
+    }
+
+    .pumpkin {
+      position: absolute;
+      bottom: 10px;
+      width: 26px;
+      height: 22px;
+      background: radial-gradient(circle at top, #ff9800 0, #e65100 70%);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 152, 0, 0.7);
+    }
+
+    .pumpkin::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 8px;
+      border-radius: 3px;
+      background: #4e342e;
+    }
+
+    .pumpkin::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 7px;
+      width: 14px;
+      height: 8px;
+      border-radius: 50%;
+      border-top: 2px solid rgba(0, 0, 0, 0.6);
+    }
+
+    .ghost {
+      position: absolute;
+      width: 40px;
+      height: 50px;
+      background: #f5f5f5;
+      border-radius: 50% 50% 40% 40%;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .ghost::before,
+    .ghost::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #212121;
+    }
+
+    .ghost::before {
+      left: 10px;
+    }
+
+    .ghost::after {
+      right: 10px;
+    }
+
+    .ghost-mouth {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 12px;
+      height: 8px;
+      border-radius: 0 0 12px 12px;
+      background: #212121;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .bat {
+      position: absolute;
+      width: 40px;
+      height: 18px;
+      background: #000000;
+      border-radius: 18px;
+      transform-origin: center;
+      animation: flap 2s ease-in-out infinite;
+    }
+
+    .bat::before,
+    .bat::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #000000;
+    }
+
+    .bat::before {
+      left: -10px;
+    }
+
+    .bat::after {
+      right: -10px;
+    }
+
+    @keyframes flap {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-4px) scaleY(0.8); }
+    }
+
+    /* Controls */
+    .control-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    button {
+      border: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #05040a;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      letter-spacing: 0.5px;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      background: #ffa726;
+    }
+
+    button.secondary {
+      background: var(--accent2);
+      color: #f5f5f5;
+    }
+
+    button.secondary:hover {
+      background: #9c27b0;
+    }
+
+    /* Lyrics / story */
+    .lyrics {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 6px;
+    }
+
+    .lyrics span.line {
+      display: block;
+      margin-bottom: 4px;
+      opacity: 0.85;
+    }
+
+    .lyrics span.highlight {
+      color: var(--accent);
+      text-shadow: 0 0 8px rgba(255, 107, 0, 0.7);
+    }
+
+    /* Trick-or-treat log */
+    #eventList {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 10px;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    #eventList li {
+      margin-bottom: 6px;
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: #1b1828;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #eventList li span.time {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #3b425f;
+      background: #05040a;
+      color: var(--text);
+      margin-top: 6px;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 16px 10px 26px;
+      font-size: 0.85rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .moon {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>This Is Halloween</h1>
+    <p>Spooky streets, floating ghosts, and a night full of tiny mysteries.</p>
+    <div class="moon"></div>
+  </header>
+
+  <main>
+    <!-- Scene panel -->
+    <section class="panel">
+      <h2>Spooky street scene</h2>
+      <p>
+        Build your own Halloween night: haunted houses, glowing pumpkins, drifting ghosts, and bats crossing the moon.
+      </p>
+
+      <div id="sceneCanvas">
+        <div class="ground"></div>
+      </div>
+
+      <div class="control-row">
+        <button id="addHouseBtn">Add house</button>
+        <button id="addPumpkinBtn">Add pumpkin</button>
+        <button id="addGhostBtn">Add ghost</button>
+        <button id="addBatBtn" class="secondary">Add bat</button>
+        <button id="clearSceneBtn">Clear scene</button>
+      </div>
+    </section>
+
+    <!-- Lyrics / events panel -->
+    <section class="panel">
+      <h2>Halloween chorus & tiny mysteries</h2>
+      <p>
+        Every doorbell, every rustle of leaves, every shadow on the sidewalk is its own little story.
+      </p>
+
+      <div class="control-row">
+        <button id="playChantBtn">Play “This is Halloween” chant</button>
+        <button id="stopChantBtn" class="secondary">Stop chant</button>
+      </div>
+
+      <div class="lyrics" id="lyricsBox">
+        <!-- Lines will be injected by JS -->
+      </div>
+
+      <label for="eventInput" style="margin-top:10px;display:block;font-size:0.9rem;">
+        Log a trick‑or‑treat event:
+      </label>
+      <input id="eventInput" type="text" placeholder="Example: A tiny witch asked for extra chocolate...">
+      <div class="control-row">
+        <button id="addEventBtn">Save event</button>
+      </div>
+
+      <ul id="eventList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    Night falls, porch lights glow, and somewhere a pumpkin smiles a little too wide. Happy Halloween.
+  </footer>
+
+  <script>
+    // --- Scene builder ---
+    const sceneCanvas = document.getElementById("sceneCanvas");
+    const addHouseBtn = document.getElementById("addHouseBtn");
+    const addPumpkinBtn = document.getElementById("addPumpkinBtn");
+    const addGhostBtn = document.getElementById("addGhostBtn");
+    const addBatBtn = document.getElementById("addBatBtn");
+    const clearSceneBtn = document.getElementById("clearSceneBtn");
+
+    function randomX(width) {
+      const max = sceneCanvas.clientWidth - width - 10;
+      return 10 + Math.random() * max;
+    }
+
+    function addHouse() {
+      const house = document.createElement("div");
+      house.className = "house";
+      const x = randomX(90);
+      house.style.left = x + "px";
+
+      // windows
+      const window1 = document.createElement("div");
+      window1.className = "window";
+      window1.style.left = "12px";
+      window1.style.top = "26px";
+
+      const window2 = document.createElement("div");
+      window2.className = "window";
+      window2.style.right = "12px";
+      window2.style.top = "26px";
+
+      const door = document.createElement("div");
+      door.className = "door";
+
+      house.appendChild(window1);
+      house.appendChild(window2);
+      house.appendChild(door);
+
+      sceneCanvas.appendChild(house);
+    }
+
+    function addPumpkin() {
+      const pumpkin = document.createElement("div");
+      pumpkin.className = "pumpkin";
+      const x = randomX(26);
+      pumpkin.style.left = x + "px";
+      sceneCanvas.appendChild(pumpkin);
+    }
+
+    function addGhost() {
+      const ghost = document.createElement("div");
+      ghost.className = "ghost";
+      const x = randomX(40);
+      const y = 40 + Math.random() * 80;
+      ghost.style.left = x + "px";
+      ghost.style.top = y + "px";
+
+      const mouth = document.createElement("div");
+      mouth.className = "ghost-mouth";
+      ghost.appendChild(mouth);
+
+      sceneCanvas.appendChild(ghost);
+    }
+
+    function addBat() {
+      const bat = document.createElement("div");
+      bat.className = "bat";
+      const x = randomX(40);
+      const y = 20 + Math.random() * 60;
+      bat.style.left = x + "px";
+      bat.style.top = y + "px";
+
+      // gentle horizontal drift
+      const direction = Math.random() > 0.5 ? 1 : -1;
+      let offset = 0;
+      setInterval(() => {
+        offset += direction * 0.5;
+        bat.style.transform = `translateX(${offset}px)`;
+      }, 60);
+
+      sceneCanvas.appendChild(bat);
+    }
+
+    function clearScene() {
+      const children = Array.from(sceneCanvas.children);
+      children.forEach(child => {
+        if (!child.classList.contains("ground")) {
+          sceneCanvas.removeChild(child);
+        }
+      });
+    }
+
+    addHouseBtn.addEventListener("click", addHouse);
+    addPumpkinBtn.addEventListener("click", addPumpkin);
+    addGhostBtn.addEventListener("click", addGhost);
+    addBatBtn.addEventListener("click", addBat);
+    clearSceneBtn.addEventListener("click", clearScene);
+
+    // --- Halloween chant / lyrics ---
+    const lyricsBox = document.getElementById("lyricsBox");
+    const playChantBtn = document.getElementById("playChantBtn");
+    const stopChantBtn = document.getElementById("stopChantBtn");
+
+    const lines = [
+      "Boys and girls of every age,",
+      "Would you like to see something strange?",
+      "Come with us and you will see,",
+      "This, our town of Halloween.",
+      "",
+      "This is Halloween, this is Halloween,",
+      "Pumpkins scream in the dead of night.",
+      "This is Halloween, everybody make a scene,",
+      "Trick or treat till the neighbors gonna die of fright.",
+      "",
+      "In this town we call home,",
+      "Everyone hails to the pumpkin song."
+    ];
+
+    let chantInterval = null;
+    let currentIndex = 0;
+
+    function renderLines(highlightIndex = -1) {
+      lyricsBox.innerHTML = "";
+      lines.forEach((line, index) => {
+        const span = document.createElement("span");
+        span.classList.add("line");
+        if (index === highlightIndex && line.trim() !== "") {
+          span.classList.add("highlight");
+        }
+        span.textContent = line;
+        lyricsBox.appendChild(span);
+      });
+    }
+
+    function startChant() {
+      if (chantInterval) return;
+      currentIndex = 0;
+      renderLines(-1);
+      chantInterval = setInterval(() => {
+        renderLines(currentIndex);
+        currentIndex++;
+        if (currentIndex >= lines.length) {
+          currentIndex = 0;
+        }
+      }, 1200);
+    }
+
+    function stopChant() {
+      if (chantInterval) {
+        clearInterval(chantInterval);
+        chantInterval = null;
+      }
+      renderLines(-1);
+    }
+
+    playChantBtn.addEventListener("click", startChant);
+    stopChantBtn.addEventListener("click", stopChant);
+
+    // initial render
+    renderLines(-1);
+
+    // --- Trick-or-treat event log ---
+    const eventInput = document.getElementById("eventInput");
+    const addEventBtn = document.getElementById("addEventBtn");
+    const eventList = document.getElementById("eventList");
+
+    function addEvent() {
+      const text = eventInput.value.trim();
+      if (!text) return;
+
+      const li = document.createElement("li");
+      const spanText = document.createElement("span");
+      spanText.textContent = text;
+
+      const spanTime = document.createElement("span");
+      spanTime.className = "time";
+      const now = new Date();
+      spanTime.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+      li.appendChild(spanText);
+      li.appendChild(spanTime);
+      eventList.appendChild(li);
+
+      eventInput.value = "";
+    }
+
+    addEventBtn.addEventListener("click", addEvent);
+    eventInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") addEvent();
+    });
+  </script>
+</body>
+</html>
