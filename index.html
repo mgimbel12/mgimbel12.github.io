@@ -6,29 +6,96 @@
   <meta name="description" content="Advanced CSS 331 - Editorial Portfolio for Marissa A. Gimbel, BYU-I">
   <title>Advanced CSS 331 | Editorial Showcase</title>
 
-  <!-- Normalize -->
+  <!-- Normalize CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg-light);
+      margin: 0;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 25px;
+      background: var(--brand-secondary);
+      border-bottom: 2px solid #c7d2fe;
+    }
+
+    header img {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    header h1 {
+      margin: 15px 0 0;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #312e81;
+    }
+
+    header h2 {
+      margin: 6px 0 0;
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    #login-screen {
+      text-align: center;
+      margin: 50px auto;
+      padding: 35px;
+      max-width: 420px;
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.08);
+    }
+
+    input[type="password"] {
+      padding: 12px;
+      width: 80%;
+      margin-top: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 18px;
+      padding: 12px 24px;
+      border: none;
+      background: var(--brand-primary);
+      color: var(--white);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: 0.25s ease;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+
+    #error-message {
+      color: red;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-  <img src="https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/334948348_717022333244122_3347615071165492892_n.jpg?stp=dst-jpg_tt6&cstp=mx612x612&ctp=s612x612&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=eXCUGNo4O5kQ7kNvwHq1RrE&_nc_oc=AdrMhsCZt1ftXpjz1X_G9knmCL7TymIm_3Y0HJchtPATv7mNwamYls2yqiyh8axuNk3zdjassBUkNS8saKjIlsxC&_nc_zt=23&_nc_ht=scontent.flas1-1.fna&_nc_gid=zeTCjrcwWPplOVHkz_Zbvw&_nc_ss=7b2a8&oh=00_AQAk-kvqp8zrWkjIu6md2ei0jxBmbQ2p4M6JOP8zE2CAIw&oe=6A4E2820"
-    width="200" height="200" alt="Portrait of Marissa Gimbel">
+  <img src="https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/334948348_717022333244122_3347615071165492892_n.jpg"
+       width="90" height="130" alt="Portrait of Marissa Gimbel">
   <h1>Marissa A. Gimbel</h1>
   <h2>Advanced CSS 331 | BYU‑I Editorial Portfolio</h2>
 </header>
-
-<main>
-
-  <!-- LOGIN SCREEN -->
-  <div id="login-screen">
-    <h2>Welcome to My Sacred Diary</h2>
-    <input type="password" id="password" placeholder="Enter your password">
-    <button onclick="checkPassword()">Enter</button>
-    <p id="error-message"></p>
-  </div>
 
   <!-- PROTECTED CONTENT -->
   <div id="diary-content">
@@ -570,6 +637,38 @@
       </details>
     </section>
   </div>
+<main>
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen">
+    <h2>Welcome to My Sacred Diary</h2>
+    <input type="password" id="password" placeholder="Enter your password">
+    <button type="button" onclick="checkPassword()">Enter</button>
+    <p id="error-message"></p>
+  </div>
+
 </main>
+<footer>
+  <p>&copy; 2026 Marissa A. Gimbel · Advanced CSS 331 Editorial Portfolio · BYU‑Idaho</p>
+  <p><a href="#top">Back to Top</a></p>
+</footer>
+  
+<script>
+  function checkPassword() {
+    const input = document.getElementById("password");
+    const error = document.getElementById("error-message");
+    const login = document.getElementById("login-screen");
+
+    const correctPassword = "Summer 2026";
+
+    if (input.value === correctPassword) {
+      error.textContent = "";
+      login.style.display = "none";
+      alert("Access granted.");
+    } else {
+      error.textContent = "Incorrect password. Please try again.";
+    }
+  }
+</script>  
 </body>
 </html>
