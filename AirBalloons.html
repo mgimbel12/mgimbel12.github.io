@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>4th of July 2026 – Air Balloons</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at top, #1b1f3b 0%, #050814 60%);
+      overflow: hidden;
+      font-family: system-ui, sans-serif;
+      color: #fff;
+    }
+
+    .sky {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      letter-spacing: 0.12em;
+    }
+
+    .title h1 {
+      font-size: 2.2rem;
+      text-transform: uppercase;
+    }
+
+    .title span {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 6px;
+      opacity: 0.8;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 80px;
+      height: 110px;
+      border-radius: 50% 50% 45% 45%;
+      background: linear-gradient(135deg, #ff3b3b, #ffffff, #1e90ff);
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
+      animation: floatUp linear infinite;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -35px;
+      left: 50%;
+      width: 2px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.7);
+      transform: translateX(-50%);
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0.7;
+      animation: twinkle 2.5s ease-in-out infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-140px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.6);
+      }
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="sky">
+    <div class="title">
+      <h1>Happy 4th of July</h1>
+      <span>Air Balloons • July 4, 2026</span>
+    </div>
+
+    <!-- Balloons container -->
+    <div id="balloons"></div>
+
+    <!-- Stars container -->
+    <div id="stars"></div>
+
+    <div class="footer">
+      Celebrate freedom, color, and sky-high dreams.
+    </div>
+  </div>
+
+  <script>
+    const balloonContainer = document.getElementById("balloons");
+    const starContainer = document.getElementById("stars");
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createBalloon() {
+      const balloon = document.createElement("div");
+      balloon.className = "balloon";
+
+      const startLeft = random(0, window.innerWidth - 80);
+      const duration = random(12, 22);
+      const delay = random(0, 8);
+
+      balloon.style.left = startLeft + "px";
+      balloon.style.animationDuration = duration + "s";
+      balloon.style.animationDelay = delay + "s";
+
+      // Random patriotic color mix
+      const schemes = [
+        "linear-gradient(135deg, #ff3b3b, #ffffff, #1e90ff)",
+        "linear-gradient(135deg, #ffffff, #1e90ff, #ff3b3b)",
+        "linear-gradient(135deg, #1e90ff, #ffffff, #ff3b3b)"
+      ];
+      balloon.style.background = schemes[Math.floor(random(0, schemes.length))];
+
+      balloonContainer.appendChild(balloon);
+
+      // Remove balloon after animation ends
+      setTimeout(() => {
+        balloon.remove();
+      }, (duration + delay) * 1000);
+    }
+
+    function createStar() {
+      const star = document.createElement("div");
+      star.className = "star";
+
+      const left = random(0, window.innerWidth);
+      const top = random(0, window.innerHeight * 0.7);
+      const delay = random(0, 3);
+
+      star.style.left = left + "px";
+      star.style.top = top + "px";
+      star.style.animationDelay = delay + "s";
+
+      starContainer.appendChild(star);
+    }
+
+    // Initial stars
+    for (let i = 0; i < 80; i++) {
+      createStar();
+    }
+
+    // Continuous balloons
+    setInterval(createBalloon, 900);
+  </script>
+</body>
+</html>
