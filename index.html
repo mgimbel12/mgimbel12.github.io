@@ -193,7 +193,7 @@
 <body>
 
 <header>
-  <img src="https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/696838768_2852921511718068_2478823210046318884_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=-Hjj57_9z1AQ7kNvwHk0JyS&_nc_oc=AdpBaUrGlF6GSPsluJuRHW5pwslzXda7g-o8-VMeyvhAyC4kMRkv0lypAxi1CHOZM3pFOvZU8ga_4US8H3gXB_ym&_nc_zt=23&_nc_ht=scontent.flas1-1.fna&_nc_gid=K-krfdL-GZVPu36egxP36w&_nc_ss=7b2a8&oh=00_Af6nrPnAStkMPRYwU54gGgBFduN0uMXqgzZ6f-dcwnDVrQ&oe=6A18455D"
+  <img src="https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/334948348_717022333244122_3347615071165492892_n.jpg?stp=dst-jpg_tt6&cstp=mx612x612&ctp=s612x612&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=eXCUGNo4O5kQ7kNvwF3qfFI&_nc_oc=AdprDb5bIlWVtSQA-yoJtfbH-j9JhqCHGvPGHhyIZL6h3ucB9poQp_N8tSdjwb9MJFDzYc4mLTFI1dk5wwZmFkY-&_nc_zt=23&_nc_ht=scontent.flas1-1.fna&_nc_gid=ryPDW3q5MD4VXmsRDdwYXA&_nc_ss=7b2a8&oh=00_AQDoYmS4s6uNhJsLzuO8z6j5iGWEQ9Qk60eXD04sKRUv1g&oe=6A4DEFE0"            
        width="90" height="130" alt="Portrait of Marissa Gimbel">
   <h1>Marissa A. Gimbel</h1>
   <h2>Advanced CSS 331 | BYU‑I Editorial Portfolio</h2>
@@ -467,5 +467,68 @@
   }
 </script>
 
+<!-- PROTECTED CONTENT -->
+<div id="content">
+  <h2>Multimedia Integration Analysis</h2>
+
+  <p>
+    This short-format academic document demonstrates the integration of multimedia 
+    elements within a modern web environment. Embedding external media such as 
+    streaming audio and video enhances user engagement, supports interactive learning, 
+    and reflects current professional standards in web development.
+  </p>
+
+  <!-- Spotify Playlist -->
+  <div class="media-block">
+    <h3>Featured Spotify Playlist</h3>
+    <iframe 
+      data-testid="embed-iframe"
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/playlist/37i9dQZF1DZ06evO0aBNIs?utm_source=generator&si=474cb2ac04bb43f8"
+      width="100%" 
+      height="352" 
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  </div>
+
+  <!-- YouTube Video -->
+  <div class="media-block">
+    <h3>Featured YouTube Video</h3>
+    <iframe 
+      width="100%" 
+      height="360"
+      src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+      title="YouTube Video Player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Academic Multimedia Portfolio · Henderson, Nevada</p>
+</footer>
+
+<script>
+  function checkPassword() {
+    const input = document.getElementById("password");
+    const error = document.getElementById("error-message");
+    const login = document.getElementById("login-screen");
+    const content = document.getElementById("content");
+
+    const correctPassword = "Summer 2026";
+
+    if (input.value === correctPassword) {
+      error.textContent = "";
+      login.style.display = "none";
+      content.style.display = "block";
+    } else {
+      error.textContent = "Incorrect password. Please try again.";
+    }
+  }
+</script>
 </body>
 </html>
