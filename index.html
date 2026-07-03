@@ -465,7 +465,76 @@
       error.textContent = "Incorrect password. Please try again.";
     }
   }
-</script>
+<section class="media-showcase">
+  <h2>Multimedia Integration Analysis</h2>
 
+  <p>
+    This multimedia module is included as part of the Advanced CSS 331 Editorial 
+    Portfolio to demonstrate the effective integration of external digital media 
+    within a modern web interface. Incorporating streaming platforms and video 
+    content supports interactive learning, enhances user engagement, and reflects 
+    current industry standards in web development. The embedded materials below 
+    illustrate how multimedia elements can be used to strengthen thematic 
+    presentation and enrich the overall user experience.
+  </p>
+
+  <!-- YouTube Video Embed -->
+  <div class="video-container">
+    <iframe
+      width="100%"
+      height="360"
+      src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE"
+      title="YouTube Video Presentation"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Spotify Embed -->
+  <div class="spotify-container">
+    <iframe
+      data-testid="embed-iframe"
+      style="border-radius:12px"
+      src="https://open.spotify.com/embed/artist/0p4nmQO2msCgU4IF37Wi3j?utm_source=generator&si=3f3b0539cdc84210"
+      width="100%"
+      height="352"
+      frameborder="0"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
+
+<style>
+  .media-showcase {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+
+  .media-showcase h2 {
+    font-size: 1.9rem;
+    margin-bottom: 15px;
+    color: #1e1b4b;
+    font-weight: 700;
+  }
+
+  .media-showcase p {
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 30px;
+    line-height: 1.7;
+  }
+
+  .video-container,
+  .spotify-container {
+    margin-bottom: 35px;
+  }
+</style>  
 </body>
 </html>
