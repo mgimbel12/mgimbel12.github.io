@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>America the Beautiful – Family Activities</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(circle at top, #0b1a3b 0, #000 60%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Top banner */
+    header {
+      text-align: center;
+      padding: 20px 10px;
+      background: linear-gradient(90deg, #b22234, #ffffff, #3c3b6e);
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .banner-title {
+      font-size: 2.2rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0b1a3b;
+      text-shadow: 0 0 8px rgba(255,255,255,0.8);
+    }
+
+    .singing-stars {
+      margin-top: 8px;
+      font-size: 1rem;
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .singing-stars span {
+      display: inline-block;
+      color: #ffd700;
+      animation: twinkle 1.4s infinite alternate;
+    }
+
+    .singing-stars span:nth-child(2) { animation-delay: 0.2s; }
+    .singing-stars span:nth-child(3) { animation-delay: 0.4s; }
+    .singing-stars span:nth-child(4) { animation-delay: 0.6s; }
+    .singing-stars span:nth-child(5) { animation-delay: 0.8s; }
+
+    @keyframes twinkle {
+      from { transform: scale(1); opacity: 0.6; }
+      to   { transform: scale(1.4); opacity: 1; }
+    }
+
+    /* Falling stars & stripes canvas */
+    #sky {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 40px auto 60px;
+      padding: 0 20px 40px;
+      background: rgba(5, 10, 25, 0.85);
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    section {
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: #fffbf0;
+      border-bottom: 2px solid #b22234;
+      padding-bottom: 6px;
+    }
+
+    /* Poem styling */
+    .poem {
+      line-height: 1.7;
+      font-size: 1.05rem;
+      white-space: pre-line;
+    }
+
+    .poem span.line {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Activities list */
+    .activities-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .activities-list li {
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(178,34,52,0.7), rgba(60,59,110,0.7));
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .activities-list li::before {
+      content: "★";
+      color: #ffd700;
+      font-size: 1.2rem;
+      margin-top: 2px;
+    }
+
+    .activity-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    /* Simple “sing” button */
+    .controls {
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    button {
+      background: #ffd700;
+      color: #0b1a3b;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+    }
+
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="sky"></canvas>
+
+  <header>
+    <div class="banner-title">America the Beautiful</div>
+    <div class="singing-stars" id="singingStars">
+      <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+    </div>
+    <div class="controls">
+      <button id="singButton">Sing “America the Beautiful”</button>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Poem for America</h2>
+      <div class="poem" id="poem">
+        <span class="line">From purple mountain mornings, to cities lit at night,</span>
+        <span class="line">We gather under stripes and stars, in freedom’s gentle light.</span>
+        <span class="line">Voices rise in quiet thanks, for journeys long and wide,</span>
+        <span class="line">For every hand that lifts another, standing side by side.</span>
+        <span class="line">We carry stories, old and new, in hearts both brave and kind,</span>
+        <span class="line">A patchwork hope of many dreams, in one great quilt combined.</span>
+        <span class="line">O beautiful, this living land, where love can plant its seed,</span>
+        <span class="line">And families share a simple day—that’s all the grace we need.</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Family Activities to Celebrate</h2>
+      <ul class="activities-list">
+        <li>
+          <div>
+            <div class="activity-title">Backyard Picnic Under the Stars</div>
+            <div>Spread a blankqet, share favorite foods, and take turns naming constellations or making up your own.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="activity-title">Gratitude Fireworks (Without the Noise)</div>
+            <div>Cut out paper stars and stripes. On each, write something you’re grateful for about your country or community, then hang them as a banner.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="activity-title">Family Story Circle</div>
+            <div>Invite each person to share a story about a time they felt proud, brave, or helped someone. Record them to create a “Family Freedom Journal.”</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="activity-title">Neighborhood Kindness Walk</div>
+            <div>Take a walk together and look for small ways to serve—picking up litter, leaving kind notes, or waving to neighbors.</div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <div class="activity-title">Sing-Along & Flag Craft</div>
+            <div>Make simple flags from paper and crayons, then sing “America the Beautiful” or other favorite songs while you wave them.</div>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Made with red, white, blue, and a little starlight.
+  </footer>
+
+  <script>
+    // Simple falling stars & stripes animation on canvas
+    const canvas = document.getElementById("sky");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    function createParticle() {
+      const isStripe = Math.random() < 0.4;
+      return {
+        x: Math.random() * canvas.width,
+        y: -20,
+        vy: 1 + Math.random() * 2,
+        size: isStripe ? (8 + Math.random() * 20) : (2 + Math.random() * 3),
+        stripe: isStripe,
+        color: isStripe
+          ? (Math.random() < 0.5 ? "#b22234" : "#ffffff")
+          : "#ffd700"
+      };
+    }
+
+    for (let i = 0; i < 80; i++) {
+      particles.push(createParticle());
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.save();
+        ctx.fillStyle = p.color;
+        if (p.stripe) {
+          ctx.fillRect(p.x, p.y, p.size, 3);
+        } else {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.restore();
+
+        p.y += p.vy;
+        if (p.y > canvas.height + 30) {
+          p.x = Math.random() * canvas.width;
+          p.y = -20;
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // “Singing” effect: highlight poem lines in rhythm
+    const singButton = document.getElementById("singButton");
+    const poemLines = Array.from(document.querySelectorAll("#poem .line"));
+    let singing = false;
+    let currentLine = 0;
+    let singInterval = null;
+
+    function startSinging() {
+      singing = true;
+      singButton.textContent = "Pause Singing";
+      singInterval = setInterval(() => {
+        poemLines.forEach(line => line.style.color = "#ffffff");
+        poemLines[currentLine].style.color = "#ffd700";
+        currentLine = (currentLine + 1) % poemLines.length;
+      }, 1200);
+    }
+
+    function stopSinging() {
+      singing = false;
+      singButton.textContent = "Sing “America the Beautiful”";
+      clearInterval(singInterval);
+      singInterval = null;
+      poemLines.forEach(line => line.style.color = "#ffffff");
+    }
+
+    singButton.addEventListener("click", () => {
+      if (!singing) {
+        startSinging();
+      } else {
+        stopSinging();
+      }
+    });
+  </script>
+</body>
+</html>
