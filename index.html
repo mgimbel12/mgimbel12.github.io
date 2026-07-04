@@ -10,6 +10,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
   <style>
+    :root {
+      --brand-primary: #4f46e5;
+      --brand-secondary: #eef2ff;
+      --text-dark: #1f2937;
+      --text-muted: #6b7280;
+      --panel-border: #d1d5db;
+      --panel-hover: #6366f1;
+      --bg-light: #f7f8fc;
+      --white: #ffffff;
+    }
+
     body {
       font-family: "Segoe UI", Arial, sans-serif;
       background: var(--bg-light);
@@ -85,558 +96,105 @@
       margin-top: 12px;
       font-size: 0.95rem;
     }
+
+    #diary-content {
+      display: none;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .intro p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      margin-top: 30px;
+      color: #1e1b4b;
+      font-weight: 700;
+    }
+
+    .category {
+      margin: 20px 0;
+      border-radius: 16px;
+      border: 1px solid var(--panel-border);
+      background: var(--white);
+      padding: 10px 16px;
+      transition: 0.25s ease;
+    }
+
+    .category[open] {
+      background: var(--brand-secondary);
+      border-color: var(--panel-hover);
+      box-shadow: 0 4px 14px rgba(99,102,241,0.15);
+    }
+
+    .category summary {
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      font-weight: 700;
+      color: #1e1b4b;
+    }
+
+    .category ul {
+      margin: 12px 0 10px 25px;
+      padding: 0;
+      list-style: disc;
+    }
+
+    .category li {
+      margin: 6px 0;
+      font-size: 0.98rem;
+      color: #374151;
+    }
+
+    .item-title {
+      margin-right: 6px;
+    }
+
+    .category a {
+      color: var(--brand-primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .category a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 50px;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    footer a {
+      color: var(--brand-primary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
 <body>
 
 <header>
-  <img src="Marissa .jpg"
-       width="200" height="200" alt="Portrait of Marissa Gimbel">
+  <img src="https://scontent.flas1-1.fna.fbcdn.net/v/t39.30808-6/334948348_717022333244122_3347615071165492892_n.jpg"
+       width="90" height="130" alt="Portrait of Marissa Gimbel">
   <h1>Marissa A. Gimbel</h1>
   <h2>Advanced CSS 331 | BYU‑I Editorial Portfolio</h2>
 </header>
 
-  <!-- PROTECTED CONTENT -->
-  <div id="diary-content">
-
-    <section class="intro">
-      <p><strong>Welcome to the official editorial portal</strong>, a curated showcase of design assignments, tribute pages, and creative experiments by Marissa Gimbel.</p>
-    </section>
-
-    <hr>
-
-    <section class="article-list">
-      <h3>Featured Pages & Assignments</h3>
-
-<!-- CATEGORY PANELS -->
-
-<!-- ABOUT ME -->
-<details class="category">
-  <summary>MEET ME</summary>
-  <ul class="category-list">
-    <li>
-      <span class="item-title">About Me</span>
-      <a href="aboutme.html" class="year-tag">Me</a>
-    </li>
-    <li>
-      <span class="item-title">Boating</span>
-      <a href="boating.html" class="year-tag">Boating</a>
-    </li>
-    <li>
-      <span class="item-title">Christmas Season Reader</span>
-      <a href="ChristmasSeasonReader.html" class="year-tag">2026</a>
-    </li>
-    <li>
-      <span class="item-title">Alaphbeat</span>
-      <a href="Alphabet.html" class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">Snow</span>
-  <a href="snow.html" class="year-tag">2026</a>
-</li>
-    <li> <span class="item-title">Holiday Season</span>
-    <a href="HolidayLearning.html class="year-tag">2026</a>
-    </li>
-    <li>
-      <span class="item-title"> NV Civics</span>
-      <a href="NevadaService.html" class="year-tag"> 2026</a>
-    </li>
-  <li><span class="item-title">Halloween</span>
-  <a href="halloween2026.html" class="year-tag">2026</a></li>
-  </ul>
-  <li><span class="item-title">Season</span>
-  <a href="Season.html" class="year-tag">2026</a></li>
-<li><span class="item-title">Holidays</span>
-<a href="WorldHolidaysExplore.html">Worlds Holidays Explore</a></li>
-  <li><span class="item-title">Luthor Corp</span>
-  <a href="LuthorCorp.html" class="year-tag">2026</a></li>
-<li>
-  <span class="item-title">Journal Entry</span>
-  <a href="Journal.html" class="year-tag">2026</a>
-</li>
-<li>
-  <span class="item-title">Affrimation</span>
-  <a href="MyAffirmationStudio.html" class="year-tag">2026</a>
-</li>
-  <li><span class="item-title">Pumpkin Pie</span>
-  <a href="FreshPumpkinPie.html" class="year-tag">2026</a></li>
-  <li><span class="item-title">Prefect Trukey</span>
-  <a href="PrefectTurkey.html" class="year-tag">2026</a></li>
-  <li><span class="item-title">Smallville</span>
-  <a href="Smallville.html" class="year-tag">2026</a></li>
-  <li><span class="item-title">Smallville</span>
-  <a href="SmallvilleVerseActing.html" class="year-tag">2026</a></li>
-<li><span class="item-title">Lex Luthor</span>
-  <a href="‎HistoryinthemakingofLexLuthor.html" class="year-tag">2026</a>
-</li>
-  <li><span class="item-title">Safety</span>
-  <a href="SupportRecoveryPanel.html" class="year-tag">2026</a></li>
-<li><span class="item-title">Luthor Favorite</span>
-<a href="LexFavorite.html" class="year-tag">2026</a></li>
-<li>
-  <span class="item-title">Luthor</span>
-  <a href="Luthor00.html" class="year-tag">2026</a>
-</li>
-<li>
-  <span class="item-title">Smallville Fan </span>
-  <a href=" SmallvilleFan.html"class="year-tag">2026</a>
-</li>
-  <li>
-    <span class="item-title">Smallville Law</span>
-    <a href="SmallvilleLawandOrder.html class="year-tag">2026</a>
-  </li>
-  <li><span class="item-title">Importance of Programs</span>
-  <a href="ImportanceOfWebsite.html" class="year-tag">2026</a></li>
-<li>
-  <span class="item-title">Character Smallville</span>
-  <a href="SmallvilleDevelopmentGoals.html" class="year-tag">2026</a>
-</li>
-  <li>
-    <span class="item-title">24-Hour Kit Safety</span>
-    <a href="24hourSafetyKitFamily.html" class="year-tag">2026</a>
-  </li>
-  <li>
-    <span class="item-title">Emergencies</span>
-    <a href="emergenciesphonenumberandaddress.html" class="year-tag">2026</a>
-  </li>
-<li>
-  <span class="item-title">Castle</span>
-  <a href="Castle.html" class="year-tag">2026</a>
-</li>
-<li>
-  <span class="item-title">Line of Duty</span>
-  <a href="circumstanceofLifeinDuty.html" class="year-tag">2026</a>
-</li>
-  <li>
-    <span class="item-title">Professional Page</span>
-    <a href="ProfessionalPage.html" class="year-tag">2026</a>
-  </li>
-  <li>
-    <span class="item-title">4THOFJULY</span>
-    <a href="july4-henderson.html" class="year-tag">2026</a>
-  </li>
-  <li>
-    <span class="item-title">Topic</span>
-    <a href="Topic.html" class="year-tag">2026</a>
-  </li>
-  <li>
-    <span class="item-title">Learning</span>
-    <a href="Reltions.html" class="year-tag">2026</a>
-  </li>
-  <li>
-    <span class="item-title">NBC</span>
-    <a href="NBC.HTML"class="year-tag">2026</a>
-  </li>
-  <li><span class="item-title">spell</span>
-    <a href="Spell.html" class="year-tag">2026</a>
-  </li>
-</ul>
-</details>
-<!--Christmas-->
-      <details class="category">
-<summary>Christmas Season</summary>
-<ul class="category-list">
-  <li>
-    <span class="item-title">Bright and Jolly</span>
-      <a href="brightjolly.html" class="year-tag">2026</a>
-  </li>
-        
-        <!-- GAMES / FUN -->
-<details class="category">
-  <summary>GAMES / FUN</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Pokémon Games</span>
-      <a href="pokemongame.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Superman</span>
-      <a href="Superman.html" class="year-tag">Superman</a>
-    </li>
-
-    <li>
-      <span class="item-title">H-TOWN Cops</span>
-      <a href="Forces.html" class="year-tag">Cop</a>
-    </li>
-
-    <li>
-      <span class="item-title">Mental Health</span>
-      <a href="MichealRosenbaumMentalhealthJourney.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Cops Henderson Police</span>
-      <a href="Globalpolice.html" class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">Christmas Season</span>
-  <a href="ChristmasSeason.html" class="year-tag">2026</a>
-</li>
-    
-    <li>
-      <span class="item-title">Hello Kitty Shop</span>
-      <a href="HelloKittyShop.html" class="year-tag">2026</a>
-    </li>
-<li><span class="item-title">Halloween</span>
-  <a href="halloweentricks.html" class="year-tag">2026</a>
-    <li>
-      <span class="item-title">Smallville Verse</span>
-      <a href="SmallvilleLeadershipVerse.html" class="year-tag">2026</a>
-    </li>
-    <li>
-      <span class="item-title">Christmas Roof</span>
-        <a href="Rooftoplights.html" class="year-title">2026</a>
-
-    <li>
-      <span class="item-title">Cops</span>
-      <a href="CourseOfStudy.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">StoryBook</span>
-      <a href="StorybookComic.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Street LAW ABC</span>
-      <a href="streetlawabc.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">World History Words ABC</span>
-      <a href="WorldHistoryVocabulary.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Swimming</span>
-      <a href="Swimming.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Heroes</span>
-      <a href="Heroes.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Henderson Valley</span>
-      <a href="HendersonValley.html" class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">School</span>
-  <a href="School.html" class="year-tag">2026</a>
-</li>
-   <li>
-     <span class="item-title">Luthor</span>
-     <a href="LionelLuthorHealingMental.html" class="year-tag">2026</a>
-   </li>
-    <li>
-      <span class="item-title">Website</span>
-      <a href="ProfessionalWebsite.html" class="year-tag">2026</a>
-    </li>
-  </ul>
-</details>
-
-<!-- SPIRITUAL / HOLIDAY -->
-<details class="category">
-  <summary>SPIRITUAL / HOLIDAY</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Birth of the Savior</span>
-      <a href="birthofJesus.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Cops</span>
-      <a href="PublicSafety.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Provo Utah</span>
-      <a href="BYU-UTAH.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">BYU IDAHO</span>
-      <a href="BYU-IDAHO.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Second Grade Lindsey Teacher & Future Novel Science</span>
-      <a href="SecondGrade.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Police</span>
-      <a href="CityofHtown.html" class="year-tag">2026</a>
-    </li>
-
-  </ul>
-</details>
-
-<!-- FAMILY TRIBUTE -->
-<details class="category">
-  <summary>FAMILY TRIBUTE</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Preu – Turn My Nephew Into My Favorite Superhero Jimmy Olsen</span>
-      <a href="Preuturnmynephewintomyhero.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">1st Grade</span>
-      <a href="SmallvilleStoryBook1stGrade.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Helper</span>
-      <a href="helping.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">America Armed Forces</span>
-      <a href="AmericaArmForces2026.html" class="year-tag">2026</a>
-    </li>
-    <li>
-      <span class="item-title">Lilian</span>
-      <a href="LillianLuthorMentalHealthHealing.html class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">Luthor</span>
-  <a href="LLuthor.html" class="year-tag">2026</a>
-</li>
-</details>
-<!-- FOOD / RECIPES -->
-<details class="category">
-  <summary>FOOD / RECIPES AND SEASONS</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Fall Foods Recipes</span>
-      <a href="FallRecipe.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Fall Halloween Harvest Recipe</span>
-      <a href="FoodHarvest.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Thanksgiving Treats</span>
-      <a href="FoodRecipesCards.html" class="year-tag">2025</a>
-    </li>
-
-  </ul>
-</details>
-
-<!-- LEX LUTHOR / SMALLVILLE -->
-<details class="category">
-  <summary>LEX LUTHOR / SUPERHERO VERSE · SMALLVILLE</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Lex Luthor Superhero</span>
-      <a href="LX0.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Lex Luthor Mental Health Awareness</span>
-      <a href="BelleReveMentalHealthSafetyPlan.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Lana Lang and Lex Luthor</span>
-      <a href="LanaLang.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Cops</span>
-      <a href="cops.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Marine Life</span>
-      <a href="WelcomeToSmallville.html" class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">Lex Luthor </span>
-  <a href="LexMentalHealthWork.html" class="year-tag">2026</a>
-</li>
-  </ul>
-</details>
-
-<!-- BELLE REVE -->
-<details class="category">
-  <summary>BELLE REVE</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Belle Reve Main Page</span>
-      <a href="Bellereve.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Belle Reve History Panel</span>
-      <a href="BellereveHistory.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Belle Reve Safety Plan</span>
-      <a href="BelleReveMentalHealthSafetyPlan.html" class="year-tag">2026</a>
-    </li>
- <li> <span class="item-title">Belle Reve Story</span>
-   <a href="BelleReveShatteredZod.html class="year-tag">2026</a>
- </li>
-    
-    <li>
-      <span class="item-title">Police</span>
-      <a href="Cityofhenderson.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Calling</span>
-      <a href="Call.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Belle Reve Characters & Stories</span>
-      <a href="Clexana.html" class="year-tag">2026</a>
-    </li>
-
-    <li><span class="item-title">Lionel Luthor Mental Health</span>
-    <a href="LionelLuthorMentalHealth.html" class="year-tag">2026 </a>
-      </li>
-<li>
-  <span class="item-title">Lillian Luthor</span>
-<a href="LillianLuthormentalhealth.html" class="year-tag">2026</a>
-</li>
-    <li>
-      <span class="item-title">Lana Lang </span>
-      <a href="LanaLangMentalHealthJourney.html" class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">Julian Luthor</span>
-  <a href="JulianLuthorMentalHealth.html" class="year-tag">2026</a>
-</li>
-    <li>
-      <span class="item-title">Oliver Queen</span>
-      <a href=" OliverQueenMentalHealth.html" class="year-tag">2026</a>
-    </li>
-<li>
-  <span class="item-title">Clark Kent</span>
-  <a href="ClarkKentMentalJourney.html" class="year-tag">2026</a>    
-</li>
-    <li>
-      <span class="item-title">Johnthan Kent</span>
-      <a href="johnthankentmentalhealth.html" class="year-tag">2026</a>
-    </li>
-  </ul>
-</details>
-
-<!-- DISNEY / MAGIC / CASTLES -->
-<details class="category">
-  <summary>DISNEY / MAGIC / CASTLES</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Disney Time</span>
-      <a href="Disney_Time.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Sky Castle</span>
-      <a href="SkyCastle.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Disney Castle</span>
-      <a href="Disneycastle.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Hero 2026</span>
-      <a href="Hero.html" class="year-tag">2026</a>
-    </li>
-
-  </ul>
-</details>
-
-<!-- COSMIC / FANTASY / STORYBOOK -->
-<details class="category">
-  <summary>COSMIC / FANTASY / STORYBOOK</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Cosmic Garden</span>
-      <a href="Cosmic_Garden.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Storybook Flowers</span>
-      <a href="Storybookflowers.html" class="year-tag">2025</a>
-    </li>
-
-    <li>
-      <span class="item-title">Rides</span>
-      <a href="Ride.html" class="year-tag">2025</a>
-    </li>
-
-  </ul>
-</details>
-
-<!-- SAFETY / JOURNALS / CENTERING -->
-<details class="category">
-  <summary>SAFETY / JOURNALS / CENTERING</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Safety Journal</span>
-      <a href="SafetyJounal.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Single</span>
-      <a href="Braid.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Center</span>
-      <a href="Centere.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Henderson</span>
-      <a href="Henderson.html" class="year-tag">2026</a>
-    </li>
-
-  </ul>
-</details>
-
-<!-- FREEDOM / SYMBOLIC THEMES -->
-<details class="category">
-  <summary>FREEDOM / SYMBOLIC THEMES</summary>
-  <ul class="category-list">
-
-    <li>
-      <span class="item-title">Freedom</span>
-      <a href="Freedomright.html" class="year-tag">2026</a>
-    </li>
-
-    <li>
-      <span class="item-title">Glasses Castle Freedom</span>
-      <a href="Glassescastlefreedom.html" class="year-tag">2026</a>
-    </li>
-  </ul>
-</details>
-  
-</ul>
-      </details>
-    </section>
-  </div>
 <main>
 
   <!-- LOGIN SCREEN -->
@@ -647,28 +205,273 @@
     <p id="error-message"></p>
   </div>
 
+  <!-- PROTECTED CONTENT -->
+  <div id="diary-content">
+
+    <section class="intro">
+      <p><strong>Welcome to the official editorial portal</strong>, a curated showcase of design assignments, tribute pages, and creative experiments by Marissa Gimbel.</p>
+    </section>
+
+    <!-- FULL ARTICLE LIST BEGINS -->
+    <section class="article-list">
+      <h3>Featured Pages & Assignments</h3>
+
+      <!-- MEET ME -->
+      <details class="category">
+        <summary>MEET ME</summary>
+        <ul class="category-list">
+          <li><span class="item-title">About Me</span><a href="aboutme.html">Me</a></li>
+          <li><span class="item-title">Boating</span><a href="boating.html">Boating</a></li>
+          <li><span class="item-title">Christmas Season Reader</span><a href="ChristmasSeasonReader.html">2026</a></li>
+          <li><span class="item-title">Alphabet</span><a href="Alphabet.html">2026</a></li>
+          <li><span class="item-title">Snow</span><a href="snow.html">2026</a></li>
+          <li><span class="item-title">Holiday Season</span><a href="HolidayLearning.html">2026</a></li>
+          <li><span class="item-title">NV Civics</span><a href="NevadaService.html">2026</a></li>
+          <li><span class="item-title">Halloween</span><a href="halloween2026.html">2026</a></li>
+          <li><span class="item-title">Season</span><a href="Season.html">2026</a></li>
+          <li><span class="item-title">Holidays</span><a href="WorldHolidaysExplore.html">World Holidays Explore</a></li>
+          <li><span class="item-title">Luthor Corp</span><a href="LuthorCorp.html">2026</a></li>
+          <li><span class="item-title">Journal Entry</span><a href="Journal.html">2026</a></li>
+          <li><span class="item-title">Affirmation</span><a href="MyAffirmationStudio.html">2026</a></li>
+          <li><span class="item-title">Pumpkin Pie</span><a href="FreshPumpkinPie.html">2026</a></li>
+          <li><span class="item-title">Perfect Turkey</span><a href="PrefectTurkey.html">2026</a></li>
+          <li><span class="item-title">Smallville</span><a href="Smallville.html">2026</a></li>
+          <li><span class="item-title">Smallville Verse Acting</span><a href="SmallvilleVerseActing.html">2026</a></li>
+          <li><span class="item-title">Lex Luthor</span><a href="HistoryinthemakingofLexLuthor.html">2026</a></li>
+          <li><span class="item-title">Safety</span><a href="SupportRecoveryPanel.html">2026</a></li>
+          <li><span class="item-title">Luthor Favorite</span><a href="LexFavorite.html">2026</a></li>
+          <li><span class="item-title">Luthor</span><a href="Luthor00.html">2026</a></li>
+          <li><span class="item-title">Smallville Fan</span><a href="SmallvilleFan.html">2026</a></li>
+          <li><span class="item-title">Smallville Law</span><a href="SmallvilleLawandOrder.html">2026</a></li>
+          <li><span class="item-title">Importance of Programs</span><a href="ImportanceOfWebsite.html">2026</a></li>
+          <li><span class="item-title">Character Smallville</span><a href="SmallvilleDevelopmentGoals.html">2026</a></li>
+          <li><span class="item-title">24-Hour Kit Safety</span><a href="24hourSafetyKitFamily.html">2026</a></li>
+          <li><span class="item-title">Emergencies</span><a href="emergenciesphonenumberandaddress.html">2026</a></li>
+          <li><span class="item-title">Castle</span><a href="Castle.html">2026</a></li>
+          <li><span class="item-title">Line of Duty</span><a href="circumstanceofLifeinDuty.html">2026</a></li>
+          <li><span class="item-title">Professional Page</span><a href="ProfessionalPage.html">2026</a></li>
+          <li><span class="item-title">4th of July</span><a href="july4-henderson.html">2026</a></li>
+          <li><span class="item-title">Topic</span><a href="Topic.html">2026</a></li>
+          <li><span class="item-title">Learning</span><a href="Reltions.html">2026</a></li>
+          <li><span class="item-title">NBC</span><a href="NBC.html">2026</a></li>
+          <li><span class="item-title">Spell</span><a href="Spell.html">2026</a></li>
+        </ul>
+      </details>
+          <!-- CHRISTMAS SEASON -->
+      <details class="category">
+        <summary>Christmas Season</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Bright and Jolly</span><a href="brightjolly.html">2026</a></li>
+          <li><span class="item-title">Christmas Season</span><a href="ChristmasSeason.html">2026</a></li>
+          <li><span class="item-title">Christmas Roof</span><a href="Rooftoplights.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- GAMES / FUN -->
+      <details class="category">
+        <summary>GAMES / FUN</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Pokémon Games</span><a href="pokemongame.html">2025</a></li>
+          <li><span class="item-title">Superman</span><a href="Superman.html">Superman</a></li>
+          <li><span class="item-title">H‑TOWN Cops</span><a href="Forces.html">Cop</a></li>
+          <li><span class="item-title">Mental Health</span><a href="MichealRosenbaumMentalhealthJourney.html">2026</a></li>
+          <li><span class="item-title">Cops Henderson Police</span><a href="Globalpolice.html">2026</a></li>
+          <li><span class="item-title">Hello Kitty Shop</span><a href="HelloKittyShop.html">2026</a></li>
+          <li><span class="item-title">Halloween Tricks</span><a href="halloweentricks.html">2026</a></li>
+          <li><span class="item-title">Smallville Verse</span><a href="SmallvilleLeadershipVerse.html">2026</a></li>
+          <li><span class="item-title">Cops</span><a href="CourseOfStudy.html">2026</a></li>
+          <li><span class="item-title">StoryBook Comic</span><a href="StorybookComic.html">2026</a></li>
+          <li><span class="item-title">Street LAW ABC</span><a href="streetlawabc.html">2026</a></li>
+          <li><span class="item-title">World History Words ABC</span><a href="WorldHistoryVocabulary.html">2026</a></li>
+          <li><span class="item-title">Swimming</span><a href="Swimming.html">2026</a></li>
+          <li><span class="item-title">Heroes</span><a href="Heroes.html">2026</a></li>
+          <li><span class="item-title">Henderson Valley</span><a href="HendersonValley.html">2026</a></li>
+          <li><span class="item-title">School</span><a href="School.html">2026</a></li>
+          <li><span class="item-title">Lionel Luthor Healing</span><a href="LionelLuthorHealingMental.html">2026</a></li>
+          <li><span class="item-title">Professional Website</span><a href="ProfessionalWebsite.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- SPIRITUAL / HOLIDAY -->
+      <details class="category">
+        <summary>SPIRITUAL / HOLIDAY</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Birth of the Savior</span><a href="birthofJesus.html">2025</a></li>
+          <li><span class="item-title">Public Safety</span><a href="PublicSafety.html">2026</a></li>
+          <li><span class="item-title">Provo Utah</span><a href="BYU-UTAH.html">2026</a></li>
+          <li><span class="item-title">BYU Idaho</span><a href="BYU-IDAHO.html">2026</a></li>
+          <li><span class="item-title">Second Grade Lindsey Teacher</span><a href="SecondGrade.html">2026</a></li>
+          <li><span class="item-title">City of H‑Town Police</span><a href="CityofHtown.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- FAMILY TRIBUTE -->
+      <details class="category">
+        <summary>FAMILY TRIBUTE</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Preu – Jimmy Olsen Tribute</span><a href="Preuturnmynephewintomyhero.html">2025</a></li>
+          <li><span class="item-title">1st Grade Storybook</span><a href="SmallvilleStoryBook1stGrade.html">2026</a></li>
+          <li><span class="item-title">Helper</span><a href="helping.html">2026</a></li>
+          <li><span class="item-title">America Armed Forces</span><a href="AmericaArmForces2026.html">2026</a></li>
+          <li><span class="item-title">Lillian Luthor Healing</span><a href="LillianLuthorMentalHealthHealing.html">2026</a></li>
+          <li><span class="item-title">Luthor Tribute</span><a href="LLuthor.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- FOOD / RECIPES AND SEASONS -->
+      <details class="category">
+        <summary>FOOD / RECIPES AND SEASONS</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Fall Foods Recipes</span><a href="FallRecipe.html">2025</a></li>
+          <li><span class="item-title">Fall Halloween Harvest</span><a href="FoodHarvest.html">2025</a></li>
+          <li><span class="item-title">Thanksgiving Treats</span><a href="FoodRecipesCards.html">2025</a></li>
+        </ul>
+      </details>
+
+      <!-- SMALLVILLE / LUTHORVERSE -->
+      <details class="category">
+        <summary>LEX LUTHOR / SUPERHERO VERSE · SMALLVILLE</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Lex Luthor Superhero</span><a href="LX0.html">2026</a></li>
+          <li><span class="item-title">Belle Reve Mental Health Safety</span><a href="BelleReveMentalHealthSafetyPlan.html">2026</a></li>
+          <li><span class="item-title">Lana Lang & Lex Luthor</span><a href="LanaLang.html">2026</a></li>
+          <li><span class="item-title">Cops</span><a href="cops.html">2026</a></li>
+          <li><span class="item-title">Marine Life</span><a href="WelcomeToSmallville.html">2026</a></li>
+          <li><span class="item-title">Lex Luthor Mental Health Work</span><a href="LexMentalHealthWork.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- WORLD / HISTORY CONTINUED -->
+      <details class="category">
+        <summary>WORLD / HISTORY CONTINUED</summary>
+        <ul class="category-list">
+          <li><span class="item-title">World History ABC</span><a href="WorldHistoryVocabulary.html">2026</a></li>
+          <li><span class="item-title">Street Law ABC</span><a href="streetlawabc.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- SEASONS / WEATHER / NATURE -->
+      <details class="category">
+        <summary>SEASONS / WEATHER / NATURE</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Snow</span><a href="snow.html">2026</a></li>
+          <li><span class="item-title">Four Seasons</span><a href="FourSeasons.html">2026</a></li>
+          <li><span class="item-title">Season</span><a href="Season.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- HOLIDAY / GLOBAL -->
+      <details class="category">
+        <summary>HOLIDAY / GLOBAL</summary>
+        <ul class="category-list">
+          <li><span class="item-title">World Holidays Explore</span><a href="WorldHolidaysExplore.html">Explore</a></li>
+          <li><span class="item-title">Holiday Learning</span><a href="HolidayLearning.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- EDUCATION / SCHOOL -->
+      <details class="category">
+        <summary>EDUCATION / SCHOOL</summary>
+        <ul class="category-list">
+          <li><span class="item-title">School</span><a href="School.html">2026</a></li>
+          <li><span class="item-title">Second Grade</span><a href="SecondGrade.html">2026</a></li>
+          <li><span class="item-title">Learning</span><a href="Reltions.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- SAFETY / EMERGENCY -->
+      <details class="category">
+        <summary>SAFETY / EMERGENCY</summary>
+        <ul class="category-list">
+          <li><span class="item-title">24-Hour Kit Safety</span><a href="24hourSafetyKitFamily.html">2026</a></li>
+          <li><span class="item-title">Emergency Numbers</span><a href="emergenciesphonenumberandaddress.html">2026</a></li>
+          <li><span class="item-title">Support Recovery Panel</span><a href="SupportRecoveryPanel.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- SMALLVILLE / HEROES -->
+      <details class="category">
+        <summary>SMALLVILLE / HEROES</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Smallville</span><a href="Smallville.html">2026</a></li>
+          <li><span class="item-title">Smallville Fan</span><a href="SmallvilleFan.html">2026</a></li>
+          <li><span class="item-title">Smallville Verse Acting</span><a href="SmallvilleVerseActing.html">2026</a></li>
+          <li><span class="item-title">Smallville Law & Order</span><a href="SmallvilleLawandOrder.html">2026</a></li>
+          <li><span class="item-title">Smallville Development Goals</span><a href="SmallvilleDevelopmentGoals.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- LUTHOR FAMILY -->
+      <details class="category">
+        <summary>LUTHOR FAMILY</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Lex Luthor</span><a href="HistoryinthemakingofLexLuthor.html">2026</a></li>
+          <li><span class="item-title">Luthor Favorite</span><a href="LexFavorite.html">2026</a></li>
+          <li><span class="item-title">Luthor</span><a href="Luthor00.html">2026</a></li>
+          <li><span class="item-title">Lionel Luthor</span><a href="LionelLuthorMentalHealth.html">2026</a></li>
+          <li><span class="item-title">Lillian Luthor</span><a href="LillianLuthormentalhealth.html">2026</a></li>
+          <li><span class="item-title">Julian Luthor</span><a href="JulianLuthorMentalHealth.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- CITY / COMMUNITY -->
+      <details class="category">
+        <summary>CITY / COMMUNITY</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Henderson</span><a href="Henderson.html">2026</a></li>
+          <li><span class="item-title">City of H‑Town</span><a href="CityofHtown.html">2026</a></li>
+          <li><span class="item-title">City of Henderson Police</span><a href="Cityofhenderson.html">2026</a></li>
+        </ul>
+      </details>
+
+      <!-- FUN / MISC -->
+      <details class="category">
+        <summary>FUN / MISC</summary>
+        <ul class="category-list">
+          <li><span class="item-title">Hello Kitty Shop</span><a href="HelloKittyShop.html">2026</a></li>
+          <li><span class="item-title">Heroes</span><a href="Heroes.html">2026</a></li>
+          <li><span class="item-title">Swimming</span><a href="Swimming.html">2026</a></li>
+          <li><span class="item-title">Ride</span><a href="Ride.html">2025</a></li>
+        </ul>
+      </details>
+
+    </section> <!-- END OF ARTICLE LIST -->
+      <!-- MAPS / WORLD / HISTORY -->
+      <details class="category">
+        <summary>MAPS / WORLD / HISTORY</summary>
+        <ul class="category-list">
+          <li><span class="item-title">World Atlas</span><a href="WorldAtlas.html">2025</a></li>
+          <li><span class="item-title">America Government</span><a href="AmericaGovernment.html">2025</a></li>
+        </ul>
+      </details>
+
+    </section> <!-- END OF ARTICLE LIST -->
+  </div> <!-- END OF DIARY CONTENT -->
 </main>
+
 <footer>
   <p>&copy; 2026 Marissa A. Gimbel · Advanced CSS 331 Editorial Portfolio · BYU‑Idaho</p>
   <p><a href="#top">Back to Top</a></p>
 </footer>
-  
+
 <script>
   function checkPassword() {
     const input = document.getElementById("password");
     const error = document.getElementById("error-message");
     const login = document.getElementById("login-screen");
+    const diary = document.getElementById("diary-content");
 
     const correctPassword = "Summer 2026";
 
     if (input.value === correctPassword) {
       error.textContent = "";
       login.style.display = "none";
-      alert("Access granted.");
+      diary.style.display = "block";
     } else {
       error.textContent = "Incorrect password. Please try again.";
     }
   }
-</script>  
+</script>
+
 </body>
 </html>
