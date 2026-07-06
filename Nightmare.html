@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nightmare Before Christmas • Holiday Special</title>
+
+<style>
+    :root {
+        --bg-main: #111;
+        --bg-card: #1c1c1c;
+        --accent-orange: #f4a259;
+        --accent-green: #7fb069;
+        --accent-white: #f7f7f7;
+        --accent-red: #e63946;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background:
+            linear-gradient(135deg, #111 0%, #222 40%, #333 100%),
+            url("https://images.unsplash.com/photo-1543709532-003b3e8b5c89") center/cover fixed;
+        color: var(--accent-white);
+    }
+
+    header {
+        text-align: center;
+        padding: 60px 20px 30px;
+        background: rgba(0,0,0,0.6);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    header h1 {
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        font-size: 2rem;
+    }
+
+    header p {
+        margin-top: 10px;
+        color: #ddd;
+    }
+
+    main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 40px 20px 80px;
+    }
+
+    section {
+        margin-bottom: 40px;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+        color: var(--accent-orange);
+    }
+
+    .card {
+        background: var(--bg-card);
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tagline {
+        color: var(--accent-green);
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+
+    .holiday-strip {
+        display: flex;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    .holiday-pill {
+        flex: 1;
+        text-align: center;
+        padding: 10px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        border: 1px dashed rgba(255,255,255,0.2);
+        font-size: 0.85rem;
+    }
+
+    .cookies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .cookie-card {
+        background: rgba(255,255,255,0.05);
+        border-radius: 10px;
+        padding: 14px;
+        border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .cookie-card h3 {
+        font-size: 1rem;
+        margin-bottom: 6px;
+        color: var(--accent-red);
+    }
+
+    .cookie-card p {
+        font-size: 0.9rem;
+        color: #eee;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px 20px;
+        background: rgba(0,0,0,0.7);
+        font-size: 0.85rem;
+        color: #ccc;
+    }
+
+    .btn-scroll {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 18px;
+        border-radius: 999px;
+        border: 1px solid var(--accent-orange);
+        color: var(--accent-orange);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-scroll:hover {
+        background: var(--accent-orange);
+        color: #111;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Nightmare Before Christmas</h1>
+    <p>Holiday Special • Clean Slate • Simple Colors</p>
+    <a href="#cookies" class="btn-scroll">Jump to Cookies for Sandy Claws</a>
+</header>
+
+<main>
+    <section id="overview">
+        <h2>Overview</h2>
+        <div class="card">
+            <p class="tagline">A whimsical crossing of Halloween and Christmas in one long, dreamlike holiday tale.</p>
+            <p>
+                This page presents a full-length conceptual document about the world of
+                <strong>Nightmare Before Christmas</strong>—its holiday atmosphere, visual style, and story ideas—
+                organized into simple, readable sections. Colors stay plain and gentle, while the background
+                keeps a soft festive mood.
+            </p>
+
+            <div class="holiday-strip">
+                <div class="holiday-pill">Halloween Town • Spooky charm</div>
+                <div class="holiday-pill">Christmas Spirit • Warm lights</div>
+                <div class="holiday-pill">Holiday Bridge • Where worlds meet</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="holiday-special">
+        <h2>Holiday Special Concept</h2>
+        <div class="card">
+            <p>
+                The holiday special imagines a season where eerie pumpkins, snowflakes, and twinkling lights
+                share the same streets. Instead of choosing one holiday over another, the town experiments
+                with blending traditions: carols with minor-key melodies, wreaths with tiny bats, and
+                snowmen with slightly crooked smiles.
+            </p>
+            <p>
+                The tone stays playful rather than frightening—more curious than dark. The special focuses
+                on learning how different celebrations can coexist, how mischief can soften into kindness,
+                and how even the strangest characters can appreciate warm cocoa and quiet winter nights.
+            </p>
+        </div>
+    </section>
+
+    <section id="visual-style">
+        <h2>Visual Style & Colors</h2>
+        <div class="card">
+            <p>
+                The visual style is built on <strong>plain, simple colors</strong> layered over a subtle
+                holiday background:
+            </p>
+            <ul>
+                <li>Soft blacks and charcoal for the night sky and silhouettes.</li>
+                <li>Gentle oranges for pumpkins and lanterns.</li>
+                <li>Muted greens for garlands and evergreen trees.</li>
+                <li>Warm whites for snow, candlelight, and cookie icing.</li>
+                <li>Careful reds for ribbons, berries, and festive accents.</li>
+            </ul>
+            <p>
+                Instead of bright neon or heavy saturation, everything feels slightly faded—like a storybook
+                page that has been loved for many winters. This keeps the layout calm and readable while still
+                feeling seasonal.
+            </p>
+        </div>
+    </section>
+
+    <section id="cookies">
+        <h2>Cookies for Sandy Claws</h2>
+        <div class="card">
+            <p>
+                One charming idea in this world is preparing <strong>cookies for “Sandy Claws”</strong>—a playful,
+                slightly spooky twist on the classic tradition of leaving treats for a holiday visitor.
+                The cookies become a symbol of goodwill between the eerie and the cheerful.
+            </p>
+
+            <div class="cookies-grid">
+                <div class="cookie-card">
+                    <h3>Pumpkin Spice Moon Cookies</h3>
+                    <p>Round cookies with crescent cutouts, dusted with cinnamon and shaped like tiny moons over Halloween Town.</p>
+                </div>
+                <div class="cookie-card">
+                    <h3>Snowflake Skeleton Sugar Cookies</h3>
+                    <p>Simple sugar cookies with white icing lines, mixing snowflake patterns with playful skeletal motifs.</p>
+                </div>
+                <div class="cookie-card">
+                    <h3>Midnight Cocoa Stars</h3>
+                    <p>Dark chocolate stars with a light sprinkle of powdered sugar, like stars in a winter night sky.</p>
+                </div>
+                <div class="cookie-card">
+                    <h3>Gingerbat Buttons</h3>
+                    <p>Soft ginger cookies shaped like tiny bats, decorated with minimal icing for eyes and wings.</p>
+                </div>
+            </div>
+
+            <p style="margin-top:16px;">
+                On the night of the special, the town sets these cookies out on windowsills and doorsteps,
+                hoping Sandy Claws will understand that even the strangest hearts can offer sweet, sincere gifts.
+            </p>
+        </div>
+    </section>
+
+    <section id="full-idea">
+        <h2>Full Idea of the Story World</h2>
+        <div class="card">
+            <p>
+                The full idea of <strong>Nightmare Before Christmas</strong> in this document is not a scene-by-scene
+                retelling, but a thematic map: a place where holidays overlap, where curiosity leads to mistakes,
+                and where learning to respect another celebration becomes the heart of the season.
+            </p>
+            <p>
+                Characters explore what happens when they borrow traditions they don’t fully understand, then
+                slowly discover the meaning behind them. Through missteps and apologies, they realize that
+                every holiday carries memories, hopes, and promises—and that blending them requires care,
+                listening, and genuine kindness.
+            </p>
+            <p>
+                By the end, the town keeps its own identity while honoring others: Halloween remains delightfully
+                strange, Christmas remains warmly bright, and the bridge between them becomes a yearly reminder
+                that difference can be celebrated, not feared.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Nightmare Before Christmas • Holiday Concept Page • 2026
+</footer>
+
+<script>
+    // Simple holiday glow on scroll
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", () => {
+        const y = window.scrollY;
+        const opacity = Math.min(0.9, 0.6 + y / 600);
+        header.style.background = `rgba(0,0,0,${opacity})`;
+    });
+</script>
+
+</body>
+</html>
