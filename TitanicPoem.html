@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Castle • Mansion • Titanic Poem</title>
+
+<style>
+    :root {
+        --bg-main: #050816;
+        --accent-gold: #f1c40f;
+        --accent-rose: #c0392b;
+        --accent-daisy: #f7dc6f;
+        --accent-mansion: #7f8c8d;
+        --accent-titanic: #3498db;
+        --card-bg: #111827;
+        --border-soft: #374151;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: radial-gradient(circle at top, #1f2937 0%, #050816 60%);
+        color: #e5e7eb;
+    }
+
+    header {
+        text-align: center;
+        padding: 30px 20px;
+        border-bottom: 1px solid #111;
+        background: rgba(0,0,0,0.6);
+    }
+
+    header h1 {
+        font-size: 1.6rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    header p {
+        margin-top: 8px;
+        font-size: 0.95rem;
+        color: #9ca3af;
+    }
+
+    .nav-links {
+        margin-top: 12px;
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .nav-links a {
+        font-size: 0.85rem;
+        text-decoration: none;
+        color: #e5e7eb;
+        border: 1px solid #4b5563;
+        border-radius: 999px;
+        padding: 6px 12px;
+    }
+
+    main {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 30px 20px 60px;
+    }
+
+    section {
+        margin-bottom: 40px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        color: var(--accent-gold);
+    }
+
+    .card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        border: 1px solid var(--border-soft);
+        padding: 18px;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    /* Castle + Mansion scene (simple SVG) */
+    .scene-wrap {
+        margin-bottom: 20px;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #1f2937;
+    }
+
+    .scene-sky {
+        height: 240px;
+        background: linear-gradient(#0f172a, #1f2937);
+    }
+
+    .scene-ground {
+        height: 80px;
+        background: #14532d;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .flower {
+        width: 12px;
+        height: 40px;
+        position: relative;
+    }
+
+    .flower::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 30px;
+        background: #22c55e;
+        border-radius: 999px;
+    }
+
+    .flower::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+    }
+
+    .flower.rose::after { background: var(--accent-rose); }
+    .flower.daisy::after { background: var(--accent-daisy); }
+
+    /* Titanic section */
+    .titanic-highlight {
+        border-left: 3px solid var(--accent-titanic);
+        padding-left: 12px;
+        margin-top: 10px;
+    }
+
+    .poem {
+        margin-top: 16px;
+        padding: 14px;
+        border-radius: 10px;
+        border: 1px dashed #4b5563;
+        background: #020617;
+        font-style: italic;
+        white-space: pre-line;
+    }
+
+    footer {
+        text-align: center;
+        padding: 24px 20px;
+        font-size: 0.8rem;
+        color: #9ca3af;
+        border-top: 1px solid #111;
+        background: rgba(0,0,0,0.7);
+    }
+
+    .btn-top {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: 1px solid #4b5563;
+        color: #e5e7eb;
+        text-decoration: none;
+        font-size: 0.8rem;
+    }
+</style>
+</head>
+<body>
+<header id="top">
+    <h1>Castle Lights • Haunted Mansion • Titanic Poem</h1>
+    <p>Full-length page with a fantasy castle, mansion corner, flowers, and a quiet poem for the Titanic.</p>
+    <div class="nav-links">
+        <a href="#castle">Castle</a>
+        <a href="#mansion">Haunted Mansion</a>
+        <a href="#flowers">Daisies & Roses</a>
+        <a href="#titanic">Titanic & Poem</a>
+    </div>
+</header>
+
+<main>
+    <section id="castle">
+        <h2>Disney-style Castle Lights</h2>
+        <div class="scene-wrap">
+            <div class="scene-sky">
+                <svg width="100%" height="100%" viewBox="0 0 960 240" preserveAspectRatio="xMidYMid slice">
+                    <!-- Castle base -->
+                    <rect x="360" y="140" width="240" height="80" fill="#e5e7eb" />
+                    <rect x="380" y="120" width="70" height="60" fill="#e5e7eb" />
+                    <rect x="510" y="120" width="70" height="60" fill="#e5e7eb" />
+                    <!-- Towers -->
+                    <rect x="400" y="80" width="30" height="40" fill="#cbd5f5" />
+                    <rect x="520" y="70" width="30" height="50" fill="#cbd5f5" />
+                    <rect x="450" y="90" width="30" height="50" fill="#cbd5f5" />
+                    <!-- Roofs -->
+                    <polygon points="415,80 400,60 430,60" fill="#8b5cf6" />
+                    <polygon points="535,70 520,50 550,50" fill="#8b5cf6" />
+                    <polygon points="465,90 450,70 480,70" fill="#8b5cf6" />
+                    <!-- Windows / lights -->
+                    <rect x="390" y="150" width="20" height="20" fill="#facc15" />
+                    <rect x="430" y="150" width="20" height="20" fill="#facc15" />
+                    <rect x="470" y="150" width="20" height="20" fill="#facc15" />
+                    <rect x="510" y="150" width="20" height="20" fill="#facc15" />
+                    <rect x="550" y="150" width="20" height="20" fill="#facc15" />
+
+                    <!-- Simple starry sky -->
+                    <circle cx="200" cy="40" r="2" fill="#f9fafb" />
+                    <circle cx="260" cy="60" r="2" fill="#f9fafb" />
+                    <circle cx="720" cy="50" r="2" fill="#f9fafb" />
+                    <circle cx="800" cy="30" r="2" fill="#f9fafb" />
+                </svg>
+            </div>
+            <div class="scene-ground">
+                <div class="flower rose"></div>
+                <div class="flower daisy"></div>
+                <div class="flower rose"></div>
+                <div class="flower daisy"></div>
+            </div>
+        </div>
+        <div class="card">
+            <p>
+                The castle stands at the center of the page like a familiar storybook landmark—towers, soft roofs,
+                and warm windows glowing against a deep night sky. The lights suggest celebrations, fireworks,
+                and quiet wishes made under the stars.
+            </p>
+        </div>
+    </section>
+
+    <section id="mansion">
+        <h2>Haunted Mansion Corner</h2>
+        <div class="card">
+            <p>
+                Off to one side of the castle, imagination creates a haunted mansion wing: a quieter, shadowed
+                building with dim lanterns and gentle fog. It is more mysterious than frightening, a place where
+                portraits seem to watch and staircases creak softly as stories unfold.
+            </p>
+            <p>
+                In this layout, the mansion is described rather than drawn in detail, leaving room for your own
+                design choices—extra windows, balcony railings, or a small graveyard garden if you wish. It
+                becomes a companion to the castle, balancing bright celebration with soft, spooky charm.
+            </p>
+        </div>
+    </section>
+
+    <section id="flowers">
+        <h2>Daisies & Roses</h2>
+        <div class="card">
+            <p>
+                Along the ground, rows of <strong>daisies</strong> and <strong>roses</strong> frame the scene.
+                Daisies bring simple, cheerful yellow centers and white petals, while roses add deep red notes
+                of romance and remembrance.
+            </p>
+            <p>
+                Together, they create a border that feels both festive and reflective—perfect for a page that
+                moves from fantasy architecture to the memory of a great ship and the people who sailed on it.
+            </p>
+        </div>
+    </section>
+
+    <section id="titanic">
+        <h2>Titanic & Poem</h2>
+        <div class="card">
+            <p>
+                The Titanic section honors the historic ship and its passengers with a calm, respectful tone.
+                Rather than retelling any specific film or script, this page offers a short poetic reflection
+                written in the voice of an unnamed passenger who loved the sea and the journey.
+            </p>
+
+            <div class="titanic-highlight">
+                <p>
+                    The ship is imagined at twilight: decks lined with lamps, ocean stretching in every direction,
+                    and a horizon that feels endless. The poem below speaks to hope, love, and the sudden fragility
+                    of all those dreams.
+                </p>
+            </div>
+
+            <div class="poem" id="titanicPoem">
+I stood at the rail where the cold wind sings,
+watching the sea fold over its own silver wings.
+The ship moved forward like a promise in steel,
+a city of lanterns, a heartbeat I could feel.
+
+We spoke of tomorrow as if it were sure,
+of letters to send and lives to endure.
+Your laughter was warm in the salt‑bitten air,
+a fragile bright flame in a world unaware.
+
+Then night grew heavier, the stars leaned low,
+and whispers of ice rode the dark ocean’s glow.
+The music kept playing, soft, steady, and brave,
+as if every last note could outrun every wave.
+
+I think of you now when the harbor is still,
+when moonlight draws pathways along every hill.
+The ship is a memory, the sea carries on,
+but love, like the tide, never truly is gone.
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Castle • Mansion • Flowers • Titanic Poem • 2026
+    <br>
+    <a href="#top" class="btn-top">Back to top</a>
+</footer>
+
+<script>
+    // Simple glow effect on scroll for header
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", () => {
+        const y = window.scrollY;
+        const opacity = Math.min(0.9, 0.6 + y / 600);
+        header.style.background = `rgba(0,0,0,${opacity})`;
+    });
+
+    // Gentle highlight on poem when clicked
+    const poem = document.getElementById("titanicPoem");
+    poem.addEventListener("click", () => {
+        poem.style.borderColor = "#60a5fa";
+        setTimeout(() => {
+            poem.style.borderColor = "#4b5563";
+        }, 1200);
+    });
+</script>
+</body>
+</html>
