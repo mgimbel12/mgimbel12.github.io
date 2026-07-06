@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlantis Oceanica Panel</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(#003f5c, #2f4b7c, #665191, #a05195);
+        color: #fff;
+    }
+
+    header {
+        padding: 60px 20px;
+        text-align: center;
+        background: rgba(0,0,0,0.3);
+    }
+
+    section {
+        padding: 60px 20px;
+        border-bottom: 2px solid rgba(255,255,255,0.2);
+    }
+
+    h1, h2 {
+        margin: 0 0 20px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .atlantis {
+        background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover;
+        padding: 120px 20px;
+        text-shadow: 0 0 10px #000;
+    }
+
+    .navy-boats {
+        background: rgba(0,0,0,0.2);
+    }
+
+    .helpers {
+        background: rgba(255,255,255,0.1);
+    }
+
+    .oceanica {
+        background: rgba(0,0,0,0.25);
+    }
+
+    .panel-card {
+        background: rgba(255,255,255,0.15);
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 10px;
+    }
+
+    footer {
+        padding: 40px;
+        text-align: center;
+        background: rgba(0,0,0,0.4);
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Atlantis • Oceanica • Naval Harmony</h1>
+    <p>A full-length ceremonial ocean layout</p>
+</header>
+
+<section class="atlantis">
+    <h2>Atlantis</h2>
+    <div class="panel-card">
+        <p>The shimmering kingdom beneath the waves, built with crystal towers and glowing coral streets.</p>
+    </div>
+</section>
+
+<section class="navy-boats">
+    <h2>Navy Boats</h2>
+    <div class="panel-card">
+        <p>Strong vessels guarding the ocean realm, sailing with honor and unity.</p>
+    </div>
+</section>
+
+<section class="helpers">
+    <h2>Free Welly’s • Ocean Helpers</h2>
+    <div class="panel-card">
+        <p>Friendly ocean guardians who rescue, repair, and protect life beneath the waves.</p>
+    </div>
+</section>
+
+<section class="oceanica">
+    <h2>Oceanica</h2>
+    <div class="panel-card">
+        <p>A peaceful underwater province known for creativity, kindness, and shimmering blue gardens.</p>
+    </div>
+</section>
+
+<footer>
+    <p>Designed with ocean harmony • 2026</p>
+</footer>
+
+<script>
+    // Gentle ocean shimmer effect
+    document.body.addEventListener("mousemove", (e) => {
+        const x = e.clientX / window.innerWidth;
+        const y = e.clientY / window.innerHeight;
+        document.body.style.background = `linear-gradient(
+            rgba(${Math.floor(0 + x*50)}, ${Math.floor(63 + y*50)}, 92, 1),
+            rgba(${Math.floor(47 + x*50)}, ${Math.floor(75 + y*50)}, 124, 1),
+            rgba(${Math.floor(102 + x*50)}, ${Math.floor(81 + y*50)}, 145, 1),
+            rgba(${Math.floor(160 + x*50)}, ${Math.floor(81 + y*50)}, 149, 1)
+        )`;
+    });
+</script>
+</body>
+</html>
