@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Nightmare Before Christmas Feast</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    /* ====== GLOBAL STYLES ====== */
+    :root {
+      --bg-dark: #05060a;
+      --bg-panel: #111320;
+      --accent-purple: #7b4bff;
+      --accent-orange: #ff9b3d;
+      --accent-green: #7bdc7b;
+      --text-main: #f5f5f5;
+      --text-muted: #c3c3c3;
+      --border-soft: #2a2d3f;
+      --shadow-soft: 0 0 25px rgba(0, 0, 0, 0.6);
+      --font-main: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: radial-gradient(circle at top, #1b1f3b 0, #05060a 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: var(--accent-orange);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* ====== LAYOUT ====== */
+    header {
+      padding: 1.5rem 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-soft);
+      background: linear-gradient(
+        to right,
+        rgba(10, 10, 20, 0.9),
+        rgba(10, 10, 20, 0.6)
+      );
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      background: radial-gradient(circle, #ffffff 0, #7b4bff 40%, #05060a 100%);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .logo-text {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    nav button {
+      background: transparent;
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    nav button:hover,
+    nav button.active {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+      box-shadow: 0 0 12px rgba(255, 155, 61, 0.4);
+    }
+
+    main {
+      flex: 1;
+      padding: 2rem 5vw 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ====== HERO SECTION ====== */
+    .hero {
+      background: radial-gradient(circle at top left, #2b2f55 0, #111320 40%);
+      border-radius: 1.2rem;
+      padding: 1.8rem 1.8rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 10% 0, #ff9b3d33 0, transparent 55%),
+        radial-gradient(circle at 90% 0, #7b4bff33 0, transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-title {
+      font-size: 2.1rem;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: rgba(5, 6, 10, 0.7);
+    }
+
+    .tag.halloween {
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    .tag.christmas {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .tag.food {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent-orange), #ff6a3d);
+      border: none;
+      color: #05060a;
+      font-weight: 600;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 0 18px rgba(255, 155, 61, 0.6);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 24px rgba(255, 155, 61, 0.8);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-radius: 999px;
+      border: 1px dashed var(--border-soft);
+      color: var(--text-muted);
+      padding: 0.55rem 1.2rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.15s ease;
+    }
+
+    .btn-ghost:hover {
+      border-style: solid;
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .moon {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0, #ffe9c7 40%, #ffcf8a 60%, #111320 100%);
+      box-shadow: 0 0 40px rgba(255, 207, 138, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hill {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 170px;
+      height: 90px;
+      background: radial-gradient(circle at 50% 0, #05060a 0, #05060a 60%, transparent 61%);
+      border-radius: 50% 50% 0 0;
+    }
+
+    .jack-face {
+      position: absolute;
+      inset: 25px;
+      border-radius: 50%;
+      border: 2px solid #05060a;
+    }
+
+    .jack-eye {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #05060a;
+      top: 40px;
+    }
+
+    .jack-eye.left {
+      left: 40px;
+    }
+
+    .jack-eye.right {
+      right: 40px;
+    }
+
+    .jack-mouth {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      width: 80px;
+      height: 40px;
+      border-bottom: 3px solid #05060a;
+      border-radius: 0 0 80px 80px;
+      transform: translateX(-50%);
+    }
+
+    .jack-stitch {
+      position: absolute;
+      width: 2px;
+      height: 12px;
+      background: #05060a;
+      bottom: 32px;
+    }
+
+    .jack-stitch:nth-child(1) {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .jack-stitch:nth-child(2) {
+      left: 40%;
+    }
+
+    .jack-stitch:nth-child(3) {
+      left: 60%;
+    }
+
+    .hero-caption {
+      position: absolute;
+      bottom: -0.4rem;
+      right: 0.2rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* ====== CONTENT PANELS ====== */
+    .panel {
+      background: var(--bg-panel);
+      border-radius: 1.1rem;
+      padding: 1.4rem 1.5rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      margin-top: 1.4rem;
+    }
+
+    .panel h2 {
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .panel h3 {
+      font-size: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .panel p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .panel ul {
+      list-style: none;
+      margin-top: 0.4rem;
+    }
+
+    .panel li {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      padding: 0.25rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    .bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-top: 0.35rem;
+      background: var(--accent-orange);
+      flex-shrink: 0;
+    }
+
+    .panel-highlight {
+      border-left: 3px solid var(--accent-purple);
+      padding-left: 0.9rem;
+      margin-top: 0.6rem;
+    }
+
+    /* ====== SIDEBAR ====== */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .card {
+      background: var(--bg-panel);
+      border-radius: 1.1rem;
+      padding: 1.2rem 1.3rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .food-list {
+      margin-top: 0.6rem;
+    }
+
+    .food-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .food-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .food-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+    }
+
+    .food-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+    }
+
+    .food-tag.sweet {
+      border-color: var(--accent-purple);
+      color: var(--accent-purple);
+    }
+
+    .food-tag.savory {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .food-tag.drink {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+    }
+
+    .season-toggle {
+      margin-top: 0.8rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .season-toggle button {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .season-toggle button.active {
+      border-color: var(--accent-green);
+      color: var(--accent-green);
+      box-shadow: 0 0 12px rgba(123, 220, 123, 0.4);
+    }
+
+    .season-toggle button:hover {
+      border-color: var(--accent-orange);
+      color: var(--accent-orange);
+    }
+
+    .quote-card {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-left: 3px solid var(--accent-orange);
+      padding-left: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
+    .quote-card span {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-purple);
+    }
+
+    footer {
+      padding: 1rem 5vw 1.4rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-soft);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-icon">🎃</div>
+      <div class="logo-text">Nightmare Feast</div>
+    </div>
+    <nav>
+      <button class="nav-link active" data-section="story">Story</button>
+      <button class="nav-link" data-section="season">Christmas Season</button>
+      <button class="nav-link" data-section="foods">Favorite Foods</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN -->
+    <section>
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-inner">
+          <div>
+            <h1 class="hero-title">
+              The Nightmare Before Christmas:
+              <br />
+              A Spooky-Sweet Holiday Feast
+            </h1>
+            <p class="hero-subtitle">
+              A web page that blends Halloween Town’s charm with Christmas warmth—and a table full of favorite holiday foods.
+            </p>
+            <div class="hero-tags">
+              <span class="tag halloween">Halloween Town</span>
+              <span class="tag christmas">Christmas Season</span>
+              <span class="tag food">Festive Foods</span>
+            </div>
+            <div class="hero-cta">
+              <button class="btn-primary" id="scrollToFoods">
+                View Christmas Favorites
+              </button>
+              <button class="btn-ghost" id="randomQuoteBtn">
+                Shuffle Jack’s Quote
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-visual">
+            <div class="moon">
+              <div class="jack-face">
+                <div class="jack-eye left"></div>
+                <div class="jack-eye right"></div>
+                <div class="jack-mouth"></div>
+                <div class="jack-stitch"></div>
+                <div class="jack-stitch"></div>
+                <div class="jack-stitch"></div>
+              </div>
+              <div class="hill"></div>
+            </div>
+            <div class="hero-caption">Jack & Christmas Moon</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STORY PANEL -->
+      <article class="panel" id="section-story">
+        <h2>From Halloween Town to Christmas Eve</h2>
+        <p>
+          In <em>The Nightmare Before Christmas</em>, Jack Skellington stumbles into Christmas Town and discovers a world
+          painted in twinkling lights, sugar-dusted rooftops, and warm carols drifting through the snow. It’s a place
+          where fear gives way to wonder, and where every street seems to smell faintly of cinnamon, cocoa, and fresh-baked
+          cookies.
+        </p>
+        <p>
+          This page imagines what happens when Jack’s curiosity meets a cozy Christmas kitchen. Instead of replacing
+          Santa, he joins the celebration—bringing a little spooky flair to the table while still honoring the comfort
+          and nostalgia of the season.
+        </p>
+
+        <div class="panel-highlight">
+          <h3>Why this story fits both Halloween and Christmas</h3>
+          <p>
+            Jack’s journey is really about longing—wanting something new, something bright, something that feels like
+            hope. That feeling belongs to both holidays. Halloween lets us play with shadows and masks; Christmas invites
+            us to gather, share, and glow. Together, they become a single, strange, beautiful season.
+          </p>
+        </div>
+
+        <h3>Imagined scenes at the holiday table</h3>
+        <ul>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              Jack carefully arranging candy canes in perfect spirals, trying to understand why “sweet” can be just as
+              powerful as “scary.”
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              Sally quietly setting out steaming mugs of cocoa, each topped with a marshmallow shaped like a tiny skull,
+              soft and harmless.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              Zero floating through the kitchen, his glowing nose reflecting off silver tinsel and trays of gingerbread.
+            </span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- CHRISTMAS SEASON PANEL -->
+      <article class="panel" id="section-season" style="display:none;">
+        <h2>The Christmas Season in Jack’s Eyes</h2>
+        <p>
+          To Jack, Christmas is a living symphony of color and flavor. Where Halloween Town leans into cobwebs and
+          crooked smiles, Christmas Town leans into warmth—candles in windows, wreaths on doors, and tables that seem to
+          invite everyone to sit down and stay a while.
+        </p>
+        <p>
+          The season is more than a single day. It’s a stretch of evenings where the world slows down just enough for
+          stories, games, and second helpings. Snow falls outside; inside, ovens hum and spices bloom in the air.
+        </p>
+
+        <h3>Textures and tastes of the season</h3>
+        <ul>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              The crisp snap of a peppermint stick, echoing the candy-striped lampposts Jack first sees in Christmas Town.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              The soft crumble of shortbread cookies, dusted with sugar like fresh snow on the town square.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              The slow comfort of a simmering stew or roast, filling the house with a scent that says, “You’re home. Stay.”
+            </span>
+          </li>
+        </ul>
+
+        <div class="panel-highlight">
+          <h3>Blending spooky and merry</h3>
+          <p>
+            Imagine ornaments shaped like tiny pumpkins hanging beside glass snowflakes, or a wreath woven with both
+            holly and curling black ribbon. The Christmas season doesn’t lose its joy when it welcomes a little mystery;
+            it simply becomes more memorable—like a carol sung in a minor key that still ends in harmony.
+          </p>
+        </div>
+      </article>
+
+      <!-- FAVORITE FOODS PANEL -->
+      <article class="panel" id="section-foods">
+        <h2>Favorite Christmas Foods in a Nightmare Feast</h2>
+        <p>
+          Every holiday table has its own traditions, but some foods feel almost universal—comforting, familiar, and
+          quietly magical. Here, they’re imagined through the lens of <em>The Nightmare Before Christmas</em>, where
+          each dish carries a hint of Halloween Town’s personality without losing its Christmas heart.
+        </p>
+
+        <h3>Sweet treats Jack would marvel at</h3>
+        <ul>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              <strong>Gingerbread Skeletons:</strong> Classic gingerbread cookies, iced not as simple people but as
+              playful skeletons, with bright white bones and tiny candy hearts.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              <strong>Patchwork Sugar Cookies:</strong> Inspired by Sally’s dress—each cookie a mosaic of colored dough,
+              stitched together with vanilla icing.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              <strong>Jack Skellington Hot Cocoa:</strong> Dark chocolate cocoa topped with a marshmallow Jack face,
+              his grin drawn in melted chocolate.
+            </span>
+          </li>
+        </ul>
+
+        <h3>Savory comforts for a long winter night</h3>
+        <ul>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              <strong>Roasted Holiday Beast (Friendly Version):</strong> A tender roast—turkey, ham, or a plant-based
+              centerpiece—surrounded by rosemary potatoes and bright orange carrots.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              <strong>Butternut “Worm’s Wort” Soup:</strong> A velvety squash soup with cinnamon and nutmeg, served in
+              black bowls that make the golden color glow.
+            </span>
+          </li>
+          <li>
+            <span class="bullet"></span>
+            <span>
+              <strong>“Simply Meant to Brie” Board:</strong> A cheese and fruit board arranged in two halves—one for Jack,
+              one for Sally—sharing the same plate.
+            </span>
+          </li>
+        </ul>
+
+        <div class="panel-highlight">
+          <h3>Drinks to toast both holidays</h3>
+          <p>
+            Mulled cider, spiced with cloves and orange peel, feels like something the citizens of Halloween Town would
+            adopt instantly. Peppermint hot chocolate, meanwhile, belongs to Christmas Town—but Jack would likely insist
+            on serving it in mugs shaped like tiny pumpkins, just to keep things interesting.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <!-- RIGHT COLUMN / SIDEBAR -->
+    <aside class="sidebar">
+      <div class="card">
+        <h3>Season Mood</h3>
+        <p>
+          Choose whether the page leans more toward Halloween Town’s eerie charm or Christmas Town’s cozy glow. The
+          colors will shift to match your choice.
+        </p>
+        <div class="season-toggle">
+          <button id="btnHalloween">Halloween Mood</button>
+          <button id="btnChristmas" class="active">Christmas Mood</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Christmas Favorites</h3>
+        <p>
+          A quick list of beloved Christmas foods, imagined as if they’d been invited to Jack’s holiday table.
+        </p>
+        <div class="food-list" id="foodList">
+          <div class="food-item">
+            <div class="food-label">
+              <div class="food-dot"></div>
+              <span>Gingerbread cookies</span>
+            </div>
+            <span class="food-tag sweet">Sweet</span>
+          </div>
+          <div class="food-item">
+            <div class="food-label">
+              <div class="food-dot"></div>
+              <span>Roast turkey or ham</span>
+            </div>
+            <span class="food-tag savory">Savory</span>
+          </div>
+          <div class="food-item">
+            <div class="food-label">
+              <div class="food-dot"></div>
+              <span>Mashed potatoes & gravy</span>
+            </div>
+            <span class="food-tag savory">Comfort</span>
+          </div>
+          <div class="food-item">
+            <div class="food-label">
+              <div class="food-dot"></div>
+              <span>Peppermint hot chocolate</span>
+            </div>
+            <span class="food-tag drink">Drink</span>
+          </div>
+          <div class="food-item">
+            <div class="food-label">
+              <div class="food-dot"></div>
+              <span>Apple pie or pumpkin pie</span>
+            </div>
+            <span class="food-tag sweet">Dessert</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Jack’s Reflections</h3>
+        <div class="quote-card" id="quoteCard">
+          “Just because I’m dead doesn’t mean I can’t enjoy a good Christmas cookie.”
+          <span>Imagined Jack Skellington</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    Nightmare Before Christmas–inspired fan page. Not official Disney content—just a cozy tribute to spooky and merry
+    seasons sharing the same table.
+  </footer>
+
+  <script>
+    // ====== NAVIGATION BETWEEN SECTIONS ======
+    const navButtons = document.querySelectorAll(".nav-link");
+    const sections = {
+      story: document.getElementById("section-story"),
+      season: document.getElementById("section-season"),
+      foods: document.getElementById("section-foods"),
+    };
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.section;
+
+        // toggle active state
+        navButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        // show/hide sections
+        Object.keys(sections).forEach((key) => {
+          sections[key].style.display = key === target ? "block" : "none";
+        });
+      });
+    });
+
+    // ====== SCROLL TO FOODS ======
+    const scrollToFoodsBtn = document.getElementById("scrollToFoods");
+    scrollToFoodsBtn.addEventListener("click", () => {
+      // activate foods section
+      navButtons.forEach((b) => {
+        if (b.dataset.section === "foods") {
+          b.click();
+        }
+      });
+      sections.foods.scrollIntoView({ behavior: "smooth" });
+    });
+
+    // ====== SEASON MOOD TOGGLE ======
+    const btnHalloween = document.getElementById("btnHalloween");
+    const btnChristmas = document.getElementById("btnChristmas");
+
+    btnHalloween.addEventListener("click", () => {
+      document.body.style.background =
+        "radial-gradient(circle at top, #2b0f2b 0, #05060a 55%)";
+      btnHalloween.classList.add("active");
+      btnChristmas.classList.remove("active");
+    });
+
+    btnChristmas.addEventListener("click", () => {
+      document.body.style.background =
+        "radial-gradient(circle at top, #1b1f3b 0, #05060a 55%)";
+      btnChristmas.classList.add("active");
+      btnHalloween.classList.remove("active");
+    });
+
+    // ====== RANDOM JACK QUOTE ======
+    const quoteCard = document.getElementById("quoteCard");
+    const randomQuoteBtn = document.getElementById("randomQuoteBtn");
+
+    const jackQuotes = [
+      {
+        text: "What’s this? A table full of food that isn’t trying to bite me?",
+        author: "Imagined Jack Skellington",
+      },
+      {
+        text: "If fear can thrill a crowd, imagine what comfort can do.",
+        author: "Imagined Jack Skellington",
+      },
+      {
+        text: "I tried to scare the turkey, but it was already carved.",
+        author: "Imagined Jack Skellington",
+      },
+      {
+        text: "Christmas tastes like hope… and a little bit like cinnamon.",
+        author: "Imagined Jack Skellington",
+      },
+      {
+        text: "Perhaps the greatest gift is a seat at a warm table.",
+        author: "Imagined Jack Skellington",
+      },
+    ];
+
+    randomQuoteBtn.addEventListener("click", () => {
+      const random = jackQuotes[Math.floor(Math.random() * jackQuotes.length)];
+      quoteCard.innerHTML = `
+        “${random.text}”
+        <span>${random.author}</span>
+      `;
+    });
+  </script>
+</body>
+</html>
