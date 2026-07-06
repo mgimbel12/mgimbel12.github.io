@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Castle Celebration Scene</title>
+
+<style>
+    :root {
+        --sky-day: linear-gradient(#87ceeb, #ffffff);
+        --sky-night: radial-gradient(circle at top, #2b3a67 0%, #050816 60%);
+        --castle-base: #f5f5f5;
+        --castle-shadow: #d0d0d0;
+        --water: #4aa3d8;
+        --ground: #3b5d3b;
+        --rose: #c0392b;
+        --tulip: #e67e22;
+        --daisy: #f1c40f;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: #000;
+        color: #fff;
+    }
+
+    .page {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        padding: 20px;
+        text-align: center;
+        background: #111;
+        border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 1.4rem;
+    }
+
+    .toggle-wrap {
+        margin-top: 10px;
+    }
+
+    .toggle-wrap button {
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid #fff;
+        background: transparent;
+        color: #fff;
+        cursor: pointer;
+        font-size: 0.9rem;
+    }
+
+    .scene {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        transition: background 0.5s ease;
+    }
+
+    .scene-inner {
+        width: 100%;
+        max-width: 960px;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #333;
+        background: #000;
+    }
+
+    .sky {
+        height: 260px;
+        position: relative;
+        transition: background 0.5s ease;
+    }
+
+    .water {
+        height: 80px;
+        background: var(--water);
+        position: relative;
+    }
+
+    .ground {
+        height: 80px;
+        background: var(--ground);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 0 20px;
+    }
+
+    .flower {
+        width: 10px;
+        height: 40px;
+        position: relative;
+    }
+
+    .flower::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3px;
+        height: 30px;
+        background: #2ecc71;
+        border-radius: 999px;
+    }
+
+    .flower::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+    }
+
+    .flower.rose::after { background: var(--rose); }
+    .flower.tulip::after { background: var(--tulip); }
+    .flower.daisy::after { background: var(--daisy); }
+
+    .info-panels {
+        max-width: 960px;
+        margin: 20px auto 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        padding: 0 20px;
+    }
+
+    .panel {
+        background: #111;
+        border-radius: 10px;
+        border: 1px solid #333;
+        padding: 16px;
+        font-size: 0.9rem;
+    }
+
+    .panel h2 {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 0.8rem;
+        background: #111;
+        border-top: 1px solid #333;
+    }
+</style>
+</head>
+<body>
+<div class="page">
+    <header>
+        <h1>Castle Celebration • Day & Night</h1>
+        <div class="toggle-wrap">
+            <button id="toggleMode">Switch to Night</button>
+        </div>
+    </header>
+
+    <div class="scene" id="scene">
+        <div class="scene-inner">
+            <!-- Sky with castle and fireworks -->
+            <div class="sky" id="sky">
+                <svg width="100%" height="100%" viewBox="0 0 960 260" preserveAspectRatio="xMidYMid slice">
+                    <!-- Castle base -->
+                    <rect x="380" y="140" width="200" height="80" fill="#f5f5f5" />
+                    <rect x="400" y="120" width="60" height="60" fill="#f5f5f5" />
+                    <rect x="520" y="120" width="60" height="60" fill="#f5f5f5" />
+                    <!-- Towers -->
+                    <rect x="430" y="80" width="30" height="40" fill="#d0d0d0" />
+                    <rect x="540" y="70" width="30" height="50" fill="#d0d0d0" />
+                    <!-- Roofs -->
+                    <polygon points="445,80 430,60 460,60" fill="#8e44ad" />
+                    <polygon points="555,70 540,50 570,50" fill="#8e44ad" />
+                    <!-- Castle lights (windows) -->
+                    <rect x="410" y="150" width="20" height="20" fill="#f1c40f" />
+                    <rect x="450" y="150" width="20" height="20" fill="#f1c40f" />
+                    <rect x="510" y="150" width="20" height="20" fill="#f1c40f" />
+                    <rect x="550" y="150" width="20" height="20" fill="#f1c40f" />
+
+                    <!-- Simple fireworks -->
+                    <g id="fireworks">
+                        <circle cx="250" cy="60" r="3" fill="#e74c3c" />
+                        <line x1="250" y1="60" x2="240" y2="40" stroke="#e74c3c" stroke-width="2" />
+                        <line x1="250" y1="60" x2="260" y2="40" stroke="#e74c3c" stroke-width="2" />
+                        <line x1="250" y1="60" x2="230" y2="55" stroke="#e74c3c" stroke-width="2" />
+                        <line x1="250" y1="60" x2="270" y2="55" stroke="#e74c3c" stroke-width="2" />
+
+                        <circle cx="720" cy="50" r="3" fill="#f1c40f" />
+                        <line x1="720" y1="50" x2="710" y2="30" stroke="#f1c40f" stroke-width="2" />
+                        <line x1="720" y1="50" x2="730" y2="30" stroke="#f1c40f" stroke-width="2" />
+                        <line x1="720" y1="50" x2="700" y2="45" stroke="#f1c40f" stroke-width="2" />
+                        <line x1="720" y1="50" x2="740" y2="45" stroke="#f1c40f" stroke-width="2" />
+                    </g>
+
+                    <!-- Airplanes -->
+                    <g id="planes">
+                        <polygon points="150,120 170,115 170,125" fill="#bdc3c7" />
+                        <rect x="170" y="118" width="20" height="4" fill="#ecf0f1" />
+
+                        <polygon points="800,130 820,125 820,135" fill="#bdc3c7" />
+                        <rect x="820" y="128" width="20" height="4" fill="#ecf0f1" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Water with sprinkles and sailor boat -->
+            <div class="water">
+                <svg width="100%" height="100%" viewBox="0 0 960 80" preserveAspectRatio="xMidYMid slice">
+                    <!-- Water sprinkles -->
+                    <path d="M0 40 Q40 30 80 40 T160 40 T240 40 T320 40 T400 40 T480 40 T560 40 T640 40 T720 40 T800 40 T880 40 T960 40"
+                          fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6" />
+                    <!-- Sailor boat -->
+                    <polygon points="200,50 230,65 170,65" fill="#8e44ad" />
+                    <rect x="198" y="35" width="4" height="15" fill="#ecf0f1" />
+                    <polygon points="202,35 215,45 202,45" fill="#ecf0f1" />
+                </svg>
+            </div>
+
+            <!-- Ground with flowers -->
+            <div class="ground">
+                <div class="flower rose"></div>
+                <div class="flower tulip"></div>
+                <div class="flower daisy"></div>
+                <div class="flower rose"></div>
+                <div class="flower tulip"></div>
+                <div class="flower daisy"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info panels for forces and mansion -->
+    <div class="info-panels">
+        <div class="panel">
+            <h2>Sailors & Navy</h2>
+            <p>
+                A calm harbor scene with sailors guiding ships under the castle’s fireworks, representing dedication
+                and steady guardianship of the waters.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Army</h2>
+            <p>
+                The land around the castle symbolizes the strength and discipline of the army, standing watch over
+                bridges, gates, and pathways.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Air Forces</h2>
+            <p>
+                Airplanes glide across the sky, echoing the precision and courage of air crews who protect the realm
+                from above.
+            </p>
+        </div>
+        <div class="panel">
+            <h2>Haunted Mansion Corner</h2>
+            <p>
+                A quiet wing of the castle hints at a haunted mansion—softly lit windows, gentle mystery, and
+                storybook shadows without being too frightening.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        Castle Celebration Scene • Day & Night Toggle • 2026
+    </footer>
+</div>
+
+<script>
+    const scene = document.getElementById("scene");
+    const sky = document.getElementById("sky");
+    const toggleBtn = document.getElementById("toggleMode");
+
+    let isNight = false;
+
+    function setDay() {
+        scene.style.background = "var(--sky-day)";
+        sky.style.background = "var(--sky-day)";
+        toggleBtn.textContent = "Switch to Night";
+        isNight = false;
+    }
+
+    function setNight() {
+        scene.style.background = "var(--sky-night)";
+        sky.style.background = "var(--sky-night)";
+        toggleBtn.textContent = "Switch to Day";
+        isNight = true;
+    }
+
+    // Initial state: day
+    setDay();
+
+    toggleBtn.addEventListener("click", () => {
+        if (isNight) {
+            setDay();
+        } else {
+            setNight();
+        }
+    });
+</script>
+</body>
+</html>
