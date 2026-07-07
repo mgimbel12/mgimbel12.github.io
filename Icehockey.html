@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ice Hockey & Snow Arcade Story</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", sans-serif;
+      background: radial-gradient(circle at top, #e0f7ff, #0b1b33);
+      color: #fdfdfd;
+      overflow: hidden;
+    }
+
+    .scene {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 30px;
+      border-radius: 18px;
+      background: rgba(5, 15, 35, 0.75);
+      box-shadow: 0 0 30px rgba(180, 220, 255, 0.6);
+      position: relative;
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 1.9rem;
+      color: #b8e6ff;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      text-align: justify;
+    }
+
+    .ice-rink {
+      margin-top: 25px;
+      width: 220px;
+      height: 120px;
+      border-radius: 60px;
+      background: linear-gradient(135deg, #c9f4ff, #7fd0ff);
+      box-shadow: 0 0 25px rgba(150, 220, 255, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .puck {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #111;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+      animation: slide 3s linear infinite;
+    }
+
+    @keyframes slide {
+      0% { left: 10%; }
+      50% { left: 70%; }
+      100% { left: 10%; }
+    }
+
+    .snowflake {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      opacity: 0.9;
+      pointer-events: none;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh);
+      }
+      100% {
+        transform: translateY(110vh);
+      }
+    }
+
+    .tips {
+      margin-top: 20px;
+      font-size: 0.95rem;
+      color: #e3f5ff;
+    }
+
+    .tips strong {
+      color: #ffeb99;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <h1>Ice Hockey & Snow Arcade</h1>
+
+    <p id="story">
+      In a sparkling ice arcade where snowflakes drifted gently through the air and soft snow fall dusted the glowing rink,
+      I learned the rules of ice hockey and the rhythm of the game—how to skate with control, pass the puck with purpose,
+      and do the right things on the ice—while an “Ice Ice Baby” remix echoed beside an “Ice Princess” show, skaters
+      spinning and dancing in perfect time, and a friendly coach explained that making “ice cream flakes” was best done
+      safely indoors by whipping sweet cream, chilling it until frosty, and shaving it into delicate flakes that only
+      looked like snow and snow ice, so the magic of winter could be tasted without ever using real outdoor snow.
+    </p>
+
+    <div class="ice-rink" aria-label="Animated ice rink with puck">
+      <div class="puck"></div>
+    </div>
+
+    <div class="tips">
+      <strong>Safe Ice Cream Flakes Tip:</strong>  
+      Use pasteurized cream or milk, chill it, then scrape or shave the frozen mixture into thin “snowy” flakes—never use real snow for food.
+    </div>
+  </div>
+
+  <script>
+    // Create animated snowflakes
+    function createSnowflake() {
+      const flake = document.createElement("div");
+      flake.className = "snowflake";
+
+      const startLeft = Math.random() * 100; // viewport width %
+      const duration = 6 + Math.random() * 6; // 6–12 seconds
+
+      flake.style.left = startLeft + "vw";
+      flake.style.animationDuration = duration + "s";
+      flake.style.animationDelay = Math.random() * 4 + "s";
+
+      document.body.appendChild(flake);
+
+      setTimeout(() => {
+        flake.remove();
+      }, (duration + 4) * 1000);
+    }
+
+    for (let i = 0; i < 40; i++) {
+      setTimeout(createSnowflake, i * 250);
+    }
+  </script>
+</body>
+</html>
