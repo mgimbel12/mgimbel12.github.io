@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Marissa’s Storybook Seasons & Service</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050814;
+      --fg: #f5f5f5;
+      --accent: #ff7b00;
+      --accent2: #2dd4ff;
+      --love: #ff4b8b;
+      --navy: #001f3f;
+      --army: #3b5323;
+      --card: #101522;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1b2340 0, #050814 55%);
+      color: var(--fg);
+      line-height: 1.6;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(5, 8, 20, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+    }
+
+    .nav-title {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      color: var(--accent2);
+    }
+
+    .nav ul {
+      list-style: none;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 2rem;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .hero-text h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-text h1 span {
+      color: var(--accent);
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      max-width: 32rem;
+      color: rgba(245, 245, 245, 0.85);
+    }
+
+    .hero-tags {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      opacity: 0.9;
+    }
+
+    .hero-card {
+      background: linear-gradient(135deg, #101522, #1b2340);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0, rgba(255, 123, 0, 0.25), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(45, 212, 255, 0.25), transparent 55%);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-card .date-display {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-card .season-display {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-card button {
+      margin-top: 0.75rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      background: rgba(5, 8, 20, 0.85);
+      color: var(--fg);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: 0.2s ease;
+    }
+
+    .hero-card button:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    section {
+      margin-bottom: 3rem;
+    }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section h2 span.icon {
+      font-size: 1.4rem;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 1.75rem;
+      align-items: flex-start;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: rgba(245, 245, 245, 0.85);
+    }
+
+    .pill-row {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      opacity: 0.9;
+    }
+
+    .pizza-list {
+      list-style: none;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .pizza-list li::before {
+      content: "• ";
+      color: var(--accent);
+    }
+
+    .pizza-steps {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .pizza-steps li {
+      margin-bottom: 0.35rem;
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .service-card {
+      border-radius: 0.9rem;
+      padding: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .service-card.navy {
+      background: linear-gradient(135deg, #001f3f, #0b2b5a);
+    }
+
+    .service-card.navy::before {
+      background-image: radial-gradient(circle at 10% 0, #2dd4ff, transparent 55%);
+    }
+
+    .service-card.army {
+      background: linear-gradient(135deg, #3b5323, #1f3014);
+    }
+
+    .service-card.army::before {
+      background-image: radial-gradient(circle at 90% 100%, #ffd54f, transparent 55%);
+    }
+
+    .service-card h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+    }
+
+    .service-card p {
+      font-size: 0.85rem;
+    }
+
+    .marine-card {
+      margin-top: 1rem;
+      background: linear-gradient(135deg, #022c43, #0b8793);
+      border-radius: 1rem;
+      padding: 1.1rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .marine-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 0, rgba(45, 212, 255, 0.35), transparent 55%),
+        radial-gradient(circle at 90% 100%, rgba(255, 255, 255, 0.18), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .marine-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .marine-card h3 {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 0.4rem;
+    }
+
+    .marine-card p {
+      font-size: 0.85rem;
+    }
+
+    .love-highlight {
+      color: var(--love);
+      font-weight: 600;
+    }
+
+    .season-toggle {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+
+    .season-toggle button {
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(5, 8, 20, 0.85);
+      color: var(--fg);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .season-toggle button.active {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--accent);
+      color: #ffe9d0;
+    }
+
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 1.5rem;
+      font-size: 0.8rem;
+      color: rgba(245, 245, 245, 0.7);
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="nav-title">Storybook Web • HTML • CSS • JS</div>
+      <ul>
+        <li><a href="#birthdate">Birthdate</a></li>
+        <li><a href="#halloween">Halloween</a></li>
+        <li><a href="#christmas">Christmas</a></li>
+        <li><a href="#love">Love</a></li>
+        <li><a href="#pizza">Pizza</a></li>
+        <li><a href="#marine">Marine Life</a></li>
+        <li><a href="#service">Navy & Army</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>
+          A full-length page of
+          <span>seasons, service, and slices of life</span>
+        </h1>
+        <p>
+          Built with HTML, CSS, and JavaScript, this page ties together Halloween chills,
+          Christmas light, your birthdate, love stories, homemade pizza, and the rhythm
+          of marine, Navy, and Army life—like one long scroll through your own
+          storybook.
+        </p>
+        <div class="hero-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Halloween</span>
+          <span class="tag">Christmas</span>
+          <span class="tag">Birthdate</span>
+          <span class="tag">Love</span>
+          <span class="tag">Pizza</span>
+          <span class="tag">Marine Life</span>
+          <span class="tag">Navy</span>
+          <span class="tag">Army</span>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <div class="hero-card-inner">
+          <h2>Today’s Story Snapshot</h2>
+          <div class="date-display" id="dateDisplay">Loading date…</div>
+          <div class="season-display" id="seasonDisplay">Finding your season…</div>
+          <div class="season-toggle">
+            <button data-season="halloween">Halloween Mode</button>
+            <button data-season="christmas">Christmas Mode</button>
+            <button data-season="love">Love Mode</button>
+            <button data-season="pizza">Pizza Mode</button>
+          </div>
+          <button id="scrollToBirthdate">Scroll to Birthdate</button>
+        </div>
+      </aside>
+    </section>
+
+    <!-- BIRTHDATE -->
+    <section id="birthdate">
+      <h2><span class="icon">🎂</span> Birthdate & timeline</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Your date as a story anchor</h3>
+          <p>
+            Every timeline needs a starting point. Your birthdate is the first chapter,
+            the moment the calendar quietly circled a day and said:
+            <span class="love-highlight">“Someone important arrives here.”</span>
+          </p>
+          <p style="margin-top:0.5rem;">
+            Use this section to record the exact date, the city, the little details:
+            the weather, the music on the radio, the people waiting. In code, it’s just
+            numbers; in your life, it’s the doorway to everything else on this page.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Interactive birthdate note</h3>
+          <p>Type your birthdate and watch it echo back to you.</p>
+          <div style="margin-top:0.75rem;">
+            <label for="birthInput" style="font-size:0.8rem;">Birthdate (YYYY-MM-DD):</label><br />
+            <input
+              id="birthInput"
+              type="date"
+              style="margin-top:0.25rem;padding:0.35rem 0.5rem;border-radius:0.4rem;border:1px solid rgba(255,255,255,0.3);background:#050814;color:#f5f5f5;font-size:0.85rem;"
+            />
+            <button
+              id="birthSave"
+              style="margin-left:0.4rem;padding:0.35rem 0.7rem;border-radius:999px;border:1px solid rgba(255,255,255,0.3);background:#101522;color:#f5f5f5;font-size:0.8rem;cursor:pointer;"
+            >
+              Save
+            </button>
+          </div>
+          <p id="birthOutput" style="margin-top:0.6rem;font-size:0.85rem;color:rgba(245,245,245,0.85);">
+            No birthdate saved yet.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HALLOWEEN -->
+    <section id="halloween">
+      <h2><span class="icon">🎃</span> Halloween nights</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Atmosphere</h3>
+          <p>
+            Halloween is the chapter where the world turns dim and playful—porch lights
+            flicker, costumes blur the line between who we are and who we pretend to be.
+          </p>
+          <p style="margin-top:0.5rem;">
+            In this page, Halloween can be a theme you toggle on: darker colors,
+            glowing accents, and a little bit of mystery in the margins. Think of it as
+            a CSS class for “spooky but safe.”
+          </p>
+          <div class="pill-row">
+            <span class="pill">Pumpkins</span>
+            <span class="pill">Foggy streets</span>
+            <span class="pill">Candy bowls</span>
+            <span class="pill">Childhood costumes</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Memory prompt</h3>
+          <p>
+            If you could freeze one Halloween night forever, which one would it be?
+            The year the costume fit just right, the laughter on the sidewalk, the
+            feeling of walking home with a pillowcase full of candy and a heart full of
+            stories.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHRISTMAS -->
+    <section id="christmas">
+      <h2><span class="icon">🎄</span> Christmas mornings</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Light & warmth</h3>
+          <p>
+            Christmas is the soft glow chapter—string lights, quiet music, the smell of
+            something baking in the kitchen. Where Halloween plays with shadows,
+            Christmas leans into light.
+          </p>
+          <p style="margin-top:0.5rem;">
+            On this page, Christmas mode could brighten the palette, add gentle snow
+            animations, and highlight the people you share the day with. It’s the
+            season where love is wrapped in paper and passed across the room.
+          </p>
+          <div class="pill-row">
+            <span class="pill">Tree lights</span>
+            <span class="pill">Hot cocoa</span>
+            <span class="pill">Family traditions</span>
+            <span class="pill">Quiet gratitude</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Wish list in code</h3>
+          <p>
+            Imagine a JavaScript array of wishes—each one a small object with a name,
+            a reason, and a person it’s meant for. Christmas is where you don’t just
+            wish for things; you wish for people to feel seen.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOVE -->
+    <section id="love">
+      <h2><span class="icon">❤️</span> Love as the through-line</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Love in every section</h3>
+          <p>
+            Love is the invisible CSS that wraps around every part of this page:
+            family love at Christmas, playful love at Halloween, steady love in
+            military life, and the simple love of sharing a homemade pizza.
+          </p>
+          <p style="margin-top:0.5rem;">
+            It’s not just romance; it’s the way you remember people, the way you tell
+            their stories, the way you keep their names in your code and in your
+            heart.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Love note snippet</h3>
+          <p id="loveNote">
+            Click the button below to generate a tiny love note for this moment.
+          </p>
+          <button
+            id="loveButton"
+            style="margin-top:0.6rem;padding:0.4rem 0.8rem;border-radius:999px;border:1px solid rgba(255,255,255,0.3);background:#101522;color:#f5f5f5;font-size:0.8rem;cursor:pointer;"
+          >
+            Generate love note
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIZZA -->
+    <section id="pizza">
+      <h2><span class="icon">🍕</span> Homemade pizza recipe</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3>Ingredients</h3>
+          <p>
+            A simple, cozy homemade pizza—because some of the best stories are told
+            over slices.
+          </p>
+          <ul class="pizza-list">
+            <li>2 ½ cups all-purpose flour</li>
+            <li>1 cup warm water</li>
+            <li>2 ¼ tsp active dry yeast</li>
+            <li>1 tbsp olive oil</li>
+            <li>1 tsp salt</li>
+            <li>½ tsp sugar</li>
+            <li>Tomato sauce, mozzarella, and your favorite toppings</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Steps</h3>
+          <ol class="pizza-steps">
+            <li>Mix warm water, yeast, and sugar. Let it sit until foamy.</li>
+            <li>Stir in flour, salt, and olive oil. Knead until smooth.</li>
+            <li>Let the dough rise in a warm place until doubled.</li>
+            <li>Stretch onto a pan, add sauce, cheese, and toppings.</li>
+            <li>Bake at 475°F (245°C) for 10–14 minutes, until golden.</li>
+          </ol>
+          <p style="margin-top:0.6rem;">
+            Serve, share, and let the conversation wander—this page is the backdrop,
+            the pizza is the centerpiece.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARINE LIFE -->
+    <section id="marine">
+      <h2><span class="icon">🐠</span> Marine life</h2>
+      <div class="card">
+        <h3>Underwater chapters</h3>
+        <p>
+          Marine life is the quiet, blue part of the story—currents, coral, and
+          creatures that move like living brushstrokes. It’s a reminder that there’s a
+          whole world beneath the surface, layered and patient.
+        </p>
+        <p style="margin-top:0.5rem;">
+          On a web page, you could turn this into a scrolling ocean: gradients of
+          deep blues, floating icons of fish and shells, and facts about the animals
+          that live there. It pairs naturally with Navy life, where the surface of the
+          water is both workplace and horizon.
+        </p>
+        <div class="marine-card">
+          <div class="marine-card-inner">
+            <h3>Marine life snapshot</h3>
+            <p>
+              Picture a ship at night, the sea below full of unseen motion. Above:
+              duty, routine, and stars. Below: a whole ecosystem, moving in silence.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVY & ARMY LIFE -->
+    <section id="service">
+      <h2><span class="icon">⚓</span> Navy & <span class="icon">🎖️</span> Army life</h2>
+      <div class="card">
+        <h3>Service as structure</h3>
+        <p>
+          Navy and Army life bring discipline, schedules, and a different kind of
+          courage into the story. They’re the chapters where early mornings, uniforms,
+          and long stretches away from home become part of the rhythm of everyday
+          life.
+        </p>
+        <p style="margin-top:0.5rem;">
+          On this page, they can be honored as structured sections—clean lines,
+          strong colors, and words that acknowledge sacrifice and pride.
+        </p>
+
+        <div class="service-row">
+          <div class="service-card navy">
+            <h3>Navy life</h3>
+            <p>
+              Ships, sea, and sky. Long deployments, tight-knit crews, and the feeling
+              of watching the horizon change color while the world sleeps.
+            </p>
+          </div>
+          <div class="service-card army">
+            <h3>Army life</h3>
+            <p>
+              Boots on the ground, training fields, and the weight of responsibility.
+              The kind of strength that shows up every day, not just in big moments.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      This full-length page is a starting template. You can edit the text, colors, and
+      JavaScript to match your exact story.
+    </footer>
+  </main>
+
+  <script>
+    // Date & season display
+    (function () {
+      const dateDisplay = document.getElementById("dateDisplay");
+      const seasonDisplay = document.getElementById("seasonDisplay");
+
+      const now = new Date();
+      const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      dateDisplay.textContent = now.toLocaleDateString(undefined, options);
+
+      const month = now.getMonth() + 1;
+      let seasonText = "Your year has many seasons.";
+
+      if (month === 10) {
+        seasonText = "You’re in Halloween season—costumes, candy, and cozy spookiness.";
+      } else if (month === 12) {
+        seasonText = "You’re in Christmas season—lights, warmth, and quiet joy.";
+      } else if (month >= 5 && month <= 8) {
+        seasonText = "You’re in warm-weather season—perfect for pizza nights and marine daydreams.";
+      } else {
+        seasonText = "You’re in a quieter season—good for reflection, love, and planning.";
+      }
+
+      seasonDisplay.textContent = seasonText;
+    })();
+
+    // Season toggle buttons
+    (function () {
+      const buttons = document.querySelectorAll(".season-toggle button");
+      const body = document.body;
+
+      const themes = {
+        halloween: {
+          bg: "radial-gradient(circle at top, #2b1b40 0, #050814 55%)",
+          accent: "#ff7b00",
+        },
+        christmas: {
+          bg: "radial-gradient(circle at top, #1b4030 0, #050814 55%)",
+          accent: "#2dd4ff",
+        },
+        love: {
+          bg: "radial-gradient(circle at top, #401b35 0, #050814 55%)",
+          accent: "#ff4b8b",
+        },
+        pizza: {
+          bg: "radial-gradient(circle at top, #40301b 0, #050814 55%)",
+          accent: "#ffb347",
+        },
+      };
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          buttons.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          const key = btn.dataset.season;
+          const theme = themes[key];
+          if (theme) {
+            body.style.background = theme.bg;
+            document.documentElement.style.setProperty("--accent", theme.accent);
+          }
+        });
+      });
+    })();
+
+    // Scroll to birthdate section
+    (function () {
+      const btn = document.getElementById("scrollToBirthdate");
+      const section = document.getElementById("birthdate");
+      btn.addEventListener("click", () => {
+        section.scrollIntoView({ behavior: "smooth" });
+      });
+    })();
+
+    // Birthdate save
+    (function () {
+      const input = document.getElementById("birthInput");
+      const saveBtn = document.getElementById("birthSave");
+      const output = document.getElementById("birthOutput");
+
+      saveBtn.addEventListener("click", () => {
+        const value = input.value;
+        if (!value) {
+          output.textContent = "No birthdate saved yet.";
+          return;
+        }
+        const date = new Date(value);
+        if (isNaN(date.getTime())) {
+          output.textContent = "That doesn’t look like a valid date.";
+          return;
+        }
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        output.textContent =
+          "Your story begins on " + date.toLocaleDateString(undefined, options) + ".";
+      });
+    })();
+
+    // Love note generator
+    (function () {
+      const button = document.getElementById("loveButton");
+      const note = document.getElementById("loveNote");
+
+      const notes = [
+        "You are allowed to take up space in this story.",
+        "Someone is grateful you exist, even on ordinary days.",
+        "Your timeline is worth documenting in detail.",
+        "You’ve already made more impact than you realize.",
+        "Love doesn’t need to be loud to be real.",
+      ];
+
+      button.addEventListener("click", () => {
+        const index = Math.floor(Math.random() * notes.length);
+        note.textContent = notes[index];
+      });
+    })();
+  </script>
+</body>
+</html>
