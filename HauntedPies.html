@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Haunted Pies & Home Teams</title>
+  <style>
+    :root {
+      --bg-main: #0b0c10;
+      --bg-card: #1f2833;
+      --accent: #66fcf1;
+      --accent-soft: #45a29e;
+      --text-main: #c5c6c7;
+      --broncos: #fb4f14;
+      --broncos-blue: #002244;
+      --jazz-purple: #2e1656;
+      --jazz-gold: #f9a01b;
+      --disney-green: #4caf50;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #1f2833 0, #0b0c10 45%, #000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #000, #1f2833);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      background: transparent;
+      border: 1px solid var(--accent-soft);
+      color: var(--accent);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    nav button:hover {
+      background: var(--accent-soft);
+      color: #000;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 2rem auto 3rem;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.2fr);
+      gap: 1.5rem;
+    }
+
+    section {
+      margin-bottom: 1.5rem;
+    }
+
+    .card {
+      background: rgba(15, 20, 30, 0.95);
+      border-radius: 1rem;
+      padding: 1.2rem 1.4rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(102, 252, 241, 0.08);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0 0, rgba(102, 252, 241, 0.08), transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(69, 162, 158, 0.08), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      margin: 0.6rem 0;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+      margin-bottom: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .recipe-list {
+      list-style: none;
+      display: grid;
+      gap: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .recipe {
+      border-radius: 0.8rem;
+      padding: 0.7rem 0.8rem;
+      background: rgba(31, 40, 51, 0.9);
+      border: 1px solid rgba(102, 252, 241, 0.12);
+    }
+
+    .recipe-title {
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .recipe-meta {
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+      margin-bottom: 0.4rem;
+    }
+
+    .recipe-steps {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .pill {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(102, 252, 241, 0.3);
+      color: var(--accent);
+    }
+
+    .haunted {
+      border-color: rgba(124, 252, 0, 0.4);
+    }
+
+    .haunted .recipe-title {
+      color: #b2ff59;
+    }
+
+    .haunted .recipe-meta {
+      color: #9ccc65;
+    }
+
+    .haunted .pill {
+      border-color: #b2ff59;
+      color: #b2ff59;
+    }
+
+    .sports-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .team-card {
+      border-radius: 0.8rem;
+      padding: 0.7rem 0.8rem;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.85rem;
+    }
+
+    .team-name {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .team-note {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .team-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-top: 0.2rem;
+    }
+
+    .team-pill {
+      font-size: 0.75rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .broncos {
+      background: linear-gradient(135deg, var(--broncos-blue), #000);
+      border: 1px solid rgba(251, 79, 20, 0.6);
+    }
+
+    .broncos .team-pill {
+      border-color: var(--broncos);
+      color: var(--broncos);
+    }
+
+    .jazz {
+      background: radial-gradient(circle at 0 0, var(--jazz-purple), #000);
+      border: 1px solid rgba(249, 160, 27, 0.6);
+    }
+
+    .jazz .team-pill {
+      border-color: var(--jazz-gold);
+      color: var(--jazz-gold);
+    }
+
+    .disney-card {
+      border-left: 3px solid var(--disney-green);
+    }
+
+    .ghost-icon {
+      font-size: 1.4rem;
+      margin-right: 0.4rem;
+    }
+
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+      margin-top: 0.6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .weather-card {
+      border-radius: 0.8rem;
+      padding: 0.7rem 0.8rem;
+      background: linear-gradient(135deg, #222, #111);
+      border: 1px solid rgba(102, 252, 241, 0.2);
+      font-size: 0.85rem;
+    }
+
+    .weather-city {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .weather-temp {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+
+    .weather-detail {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .controls-row button {
+      background: rgba(31, 40, 51, 0.9);
+      border: 1px solid rgba(102, 252, 241, 0.4);
+      color: var(--accent);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .controls-row button:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Haunted Mansion Pie Parlour</h1>
+    <nav>
+      <button data-filter="all">All Sections</button>
+      <button data-filter="recipes">Pies Only</button>
+      <button data-filter="disney">Haunted Mansion</button>
+      <button data-filter="sports">Jazz & Broncos</button>
+      <button data-filter="weather">Nevada Weather</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN: PIES + DISNEY -->
+    <div>
+      <section class="card" data-section="recipes">
+        <h2>Spellbound Pie Recipes</h2>
+        <p class="tagline">
+          Classic comfort pies, dressed up for a night in a haunted mansion.
+        </p>
+
+        <ul class="recipe-list">
+          <li class="recipe haunted">
+            <div class="recipe-title">Grinning Ghost Apple Pie</div>
+            <div class="recipe-meta">Flaky butter crust • Cinnamon-spiced apples • Haunted caramel drizzle</div>
+            <div class="recipe-steps">
+              <strong>Steps:</strong><br />
+              1. Toss sliced apples with sugar, cinnamon, and a pinch of nutmeg.<br />
+              2. Line a pie dish with chilled butter crust, fill with apples, dot with butter.<br />
+              3. Bake at 375°F until bubbling and golden, then drizzle warm caramel in ghostly swirls.<br />
+              4. Serve slightly warm—perfect for storytelling in dim candlelight.
+            </div>
+            <div class="pill-row">
+              <span class="pill">Apple</span>
+              <span class="pill">Caramel</span>
+              <span class="pill">Haunted Theme</span>
+            </div>
+          </li>
+
+          <li class="recipe">
+            <div class="recipe-title">Rocky Mountain Chocolate Silk Pie</div>
+            <div class="recipe-meta">Silky chocolate filling • Whipped cream peaks • Denver Broncos game-night favorite</div>
+            <div class="recipe-steps">
+              <strong>Steps:</strong><br />
+              1. Whisk melted dark chocolate into a smooth custard with eggs, sugar, and cream.<br />
+              2. Pour into a baked cookie crust and chill until set and glossy.<br />
+              3. Top with whipped cream peaks and a sprinkle of cocoa before kickoff.<br />
+              4. Slice small—this one is rich like an overtime win.
+            </div>
+            <div class="pill-row">
+              <span class="pill">Chocolate</span>
+              <span class="pill">Game Night</span>
+              <span class="pill">Broncos Colors</span>
+            </div>
+          </li>
+
+          <li class="recipe">
+            <div class="recipe-title">Salt Lake Berry Jazz Pie</div>
+            <div class="recipe-meta">Mixed berries • Lattice crust • Utah Jazz purple & gold sugar dust</div>
+            <div class="recipe-steps">
+              <strong>Steps:</strong><br />
+              1. Combine blueberries, raspberries, and blackberries with sugar and lemon zest.<br />
+              2. Fill a crust-lined dish and top with a lattice of chilled dough strips.<br />
+              3. Brush with egg wash and sprinkle purple and gold sanding sugar.<br />
+              4. Bake at 375°F until the filling sings and the crust is crisp.
+            </div>
+            <div class="pill-row">
+              <span class="pill">Berry</span>
+              <span class="pill">Lattice</span>
+              <span class="pill">Utah Jazz</span>
+            </div>
+          </li>
+
+          <li class="recipe haunted">
+            <div class="recipe-title">Midnight Mansion Pumpkin Pie</div>
+            <div class="recipe-meta">Spiced pumpkin custard • Shadowy chocolate crust • Whipped “fog” topping</div>
+            <div class="recipe-steps">
+              <strong>Steps:</strong><br />
+              1. Stir pumpkin purée with brown sugar, cinnamon, ginger, and cloves.<br />
+              2. Blend in eggs and cream, then pour into a chocolate cookie crust.<br />
+              3. Bake at 350°F until just set in the center; cool completely.<br />
+              4. Top with softly whipped cream clouds and a dusting of cocoa “fog.”
+            </div>
+            <div class="pill-row">
+              <span class="pill">Pumpkin</span>
+              <span class="pill">Chocolate Crust</span>
+              <span class="pill">Spooky</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class="card disney-card" data-section="disney">
+        <h2><span class="ghost-icon">👻</span>Walt Disney’s Haunted Mansion Vibes</h2>
+        <p class="tagline">
+          Turn your kitchen into a friendly haunted corridor—no doom buggies required.
+        </p>
+
+        <h3>Atmosphere Checklist</h3>
+        <ul class="recipe-list">
+          <li class="recipe">
+            <div class="recipe-title">Candlelit Corridor</div>
+            <div class="recipe-steps">
+              Dim the lights, use flickering LED candles, and play soft organ music while pies bake.
+              The goal: cozy, not scary—like the ride, where the ghosts are more playful than frightening.
+            </div>
+          </li>
+          <li class="recipe">
+            <div class="recipe-title">Talking Portraits</div>
+            <div class="recipe-steps">
+              Print vintage-style family photos, frame them, and place them near the dessert table.
+              Add handwritten captions like “Beware the pie thief” for a whimsical touch.
+            </div>
+          </li>
+          <li class="recipe">
+            <div class="recipe-title">Ghostly Pie Labels</div>
+            <div class="recipe-steps">
+              Use small cards shaped like tombstones or ghosts to label each pie:
+              “Grinning Ghost Apple,” “Midnight Mansion Pumpkin,” and “Bewitched Berry Jazz.”
+            </div>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN: SPORTS + WEATHER -->
+    <div>
+      <section class="card" data-section="sports">
+        <h2>Home Teams & Halftime Slices</h2>
+        <p class="tagline">
+          Pies that taste better when the score is close.
+        </p>
+
+        <div class="sports-row">
+          <div class="team-card broncos">
+            <div class="team-name">Denver Broncos</div>
+            <div class="team-note">
+              Pair the Rocky Mountain Chocolate Silk Pie with a strong cup of coffee for those late
+              fourth-quarter drives.
+            </div>
+            <div class="team-pill-row">
+              <span class="team-pill">Orange & Blue</span>
+              <span class="team-pill">Game Day</span>
+              <span class="team-pill">Chocolate Pie</span>
+            </div>
+          </div>
+
+          <div class="team-card jazz">
+            <div class="team-name">Utah Jazz</div>
+            <div class="team-note">
+              The Salt Lake Berry Jazz Pie fits perfectly with a watch party—bright, colorful, and
+              just a little dramatic.
+            </div>
+            <div class="team-pill-row">
+              <span class="team-pill">Purple & Gold</span>
+              <span class="team-pill">Berry Lattice</span>
+              <span class="team-pill">Playoff Nights</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <button id="randomPieBtn">Suggest a Random Pie</button>
+          <button id="hauntedOnlyBtn">Haunted Pies Only</button>
+          <button id="resetFilterBtn">Reset Pie Filter</button>
+        </div>
+      </section>
+
+      <section class="card" data-section="weather">
+        <h2>Nevada Weather & Baking Mood</h2>
+        <p class="tagline">
+          Henderson, Las Vegas, and desert skies—choose pies that match the forecast.
+        </p>
+
+        <div class="weather-grid">
+          <div class="weather-card">
+            <div class="weather-city">Henderson</div>
+            <div class="weather-temp" id="hendersonTemp">Hot Desert Day</div>
+            <div class="weather-detail">
+              Think early morning baking: get the pies in the oven before the heat peaks, then cool
+              them for an evening slice.
+            </div>
+          </div>
+
+          <div class="weather-card">
+            <div class="weather-city">Las Vegas</div>
+            <div class="weather-temp" id="vegasTemp">Bright & Sunny</div>
+            <div class="weather-detail">
+              Berry pies shine here—serve chilled slices with vanilla ice cream after a day on the Strip.
+            </div>
+          </div>
+
+          <div class="weather-card">
+            <div class="weather-city">Nevada Desert Nights</div>
+            <div class="weather-temp" id="desertTemp">Cool & Starry</div>
+            <div class="weather-detail">
+              Perfect for pumpkin or chocolate pies, eaten outdoors with a light blanket and quiet conversation.
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <button id="toggleHeatBtn">Toggle “Hot Day” / “Cool Night” Mood</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    Haunted Mansion Pie Parlour • Walt Disney–inspired vibes, Utah Jazz colors, Denver Broncos energy, and Nevada skies.
+  </footer>
+
+  <script>
+    // Section filter buttons in the header
+    const navButtons = document.querySelectorAll("header nav button");
+    const cards = document.querySelectorAll("main .card");
+
+    navButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-filter");
+        cards.forEach((card) => {
+          const section = card.getAttribute("data-section");
+          if (filter === "all" || filter === section) {
+            card.classList.remove("hidden");
+          } else {
+            card.classList.add("hidden");
+          }
+        });
+      });
+    });
+
+    // Random pie suggestion
+    const randomPieBtn = document.getElementById("randomPieBtn");
+    const recipeTitles = Array.from(
+      document.querySelectorAll('[data-section="recipes"] .recipe-title')
+    ).map((el) => el.textContent.trim());
+
+    randomPieBtn.addEventListener("click", () => {
+      if (!recipeTitles.length) return;
+      const randomIndex = Math.floor(Math.random() * recipeTitles.length);
+      const chosen = recipeTitles[randomIndex];
+      alert("Tonight’s suggestion: " + chosen);
+    });
+
+    // Haunted pies only
+    const hauntedOnlyBtn = document.getElementById("hauntedOnlyBtn");
+    const resetFilterBtn = document.getElementById("resetFilterBtn");
+
+    hauntedOnlyBtn.addEventListener("click", () => {
+      const allRecipes = document.querySelectorAll(
+        '[data-section="recipes"] .recipe'
+      );
+      allRecipes.forEach((recipe) => {
+        if (recipe.classList.contains("haunted")) {
+          recipe.style.display = "block";
+        } else {
+          recipe.style.display = "none";
+        }
+      });
+    });
+
+    resetFilterBtn.addEventListener("click", () => {
+      const allRecipes = document.querySelectorAll(
+        '[data-section="recipes"] .recipe'
+      );
+      allRecipes.forEach((recipe) => {
+        recipe.style.display = "block";
+      });
+    });
+
+    // Simple Nevada “weather mood” toggle
+    const hendersonTemp = document.getElementById("hendersonTemp");
+    const vegasTemp = document.getElementById("vegasTemp");
+    const desertTemp = document.getElementById("desertTemp");
+    const toggleHeatBtn = document.getElementById("toggleHeatBtn");
+
+    let hotMode = true;
+
+    toggleHeatBtn.addEventListener("click", () => {
+      hotMode = !hotMode;
+      if (hotMode) {
+        hendersonTemp.textContent = "Hot Desert Day";
+        vegasTemp.textContent = "Bright & Sunny";
+        desertTemp.textContent = "Cool & Starry";
+      } else {
+        hendersonTemp.textContent = "Mild Morning Breeze";
+        vegasTemp.textContent = "Soft Golden Sunset";
+        desertTemp.textContent = "Chilly Midnight Air";
+      }
+    });
+  </script>
+</body>
+</html>
