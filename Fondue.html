@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chocolate Fondue Party Ideas</title>
+  <style>
+    :root {
+      --bg: #1b1b1f;
+      --card: #25252b;
+      --accent: #c96b3b;
+      --accent-soft: #f3d3b8;
+      --text: #f7f7f7;
+      --muted: #b3b3c2;
+      --border: #3a3a44;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #3b2a2a 0, #121218 45%, #050509 100%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 40px 16px;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 2.6rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto;
+      font-size: 0.98rem;
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(90deg, rgba(201, 107, 59, 0.2), transparent);
+      font-size: 0.85rem;
+      color: var(--accent-soft);
+    }
+
+    .tagline span.icon {
+      font-size: 1.1rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: linear-gradient(145deg, #262630, #1c1c24);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      padding: 20px 20px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top left, rgba(201, 107, 59, 0.18), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.04), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card h2 span.icon {
+      font-size: 1.3rem;
+    }
+
+    .card .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .pill.highlight {
+      border-color: rgba(201, 107, 59, 0.7);
+      color: var(--accent-soft);
+      background: rgba(201, 107, 59, 0.18);
+    }
+
+    .section {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.06);
+    }
+
+    .section-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-soft);
+    }
+
+    .section-title span.icon {
+      font-size: 1rem;
+    }
+
+    .list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 6px 16px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .list li span.bullet {
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .list li span.label {
+      font-weight: 600;
+      color: #fdfdfd;
+    }
+
+    .list li span.note {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .note-block {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px dashed rgba(255, 255, 255, 0.08);
+    }
+
+    .note-block strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .stations-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .station {
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.35);
+      padding: 10px 11px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .station-icon {
+      font-size: 1.3rem;
+    }
+
+    .station-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .station-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .controls {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--accent-soft);
+      font-size: 0.85rem;
+      padding: 7px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.12s ease, box-shadow 0.18s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, #c96b3b, #f3a35f);
+      color: #2b1307;
+      border-color: rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.55);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .btn.primary:hover {
+      background: linear-gradient(135deg, #f3a35f, #c96b3b);
+    }
+
+    .btn span.icon {
+      font-size: 1rem;
+    }
+
+    .shopping-list {
+      margin-top: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.35);
+      padding: 10px 11px;
+      font-size: 0.88rem;
+    }
+
+    .shopping-list h3 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--accent-soft);
+    }
+
+    .shopping-list h3 span.icon {
+      font-size: 1rem;
+    }
+
+    .shopping-list ul {
+      list-style: none;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 4px 14px;
+    }
+
+    @media (max-width: 700px) {
+      .shopping-list ul {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .shopping-list li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .shopping-list li span.bullet {
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .shopping-list li span.text {
+      color: var(--muted);
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .footer-note strong {
+      color: var(--accent-soft);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Chocolate Fondue Party Ideas</h1>
+      <p>
+        A cozy, chocolate‑dipped celebration with fruits, cakes, candies, and playful stations—
+        all in one place.
+      </p>
+      <div class="tagline">
+        <span class="icon">🍫</span>
+        <span>Turn dessert into an experience, not just a plate.</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- LEFT COLUMN: Dippers & Flavors -->
+      <section class="card">
+        <div class="card-inner">
+          <h2><span class="icon">🍓</span> Dippers & Flavor Twists</h2>
+          <p class="subtitle">
+            Mix fresh fruit, crunchy bites, soft cakes, and candy with themed chocolate fondue flavors.
+          </p>
+
+          <div class="pill-row">
+            <div class="pill highlight">Fresh & colorful</div>
+            <div class="pill">Sweet + salty</div>
+            <div class="pill">Soft & spongey</div>
+            <div class="pill">Candy‑bar energy</div>
+          </div>
+
+          <!-- Fresh Fruit -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">🍓</span>
+              <span>Fresh Fruit Dippers</span>
+            </div>
+            <ul class="list">
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Strawberries</span>
+                  <span class="note">Leave stems on for easy dipping.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Bananas</span>
+                  <span class="note">Slice thick so they don’t fall apart.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Pineapple chunks</span>
+                  <span class="note">Bright, tropical, perfect with dark chocolate.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Apple slices</span>
+                  <span class="note">Sprinkle with lemon juice to prevent browning.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Raspberries & blackberries</span>
+                  <span class="note">Tiny, delicate, and very decadent.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Frozen grapes or pineapple</span>
+                  <span class="note">Chocolate hardens instantly for a crunchy shell.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Cookies & Crunch -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">🍪</span>
+              <span>Cookies & Crunchy Things</span>
+            </div>
+            <ul class="list">
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Shortbread cookies</span>
+                  <span class="note">Buttery and sturdy for dipping.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Biscoff or graham crackers</span>
+                  <span class="note">Add a hint of spice or honey.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Pretzel rods</span>
+                  <span class="note">Sweet + salty is always a win.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Rice Krispies treats</span>
+                  <span class="note">Cut into cubes for easy skewering.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Mini waffle pieces or pizzelle</span>
+                  <span class="note">Breakfast meets dessert in the best way.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Soft & Cake-like -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">🧁</span>
+              <span>Soft & Cake‑like Dippers</span>
+            </div>
+            <ul class="list">
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Pound cake cubes</span>
+                  <span class="note">Dense enough to hold lots of chocolate.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Angel food cake</span>
+                  <span class="note">Light, airy, and soaks up fondue beautifully.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Mini donuts</span>
+                  <span class="note">Fun, nostalgic, and easy to grab.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Brownie bites</span>
+                  <span class="note">Double chocolate for the true fans.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Marshmallows</span>
+                  <span class="note">Toast lightly first for a campfire twist.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Candy -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">🍬</span>
+              <span>Candy Dippers</span>
+            </div>
+            <ul class="list">
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Gummy bears</span>
+                  <span class="note">Colorful and playful for kids and adults.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Caramels</span>
+                  <span class="note">Soft caramels become extra gooey in chocolate.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Peppermint sticks</span>
+                  <span class="note">Add a cool, minty snap.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Chocolate‑covered espresso beans</span>
+                  <span class="note">Chocolate on chocolate—no regrets.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Flavor Twists -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">🍯</span>
+              <span>Fondue Flavor Twists</span>
+            </div>
+            <ul class="list">
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Mexican hot chocolate fondue</span>
+                  <span class="note">Add cinnamon and a tiny pinch of cayenne.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Salted caramel chocolate fondue</span>
+                  <span class="note">Swirl in caramel sauce and a pinch of sea salt.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Mocha fondue</span>
+                  <span class="note">Add a splash of espresso or strong coffee.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">Orange chocolate fondue</span>
+                  <span class="note">Use orange zest or a dash of orange liqueur.</span>
+                </div>
+              </li>
+              <li>
+                <span class="bullet">•</span>
+                <div>
+                  <span class="label">White chocolate fondue</span>
+                  <span class="note">Pairs beautifully with berries and pretzels.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="note-block">
+            <strong>Tip:</strong> Keep the fondue warm but not boiling—too much heat can cause the chocolate to seize.
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: Stations & Shopping List -->
+      <section class="card">
+        <div class="card-inner">
+          <h2><span class="icon">🎉</span> Party Stations & Planning</h2>
+          <p class="subtitle">
+            Turn your fondue into a mini event with themed stations, toppings, and a simple shopping list.
+          </p>
+
+          <div class="pill-row">
+            <div class="pill highlight">Interactive stations</div>
+            <div class="pill">Sprinkles & toppings</div>
+            <div class="pill">Warm drinks</div>
+          </div>
+
+          <!-- Stations -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">🎈</span>
+              <span>Party Stations</span>
+            </div>
+
+            <div class="stations-grid">
+              <div class="station">
+                <div class="station-icon">🍡</div>
+                <div>
+                  <div class="station-title">Build‑Your‑Own Skewer Bar</div>
+                  <div class="station-desc">
+                    Lay out fruit, cake cubes, and candies with wooden skewers so guests can assemble their own combinations
+                    before dipping.
+                  </div>
+                </div>
+              </div>
+
+              <div class="station">
+                <div class="station-icon">✨</div>
+                <div>
+                  <div class="station-title">Sprinkle Station</div>
+                  <div class="station-desc">
+                    Offer crushed nuts, coconut flakes, mini M&Ms, sprinkles, and sea salt flakes for topping freshly dipped treats.
+                  </div>
+                </div>
+              </div>
+
+              <div class="station">
+                <div class="station-icon">☕</div>
+                <div>
+                  <div class="station-title">Warm‑and‑Cozy Corner</div>
+                  <div class="station-desc">
+                    Set up hot cocoa, warm cider, or coffee so guests can sip something warm while enjoying the fondue.
+                  </div>
+                </div>
+              </div>
+
+              <div class="station">
+                <div class="station-icon">📸</div>
+                <div>
+                  <div class="station-title">Photo‑worthy Platter</div>
+                  <div class="station-desc">
+                    Arrange fruits and dippers in rainbow color order around the fondue pot for a centerpiece that begs for photos.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shopping List (toggle) -->
+          <div class="section">
+            <div class="section-title">
+              <span class="icon">📝</span>
+              <span>Quick Shopping List</span>
+            </div>
+
+            <div class="controls">
+              <button class="btn primary" id="toggleListBtn">
+                <span class="icon">🛒</span>
+                <span>Show / Hide Shopping List</span>
+              </button>
+              <button class="btn" id="copyListBtn">
+                <span class="icon">📋</span>
+                <span>Copy List to Clipboard</span>
+              </button>
+            </div>
+
+            <div class="shopping-list hidden" id="shoppingList">
+              <h3><span class="icon">📦</span> Essentials for a Fondue Party</h3>
+              <ul>
+                <li><span class="bullet">•</span><span class="text">Chocolate (dark, milk, or white)</span></li>
+                <li><span class="bullet">•</span><span class="text">Heavy cream or milk (for the fondue)</span></li>
+                <li><span class="bullet">•</span><span class="text">Strawberries, bananas, pineapple, apples, berries</span></li>
+                <li><span class="bullet">•</span><span class="text">Shortbread, graham crackers, pretzel rods</span></li>
+                <li><span class="bullet">•</span><span class="text">Pound cake, angel food cake, brownie bites, mini donuts</span></li>
+                <li><span class="bullet">•</span><span class="text">Marshmallows and Rice Krispies treats</span></li>
+                <li><span class="bullet">•</span><span class="text">Gummy bears, caramels, peppermint sticks, espresso beans</span></li>
+                <li><span class="bullet">•</span><span class="text">Crushed nuts, coconut flakes, mini M&Ms, sprinkles, sea salt</span></li>
+                <li><span class="bullet">•</span><span class="text">Wooden skewers and small plates/napkins</span></li>
+                <li><span class="bullet">•</span><span class="text">Fondue pot or slow cooker, tea lights or heat source</span></li>
+                <li><span class="bullet">•</span><span class="text">Hot cocoa mix, cider, or coffee for the drink station</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="note-block">
+            <strong>Non‑obvious tip:</strong> Freeze a few fruits (like grapes or pineapple) ahead of time. When dipped, the chocolate
+            hardens instantly and creates a crunchy shell that guests love.
+          </div>
+
+          <p class="footer-note">
+            <strong>Idea:</strong> You can theme the whole table—storybook, autumn harvest, or “midnight chocolate café”—just by
+            changing the colors and labels.
+          </p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById("toggleListBtn");
+    const copyBtn = document.getElementById("copyListBtn");
+    const listEl = document.getElementById("shoppingList");
+
+    toggleBtn.addEventListener("click", () => {
+      listEl.classList.toggle("hidden");
+    });
+
+    copyBtn.addEventListener("click", () => {
+      const items = Array.from(listEl.querySelectorAll("li span.text")).map(
+        (el) => "- " + el.textContent.trim()
+      );
+      const text = "Chocolate Fondue Party Shopping List:\n\n" + items.join("\n");
+
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          copyBtn.textContent = "Copied!";
+          setTimeout(() => {
+            copyBtn.textContent = "Copy List to Clipboard";
+          }, 1500);
+        })
+        .catch(() => {
+          alert("Could not copy to clipboard. You can select and copy manually.");
+        });
+    });
+  </script>
+</body>
+</html>
