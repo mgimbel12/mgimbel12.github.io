@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Smallville Romeo & Juliet – Lex Luthor & Lana Lang Luthor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --panel: #1f2833;
+      --accent: #c3073f;
+      --accent-soft: #ffb6c1;
+      --text: #c5c6c7;
+      --heading: #ffffff;
+      --highlight: #66fcf1;
+      --shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+      --radius: 14px;
+      --font-main: "Georgia", "Times New Roman", serif;
+      --font-ui: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1b2838 0, #0b0c10 55%, #000000 100%);
+      color: var(--text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .page-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 18px 48px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .title-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: linear-gradient(
+        135deg,
+        rgba(195, 7, 63, 0.2),
+        rgba(102, 252, 241, 0.12)
+      );
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: var(--font-ui);
+      font-size: 2.4rem;
+      color: var(--heading);
+      text-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.98rem;
+      color: rgba(197, 198, 199, 0.85);
+    }
+
+    .subtitle span {
+      color: var(--highlight);
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    @media (max-width: 860px) {
+      .layout-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .panel {
+      background: linear-gradient(
+        145deg,
+        rgba(31, 40, 51, 0.96),
+        rgba(11, 12, 16, 0.96)
+      );
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 18px 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(
+        circle at top left,
+        rgba(195, 7, 63, 0.18),
+        transparent 55%
+      );
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-heading {
+      font-family: var(--font-ui);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-heading-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent-soft);
+    }
+
+    .panel-text {
+      font-size: 0.95rem;
+      color: rgba(197, 198, 199, 0.9);
+    }
+
+    .panel-text p + p {
+      margin-top: 8px;
+    }
+
+    /* YOUTUBE SECTION */
+
+    .video-shell {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #000;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.7);
+      margin-top: 10px;
+    }
+
+    .video-shell iframe {
+      display: block;
+      width: 100%;
+      height: 260px;
+    }
+
+    @media (max-width: 600px) {
+      .video-shell iframe {
+        height: 210px;
+      }
+    }
+
+    .video-meta {
+      padding: 10px 12px 12px;
+      background: linear-gradient(
+        180deg,
+        rgba(11, 12, 16, 0.9),
+        rgba(31, 40, 51, 0.95)
+      );
+      font-size: 0.86rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .video-meta-title {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .video-meta-tag {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(102, 252, 241, 0.5);
+      color: var(--highlight);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* CHARACTER CARDS */
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .character-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .character-card {
+      background: radial-gradient(
+        circle at top,
+        rgba(195, 7, 63, 0.25),
+        rgba(31, 40, 51, 0.95)
+      );
+      border-radius: 10px;
+      padding: 10px 11px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .character-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(102, 252, 241, 0.05),
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    .character-name {
+      font-family: var(--font-ui);
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 4px;
+    }
+
+    .character-role {
+      font-size: 0.8rem;
+      color: var(--accent-soft);
+      margin-bottom: 6px;
+    }
+
+    .character-text {
+      font-size: 0.86rem;
+      color: rgba(197, 198, 199, 0.9);
+    }
+
+    /* ACTS / SCENES */
+
+    .acts-shell {
+      margin-top: 10px;
+    }
+
+    .acts-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .act-tab {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(11, 12, 16, 0.9);
+      color: rgba(197, 198, 199, 0.9);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .act-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent-soft);
+    }
+
+    .act-tab.active {
+      background: linear-gradient(
+        135deg,
+        rgba(195, 7, 63, 0.9),
+        rgba(102, 252, 241, 0.4)
+      );
+      color: var(--heading);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .act-panel {
+      display: none;
+      font-size: 0.9rem;
+      color: rgba(197, 198, 199, 0.95);
+      border-radius: 10px;
+      padding: 10px 11px 11px;
+      background: rgba(11, 12, 16, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .act-panel.active {
+      display: block;
+    }
+
+    .act-panel h3 {
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      color: var(--highlight);
+      margin-bottom: 6px;
+    }
+
+    .act-panel p + p {
+      margin-top: 6px;
+    }
+
+    /* QUOTES */
+
+    .quote-shell {
+      margin-top: 12px;
+      border-radius: 10px;
+      padding: 10px 11px 11px;
+      background: radial-gradient(
+        circle at top,
+        rgba(102, 252, 241, 0.18),
+        rgba(11, 12, 16, 0.95)
+      );
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-shell::before {
+      content: "“";
+      position: absolute;
+      top: -18px;
+      left: 8px;
+      font-size: 3.4rem;
+      color: rgba(195, 7, 63, 0.35);
+      pointer-events: none;
+    }
+
+    .quote-text {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 4px;
+    }
+
+    .quote-meta {
+      font-size: 0.8rem;
+      color: rgba(197, 198, 199, 0.85);
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: rgba(197, 198, 199, 0.7);
+    }
+
+    .footer-tag {
+      color: var(--accent-soft);
+    }
+
+    .footer-note {
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .footer-note span {
+      color: var(--highlight);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-shell">
+    <header>
+      <div class="title-badge">Fan-made Smallville adaptation</div>
+      <h1>Lex Luthor & Lana Lang Luthor</h1>
+      <div class="subtitle">
+        <span>“Smallville Romeo & Juliet”</span> — a modern, fan-based retelling inspired by William Shakespeare
+      </div>
+    </header>
+
+    <main class="layout-grid">
+      <!-- LEFT: VIDEO + OVERVIEW -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-heading">
+            <div class="panel-heading-icon">▶</div>
+            Smallville Romeo & Juliet — Feature Video
+          </div>
+
+          <div class="panel-text">
+            <p>
+              This page is a fan-based concept: a YouTube feature imagining
+              <strong>Lex Luthor</strong> and <strong>Lana Lang Luthor</strong> as
+              star-crossed lovers in a Smallville-flavored adaptation of
+              <em>Romeo and Juliet</em>.
+            </p>
+            <p>
+              The video below is a placeholder embed—replace it with your own
+              uploaded YouTube link to bring this story fully to life.
+            </p>
+          </div>
+
+          <!-- YOUTUBE VIDEO (PLACEHOLDER) -->
+          <div class="video-shell" id="videoShell">
+            <!-- Replace the src with your actual YouTube video URL -->
+            <iframe
+              id="videoFrame"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="Smallville Romeo & Juliet – Lex & Lana (Fan Concept)"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+
+            <div class="video-meta">
+              <div class="video-meta-title">
+                Smallville Romeo & Juliet – Lex & Lana (Fan Concept)
+              </div>
+              <div class="video-meta-tag">Fan edit • Lex Luthor • Lana Lang Luthor</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: CHARACTERS + ACTS -->
+      <section class="panel">
+        <div class="panel-inner">
+          <div class="panel-heading">
+            <div class="panel-heading-icon">♛</div>
+            Cast of Hearts — Smallville & Verona
+          </div>
+
+          <div class="panel-text">
+            <p>
+              In this adaptation, the ancient feud of <em>Montagues</em> and
+              <em>Capulets</em> is reborn as the quiet war between
+              <strong>Luthor power</strong> and <strong>Smallville innocence</strong>.
+              Lana stands at the crossroads of both worlds, while Lex wrestles
+              with destiny, legacy, and love.
+            </p>
+          </div>
+
+          <!-- CHARACTERS -->
+          <div class="character-grid">
+            <article class="character-card">
+              <div class="character-name">Lex Luthor</div>
+              <div class="character-role">Heir of LuthorCorp • “Romeo” figure</div>
+              <div class="character-text">
+                Torn between the shadow of Lionel and the light he glimpses in
+                Lana, Lex becomes our tragic romantic lead. His brilliance and
+                ambition echo Romeo’s intensity, but his world is built on
+                secrets, corporate wars, and meteor mysteries.
+              </div>
+            </article>
+
+            <article class="character-card">
+              <div class="character-name">Lana Lang Luthor</div>
+              <div class="character-role">Smallville soul • “Juliet” figure</div>
+              <div class="character-text">
+                Lana carries the heart of Smallville—its barns, storms, and
+                whispered legends. In this retelling, she chooses Lex, stepping
+                into the Luthor name, and becomes the bridge between innocence
+                and empire, love and consequence.
+              </div>
+            </article>
+
+            <article class="character-card">
+              <div class="character-name">Clark Kent</div>
+              <div class="character-role">Silent guardian • Unspoken rival</div>
+              <div class="character-text">
+                Clark watches the unfolding tragedy with the weight of secrets
+                only he knows. He is neither Montague nor Capulet, but a quiet
+                force whose choices shape the fate of both Lex and Lana.
+              </div>
+            </article>
+
+            <article class="character-card">
+              <div class="character-name">Lionel Luthor & Smallville</div>
+              <div class="character-role">The feud itself</div>
+              <div class="character-text">
+                Lionel, LuthorCorp, and the town of Smallville together become
+                the “ancient grudge.” Corporate towers and dusty roads clash,
+                and Lex and Lana stand in the middle, trying to write a new
+                ending to an old war.
+              </div>
+            </article>
+          </div>
+
+          <!-- ACTS / SCENES -->
+          <div class="acts-shell">
+            <div class="acts-tabs">
+              <button class="act-tab active" data-act="act1">Act I — First Storm</button>
+              <button class="act-tab" data-act="act2">Act II — Secret Vows</button>
+              <button class="act-tab" data-act="act3">Act III — Broken Trust</button>
+              <button class="act-tab" data-act="act4">Act IV — The Plan</button>
+              <button class="act-tab" data-act="act5">Act V — The Choice</button>
+            </div>
+
+            <div class="act-panel active" id="act1">
+              <h3>Act I — First Storm</h3>
+              <p>
+                The story opens on a meteor-lit Smallville sky. Lex’s car spins
+                off the bridge, and Clark saves him—our prologue of fate. Lana
+                watches from the distance, unaware that this rescue will bind
+                three lives together.
+              </p>
+              <p>
+                In the language of Shakespeare, this is the “ancient grudge”
+                reborn: Luthor wealth colliding with farm-town simplicity, and
+                a friendship forming where suspicion should have lived.
+              </p>
+            </div>
+
+            <div class="act-panel" id="act2">
+              <h3>Act II — Secret Vows</h3>
+              <p>
+                Lex and Lana begin to see each other not as symbols—Luthor and
+                Smallville—but as two souls trying to outrun their pasts. Their
+                conversations echo balcony scenes: quiet, late-night talks in
+                the loft, in the mansion, in the spaces between storms.
+              </p>
+              <p>
+                Here, our adaptation imagines a private vow: not a literal
+                marriage yet, but a promise to stand together against the
+                expectations of the town and the Luthor name.
+              </p>
+            </div>
+
+            <div class="act-panel" id="act3">
+              <h3>Act III — Broken Trust</h3>
+              <p>
+                Secrets begin to fracture the fragile peace. Lex’s obsession
+                with the truth about Clark mirrors Romeo’s impulsive decisions,
+                but with a sharper edge—corporate investigations, hidden labs,
+                and files locked behind steel.
+              </p>
+              <p>
+                Lana feels the weight of lies from every side. In classic
+                Shakespeare fashion, misunderstandings and half-truths become
+                daggers sharper than any blade.
+              </p>
+            </div>
+
+            <div class="act-panel" id="act4">
+              <h3>Act IV — The Plan</h3>
+              <p>
+                Instead of a sleeping potion, our Smallville version uses
+                disappearance and reinvention. Lana chooses the Luthor name,
+                becoming Lana Lang Luthor, hoping that by stepping into Lex’s
+                world she can rewrite its story from the inside.
+              </p>
+              <p>
+                Lex, convinced that love can redeem legacy, builds a future
+                around her. Yet every step forward is shadowed by Lionel’s
+                manipulations and Clark’s unspoken truths.
+              </p>
+            </div>
+
+            <div class="act-panel" id="act5">
+              <h3>Act V — The Choice</h3>
+              <p>
+                Our fan-based retelling offers two possible endings: a tragic
+                one, echoing Shakespeare, and a hopeful one, unique to
+                Smallville. In the tragic path, Lex and Lana are separated by
+                betrayal and fear, their love buried under the rubble of
+                LuthorCorp.
+              </p>
+              <p>
+                In the hopeful path, they choose honesty over power. Lex steps
+                away from his father’s empire; Lana refuses to let fear dictate
+                her future. The “star-crossed” lovers become “choice-crossed”
+                instead—proving that destiny can be rewritten.
+              </p>
+            </div>
+          </div>
+
+          <!-- QUOTE -->
+          <div class="quote-shell">
+            <div class="quote-text" id="quoteText">
+              “My name is Luthor, but my heart is Smallville. If love is a
+              weakness, then let it be the one that saves us.”
+            </div>
+            <div class="quote-meta" id="quoteMeta">
+              — Lex to Lana, fan-written line inspired by Shakespearean vows
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-tag">
+        Fan concept • Lex Luthor • Lana Lang Luthor • Smallville • Romeo & Juliet
+      </div>
+      <div class="footer-note">
+        This is a <span>fan-based creative page</span>, honoring William Shakespeare’s
+        classic while imagining it through the lens of Smallville.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Simple JS: Act tab switching + rotating quotes
+
+    (function () {
+      const tabs = document.querySelectorAll(".act-tab");
+      const panels = document.querySelectorAll(".act-panel");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const target = tab.getAttribute("data-act");
+
+          tabs.forEach((t) => t.classList.remove("active"));
+          panels.forEach((p) => p.classList.remove("active"));
+
+          tab.classList.add("active");
+          const panel = document.getElementById(target);
+          if (panel) panel.classList.add("active");
+        });
+      });
+
+      const quotes = [
+        {
+          text:
+            "“My name is Luthor, but my heart is Smallville. If love is a weakness, then let it be the one that saves us.”",
+          meta: "— Lex to Lana, fan-written line inspired by Shakespearean vows",
+        },
+        {
+          text:
+            "“If the stars have crossed us, then let us redraw the sky. I will not let fear write our ending.”",
+          meta: "— Lana Lang Luthor, choosing love over legacy",
+        },
+        {
+          text:
+            "“Two houses, both alike in power: one of steel and glass, one of barns and storms. Between them, a single choice.”",
+          meta: "— Narration, Smallville prologue to the fan adaptation",
+        },
+      ];
+
+      let quoteIndex = 0;
+      const quoteTextEl = document.getElementById("quoteText");
+      const quoteMetaEl = document.getElementById("quoteMeta");
+
+      function cycleQuote() {
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+        const q = quotes[quoteIndex];
+        quoteTextEl.textContent = q.text;
+        quoteMetaEl.textContent = q.meta;
+      }
+
+      setInterval(cycleQuote, 12000);
+    })();
+  </script>
+</body>
+</html>
