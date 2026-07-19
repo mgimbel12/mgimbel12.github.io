@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Storybook Castle & Flowers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #fdf7ff;
+      --accent: #c58af2;
+      --text: #3b2b4a;
+      --panel: #ffffff;
+      --border-soft: #e3d5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #ffeef8 0, #fdf7ff 40%, #f3f6ff 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7b4bb8;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #6a5a86;
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    section {
+      background: var(--panel);
+      border-radius: 1rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 12px 30px rgba(80, 60, 120, 0.08);
+      padding: 1.25rem 1.5rem;
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: #7b4bb8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .clock-display {
+      font-family: "Courier New", monospace;
+      font-size: 1.1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      border: 1px dashed #d3c3f0;
+      background: linear-gradient(135deg, #fff9ff, #f4f0ff);
+      display: inline-block;
+    }
+
+    .clock-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a7fd0;
+      margin-bottom: 0.25rem;
+      display: block;
+    }
+
+    .clock-row {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .clock-chip {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: #f3ecff;
+      border: 1px solid #e0d2ff;
+    }
+
+    .color-wheel-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .color-wheel {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ff0000 0deg,
+        #ffff00 120deg,
+        #0000ff 240deg,
+        #ff0000 360deg
+      );
+      border: 4px solid #fdf7ff;
+      box-shadow: 0 8px 20px rgba(80, 60, 120, 0.18);
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .color-wheel::after {
+      content: "";
+      position: absolute;
+      inset: 30%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0, #fdf7ff 60%, transparent 100%);
+    }
+
+    .primary-swatches {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 2px solid #fdf7ff;
+      box-shadow: 0 4px 10px rgba(80, 60, 120, 0.15);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .swatch span {
+      position: absolute;
+      bottom: -1.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6a5a86;
+    }
+
+    .swatch.red { background: #ff4b4b; }
+    .swatch.yellow { background: #ffd93b; }
+    .swatch.blue { background: #4b7bff; }
+
+    .color-info {
+      font-size: 0.85rem;
+      text-align: center;
+      color: #6a5a86;
+    }
+
+    .color-info strong {
+      color: #7b4bb8;
+    }
+
+    .svg-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .svg-card {
+      border-radius: 0.9rem;
+      border: 1px solid #e3d5f5;
+      background: linear-gradient(180deg, #fdf7ff, #f3f6ff);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .svg-card h3 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #7b4bb8;
+    }
+
+    .svg-card svg {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+    }
+
+    footer {
+      padding: 1rem 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #7a6a9a;
+    }
+
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Castle of Colors & Flowers</h1>
+    <p>A gentle storybook page of time, light, and blossoms.</p>
+  </header>
+
+  <main>
+    <!-- LEFT COLUMN: Clock + Color Wheel -->
+    <section aria-labelledby="clock-title">
+      <h2 id="clock-title">Ceremonial Clock</h2>
+      <p>This clock keeps a quiet record of the present moment—date, hour, minute, and second.</p>
+
+      <div class="clock-display" aria-live="polite">
+        <span class="clock-label">Current Moment</span>
+        <div id="clock-main"></div>
+        <div class="clock-row">
+          <span class="clock-chip" id="clock-date"></span>
+          <span class="clock-chip" id="clock-time"></span>
+        </div>
+      </div>
+
+      <div class="color-wheel-wrapper">
+        <h2>Primary Color Circle</h2>
+        <p>Red, yellow, and blue—three simple lights that mix into countless stories.</p>
+
+        <div class="color-wheel" aria-hidden="true"></div>
+
+        <div class="primary-swatches">
+          <button class="swatch red" data-color="Red" aria-label="Red primary color">
+            <span>Red</span>
+          </button>
+          <button class="swatch yellow" data-color="Yellow" aria-label="Yellow primary color">
+            <span>Yellow</span>
+          </button>
+          <button class="swatch blue" data-color="Blue" aria-label="Blue primary color">
+            <span>Blue</span>
+          </button>
+        </div>
+
+        <p class="color-info">
+          Selected color:
+          <strong id="selected-color">None yet</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN: SVG Castle & Flowers -->
+    <section aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Castle & Flower Gallery</h2>
+      <p>Simple SVG illustrations of a castle and flowers: roses, tulips, daisies, jasmine, and sunshine.</p>
+
+      <div class="svg-gallery">
+        <!-- Castle -->
+        <article class="svg-card">
+          <h3>Storybook Castle</h3>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Simple storybook castle">
+            <!-- Ground -->
+            <rect x="0" y="150" width="200" height="50" fill="#cfe6ff" />
+            <!-- Main tower -->
+            <rect x="70" y="80" width="60" height="70" fill="#f4e4ff" stroke="#c3a6e8" />
+            <!-- Door -->
+            <rect x="95" y="115" width="20" height="35" fill="#c58af2" />
+            <!-- Left tower -->
+            <rect x="40" y="95" width="30" height="55" fill="#f9f0ff" stroke="#c3a6e8" />
+            <!-- Right tower -->
+            <rect x="130" y="95" width="30" height="55" fill="#f9f0ff" stroke="#c3a6e8" />
+            <!-- Roofs -->
+            <polygon points="40,95 55,70 70,95" fill="#ffb3c6" />
+            <polygon points="130,95 145,70 160,95" fill="#ffb3c6" />
+            <polygon points="70,80 100,50 130,80" fill="#ffd93b" />
+            <!-- Flags -->
+            <polygon points="55,70 55,55 70,60" fill="#ff4b4b" />
+            <polygon points="145,70 145,55 160,60" fill="#4b7bff" />
+            <!-- Windows -->
+            <circle cx="52" cy="110" r="4" fill="#c58af2" />
+            <circle cx="148" cy="110" r="4" fill="#c58af2" />
+            <circle cx="85" cy="95" r="4" fill="#c58af2" />
+            <circle cx="115" cy="95" r="4" fill="#c58af2" />
+          </svg>
+        </article>
+
+        <!-- Rose -->
+        <article class="svg-card">
+          <h3>Rose Flower</h3>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Simple rose flower">
+            <!-- Stem -->
+            <rect x="97" y="80" width="6" height="70" fill="#2f9b4f" />
+            <!-- Leaves -->
+            <ellipse cx="90" cy="110" rx="12" ry="6" fill="#3fbf63" />
+            <ellipse cx="110" cy="120" rx="12" ry="6" fill="#3fbf63" />
+            <!-- Petals -->
+            <circle cx="100" cy="70" r="18" fill="#ff4b7b" />
+            <circle cx="88" cy="72" r="12" fill="#ff6b8f" />
+            <circle cx="112" cy="72" r="12" fill="#ff6b8f" />
+            <circle cx="100" cy="60" r="10" fill="#ff8fa3" />
+            <!-- Center -->
+            <circle cx="100" cy="70" r="5" fill="#ffd1e0" />
+          </svg>
+        </article>
+
+        <!-- Tulip -->
+        <article class="svg-card">
+          <h3>Tulip Flower</h3>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Simple tulip flower">
+            <!-- Stem -->
+            <rect x="98" y="80" width="4" height="70" fill="#2f9b4f" />
+            <!-- Leaves -->
+            <path d="M98 110 C80 120 80 140 98 150" fill="#3fbf63" />
+            <path d="M102 115 C120 125 120 145 102 155" fill="#3fbf63" />
+            <!-- Tulip head -->
+            <path d="M85 80 Q100 50 115 80 Q110 95 100 100 Q90 95 85 80 Z" fill="#ff7b4b" />
+            <!-- Petal tips -->
+            <circle cx="92" cy="70" r="4" fill="#ff9b6b" />
+            <circle cx="100" cy="65" r="4" fill="#ff9b6b" />
+            <circle cx="108" cy="70" r="4" fill="#ff9b6b" />
+          </svg>
+        </article>
+
+        <!-- Daisy -->
+        <article class="svg-card">
+          <h3>Daisy Flower</h3>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Simple daisy flower">
+            <!-- Stem -->
+            <rect x="98" y="80" width="4" height="70" fill="#2f9b4f" />
+            <!-- Leaves -->
+            <ellipse cx="90" cy="115" rx="10" ry="5" fill="#3fbf63" />
+            <ellipse cx="110" cy="125" rx="10" ry="5" fill="#3fbf63" />
+            <!-- Petals -->
+            <circle cx="100" cy="70" r="6" fill="#ffd93b" />
+            <ellipse cx="100" cy="55" rx="6" ry="14" fill="#ffffff" />
+            <ellipse cx="100" cy="85" rx="6" ry="14" fill="#ffffff" />
+            <ellipse cx="85" cy="70" rx="14" ry="6" fill="#ffffff" />
+            <ellipse cx="115" cy="70" rx="14" ry="6" fill="#ffffff" />
+            <ellipse cx="90" cy="58" rx="6" ry="14" transform="rotate(-45 90 58)" fill="#ffffff" />
+            <ellipse cx="110" cy="58" rx="6" ry="14" transform="rotate(45 110 58)" fill="#ffffff" />
+            <ellipse cx="90" cy="82" rx="6" ry="14" transform="rotate(45 90 82)" fill="#ffffff" />
+            <ellipse cx="110" cy="82" rx="6" ry="14" transform="rotate(-45 110 82)" fill="#ffffff" />
+          </svg>
+        </article>
+
+        <!-- Jasmine (full-length) -->
+        <article class="svg-card">
+          <h3>Jasmine Flower</h3>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Full-length jasmine flower">
+            <!-- Long stem -->
+            <rect x="98" y="40" width="4" height="110" fill="#2f9b4f" />
+            <!-- Side leaves -->
+            <path d="M98 80 C80 90 80 110 95 120" fill="#3fbf63" />
+            <path d="M102 95 C120 105 120 125 105 135" fill="#3fbf63" />
+            <!-- Jasmine petals -->
+            <circle cx="100" cy="40" r="5" fill="#ffd93b" />
+            <ellipse cx="100" cy="30" rx="5" ry="12" fill="#ffffff" />
+            <ellipse cx="100" cy="50" rx="5" ry="12" fill="#ffffff" />
+            <ellipse cx="90" cy="40" rx="12" ry="5" fill="#ffffff" />
+            <ellipse cx="110" cy="40" rx="12" ry="5" fill="#ffffff" />
+            <ellipse cx="92" cy="32" rx="5" ry="12" transform="rotate(-40 92 32)" fill="#ffffff" />
+            <ellipse cx="108" cy="32" rx="5" ry="12" transform="rotate(40 108 32)" fill="#ffffff" />
+          </svg>
+        </article>
+
+        <!-- Yellow Sunshine Flower -->
+        <article class="svg-card">
+          <h3>Yellow Sunshine Flower</h3>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Yellow sunshine flower">
+            <!-- Stem -->
+            <rect x="98" y="80" width="4" height="70" fill="#2f9b4f" />
+            <!-- Leaves -->
+            <ellipse cx="90" cy="115" rx="10" ry="5" fill="#3fbf63" />
+            <ellipse cx="110" cy="125" rx="10" ry="5" fill="#3fbf63" />
+            <!-- Sunshine petals -->
+            <circle cx="100" cy="70" r="10" fill="#ffb93b" />
+            <circle cx="100" cy="70" r="6" fill="#ffd93b" />
+            <ellipse cx="100" cy="50" rx="6" ry="14" fill="#ffe66b" />
+            <ellipse cx="100" cy="90" rx="6" ry="14" fill="#ffe66b" />
+            <ellipse cx="80" cy="70" rx="14" ry="6" fill="#ffe66b" />
+            <ellipse cx="120" cy="70" rx="14" ry="6" fill="#ffe66b" />
+            <ellipse cx="86" cy="54" rx="6" ry="14" transform="rotate(-35 86 54)" fill="#ffe66b" />
+            <ellipse cx="114" cy="54" rx="6" ry="14" transform="rotate(35 114 54)" fill="#ffe66b" />
+            <ellipse cx="86" cy="86" rx="6" ry="14" transform="rotate(35 86 86)" fill="#ffe66b" />
+            <ellipse cx="114" cy="86" rx="6" ry="14" transform="rotate(-35 114 86)" fill="#ffe66b" />
+          </svg>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Time, color, and blossoms—kept gently in a single page.
+  </footer>
+
+  <script>
+    // Live clock: updates date and time every second
+    function updateClock() {
+      const now = new Date();
+
+      const dateOptions = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      };
+      const dateString = now.toLocaleDateString(undefined, dateOptions);
+
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+
+      const timeString = `${hours}:${minutes}:${seconds}`;
+
+      document.getElementById("clock-main").textContent = `${dateString} — ${timeString}`;
+      document.getElementById("clock-date").textContent = dateString;
+      document.getElementById("clock-time").textContent = `Hour: ${hours}  Minute: ${minutes}  Second: ${seconds}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // Primary color selector: shows which color is chosen
+    const swatches = document.querySelectorAll(".swatch");
+    const selectedColorLabel = document.getElementById("selected-color");
+
+    swatches.forEach((swatch) => {
+      swatch.addEventListener("click", () => {
+        const colorName = swatch.dataset.color;
+        selectedColorLabel.textContent = colorName;
+      });
+    });
+  </script>
+</body>
+</html>
