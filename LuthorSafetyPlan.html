@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lex Luthor–Style Safety Plan (Smallville)</title>
+  <style>
+    :root {
+      --bg: #050608;
+      --panel: #101317;
+      --panel-alt: #141920;
+      --accent: #9c3bff;
+      --accent-soft: #cfa8ff;
+      --danger: #ff3366;
+      --calm: #4fd1c5;
+      --text: #f5f7ff;
+      --muted: #a3adc2;
+      --grid: #262b33;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #181c26 0%, #050608 55%, #020305 100%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 6px;
+      font-size: 2.2rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .layout {
+      max-width: 1150px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.4fr);
+      gap: 22px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: linear-gradient(145deg, var(--panel), var(--panel-alt));
+      border-radius: 18px;
+      border: 1px solid #262b33;
+      padding: 18px 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(156, 59, 255, 0.18) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(79, 209, 197, 0.16) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(5, 7, 12, 0.9);
+      color: var(--muted);
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(156, 59, 255, 0.9);
+      animation: pulse-dot 1.4s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+      margin-top: 6px;
+    }
+
+    .block {
+      background: rgba(8, 10, 16, 0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(156, 59, 255, 0.35);
+      padding: 10px 12px;
+    }
+
+    .block h3 {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      color: var(--accent-soft);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    li span.label {
+      font-weight: 600;
+      color: var(--accent-soft);
+    }
+
+    .section-title {
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .protocol-list li span.label {
+      color: var(--danger);
+    }
+
+    .calm-list li span.label {
+      color: var(--calm);
+    }
+
+    .lex-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .video-card {
+      background: rgba(5, 8, 14, 0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(79, 209, 197, 0.4);
+      padding: 8px 10px;
+    }
+
+    .video-card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      color: var(--calm);
+    }
+
+    iframe {
+      width: 100%;
+      height: 210px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+    }
+
+    .toggle-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .toggle-row input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .muted .pill-dot {
+      animation: none;
+      box-shadow: 0 0 4px rgba(156, 59, 255, 0.7);
+    }
+
+    .muted .block {
+      border-color: rgba(38, 43, 51, 0.9);
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .hud-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(#262b33 1px, transparent 1px),
+        linear-gradient(90deg, #262b33 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="hud-grid"></div>
+
+  <h1>Lex Luthor–Style Safety Plan</h1>
+  <p class="subtitle">
+    A Smallville-inspired, strategic mental health protocol: contingency plans, calm systems, and relaxing video feeds.
+  </p>
+
+  <div class="layout">
+    <!-- LEFT: LEX LUTHOR SAFETY PLAN -->
+    <section class="panel" id="lex-panel">
+      <div class="panel-header">
+        <h2>Strategic Mental Health Protocol</h2>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          SYSTEM STATUS: MONITORING
+        </div>
+      </div>
+
+      <div class="toggle-row">
+        <input type="checkbox" id="toggleLex" checked />
+        <label for="toggleLex">Show Lex-style high-alert visuals (uncheck for softer, calmer display)</label>
+      </div>
+
+      <div class="grid">
+        <div class="block">
+          <h3>1. Threat Assessment (Feelings & Thoughts)</h3>
+          <ul class="protocol-list">
+            <li><span class="label">Level Green:</span> Mild stress, tired, but still functioning. Use basic coping tools.</li>
+            <li><span class="label">Level Yellow:</span> Overwhelmed, racing thoughts, irritability, withdrawing from people.</li>
+            <li><span class="label">Level Red:</span> Thoughts of self-harm, feeling hopeless, “I don’t want to be here.”</li>
+            <li><span class="label">Immediate Protocol:</span> At Level Red → contact crisis lines or emergency services right away.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>2. Contingency Plan (Step-by-Step)</h3>
+          <ul class="protocol-list">
+            <li><span class="label">Step 1:</span> Pause. Sit down, feet on the floor, take 10 slow breaths.</li>
+            <li><span class="label">Step 2:</span> Activate calming video feed (below) and follow the breathing or grounding instructions.</li>
+            <li><span class="label">Step 3:</span> Text or call one safe person and say, “I’m having a hard time and need support.”</li>
+            <li><span class="label">Step 4:</span> If thoughts escalate or feel unsafe → call <strong>911</strong> or <strong>988</strong> immediately.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>3. Allies & Safe Network</h3>
+          <ul>
+            <li><span class="label">Inner Circle:</span> List 2–3 trusted people (family, friends, church members) with phone numbers.</li>
+            <li><span class="label">Professional:</span> Therapist, doctor, counselor, or spiritual leader.</li>
+            <li><span class="label">Crisis Allies:</span> 988 Suicide & Crisis Lifeline, Crisis Text Line (text HOME to 741741).</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <h3>4. Lex-Level Prevention Strategy</h3>
+          <ul>
+            <li><span class="label">Daily Scan:</span> Morning check-in: “What level am I today—Green, Yellow, or Red?”</li>
+            <li><span class="label">Environment:</span> Reduce noise, clutter, and toxic conversations; create one calm corner.</li>
+            <li><span class="label">Data Log:</span> Journal patterns: sleep, stress, triggers, and what helps.</li>
+            <li><span class="label">Upgrade:</span> Adjust routines based on what your “data” shows—more rest, more support, fewer stressors.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="lex-note">
+        This plan borrows Lex’s strategic mindset—but turns it toward protection, healing, and long-term stability instead of control.
+      </p>
+    </section>
+
+    <!-- RIGHT: CALMING VIDEOS & RELAXATION SYSTEM -->
+    <section class="panel" id="calm-panel">
+      <div class="panel-header">
+        <h2>Relaxation & Calm Video Console</h2>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          CALM FEEDS ONLINE
+        </div>
+      </div>
+
+      <p style="font-size:0.9rem; color:var(--muted); margin-bottom:8px; position:relative; z-index:1;">
+        Use these guided videos as “calm protocols” when stress rises. They support breathing, grounding, and emotional reset.
+      </p>
+
+      <div class="video-grid">
+        <div class="video-card">
+          <h3>Guided Breathing – 4-7-8 Technique</h3>
+          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">
+            Follow the instructor’s counting to slow your breath and calm your nervous system.
+          </p>
+          <iframe
+            src="https://www.youtube.com/embed/yr3K3w2C3_w"
+            title="4-7-8 Breathing Exercise – Relaxation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="video-card">
+          <h3>Grounding Meditation – 10 Minutes</h3>
+          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">
+            A short grounding practice to help you feel present and steady when emotions feel intense.
+          </p>
+          <iframe
+            src="https://www.youtube.com/embed/8XgGctpjfQk"
+            title="10 Minute Grounding Meditation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="video-card">
+          <h3>Body Scan & Release Tension</h3>
+          <p style="font-size:0.8rem; color:var(--muted); margin-bottom:6px;">
+            Gently scan your body, notice tension, and let it soften—like powering down a stressed system.
+          </p>
+          <iframe
+            src="https://www.youtube.com/embed/ihO02wUzgkc"
+            title="Relaxing Body Scan Meditation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+
+      <div class="section-title">Calm Protocol Checklist</div>
+      <ul class="calm-list">
+        <li><span class="label">1. Choose a Video:</span> Pick one that matches your current energy—breathing, grounding, or body scan.</li>
+        <li><span class="label">2. Commit 10 Minutes:</span> Treat it like a mission: no distractions, phone on silent, lights softer.</li>
+        <li><span class="label">3. Notice the Shift:</span> After the video, rate your stress from 1–10 and write down what changed.</li>
+        <li><span class="label">4. Escalation Rule:</span> If stress stays high or thoughts feel unsafe → contact crisis support immediately.</li>
+      </ul>
+
+      <p class="footer-note">
+        This console is a tool, not a replacement for professional care. If you feel unsafe, please call 911 or 988 right away.
+      </p>
+    </section>
+  </div>
+
+  <script>
+    const toggleLex = document.getElementById('toggleLex');
+    const lexPanel = document.getElementById('lex-panel');
+
+    toggleLex.addEventListener('change', () => {
+      if (toggleLex.checked) {
+        lexPanel.classList.remove('muted');
+      } else {
+        lexPanel.classList.add('muted');
+      }
+    });
+  </script>
+</body>
+</html>
