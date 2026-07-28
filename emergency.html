@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Emergency & Mental Health Safety Plan</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card-bg: #141a33;
+      --accent: #ffcc33;
+      --accent-soft: #ffe9a6;
+      --text: #f7f7ff;
+      --danger: #ff3366;
+      --calm: #6bd5ff;
+      --success: #6be38a;
+      --border: #2b3355;
+      --holiday: #ff9f43;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #1b2340 0%, #050814 55%, #02030a 100%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 24px;
+    }
+
+    h1, h2, h3 {
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 2.1rem;
+    }
+
+    h2 {
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
+    h3 {
+      margin-bottom: 6px;
+      font-size: 1.1rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #cfd4ff;
+      margin-bottom: 24px;
+    }
+
+    .layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.4fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: linear-gradient(145deg, #101633, #181f3f);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.06) 0, transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(255, 255, 255, 0.04) 0, transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(10, 16, 40, 0.8);
+      color: #e4e7ff;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 10px rgba(255, 51, 102, 0.9);
+      animation: pulse-dot 1.4s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.4; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .emergency-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .emergency-tile {
+      background: rgba(5, 10, 30, 0.9);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .emergency-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #cfd4ff;
+    }
+
+    .emergency-number {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--accent-soft);
+      text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.7),
+        0 0 14px rgba(255, 204, 51, 0.9),
+        0 0 26px rgba(255, 51, 102, 0.7);
+      animation: marquee-flash 2.4s infinite;
+    }
+
+    .emergency-number.critical {
+      color: #ffe9f1;
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.9),
+        0 0 18px rgba(255, 51, 102, 1),
+        0 0 32px rgba(255, 204, 51, 0.9);
+      animation: siren-flash 1.4s infinite;
+    }
+
+    @keyframes siren-flash {
+      0%   { opacity: 1; transform: translateY(0); }
+      25%  { opacity: 0.3; transform: translateY(-1px); }
+      50%  { opacity: 1; transform: translateY(0); }
+      75%  { opacity: 0.3; transform: translateY(1px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes marquee-flash {
+      0%   { opacity: 0.7; }
+      40%  { opacity: 1; }
+      60%  { opacity: 0.4; }
+      100% { opacity: 0.9; }
+    }
+
+    .emergency-note {
+      font-size: 0.75rem;
+      color: #aeb5ff;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #dfe3ff;
+      background: rgba(15, 22, 50, 0.9);
+    }
+
+    .tag.alt {
+      border-color: rgba(255, 159, 67, 0.7);
+      color: #ffe1c2;
+      background: rgba(40, 20, 5, 0.9);
+    }
+
+    .section-title {
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #cfd4ff;
+    }
+
+    ul {
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+      color: #e4e7ff;
+    }
+
+    li span.label {
+      font-weight: 600;
+      color: var(--accent-soft);
+    }
+
+    .holiday-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .holiday-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 159, 67, 0.7);
+      background: rgba(40, 20, 5, 0.9);
+      color: #ffe1c2;
+      font-size: 0.8rem;
+      display: inline-flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .holiday-chip strong {
+      font-size: 0.8rem;
+    }
+
+    .holiday-chip small {
+      font-size: 0.7rem;
+      opacity: 0.85;
+    }
+
+    .ideas-list li {
+      margin-bottom: 6px;
+    }
+
+    .ideas-list li span.label {
+      color: var(--holiday);
+    }
+
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .plan-block {
+      background: rgba(5, 12, 32, 0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(107, 211, 255, 0.4);
+      padding: 10px 12px;
+    }
+
+    .plan-block h3 {
+      color: var(--calm);
+    }
+
+    .plan-block ul li span.label {
+      color: var(--calm);
+    }
+
+    .vacation-block {
+      background: rgba(5, 18, 28, 0.95);
+      border-radius: 14px;
+      border: 1px solid rgba(107, 227, 138, 0.4);
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+
+    .vacation-block h3 {
+      color: var(--success);
+    }
+
+    .vacation-block ul li span.label {
+      color: var(--success);
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: #b9c0ff;
+      text-align: center;
+    }
+
+    .light-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg,
+        rgba(255, 51, 102, 0.0) 0%,
+        rgba(255, 51, 102, 0.9) 20%,
+        rgba(255, 204, 51, 0.0) 40%,
+        rgba(107, 213, 255, 0.9) 60%,
+        rgba(255, 159, 67, 0.0) 80%,
+        rgba(255, 51, 102, 0.9) 100%);
+      filter: blur(1px);
+      animation: light-sweep 4s linear infinite;
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    @keyframes light-sweep {
+      0%   { transform: translateX(-20%); }
+      50%  { transform: translateX(10%); }
+      100% { transform: translateX(0%); }
+    }
+
+    .flash-toggle {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #cfd4ff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .flash-toggle input {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+    }
+
+    .muted .emergency-number,
+    .muted .emergency-number.critical {
+      animation: none;
+      text-shadow:
+        0 0 4px rgba(255, 255, 255, 0.5),
+        0 0 10px rgba(255, 204, 51, 0.6);
+    }
+
+    .muted .pill-dot {
+      animation: none;
+      box-shadow: 0 0 4px rgba(255, 51, 102, 0.7);
+    }
+  </style>
+</head>
+<body>
+  <h1>Emergency Lights & Mental Health Safety Plan</h1>
+  <p class="subtitle">
+    A gentle, glowing dashboard for emergencies, holidays, and your mental health vacation plan.
+  </p>
+
+  <div class="layout">
+    <!-- LEFT: EMERGENCY NUMBERS & HOLIDAYS -->
+    <section class="card" id="emergency-card">
+      <div class="card-header">
+        <h2>Emergency Numbers & Crisis Text Lines</h2>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          EMERGENCY LIGHTS ACTIVE
+        </div>
+      </div>
+
+      <div class="flash-toggle">
+        <input type="checkbox" id="toggleFlash" checked />
+        <label for="toggleFlash">Flash the numbers like soft neon lights (uncheck for calmer display)</label>
+      </div>
+
+      <div class="emergency-grid">
+        <div class="emergency-tile">
+          <div class="emergency-label">Immediate Emergency</div>
+          <div class="emergency-number critical">911</div>
+          <div class="emergency-note">Police, Fire, Medical — speak or text if available in your area (Clark County/Henderson).</div>
+          <div class="tag-row">
+            <span class="tag">Voice Call</span>
+            <span class="tag alt">Text 911 (where supported)</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Suicide & Crisis Lifeline</div>
+          <div class="emergency-number critical">988</div>
+          <div class="emergency-note">Call or text for emotional crisis, suicidal thoughts, or overwhelming distress.</div>
+          <div class="tag-row">
+            <span class="tag">24/7</span>
+            <span class="tag alt">Call or Text</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Crisis Text Line</div>
+          <div class="emergency-number">Text HOME to 741741</div>
+          <div class="emergency-note">Free, confidential text support when you need someone to talk to.</div>
+          <div class="tag-row">
+            <span class="tag">Text Only</span>
+            <span class="tag alt">Any time</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Domestic Violence</div>
+          <div class="emergency-number">1-800-799-7233</div>
+          <div class="emergency-note">National Domestic Violence Hotline — safety planning, resources, and support.</div>
+          <div class="tag-row">
+            <span class="tag">Voice Call</span>
+            <span class="tag alt">Confidential</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Sexual Assault</div>
+          <div class="emergency-number">1-800-656-4673</div>
+          <div class="emergency-note">RAINN — support, advocacy, and local referrals.</div>
+          <div class="tag-row">
+            <span class="tag">Voice Call</span>
+            <span class="tag alt">24/7</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Poison Control</div>
+          <div class="emergency-number">1-800-222-1222</div>
+          <div class="emergency-note">For accidental ingestions, overdoses, or chemical exposures.</div>
+          <div class="tag-row">
+            <span class="tag">Medical Guidance</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Veterans Crisis Line</div>
+          <div class="emergency-number">988, then 1</div>
+          <div class="emergency-note">For veterans, service members, and their families.</div>
+          <div class="tag-row">
+            <span class="tag">Call</span>
+            <span class="tag alt">Text 838255</span>
+          </div>
+        </div>
+
+        <div class="emergency-tile">
+          <div class="emergency-label">Nevada Crisis Line</div>
+          <div class="emergency-number">775-784-8090</div>
+          <div class="emergency-note">Statewide support; text “CARE” to 839863 for help by text.</div>
+          <div class="tag-row">
+            <span class="tag">Nevada</span>
+            <span class="tag alt">Text CARE to 839863</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Upcoming U.S. Federal Holidays (2026)</div>
+      <div class="holiday-chip-row">
+        <div class="holiday-chip">
+          <strong>Labor Day</strong>
+          <small>Mon, Sept 7 — Rest, slow weekend, gentle reset.</small>
+        </div>
+        <div class="holiday-chip">
+          <strong>Indigenous Peoples’ / Columbus Day</strong>
+          <small>Mon, Oct 12 — Reflection, learning, gratitude walks.</small>
+        </div>
+        <div class="holiday-chip">
+          <strong>Veterans Day</strong>
+          <small>Wed, Nov 11 — Honor service, write thank-you notes.</small>
+        </div>
+        <div class="holiday-chip">
+          <strong>Thanksgiving</strong>
+          <small>Thu, Nov 26 — Gratitude rituals, cozy meals, boundaries.</small>
+        </div>
+        <div class="holiday-chip">
+          <strong>Christmas Day</strong>
+          <small>Fri, Dec 25 — Soft lights, music, spiritual or quiet time.</small>
+        </div>
+      </div>
+
+      <div class="section-title">Holiday Fun & Gentle Activity Ideas</div>
+      <ul class="ideas-list">
+        <li><span class="label">Labor Day:</span> Backyard picnic, simple crafts, “no obligation” day—phone on silent, comfy clothes, favorite movie.</li>
+        <li><span class="label">Thanksgiving:</span> Gratitude journal, small dinner, one new dessert recipe, a walk after the meal, clear “no drama” boundary.</li>
+        <li><span class="label">Christmas:</span> Storybook lights, hot cocoa, one meaningful gift (even handwritten), quiet music, spiritual reflection or cozy reading.</li>
+        <li><span class="label">Any Holiday:</span> Puzzle night, coloring pages, gentle stretching, watching snow or lights, texting one safe person.</li>
+      </ul>
+    </section>
+
+    <!-- RIGHT: MENTAL HEALTH SAFETY PLAN & VACATION -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Mental Health Safety Plan & Vacation Map</h2>
+        <div class="pill">
+          <span class="pill-dot"></span>
+          PERSONAL SAFETY BLUEPRINT
+        </div>
+      </div>
+
+      <p style="font-size:0.9rem; color:#dfe3ff; margin-bottom:8px; position:relative; z-index:1;">
+        This section is your gentle guide: what to do, who to call, and how to build a mental health vacation
+        that feels safe, soft, and restorative.
+      </p>
+
+      <div class="plan-grid">
+        <div class="plan-block">
+          <h3>1. Warning Signs</h3>
+          <ul>
+            <li><span class="label">Emotional:</span> Feeling hopeless, numb, unusually irritable, or like you want to disappear.</li>
+            <li><span class="label">Physical:</span> Not sleeping, sleeping too much, headaches, tight chest, racing heart.</li>
+            <li><span class="label">Behavior:</span> Withdrawing from loved ones, canceling everything, ignoring messages, neglecting hygiene.</li>
+          </ul>
+        </div>
+
+        <div class="plan-block">
+          <h3>2. Coping Tools</h3>
+          <ul>
+            <li><span class="label">Grounding:</span> 5–4–3–2–1 senses check, holding something warm, naming colors in the room.</li>
+            <li><span class="label">Comfort:</span> Favorite blanket, soft music, warm shower, reading a gentle story or scripture.</li>
+            <li><span class="label">Expression:</span> Journaling, drawing, coloring, writing a letter you don’t have to send.</li>
+          </ul>
+        </div>
+
+        <div class="plan-block">
+          <h3>3. Safe People & Places</h3>
+          <ul>
+            <li><span class="label">People:</span> List 2–3 trusted contacts (family, friends, church members) with phone numbers.</li>
+            <li><span class="label">Places:</span> A quiet room at home, a park bench, a chapel, a library corner.</li>
+            <li><span class="label">Online:</span> Crisis text lines, supportive communities, uplifting talks or devotionals.</li>
+          </ul>
+        </div>
+
+        <div class="plan-block">
+          <h3>4. When to Call for Help</h3>
+          <ul>
+            <li><span class="label">Immediate:</span> If you have a plan to harm yourself or others → call <strong>911</strong> or <strong>988</strong>.</li>
+            <li><span class="label">Escalating:</span> If coping tools aren’t working and thoughts feel louder → text <strong>HOME to 741741</strong>.</li>
+            <li><span class="label">Ongoing:</span> Reach out to a therapist, doctor, or spiritual leader for regular support.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="vacation-block">
+        <h3>Mental Health Vacation Plan</h3>
+        <ul>
+          <li><span class="label">1. Choose Your Theme:</span> “Rest & Restore”, “Creative Retreat”, or “Spiritual Quiet Time”. Let everything match that theme.</li>
+          <li><span class="label">2. Set Boundaries:</span> Limit social media, silence stressful chats, say “I’m taking a mental health break this week.”</li>
+          <li><span class="label">3. Daily Rhythm:</span> Morning light walk, one nourishing meal, one creative or comforting activity, early bedtime.</li>
+          <li><span class="label">4. Safe Structure:</span> Keep emergency numbers visible, tell one trusted person your plan, schedule check-ins.</li>
+          <li><span class="label">5. Gentle Activities:</span> Journaling, baking, drawing flowers, reading, watching favorite movies, simple stretching or yoga.</li>
+          <li><span class="label">6. Re-entry Plan:</span> On the last day, list 3 small tasks for the next week, not everything at once.</li>
+        </ul>
+      </div>
+
+      <p class="footer-note">
+        This page is a companion, not a replacement for professional care. If things feel unsafe, please call 911 or 988 right away.
+      </p>
+    </section>
+  </div>
+
+  <div class="light-bar"></div>
+
+  <script>
+    // Toggle flashing lights for emergency numbers
+    const toggleFlash = document.getElementById('toggleFlash');
+    const emergencyCard = document.getElementById('emergency-card');
+
+    toggleFlash.addEventListener('change', () => {
+      if (toggleFlash.checked) {
+        emergencyCard.classList.remove('muted');
+      } else {
+        emergencyCard.classList.add('muted');
+      }
+    });
+  </script>
+</body>
+</html>
