@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>U.S. Armed Forces Tribute</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1320;
+      color: #ffffff;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #b22234, #3c3b6e);
+    }
+
+    .flag {
+      width: 260px;
+      height: 140px;
+      margin: 0 auto 20px;
+      position: relative;
+      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    }
+
+    .flag .union {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 50%;
+      background: #3c3b6e;
+    }
+
+    .stripe {
+      height: calc(100% / 13);
+      background: #b22234;
+    }
+
+    .stripe:nth-child(even) {
+      background: #ffffff;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 20px 40px;
+    }
+
+    .branches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .branch {
+      flex: 1 1 260px;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .branch:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 16px rgba(0,0,0,0.6);
+    }
+
+    .branch h2 {
+      margin-top: 0;
+    }
+
+    .navy { background: rgba(0, 51, 102, 0.9); }
+    .airforce { background: rgba(0, 102, 204, 0.9); }
+    .army { background: rgba(34, 139, 34, 0.9); }
+
+    footer {
+      text-align: center;
+      padding: 10px 0 20px;
+      font-size: 0.9rem;
+      color: #cccccc;
+    }
+
+    .message {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+      min-height: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="flag">
+      <div class="union"></div>
+      <!-- 13 stripes -->
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+      <div class="stripe"></div>
+    </div>
+    <h1>United States Armed Forces Tribute</h1>
+    <p>Honoring the Navy, Air Force, and Army.</p>
+  </header>
+
+  <main>
+    <div class="branches">
+      <div class="branch navy" data-branch="Navy">
+        <h2>Navy</h2>
+        <p>Guardians of the seas, projecting power and protecting maritime freedom.</p>
+      </div>
+      <div class="branch airforce" data-branch="Air Force">
+        <h2>Air Force</h2>
+        <p>Masters of the skies, delivering air and space superiority.</p>
+      </div>
+      <div class="branch army" data-branch="Army">
+        <h2>Army</h2>
+        <p>Defenders on the ground, securing and protecting our nation.</p>
+      </div>
+    </div>
+
+    <div class="message" id="message"></div>
+  </main>
+
+  <footer>
+    <span>Thank you to all who serve and have served.</span>
+  </footer>
+
+  <script>
+    const branches = document.querySelectorAll('.branch');
+    const message = document.getElementById('message');
+
+    const branchMessages = {
+      'Navy': 'Fair winds and following seas to all Sailors.',
+      'Air Force': 'Aim high—Fly, fight, and win.',
+      'Army': 'This we’ll defend. Thank you, Soldiers.'
+    };
+
+    branches.forEach(branch => {
+      branch.addEventListener('click', () => {
+        const name = branch.dataset.branch;
+        message.textContent = branchMessages[name] || '';
+      });
+    });
+  </script>
+</body>
+</html>
