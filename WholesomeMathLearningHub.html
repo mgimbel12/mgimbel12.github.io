@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Wholesome Math Learning Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <h1>Wholesome Math Learning Hub</h1>
+    <p>
+      This page teaches math in a gentle, creative way using counting, cash
+      practice, drawing, and simple number games designed for second‑grade
+      learners.
+    </p>
+
+    <nav class="main-nav">
+      <button data-section="counting">Counting Numbers</button>
+      <button data-section="cash">Cash Counting</button>
+      <button data-section="art">Math Art Drawing</button>
+      <button data-section="practice">Number Practice Game</button>
+      <button data-section="all">Show All</button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- Counting Numbers -->
+    <section id="counting" class="card">
+      <h2>Counting Numbers</h2>
+      <p>
+        This section helps learners understand how numbers increase and decrease
+        by letting them press buttons that count upward or downward in full
+        steps.
+      </p>
+
+      <div class="counter-box">
+        <p id="count-display">0</p>
+        <button id="count-up">Count Up</button>
+        <button id="count-down">Count Down</button>
+        <button id="count-reset">Reset</button>
+      </div>
+    </section>
+
+    <!-- Cash Counting -->
+    <section id="cash" class="card">
+      <h2>Cash Counting</h2>
+      <p>
+        This section teaches how to count money by showing coins and bills and
+        letting learners add them together to find the total amount.
+      </p>
+
+      <div class="cash-box">
+        <p id="cash-total">Total: $0</p>
+
+        <button class="cash-btn" data-value="1">$1</button>
+        <button class="cash-btn" data-value="5">$5</button>
+        <button class="cash-btn" data-value="10">$10</button>
+        <button class="cash-btn" data-value="0.25">25¢</button>
+        <button class="cash-btn" data-value="0.10">10¢</button>
+        <button class="cash-btn" data-value="0.05">5¢</button>
+
+        <button id="cash-reset">Reset Cash</button>
+      </div>
+    </section>
+
+    <!-- Math Art Drawing -->
+    <section id="art" class="card">
+      <h2>Math Art Drawing</h2>
+      <p>
+        This section allows learners to draw shapes and lines on a canvas so
+        they can explore math through art, patterns, and creativity.
+      </p>
+
+      <canvas id="artCanvas" width="500" height="300"></canvas>
+      <div class="art-controls">
+        <button id="clear-art">Clear Drawing</button>
+      </div>
+    </section>
+
+    <!-- Number Practice Game -->
+    <section id="practice" class="card">
+      <h2>Number Practice Game</h2>
+      <p>
+        This section gives learners a random number and asks them to type the
+        correct answer to a simple math question, such as adding or subtracting
+        small values.
+      </p>
+
+      <p id="math-question">Press “New Question” to begin.</p>
+      <input id="math-answer" type="number" placeholder="Type your answer" />
+      <button id="check-answer">Check Answer</button>
+      <button id="new-question">New Question</button>
+      <p id="math-feedback"></p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      Wholesome Math Learning Hub · Helping people learn math through kindness,
+      creativity, and simple steps.
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
