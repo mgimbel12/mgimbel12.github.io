@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gingerbread Haunted Mansion</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Trebuchet MS", Arial, sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #2b2b3d 0%, #0b0b12 60%);
+      color: #f8f8f8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #ffb347, 0 0 20px #ff5e62;
+    }
+
+    header p {
+      margin-top: 10px;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    .theme-toggle {
+      margin-top: 15px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #ff5e62, #ffb347);
+      color: #111;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    .scene-wrapper {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 900px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .mansion {
+      position: relative;
+      width: 420px;
+      height: 320px;
+      background: #3b2618;
+      border-radius: 10px;
+      border: 4px solid #8b5a2b;
+      box-shadow: 0 0 25px rgba(0,0,0,0.7);
+      overflow: hidden;
+    }
+
+    .roof {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 230px solid transparent;
+      border-right: 230px solid transparent;
+      border-bottom: 120px solid #4a2f1f;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.7));
+    }
+
+    .roof-icing {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 260px;
+      height: 20px;
+      background: repeating-linear-gradient(
+        to right,
+        #fff,
+        #fff 10px,
+        #f7e7ce 10px,
+        #f7e7ce 20px
+      );
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+    }
+
+    .door {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 130px;
+      background: #2b1a12;
+      border-radius: 10px 10px 0 0;
+      border: 3px solid #8b5a2b;
+    }
+
+    .door-knob {
+      position: absolute;
+      right: 10px;
+      top: 65px;
+      width: 10px;
+      height: 10px;
+      background: #ffd700;
+      border-radius: 50%;
+    }
+
+    .window {
+      position: absolute;
+      width: 60px;
+      height: 70px;
+      background: #1b1b2f;
+      border-radius: 10px;
+      border: 3px solid #f7e7ce;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    .window::before,
+    .window::after {
+      content: "";
+      position: absolute;
+      background: #f7e7ce;
+    }
+
+    .window::before {
+      width: 3px;
+      height: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .window::after {
+      height: 3px;
+      width: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .window.left {
+      top: 70px;
+      left: 40px;
+    }
+
+    .window.right {
+      top: 70px;
+      right: 40px;
+    }
+
+    .window.top {
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .jack-skellington {
+      position: absolute;
+      bottom: 10px;
+      left: 30px;
+      width: 80px;
+      height: 140px;
+    }
+
+    .jack-head {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 55px;
+      height: 55px;
+      background: #fdfdfd;
+      border-radius: 50%;
+      border: 2px solid #000;
+    }
+
+    .jack-eye {
+      position: absolute;
+      width: 12px;
+      height: 16px;
+      background: #000;
+      border-radius: 50%;
+      top: 18px;
+    }
+
+    .jack-eye.left {
+      left: 12px;
+    }
+
+    .jack-eye.right {
+      right: 12px;
+    }
+
+    .jack-mouth {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 10px;
+      border-bottom: 2px solid #000;
+      border-radius: 0 0 30px 30px;
+    }
+
+    .jack-body {
+      position: absolute;
+      top: 55px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 60px;
+      background: #000;
+    }
+
+    .jack-arm {
+      position: absolute;
+      top: 60px;
+      width: 40px;
+      height: 4px;
+      background: #000;
+    }
+
+    .jack-arm.left {
+      left: -34px;
+      transform: rotate(-20deg);
+    }
+
+    .jack-arm.right {
+      right: -34px;
+      transform: rotate(20deg);
+    }
+
+    .jack-leg {
+      position: absolute;
+      bottom: 0;
+      width: 4px;
+      height: 40px;
+      background: #000;
+    }
+
+    .jack-leg.left {
+      left: 30px;
+    }
+
+    .jack-leg.right {
+      right: 30px;
+    }
+
+    .path {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 80px;
+      background: radial-gradient(circle at top, #c2a27a 0%, #7b5b3b 70%);
+      border-radius: 80px 80px 0 0;
+    }
+
+    .candy {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: conic-gradient(#ff5e62, #fff, #ffb347, #fff);
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+
+    .candy.c1 { bottom: 20px; left: 20px; }
+    .candy.c2 { bottom: 40px; right: 30px; }
+    .candy.c3 { bottom: 10px; left: 80px; }
+
+    .tree {
+      position: absolute;
+      bottom: 0;
+      right: 10px;
+      width: 80px;
+      height: 140px;
+    }
+
+    .tree-trunk {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 40px;
+      background: #4a2f1f;
+      border-radius: 4px;
+    }
+
+    .tree-layer {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 40px solid transparent;
+      border-right: 40px solid transparent;
+      border-bottom: 40px solid #0f5c2b;
+    }
+
+    .tree-layer.l1 { bottom: 40px; }
+    .tree-layer.l2 { bottom: 70px; border-left-width: 30px; border-right-width: 30px; }
+    .tree-layer.l3 { bottom: 100px; border-left-width: 20px; border-right-width: 20px; }
+
+    .tree-ornament {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffd700;
+      box-shadow: 0 0 6px rgba(255,215,0,0.8);
+    }
+
+    .tree-ornament.o1 { bottom: 55px; left: 20px; }
+    .tree-ornament.o2 { bottom: 80px; right: 18px; }
+    .tree-ornament.o3 { bottom: 105px; left: 30px; }
+
+    .snow {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40px;
+      background: linear-gradient(to top, #fff 0%, rgba(255,255,255,0) 100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .pumpkins {
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      display: flex;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .pumpkin {
+      width: 26px;
+      height: 22px;
+      background: #ff7f2a;
+      border-radius: 50% 50% 45% 45%;
+      box-shadow: 0 0 8px rgba(255,127,42,0.7);
+      position: relative;
+    }
+
+    .pumpkin::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 8px;
+      background: #4a2f1f;
+      border-radius: 2px;
+    }
+
+    .pumpkin::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.4);
+    }
+
+    .lights {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 40px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .light-bulb {
+      width: 10px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ff5e62;
+      box-shadow: 0 0 10px rgba(255,94,98,0.9);
+    }
+
+    .light-bulb:nth-child(2) { background: #ffb347; box-shadow: 0 0 10px rgba(255,179,71,0.9); }
+    .light-bulb:nth-child(3) { background: #7fff00; box-shadow: 0 0 10px rgba(127,255,0,0.9); }
+    .light-bulb:nth-child(4) { background: #00bfff; box-shadow: 0 0 10px rgba(0,191,255,0.9); }
+    .light-bulb:nth-child(5) { background: #ff00ff; box-shadow: 0 0 10px rgba(255,0,255,0.9); }
+
+    .info-panel {
+      width: 320px;
+      max-width: 90%;
+      background: rgba(15,15,25,0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 16px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.7);
+    }
+
+    .info-panel h2 {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      text-shadow: 0 0 8px rgba(255,255,255,0.4);
+    }
+
+    .info-panel p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .food-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+
+    .food-list li {
+      margin: 4px 0;
+      padding-left: 16px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .food-list li::before {
+      content: "★";
+      position: absolute;
+      left: 0;
+      color: #ffb347;
+      font-size: 0.8rem;
+    }
+
+    .tag {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .theme-christmas .snow {
+      opacity: 1;
+    }
+
+    .theme-christmas .lights {
+      opacity: 1;
+    }
+
+    .theme-christmas .mansion {
+      background: #4a2f1f;
+      border-color: #f7e7ce;
+    }
+
+    .theme-christmas .roof {
+      border-bottom-color: #5c3a26;
+    }
+
+    .theme-christmas .path {
+      background: radial-gradient(circle at top, #e6d5b8 0%, #a67c52 70%);
+    }
+
+    .theme-halloween .pumpkins {
+      opacity: 1;
+    }
+
+    .theme-halloween .mansion {
+      background: #2b1a12;
+      border-color: #ff7f2a;
+    }
+
+    .theme-halloween .roof {
+      border-bottom-color: #3b2618;
+    }
+
+    .theme-halloween .path {
+      background: radial-gradient(circle at top, #b36b00 0%, #5a2e00 70%);
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      color: #aaa;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+
+    @media (max-width: 700px) {
+      .scene-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body class="theme-halloween">
+  <header>
+    <h1>Gingerbread Haunted Mansion</h1>
+    <p>Jack Skellington welcomes you to a spooky-sweet world that shifts between Halloween and Christmas.</p>
+    <button class="theme-toggle" id="themeToggle">Switch to Christmas Mode</button>
+  </header>
+
+  <main class="scene-wrapper">
+    <section class="mansion" id="mansionScene">
+      <div class="roof"></div>
+      <div class="roof-icing"></div>
+
+      <div class="window left"></div>
+      <div class="window right"></div>
+      <div class="window top"></div>
+
+      <div class="door">
+        <div class="door-knob"></div>
+      </div>
+
+      <div class="jack-skellington">
+        <div class="jack-head">
+          <div class="jack-eye left"></div>
+          <div class="jack-eye right"></div>
+          <div class="jack-mouth"></div>
+        </div>
+        <div class="jack-body"></div>
+        <div class="jack-arm left"></div>
+        <div class="jack-arm right"></div>
+        <div class="jack-leg left"></div>
+        <div class="jack-leg right"></div>
+      </div>
+
+      <div class="path"></div>
+
+      <div class="candy c1"></div>
+      <div class="candy c2"></div>
+      <div class="candy c3"></div>
+
+      <div class="tree">
+        <div class="tree-trunk"></div>
+        <div class="tree-layer l1"></div>
+        <div class="tree-layer l2"></div>
+        <div class="tree-layer l3"></div>
+        <div class="tree-ornament o1"></div>
+        <div class="tree-ornament o2"></div>
+        <div class="tree-ornament o3"></div>
+      </div>
+
+      <div class="snow"></div>
+
+      <div class="pumpkins">
+        <div class="pumpkin"></div>
+        <div class="pumpkin"></div>
+        <div class="pumpkin"></div>
+      </div>
+
+      <div class="lights">
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+        <div class="light-bulb"></div>
+      </div>
+    </section>
+
+    <aside class="info-panel">
+      <h2>Yummy Haunted Treats</h2>
+      <p>
+        This gingerbread mansion is built with spiced cookie walls, icing icicles, and candy windows.
+        Jack Skellington stands guard, making sure every guest gets a perfect mix of spooky and sweet.
+      </p>
+      <p>Featured treats around the mansion:</p>
+      <ul class="food-list">
+        <li>Gingerbread gravestones with cinnamon sugar dust</li>
+        <li>Chocolate-dipped candy canes lining the path</li>
+        <li>Pumpkin spice truffles shaped like tiny Jack heads</li>
+        <li>Marshmallow ghosts floating on hot cocoa cauldrons</li>
+        <li>Red and green gumdrop lights for Christmas mode</li>
+      </ul>
+      <span class="tag" id="modeTag">Current Mode: Halloween (Spooky & Pumpkin-Spiced)</span>
+    </aside>
+  </main>
+
+  <footer>
+    Crafted with HTML, CSS & JavaScript — a little magic, a little mischief, and a lot of sugar.
+  </footer>
+
+  <script>
+    const body = document.body;
+    const themeToggle = document.getElementById("themeToggle");
+    const modeTag = document.getElementById("modeTag");
+
+    let isChristmas = false;
+
+    themeToggle.addEventListener("click", () => {
+      isChristmas = !isChristmas;
+
+      if (isChristmas) {
+        body.classList.remove("theme-halloween");
+        body.classList.add("theme-christmas");
+        themeToggle.textContent = "Switch to Halloween Mode";
+        modeTag.textContent = "Current Mode: Christmas (Cozy & Candy-Coated)";
+      } else {
+        body.classList.remove("theme-christmas");
+        body.classList.add("theme-halloween");
+        themeToggle.textContent = "Switch to Christmas Mode";
+        modeTag.textContent = "Current Mode: Halloween (Spooky & Pumpkin-Spiced)";
+      }
+    });
+  </script>
+</body>
+</html>
