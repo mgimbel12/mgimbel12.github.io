@@ -1,0 +1,59 @@
+/* General Layout */
+body {
+  margin: 0;
+  background: #0b0f1a;
+  color: #f5f5f5;
+  font-family: system-ui, sans-serif;
+}
+
+.site-header {
+  text-align: center;
+  padding: 1.5rem;
+  background: #141a2e;
+  border-bottom: 1px solid #333;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.main-nav a {
+  color: #ff9800;
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ff9800;
+  border-radius: 999px;
+}
+
+.card {
+  background: #1a2038;
+  border: 1px solid #333a55;
+  padding: 1.25rem;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: 1.5rem auto;
+}
+
+button {
+  background: #ff9800;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+/* Game of Life Canvas */
+#lifeCanvas {
+  display: block;
+  margin: 1rem auto;
+  background: #0f1528;
+  border: 2px solid #ff9800;
+}
