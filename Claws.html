@@ -1,228 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Santa Claus Lane</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: radial-gradient(circle at top, #ffefba, #ffffff);
-      color: #222;
-    }
+<meta charset="UTF-8">
+<title>Santa Claus Lane</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(to bottom, #cfe9ff, #ffffff);
+    overflow-x: hidden;
+  }
 
-    header {
-      text-align: center;
-      padding: 24px 16px;
-      background: linear-gradient(to right, #ff4b1f, #ff9068);
-      color: #fff;
-    }
+  header {
+    text-align: center;
+    padding: 20px;
+    background: #ff4b1f;
+    color: white;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-    }
+  /* Snowflakes */
+  .snowflake {
+    position: fixed;
+    top: -10px;
+    color: white;
+    font-size: 1.2rem;
+    animation: fall linear infinite;
+  }
 
-    header p {
-      margin: 8px 0 0;
-      font-size: 1rem;
-    }
+  @keyframes fall {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0.3; }
+  }
 
-    main {
-      max-width: 900px;
-      margin: 24px auto 40px;
-      padding: 0 20px;
-    }
+  /* Lane */
+  .lane {
+    margin: 30px auto;
+    width: 90%;
+    max-width: 900px;
+    background: #f7f7f7;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: relative;
+  }
 
-    .lane {
-      margin: 20px auto;
-      max-width: 600px;
-      height: 160px;
-      border-radius: 12px;
-      background: linear-gradient(to bottom, #e0f7ff, #ffffff);
-      border: 2px solid #ff9068;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
+  /* Candy canes */
+  .candy-cane {
+    width: 30px;
+    height: 100px;
+    background: repeating-linear-gradient(
+      45deg,
+      #ff0000,
+      #ff0000 10px,
+      white 10px,
+      white 20px
+    );
+    border-radius: 20px 20px 0 0;
+    position: absolute;
+    bottom: 20px;
+  }
 
-    .lane::before {
-      content: "";
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      right: 0;
-      height: 40px;
-      background: #f5f5f5;
-      box-shadow: inset 0 4px 6px rgba(0,0,0,0.1);
-    }
+  .cane-left { left: 20px; }
+  .cane-right { right: 20px; }
 
-    .house {
-      position: absolute;
-      bottom: 20px;
-      left: 40px;
-      width: 80px;
-      height: 70px;
-      background: #ffcf9f;
-      border-radius: 4px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
+  /* Gingerbread House */
+  .house {
+    width: 260px;
+    height: 200px;
+    background: #d28b47;
+    border-radius: 6px;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  }
 
-    .house::before {
-      content: "";
-      position: absolute;
-      top: -40px;
-      left: -10px;
-      width: 100px;
-      height: 40px;
-      background: #c0392b;
-      clip-path: polygon(50% 0, 100% 100%, 0 100%);
-    }
+  .roof {
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    width: 300px;
+    height: 80px;
+    background: #8b4513;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    border: 6px solid #fff;
+  }
 
-    .lights {
-      position: absolute;
-      top: -10px;
-      left: -10px;
-      right: -10px;
-      height: 10px;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 6px;
-    }
+  .door {
+    width: 60px;
+    height: 90px;
+    background: #5a3310;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 10px;
+    left: 100px;
+  }
 
-    .light {
-      width: 8px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ffeb3b;
-      box-shadow: 0 0 6px rgba(255,235,59,0.8);
-    }
+  .window {
+    width: 50px;
+    height: 50px;
+    background: #fff8d6;
+    border-radius: 6px;
+    position: absolute;
+    top: 40px;
+  }
 
-    .santa {
-      position: absolute;
-      bottom: 30px;
-      right: 40px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: #e74c3c;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
+  .window.left { left: 30px; }
+  .window.right { right: 30px; }
 
-    .santa::before {
-      content: "";
-      position: absolute;
-      top: -18px;
-      left: 10px;
-      width: 40px;
-      height: 18px;
-      background: #fff;
-      border-radius: 18px 18px 0 0;
-    }
+  /* Recipe Card */
+  .recipe-card {
+    margin: 30px auto;
+    width: 90%;
+    max-width: 700px;
+    background: #fff7e6;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
 
-    .santa::after {
-      content: "";
-      position: absolute;
-      top: -26px;
-      left: 22px;
-      width: 20px;
-      height: 20px;
-      background: #e74c3c;
-      border-radius: 50%;
-      border: 3px solid #fff;
-    }
+  .recipe-card h2 {
+    margin-top: 0;
+    color: #b3541e;
+  }
 
-    .controls {
-      text-align: center;
-      margin-top: 24px;
-    }
+  .recipe-card ul {
+    padding-left: 20px;
+  }
 
-    .controls button {
-      padding: 8px 16px;
-      margin: 0 6px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-      background: #ff9068;
-      color: #fff;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transition: background 0.15s, transform 0.15s;
-    }
-
-    .controls button:hover {
-      background: #ff4b1f;
-      transform: translateY(-1px);
-    }
-
-    .sentence-box {
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 8px;
-      background: #f9f9f9;
-      border: 1px solid #ddd;
-      min-height: 60px;
-      font-size: 1.05rem;
-      line-height: 1.5;
-    }
-
-    footer {
-      text-align: center;
-      padding: 10px 0 20px;
-      font-size: 0.85rem;
-      color: #777;
-    }
-  </style>
+  footer {
+    text-align: center;
+    padding: 20px;
+    color: #777;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Santa Claus Lane</h1>
-    <p>A cozy little street of HTML, CSS, and JavaScript.</p>
-  </header>
 
-  <main>
-    <div class="lane">
-      <div class="house">
-        <div class="lights">
-          <div class="light"></div>
-          <div class="light"></div>
-          <div class="light"></div>
-          <div class="light"></div>
-          <div class="light"></div>
-        </div>
-      </div>
-      <div class="santa"></div>
-    </div>
+<header>Santa Claus Lane</header>
 
-    <div class="controls">
-      <button id="generate">Generate Sentence</button>
-    </div>
+<!-- Snowflakes -->
+<script>
+  function createSnowflake() {
+    const snow = document.createElement("div");
+    snow.classList.add("snowflake");
+    snow.textContent = "❄";
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.animationDuration = (4 + Math.random() * 6) + "s";
+    document.body.appendChild(snow);
 
-    <div class="sentence-box" id="sentenceBox">
-      Click “Generate Sentence” to hear a story from Santa Claus Lane.
-    </div>
-  </main>
+    setTimeout(() => snow.remove(), 10000);
+  }
 
-  <footer>
-    Built with love and a little Christmas magic.
-  </footer>
+  setInterval(createSnowflake, 200);
+</script>
 
-  <script>
-    const sentenceBox = document.getElementById('sentenceBox');
-    const generateBtn = document.getElementById('generate');
+<div class="lane">
+  <div class="candy-cane cane-left"></div>
+  <div class="candy-cane cane-right"></div>
 
-    const sentences = [
-      "On Santa Claus Lane, warm lights glow from every window as children wait for the sound of sleigh bells.",
-      "Snow falls softly over Santa Claus Lane, where every doorstep is dressed in garlands and twinkling lights.",
-      "Santa strolls down Santa Claus Lane, smiling at the wreaths, the cocoa stands, and the laughter in the air.",
-      "At the heart of Santa Claus Lane, a small house shines brightest, welcoming everyone with kindness and joy.",
-      "Santa Claus Lane sparkles like a ribbon of stars, guiding Santa through a night filled with wonder."
-    ];
+  <div class="house">
+    <div class="roof"></div>
+    <div class="window left"></div>
+    <div class="window right"></div>
+    <div class="door"></div>
+  </div>
+</div>
 
-    generateBtn.addEventListener('click', () => {
-      const randomIndex = Math.floor(Math.random() * sentences.length);
-      sentenceBox.textContent = sentences[randomIndex];
-    });
-  </script>
+<div class="recipe-card">
+  <h2>🍪 Gingerbread Recipe</h2>
+  <p>A warm and cozy gingerbread cookie recipe perfect for Santa Claus Lane.</p>
+
+  <h3>Ingredients</h3>
+  <ul>
+    <li>3 cups flour</li>
+    <li>3/4 cup brown sugar</li>
+    <li>1/2 cup butter (softened)</li>
+    <li>1/2 cup molasses</li>
+    <li>1 egg</li>
+    <li>1 tsp baking soda</li>
+    <li>1 tbsp ginger</li>
+    <li>1 tsp cinnamon</li>
+    <li>1/2 tsp nutmeg</li>
+    <li>1/2 tsp salt</li>
+  </ul>
+
+  <h3>Instructions</h3>
+  <ul>
+    <li>Cream butter and sugar together.</li>
+    <li>Add molasses and egg; mix well.</li>
+    <li>Stir in dry ingredients until dough forms.</li>
+    <li>Chill dough for 1 hour.</li>
+    <li>Roll out and cut shapes.</li>
+    <li>Bake at 350°F for 8–10 minutes.</li>
+  </ul>
+</div>
+
+<footer>Made with HTML, CSS, JavaScript — and a sprinkle of Christmas magic.</footer>
+
 </body>
 </html>
