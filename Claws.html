@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Santa Claus Lane Story Builder</title>
+  <title>Santa Claus Lane</title>
   <style>
     body {
       margin: 0;
@@ -13,59 +13,128 @@
 
     header {
       text-align: center;
-      padding: 20px;
+      padding: 24px 16px;
       background: linear-gradient(to right, #ff4b1f, #ff9068);
       color: #fff;
     }
 
     header h1 {
       margin: 0;
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
 
     header p {
-      margin: 6px 0 0;
-      font-size: 0.95rem;
+      margin: 8px 0 0;
+      font-size: 1rem;
     }
 
     main {
       max-width: 900px;
-      margin: 20px auto 40px;
+      margin: 24px auto 40px;
       padding: 0 20px;
     }
 
-    .intro {
-      text-align: center;
-      margin-bottom: 20px;
+    .lane {
+      margin: 20px auto;
+      max-width: 600px;
+      height: 160px;
+      border-radius: 12px;
+      background: linear-gradient(to bottom, #e0f7ff, #ffffff);
+      border: 2px solid #ff9068;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
 
-    .words-panel {
+    .lane::before {
+      content: "";
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: #f5f5f5;
+      box-shadow: inset 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .house {
+      position: absolute;
+      bottom: 20px;
+      left: 40px;
+      width: 80px;
+      height: 70px;
+      background: #ffcf9f;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .house::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      left: -10px;
+      width: 100px;
+      height: 40px;
+      background: #c0392b;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+
+    .lights {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      height: 10px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      padding: 0 6px;
     }
 
-    .word-chip {
-      padding: 8px 14px;
-      border-radius: 20px;
-      background: #ffe0c2;
-      border: 1px solid #ffb47b;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    .light {
+      width: 8px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffeb3b;
+      box-shadow: 0 0 6px rgba(255,235,59,0.8);
     }
 
-    .word-chip:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      background: #ffd1a1;
+    .santa {
+      position: absolute;
+      bottom: 30px;
+      right: 40px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #e74c3c;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .santa::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 10px;
+      width: 40px;
+      height: 18px;
+      background: #fff;
+      border-radius: 18px 18px 0 0;
+    }
+
+    .santa::after {
+      content: "";
+      position: absolute;
+      top: -26px;
+      left: 22px;
+      width: 20px;
+      height: 20px;
+      background: #e74c3c;
+      border-radius: 50%;
+      border: 3px solid #fff;
     }
 
     .controls {
       text-align: center;
-      margin: 20px 0;
+      margin-top: 24px;
     }
 
     .controls button {
@@ -97,19 +166,6 @@
       line-height: 1.5;
     }
 
-    .verse-box {
-      margin-top: 24px;
-      padding: 14px;
-      border-left: 4px solid #4a7ac7;
-      background: #eef4ff;
-      font-size: 0.95rem;
-    }
-
-    .verse-ref {
-      font-weight: 600;
-      color: #2f4f9b;
-    }
-
     footer {
       text-align: center;
       padding: 10px 0 20px;
@@ -120,105 +176,52 @@
 </head>
 <body>
   <header>
-    <h1>Santa Claus Lane Story Builder</h1>
-    <p>HTML, CSS, JavaScript, and a Christmas mix of Hilary Duff, Disney, and the Nativity.</p>
+    <h1>Santa Claus Lane</h1>
+    <p>A cozy little street of HTML, CSS, and JavaScript.</p>
   </header>
 
   <main>
-    <div class="intro">
-      <p>Click on the word chips to build a full-length sentence, then let JavaScript polish it.</p>
-    </div>
-
-    <div class="words-panel">
-      <div class="word-chip" data-word="Santa Claus Lane">Santa Claus Lane</div>
-      <div class="word-chip" data-word="Hilary Duff">Hilary Duff</div>
-      <div class="word-chip" data-word="Santa Claus">Santa Claus</div>
-      <div class="word-chip" data-word="store">store</div>
-      <div class="word-chip" data-word="Disney">Disney</div>
-      <div class="word-chip" data-word="Nativity">Nativity</div>
-      <div class="word-chip" data-word="John 3:16">John 3:16</div>
-      <div class="word-chip" data-word="shepherd">shepherd</div>
-      <div class="word-chip" data-word="lamb">lamb</div>
-      <div class="word-chip" data-word="Christmas lights">Christmas lights</div>
-      <div class="word-chip" data-word="snow">snow</div>
-      <div class="word-chip" data-word="joy">joy</div>
+    <div class="lane">
+      <div class="house">
+        <div class="lights">
+          <div class="light"></div>
+          <div class="light"></div>
+          <div class="light"></div>
+          <div class="light"></div>
+          <div class="light"></div>
+        </div>
+      </div>
+      <div class="santa"></div>
     </div>
 
     <div class="controls">
       <button id="generate">Generate Sentence</button>
-      <button id="clear">Clear</button>
     </div>
 
     <div class="sentence-box" id="sentenceBox">
-      Your sentence will appear here once you click “Generate Sentence.”
-    </div>
-
-    <div class="verse-box">
-      <span class="verse-ref">John 3:16</span> — “For God so loved the world that he gave his one and only Son,
-      that whoever believes in him shall not perish but have eternal life.”
+      Click “Generate Sentence” to hear a story from Santa Claus Lane.
     </div>
   </main>
 
   <footer>
-    Built with HTML, CSS, and JavaScript — a little lane of code and Christmas stories.
+    Built with love and a little Christmas magic.
   </footer>
 
   <script>
-    const chips = document.querySelectorAll('.word-chip');
     const sentenceBox = document.getElementById('sentenceBox');
     const generateBtn = document.getElementById('generate');
-    const clearBtn = document.getElementById('clear');
 
-    let selectedWords = [];
-
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        const word = chip.dataset.word;
-        selectedWords.push(word);
-        chip.style.background = '#ffc48a';
-      });
-    });
-
-    function buildSentence(words) {
-      if (words.length === 0) {
-        return 'Choose a few words above to create a sentence about Santa Claus Lane and the Nativity.';
-      }
-
-      // Simple structure: subject + setting + action + meaning
-      const subject = words.find(w => w.includes('Hilary Duff')) ||
-                      words.find(w => w.includes('Santa Claus')) ||
-                      'A joyful visitor';
-
-      const setting = words.find(w => w.includes('Santa Claus Lane')) ||
-                      words.find(w => w.includes('Disney')) ||
-                      'a snowy street filled with Christmas lights';
-
-      const spiritual = words.find(w => w.includes('John 3:16')) ||
-                        words.find(w => w.includes('Nativity')) ||
-                        'the Nativity story';
-
-      const shepherd = words.find(w => w.includes('shepherd')) || 'a humble shepherd';
-      const lamb = words.find(w => w.includes('lamb')) || 'a gentle lamb';
-
-      const extraStore = words.find(w => w.includes('store')) ? 'stopping by a cozy Christmas store,' : '';
-      const extraJoy = words.find(w => w.includes('joy')) ? 'overflowing with joy,' : '';
-
-      return `${subject} walks down ${setting}, ${extraStore} ${extraJoy} remembering ${spiritual}, ` +
-             `while ${shepherd} watches over ${lamb} under the glow of Christmas lights.`;
-    }
+    const sentences = [
+      "On Santa Claus Lane, warm lights glow from every window as children wait for the sound of sleigh bells.",
+      "Snow falls softly over Santa Claus Lane, where every doorstep is dressed in garlands and twinkling lights.",
+      "Santa strolls down Santa Claus Lane, smiling at the wreaths, the cocoa stands, and the laughter in the air.",
+      "At the heart of Santa Claus Lane, a small house shines brightest, welcoming everyone with kindness and joy.",
+      "Santa Claus Lane sparkles like a ribbon of stars, guiding Santa through a night filled with wonder."
+    ];
 
     generateBtn.addEventListener('click', () => {
-      const sentence = buildSentence(selectedWords);
-      sentenceBox.textContent = sentence;
-    });
-
-    clearBtn.addEventListener('click', () => {
-      selectedWords = [];
-      chips.forEach(chip => {
-        chip.style.background = '#ffe0c2';
-      });
-      sentenceBox.textContent =
-        'Your sentence will appear here once you click “Generate Sentence.”';
+      const randomIndex = Math.floor(Math.random() * sentences.length);
+      sentenceBox.textContent = sentences[randomIndex];
     });
   </script>
 </body>
