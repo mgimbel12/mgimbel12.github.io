@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cops and Heroes of Honor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #001f3f, #ffffff);
+      color: #111;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #b22234;
+      color: white;
+    }
+
+    .flag {
+      width: 220px;
+      margin: 10px auto;
+      border: 2px solid #000;
+    }
+
+    .flag .blue {
+      background: #3c3b6e;
+      width: 40%;
+      height: 80px;
+      float: left;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .flag .stripe {
+      height: 20px;
+      clear: both;
+    }
+
+    .red { background: #b22234; }
+    .white { background: #ffffff; }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px 40px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      border-bottom: 2px solid #b22234;
+      padding-bottom: 5px;
+      margin-top: 25px;
+    }
+
+    ul {
+      list-style-type: square;
+      padding-left: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+      background: #001f3f;
+      color: white;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #b22234;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 14px;
+      background: #3c3b6e;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      font-size: 14px;
+    }
+
+    .message {
+      margin-top: 10px;
+      font-style: italic;
+      color: #3c3b6e;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cops and Heroes of Honor</h1>
+    <p>Celebrating the people, teachers, family, and favorites who mean so much.</p>
+
+    <!-- Simple American flag -->
+    <div class="flag">
+      <div class="blue">
+        ★ ★ ★ ★ ★<br>
+        ★ ★ ★ ★ ★
+      </div>
+      <div class="stripe red"></div>
+      <div class="stripe white"></div>
+      <div class="stripe red"></div>
+      <div class="stripe white"></div>
+      <div class="stripe red"></div>
+      <div class="stripe white"></div>
+      <div class="stripe red"></div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Cops of Honor</h2>
+      <p>
+        The <span class="highlight">Cops of Honor</span> include
+        Officer Riley Longman and Officer Ryder Workman.  
+        They are honored for their courage, dedication, and service to the community.
+      </p>
+    </section>
+
+    <section>
+      <h2>EMT of Honor</h2>
+      <p>
+        The <span class="highlight">EMT of Honor</span> is Ana Englestead.  
+        She is recognized for her compassion, quick thinking, and commitment to saving lives.
+      </p>
+    </section>
+
+    <section>
+      <h2>Teachers of Honor</h2>
+      <p>
+        The <span class="highlight">Teachers of Honor</span> are Miss Shirley, Mrs. Sanders,
+        Mrs. Gimbel, and Miss Marissa.  
+        They are celebrated for their patience, guidance, and the way they inspire their students every day.
+      </p>
+    </section>
+
+    <section>
+      <h2>Cook of Honor</h2>
+      <p>
+        The <span class="highlight">Cook of Honor</span> is Bardon.  
+        Bardon is appreciated for creating meals with care and love, bringing comfort and joy to others.
+      </p>
+    </section>
+
+    <section>
+      <h2>City of Henderson Judges of Honor</h2>
+      <p>
+        The <span class="highlight">City of Henderson Judges of Honor</span> are recognized
+        for their fairness, wisdom, and dedication to justice in the community.
+      </p>
+    </section>
+
+    <section>
+      <h2>Favorite Celebrities and TV Friends</h2>
+      <p>
+        A special place of honor is given to favorite celebrity crush
+        <span class="highlight">Michael J. Rosenbaum</span>, admired for his talent and charm.
+      </p>
+      <p>
+        The best friends from <span class="highlight">Saved by the Bell</span>—A.C. Slater and Zack Morris—
+        are remembered as fun, loyal friends.  Mr. Powers a talent at science an inspiration for my degree in Science.
+        They feel like the kind of friends who would always have your back.
+      </p>
+    </section>
+
+    <section>
+      <h2>Favorite Singer–Songwriter of Honor</h2>
+      <p>
+        The <span class="highlight">Favorite Singer–Songwriter of Honor</span> is David Archuleta.  
+        His music, voice, and heartfelt lyrics are cherished and bring comfort and happiness.
+      </p>
+    </section>
+
+    <section>
+      <h2>Favorite Brothers of Honor</h2>
+      <p>
+        The <span class="highlight">Favorite Brothers of Honor</span> are Justin K. G. and Craig R. G.  
+        They are honored for their love, support, and the special bond they share as family.
+      </p>
+    </section>
+
+    <section>
+      <h2>Click for a Special Message</h2>
+      <button class="btn" onclick="showMessage()">Show Honor Message</button>
+      <div id="honorMessage" class="message"></div>
+    </section>
+  </main>
+
+  <footer>
+    Made with love and honor for all the heroes, favorites, and family who matter most.
+  </footer>
+
+  <script>
+    function showMessage() {
+      const msg = document.getElementById('honorMessage');
+      msg.textContent =
+        "Every name on this page is a reminder that you are surrounded by courage, kindness, and love.";
+    }
+  </script>
+</body>
+</html>
