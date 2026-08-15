@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Holiday Harmony Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="holidays.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>Holiday Harmony Hub</h1>
+    <p>Fun, safety, mental healing, and holiday joy all in one place.</p>
+    <nav class="main-nav">
+      <a href="#mental-healing">Mental Healing</a>
+      <a href="#halloween-safety">Halloween Safety</a>
+      <a href="#christmas-safety">Christmas Safety</a>
+      <a href="#easter-safety">Easter Safety</a>
+      <a href="#desserts">Holiday Desserts</a>
+      <a href="#recipes-index">Recipe Index</a>
+    </nav>
+    <div class="theme-switcher">
+      <button data-theme="halloween">Halloween</button>
+      <button data-theme="christmas">Christmas</button>
+      <button data-theme="easter">Easter</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Mental Healing Section -->
+    <section id="mental-healing" class="card">
+      <h2>Mental Healing & Wellness Center</h2>
+      <p>Grounding, coping, and emotional support for busy holiday seasons.</p>
+
+      <div class="subsection">
+        <h3>Mindfulness for the Holidays</h3>
+        <ul>
+          <li>Deep breathing: inhale 4, hold 4, exhale 6.</li>
+          <li>5–4–3–2–1 grounding: notice senses around you.</li>
+          <li>Short daily check‑ins: “What do I need right now?”</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Holiday Emotional Check‑In</h3>
+        <label for="mood-select">How are you feeling today?</label>
+        <select id="mood-select">
+          <option value="">Select mood</option>
+          <option value="calm">Calm</option>
+          <option value="stressed">Stressed</option>
+          <option value="excited">Excited</option>
+          <option value="sad">Sad</option>
+        </select>
+        <button id="save-mood">Save Mood</button>
+        <p id="mood-message"></p>
+      </div>
+
+      <div class="subsection">
+        <h3>Coping Skills Library</h3>
+        <ul>
+          <li>Cognitive reframing: challenge “all‑or‑nothing” thoughts.</li>
+          <li>Sensory calming: soft lights, warm drink, quiet music.</li>
+          <li>Overwhelm plan: step outside, breathe, text a safe person.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Jack Skellington Halloween Safety Plan -->
+    <section id="halloween-safety" class="card">
+      <h2>Jack Skellington Halloween Safety Plan</h2>
+      <p>Stay spooky—just not risky.</p>
+
+      <div class="subsection">
+        <h3>Costume Safety</h3>
+        <ul>
+          <li>Make sure you can see clearly through masks.</li>
+          <li>Avoid tripping hazards like long trailing fabric.</li>
+          <li>Use breathable materials to avoid overheating.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Trick‑or‑Treating Rules</h3>
+        <ul>
+          <li>Go with a buddy or trusted adult.</li>
+          <li>Stick to well‑known routes and neighborhoods.</li>
+          <li>Check candy before eating; avoid unwrapped items.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Nighttime Awareness</h3>
+        <ul>
+          <li>Carry a flashlight or glow sticks.</li>
+          <li>Wear reflective tape on costumes.</li>
+          <li>Stay in well‑lit areas and avoid isolated spots.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Christmas Safety Plan -->
+    <section id="christmas-safety" class="card">
+      <h2>Christmas Safety Plan</h2>
+      <p>Cozy, bright, and safe for everyone.</p>
+
+      <div class="subsection">
+        <h3>Home Safety</h3>
+        <ul>
+          <li>Keep trees away from heaters and open flames.</li>
+          <li>Turn off lights before bed or leaving home.</li>
+          <li>Use proper extension cords and avoid overloading outlets.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Travel Safety</h3>
+        <ul>
+          <li>Check weather and road conditions before driving.</li>
+          <li>Pack blankets, water, and a small emergency kit.</li>
+          <li>Let someone know your route and ETA.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Family Gathering Emotional Safety</h3>
+        <ul>
+          <li>Set boundaries around topics that feel harmful.</li>
+          <li>Take breaks in a quiet room if overwhelmed.</li>
+          <li>Plan a “safe person” to sit or talk with.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Easter Safety Plan -->
+    <section id="easter-safety" class="card">
+      <h2>Easter Safety Plan</h2>
+      <p>Soft colors, bright smiles, safe celebrations.</p>
+
+      <div class="subsection">
+        <h3>Egg Hunt Safety</h3>
+        <ul>
+          <li>Mark clear boundaries for the hunt area.</li>
+          <li>Check the ground for hazards before kids run.</li>
+          <li>Ensure adult supervision at all times.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Food Safety</h3>
+        <ul>
+          <li>Refrigerate eggs promptly after boiling.</li>
+          <li>Be mindful of allergies (nuts, dairy, gluten).</li>
+          <li>Label foods clearly at gatherings.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Emotional Wellness</h3>
+        <ul>
+          <li>Don’t force participation; let people opt out.</li>
+          <li>Offer quiet activities for those who prefer calm.</li>
+          <li>Check in with yourself: “Is this fun for me?”</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Holiday Desserts & Puddings -->
+    <section id="desserts" class="card">
+      <h2>Holiday Desserts & Puddings</h2>
+      <p>Different kinds of yummies for each holiday.</p>
+
+      <div class="subsection">
+        <h3>Christmas Desserts</h3>
+        <ul>
+          <li>Yule Log (Chocolate sponge roll with cream filling).</li>
+          <li>Peppermint Bark (layers of chocolate and crushed candy canes).</li>
+          <li>Gingerbread Pudding (spiced, warm, served with cream).</li>
+          <li>Eggnog Cheesecake (rich, creamy, nutmeg topping).</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Halloween Desserts</h3>
+        <ul>
+          <li>Pumpkin Cupcakes with cream cheese frosting.</li>
+          <li>Candy‑Corn Parfait with layered pudding and whipped cream.</li>
+          <li>Spooky Chocolate Mousse with cookie “graveyard” decorations.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h3>Easter Desserts</h3>
+        <ul>
+          <li>Lemon Bars with powdered sugar.</li>
+          <li>Carrot Cake Pudding with cinnamon and cream.</li>
+          <li>Pastel Sugar Cookies decorated with icing.</li>
+        </ul>
+      </div>
+
+      <button id="random-dessert">Surprise Me With a Dessert</button>
+      <p id="dessert-result"></p>
+    </section>
+
+    <!-- Recipe Index -->
+    <section id="recipes-index" class="card">
+      <h2>Holiday Recipe Index</h2>
+      <p>Search recipes by holiday, difficulty, and prep time.</p>
+
+      <div class="filters">
+        <label>
+          Holiday:
+          <select id="filter-holiday">
+            <option value="">All</option>
+            <option value="christmas">Christmas</option>
+            <option value="halloween">Halloween</option>
+            <option value="easter">Easter</option>
+          </select>
+        </label>
+
+        <label>
+          Difficulty:
+          <select id="filter-difficulty">
+            <option value="">All</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+
+        <label>
+          Prep Time:
+          <select id="filter-time">
+            <option value="">Any</option>
+            <option value="short">Under 30 min</option>
+            <option value="medium">30–60 min</option>
+            <option value="long">Over 60 min</option>
+          </select>
+        </label>
+      </div>
+
+      <ul id="recipe-list">
+        <!-- Filled by JavaScript -->
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Holiday Harmony Hub · Safety, sweetness, and self‑care.</p>
+    <p>In an emergency, contact local services or trusted people immediately.</p>
+  </footer>
+
+  <script src="holidays.js"></script>
+</body>
+</html>
