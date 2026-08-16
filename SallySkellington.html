@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Midnight Keys in Halloween Town</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: radial-gradient(circle at top, #3b1f4a 0%, #050308 60%);
+      color: #f5e6c8;
+    }
+
+    .wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px 60px;
+    }
+
+    h1 {
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ff9f3b;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #c9b6ff;
+      margin-bottom: 30px;
+    }
+
+    .poem {
+      line-height: 1.7;
+      font-size: 1.05rem;
+      white-space: pre-line;
+      border-left: 3px solid #ff9f3b;
+      padding-left: 16px;
+    }
+
+    .controls {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    button {
+      background: #ff9f3b;
+      border: none;
+      color: #1b0f24;
+      padding: 10px 18px;
+      margin: 0 8px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #8b7aa8;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Midnight Keys in Halloween Town</h1>
+    <div class="subtitle">Original Halloween piano-style lyrics &amp; reading</div>
+
+    <div class="poem" id="poem">
+In the crooked moonlight, where the shadows twist and sway,
+A piano waits in silence for the ghosts that lost their way.
+Silver keys like spiderwebs, black keys deep as graves,
+Every note awakens whispers in the alleyways of knaves.
+
+Lanterns flicker orange, casting pumpkins’ jagged grins,
+Children’s laughter turns to echoes as the midnight song begins.
+Skeletons start waltzing to the trembling minor chords,
+While witches hum in harmony on broomstick overlords.
+
+The melody is fragile, like a cobweb in the wind,
+Yet thunder rolls beneath it where the nightmares all have sinned.
+A ghostly hand is playing—no one’s sitting on the bench,
+Still every chord is dripping with a sweet, enchanting stench.
+
+Then softly, like a promise that the dawn will never come,
+The final notes fall quiet on the hollow, haunted drum.
+In Halloween Town’s silence, where the dark and dream align,
+The piano keeps its secrets till the next bewitched chime.
+    </div>
+
+    <div class="controls">
+      <button id="readBtn">Read Aloud</button>
+      <button id="stopBtn">Stop</button>
+    </div>
+
+    <div class="footer">
+      Inspired by spooky piano pieces and Halloween atmospheres.  
+      Feel free to add your own melody on a real piano.
+    </div>
+  </div>
+
+  <script>
+    const poemText = document.getElementById("poem").innerText;
+    const readBtn = document.getElementById("readBtn");
+    const stopBtn = document.getElementById("stopBtn");
+
+    let synth = window.speechSynthesis;
+
+    function readPoem() {
+      if (synth.speaking) return;
+      const utterance = new SpeechSynthesisUtterance(poemText);
+      utterance.rate = 0.95;
+      utterance.pitch = 0.9;
+      utterance.volume = 1;
+      synth.speak(utterance);
+    }
+
+    function stopReading() {
+      if (synth.speaking) {
+        synth.cancel();
+      }
+    }
+
+    readBtn.addEventListener("click", readPoem);
+    stopBtn.addEventListener("click", stopReading);
+  </script>
+</body>
+</html>
