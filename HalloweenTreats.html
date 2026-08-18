@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Halloween Treats & Casper Night</title>
+  <style>
+    :root {
+      --bg: #05040a;
+      --accent: #ff7b00;
+      --accent-soft: #ffb766;
+      --ghost: #f5f7ff;
+      --text: #f0f0f0;
+      --card: #141320;
+      --purple: #7b3cff;
+      --shadow: rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #1b1035 0, #05040a 55%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 24px 40px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(
+        to bottom,
+        rgba(5, 4, 10, 0.95),
+        rgba(5, 4, 10, 0.7),
+        rgba(5, 4, 10, 0)
+      );
+      backdrop-filter: blur(10px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-soft);
+    }
+
+    .logo-ghost {
+      width: 28px;
+      height: 28px;
+      border-radius: 50% 50% 40% 40%;
+      background: var(--ghost);
+      position: relative;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+    }
+
+    .logo-ghost::before,
+    .logo-ghost::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      width: 8px;
+      height: 8px;
+      background: var(--ghost);
+      border-radius: 50%;
+    }
+
+    .logo-ghost::before {
+      left: 4px;
+    }
+
+    .logo-ghost::after {
+      right: 4px;
+    }
+
+    .logo-ghost-eye {
+      position: absolute;
+      top: 8px;
+      width: 6px;
+      height: 6px;
+      background: #222;
+      border-radius: 50%;
+    }
+
+    .logo-ghost-eye.left {
+      left: 7px;
+    }
+
+    .logo-ghost-eye.right {
+      right: 7px;
+    }
+
+    .logo-ghost-mouth {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 6px;
+      border-radius: 0 0 10px 10px;
+      border-bottom: 2px solid #222;
+    }
+
+    nav {
+      display: flex;
+      gap: 18px;
+      font-size: 0.9rem;
+    }
+
+    nav button {
+      border: none;
+      background: transparent;
+      color: var(--accent-soft);
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    nav button:hover {
+      background: rgba(255, 123, 0, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.4fr);
+      gap: 24px;
+      padding: 0 40px 40px;
+    }
+
+    @media (max-width: 900px) {
+      .main-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .story-panel {
+      background: linear-gradient(
+        145deg,
+        rgba(20, 19, 32, 0.96),
+        rgba(20, 19, 32, 0.9),
+        rgba(20, 19, 32, 0.96)
+      );
+      border-radius: 18px;
+      padding: 24px 26px 26px;
+      box-shadow: 0 18px 40px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-panel::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 123, 0, 0.12), transparent 55%),
+        radial-gradient(circle at 90% 0%, rgba(123, 60, 255, 0.18), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .story-header {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .story-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-soft);
+    }
+
+    .story-subtitle {
+      font-size: 0.95rem;
+      color: #cfcfe8;
+      margin-top: 4px;
+    }
+
+    .story-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9996c9;
+    }
+
+    .story-mood-toggle {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #dcdcf5;
+    }
+
+    .pill span {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(255, 123, 0, 0.7);
+    }
+
+    .story-body {
+      position: relative;
+      z-index: 1;
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: 10px;
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .story-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .story-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .story-body::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+    }
+
+    .story-paragraph {
+      margin-bottom: 14px;
+    }
+
+    .story-paragraph strong {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .story-highlight {
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+      margin: 18px 0 14px;
+      color: #f7e7d6;
+      font-style: italic;
+    }
+
+    .choices-panel {
+      position: relative;
+      z-index: 1;
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .choice-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(5, 4, 10, 0.7);
+      color: #f5f5ff;
+      padding: 7px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+    }
+
+    .choice-btn:hover {
+      background: rgba(255, 123, 0, 0.16);
+      transform: translateY(-1px);
+      box-shadow: 0 0 12px rgba(255, 123, 0, 0.4);
+    }
+
+    .choice-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+    }
+
+    .choice-icon.candy {
+      background: radial-gradient(circle at 30% 30%, #ff7b00, #7b3cff);
+    }
+
+    .choice-icon.prank {
+      background: radial-gradient(circle at 30% 30%, #ff3b6b, #ff7b00);
+    }
+
+    .choice-icon.drink {
+      background: radial-gradient(circle at 30% 30%, #7b3cff, #00c6ff);
+    }
+
+    .choice-icon.casual {
+      background: radial-gradient(circle at 30% 30%, #00c6ff, #ffb766);
+    }
+
+    .choice-icon span {
+      color: #fff;
+    }
+
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 18px 18px 20px;
+      box-shadow: 0 14px 32px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 0.85rem;
+      color: #cfcfe8;
+      margin-bottom: 12px;
+    }
+
+    .treat-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .treat-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .treat-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ff7b00, #ff3b6b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+    }
+
+    .treat-text-main {
+      font-weight: 600;
+      color: #f7e7d6;
+    }
+
+    .treat-text-sub {
+      font-size: 0.78rem;
+      color: #cfcfe8;
+    }
+
+    .drink-card {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .drink-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .drink-description {
+      font-size: 0.9rem;
+      color: #e7e7ff;
+      line-height: 1.5;
+    }
+
+    .drink-highlight {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .drink-visual {
+      position: relative;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cup {
+      width: 60px;
+      height: 90px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #ffb766, #ff7b00);
+      position: relative;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .cup::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 10px;
+      border-radius: 999px;
+      background: #f5f5ff;
+    }
+
+    .cup::after {
+      content: "";
+      position: absolute;
+      top: -26px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 18px;
+      background: #f5f5ff;
+      border-radius: 999px;
+    }
+
+    .cup-face {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 16px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .cup-eye {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #222;
+    }
+
+    .cup-smile {
+      width: 12px;
+      height: 6px;
+      border-radius: 0 0 12px 12px;
+      border-bottom: 2px solid #222;
+    }
+
+    .cup-glow {
+      position: absolute;
+      inset: -10px;
+      border-radius: 24px;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 183, 102, 0.6), transparent 70%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .casper-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1.1fr;
+      gap: 12px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .casper-card {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .casper-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #e7e7ff;
+    }
+
+    .casper-text strong {
+      color: var(--accent-soft);
+    }
+
+    .casper-visual {
+      position: relative;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ghost {
+      width: 70px;
+      height: 80px;
+      border-radius: 50% 50% 40% 40%;
+      background: var(--ghost);
+      position: relative;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.7);
+    }
+
+    .ghost::before,
+    .ghost::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      width: 16px;
+      height: 16px;
+      background: var(--ghost);
+      border-radius: 50%;
+    }
+
+    .ghost::before {
+      left: 8px;
+    }
+
+    .ghost::after {
+      right: 8px;
+    }
+
+    .ghost-eye {
+      position: absolute;
+      top: 22px;
+      width: 10px;
+      height: 10px;
+      background: #222;
+      border-radius: 50%;
+    }
+
+    .ghost-eye.left {
+      left: 16px;
+    }
+
+    .ghost-eye.right {
+      right: 16px;
+    }
+
+    .ghost-mouth {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 18px;
+      height: 10px;
+      border-radius: 0 0 18px 18px;
+      border-bottom: 3px solid #222;
+    }
+
+    .ghost-glow {
+      position: absolute;
+      inset: -16px;
+      border-radius: 40px;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.7), transparent 70%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    footer {
+      padding: 12px 40px 18px;
+      font-size: 0.8rem;
+      color: #9f9fd0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left span {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .footer-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .footer-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px rgba(255, 123, 0, 0.7);
+    }
+
+    .footer-mode {
+      font-size: 0.78rem;
+      color: #cfcfe8;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.35s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="logo-ghost">
+        <div class="logo-ghost-eye left"></div>
+        <div class="logo-ghost-eye right"></div>
+        <div class="logo-ghost-mouth"></div>
+      </div>
+      <span>Halloween Night Script</span>
+    </div>
+    <nav>
+      <button id="nav-story">Story</button>
+      <button id="nav-treats">Treats</button>
+      <button id="nav-casper">Casper & Wendy</button>
+      <button id="nav-drink">Wendy's Drink</button>
+    </nav>
+  </header>
+
+  <main class="main-wrapper">
+    <!-- STORY PANEL -->
+    <section class="story-panel" id="story-panel">
+      <div class="story-header">
+        <div>
+          <div class="story-tag">Full-length sentence structures · Halloween dialogue</div>
+          <h1 class="story-title">Treats, Tricks, and Casper’s Gentle Glow</h1>
+          <p class="story-subtitle">
+            A playful script where friends trade candy, harmless pranks, and warm words under a soft ghostly moon.
+          </p>
+        </div>
+        <div class="story-mood-toggle">
+          <div class="pill">
+            <div class="pill-dot"></div>
+            <span>Scene: Front porch · 8:13 PM · October 31</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-body" id="story-body">
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> The street is lined with carved pumpkins, each one flickering with a patient orange glow.
+          Children in costumes drift from house to house like colorful leaves in a slow, playful wind. On the corner,
+          a small group of friends gathers on a wide front porch, their candy buckets resting at their feet like tiny
+          treasure chests.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “Okay, everyone, listen closely. We have reached the official trading phase of the
+          night. This is where legends are made and where chocolate finds its true destiny. No more random grabbing.
+          We are going to treat one another with intention.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “You make it sound like we’re signing a peace treaty instead of swapping candy.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “In a way, we are. Tonight, we promise to trade fairly, to respect each other’s
+          favorite treats, and to keep the tricks lighthearted and kind. Halloween is about fun, not regret.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “I support this motion. Also, I would like to formally request that anyone who does
+          not appreciate caramel send it directly to me. I will provide a safe, loving home for every caramel piece.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> The group laughs, and the sound rises into the cool night air. Above them, the
+          clouds part just enough to reveal a pale, friendly glow. It is not just the moon. It is Casper, hovering
+          quietly, watching the scene with gentle curiosity.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Casper:</strong> “You know, I’ve seen a lot of Halloweens, but I still love the way you all turn
+          simple candy into something that feels like a celebration. It’s not just about what’s in the wrappers.
+          It’s about how you share it.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “Casper, you’re officially invited to the trading circle. You may not be able to
+          eat the candy, but you can absolutely vote on which trades are the most generous.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Casper:</strong> “I accept. I’ll be the glowing referee. No spooky bias, I promise.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> The friends sit in a loose circle, their costumes rustling softly. Marissa
+          spreads her candy out in neat rows, each type grouped together like a tiny parade. Wendy arranges hers
+          in a colorful spiral, and Jordan simply pours his into a pile that looks like a cheerful avalanche.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “First rule: we speak in full sentences. No pointing and grunting. If you want
+          something, you say it clearly and kindly. For example, ‘Jordan, may I please trade you two of my peanut
+          butter cups for one of your caramel bars?’”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “Wow, that sounded very official. Okay, I’ll try. ‘Marissa, I would be delighted
+          to accept your offer, because peanut butter cups are basically tiny circles of happiness.’”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “This is already my favorite part of the night. We’re not just trick-or-treating;
+          we’re treat-or-speaking.”
+        </p>
+
+        <p class="story-highlight">
+          <strong>Narrator:</strong> The trading begins, and every sentence becomes a small act of respect. They
+          describe the flavors they love, the textures they enjoy, and the memories attached to certain candies.
+          The porch becomes a stage for thoughtful, playful language.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “Wendy, may I offer you three pieces of my orange-wrapped taffy in exchange for
+          one of your chocolate-covered pretzels? I appreciate the way the pretzels balance sweetness with a gentle
+          crunch.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “I accept your offer, because I admire your appreciation for texture. Also, I have
+          secretly been hoping someone would notice how special these pretzels are.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “Casper, if you could taste candy, which one would you choose first?”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Casper:</strong> “I think I would start with something simple and classic, like a small chocolate
+          bar. I imagine it would feel like a warm, friendly handshake from the human world.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> As the trading continues, the group decides that Halloween should also include
+          gentle, harmless tricks—little surprises that make everyone laugh without crossing any lines.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “New rule: if you play a trick, it must come with a treat. No one leaves this
+          porch feeling embarrassed or left out.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “I have a suggestion. I will pretend to be dramatically offended that someone
+          traded away a candy I gave them, but then I will reveal that I secretly packed an extra piece of that
+          candy in their bucket. It will be a trick wrapped in kindness.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “That is exactly the kind of trick I can support. It’s like a tiny plot twist
+          with a happy ending.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> Casper drifts a little closer, his glow soft and reassuring. He watches as
+          Jordan performs his playful trick, feigning shock and then laughing as he reveals the hidden candy.
+          The group erupts in giggles, and the porch feels even warmer.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Casper:</strong> “You’re proving that Halloween can be mischievous and gentle at the same time.
+          You’re tricking and treating one another with care.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “That’s the goal. We want every memory from tonight to feel like a soft glow,
+          not a sharp sting.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> As the candy trading slows, Wendy reaches behind her and lifts a tray from
+          the small table by the door. On the tray sits a tall cup filled with a shimmering drink, the surface
+          sparkling as if it has captured a piece of the night sky.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “I present to you Wendy’s Halloween Treat Drink. It is a blend of creamy vanilla,
+          a hint of caramel, and a swirl of cinnamon. I added a gentle sparkle of edible glitter so it looks like
+          starlight in a cup.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “That looks like something a friendly witch would serve at a midnight café.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “Please describe it in a full sentence as you taste it. That is the rule.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “All right. When I take a sip of Wendy’s drink, I feel as though the flavors are
+          wrapping around me like a soft blanket, and the cinnamon is whispering, ‘You are exactly where you are
+          meant to be tonight.’”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “That is the best review I have ever received.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Casper:</strong> “Even though I cannot taste it, I can see the way it brings you comfort. That
+          is enough for me. I will remember the way your faces light up when you share it.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> The group passes the drink around, each person taking a careful sip and
+          describing the experience in full, thoughtful sentences. They talk about warmth, sweetness, and the
+          way the drink seems to turn the porch into a tiny, glowing sanctuary.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Marissa:</strong> “I think we have discovered the perfect Halloween formula: treats that we
+          trade with respect, tricks that end in laughter, and a drink that feels like a hug in a cup.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Casper:</strong> “And don’t forget the language. You’re proving that the way you speak to one
+          another can be as sweet as any candy.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Wendy:</strong> “Then let’s make a promise. Every Halloween from now on, we will treat each
+          other with kindness, speak in full, thoughtful sentences, and invite Casper to float nearby and keep
+          us company.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Jordan:</strong> “Agreed. Casper, you are officially part of our Halloween tradition.”
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> Casper smiles, his glow brightening just a little. The porch settles into
+          a peaceful rhythm: soft conversation, gentle laughter, and the rustle of candy wrappers. The night
+          feels complete, not because of the number of treats collected, but because of the way they have
+          treated one another.
+        </p>
+
+        <p class="story-paragraph">
+          <strong>Narrator:</strong> And so, under the watchful, friendly light of Casper and the quiet stars,
+          Halloween becomes more than costumes and candy. It becomes a shared story, told in full sentences,
+          filled with warmth, respect, and the simple joy of being together.
+        </p>
+      </div>
+
+      <div class="choices-panel">
+        <button class="choice-btn" data-scene="treats">
+          <div class="choice-icon candy"><span>🍬</span></div>
+          <span>Show treat menu</span>
+        </button>
+        <button class="choice-btn" data-scene="tricks">
+          <div class="choice-icon prank"><span>🎭</span></div>
+          <span>Show gentle tricks</span>
+        </button>
+        <button class="choice-btn" data-scene="drink">
+          <div class="choice-icon drink"><span>🥤</span></div>
+          <span>Describe Wendy's drink</span>
+        </button>
+        <button class="choice-btn" data-scene="casper">
+          <div class="choice-icon casual"><span>👻</span></div>
+          <span>Casper & Wendy moment</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL -->
+    <section class="right-panel">
+      <!-- TREATS CARD -->
+      <article class="card" id="treats-card">
+        <h2 class="card-title">Halloween Treat Trading Menu</h2>
+        <p class="card-subtitle">
+          Use full sentences to request trades. Every treat is a chance to speak kindly and clearly.
+        </p>
+        <ul class="treat-list">
+          <li class="treat-item">
+            <div class="treat-icon">🍫</div>
+            <div>
+              <div class="treat-text-main">Classic Chocolate Bars</div>
+              <div class="treat-text-sub">
+                “May I trade two of my fruit chews for one of your chocolate bars?”
+              </div>
+            </div>
+          </li>
+          <li class="treat-item">
+            <div class="treat-icon">🥨</div>
+            <div>
+              <div class="treat-text-main">Chocolate-Covered Pretzels</div>
+              <div class="treat-text-sub">
+                “I appreciate the balance of sweet and salty. Would you consider a fair exchange?”
+              </div>
+            </div>
+          </li>
+          <li class="treat-item">
+            <div class="treat-icon">🍬</div>
+            <div>
+              <div class="treat-text-main">Caramel Pieces</div>
+              <div class="treat-text-sub">
+                “If you do not enjoy caramel, I would be happy to adopt those pieces.”
+              </div>
+            </div>
+          </li>
+          <li class="treat-item">
+            <div class="treat-icon">🍭</div>
+            <div>
+              <div class="treat-text-main">Fruit Chews & Lollipops</div>
+              <div class="treat-text-sub">
+                “I love the bright flavors. May we arrange a colorful trade?”
+              </div>
+            </div>
+          </li>
+        </ul>
+      </article>
+
+      <!-- DRINK CARD -->
+      <article class="card" id="drink-card">
+        <h2 class="card-title">Wendy’s Halloween Treat Drink</h2>
+        <div class="drink-card">
+          <div class="drink-description">
+            <p>
+              Wendy’s drink is described in full, careful sentences, because it deserves more than a quick
+              “This is good.” It is a <span class="drink-highlight">creamy vanilla base</span> with a gentle
+              ribbon of caramel and a soft dusting of cinnamon. The top is decorated with a swirl of whipped
+              cream and a sparkle of edible glitter, so it looks like a small galaxy resting in a cup.
+            </p>
+            <p style="margin-top: 8px;">
+              When the friends share it, they say things like, “This drink makes me feel calm and welcome,”
+              and “The cinnamon reminds me of warm kitchens and quiet evenings.” The drink becomes a symbol
+              of how they want Halloween to feel: cozy, kind, and full of shared warmth.
+            </p>
+          </div>
+          <div class="drink-visual">
+            <div class="cup-glow"></div>
+            <div class="cup">
+              <div class="cup-face">
+                <div class="cup-eye"></div>
+                <div class="cup-eye"></div>
+                <div class="cup-smile"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- CASPER CARD -->
+      <article class="card" id="casper-card">
+        <h2 class="card-title">Casper & Wendy’s Gentle Moment</h2>
+        <div class="casper-card">
+          <div class="casper-text">
+            <p>
+              Casper floats near the porch, watching Wendy carefully pass the drink to her friends. He cannot
+              taste it, but he can feel the warmth in the way they describe it. Wendy turns to him and says,
+              “Casper, if you could hold this cup, I would trust you not to spill a single drop.”
+            </p>
+            <p style="margin-top: 8px;">
+              Casper smiles and replies, “I may not be able to hold it, but I can hold the memory of this
+              moment. I will remember the way you speak to one another, the way you trade treats with respect,
+              and the way this drink seems to glow with kindness.” In that instant, Halloween becomes a story
+              they all share—<strong>a story of treats, gentle tricks, and a friendly ghost who loves the way
+              humans care for each other.</strong>
+            </p>
+          </div>
+          <div class="casper-visual">
+            <div class="ghost-glow"></div>
+            <div class="ghost">
+              <div class="ghost-eye left"></div>
+              <div class="ghost-eye right"></div>
+              <div class="ghost-mouth"></div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <span>Halloween Script Mode</span> · Treating and trick-or-treating one another with full, thoughtful sentences.
+    </div>
+    <div class="footer-right">
+      <div class="footer-dot"></div>
+      <div class="footer-mode">Casper-approved kindness · Wendy’s drink included</div>
+    </div>
+  </footer>
+
+  <script>
+    // Simple scene switching logic for navigation and choice buttons
+    const navStory = document.getElementById("nav-story");
+    const navTreats = document.getElementById("nav-treats");
+    const navCasper = document.getElementById("nav-casper");
+    const navDrink = document.getElementById("nav-drink");
+
+    const treatsCard = document.getElementById("treats-card");
+    const drinkCard = document.getElementById("drink-card");
+    const casperCard = document.getElementById("casper-card");
+    const storyPanel = document.getElementById("story-panel");
+    const storyBody = document.getElementById("story-body");
+
+    function showAll() {
+      storyPanel.classList.remove("hidden");
+      treatsCard.classList.remove("hidden");
+      drinkCard.classList.remove("hidden");
+      casperCard.classList.remove("hidden");
+    }
+
+    function focusTreats() {
+      storyPanel.classList.remove("hidden");
+      treatsCard.classList.remove("hidden");
+      drinkCard.classList.add("hidden");
+      casperCard.classList.add("hidden");
+      treatsCard.classList.add("fade-in");
+    }
+
+    function focusDrink() {
+      storyPanel.classList.remove("hidden");
+      drinkCard.classList.remove("hidden");
+      treatsCard.classList.add("hidden");
+      casperCard.classList.add("hidden");
+      drinkCard.classList.add("fade-in");
+    }
+
+    function focusCasper() {
+      storyPanel.classList.remove("hidden");
+      casperCard.classList.remove("hidden");
+      treatsCard.classList.add("hidden");
+      drinkCard.classList.add("hidden");
+      casperCard.classList.add("fade-in");
+    }
+
+    navStory.addEventListener("click", () => {
+      showAll();
+      storyBody.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    navTreats.addEventListener("click", () => {
+      focusTreats();
+    });
+
+    navCasper.addEventListener("click", () => {
+      focusCasper();
+    });
+
+    navDrink.addEventListener("click", () => {
+      focusDrink();
+    });
+
+    // Choice buttons inside the story
+    document.querySelectorAll(".choice-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const scene = btn.getAttribute("data-scene");
+        if (scene === "treats") {
+          focusTreats();
+        } else if (scene === "drink") {
+          focusDrink();
+        } else if (scene === "casper") {
+          focusCasper();
+        } else if (scene === "tricks") {
+          // For "gentle tricks", just scroll to the middle of the story where tricks are described
+          const middle = storyBody.scrollHeight / 2;
+          storyBody.scrollTo({ top: middle, behavior: "smooth" });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
