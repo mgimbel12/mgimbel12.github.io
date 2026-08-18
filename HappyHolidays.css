@@ -1,0 +1,57 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fdf6f9;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #ffb6c1;
+  padding: 20px;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 15px;
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+section {
+  padding: 30px;
+  border-bottom: 2px solid #eee;
+}
+
+#halloween {
+  background: #fbe8d3;
+  border-left: 10px solid orange;
+}
+
+#christmas {
+  background: #e8f5e9;
+  border-left: 10px solid green;
+}
+
+#budget {
+  background: #e3f2fd;
+  border-left: 10px solid blue;
+}
+
+#safety {
+  background: #ffe6f2;
+  border-left: 10px solid pink;
+}
+
+.cash-counter input {
+  padding: 8px;
+  margin-right: 10px;
+}
+
+.lazy {
+  width: 300px;
+  display: block;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
