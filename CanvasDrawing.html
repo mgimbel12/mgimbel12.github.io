@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Canvas Drawing & Tracing</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; background: #f5f5f5; }
+    #canvas { border: 2px solid #333; background: #fff; }
+    .tools { margin-top: 10px; }
+    .color-btn { width: 24px; height: 24px; border-radius: 50%; border: none; margin: 0 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Canvas Tracing & Coloring</h1>
+  <canvas id="canvas" width="600" height="400"></canvas>
+
+  <div class="tools">
+    <button class="color-btn" style="background:red" data-color="red"></button>
+    <button class="color-btn" style="background:blue" data-color="blue"></button>
+    <button class="color-btn" style="background:green" data-color="green"></button>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    // Example tracing shape (outline)
+    function drawOutline() {
+      ctx.strokeStyle = '#555';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.rect(150, 100, 300, 200); // simple rectangle to trace
+      ctx.stroke();
+    }
+
+    drawOutline();
+
+    let drawing = false;
+    let currentColor = 'red';
+
+    canvas.addEventListener('mousedown', () => drawing = true);
+    canvas.addEventListener('mouseup', () => drawing = false);
+    canvas.addEventListener('mouseleave', () => drawing = false);
+
+    canvas.addEventListener('mousemove', (e) => {
+      if (!drawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ctx.fillStyle = currentColor;
+      ctx.fillRect(x, y, 4, 4); // small squares for coloring
+    });
+
+    document.querySelectorAll('.color-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentColor = btn.dataset.color;
+      });
+    });
+  </script>
+</body>
+</html>
