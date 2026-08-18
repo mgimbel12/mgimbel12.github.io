@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fridge & Freezer</title>
+  <style>
+    body { font-family: sans-serif; background: #e8f7ff; padding: 20px; }
+    .kitchen {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .fridge {
+      width: 260px;
+      height: 420px;
+      background: #f5f5f5;
+      border-radius: 12px;
+      border: 3px solid #999;
+      position: relative;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    .door {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      background: #ffffff;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+    }
+    .freezer-door {
+      top: 10px;
+      height: 130px;
+    }
+    .fridge-door {
+      bottom: 10px;
+      top: 150px;
+    }
+    .handle {
+      position: absolute;
+      width: 10px;
+      height: 60px;
+      background: #ccc;
+      border-radius: 5px;
+      right: 15px;
+      top: 40px;
+    }
+    .handle-bottom {
+      top: 220px;
+    }
+    .label {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fridge & Freezer Layout</h1>
+  <p>Imagine what you’d store in each section—freezer on top, fridge below.</p>
+
+  <div class="kitchen">
+    <div class="fridge">
+      <div class="door freezer-door">
+        <div class="label">Freezer</div>
+      </div>
+      <div class="door fridge-door">
+        <div class="label">Fridge</div>
+      </div>
+      <div class="handle"></div>
+      <div class="handle handle-bottom"></div>
+    </div>
+  </div>
+</body>
+</html>
