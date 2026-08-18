@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Disney Castle Safety & Fun</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", sans-serif;
+      background: linear-gradient(#87cefa, #ffffff);
+      color: #333;
+    }
+
+    header {
+      background: #4b2e83;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+    }
+
+    nav {
+      background: #f8f8f8;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #4b2e83;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      display: none;
+      margin-bottom: 40px;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    h2 {
+      color: #4b2e83;
+    }
+
+    /* Simple form styling */
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background: #4b2e83;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3a2264;
+    }
+
+    /* Coloring wheel & canvas */
+    .color-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .color-wheel {
+      display: flex;
+      gap: 10px;
+    }
+
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      cursor: pointer;
+    }
+
+    #colorCanvas {
+      border: 2px solid #4b2e83;
+      background: #fff;
+    }
+
+    /* Disney castle “feel” */
+    .castle-banner {
+      margin-top: 10px;
+      font-style: italic;
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Castle Care & Creativity</h1>
+    <div class="castle-banner">
+      Where every hero has a safety plan and a magic coloring canvas.
+    </div>
+  </header>
+
+  <nav>
+    <a data-target="home">Home</a>
+    <a data-target="safety">Safety Plan</a>
+    <a data-target="checkup">Check Up</a>
+    <a data-target="coloring">Coloring Wheels & Canvas</a>
+    <a data-target="contact">Contact Us</a>
+  </nav>
+
+  <main>
+    <!-- Home Page -->
+    <section id="home" class="active">
+      <h2>Welcome to the Castle</h2>
+      <p>
+        This is your magical home base. Here, you can learn how to stay safe,
+        check in with yourself, and color your own enchanted world.
+      </p>
+      <p>
+        Imagine you’re a Disney character living in a castle. Every day, you
+        take care of yourself, know who to call when you need help, and keep
+        your creativity alive with colors and drawings.
+      </p>
+    </section>
+
+    <!-- Safety Plan (fill in the blanks) -->
+    <section id="safety">
+      <h2>My Safety Plan</h2>
+      <p>
+        Fill in the blanks to create a simple safety plan. Use full sentences
+        so it feels clear and strong.
+      </p>
+
+      <div class="form-group">
+        <label>When I feel unsafe or overwhelmed, I usually notice:</label>
+        <textarea id="signs" rows="3" placeholder="Example: I feel my heart racing and I want to hide."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Safe places I can go:</label>
+        <textarea id="safePlaces" rows="3" placeholder="Example: My bedroom, the library, a trusted friend’s house."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>People I can contact for help:</label>
+        <textarea id="contacts" rows="3" placeholder="Example: Mom, Dad, Aunt, school counselor."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Things that help me feel calm:</label>
+        <textarea id="calmThings" rows="3" placeholder="Example: Deep breathing, listening to music, drawing."></textarea>
+      </div>
+
+      <button id="saveSafetyPlan">Save My Safety Plan</button>
+
+      <p id="safetySummary"></p>
+    </section>
+
+    <!-- Check Up -->
+    <section id="checkup">
+      <h2>Daily Castle Check Up</h2>
+      <p>
+        Use full sentences to check in with yourself, like a gentle daily
+        “health of the heart” visit.
+      </p>
+
+      <div class="form-group">
+        <label>Today I feel:</label>
+        <textarea id="feelingToday" rows="2" placeholder="Example: I feel hopeful but a little nervous."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>One thing that went well today:</label>
+        <textarea id="wentWell" rows="2" placeholder="Example: I finished my homework and helped a friend."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>One thing I want to improve tomorrow:</label>
+        <textarea id="improveTomorrow" rows="2" placeholder="Example: I want to speak more kindly to myself."></textarea>
+      </div>
+
+      <button id="saveCheckup">Save My Check Up</button>
+
+      <p id="checkupSummary"></p>
+    </section>
+
+    <!-- Coloring Wheels & Canvas -->
+    <section id="coloring">
+      <h2>Coloring Wheels & Magic Canvas</h2>
+      <p>
+        Choose a color from the wheel and paint on the canvas—like decorating
+        your own Disney castle.
+      </p>
+
+      <div class="color-tools">
+        <div class="color-wheel">
+          <div class="color-swatch" data-color="#ff0000" style="background:#ff0000;"></div>
+          <div class="color-swatch" data-color="#00ff00" style="background:#00ff00;"></div>
+          <div class="color-swatch" data-color="#0000ff" style="background:#0000ff;"></div>
+          <div class="color-swatch" data-color="#ffff00" style="background:#ffff00;"></div>
+          <div class="color-swatch" data-color="#ff00ff" style="background:#ff00ff;"></div>
+          <div class="color-swatch" data-color="#00ffff" style="background:#00ffff;"></div>
+        </div>
+
+        <canvas id="colorCanvas" width="400" height="300"></canvas>
+      </div>
+    </section>
+
+    <!-- Contact Us -->
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>
+        Use full sentences to tell us what you think, what you need, or what
+        you’d like to add to this castle world.
+      </p>
+
+      <div class="form-group">
+        <label>Your Name:</label>
+        <input id="contactName" type="text" placeholder="Example: Cinderella, Mickey, or your own name." />
+      </div>
+
+      <div class="form-group">
+        <label>Your Message:</label>
+        <textarea id="contactMessage" rows="4" placeholder="Example: I would love more coloring pages with stars and dragons."></textarea>
+      </div>
+
+      <button id="sendMessage">Send Message</button>
+
+      <p id="contactFeedback"></p>
+    </section>
+  </main>
+
+  <script>
+    // Navigation
+    const navLinks = document.querySelectorAll("nav a");
+    const sections = document.querySelectorAll("main section");
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        const targetId = link.getAttribute("data-target");
+        sections.forEach(sec => {
+          sec.classList.toggle("active", sec.id === targetId);
+        });
+      });
+    });
+
+    // Safety Plan summary
+    document.getElementById("saveSafetyPlan").addEventListener("click", () => {
+      const signs = document.getElementById("signs").value.trim();
+      const safePlaces = document.getElementById("safePlaces").value.trim();
+      const contacts = document.getElementById("contacts").value.trim();
+      const calmThings = document.getElementById("calmThings").value.trim();
+
+      const summary = `
+        My safety plan says that when I feel unsafe or overwhelmed, I notice: ${signs}.
+        I can go to these safe places: ${safePlaces}.
+        I can contact these people for help: ${contacts}.
+        I can use these calming things to feel better: ${calmThings}.
+      `;
+
+      document.getElementById("safetySummary").textContent = summary;
+    });
+
+    // Check Up summary
+    document.getElementById("saveCheckup").addEventListener("click", () => {
+      const feelingToday = document.getElementById("feelingToday").value.trim();
+      const wentWell = document.getElementById("wentWell").value.trim();
+      const improveTomorrow = document.getElementById("improveTomorrow").value.trim();
+
+      const summary = `
+        Today I feel: ${feelingToday}.
+        One thing that went well today is: ${wentWell}.
+        One thing I want to improve tomorrow is: ${improveTomorrow}.
+      `;
+
+      document.getElementById("checkupSummary").textContent = summary;
+    });
+
+    // Coloring canvas
+    const canvas = document.getElementById("colorCanvas");
+    const ctx = canvas.getContext("2d");
+    let currentColor = "#000000";
+    let drawing = false;
+
+    document.querySelectorAll(".color-swatch").forEach(swatch => {
+      swatch.addEventListener("click", () => {
+        currentColor = swatch.getAttribute("data-color");
+      });
+    });
+
+    canvas.addEventListener("mousedown", e => {
+      drawing = true;
+      draw(e);
+    });
+
+    canvas.addEventListener("mousemove", e => {
+      if (drawing) draw(e);
+    });
+
+    canvas.addEventListener("mouseup", () => {
+      drawing = false;
+    });
+
+    canvas.addEventListener("mouseleave", () => {
+      drawing = false;
+    });
+
+    function draw(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ctx.fillStyle = currentColor;
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Contact Us feedback
+    document.getElementById("sendMessage").addEventListener("click", () => {
+      const name = document.getElementById("contactName").value.trim() || "A castle friend";
+      const message = document.getElementById("contactMessage").value.trim();
+
+      if (!message) {
+        document.getElementById("contactFeedback").textContent =
+          "Please write a message in full sentences so we can understand you clearly.";
+        return;
+      }
+
+      document.getElementById("contactFeedback").textContent =
+        `Thank you, ${name}. Your message has been noted in our magical castle log.`;
+    });
+  </script>
+</body>
+</html>
