@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mental Health – Life Situations, Abuse & Neglect</title>
+  <style>
+    /* Page layout */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #222;
+    }
+
+    header {
+      background: #0b3d91; /* Navy blue */
+      color: #fff;
+      padding: 1.5rem;
+      text-align: center;
+      border-bottom: 8px solid #bf0a30; /* Red stripe */
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+    }
+
+    header p {
+      margin: 0.5rem 0 0;
+      font-size: 0.95rem;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 1.5rem auto;
+      padding: 0 1rem 2rem;
+    }
+
+    /* Flag-inspired border around main content */
+    .flag-border {
+      border: 8px solid #0b3d91; /* Blue outer */
+      padding: 1rem;
+      background: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+
+    .flag-border::before,
+    .flag-border::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: #bf0a30; /* Red stripe */
+    }
+
+    .flag-border::before {
+      top: 0;
+    }
+
+    .flag-border::after {
+      bottom: 0;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 1.5rem;
+      border-radius: 4px;
+      border: 1px solid #dde3ed;
+      padding: 1rem;
+    }
+
+    section h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      color: #0b3d91;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Life situation cards */
+    .situations-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .situation-card {
+      border-radius: 4px;
+      border: 1px solid #cfd6e3;
+      padding: 0.75rem;
+      background: #f9fbff;
+    }
+
+    .situation-card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1rem;
+      color: #bf0a30;
+    }
+
+    .situation-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    /* Abuse & neglect list */
+    .abuse-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .abuse-list li {
+      margin-bottom: 0.5rem;
+      padding-left: 0.75rem;
+      border-left: 3px solid #bf0a30;
+    }
+
+    .abuse-list strong {
+      color: #bf0a30;
+    }
+
+    /* Tools area: Weather, Map, Info */
+    .tools {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .tool-card {
+      border-radius: 4px;
+      border: 1px solid #cfd6e3;
+      padding: 0.75rem;
+      background: #f5f7fa;
+    }
+
+    .tool-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      color: #0b3d91;
+    }
+
+    .tool-card label {
+      display: block;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-card input,
+    .tool-card select {
+      width: 100%;
+      padding: 0.35rem 0.4rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      border-radius: 3px;
+      border: 1px solid #cfd6e3;
+    }
+
+    .tool-card button {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.9rem;
+      border-radius: 3px;
+      border: none;
+      background: #0b3d91;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .tool-card button:hover {
+      background: #082c68;
+    }
+
+    .tool-output {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      background: #ffffff;
+      border-radius: 3px;
+      border: 1px solid #dde3ed;
+      padding: 0.5rem;
+      min-height: 2.2rem;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #666;
+      padding: 1rem 0 1.5rem;
+    }
+
+    footer a {
+      color: #0b3d91;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mental Health & Life Situations</h1>
+    <p>Structured information about stress, abuse, neglect, and ways to seek support.</p>
+  </header>
+
+  <main>
+    <div class="flag-border">
+      <!-- Life situations -->
+      <section id="life-situations">
+        <h2>Life Situations & Mental Health</h2>
+        <p class="tagline">
+          Different life situations can shape how safe, supported, and hopeful someone feels.
+        </p>
+
+        <div class="situations-grid">
+          <article class="situation-card">
+            <h3>Family Conflict</h3>
+            <p>
+              Ongoing arguments, criticism, or lack of emotional warmth at home can increase anxiety,
+              depression, and feelings of isolation.
+            </p>
+          </article>
+
+          <article class="situation-card">
+            <h3>Financial Stress</h3>
+            <p>
+              Worrying about housing, food, or bills can lead to chronic stress, sleep problems,
+              and difficulty concentrating.
+            </p>
+          </article>
+
+          <article class="situation-card">
+            <h3>School & Work Pressure</h3>
+            <p>
+              Bullying, unrealistic expectations, or discrimination can harm self‑esteem and make
+              it hard to feel safe or valued.
+            </p>
+          </article>
+
+          <article class="situation-card">
+            <h3>Social Isolation</h3>
+            <p>
+              Having few supportive relationships can make it harder to cope with stress and can
+              increase feelings of hopelessness.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Abuse & neglect -->
+      <section id="abuse-neglect">
+        <h2>Abuse & Neglect</h2>
+        <p class="tagline">
+          Abuse and neglect are serious harms. No one deserves to be treated this way.
+        </p>
+
+        <ul class="abuse-list">
+          <li>
+            <strong>Physical abuse:</strong> Being hit, pushed, or hurt on purpose. This can cause
+            injuries and long‑term fear.
+          </li>
+          <li>
+            <strong>Emotional abuse:</strong> Constant insults, threats, humiliation, or control
+            that damage self‑worth.
+          </li>
+          <li>
+            <strong>Sexual abuse:</strong> Any sexual contact or behavior without clear, freely
+            given consent.
+          </li>
+          <li>
+            <strong>Neglect:</strong> Not having basic needs met—like food, safety, medical care,
+            or emotional support.
+          </li>
+        </ul>
+
+        <p style="font-size:0.9rem; margin-top:0.75rem;">
+          If someone is in immediate danger, they should contact local emergency services. In the
+          United States, the National Domestic Violence Hotline is 1‑800‑799‑7233 and the Childhelp
+          National Child Abuse Hotline is 1‑800‑422‑4453.
+        </p>
+      </section>
+
+      <!-- Tools: Weather, Map, Info -->
+      <section id="tools">
+        <h2>Context Tools: Weather, Map & Situation Info</h2>
+        <p class="tagline">
+          These simple tools show how information can be organized around a person’s situation.
+        </p>
+
+        <div class="tools">
+          <!-- Weather tool -->
+          <div class="tool-card">
+            <h3>Weather (Example)</h3>
+            <label for="weather-city">City</label>
+            <input id="weather-city" type="text" placeholder="Enter city (e.g., Henderson)" />
+            <button id="weather-btn">Get Weather (Demo)</button>
+            <div id="weather-output" class="tool-output">
+              Weather details will appear here.
+            </div>
+          </div>
+
+          <!-- Map quest tool -->
+          <div class="tool-card">
+            <h3>Map Quest (Support Locations)</h3>
+            <label for="map-topic">Support type</label>
+            <select id="map-topic">
+              <option value="counseling">Counseling / Therapy</option>
+              <option value="shelter">Shelter / Safe Housing</option>
+              <option value="hotline">Hotline / Crisis Line</option>
+            </select>
+            <button id="map-btn">Show Example Map Info</button>
+            <div id="map-output" class="tool-output">
+              Example nearby support information will appear here.
+            </div>
+          </div>
+
+          <!-- Life situation info tool -->
+          <div class="tool-card">
+            <h3>Life Situation Details</h3>
+            <label for="situation-select">Choose a situation</label>
+            <select id="situation-select">
+              <option value="familyConflict">Family conflict</option>
+              <option value="financialStress">Financial stress</option>
+              <option value="schoolWorkPressure">School/work pressure</option>
+              <option value="socialIsolation">Social isolation</option>
+            </select>
+            <button id="situation-btn">Show Details</button>
+            <div id="situation-output" class="tool-output">
+              Extra details and suggestions will appear here.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    This page is for educational purposes only and does not replace professional care.
+    If you or someone you know is struggling, consider reaching out to a licensed mental health
+    professional or a trusted support line.
+  </footer>
+
+  <script>
+    // Simple demo data for "weather"
+    const demoWeatherData = {
+      Henderson: {
+        temp: "98°F",
+        condition: "Sunny",
+        note: "High heat can increase stress—stay hydrated and seek cool spaces when possible."
+      },
+      Seattle: {
+        temp: "68°F",
+        condition: "Cloudy",
+        note: "Overcast days can affect mood; light, movement, and connection can help."
+      },
+      "New York": {
+        temp: "82°F",
+        condition: "Partly cloudy",
+        note: "Busy environments can feel overwhelming—small breaks and quiet moments matter."
+      }
+    };
+
+    document.getElementById("weather-btn").addEventListener("click", () => {
+      const cityInput = document.getElementById("weather-city").value.trim();
+      const output = document.getElementById("weather-output");
+
+      if (!cityInput) {
+        output.textContent = "Please enter a city name.";
+        return;
+      }
+
+      const cityKey =
+        Object.keys(demoWeatherData).find(
+          (key) => key.toLowerCase() === cityInput.toLowerCase()
+        ) || null;
+
+      if (!cityKey) {
+        output.textContent =
+          "Demo data not found for that city. Try Henderson, Seattle, or New York.";
+        return;
+      }
+
+      const data = demoWeatherData[cityKey];
+      output.innerHTML =
+        "<strong>" +
+        cityKey +
+        "</strong><br>" +
+        "Temperature: " +
+        data.temp +
+        "<br>" +
+        "Condition: " +
+        data.condition +
+        "<br>" +
+        "<em>" +
+        data.note +
+        "</em>";
+    });
+
+    // Simple demo data for "map quest" support info
+    const supportMapData = {
+      counseling: [
+        "Community Counseling Center – Walk‑in hours on weekdays.",
+        "Online therapy platforms – video sessions from home."
+      ],
+      shelter: [
+        "Local emergency shelter – confidential location, call ahead.",
+        "Transitional housing program – longer‑term support."
+      ],
+      hotline: [
+        "National Domestic Violence Hotline: 1‑800‑799‑7233",
+        "988 Suicide & Crisis Lifeline: call or text 988 in the U.S."
+      ]
+    };
+
+    document.getElementById("map-btn").addEventListener("click", () => {
+      const topic = document.getElementById("map-topic").value;
+      const output = document.getElementById("map-output");
+      const items = supportMapData[topic] || [];
+
+      if (!items.length) {
+        output.textContent = "No example data available.";
+        return;
+      }
+
+      output.innerHTML =
+        "<strong>Example support options:</strong><br>" +
+        items.map((item) => "• " + item).join("<br>");
+    });
+
+    // Life situation details
+    const situationDetails = {
+      familyConflict:
+        "Family conflict can make home feel unsafe. It may help to set boundaries, seek family or individual counseling, or talk with a trusted adult or friend.",
+      financialStress:
+        "Financial stress can feel overwhelming. Small steps—budgeting, community resources, and talking with someone about options—can reduce the pressure.",
+      schoolWorkPressure:
+        "School and work pressure can lead to burnout. Break tasks into smaller pieces, ask for support when possible, and remember rest is part of productivity.",
+      socialIsolation:
+        "Social isolation can deepen sadness. Even small connections—online communities, support groups, or one‑to‑one conversations—can make a difference."
+    };
+
+    document.getElementById("situation-btn").addEventListener("click", () => {
+      const key = document.getElementById("situation-select").value;
+      const output = document.getElementById("situation-output");
+      output.textContent = situationDetails[key] || "No details available.";
+    });
+  </script>
+</body>
+</html>
