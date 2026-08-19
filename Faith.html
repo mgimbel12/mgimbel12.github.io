@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hope, Faith and Mental Health</title>
+  <style>
+    :root {
+      --baby-blue: #bfe6ff;
+      --baby-blue-dark: #7fb8d9;
+      --accent-blue: #3b6fa8;
+      --white: #ffffff;
+      --text-dark: #1f2a33;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(180deg, #e9f6ff, #ffffff);
+      color: var(--text-dark);
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 24px;
+      background: var(--white);
+      border-radius: 24px;
+      border: 2px dashed var(--baby-blue-dark); /* zipper vibe */
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    header {
+      padding: 16px 20px;
+      border-radius: 18px;
+      background: radial-gradient(circle at top left, var(--baby-blue), var(--white));
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    header::before,
+    header::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent-blue); /* blue dots */
+    }
+
+    header::before {
+      top: 10px;
+      left: 10px;
+    }
+
+    header::after {
+      bottom: 10px;
+      right: 10px;
+    }
+
+    .title-block h1 {
+      font-size: 1.8rem;
+      color: var(--accent-blue);
+      margin-bottom: 4px;
+    }
+
+    .title-block p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .clock-weather {
+      text-align: right;
+      font-size: 0.9rem;
+    }
+
+    .clock-weather span {
+      display: block;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      border: none;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--baby-blue);
+      color: var(--accent-blue);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    nav button:hover {
+      background: var(--baby-blue-dark);
+      transform: translateY(-1px);
+      color: var(--white);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 20px;
+    }
+
+    section {
+      margin-bottom: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(191, 230, 255, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(191, 230, 255, 0.7), transparent);
+      opacity: 0.6;
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      color: var(--accent-blue);
+    }
+
+    section p,
+    section li {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    ul {
+      margin-left: 18px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--baby-blue-dark);
+      color: var(--white);
+      font-size: 0.75rem;
+      margin-bottom: 8px;
+    }
+
+    .canvas-wrap {
+      margin-top: 10px;
+      border-radius: 18px;
+      padding: 10px;
+      background: linear-gradient(180deg, #cfe9ff, #ffffff);
+    }
+
+    canvas {
+      width: 100%;
+      height: 180px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #8fd0ff, #ffffff);
+      display: block;
+    }
+
+    .widget {
+      margin-bottom: 16px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--baby-blue-dark);
+    }
+
+    .widget h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: var(--accent-blue);
+    }
+
+    .chart-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #e0f2ff;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .chart-bar span {
+      display: block;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #3b6fa8, #8fd0ff);
+      width: 60%;
+      transition: width 0.6s ease;
+    }
+
+    .money-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+
+    .fade-soft {
+      animation: fadeSoft 0.8s ease-in-out;
+    }
+
+    @keyframes fadeSoft {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="title-block">
+        <h1>Hope, Faith and Mental Health</h1>
+        <p>A gentle space where you can breathe, think, and plan for a safer tomorrow.</p>
+      </div>
+      <div class="clock-weather">
+        <span id="clock"></span>
+        <span id="date"></span>
+        <span id="weather">Weather: soft sky (symbolic)</span>
+      </div>
+    </header>
+
+    <nav>
+      <button onclick="scrollToSection('message')">Message of Hope</button>
+      <button onclick="scrollToSection('safety')">Safety Plan</button>
+      <button onclick="scrollToSection('faith')">Faith and Happiness</button>
+      <button onclick="scrollToSection('money')">Life on a Dime</button>
+      <button onclick="scrollToSection('learning')">Life Lessons</button>
+      <button onclick="scrollToSection('map')">Resource Map</button>
+    </nav>
+
+    <main>
+      <!-- LEFT COLUMN -->
+      <div>
+        <section id="message" class="fade-soft">
+          <span class="pill">Message for You</span>
+          <h2>Gentle words for hard days</h2>
+          <p>
+            Even if today feels confusing or heavy, it doesn’t mean your story is over.
+            Every breath is a small “yes” to life, and every “yes” opens another door.
+          </p>
+          <p>
+            You have the right to rest, to ask for help, to change your mind, and to begin again.
+            You don’t need to be perfect to deserve love, safety, and peace.
+          </p>
+        </section>
+
+        <section id="safety" class="fade-soft">
+          <span class="pill">Safety Plan</span>
+          <h2>A simple plan for moments of crisis</h2>
+          <p>You can adjust this plan for yourself and keep it close:</p>
+          <ul>
+            <li><strong>1. Warning signs:</strong> notice what “getting worse” looks like for you (insomnia, isolation, no energy).</li>
+            <li><strong>2. Immediate steps:</strong> text someone you trust, call a support line, take a short walk.</li>
+            <li><strong>3. Safe place:</strong> a room, your bed, a favorite café, a library—anywhere you feel a little calmer.</li>
+            <li><strong>4. Contact list:</strong> write down numbers for loved ones, a specialist, and local support lines.</li>
+            <li><strong>5. Reasons to stay:</strong> photos, music, quotes, dreams you still want to experience.</li>
+          </ul>
+        </section>
+
+        <section id="faith" class="fade-soft">
+          <span class="pill">Faith and Happiness</span>
+          <h2>Faith that doesn’t pretend everything is easy</h2>
+          <p>
+            Faith—in yourself, in people, in something bigger—doesn’t mean you never doubt.
+            It means that even with doubt, you look for one small step forward.
+          </p>
+          <p>
+            Happiness isn’t constant smiling. Sometimes it’s a quiet “I’m here,” when you get out of bed,
+            make tea, and allow yourself to live another day.
+          </p>
+          <div class="canvas-wrap">
+            <p style="font-size:0.85rem;margin-bottom:6px;">
+              Clouds in the sky remind us that emotions move too—none of them stay forever.
+            </p>
+            <canvas id="cloudCanvas"></canvas>
+          </div>
+        </section>
+
+        <section id="money" class="fade-soft">
+          <span class="pill">Life on a Dime</span>
+          <h2>Financial decisions when money is tight</h2>
+          <p>
+            Money doesn’t define your worth, but it does affect your sense of safety. Small steps count too:
+          </p>
+          <ul>
+            <li><strong>Tracking expenses:</strong> write down every purchase for a week—see where the small amounts slip away.</li>
+            <li><strong>“Cash for the day”:</strong> set a small daily amount and treat it like a soft boundary.</li>
+            <li><strong>Debt plan:</strong> list all obligations, even if it’s uncomfortable—clarity reduces fear.</li>
+            <li><strong>Small side business:</strong> think about what you already know how to do: design, crafts, tutoring, childcare.</li>
+          </ul>
+        </section>
+
+        <section id="learning" class="fade-soft">
+          <span class="pill">Life Lessons</span>
+          <h2>Learning from circumstances, not against yourself</h2>
+          <p>
+            Life often feels like a series of unexpected turns. You can treat them as lessons,
+            not proof of failure.
+          </p>
+          <ul>
+            <li><strong>Reflection instead of judgment:</strong> ask “What did I learn?” instead of “Why did I mess up again?”.</li>
+            <li><strong>Small experiments:</strong> change one thing each week—sleep schedule, planning style, habits.</li>
+            <li><strong>Support:</strong> talking to a therapist, support group, or friend isn’t weakness—it’s an investment.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <aside>
+        <div class="widget fade-soft">
+          <h3>Daily Calendar</h3>
+          <p id="calendarText"></p>
+        </div>
+
+        <div class="widget fade-soft" id="map">
+          <h3>Resource Map (symbolic)</h3>
+          <p>
+            Think of your surroundings as a map of support: home, friends, public spaces, a specialist.
+          </p>
+          <p id="mapHint" style="font-size:0.85rem;"></p>
+        </div>
+
+        <div class="widget fade-soft">
+          <h3>Well‑Being Chart</h3>
+          <p style="font-size:0.85rem;">
+            This bar doesn’t judge you—it simply reminds you that well‑being has many parts.
+          </p>
+          <div class="chart-bar">
+            <span id="wellbeingBar"></span>
+          </div>
+          <ul style="font-size:0.85rem;margin-left:16px;">
+            <li><strong>Sleep</strong> – rest, even if imperfect.</li>
+            <li><strong>Relationships</strong> – even one person you can be yourself with.</li>
+            <li><strong>Financial safety</strong> – small steps, not perfection.</li>
+            <li><strong>Meaning</strong> – something that gives direction, even if small.</li>
+          </ul>
+        </div>
+
+        <div class="widget fade-soft">
+          <h3>Cash Count</h3>
+          <div class="money-row">
+            <span>Cash today:</span>
+            <span id="cashToday">$0</span>
+          </div>
+          <div class="money-row">
+            <span>Goal for the month:</span>
+            <span id="cashGoal">$0</span>
+          </div>
+          <button onclick="simulateCash()" style="margin-top:8px;padding:6px 10px;border-radius:999px;border:none;background:var(--baby-blue-dark);color:#fff;font-size:0.85rem;cursor:pointer;">
+            Refresh simulation
+          </button>
+        </div>
+
+        <div class="widget fade-soft">
+          <h3>Business Talk</h3>
+          <p style="font-size:0.85rem;">
+            A business doesn’t need to be big. It can be a small project that gives you a bit of freedom:
+          </p>
+          <ul style="font-size:0.85rem;margin-left:16px;">
+            <li><strong>Service:</strong> what can you do for others?</li>
+            <li><strong>Product:</strong> what can you create or sell?</li>
+            <li><strong>Time:</strong> how many hours a week can you give without overwhelming yourself?</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      This mini‑portal does not replace professional help. If you feel in crisis, contact local services,
+      a support line, or a specialist.
+    </footer>
+  </div>
+
+  <script>
+    // Clock and date
+    function updateClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" });
+      const date = now.toLocaleDateString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      });
+      document.getElementById("clock").textContent = "Time: " + time;
+      document.getElementById("date").textContent = date;
+      document.getElementById("calendarText").textContent =
+        "Today you can do only what you can. That is enough for this day.";
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Resource map hint
+    document.getElementById("mapHint").textContent =
+      "Make a list of places: home, a friend, a specialist, a calm public space. That’s your personal map.";
+
+    // Well‑being bar – gentle random change
+    function randomWellbeing() {
+      const bar = document.getElementById("wellbeingBar");
+      const value = 40 + Math.random() * 40; // 40–80%
+      bar.style.width = value + "%";
+    }
+    randomWellbeing();
+    setInterval(randomWellbeing, 15000);
+
+    // Cash simulation
+    function simulateCash() {
+      const today = (20 + Math.random() * 80).toFixed(0);
+      const goal = (300 + Math.random() * 700).toFixed(0);
+      document.getElementById("cashToday").textContent = "$" + today;
+      document.getElementById("cashGoal").textContent = "$" + goal;
+    }
+    simulateCash();
+
+    // Smooth scroll to section
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Canvas – simple clouds
+    function drawClouds() {
+      const canvas = document.getElementById("cloudCanvas");
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width = canvas.offsetWidth;
+      const h = canvas.height = canvas.offsetHeight;
+
+      ctx.clearRect(0, 0, w, h);
+
+      function cloud(x, y, scale) {
+        ctx.fillStyle = "rgba(255,255,255,0.9)";
+        ctx.beginPath();
+        ctx.arc(x, y, 20 * scale, 0, Math.PI * 2);
+        ctx.arc(x + 25 * scale, y + 5 * scale, 18 * scale, 0, Math.PI * 2);
+        ctx.arc(x - 25 * scale, y + 5 * scale, 18 * scale, 0, Math.PI * 2);
+        ctx.arc(x, y + 15 * scale, 22 * scale, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      cloud(w * 0.2, h * 0.3, 1);
+      cloud(w * 0.6, h * 0.2, 0.9);
+      cloud(w * 0.8, h * 0.45, 1.1);
+    }
+
+    window.addEventListener("resize", drawClouds);
+    drawClouds();
+  </script>
+</body>
+</html>
