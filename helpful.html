@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Life & Helping Hands</title>
+  <link rel="stylesheet" href="helpful.css">
+</head>
+<body>
+  <header class="flag-banner">
+    <h1>Life & Helping Hands</h1>
+    <p>America the Beautiful • Judges & Citizenship • Mental Health & Support</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#circumstances">Life Circumstances</a></li>
+      <li><a href="#situations">Life Situations</a></li>
+      <li><a href="#topics">Life Topics</a></li>
+      <li><a href="#weather-maps">Weather & Maps</a></li>
+      <li><a href="#fill-blanks">Fill in the Blanks</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="circumstances">
+      <h2>Life Circumstances</h2>
+      <p>
+        Everyone’s path is shaped by circumstances—family, work, health, community.
+        This space honors those realities and the courage it takes to navigate them.
+      </p>
+    </section>
+
+    <section id="situations">
+      <h2>Life Situations</h2>
+      <p>
+        Situations change—sometimes suddenly. Support, empathy, and a helping hand
+        can make the difference between feeling stuck and finding a way forward.
+      </p>
+    </section>
+
+    <section id="topics">
+      <h2>Life Topics & Helping People</h2>
+      <ul>
+        <li>Mental Health & Emotional Wellbeing</li>
+        <li>Citizenship, Rights, and Responsibilities</li>
+        <li>Judgment, Justice, and Fairness</li>
+        <li>Community Support & Volunteering</li>
+      </ul>
+    </section>
+
+    <section id="weather-maps">
+      <h2>Weather & Maps Quest</h2>
+      <div class="weather">
+        <h3>Current Weather (Demo)</h3>
+        <button id="checkWeatherBtn">Check Weather</button>
+        <p id="weatherResult">Click the button to simulate checking the weather.</p>
+      </div>
+
+      <div class="maps">
+        <h3>Maps Quest</h3>
+        <p>
+          Use online maps to find resources near you—clinics, support groups, community centers.
+        </p>
+        <a href="https://www.google.com/maps" target="_blank" class="map-link">
+          Open Maps
+        </a>
+      </div>
+    </section>
+
+    <section id="fill-blanks">
+      <h2>Fill in the Blanks</h2>
+      <form id="lifeForm">
+        <div class="form-group">
+          <label for="mentalHealth">Mental Health:</label>
+          <input type="text" id="mentalHealth" placeholder="How are you feeling today?">
+        </div>
+
+        <div class="form-group">
+          <label for="life">Life:</label>
+          <input type="text" id="life" placeholder="What’s one thing you’re facing right now?">
+        </div>
+
+        <div class="form-group">
+          <label for="situation">Situation of Life:</label>
+          <input type="text" id="situation" placeholder="Describe a situation you’d like support with.">
+        </div>
+
+        <button type="submit">Reflect</button>
+      </form>
+
+      <div id="reflectionResult"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Helping hands, fair judgment, and shared citizenship—one person, one story at a time.</p>
+  </footer>
+
+  <script src="helpful.js"></script>
+</body>
+</html>
