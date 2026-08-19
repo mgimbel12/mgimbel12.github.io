@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Life Circumstances • Growth • America</title>
+
+<style>
+/* -----------------------------------------------------------
+   CSS: Blue Sky, Rainbows, Castle, Flowers, America Flag
+   ----------------------------------------------------------- */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #87CEEB, #ffffff);
+  color: #222;
+}
+
+/* Rainbow Bar */
+.rainbow {
+  height: 12px;
+  background: linear-gradient(
+    to right,
+    red, orange, yellow, green, blue, indigo, violet
+  );
+}
+
+/* Header with American Flag Theme */
+header {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #b22234 33%, #ffffff 33%, #ffffff 66%, #3c3b6e 66%);
+  color: white;
+  border-bottom: 6px dashed #3c3b6e;
+}
+
+/* Yellow Stars */
+.star {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  background: yellow;
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 
+    68% 57%, 79% 91%, 
+    50% 70%, 21% 91%, 
+    32% 57%, 2% 35%, 
+    39% 35%
+  );
+}
+
+/* Disneyland Castle (simple silhouette) */
+.castle {
+  width: 100%;
+  height: 140px;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Disneyland_Castle_Vector.svg/640px-Disneyland_Castle_Vector.svg.png')
+              center/contain no-repeat;
+  margin: 20px 0;
+}
+
+/* Section Styling */
+section {
+  background: white;
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 900px;
+  border: 4px dashed grey;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Drawing Canvas */
+#canvas {
+  border: 4px dashed black;
+  background: #f0f0f0;
+  width: 100%;
+  height: 250px;
+}
+
+/* Flower Growth Animation */
+.flower {
+  width: 40px;
+  height: 40px;
+  background: pink;
+  border-radius: 50%;
+  margin: 10px auto;
+  animation: bloom 5s infinite;
+}
+
+@keyframes bloom {
+  0% { transform: scale(0.2); background: #ffb6c1; }
+  50% { transform: scale(1.2); background: #ff69b4; }
+  100% { transform: scale(0.2); background: #ffb6c1; }
+}
+
+/* Buttons */
+button {
+  background: #b22234;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #3c3b6e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="rainbow"></div>
+
+<header>
+  <h1>Life Circumstances • Growth • Helping Hands</h1>
+  <p>America the Beautiful • Time • Flowers • Maps • Weather</p>
+  <div>
+    <span class="star"></span>
+    <span class="star"></span>
+    <span class="star"></span>
+  </div>
+</header>
+
+<div class="castle"></div>
+
+<section id="life">
+  <h2>Life Circumstances</h2>
+  <p>
+    Life circumstances shape every journey—family, work, health, community,
+    and the moments that test our strength. Every situation teaches us something
+    about who we are and who we can become.
+  </p>
+</section>
+
+<section id="situations">
+  <h2>Life Situations</h2>
+  <p>
+    Situations change quickly. Sometimes they lift us, sometimes they challenge us.
+    A helping hand, empathy, and guidance can turn obstacles into growth.
+  </p>
+</section>
+
+<section id="topics">
+  <h2>Life Topics</h2>
+  <ul>
+    <li>Mental Health & Emotional Wellbeing</li>
+    <li>Citizenship & Responsibility</li>
+    <li>Judgment, Justice & Fairness</li>
+    <li>Community Support & Helping Hands</li>
+  </ul>
+</section>
+
+<section id="weather">
+  <h2>Weather Checker</h2>
+  <button onclick="checkWeather()">Check Weather</button>
+  <p id="weatherResult">Weather will appear here.</p>
+</section>
+
+<section id="maps">
+  <h2>Map Quest</h2>
+  <p>Find nearby resources, support centers, clinics, and community help.</p>
+  <button onclick="openMaps()">Open Maps</button>
+</section>
+
+<section id="flowers">
+  <h2>Flower Blooming & Growth</h2>
+  <div class="flower"></div>
+  <p>Flowers bloom like life—slowly, beautifully, and with purpose.</p>
+</section>
+
+<section id="canvasSection">
+  <h2>Drawing Canvas (Red, Blue, Green, White, Purple, Grey)</h2>
+  <canvas id="canvas"></canvas>
+  <button onclick="clearCanvas()">Clear Canvas</button>
+</section>
+
+<script>
+/* -----------------------------------------------------------
+   JAVASCRIPT: Weather, Maps, Flowers, Growth, Canvas Drawing
+   ----------------------------------------------------------- */
+
+function checkWeather() {
+  const messages = [
+    "Sunny skies — a perfect day for growth.",
+    "Cloudy — but your story is still bright.",
+    "Rainy — flowers bloom strongest after rain.",
+    "Windy — life is moving and shifting."
+  ];
+  const msg = messages[Math.floor(Math.random() * messages.length)];
+  document.getElementById("weatherResult").textContent = msg;
+}
+
+function openMaps() {
+  window.open("https://www.google.com/maps", "_blank");
+}
+
+/* Canvas Drawing */
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+let drawing = false;
+
+canvas.addEventListener("mousedown", () => drawing = true);
+canvas.addEventListener("mouseup", () => drawing = false);
+canvas.addEventListener("mousemove", draw);
+
+function draw(e) {
+  if (!drawing) return;
+  const colors = ["red", "blue", "green", "white", "purple", "grey"];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  ctx.fillStyle = color;
+  ctx.fillRect(e.offsetX, e.offsetY, 10, 10);
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+</script>
+
+</body>
+</html>
