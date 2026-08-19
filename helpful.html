@@ -1,101 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Life & Helping Hands</title>
-  <link rel="stylesheet" href="helping.css">
+<meta charset="UTF-8">
+<title>Life • Citizenship • Helping Hands</title>
+
+<style>
+/* ---------------------- CSS: Red, White & Blue Flag Theme ---------------------- */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+header.flag-banner {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #b22234 33%, #ffffff 33%, #ffffff 66%, #3c3b6e 66%);
+  color: #ffffff;
+}
+
+header.flag-banner h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+header.flag-banner p {
+  margin-top: 8px;
+  font-size: 0.95rem;
+}
+
+nav {
+  background-color: #3c3b6e;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+nav li {
+  margin-right: 15px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+section h2 {
+  border-bottom: 2px solid #b22234;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+button, .map-link {
+  background-color: #b22234;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+button:hover, .map-link:hover {
+  background-color: #3c3b6e;
+}
+
+.map-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#reflectionResult {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e6f2ff;
+  border-left: 4px solid #3c3b6e;
+  border-radius: 4px;
+  display: none;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #3c3b6e;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+</style>
 </head>
+
 <body>
-  <header class="flag-banner">
-    <h1>Life & Helping Hands</h1>
-    <p>America the Beautiful • Judges & Citizenship • Mental Health & Support</p>
-  </header>
 
-  <nav>
+<!-- ---------------------- HTML CONTENT ---------------------- -->
+
+<header class="flag-banner">
+  <h1>Life • Citizenship • Helping Hands</h1>
+  <p>America the Beautiful • Judges & Citizenship • Mental Health & Support</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="#circumstances">Life Circumstances</a></li>
+    <li><a href="#situations">Life Situations</a></li>
+    <li><a href="#topics">Life Topics</a></li>
+    <li><a href="#weather-maps">Weather & Maps</a></li>
+    <li><a href="#fill-blanks">Fill in the Blanks</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <section id="circumstances">
+    <h2>Life Circumstances</h2>
+    <p>
+      Life circumstances shape every person’s journey — family, work, health, community.
+      Strength grows from facing these realities and finding support along the way.
+    </p>
+  </section>
+
+  <section id="situations">
+    <h2>Life Situations</h2>
+    <p>
+      Situations change quickly. A helping hand, empathy, and guidance can turn challenges
+      into opportunities for growth and stability.
+    </p>
+  </section>
+
+  <section id="topics">
+    <h2>Life Topics & Helping People</h2>
     <ul>
-      <li><a href="#circumstances">Life Circumstances</a></li>
-      <li><a href="#situations">Life Situations</a></li>
-      <li><a href="#topics">Life Topics</a></li>
-      <li><a href="#weather-maps">Weather & Maps</a></li>
-      <li><a href="#fill-blanks">Fill in the Blanks</a></li>
+      <li>Mental Health & Emotional Wellbeing</li>
+      <li>Citizenship, Rights, and Responsibilities</li>
+      <li>Judgment, Justice, and Fairness</li>
+      <li>Community Support & Volunteering</li>
     </ul>
-  </nav>
+  </section>
 
-  <main>
-    <section id="circumstances">
-      <h2>Life Circumstances</h2>
-      <p>
-        Everyone’s path is shaped by circumstances—family, work, health, community.
-        This space honors those realities and the courage it takes to navigate them.
-      </p>
-    </section>
+  <section id="weather-maps">
+    <h2>Weather & Maps Quest</h2>
 
-    <section id="situations">
-      <h2>Life Situations</h2>
-      <p>
-        Situations change—sometimes suddenly. Support, empathy, and a helping hand
-        can make the difference between feeling stuck and finding a way forward.
-      </p>
-    </section>
+    <div class="weather">
+      <h3>Current Weather (Demo)</h3>
+      <button id="checkWeatherBtn">Check Weather</button>
+      <p id="weatherResult">Click the button to simulate checking the weather.</p>
+    </div>
 
-    <section id="topics">
-      <h2>Life Topics & Helping People</h2>
-      <ul>
-        <li>Mental Health & Emotional Wellbeing</li>
-        <li>Citizenship, Rights, and Responsibilities</li>
-        <li>Judgment, Justice, and Fairness</li>
-        <li>Community Support & Volunteering</li>
-      </ul>
-    </section>
+    <div class="maps">
+      <h3>Maps Quest</h3>
+      <p>Find nearby resources — clinics, support groups, community centers.</p>
+      <a href="https://www.google.com/maps" target="_blank" class="map-link">Open Maps</a>
+    </div>
+  </section>
 
-    <section id="weather-maps">
-      <h2>Weather & Maps Quest</h2>
-      <div class="weather">
-        <h3>Current Weather (Demo)</h3>
-        <button id="checkWeatherBtn">Check Weather</button>
-        <p id="weatherResult">Click the button to simulate checking the weather.</p>
+  <section id="fill-blanks">
+    <h2>Fill in the Blanks</h2>
+
+    <form id="lifeForm">
+      <div class="form-group">
+        <label for="mentalHealth">Mental Health:</label>
+        <input type="text" id="mentalHealth" placeholder="How are you feeling today?">
       </div>
 
-      <div class="maps">
-        <h3>Maps Quest</h3>
-        <p>
-          Use online maps to find resources near you—clinics, support groups, community centers.
-        </p>
-        <a href="https://www.google.com/maps" target="_blank" class="map-link">
-          Open Maps
-        </a>
+      <div class="form-group">
+        <label for="life">Life:</label>
+        <input type="text" id="life" placeholder="What’s one thing you're facing right now?">
       </div>
-    </section>
 
-    <section id="fill-blanks">
-      <h2>Fill in the Blanks</h2>
-      <form id="lifeForm">
-        <div class="form-group">
-          <label for="mentalHealth">Mental Health:</label>
-          <input type="text" id="mentalHealth" placeholder="How are you feeling today?">
-        </div>
+      <div class="form-group">
+        <label for="situation">Situation of Life:</label>
+        <input type="text" id="situation" placeholder="Describe a situation you’d like support with.">
+      </div>
 
-        <div class="form-group">
-          <label for="life">Life:</label>
-          <input type="text" id="life" placeholder="What’s one thing you’re facing right now?">
-        </div>
+      <button type="submit">Reflect</button>
+    </form>
 
-        <div class="form-group">
-          <label for="situation">Situation of Life:</label>
-          <input type="text" id="situation" placeholder="Describe a situation you’d like support with.">
-        </div>
+    <div id="reflectionResult"></div>
+  </section>
 
-        <button type="submit">Reflect</button>
-      </form>
+</main>
 
-      <div id="reflectionResult"></div>
-    </section>
-  </main>
+<footer>
+  <p>Helping hands, fair judgment, and shared citizenship — one person, one story at a time.</p>
+</footer>
 
-  <footer>
-    <p>Helping hands, fair judgment, and shared citizenship—one person, one story at a time.</p>
-  </footer>
+<!-- ---------------------- JAVASCRIPT ---------------------- -->
 
-  <script src="helping.js"></script>
-</body>
-</html>
+<script>
+// Weather Simulation
+document.addEventListener("DOMContentLoaded", () => {
+  const weatherBtn = document.getElementById("checkWeatherBtn");
+  const weatherResult = document.getElementById("weatherResult");
+  const lifeForm = document.getElementById("lifeForm");
+  const reflectionResult = document.getElementById("reflectionResult");
+
+  weatherBtn.addEventListener
