@@ -1,0 +1,129 @@
+/* styles.css */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+header.flag-banner {
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(to right, #b22234 33%, #ffffff 33%, #ffffff 66%, #3c3b6e 66%);
+  color: #ffffff;
+}
+
+header.flag-banner h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+header.flag-banner p {
+  margin-top: 8px;
+  font-size: 0.95rem;
+}
+
+nav {
+  background-color: #3c3b6e;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+nav li {
+  margin-right: 15px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  padding: 15px 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+section h2 {
+  border-bottom: 2px solid #b22234;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+.weather, .maps {
+  margin-top: 15px;
+}
+
+button, .map-link {
+  background-color: #b22234;
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+button:hover, .map-link:hover {
+  background-color: #3c3b6e;
+}
+
+.map-link {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#reflectionResult {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e6f2ff;
+  border-left: 4px solid #3c3b6e;
+  border-radius: 4px;
+  display: none;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #3c3b6e;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
