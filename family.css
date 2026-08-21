@@ -90,24 +90,32 @@ body {
   border-color: #fbc02d !important;
   color: #f57f17 !important;
 }
-
-/* Tribute Section */
 .tribute {
-  background-color: #fff;
-  border: 2px solid #ccc;
-  padding: 30px;
+  margin: 2rem auto;
+  max-width: 850px;
+  padding: 1.5rem 2rem;
   border-radius: 10px;
-  display: inline-block;
+  background: #0b1a2a;
+  color: #f5f5f5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
 }
 
-.tribute h1 {
-  color: #b22222;
+.tribute h2 {
+  margin-top: 0;
+  font-size: 1.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
-.tribute p {
-  font-size: 1.2em;
+.tribute-lead {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
 }
 
+.tribute .flag {
+  font-size: 1.4rem;
+}
 .flag {
   font-size: 3em;
   margin-bottom: 20px;
