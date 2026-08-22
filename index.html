@@ -90,17 +90,25 @@
       margin-top: 12px;
       font-size: 0.95rem;
     }
+.top-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;   /* centers horizontally */
+  align-items: center;        /* centers vertically */
+  padding: 20px 0;
+}
 
-.hover-rotate {
+.rotate-center {
   width: 300px;
   height: auto;
-  transition: transform 1s ease;
+  animation: spin 6s linear infinite; /* rotation */
+  display: block;
 }
 
-.hover-rotate:hover {
-  transform: rotate(360deg);
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
-    
     /* ============================
        SIDEBAR NAVIGATION
     ============================ */
@@ -193,12 +201,12 @@
     }
   </style>
 </head>
-
-<body>
 <header class="top-header">
-  <img src="Marissa.jpg" alt="Author: Marissa" class="hover-rotate">
+  <img src="Marissa .jpg " alt="Author: Marissa" class="rotate-center">
 </header>
   
+<body>
+
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
   <h2>Welcome to My Sacred Diary</h2>
