@@ -90,21 +90,16 @@
       margin-top: 12px;
       font-size: 0.95rem;
     }
-.top-header {
-  width: 100%;
-  display: flex;
-  justify-content: center;   /* centers the image */
-  align-items: center;
-  padding: 20px 0;
-  background-color: #f5f5f5; /* optional */
+
+.rotate-image {
+  width: 300px;
+  height: auto;
+  animation: spin 6s linear infinite;
 }
 
-.header-image {
-  width: auto;               /* keeps original width */
-  height: auto;              /* keeps original height */
-  max-width: 100%;           /* prevents overflow on small screens */
-  object-fit: contain;       /* shows the FULL picture */
-  display: block;
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }    
     /* ============================
        SIDEBAR NAVIGATION
@@ -201,7 +196,8 @@
 
 <body>
 <header class="top-header">
-  <img src="Marissa .jpg" alt="Author: Marissa" class="header-image">
+  <img src="Marissa .jpg" alt="Author: Marissa" class="rotate-image">
+</header>>
 </header>
   
 <!-- LOGIN SCREEN -->
