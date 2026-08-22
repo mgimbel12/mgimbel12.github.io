@@ -91,16 +91,16 @@
       font-size: 0.95rem;
     }
 
-.rotate-image {
+.hover-rotate {
   width: 300px;
   height: auto;
-  animation: spin 6s linear infinite;
+  transition: transform 1s ease;
 }
 
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}    
+.hover-rotate:hover {
+  transform: rotate(360deg);
+}
+    
     /* ============================
        SIDEBAR NAVIGATION
     ============================ */
@@ -196,8 +196,7 @@
 
 <body>
 <header class="top-header">
-  <img src="Marissa .jpg" alt="Author: Marissa" class="rotate-image">
-</header>>
+  <img src="Marissa.jpg" alt="Author: Marissa" class="hover-rotate">
 </header>
   
 <!-- LOGIN SCREEN -->
