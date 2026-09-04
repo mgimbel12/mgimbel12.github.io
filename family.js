@@ -13,6 +13,24 @@ document.querySelectorAll('.tree span').forEach(node => {
     }
   });
 });
+const radios = document.querySelectorAll("input[name='relative']");
+const nameInput = document.getElementById("relativeName");
+const output = document.getElementById("output");
 
+let selectedType = "";
+
+radios.forEach(radio => {
+  radio.addEventListener("change", () => {
+    selectedType = radio.value;
+    updateOutput();
+  });
+});
+
+nameInput.addEventListener("input", updateOutput);
+
+function updateOutput() {
+  const name = nameInput.value.trim();
+  output.textContent = (selectedType && name) ? `${selectedType}: ${name}` : "";
+}
 
 
